@@ -16,12 +16,12 @@
 
 package de.p2tools.p2Lib.guiTools;
 
-import de.p2tools.p2Lib.tools.PConfigs;
+import de.p2tools.p2Lib.configFile.pConfData.PConfData;
 import javafx.stage.Stage;
 
 public class GuiSize {
 
-    public static void getSizeScene(PConfigs nr, Stage stage) {
+    public static void getSizeScene(PConfData nr, Stage stage) {
         if (stage != null && stage.getScene() != null && nr != null) {
             nr.setValue(
                     (int) stage.getScene().getWidth() + ":"
@@ -33,7 +33,7 @@ public class GuiSize {
         }
     }
 
-    public static int getWidth(PConfigs nr) {
+    public static int getWidth(PConfData nr) {
         int breite = 0;
         final String[] arr = nr.get().split(":");
 
@@ -48,7 +48,7 @@ public class GuiSize {
         return breite;
     }
 
-    public static int getHeight(PConfigs nr) {
+    public static int getHeight(PConfData nr) {
         int hoehe = 0;
         final String[] arr = nr.get().split(":");
 
@@ -63,7 +63,7 @@ public class GuiSize {
         return hoehe;
     }
 
-    public static void setPos(PConfigs nr, Stage stage) {
+    public static void setPos(PConfData nr, Stage stage) {
         int posX, posY;
         posX = 0;
         posY = 0;

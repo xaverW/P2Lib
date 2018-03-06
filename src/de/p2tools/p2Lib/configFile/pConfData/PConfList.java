@@ -15,28 +15,29 @@
  */
 
 
-package de.p2tools.p2Lib.tools;
+package de.p2tools.p2Lib.configFile.pConfData;
 
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.configFile.pData.PData;
+import de.p2tools.p2Lib.tools.GermanStringSorter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-public class PConfig {
+public class PConfList {
 
-    private static final HashMap<String, PConfigs> HASHMAP = new HashMap<>();
+    private static final HashMap<String, PConfData> HASHMAP = new HashMap<>();
 
     static String getTagName() {
         return "system";
     }
 
-    public static PData getConfigsData() {
+    public static PData getPData() {
         PData cd = new PData() {
             @Override
             public String getTag() {
-                return PConfig.getTagName();
+                return PConfList.getTagName();
             }
 
             @Override
@@ -46,7 +47,7 @@ public class PConfig {
 
             @Override
             public ArrayList<Config> getConfigsArr() {
-                return PConfig.getConfigsArr();
+                return PConfList.getConfigsArr();
             }
         };
         return cd;
@@ -54,7 +55,7 @@ public class PConfig {
 
     static ArrayList<Config> getConfigsArr() {
         final LinkedList<String[]> liste = new LinkedList<>();
-        for (PConfigs c : HASHMAP.values()) {
+        for (PConfData c : HASHMAP.values()) {
             liste.add(new String[]{c.getKey(), c.getAktValue().getValueSafe()});
         }
         listeSort(liste, 0);
@@ -86,7 +87,7 @@ public class PConfig {
         public void setActValue(String act) {
             super.setActValue(act);
 
-            for (PConfigs c : HASHMAP.values()) {
+            for (PConfData c : HASHMAP.values()) {
                 if (c.getKey().equals(getKey())) {
                     c.setValue(getActValueString());
                     continue;
@@ -96,38 +97,38 @@ public class PConfig {
         }
     }
 
-    public static PConfigs get(String key) {
+    public static PConfData get(String key) {
         return HASHMAP.get(key);
     }
 
-    public static synchronized void check(PConfigs pConfigs, int min, int max) {
+    public static synchronized void check(PConfData pConfigs, int min, int max) {
         final int v = pConfigs.getInt();
         if (v < min || v > max) {
             pConfigs.setValue(pConfigs.getInitValue());
         }
     }
 
-    public static synchronized PConfigs addNewKey(String key) {
-        PConfigs c = new PConfigs(key);
+    public static synchronized PConfData addNewKey(String key) {
+        PConfData c = new PConfData(key);
         HASHMAP.put(key, c);
         return c;
     }
 
-    public static synchronized PConfigs addNewKey(String key, String value) {
-        PConfigs c = new PConfigs(key, value == null ? "" : value);
+    public static synchronized PConfData addNewKey(String key, String value) {
+        PConfData c = new PConfData(key, value == null ? "" : value);
         HASHMAP.put(key, c);
         return c;
     }
 
-    public static synchronized PConfigs addNewKey(String key, int value) {
-        PConfigs c = new PConfigs(key, value);
+    public static synchronized PConfData addNewKey(String key, int value) {
+        PConfData c = new PConfData(key, value);
         HASHMAP.put(key, c);
         return c;
     }
 
     public static synchronized String[][] getAll() {
         final LinkedList<String[]> liste = new LinkedList<>();
-        for (PConfigs c : HASHMAP.values()) {
+        for (PConfData c : HASHMAP.values()) {
             liste.add(new String[]{c.getKey(), c.getAktValue().getValueSafe()});
         }
 

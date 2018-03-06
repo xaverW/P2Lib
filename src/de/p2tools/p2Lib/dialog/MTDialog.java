@@ -17,9 +17,9 @@
 package de.p2tools.p2Lib.dialog;
 
 import de.p2tools.p2Lib.PConst;
+import de.p2tools.p2Lib.configFile.pConfData.PConfData;
 import de.p2tools.p2Lib.guiTools.GuiSize;
 import de.p2tools.p2Lib.tools.Log;
-import de.p2tools.p2Lib.tools.PConfigs;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXMLLoader;
@@ -38,7 +38,7 @@ public class MTDialog {
     private Scene scene = null;
     private Stage stage = null;
 
-    private final PConfigs conf;
+    private final PConfData conf;
     private final String fxml;
     private final boolean modal;
     private final String title;
@@ -46,14 +46,14 @@ public class MTDialog {
     private double stageWidth = 0;
     private double stageHeight = 0;
 
-    public MTDialog(String fxml, PConfigs conf, String title, boolean modal) {
+    public MTDialog(String fxml, PConfData conf, String title, boolean modal) {
         this.fxml = fxml;
         this.conf = conf;
         this.modal = modal;
         this.title = title;
     }
 
-    public MTDialog(PConfigs conf, String title, boolean modal) {
+    public MTDialog(PConfData conf, String title, boolean modal) {
         this.fxml = null;
         this.conf = conf;
         this.modal = modal;

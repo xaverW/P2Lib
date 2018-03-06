@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2Lib.tools;
+package de.p2tools.p2Lib.configFile.pConfData;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
@@ -27,31 +27,31 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class PConfigs {
+public class PConfData {
 
     private final String key;
     private final String initValue;
     private final StringProperty aktValue;
 
-    public PConfigs(String key) {
+    public PConfData(String key) {
         this.key = key;
         initValue = "";
         aktValue = new SimpleStringProperty(initValue);
     }
 
-    public PConfigs(String key, String init) {
+    public PConfData(String key, String init) {
         this.key = key;
         initValue = init;
         aktValue = new SimpleStringProperty(initValue);
     }
 
-    public PConfigs(String key, int init) {
+    public PConfData(String key, int init) {
         this.key = key;
         initValue = String.valueOf(init);
         aktValue = new SimpleStringProperty(initValue);
     }
 
-    public PConfigs(String key, boolean init) {
+    public PConfData(String key, boolean init) {
         this.key = key;
         initValue = String.valueOf(init);
         aktValue = new SimpleStringProperty(initValue);
@@ -69,6 +69,7 @@ public class PConfigs {
         return aktValue;
     }
 
+    // ====================================================
     // set value
     public synchronized void setValue(String value) {
         getAktValue().setValue(value == null ? "" : value);
@@ -82,6 +83,7 @@ public class PConfigs {
         getAktValue().setValue(String.valueOf(value));
     }
 
+    // ====================================================
     // get value
     public synchronized String get() {
         return aktValue.getValue();
@@ -114,6 +116,7 @@ public class PConfigs {
         return ret;
     }
 
+    // ================================================
     // get property
     public synchronized StringProperty getStringProperty() {
         return aktValue;
