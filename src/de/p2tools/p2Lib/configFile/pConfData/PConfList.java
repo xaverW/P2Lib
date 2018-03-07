@@ -47,26 +47,38 @@ public class PConfList {
 
             @Override
             public ArrayList<Config> getConfigsArr() {
-                return PConfList.getConfigsArr();
+
+                final LinkedList<String[]> liste = new LinkedList<>();
+                for (PConfData c : HASHMAP.values()) {
+                    liste.add(new String[]{c.getKey(), c.getAktValue().getValueSafe()});
+                }
+                listeSort(liste, 0);
+
+                ArrayList<Config> arr = new ArrayList<>(HASHMAP.size());
+                for (String[] sArr : liste) {
+                    arr.add(new ConfigsProg(sArr[0], sArr[1], sArr[1]));
+                }
+
+                return arr;
             }
         };
         return cd;
     }
 
-    static ArrayList<Config> getConfigsArr() {
-        final LinkedList<String[]> liste = new LinkedList<>();
-        for (PConfData c : HASHMAP.values()) {
-            liste.add(new String[]{c.getKey(), c.getAktValue().getValueSafe()});
-        }
-        listeSort(liste, 0);
-
-        ArrayList<Config> arr = new ArrayList<>(HASHMAP.size());
-        for (String[] sArr : liste) {
-            arr.add(new ConfigsProg(sArr[0], sArr[1], sArr[1]));
-        }
-
-        return arr;
-    }
+//    static ArrayList<Config> getConfigsArr() {
+//        final LinkedList<String[]> liste = new LinkedList<>();
+//        for (PConfData c : HASHMAP.values()) {
+//            liste.add(new String[]{c.getKey(), c.getAktValue().getValueSafe()});
+//        }
+//        listeSort(liste, 0);
+//
+//        ArrayList<Config> arr = new ArrayList<>(HASHMAP.size());
+//        for (String[] sArr : liste) {
+//            arr.add(new ConfigsProg(sArr[0], sArr[1], sArr[1]));
+//        }
+//
+//        return arr;
+//    }
 
 
     private static class ConfigsProg extends Config {

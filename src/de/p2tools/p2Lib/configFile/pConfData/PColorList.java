@@ -20,6 +20,8 @@ package de.p2tools.p2Lib.configFile.pConfData;
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.tools.GermanStringSorter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -52,6 +54,22 @@ public class PColorList {
             }
         };
         return cd;
+    }
+
+    public static void resetAllColor() {
+        for (PColorData c : HASHMAP.values()) {
+            c.resetColor();
+        }
+    }
+
+    public static ObservableList<PColorData> getColorList() {
+        ObservableList<PColorData> pColorData = FXCollections.observableArrayList();
+
+        for (PColorData c : HASHMAP.values()) {
+            pColorData.add(c);
+        }
+
+        return pColorData;
     }
 
     static ArrayList<Config> getConfigsArr() {
