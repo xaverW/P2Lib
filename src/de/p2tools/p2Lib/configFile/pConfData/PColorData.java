@@ -46,10 +46,10 @@ public class PColorData {
 
     public void setColor(Color newColor) {
         color.set(newColor);
-        cssFontBold = "-fx-font-weight: bold; -fx-text-fill: " + getColorToWeb() + ";";
-        cssFont = "-fx-text-fill: " + getColorToWeb() + ";";
+        cssFontBold = "-fx-font-weight: bold; -fx-text-fill: " + getColorToWeb() + ";".intern();
+        cssFont = "-fx-text-fill: " + getColorToWeb() + ";".intern();
         cssBackground = "-fx-control-inner-background: " + getColorToWeb() + ";"
-                + "-fx-control-inner-background-alt: derive(-fx-control-inner-background, 25%);";
+                + "-fx-control-inner-background-alt: derive(-fx-control-inner-background, 25%);".intern();
     }
 
 
