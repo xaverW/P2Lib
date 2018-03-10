@@ -30,14 +30,6 @@ public abstract class PDataVault<E> implements PData, Comparable<E> {
     public PDataVault() {
     }
 
-    public String[] makeArr(int max) {
-        final String[] a = new String[max];
-        for (int i = 0; i < max; ++i) {
-            a[i] = "";
-        }
-        return a;
-    }
-
     public String getTag() {
         return "";
     }

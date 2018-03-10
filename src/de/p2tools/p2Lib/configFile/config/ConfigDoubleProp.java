@@ -17,24 +17,24 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.DoubleProperty;
 
-public class ConfigIntProp extends Config {
+public class ConfigDoubleProp extends Config {
 
-    private int initValue;
-    private IntegerProperty actValue;
+    private Double initValue;
+    private DoubleProperty actValue;
 
-    public ConfigIntProp(String key, int initValue, IntegerProperty actValue) {
+    public ConfigDoubleProp(String key, Double initValue, DoubleProperty actValue) {
         super(key);
         this.initValue = initValue;
         this.actValue = actValue;
     }
 
-    public Integer getInitValue() {
+    public Double getInitValue() {
         return initValue;
     }
 
-    public Integer getActValue() {
+    public Double getActValue() {
         return actValue.getValue();
     }
 
@@ -42,19 +42,15 @@ public class ConfigIntProp extends Config {
         return String.valueOf(getActValue());
     }
 
-    public IntegerProperty getActValueProperty() {
+    public DoubleProperty getActValueProperty() {
         return actValue;
-    }
-
-    public void setActValue(int act) {
-        actValue.setValue(act);
     }
 
     public void setActValue(String act) {
         try {
-            actValue.setValue(Integer.parseInt(act));
+            actValue.setValue(Double.parseDouble(act));
         } catch (Exception ex) {
-            actValue.setValue(0);
+            actValue.setValue(0.0);
         }
     }
 }

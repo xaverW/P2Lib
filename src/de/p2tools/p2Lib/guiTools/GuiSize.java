@@ -16,14 +16,14 @@
 
 package de.p2tools.p2Lib.guiTools;
 
-import de.p2tools.p2Lib.configFile.pConfData.PConfData;
+import de.p2tools.p2Lib.configFile.config.Config;
 import javafx.stage.Stage;
 
 public class GuiSize {
 
-    public static void getSizeScene(PConfData nr, Stage stage) {
+    public static void getSizeScene(Config nr, Stage stage) {
         if (stage != null && stage.getScene() != null && nr != null) {
-            nr.setValue(
+            nr.setActValue(
                     (int) stage.getScene().getWidth() + ":"
                             + (int) stage.getScene().getHeight()
                             + ':'
@@ -33,9 +33,9 @@ public class GuiSize {
         }
     }
 
-    public static int getWidth(PConfData nr) {
+    public static int getWidth(Config nr) {
         int breite = 0;
-        final String[] arr = nr.get().split(":");
+        final String[] arr = nr.getActValueString().split(":");
 
         try {
             if (arr.length == 4 || arr.length == 2) {
@@ -48,9 +48,9 @@ public class GuiSize {
         return breite;
     }
 
-    public static int getHeight(PConfData nr) {
+    public static int getHeight(Config nr) {
         int hoehe = 0;
-        final String[] arr = nr.get().split(":");
+        final String[] arr = nr.getActValueString().split(":");
 
         try {
             if (arr.length == 4 || arr.length == 2) {
@@ -63,11 +63,11 @@ public class GuiSize {
         return hoehe;
     }
 
-    public static void setPos(PConfData nr, Stage stage) {
+    public static void setPos(Config nr, Stage stage) {
         int posX, posY;
         posX = 0;
         posY = 0;
-        final String[] arr = nr.get().split(":");
+        final String[] arr = nr.getActValueString().split(":");
         try {
             if (arr.length == 4) {
                 posX = Integer.parseInt(arr[2]);

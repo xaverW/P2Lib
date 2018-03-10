@@ -17,8 +17,6 @@
 
 package de.p2tools.p2Lib.configFile;
 
-import de.p2tools.p2Lib.configFile.pConfData.PColorList;
-import de.p2tools.p2Lib.configFile.pConfData.PConfList;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
 import de.p2tools.p2Lib.tools.SysMsg;
@@ -41,13 +39,6 @@ public class ConfigFile {
         this.configFile = configFile;
         this.pDataList = new ArrayList<>();
         this.pData = new ArrayList<>();
-
-//        addPConfig();
-    }
-
-    public void addPConfig() {
-        pData.add(PConfList.getPData());
-        pData.add(PColorList.getPData());
     }
 
     public int getMaxCopyBackupfile() {

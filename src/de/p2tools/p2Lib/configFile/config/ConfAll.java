@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2Lib.configFile.pConfData;
+package de.p2tools.p2Lib.configFile.config;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
@@ -27,31 +27,31 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class PConfData {
+public class ConfAll extends Config {
 
     private final String key;
     private final String initValue;
     private final StringProperty aktValue;
 
-    public PConfData(String key) {
+    public ConfAll(String key) {
         this.key = key;
         initValue = "";
         aktValue = new SimpleStringProperty(initValue);
     }
 
-    public PConfData(String key, String init) {
+    public ConfAll(String key, String init) {
         this.key = key;
         initValue = init;
         aktValue = new SimpleStringProperty(initValue);
     }
 
-    public PConfData(String key, int init) {
+    public ConfAll(String key, int init) {
         this.key = key;
         initValue = String.valueOf(init);
         aktValue = new SimpleStringProperty(initValue);
     }
 
-    public PConfData(String key, boolean init) {
+    public ConfAll(String key, boolean init) {
         this.key = key;
         initValue = String.valueOf(init);
         aktValue = new SimpleStringProperty(initValue);
