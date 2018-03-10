@@ -35,5 +35,9 @@ public class ConfigStringList extends ConfigList {
         return actValue;
     }
 
+    public ObservableList<String> getStrList() {
+        return actValue;
+    }
+
 
 }

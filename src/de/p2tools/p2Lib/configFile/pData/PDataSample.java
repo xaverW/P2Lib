@@ -21,13 +21,12 @@ import de.p2tools.p2Lib.tools.GermanStringSorter;
 
 import java.util.ArrayList;
 
-public abstract class PDataVault<E> implements PData, Comparable<E> {
+public abstract class PDataSample<E> implements PData, Comparable<E> {
 
     public static String TAG;
-    public String[] arr;
     public static GermanStringSorter sorter = GermanStringSorter.getInstance();
 
-    public PDataVault() {
+    public PDataSample() {
     }
 
     public String getTag() {
