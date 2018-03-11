@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * this is a list of the "same" configurationdata
- * for example a list of "Person" with the *DATA* fields:
+ * for example a list of "Persons" with the *DATA* fields:
  * NAME, SIZE, ...
  *
  * @param <E>

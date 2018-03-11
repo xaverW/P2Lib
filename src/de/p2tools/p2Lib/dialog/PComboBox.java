@@ -17,6 +17,7 @@
 
 package de.p2tools.p2Lib.dialog;
 
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -34,12 +35,8 @@ public class PComboBox extends ComboBox<String> {
     private StringProperty stringProperty = null;
     private ObservableList<String> data = null;
 
-    public int getMaxElements() {
-        return maxElements;
-    }
-
-    public void setMaxElements(int maxElements) {
-        this.maxElements = maxElements;
+    public PComboBox() {
+        this.setEditable(true);
     }
 
     public void init(ObservableList<String> data, StringProperty stringProperty) {
@@ -64,6 +61,38 @@ public class PComboBox extends ComboBox<String> {
         getSelectionModel().select(init);
 
         setCombo();
+    }
+
+    public String getSel() {
+        String s = this.getSelectionModel().getSelectedItem();
+        if (s == null) {
+            s = "";
+        }
+        return s;
+    }
+
+    public ReadOnlyObjectProperty<String> getSelProperty() {
+        ReadOnlyObjectProperty<String> s = this.getSelectionModel().selectedItemProperty();
+        return s;
+    }
+
+    public void selectElement(String element) {
+        if (!getItems().contains(element)) {
+            getItems().add(element);
+        }
+        getSelectionModel().select(element);
+    }
+
+    public void setEditAble(boolean editAble) {
+        super.setEditable(editAble);
+    }
+
+    public int getMaxElements() {
+        return maxElements;
+    }
+
+    public void setMaxElements(int maxElements) {
+        this.maxElements = maxElements;
     }
 
     private void setCombo() {
