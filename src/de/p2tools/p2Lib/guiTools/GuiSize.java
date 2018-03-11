@@ -16,26 +16,25 @@
 
 package de.p2tools.p2Lib.guiTools;
 
-import de.p2tools.p2Lib.configFile.config.Config;
+import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
 
 public class GuiSize {
 
-    public static void getSizeScene(Config nr, Stage stage) {
+    public static void getSizeScene(StringProperty nr, Stage stage) {
         if (stage != null && stage.getScene() != null && nr != null) {
-            nr.setActValue(
-                    (int) stage.getScene().getWidth() + ":"
-                            + (int) stage.getScene().getHeight()
-                            + ':'
-                            + (int) stage.getX()
-                            + ':'
-                            + (int) stage.getY());
+            nr.set((int) stage.getScene().getWidth() + ":"
+                    + (int) stage.getScene().getHeight()
+                    + ':'
+                    + (int) stage.getX()
+                    + ':'
+                    + (int) stage.getY());
         }
     }
 
-    public static int getWidth(Config nr) {
+    public static int getWidth(StringProperty nr) {
         int breite = 0;
-        final String[] arr = nr.getActValueString().split(":");
+        final String[] arr = nr.getValue().split(":");
 
         try {
             if (arr.length == 4 || arr.length == 2) {
@@ -48,9 +47,9 @@ public class GuiSize {
         return breite;
     }
 
-    public static int getHeight(Config nr) {
+    public static int getHeight(StringProperty nr) {
         int hoehe = 0;
-        final String[] arr = nr.getActValueString().split(":");
+        final String[] arr = nr.getValue().split(":");
 
         try {
             if (arr.length == 4 || arr.length == 2) {
@@ -63,11 +62,11 @@ public class GuiSize {
         return hoehe;
     }
 
-    public static void setPos(Config nr, Stage stage) {
+    public static void setPos(StringProperty nr, Stage stage) {
         int posX, posY;
         posX = 0;
         posY = 0;
-        final String[] arr = nr.getActValueString().split(":");
+        final String[] arr = nr.getValue().split(":");
         try {
             if (arr.length == 4) {
                 posX = Integer.parseInt(arr[2]);

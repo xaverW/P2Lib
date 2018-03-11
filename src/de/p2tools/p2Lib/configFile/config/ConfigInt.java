@@ -17,7 +17,7 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-public class ConfigInt extends Config {
+public abstract class ConfigInt extends Config {
 
     private int initValue;
     private int actValue;
@@ -40,11 +40,5 @@ public class ConfigInt extends Config {
         return String.valueOf(actValue);
     }
 
-    public void setActValue(String act) {
-        try {
-            actValue = Integer.valueOf(act);
-        } catch (Exception ex) {
-            actValue = 0;
-        }
-    }
+    public abstract void setActValue(String act);
 }

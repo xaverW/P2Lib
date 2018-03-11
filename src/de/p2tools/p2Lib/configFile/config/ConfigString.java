@@ -17,7 +17,7 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-public class ConfigString extends Config {
+public abstract class ConfigString extends Config {
 
     private String initValue;
     private String actValue;
@@ -40,7 +40,5 @@ public class ConfigString extends Config {
         return actValue;
     }
 
-    public void setActValue(String act) {
-        actValue = act;
-    }
+    public abstract void setActValue(String act);
 }
