@@ -17,7 +17,9 @@
 
 package de.p2tools.p2Lib.image;
 
+import de.p2tools.p2Lib.dialog.PAlert;
 import de.p2tools.p2Lib.tools.Log;
+import javafx.application.Platform;
 
 import javax.imageio.*;
 import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
@@ -27,10 +29,27 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.Locale;
 
 public class ImgFile {
+
+    public enum ImgFormat {
+
+        JPG("jpg"), PNG("png");
+        private final String suff;
+
+        ImgFormat(String suff) {
+            this.suff = suff;
+        }
+
+        @Override
+        public String toString() {
+            return suff;
+        }
+    }
 
     public static final String IMAGE_FORMAT_JPG = "jpg";
     public static final String IMAGE_FORMAT_PNG = "png";
@@ -55,6 +74,28 @@ public class ImgFile {
         reader.dispose();
         return img;
     }
+
+    public static BufferedImage getBufferedImage(int destWidth, int destHeight, String borderColorStr) {
+        Color borderColor;
+        try {
+            javafx.scene.paint.Color fx = javafx.scene.paint.Color.web(borderColorStr);
+            borderColor = new java.awt.Color((float) fx.getRed(),
+                    (float) fx.getGreen(),
+                    (float) fx.getBlue(),
+                    (float) fx.getOpacity());
+        } catch (Exception ex) {
+            borderColor = Color.BLACK;
+        }
+
+        final BufferedImage imgOut = new BufferedImage(destWidth, destHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = imgOut.createGraphics();
+        g.setColor(borderColor);
+        g.fillRect(0, 0, imgOut.getWidth(), imgOut.getHeight());
+        g.dispose();
+
+        return imgOut;
+    }
+
 
     public static RenderedImage getRenderedImage(File file) {
         RenderedImage img;
@@ -83,12 +124,17 @@ public class ImgFile {
     }
 
     public static void writeImage(BufferedImage img, String dest, String suffix) {
+        writeImage(img, Paths.get(dest),
+                suffix.equals(ImgFormat.JPG.suff) ? ImgFormat.JPG : ImgFormat.PNG);
+    }
+
+    public static void writeImage(BufferedImage img, Path dest, ImgFormat suffix) {
         ImageOutputStream ios = null;
         ImageWriter writer = null;
         try {
-            if (suffix.equals(IMAGE_FORMAT_PNG)) {
-                writer = ImageIO.getImageWritersBySuffix(IMAGE_FORMAT_PNG).next();
-                ios = ImageIO.createImageOutputStream(new File(dest));
+            if (suffix.equals(ImgFormat.PNG)) {
+                writer = ImageIO.getImageWritersBySuffix(ImgFormat.PNG.suff).next();
+                ios = ImageIO.createImageOutputStream(dest.toFile());
                 writer.setOutput(ios);
 
                 writer.write(new IIOImage(img, null, null));
@@ -96,7 +142,7 @@ public class ImgFile {
 
             } else {
                 writer = ImageIO.getImageWritersBySuffix(IMAGE_FORMAT_JPG).next();
-                ios = ImageIO.createImageOutputStream(new File(dest));
+                ios = ImageIO.createImageOutputStream(dest.toFile());
                 writer.setOutput(ios);
 
                 ImageWriteParam iwparam = new JPEGImageWriteParam(Locale.getDefault());
@@ -108,6 +154,10 @@ public class ImgFile {
             }
         } catch (Exception e) {
             Log.errorLog(784520369, e, ImgFile.class.toString());
+            Platform.runLater(() ->
+                    PAlert.showErrorAlert("Speichern", "Das Bild konnte nicht gespeichert werden." +
+                            "\n\n")
+            );
         } finally {
             try {
                 ios.close();
