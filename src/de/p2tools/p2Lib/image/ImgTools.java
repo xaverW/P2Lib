@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License along with this program. If
  * not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 
 package de.p2tools.p2Lib.image;
 
@@ -96,5 +96,33 @@ public class ImgTools {
         } catch (Exception e) {
             Log.errorLog(698741254, e, ImgFile.class.toString());
         }
+    }
+
+    public static BufferedImage scaleBufferedImage(BufferedImage src, int w, int h) {
+//        BufferedImage outImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+//        int x, y;
+//        int ww = src.getWidth();
+//        int hh = src.getHeight();
+//        for (x = 0; x < w; x++) {
+//            for (y = 0; y < h; y++) {
+//                int col = src.getRGB(x * ww / w, y * hh / h);
+//                outImg.setRGB(x, y, col);
+//            }
+//        }
+
+        // todo testen was schneller ist
+        Image scaledImage = src.getScaledInstance(w, h, Image.SCALE_SMOOTH);
+        BufferedImage outImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+
+        Graphics2D g = outImg.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        g.drawImage(scaledImage, 0, 0, null);
+        g.dispose();
+
+
+        return outImg;
     }
 }

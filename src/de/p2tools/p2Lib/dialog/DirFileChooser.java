@@ -85,20 +85,63 @@ public class DirFileChooser {
         String ret = "";
 
         final FileChooser fileChooser = new FileChooser();
-        File initFile = new File(System.getProperty("user.home"));
+        File initDir = new File(System.getProperty("user.home"));
 
         if (cbPath.getSelectionModel().getSelectedItem() != null &&
                 !cbPath.getSelectionModel().getSelectedItem().isEmpty()) {
             Path path = Paths.get(cbPath.getSelectionModel().getSelectedItem());
+
             if (path.toFile().exists() && path.toFile().isDirectory()) {
-                initFile = path.toFile();
-            } else if (path.toFile().exists() && path.getParent().toFile().isDirectory()) {
-                initFile = path.getParent().toFile();
+                initDir = path.toFile();
+            } else if (path.getParent().toFile().exists() && path.getParent().toFile().isDirectory()) {
+                initDir = path.getParent().toFile();
             }
         }
 
-        fileChooser.setInitialDirectory(initFile);
+        fileChooser.setInitialDirectory(initDir);
         File selectedFile = fileChooser.showOpenDialog(stage);
+        if (selectedFile != null) {
+            try {
+                ret = selectedFile.getAbsolutePath();
+                if (!cbPath.getItems().contains(ret)) {
+                    cbPath.getItems().add(ret);
+                }
+                cbPath.getSelectionModel().select(ret);
+
+            } catch (final Exception ex) {
+                Log.errorLog(912030201, ex);
+            }
+        }
+
+        return ret;
+    }
+
+    public static String FileChooserSave(Stage stage, ComboBox<String> cbPath, String initFile) {
+        String ret = "";
+
+        final FileChooser fileChooser = new FileChooser();
+        File initDir = new File(System.getProperty("user.home"));
+        String initFileName = "";
+
+        if (cbPath.getSelectionModel().getSelectedItem() != null &&
+                !cbPath.getSelectionModel().getSelectedItem().isEmpty()) {
+            Path path = Paths.get(cbPath.getSelectionModel().getSelectedItem());
+
+            if (path.toFile().exists() && path.toFile().isDirectory()) {
+                initDir = path.toFile();
+            } else if (path.getParent().toFile().exists() && path.getParent().toFile().isDirectory()) {
+                initDir = path.getParent().toFile();
+            }
+
+            if (path.toFile().isFile()) {
+                initFileName = path.getFileName().toString();
+            }
+        }
+
+        fileChooser.setInitialDirectory(initDir);
+        fileChooser.setInitialFileName(initFileName.isEmpty() ? initFile : initFileName);
+
+        File selectedFile = fileChooser.showSaveDialog(stage);
         if (selectedFile != null) {
             try {
                 ret = selectedFile.getAbsolutePath();

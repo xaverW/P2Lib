@@ -22,17 +22,16 @@ import de.p2tools.p2Lib.tools.Log;
 import javafx.application.Platform;
 
 import javax.imageio.*;
-import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
 import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.ImageOutputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Iterator;
-import java.util.Locale;
 
 public class ImgFile {
 
@@ -123,34 +122,41 @@ public class ImgFile {
         }
     }
 
-    public static void writeImage(BufferedImage img, String dest, String suffix) {
+    public static void writeImage(BufferedImage img, String dest, String suffix, float jpgCompression) {
         writeImage(img, Paths.get(dest),
-                suffix.equals(ImgFormat.JPG.suff) ? ImgFormat.JPG : ImgFormat.PNG);
+                suffix.equals(ImgFormat.JPG.suff) ? ImgFormat.JPG : ImgFormat.PNG, jpgCompression);
     }
 
-    public static void writeImage(BufferedImage img, Path dest, ImgFormat suffix) {
-        ImageOutputStream ios = null;
-        ImageWriter writer = null;
+    public static void writeImage(BufferedImage bufferedImage, Path dest, ImgFormat suffix, float jpgCompression) {
+        ImageWriter imageWriter = null;
+        ImageOutputStream imageOutputStream = null;
+        FileOutputStream fileOutputStream = null;
         try {
-            if (suffix.equals(ImgFormat.PNG)) {
-                writer = ImageIO.getImageWritersBySuffix(ImgFormat.PNG.suff).next();
-                ios = ImageIO.createImageOutputStream(dest.toFile());
-                writer.setOutput(ios);
+//            if (dest.toFile().exists()) {
+//                dest.toFile().delete();
+//            }
 
-                writer.write(new IIOImage(img, null, null));
-                ios.flush();
+            if (suffix.equals(ImgFormat.PNG)) {
+                imageWriter = ImageIO.getImageWritersBySuffix(ImgFormat.PNG.suff).next();
+                imageWriter.setOutput(imageOutputStream);
+
+                fileOutputStream = new FileOutputStream(dest.toFile());
+                imageOutputStream = ImageIO.createImageOutputStream(fileOutputStream);
+                imageWriter.write(new IIOImage(bufferedImage, null, null));
 
             } else {
-                writer = ImageIO.getImageWritersBySuffix(IMAGE_FORMAT_JPG).next();
-                ios = ImageIO.createImageOutputStream(dest.toFile());
-                writer.setOutput(ios);
+//                ImageIO.write(bufferedImage, ImgFormat.JPG.suff, dest.toFile());
 
-                ImageWriteParam iwparam = new JPEGImageWriteParam(Locale.getDefault());
+
+                imageWriter = ImageIO.getImageWritersBySuffix(IMAGE_FORMAT_JPG).next();
+                ImageWriteParam iwparam = imageWriter.getDefaultWriteParam();
                 iwparam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-                iwparam.setCompressionQuality(1f);
+                iwparam.setCompressionQuality(jpgCompression);
 
-                writer.write(null, new IIOImage(img, null, null), iwparam);
-                ios.flush();
+                fileOutputStream = new FileOutputStream(dest.toFile());
+                imageOutputStream = ImageIO.createImageOutputStream(fileOutputStream);
+                imageWriter.setOutput(imageOutputStream);
+                imageWriter.write(null, new IIOImage(bufferedImage, null, null), iwparam);
             }
         } catch (Exception e) {
             Log.errorLog(784520369, e, ImgFile.class.toString());
@@ -160,8 +166,9 @@ public class ImgFile {
             );
         } finally {
             try {
-                ios.close();
-                writer.dispose();
+                imageOutputStream.flush();
+                imageWriter.dispose();
+                imageOutputStream.close();
             } catch (Exception ex) {
             }
         }
