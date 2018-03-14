@@ -129,13 +129,9 @@ public class ImgFile {
 
     public static void writeImage(BufferedImage bufferedImage, Path dest, ImgFormat suffix, float jpgCompression) {
         ImageWriter imageWriter = null;
-        ImageOutputStream imageOutputStream = null;
         FileOutputStream fileOutputStream = null;
+        ImageOutputStream imageOutputStream = null;
         try {
-//            if (dest.toFile().exists()) {
-//                dest.toFile().delete();
-//            }
-
             if (suffix.equals(ImgFormat.PNG)) {
                 imageWriter = ImageIO.getImageWritersBySuffix(ImgFormat.PNG.suff).next();
                 imageWriter.setOutput(imageOutputStream);
@@ -146,7 +142,6 @@ public class ImgFile {
 
             } else {
 //                ImageIO.write(bufferedImage, ImgFormat.JPG.suff, dest.toFile());
-
 
                 imageWriter = ImageIO.getImageWritersBySuffix(IMAGE_FORMAT_JPG).next();
                 ImageWriteParam iwparam = imageWriter.getDefaultWriteParam();
