@@ -68,7 +68,8 @@ public class ImgFile {
         ImageReader reader = getReader(source);
         try {
             img = reader.read(0);
-        } catch (Exception e) {
+        } catch (Exception ex) {
+            Log.errorLog(461214587, ex);
         }
         reader.dispose();
         return img;

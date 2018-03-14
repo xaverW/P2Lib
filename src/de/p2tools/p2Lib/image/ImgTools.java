@@ -23,6 +23,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.File;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class ImgTools {
 
@@ -124,5 +126,34 @@ public class ImgTools {
 
 
         return outImg;
+    }
+
+    /**
+     * @param pixelW
+     * @param pixelH
+     * @return filesize [kByte]
+     */
+    public static long getImgFileSize(int pixelW, int pixelH) {
+        final long SIZE = 170;
+        long sumPixel = pixelW * pixelH;
+        long fSize = (SIZE * sumPixel / 1_000_000); // filesize kB and with jpg-compression
+        return fSize;
+    }
+
+    public static String getImgFileSizeStr(int pixelW, int pixelH) {
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.GERMANY);
+
+        long fSize = getImgFileSize(pixelW, pixelH);
+        String fileSize = numberFormat.format(fSize) + " KByte";
+        if (fSize > 1024) {
+            fSize /= 1024;
+            fileSize = numberFormat.format(fSize) + " MByte";
+        }
+        if (fSize > 1024) {
+            fSize /= 1024;
+            fileSize = numberFormat.format(fSize) + " GByte";
+        }
+
+        return fileSize;
     }
 }
