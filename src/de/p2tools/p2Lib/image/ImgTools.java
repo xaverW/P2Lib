@@ -135,7 +135,7 @@ public class ImgTools {
      */
     public static long getImgFileSize(int pixelW, int pixelH) {
         final long SIZE = 170;
-        long sumPixel = pixelW * pixelH;
+        long sumPixel = (long) pixelW * pixelH;
         long fSize = (SIZE * sumPixel / 1_000_000); // filesize kB and with jpg-compression
         return fSize;
     }
