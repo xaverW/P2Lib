@@ -132,25 +132,22 @@ public class ImgFile {
         ImageWriter imageWriter = null;
         FileOutputStream fileOutputStream = null;
         ImageOutputStream imageOutputStream = null;
+
         try {
+            fileOutputStream = new FileOutputStream(dest.toFile());
+            imageOutputStream = ImageIO.createImageOutputStream(fileOutputStream);
+
             if (suffix.equals(ImgFormat.PNG)) {
                 imageWriter = ImageIO.getImageWritersBySuffix(ImgFormat.PNG.suff).next();
                 imageWriter.setOutput(imageOutputStream);
-
-                fileOutputStream = new FileOutputStream(dest.toFile());
-                imageOutputStream = ImageIO.createImageOutputStream(fileOutputStream);
                 imageWriter.write(new IIOImage(bufferedImage, null, null));
-
             } else {
-//                ImageIO.write(bufferedImage, ImgFormat.JPG.suff, dest.toFile());
-
                 imageWriter = ImageIO.getImageWritersBySuffix(IMAGE_FORMAT_JPG).next();
+
                 ImageWriteParam iwparam = imageWriter.getDefaultWriteParam();
                 iwparam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
                 iwparam.setCompressionQuality(jpgCompression);
 
-                fileOutputStream = new FileOutputStream(dest.toFile());
-                imageOutputStream = ImageIO.createImageOutputStream(fileOutputStream);
                 imageWriter.setOutput(imageOutputStream);
                 imageWriter.write(null, new IIOImage(bufferedImage, null, null), iwparam);
             }
@@ -163,8 +160,11 @@ public class ImgFile {
         } finally {
             try {
                 imageOutputStream.flush();
+                fileOutputStream.flush();
+
                 imageWriter.dispose();
                 imageOutputStream.close();
+                fileOutputStream.close();
             } catch (Exception ex) {
             }
         }
