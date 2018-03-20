@@ -82,20 +82,29 @@ public class DirFileChooser {
 
 
     public static String FileChooser(Stage stage, ComboBox<String> cbPath) {
+        return FileChooser(stage, cbPath, "");
+    }
+
+    public static String FileChooser(Stage stage, ComboBox<String> cbPath, String startDir) {
         String ret = "";
 
         final FileChooser fileChooser = new FileChooser();
         File initDir = new File(System.getProperty("user.home"));
 
+        Path path;
         if (cbPath.getSelectionModel().getSelectedItem() != null &&
                 !cbPath.getSelectionModel().getSelectedItem().isEmpty()) {
-            Path path = Paths.get(cbPath.getSelectionModel().getSelectedItem());
+            path = Paths.get(cbPath.getSelectionModel().getSelectedItem());
+        } else {
+            path = Paths.get(startDir);
+        }
 
-            if (path.toFile().exists() && path.toFile().isDirectory()) {
-                initDir = path.toFile();
-            } else if (path.getParent().toFile().exists() && path.getParent().toFile().isDirectory()) {
-                initDir = path.getParent().toFile();
-            }
+        if (path.toFile().exists() && path.toFile().isDirectory()) {
+            initDir = path.toFile();
+
+        } else if (path.getParent() != null &&
+                path.getParent().toFile().exists() && path.getParent().toFile().isDirectory()) {
+            initDir = path.getParent().toFile();
         }
 
         fileChooser.setInitialDirectory(initDir);
@@ -116,26 +125,31 @@ public class DirFileChooser {
         return ret;
     }
 
-    public static String FileChooserSave(Stage stage, ComboBox<String> cbPath, String initFile) {
+    public static String FileChooserSave(Stage stage, ComboBox<String> cbPath, String startDir, String initFile) {
         String ret = "";
 
         final FileChooser fileChooser = new FileChooser();
         File initDir = new File(System.getProperty("user.home"));
         String initFileName = "";
 
+        Path path;
         if (cbPath.getSelectionModel().getSelectedItem() != null &&
                 !cbPath.getSelectionModel().getSelectedItem().isEmpty()) {
-            Path path = Paths.get(cbPath.getSelectionModel().getSelectedItem());
+            path = Paths.get(cbPath.getSelectionModel().getSelectedItem());
+        } else {
+            path = Paths.get(startDir);
+        }
 
-            if (path.toFile().exists() && path.toFile().isDirectory()) {
-                initDir = path.toFile();
-            } else if (path.getParent().toFile().exists() && path.getParent().toFile().isDirectory()) {
-                initDir = path.getParent().toFile();
-            }
+        if (path.toFile().exists() && path.toFile().isDirectory()) {
+            initDir = path.toFile();
 
-            if (path.toFile().isFile()) {
-                initFileName = path.getFileName().toString();
-            }
+        } else if (path.getParent() != null &&
+                path.getParent().toFile().exists() && path.getParent().toFile().isDirectory()) {
+            initDir = path.getParent().toFile();
+        }
+
+        if (path.toFile().isFile()) {
+            initFileName = path.getFileName().toString();
         }
 
         fileChooser.setInitialDirectory(initDir);

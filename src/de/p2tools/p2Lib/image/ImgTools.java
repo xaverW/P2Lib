@@ -30,16 +30,16 @@ public class ImgTools {
 
     public static long JPEG_MAX_DIMENSION = 65500L;
 
-    public static String fileType(File f) {
-        return fileType(f.getName());
+    public static String fileType(File file) {
+        return fileType(file.getName());
     }
 
-    public static String fileType(String f) {
-        String n = f;
-        String suffix = null;
-        int i = n.lastIndexOf('.');
-        if (i > 0 && i < n.length() - 1) {
-            suffix = n.substring(i + 1).toLowerCase();
+    public static String fileType(String file) {
+        String fileName = file;
+        String suffix = "";
+        int i = fileName.lastIndexOf('.');
+        if (i > 0 && i < fileName.length() - 1) {
+            suffix = fileName.substring(i + 1).toLowerCase();
         }
         if (suffix.equals("jpeg") || suffix.equals(ImgFile.IMAGE_FORMAT_JPG)) {
             return ImgFile.IMAGE_FORMAT_JPG;

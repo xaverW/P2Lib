@@ -63,18 +63,6 @@ public class ImgFile {
     }
 
 
-    public static BufferedImage getBufferedImage(File source) {
-        BufferedImage img = null;
-        ImageReader reader = getReader(source);
-        try {
-            img = reader.read(0);
-        } catch (Exception ex) {
-            Log.errorLog(461214587, ex);
-        }
-        reader.dispose();
-        return img;
-    }
-
     public static BufferedImage getBufferedImage(int destWidth, int destHeight, String borderColorStr) {
         Color borderColor;
         try {
@@ -96,31 +84,61 @@ public class ImgFile {
         return imgOut;
     }
 
+    public static BufferedImage getBufferedImage(File source) {
+        BufferedImage bufferedImage = null;
+        ImageReader imageReader = getImageReader(source);
 
-    public static RenderedImage getRenderedImage(File file) {
-        RenderedImage img;
-        ImageReader reader = getReader(file);
-        try {
-            img = reader.readAsRenderedImage(0, null);
-        } catch (Exception e) {
-            System.out.println(e.getMessage() + "BildArchiv_ - getRenderedImage");
-            return null;
+        if (imageReader == null) {
+            return bufferedImage;
         }
-        reader.dispose();
-        return img;
+
+        try {
+            bufferedImage = imageReader.read(0);
+        } catch (Exception ex) {
+            Log.errorLog(461214587, ex);
+        } finally {
+            try {
+                imageReader.dispose();
+            } catch (Exception ignore) {
+            }
+        }
+
+        return bufferedImage;
     }
 
-    private static ImageReader getReader(File source) {
-        try {
-            Iterator readers = ImageIO.getImageReadersByFormatName(ImgTools.fileType(source));
-            ImageReader reader = (ImageReader) readers.next();
-            ImageInputStream iis = ImageIO.createImageInputStream(source);
-            reader.setInput(iis, true);
-            return reader;
-        } catch (Exception e) {
-            System.out.println(e.getMessage() + "\n" + "Funktionen - getReader");
-            return null;
+    public static RenderedImage getRenderedImage(File file) {
+        RenderedImage renderedImage = null;
+        ImageReader imageReader = getImageReader(file);
+
+        if (imageReader == null) {
+            return renderedImage;
         }
+
+        try {
+            renderedImage = imageReader.readAsRenderedImage(0, null);
+        } catch (Exception e) {
+            Log.errorLog(942136547, e);
+        } finally {
+            try {
+                imageReader.dispose();
+            } catch (Exception ignore) {
+            }
+        }
+        return renderedImage;
+    }
+
+
+    private static ImageReader getImageReader(File source) {
+        ImageReader imageReader = null;
+        try {
+            Iterator imageReadersByFormatName = ImageIO.getImageReadersByFormatName(ImgTools.fileType(source));
+            imageReader = (ImageReader) imageReadersByFormatName.next();
+            ImageInputStream imageInputStream = ImageIO.createImageInputStream(source);
+            imageReader.setInput(imageInputStream, true);
+        } catch (Exception e) {
+            Log.errorLog(674125980, "can't load image: " + source.toString());
+        }
+        return imageReader;
     }
 
     public static void writeImage(BufferedImage img, String dest, String suffix, float jpgCompression) {

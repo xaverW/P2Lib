@@ -17,12 +17,15 @@
 
 package de.p2tools.p2Lib.dialog;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -104,36 +107,41 @@ public class PComboBox extends ComboBox<String> {
         setItems(data);
 
         getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue == null) {
-                return;
-            }
-            if (!data.contains(newValue)) {
+            if (newValue != null && !data.contains(newValue)) {
                 data.add(newValue);
             }
-
         });
-        stringProperty.bind(getSelectionModel().selectedItemProperty());
-        getEditor().setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println("MOUSE PRESSED!!!");
-                setOnMousePressed(null);
-            }
-        });
-        getEditor().setOnMouseClicked(null);
-        getEditor().setOnMousePressed(null);
-        getEditor().setOnMouseDragged(null);
 
-        getEditor().setOnMouseClicked(e -> {
-            if (e.getClickCount() > 1) {
-                data.clear();
+        getEditor().setOnMousePressed(m -> {
+            if (m.getButton().equals(MouseButton.SECONDARY)) {
+                getEditor().setContextMenu(getMenu());
             }
         });
 
-        cleanList();
+        data.addListener((ListChangeListener<String>) c -> {
+                    if (data.size() == 1) {
+                        getSelectionModel().selectFirst();
+                    }
+                }
+        );
+
+        stringProperty.bind(Bindings.createStringBinding(() ->
+                        getSelectionModel().selectedItemProperty().isNull().get() ?
+                                "" : getSelectionModel().selectedItemProperty().get(),
+                getSelectionModel().selectedItemProperty()));
+
+
+        reduceList();
     }
 
-    private void cleanList() {
+    private void delList() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("");
+        data.setAll(list);
+        getSelectionModel().selectFirst();
+    }
+
+    private void reduceList() {
         ArrayList<String> list = new ArrayList<>();
         list.add("");
 
@@ -145,4 +153,12 @@ public class PComboBox extends ComboBox<String> {
         data.setAll(list);
     }
 
+    private ContextMenu getMenu() {
+        final ContextMenu contextMenu = new ContextMenu();
+
+        MenuItem delEntys = new MenuItem("Einträge löschen");
+        delEntys.setOnAction(a -> delList());
+        contextMenu.getItems().addAll(delEntys);
+        return contextMenu;
+    }
 }

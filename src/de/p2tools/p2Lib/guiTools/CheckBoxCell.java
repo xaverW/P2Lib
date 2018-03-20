@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2Lib.tools;
+package de.p2tools.p2Lib.guiTools;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
