@@ -54,8 +54,7 @@ public class ImgFile {
     public static final String IMAGE_FORMAT_PNG = "png";
 
     public static final BufferedImage cloneImage(BufferedImage image) {
-        BufferedImage clone = new BufferedImage(image.getWidth(),
-                image.getHeight(), image.getType());
+        BufferedImage clone = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
         Graphics2D g2d = clone.createGraphics();
         g2d.drawImage(image, 0, 0, null);
         g2d.dispose();
@@ -63,24 +62,41 @@ public class ImgFile {
     }
 
 
-    public static BufferedImage getBufferedImage(int destWidth, int destHeight, String borderColorStr) {
-        Color borderColor;
+    public static BufferedImage getBufferedImage(int destWidth, int destHeight, BufferedImage image) {
+        final BufferedImage imgOut = new BufferedImage(destWidth, destHeight, BufferedImage.TYPE_INT_RGB);
+
+        image = ImgTools.scaleBufferedImage(image, destWidth, destHeight);
+
+        Graphics2D g2d = imgOut.createGraphics();
+        g2d.drawImage(image, 0, 0, null);
+        g2d.dispose();
+
+        return imgOut;
+    }
+
+    public static BufferedImage getBufferedImage(int destWidth, int destHeight, String colorStr) {
+        Color bgColor;
         try {
-            javafx.scene.paint.Color fx = javafx.scene.paint.Color.web(borderColorStr);
-            borderColor = new java.awt.Color((float) fx.getRed(),
+            javafx.scene.paint.Color fx = javafx.scene.paint.Color.web(colorStr);
+            bgColor = new java.awt.Color((float) fx.getRed(),
                     (float) fx.getGreen(),
                     (float) fx.getBlue(),
                     (float) fx.getOpacity());
         } catch (Exception ex) {
-            borderColor = Color.BLACK;
+            bgColor = Color.BLACK;
         }
 
         final BufferedImage imgOut = new BufferedImage(destWidth, destHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = imgOut.createGraphics();
-        g.setColor(borderColor);
+        g.setColor(bgColor);
         g.fillRect(0, 0, imgOut.getWidth(), imgOut.getHeight());
         g.dispose();
 
+        return imgOut;
+    }
+
+    public static BufferedImage getBufferedImage(int destWidth, int destHeight) {
+        final BufferedImage imgOut = new BufferedImage(destWidth, destHeight, BufferedImage.TYPE_INT_RGB);
         return imgOut;
     }
 
