@@ -54,9 +54,6 @@ public class SearchProgInfo {
         this.searchUrl = searchUrl;
         this.lastInfoNr = infoNr.get();
 
-        // Todo!!!!!!!!!!!!!!!!!!!!!!!!
-        this.searchUrl = "http://p2.localhost:8080/extra/filerunner-info.xml";
-
         if (!retrieveProgramInformation(progInfo)) {
             progInfo = null;
         }
@@ -92,7 +89,7 @@ public class SearchProgInfo {
     }
 
     private void displayNotification() {
-        Platform.runLater(() -> new InfoAlert(progInfo, newInfosList, newVersion).showInfoAlert("Programminfos",
+        Platform.runLater(() -> new InfoUpdateAlert(progInfo, newInfosList, newVersion).showInfoAlert("Programminfos",
                 (newVersion ? "Neue Version verfügbar" : "Infos")));
     }
 

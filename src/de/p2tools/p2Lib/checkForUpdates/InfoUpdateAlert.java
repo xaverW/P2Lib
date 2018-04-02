@@ -27,7 +27,7 @@ import javafx.scene.layout.Priority;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class InfoAlert {
+public class InfoUpdateAlert {
 
     private final ProgInfo progInfo;
     private final ArrayList<Infos> newInfosList;
@@ -37,7 +37,7 @@ public class InfoAlert {
     private final Tab tabInfos = new Tab("Programminfos");
     private final boolean newVersion;
 
-    public InfoAlert(ProgInfo progInfo, ArrayList<Infos> newInfosList, boolean newVersion) {
+    public InfoUpdateAlert(ProgInfo progInfo, ArrayList<Infos> newInfosList, boolean newVersion) {
         this.progInfo = progInfo;
         this.newInfosList = newInfosList;
         this.newVersion = newVersion;
@@ -54,7 +54,9 @@ public class InfoAlert {
 
         tabVersion.setClosable(false);
         tabInfos.setClosable(false);
-
+        if (!newVersion) {
+            tabVersion.setText("aktuelle Version");
+        }
         makeTabVersion();
         tabPane.getTabs().add(tabVersion);
 
@@ -71,23 +73,16 @@ public class InfoAlert {
     }
 
     private void makeTabVersion() {
-        if (!newVersion) {
-            TextArea textArea = new TextArea("\nSie benutzen die neueste Version von " + progInfo.getProgName() + ".");
-            textArea.setWrapText(true);
-            textArea.setEditable(false);
-            textArea.setPadding(new Insets(10));
-            tabVersion.setContent(textArea);
-            return;
-        }
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         scrollPane.setPadding(new Insets(10));
 
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
 
         Label txtVersion = new Label(progInfo.getProgVersion() + "");
         GridPane.setHgrow(txtVersion, Priority.ALWAYS);
@@ -95,7 +90,13 @@ public class InfoAlert {
         Hyperlink hyperlinkUrl = new PHyperlink(progInfo.getProgUrl());
         Hyperlink hyperlinkDownUrl = new PHyperlink(progInfo.getProgDownloadUrl());
 
-        TextArea textArea = new TextArea(progInfo.getProgReleaseNotes());
+        TextArea textArea = new TextArea();
+        if (newVersion) {
+            textArea.setText(progInfo.getProgReleaseNotes());
+        } else {
+            textArea.setText("\nSie benutzen die neueste Version von " + progInfo.getProgName() + ".");
+        }
+
         textArea.setWrapText(true);
         textArea.setEditable(false);
         GridPane.setHgrow(textArea, Priority.ALWAYS);
@@ -104,7 +105,7 @@ public class InfoAlert {
         final Label lblVersion = new Label("Version:");
         final Label lblWeb = new Label("Webseite:");
         final Label lblDown = new Label("Download-URL:");
-        final Label lblRel = new Label("Änderungen:");
+        final Label lblRel = new Label(newVersion ? "Änderungen:" : "");
 
         int row = 0;
         gridPane.add(lblVersion, 0, row);
@@ -117,7 +118,11 @@ public class InfoAlert {
         gridPane.add(hyperlinkDownUrl, 1, row);
 
         gridPane.add(lblRel, 0, ++row);
-        gridPane.add(textArea, 1, row);
+        if (newVersion) {
+            gridPane.add(textArea, 1, row);
+        } else {
+            gridPane.add(textArea, 0, row, 2, 1);
+        }
 
         ColumnConstraints c0 = new ColumnConstraints();
         gridPane.getColumnConstraints().addAll(c0);
