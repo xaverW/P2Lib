@@ -72,7 +72,7 @@ public class InfoAlert {
 
     private void makeTabVersion() {
         if (!newVersion) {
-            TextArea textArea = new TextArea("\nSie benutzen die neueste Version");
+            TextArea textArea = new TextArea("\nSie benutzen die neueste Version von " + progInfo.getProgName() + ".");
             textArea.setWrapText(true);
             textArea.setEditable(false);
             textArea.setPadding(new Insets(10));

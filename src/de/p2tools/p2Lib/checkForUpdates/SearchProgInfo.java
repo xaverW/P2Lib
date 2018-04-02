@@ -84,11 +84,8 @@ public class SearchProgInfo {
             }
         }
 
-        if (newVersion || newInfo || (!progInfo.getInfos().isEmpty() && showProgInfo)) {
+        if (newVersion || newInfo || showProgInfo) {
             displayNotification();
-        } else if (showProgInfo) {
-            Platform.runLater(() -> PAlert.showInfoAlert("Programmversion", UPDATE_SEARCH_TITLE,
-                    "Sie benutzen die neueste Version von MTPlayer."));
         }
 
         return progInfo;
@@ -96,7 +93,7 @@ public class SearchProgInfo {
 
     private void displayNotification() {
         Platform.runLater(() -> new InfoAlert(progInfo, newInfosList, newVersion).showInfoAlert("Programminfos",
-                (newVersion ? "Neue Version" : "Infos") + " verfügbar"));
+                (newVersion ? "Neue Version verfügbar" : "Infos")));
     }
 
     /**
