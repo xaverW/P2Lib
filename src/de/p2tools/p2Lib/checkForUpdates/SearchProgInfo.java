@@ -50,6 +50,7 @@ public class SearchProgInfo {
 
     public ProgInfo checkUpdate(String searchUrl, int progVersion, IntegerProperty infoNr, boolean showProgInfo, boolean showError) {
         // prüft auf neue Version, aneigen: wenn true
+        // showProgInfo-> dann wird die Info immer angezeigt
         this.searchUrl = searchUrl;
         this.lastInfoNr = infoNr.get();
 
@@ -83,10 +84,10 @@ public class SearchProgInfo {
             }
         }
 
-        if (newVersion || newInfo) {
+        if (newVersion || newInfo || (!progInfo.getInfos().isEmpty() && showProgInfo)) {
             displayNotification();
         } else if (showProgInfo) {
-            Platform.runLater(() -> new PAlert().showInfoAlert("Programmversion", UPDATE_SEARCH_TITLE,
+            Platform.runLater(() -> PAlert.showInfoAlert("Programmversion", UPDATE_SEARCH_TITLE,
                     "Sie benutzen die neueste Version von MTPlayer."));
         }
 
@@ -94,47 +95,8 @@ public class SearchProgInfo {
     }
 
     private void displayNotification() {
-        final StringBuilder text = new StringBuilder();
-
-        if (newVersion) {
-            text.append(""
-                    + "---------------------------------------\n"
-                    + "Neue Version:\n"
-                    + progInfo.getProgVersion() + ""
-                    + "\n\n"
-                    + "---------------------------------------\n"
-                    + "Änderungen:\n"
-                    + progInfo.getProgReleaseNotes()
-                    + "\n\n"
-                    + "---------------------------------------\n"
-                    + "URL:\n"
-                    + progInfo.getProgDownloadUrl()
-                    + "\n\n"
-                    + "---------------------------------------\n\n");
-        }
-        if (newVersion && newInfo) {
-            text.append(""
-                    + "\n\n"
-                    + "*******************************************************\n"
-                    + "\n\n"
-            );
-
-        }
-        if (newInfo) {
-            for (Infos infos : newInfosList) {
-                text.append(""
-                        + "\n\n"
-                        + infos.getInfo()
-                        + "\n\n"
-                        + "*******************************************************\n"
-                        + "\n");
-            }
-        }
-
-        Platform.runLater(() -> new PAlert().showInfoAlert("Programminfos", "Neue "
-                + (newVersion ? "Version" : "Infos")
-                + " verfügbar", text.toString()));
-
+        Platform.runLater(() -> new InfoAlert(progInfo, newInfosList, newVersion).showInfoAlert("Programminfos",
+                (newVersion ? "Neue Version" : "Infos") + " verfügbar"));
     }
 
     /**
