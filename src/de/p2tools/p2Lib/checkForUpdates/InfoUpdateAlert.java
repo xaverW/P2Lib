@@ -18,11 +18,14 @@
 package de.p2tools.p2Lib.checkForUpdates;
 
 import de.p2tools.p2Lib.guiTools.PHyperlink;
+import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -32,10 +35,20 @@ public class InfoUpdateAlert {
     private final ProgInfo progInfo;
     private final ArrayList<Infos> newInfosList;
 
+    private final VBox vBox = new VBox(10);
     private final TabPane tabPane = new TabPane();
     private final Tab tabVersion = new Tab("Neue Version");
     private final Tab tabInfos = new Tab("Programminfos");
+    private final CheckBox chkSearchUpdateInfo = new CheckBox("Nach Programmupdates suchen.");
     private final boolean newVersion;
+    BooleanProperty bPropShowUpdateInfo = null;
+
+    public InfoUpdateAlert(ProgInfo progInfo, ArrayList<Infos> newInfosList, boolean newVersion, BooleanProperty bPropShowUpdateInfo) {
+        this.progInfo = progInfo;
+        this.newInfosList = newInfosList;
+        this.newVersion = newVersion;
+        this.bPropShowUpdateInfo = bPropShowUpdateInfo;
+    }
 
     public InfoUpdateAlert(ProgInfo progInfo, ArrayList<Infos> newInfosList, boolean newVersion) {
         this.progInfo = progInfo;
@@ -49,7 +62,16 @@ public class InfoUpdateAlert {
         alert.setTitle(title);
         alert.setHeaderText(header);
 
-        alert.getDialogPane().setContent(tabPane);
+        if (bPropShowUpdateInfo != null) {
+            chkSearchUpdateInfo.selectedProperty().bindBidirectional(bPropShowUpdateInfo);
+            chkSearchUpdateInfo.setPadding(new Insets(10));
+            vBox.setAlignment(Pos.CENTER_RIGHT);
+            vBox.getChildren().addAll(tabPane, chkSearchUpdateInfo);
+            alert.getDialogPane().setContent(vBox);
+        } else {
+            alert.getDialogPane().setContent(tabPane);
+        }
+
         alert.setResizable(true);
 
         tabVersion.setClosable(false);

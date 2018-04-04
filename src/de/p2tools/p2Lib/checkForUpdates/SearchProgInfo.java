@@ -20,6 +20,7 @@ import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.dialog.PAlert;
 import de.p2tools.p2Lib.tools.Log;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 
 import javax.xml.stream.XMLInputFactory;
@@ -47,10 +48,21 @@ public class SearchProgInfo {
     ArrayList<Infos> newInfosList = new ArrayList<>(5);
     boolean newVersion = false;
     boolean newInfo = false;
+    BooleanProperty bPropShowUpdateInfo = null;
 
-    public ProgInfo checkUpdate(String searchUrl, int progVersion, IntegerProperty infoNr, boolean showProgInfo, boolean showError) {
+
+    public boolean checkUpdate(String searchUrl, int progVersion, IntegerProperty infoNr, BooleanProperty bPropShowUpdateInfo,
+                               boolean showAllwaysInfo, boolean showError) {
+        // return neue Version oder neue Infos
+
+        this.bPropShowUpdateInfo = bPropShowUpdateInfo;
+        return checkUpdate(searchUrl, progVersion, infoNr, showAllwaysInfo, showError);
+    }
+
+    public boolean checkUpdate(String searchUrl, int progVersion, IntegerProperty infoNr, boolean showAllwaysInfo, boolean showError) {
         // prüft auf neue Version, aneigen: wenn true
         // showProgInfo-> dann wird die Info immer angezeigt
+
         this.searchUrl = searchUrl;
         this.lastInfoNr = infoNr.get();
 
@@ -59,18 +71,19 @@ public class SearchProgInfo {
         }
 
 
-        if (progInfo == null && showError) {
-            Platform.runLater(() ->
-                    new PAlert().showErrorAlert("Fehler", UPDATE_SEARCH_TITLE, UPDATE_ERROR_MESSAGE));
-            return null;
+        if (progInfo == null || progInfo.getProgVersion() < 0) {
+            // dann hats nicht geklappt
+            Log.errorLog(978451203, "Das Suchen nach einem Programmupdate hat nicht geklappt!");
+
+            if (showAllwaysInfo || showError) {
+                // dann konnte die "Version" im xml nicht geparst werden
+                Platform.runLater(() -> new PAlert().showErrorAlert("Fehler", UPDATE_SEARCH_TITLE, UPDATE_ERROR_MESSAGE));
+            }
+            return false;
         }
 
-        if (progInfo.getProgVersion() < 0 && showError) {
-            // dann konnte die "Version" im xml nicht geparst werden
-            Platform.runLater(() -> new PAlert().showErrorAlert("Fehler", UPDATE_SEARCH_TITLE, UPDATE_ERROR_MESSAGE));
-            return null;
-        }
 
+        // dann haben wir was gefunden -> auswerten
         newVersion = progInfo.getProgVersion() > progVersion;
 
         for (Infos i : progInfo.getInfos()) {
@@ -81,16 +94,17 @@ public class SearchProgInfo {
             }
         }
 
-        if (newVersion || newInfo || showProgInfo) {
+        if (newVersion || newInfo || showAllwaysInfo) {
+            // wenn Version<0 hat was nicht geklappt
             displayNotification();
         }
 
-        return progInfo;
+        return newVersion || newInfo;
     }
 
     private void displayNotification() {
-        Platform.runLater(() -> new InfoUpdateAlert(progInfo, newInfosList, newVersion).showInfoAlert("Programminfos",
-                (newVersion ? "Neue Version verfügbar" : "Infos")));
+        Platform.runLater(() -> new InfoUpdateAlert(progInfo, newInfosList, newVersion, bPropShowUpdateInfo).showInfoAlert(
+                "Programminfos", (newVersion ? "Neue Version verfügbar" : "Infos")));
     }
 
     /**
