@@ -19,6 +19,9 @@ package de.p2tools.p2Lib.tools;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * diese Meldungen können im Tab "Meldungen" angesehen werden
+ */
 public class SysMsg {
 
     public static ObservableList<String> textSystem = FXCollections.observableArrayList();
@@ -31,6 +34,8 @@ public class SysMsg {
     private static final int MAX_LAENGE_2 = 30000;
     private static int zeilenNrSystem = 0;
     private static int zeilenNrProgramm = 0;
+
+    public static final String LILNE = "################################################################################";
 
     public static synchronized void sysMsg(String[] text) {
         systemmeldung(text);

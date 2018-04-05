@@ -184,7 +184,8 @@ public class Duration {
             sekunden = -1;
         }
         System.out.println("");
-        System.out.println("========== ========== ========== ========== ==========");
+//        System.out.println("========== ========== ========== ========== ==========");
+        System.out.println("-----------------------------------------------------------------------------");
         System.out.println("DURATION " + sum++ + ":  " + text + "  [" + roundDuration(sekunden) + "]");
         System.out.println("   Klasse:  " + klasse);
         if (pingText != null && !pingText.isEmpty()) {
@@ -193,7 +194,8 @@ public class Duration {
         if (!extra.isEmpty()) {
             System.out.println("   " + extra);
         }
-        System.out.println("========== ========== ========== ========== ==========");
+        System.out.println("-----------------------------------------------------------------------------");
+//        System.out.println("========== ========== ========== ========== ==========");
         System.out.println("");
 
         stopZeitStatic = now;
