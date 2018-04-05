@@ -57,10 +57,10 @@ public class InfoUpdateAlert {
     }
 
     public boolean showInfoAlert(String title, String header) {
-
         final Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(header);
+        alert.setResizable(true);
 
         if (bPropShowUpdateInfo != null) {
             chkSearchUpdateInfo.selectedProperty().bindBidirectional(bPropShowUpdateInfo);
@@ -72,26 +72,36 @@ public class InfoUpdateAlert {
             alert.getDialogPane().setContent(tabPane);
         }
 
-        alert.setResizable(true);
-
-        tabVersion.setClosable(false);
-        tabInfos.setClosable(false);
-        if (!newVersion) {
-            tabVersion.setText("aktuelle Version");
-        }
-        makeTabVersion();
-        tabPane.getTabs().add(tabVersion);
-
-        if (!progInfo.getInfos().isEmpty()) {
-            makeTabInfos();
-            tabPane.getTabs().add(tabInfos);
-        }
+        addTabVersion();
+        addTabInfo();
 
         final Optional<ButtonType> bt = alert.showAndWait();
         if (bt.isPresent() && bt.get() == ButtonType.OK) {
             return true;
         }
         return false;
+    }
+
+    private void addTabVersion() {
+        if (!newVersion) {
+            tabVersion.setText("aktuelle Version");
+        }
+        makeTabVersion();
+        tabVersion.setClosable(false);
+        tabPane.getTabs().add(tabVersion);
+    }
+
+    private void addTabInfo() {
+        if (progInfo.getInfos().isEmpty()) {
+            return;
+        }
+
+        makeTabInfos();
+        tabInfos.setClosable(false);
+        tabPane.getTabs().add(tabInfos);
+        if (!newVersion) {
+            tabPane.getSelectionModel().select(tabInfos);
+        }
     }
 
     private void makeTabVersion() {

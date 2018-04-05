@@ -63,6 +63,7 @@ public class SearchProgInfo {
         // prüft auf neue Version, aneigen: wenn true
         // showProgInfo-> dann wird die Info immer angezeigt
 
+        Log.sysLog("check update");
         this.searchUrl = searchUrl;
         this.lastInfoNr = infoNr.get();
 
@@ -70,7 +71,7 @@ public class SearchProgInfo {
             progInfo = null;
         }
 
-
+        
         if (progInfo == null || progInfo.getProgVersion() < 0) {
             // dann hats nicht geklappt
             Log.errorLog(978451203, "Das Suchen nach einem Programmupdate hat nicht geklappt!");
