@@ -18,7 +18,7 @@ package de.p2tools.p2Lib.dialog;
 
 import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.guiTools.GuiSize;
-import de.p2tools.p2Lib.tools.Log;
+import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -144,7 +144,7 @@ public class MTDialog {
             }
 
         } catch (final Exception exc) {
-            Log.errorLog(152030145, exc);
+            PLog.errorLog(152030145, exc);
         }
     }
 

@@ -18,6 +18,8 @@ package de.p2tools.p2Lib.tools;
 
 import de.p2tools.p2Lib.dialog.PAlert;
 import de.p2tools.p2Lib.dialog.PAlertFileChosser;
+import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2Lib.tools.log.SysMsg;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.File;
@@ -61,7 +63,7 @@ public class FileUtils {
     public static String addsPfad(String pfad1, String pfad2) {
         final String ret = concatPaths(pfad1, pfad2);
         if (ret.isEmpty()) {
-            Log.errorLog(283946015, pfad1 + " - " + pfad2);
+            PLog.errorLog(283946015, pfad1 + " - " + pfad2);
         }
         return ret;
     }
@@ -105,7 +107,7 @@ public class FileUtils {
 
             org.apache.commons.io.FileUtils.moveDirectory(src.toFile(), dest.toFile());
         } catch (IOException ex) {
-            Log.errorLog(645121047, "move path: " + from + " to " + to);
+            PLog.errorLog(645121047, "move path: " + from + " to " + to);
             return false;
         }
         return true;
@@ -140,17 +142,17 @@ public class FileUtils {
             // ".txt" dazu)
             if ((pathName[0].length() + 10) > WIN_MAX_PATH_LENGTH) {
                 // es sollen für den Dateinamen mind. 10 Zeichen bleiben
-                Log.errorLog(102036598, "Pfad zu lang: " + pathName[0]);
+                PLog.errorLog(102036598, "Pfad zu lang: " + pathName[0]);
                 pathName[0] = getHomePath();
             }
             if ((pathName[0].length() + pathName[1].length()) > WIN_MAX_PATH_LENGTH) {
-                Log.errorLog(902367369, "Name zu lang: " + pathName[0]);
+                PLog.errorLog(902367369, "Name zu lang: " + pathName[0]);
                 final int maxNameL = WIN_MAX_PATH_LENGTH - pathName[0].length();
                 pathName[1] = cutName(pathName[1], maxNameL);
             }
         } else // für X-Systeme
             if ((pathName[1].length()) > X_MAX_NAME_LENGTH) {
-                Log.errorLog(823012012, "Name zu lang: " + pathName[1]);
+                PLog.errorLog(823012012, "Name zu lang: " + pathName[1]);
                 pathName[1] = cutName(pathName[1], X_MAX_NAME_LENGTH);
             }
         return pathName;
@@ -184,7 +186,7 @@ public class FileUtils {
             ret = ret.substring(0, ret.indexOf('&'));
         }
         if (ret.isEmpty()) {
-            Log.errorLog(395019631, pfad);
+            PLog.errorLog(395019631, pfad);
         }
         return ret;
     }
@@ -212,7 +214,7 @@ public class FileUtils {
         }
         if (ret.isEmpty()) {
             ret = pfad;
-            Log.errorLog(945123647, pfad);
+            PLog.errorLog(945123647, pfad);
         }
         return ret;
     }
@@ -228,7 +230,7 @@ public class FileUtils {
         }
         if (ret.isEmpty()) {
             ret = pfad;
-            Log.errorLog(802103647, pfad);
+            PLog.errorLog(802103647, pfad);
         }
         return ret;
     }
@@ -243,7 +245,7 @@ public class FileUtils {
         }
         if (ret.isEmpty()) {
             ret = pfad;
-            Log.errorLog(945120365, pfad);
+            PLog.errorLog(945120365, pfad);
         }
         return ret;
     }
@@ -317,7 +319,7 @@ public class FileUtils {
             new PAlertFileChosser().showErrorAlert("Datei löschen",
                     "Konnte die Datei nicht löschen!", "Fehler beim löschen von:\n\n" +
                             strFile);
-            Log.errorLog(912036547, "Fehler beim löschen: " + strFile);
+            PLog.errorLog(912036547, "Fehler beim löschen: " + strFile);
         }
         return ret;
     }
@@ -343,7 +345,7 @@ public class FileUtils {
             new PAlertFileChosser().showErrorAlert("Datei löschen",
                     "Konnte die Datei nicht löschen!", "Fehler beim löschen von:\n\n" +
                             strFile);
-            Log.errorLog(912036547, "Fehler beim löschen: " + strFile);
+            PLog.errorLog(912036547, "Fehler beim löschen: " + strFile);
         }
         return ret;
     }

@@ -183,20 +183,16 @@ public class Duration {
         } catch (final Exception ex) {
             sekunden = -1;
         }
-        System.out.println("");
-//        System.out.println("========== ========== ========== ========== ==========");
-        System.out.println("-----------------------------------------------------------------------------");
+        System.out.println("–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––");
         System.out.println("DURATION " + sum++ + ":  " + text + "  [" + roundDuration(sekunden) + "]");
-        System.out.println("   Klasse:  " + klasse);
+//        System.out.println("   Klasse:  " + klasse);
         if (pingText != null && !pingText.isEmpty()) {
             pingText.stream().forEach(s -> System.out.println(s));
         }
         if (!extra.isEmpty()) {
             System.out.println("   " + extra);
         }
-        System.out.println("-----------------------------------------------------------------------------");
-//        System.out.println("========== ========== ========== ========== ==========");
-        System.out.println("");
+        System.out.println("‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾");
 
         stopZeitStatic = now;
     }

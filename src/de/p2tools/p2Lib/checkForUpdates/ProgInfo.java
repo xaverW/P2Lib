@@ -16,7 +16,7 @@
 
 package de.p2tools.p2Lib.checkForUpdates;
 
-import de.p2tools.p2Lib.tools.Log;
+import de.p2tools.p2Lib.tools.log.PLog;
 
 import java.util.ArrayList;
 
@@ -68,7 +68,7 @@ class ProgInfo {
         try {
             this.progVersion = Integer.parseInt(progVersion);
         } catch (NumberFormatException ex) {
-            Log.errorLog(915260145, ex, "Fehler beim Parsen der Version '" + progVersion + "'.");
+            PLog.errorLog(915260145, ex, "Fehler beim Parsen der Version '" + progVersion + "'.");
             this.progVersion = -1;
         }
     }

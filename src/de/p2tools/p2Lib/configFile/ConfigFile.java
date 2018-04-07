@@ -19,7 +19,7 @@ package de.p2tools.p2Lib.configFile;
 
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
-import de.p2tools.p2Lib.tools.SysMsg;
+import de.p2tools.p2Lib.tools.log.SysMsg;
 
 import java.nio.file.Path;
 import java.util.ArrayList;

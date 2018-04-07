@@ -21,8 +21,8 @@ import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
 import de.p2tools.p2Lib.dialog.PAlert;
 import de.p2tools.p2Lib.dialog.PAlertFileChosser;
-import de.p2tools.p2Lib.tools.Log;
-import de.p2tools.p2Lib.tools.SysMsg;
+import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2Lib.tools.log.SysMsg;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -86,7 +86,7 @@ class BackupConfigFile {
                 }
             } catch (final IOException e) {
                 SysMsg.sysMsg("Die Einstellungen konnten nicht komplett gesichert werden!");
-                Log.errorLog(795623147, e);
+                PLog.errorLog(795623147, e);
             }
 
             alreadyMadeBackup = true;

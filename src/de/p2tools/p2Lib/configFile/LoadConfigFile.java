@@ -24,8 +24,8 @@ import de.p2tools.p2Lib.configFile.configList.ConfigList;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
 import de.p2tools.p2Lib.tools.Duration;
-import de.p2tools.p2Lib.tools.Log;
-import de.p2tools.p2Lib.tools.SysMsg;
+import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2Lib.tools.log.SysMsg;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -96,7 +96,7 @@ class LoadConfigFile implements AutoCloseable {
 
         } catch (final Exception ex) {
             ret = false;
-            Log.errorLog(732160795, ex);
+            PLog.errorLog(732160795, ex);
         } finally {
             try {
                 if (parser != null) {
@@ -191,7 +191,7 @@ class LoadConfigFile implements AutoCloseable {
             }
         } catch (final Exception ex) {
             ret = false;
-            Log.errorLog(302104541, ex);
+            PLog.errorLog(302104541, ex);
         }
 
         return ret;
@@ -227,7 +227,7 @@ class LoadConfigFile implements AutoCloseable {
             ret = true;
 
         } catch (final Exception ex) {
-            Log.errorLog(302104541, ex);
+            PLog.errorLog(302104541, ex);
         }
 
         return ret;
@@ -252,7 +252,7 @@ class LoadConfigFile implements AutoCloseable {
             }
 
         } catch (final Exception ex) {
-            Log.errorLog(302104587, ex);
+            PLog.errorLog(302104587, ex);
             return false;
         }
 

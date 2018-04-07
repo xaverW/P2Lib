@@ -18,7 +18,7 @@
 package de.p2tools.p2Lib.image;
 
 import de.p2tools.p2Lib.dialog.PAlert;
-import de.p2tools.p2Lib.tools.Log;
+import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.application.Platform;
 
 import javax.imageio.*;
@@ -111,7 +111,7 @@ public class ImgFile {
         try {
             bufferedImage = imageReader.read(0);
         } catch (Exception ex) {
-            Log.errorLog(461214587, ex);
+            PLog.errorLog(461214587, ex);
         } finally {
             try {
                 imageReader.dispose();
@@ -133,7 +133,7 @@ public class ImgFile {
         try {
             renderedImage = imageReader.readAsRenderedImage(0, null);
         } catch (Exception e) {
-            Log.errorLog(942136547, e);
+            PLog.errorLog(942136547, e);
         } finally {
             try {
                 imageReader.dispose();
@@ -152,7 +152,7 @@ public class ImgFile {
             ImageInputStream imageInputStream = ImageIO.createImageInputStream(source);
             imageReader.setInput(imageInputStream, true);
         } catch (Exception e) {
-            Log.errorLog(674125980, "can't load image: " + source.toString());
+            PLog.errorLog(674125980, "can't load image: " + source.toString());
         }
         return imageReader;
     }
@@ -186,7 +186,7 @@ public class ImgFile {
                 imageWriter.write(null, new IIOImage(bufferedImage, null, null), iwparam);
             }
         } catch (Exception e) {
-            Log.errorLog(784520369, e, ImgFile.class.toString());
+            PLog.errorLog(784520369, e, ImgFile.class.toString());
             Platform.runLater(() ->
                     PAlert.showErrorAlert("Speichern", "Das Bild konnte nicht gespeichert werden." +
                             "\n\n")

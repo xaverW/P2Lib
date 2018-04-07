@@ -17,7 +17,7 @@
 
 package de.p2tools.p2Lib.image;
 
-import de.p2tools.p2Lib.tools.Log;
+import de.p2tools.p2Lib.tools.log.PLog;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -96,7 +96,7 @@ public class ImgTools {
                 }
             }
         } catch (Exception e) {
-            Log.errorLog(698741254, e, ImgFile.class.toString());
+            PLog.errorLog(698741254, e, ImgFile.class.toString());
         }
     }
 

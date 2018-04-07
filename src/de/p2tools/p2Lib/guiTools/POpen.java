@@ -321,7 +321,7 @@ public class POpen {
 //
 //        } catch (final Exception eex) {
 //            ok = false;
-//            Log.errorLog(959632369, eex, new String[]{"Kann nicht öffnen,", "Programm: " + programm,
+//            PLog.errorLog(959632369, eex, new String[]{"Kann nicht öffnen,", "Programm: " + programm,
 //                    "File/Url: " + directory});
 //        }
 //

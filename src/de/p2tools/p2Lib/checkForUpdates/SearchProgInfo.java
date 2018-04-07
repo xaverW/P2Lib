@@ -18,7 +18,7 @@ package de.p2tools.p2Lib.checkForUpdates;
 
 import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.dialog.PAlert;
-import de.p2tools.p2Lib.tools.Log;
+import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -63,7 +63,7 @@ public class SearchProgInfo {
         // prüft auf neue Version, aneigen: wenn true
         // showProgInfo-> dann wird die Info immer angezeigt
 
-        Log.sysLog("check update");
+        PLog.sysLog("check update");
         this.searchUrl = searchUrl;
         this.lastInfoNr = infoNr.get();
 
@@ -71,10 +71,10 @@ public class SearchProgInfo {
             progInfo = null;
         }
 
-        
+
         if (progInfo == null || progInfo.getProgVersion() < 0) {
             // dann hats nicht geklappt
-            Log.errorLog(978451203, "Das Suchen nach einem Programmupdate hat nicht geklappt!");
+            PLog.errorLog(978451203, "Das Suchen nach einem Programmupdate hat nicht geklappt!");
 
             if (showAllwaysInfo || showError) {
                 // dann konnte die "Version" im xml nicht geparst werden
@@ -126,7 +126,7 @@ public class SearchProgInfo {
             ret = getConfig(parser, progInfo);
 
         } catch (final Exception ex) {
-            Log.errorLog(951203214, ex);
+            PLog.errorLog(951203214, ex);
             ret = false;
         } finally {
             try {
@@ -197,7 +197,7 @@ public class SearchProgInfo {
             }
         } catch (final Exception ex) {
             ret = false;
-            Log.errorLog(645120302, ex);
+            PLog.errorLog(645120302, ex);
         }
         return ret;
     }

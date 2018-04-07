@@ -22,8 +22,8 @@ import de.p2tools.p2Lib.configFile.config.ConfigPDataList;
 import de.p2tools.p2Lib.configFile.configList.ConfigList;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
-import de.p2tools.p2Lib.tools.Log;
-import de.p2tools.p2Lib.tools.SysMsg;
+import de.p2tools.p2Lib.tools.log.PLog;
+import de.p2tools.p2Lib.tools.log.SysMsg;
 import javafx.collections.ObservableList;
 
 import javax.xml.stream.XMLOutputFactory;
@@ -82,7 +82,7 @@ class SaveConfigFile implements AutoCloseable {
             writer.writeCharacters("\n\n");
             xmlSchreibenEnde();
         } catch (final Exception ex) {
-            Log.errorLog(656328109, ex);
+            PLog.errorLog(656328109, ex);
         }
     }
 

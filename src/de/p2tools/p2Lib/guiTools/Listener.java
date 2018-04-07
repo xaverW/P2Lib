@@ -16,7 +16,7 @@
 
 package de.p2tools.p2Lib.guiTools;
 
-import de.p2tools.p2Lib.tools.Log;
+import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.application.Platform;
 
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class Listener implements EventListener {
                     try {
                         listener.pingen();
                     } catch (final Exception ex) {
-                        Log.errorLog(512021043, ex);
+                        PLog.errorLog(512021043, ex);
                     }
                 }
 
@@ -73,7 +73,7 @@ public class Listener implements EventListener {
         try {
             Platform.runLater(() -> ping());
         } catch (final Exception ex) {
-            Log.errorLog(698989743, ex);
+            PLog.errorLog(698989743, ex);
         }
     }
 

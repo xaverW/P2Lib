@@ -19,6 +19,7 @@ package de.p2tools.p2Lib;
 import javafx.stage.Stage;
 
 public class PInit {
+
     public static void initLib(Stage primaryStage, String progName, String cssFile, String userAgent, boolean debug) {
         PConst.primaryStage = primaryStage;
         PConst.progName = progName;
@@ -26,4 +27,5 @@ public class PInit {
         PConst.userAgent = userAgent;
         PConst.debug = debug;
     }
+
 }

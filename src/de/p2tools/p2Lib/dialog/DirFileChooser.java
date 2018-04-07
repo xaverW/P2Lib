@@ -16,7 +16,7 @@
 
 package de.p2tools.p2Lib.dialog;
 
-import de.p2tools.p2Lib.tools.Log;
+import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
@@ -50,7 +50,7 @@ public class DirFileChooser {
             try {
                 ret = selectedFile.getAbsolutePath();
             } catch (final Exception ex) {
-                Log.errorLog(912030654, ex);
+                PLog.errorLog(912030654, ex);
             }
         }
 
@@ -118,7 +118,7 @@ public class DirFileChooser {
                 cbPath.getSelectionModel().select(ret);
 
             } catch (final Exception ex) {
-                Log.errorLog(912030201, ex);
+                PLog.errorLog(912030201, ex);
             }
         }
 
@@ -165,7 +165,7 @@ public class DirFileChooser {
                 cbPath.getSelectionModel().select(ret);
 
             } catch (final Exception ex) {
-                Log.errorLog(912030201, ex);
+                PLog.errorLog(912030201, ex);
             }
         }
 
@@ -234,7 +234,7 @@ public class DirFileChooser {
                 cbPath.getSelectionModel().select(ret);
 
             } catch (final Exception ex) {
-                Log.errorLog(912365478, ex);
+                PLog.errorLog(912365478, ex);
             }
         }
         return ret;

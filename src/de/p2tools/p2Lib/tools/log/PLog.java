@@ -14,28 +14,38 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2Lib.tools;
+package de.p2tools.p2Lib.tools.log;
 
 import de.p2tools.p2Lib.PConst;
-import org.apache.commons.lang3.SystemUtils;
+import de.p2tools.p2Lib.tools.Functions;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 
-public class Log {
+public class PLog {
 
+    public static String LOGO = "\n" +
+            "\n" +
+            " ██████╗ ██████╗ ████████╗ ██████╗  ██████╗ ██╗     ███████╗\n" +
+            " ██╔══██╗╚════██╗╚══██╔══╝██╔═══██╗██╔═══██╗██║     ██╔════╝\n" +
+            " ██████╔╝ █████╔╝   ██║   ██║   ██║██║   ██║██║     ███████╗\n" +
+            " ██╔═══╝ ██╔═══╝    ██║   ██║   ██║██║   ██║██║     ╚════██║\n" +
+            " ██║     ███████╗   ██║   ╚██████╔╝╚██████╔╝███████╗███████║\n" +
+            " ╚═╝     ╚══════╝   ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝\n" +
+            "\n";
+    private static final long TO_MEGABYTE = 1000L * 1000L;
     public static final String LILNE = "################################################################################";
     public static final Date startZeit = new Date(System.currentTimeMillis());
+    private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
     private static String FEHLER = "Fehler(" + PConst.progName + "): ";
     private static final LinkedList<Error> fehlerListe = new LinkedList<>();
     private static final ArrayList<String> logList = new ArrayList<>();
     private static boolean progress = false;
-    private static File logFile = null;
 
     private static class Error {
         String callClass = "";
@@ -49,73 +59,51 @@ public class Log {
             this.ex = ex;
             this.count = 1;
         }
-
     }
-
-    public static synchronized void setLogfile(String logFileString) {
-        logFile = new File(logFileString);
-        File dir = new File(logFile.getParent());
-        if (!dir.exists()) {
-            if (!dir.mkdirs()) {
-                logFile = null;
-                Log.errorLog(632012165, "Kann den Pfad nicht anlegen: " + dir.toString());
-            }
-        }
-
-    }
-
-    private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-
-    private static final long TO_MEGABYTE = 1000L * 1000L;
-
-    public static String LOGO = "\n" +
-            "\n" +
-            " ██████╗ ██████╗ ████████╗ ██████╗  ██████╗ ██╗     ███████╗\n" +
-            " ██╔══██╗╚════██╗╚══██╔══╝██╔═══██╗██╔═══██╗██║     ██╔════╝\n" +
-            " ██████╔╝ █████╔╝   ██║   ██║   ██║██║   ██║██║     ███████╗\n" +
-            " ██╔═══╝ ██╔═══╝    ██║   ██║   ██║██║   ██║██║     ╚════██║\n" +
-            " ██║     ███████╗   ██║   ╚██████╔╝╚██████╔╝███████╗███████║\n" +
-            " ╚═╝     ╚══════╝   ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝\n" +
-            "\n";
 
     public static void versionMsg(String progName) {
-        if (!SystemUtils.IS_OS_MAC_OSX) {
-            sysLog("");
-            sysLog("");
-            sysLog("");
-            sysLog(LOGO);
-            sysLog("");
-            sysLog("");
-        }
+        ArrayList<String> arrayList = new ArrayList<>(25);
 
-        sysLog(LILNE);
-        sysLog("Programmstart: " + dateFormatter.format(Log.startZeit));
-        sysLog(LILNE);
-        sysLog("");
+        arrayList.add("");
+        arrayList.add("");
+        arrayList.add("");
+        arrayList.add(LOGO);
+        arrayList.add("");
+        arrayList.add("");
+
+        arrayList.add(LILNE);
+        arrayList.add("Programmstart: " + dateFormatter.format(PLog.startZeit));
+        arrayList.add(LILNE);
+        arrayList.add("");
+
         final long totalMem = Runtime.getRuntime().totalMemory();
-        sysLog("totalMemory: " + totalMem / TO_MEGABYTE + " MB");
+        arrayList.add("totalMemory: " + totalMem / TO_MEGABYTE + " MB");
         final long maxMem = Runtime.getRuntime().maxMemory();
-        sysLog("maxMemory: " + maxMem / TO_MEGABYTE + " MB");
+        arrayList.add("maxMemory: " + maxMem / TO_MEGABYTE + " MB");
         final long freeMem = Runtime.getRuntime().freeMemory();
-        sysLog("freeMemory: " + freeMem / TO_MEGABYTE + " MB");
-        sysLog("");
-        sysLog(LILNE);
-        sysLog("");
+        arrayList.add("freeMemory: " + freeMem / TO_MEGABYTE + " MB");
+        arrayList.add("");
+        arrayList.add(LILNE);
+        arrayList.add("");
+
         //Version
-        sysLog(progName + Functions.getProgVersionString());
+        arrayList.add(progName + Functions.getProgVersionString());
         String compile = Functions.getCompileDate();
         if (!compile.isEmpty()) {
-            sysLog("Compiled: " + compile);
+            arrayList.add("Compiled: " + compile);
         }
-        sysLog("");
-        sysLog(LILNE);
-        sysLog("");
-        sysLog("Java");
+
+        arrayList.add("");
+        arrayList.add(LILNE);
+        arrayList.add("");
+        arrayList.add("Java");
         final String[] java = Functions.getJavaVersion();
         for (String ja : java) {
-            sysLog(ja);
+            arrayList.add(ja);
         }
-        sysLog("");
+        arrayList.add("");
+
+        sysLog(arrayList.toArray(new String[]{}));
     }
 
     public static void endMsg() {
@@ -124,20 +112,20 @@ public class Log {
         sysLog("");
         sysLog("");
 
-        printErrorMsg().forEach(Log::sysLog);
+        printErrorMsg().forEach(PLog::sysLog);
 
         // Laufzeit ausgeben
         Date stopZeit = new Date(System.currentTimeMillis());
         int minuten;
         try {
-            minuten = Math.round((stopZeit.getTime() - Log.startZeit.getTime()) / (1000 * 60));
+            minuten = Math.round((stopZeit.getTime() - PLog.startZeit.getTime()) / (1000 * 60));
         } catch (Exception ex) {
             minuten = -1;
         }
         sysLog("");
         sysLog("");
         sysLog(LILNE);
-        sysLog("   --> Beginn: " + dateFormatter.format(Log.startZeit));
+        sysLog("   --> Beginn: " + dateFormatter.format(PLog.startZeit));
         sysLog("   --> Fertig: " + dateFormatter.format(stopZeit));
         sysLog("   --> Dauer[Min]: " + (minuten == 0 ? "<1" : minuten));
         sysLog(LILNE);
@@ -199,41 +187,39 @@ public class Log {
     // Fehlermeldung mit Exceptions
     public static synchronized void errorLog(int fehlerNummer, Exception ex) {
         fehlermeldung_(fehlerNummer, ex, new String[]{});
+        PLogger.LogSevere(ex);
     }
 
     public static synchronized void errorLog(int fehlerNummer, Exception ex, String text) {
         fehlermeldung_(fehlerNummer, ex, new String[]{text});
+        PLogger.LogSevere(text, ex);
     }
 
     public static synchronized void errorLog(int fehlerNummer, Exception ex, String text[]) {
         fehlermeldung_(fehlerNummer, ex, text);
+        PLogger.LogSevere(text.toString(), ex);
     }
 
     // Fehlermeldungen
     public static synchronized void errorLog(int fehlerNummer, String text) {
         fehlermeldung_(fehlerNummer, null, new String[]{text});
+        PLogger.LogSevere(text);
     }
 
     public static synchronized void errorLog(int fehlerNummer, String[] text) {
         fehlermeldung_(fehlerNummer, null, text);
+        PLogger.LogSevere(text.toString());
     }
 
     public static synchronized void sysLog(String text) {
         systemmeldung_(new String[]{text});
+        PLogger.LogInfo(text);
     }
 
-    public static synchronized void progress(String texte) {
-        progress = true;
-        if (!texte.isEmpty()) {
-            System.out.print(texte + '\r');
-        }
-    }
-
-    private static void resetProgress() {
-        // Leerzeile um die Progresszeile zu löschen
-        if (progress) {
-            System.out.print("                                                                                                             \r");
-            progress = false;
+    public static synchronized void sysLog(String text[]) {
+        systemmeldung_(text);
+        for (String s : text) {
+            PLogger.LogInfo(s);
         }
     }
 
@@ -305,6 +291,21 @@ public class Log {
         }
     }
 
+    public static synchronized void progress(String texte) {
+        progress = true;
+        if (!texte.isEmpty()) {
+            System.out.print(texte + '\r');
+        }
+    }
+
+    private static void resetProgress() {
+        // Leerzeile um die Progresszeile zu löschen
+        if (progress) {
+            System.out.print("                                                                                                             \r");
+            progress = false;
+        }
+    }
+
     private static void systemmeldung_(String[] texte) {
         resetProgress();
         final String z = ". ";
@@ -324,18 +325,7 @@ public class Log {
     }
 
     private static void printLog() {
-        logList.forEach(System.out::println);
-
-        if (logFile != null) {
-            try (OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(logFile, true), StandardCharsets.UTF_8)) {
-                for (String s : logList) {
-                    out.write(s);
-                    out.write("\n");
-                }
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
+//        logList.forEach(System.out::println);
         logList.clear();
     }
 }

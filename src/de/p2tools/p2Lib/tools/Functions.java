@@ -16,6 +16,7 @@
 
 package de.p2tools.p2Lib.tools;
 
+import de.p2tools.p2Lib.tools.log.PLog;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.File;
@@ -121,7 +122,7 @@ public class Functions {
                 msg = rb.getString(propToken);
             }
         } catch (final Exception e) {
-            Log.errorLog(807293847, e);
+            PLog.errorLog(807293847, e);
         }
         return msg;
     }
@@ -135,7 +136,7 @@ public class Functions {
                 return rb.getString(TOKEN_VERSION);
             }
         } catch (final Exception e) {
-            Log.errorLog(134679898, e);
+            PLog.errorLog(134679898, e);
         }
         return "";
     }
@@ -149,7 +150,7 @@ public class Functions {
                 return Integer.parseInt(rb.getString(TOKEN_VERSION));
             }
         } catch (final Exception e) {
-            Log.errorLog(134679898, e);
+            PLog.errorLog(134679898, e);
         }
         return 0;
     }
@@ -163,7 +164,7 @@ public class Functions {
                 return rb.getString(TOKEN_VERSION);
             }
         } catch (final Exception e) {
-            Log.errorLog(134679898, e);
+            PLog.errorLog(134679898, e);
         }
         return "0";
     }
@@ -189,7 +190,7 @@ public class Functions {
             }
         }
         if (ret.isEmpty()) {
-            Log.errorLog(283946015, pfad1 + " - " + pfad2);
+            PLog.errorLog(283946015, pfad1 + " - " + pfad2);
         }
         return ret;
     }
@@ -223,7 +224,7 @@ public class Functions {
             ret = ret.substring(0, ret.indexOf('&'));
         }
         if (ret.isEmpty()) {
-            Log.errorLog(395019631, pfad);
+            PLog.errorLog(395019631, pfad);
         }
         return ret;
     }

@@ -16,7 +16,7 @@
 
 package de.p2tools.p2Lib.checkForUpdates;
 
-import de.p2tools.p2Lib.tools.Log;
+import de.p2tools.p2Lib.tools.log.PLog;
 
 /**
  * Encapsulates the retrieved update information.
@@ -30,7 +30,7 @@ class Infos {
         try {
             this.infoNr = Integer.parseInt(infoNr);
         } catch (NumberFormatException ex) {
-            Log.errorLog(915454102, ex, "Fehler beim Parsen der Info-Nr '" + infoNr + "'.");
+            PLog.errorLog(915454102, ex, "Fehler beim Parsen der Info-Nr '" + infoNr + "'.");
             this.infoNr = -1;
         }
 

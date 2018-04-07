@@ -16,6 +16,7 @@
 
 package de.p2tools.p2Lib.tools;
 
+import de.p2tools.p2Lib.tools.log.PLog;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.text.SimpleDateFormat;
@@ -51,7 +52,7 @@ public class PDate extends Date {
                 }
             } catch (final Exception ex) {
                 setTime(0);
-                Log.errorLog(649897321, ex, new String[]{"Datum: " + strDate, "Zeit: " + strTime});
+                PLog.errorLog(649897321, ex, new String[]{"Datum: " + strDate, "Zeit: " + strTime});
             }
         } else {
             setTime(0);
