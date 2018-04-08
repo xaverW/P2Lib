@@ -29,23 +29,15 @@ import java.util.LinkedList;
 
 public class PLog {
 
-    public static String LOGO = "\n" +
-            "\n" +
-            " ██████╗ ██████╗ ████████╗ ██████╗  ██████╗ ██╗     ███████╗\n" +
-            " ██╔══██╗╚════██╗╚══██╔══╝██╔═══██╗██╔═══██╗██║     ██╔════╝\n" +
-            " ██████╔╝ █████╔╝   ██║   ██║   ██║██║   ██║██║     ███████╗\n" +
-            " ██╔═══╝ ██╔═══╝    ██║   ██║   ██║██║   ██║██║     ╚════██║\n" +
-            " ██║     ███████╗   ██║   ╚██████╔╝╚██████╔╝███████╗███████║\n" +
-            " ╚═╝     ╚══════╝   ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝\n";
-
     public static final String LILNE1 = "################################################################################";
     public static final String LILNE2 = "================================================================================";
+    public static final String LILNE3 = "--------------------------------------------------------------------------------";
+    private static String FEHLER = "Fehler(" + PConst.progName + "): ";
 
     private static final long TO_MEGABYTE = 1000L * 1000L;
     public static final Date startZeit = new Date(System.currentTimeMillis());
     private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
-    private static String FEHLER = "Fehler(" + PConst.progName + "): ";
     private static final LinkedList<Error> fehlerListe = new LinkedList<>();
     private static final ArrayList<String> logList = new ArrayList<>();
     private static boolean progress = false;
@@ -68,7 +60,7 @@ public class PLog {
         ArrayList<String> arrayList = new ArrayList<>(25);
 
         arrayList.add(LILNE1);
-        arrayList.add(LOGO);
+        arrayList.add(Logo.LOGO);
         arrayList.add("");
 
         arrayList.add(LILNE2);
@@ -143,7 +135,6 @@ public class PLog {
         arrayList.add("");
         arrayList.add("");
 
-
         // jetzt noch die Durations
         arrayList.add(LILNE2);
         arrayList.addAll(Duration.getCounter());
@@ -208,28 +199,50 @@ public class PLog {
         return list;
     }
 
-    // Fehlermeldung mit Exceptions
+    /*
+    Fehlermeldungen
+     */
+
     public static synchronized void errorLog(int fehlerNummer, Exception ex) {
-        PLogger.LogSevere(ex);
+        PLogger.LogSevere(addErrNr(fehlerNummer, ""), ex);
     }
 
     public static synchronized void errorLog(int fehlerNummer, Exception ex, String text) {
-        PLogger.LogSevere(text, ex);
+        PLogger.LogSevere(addErrNr(fehlerNummer, text), ex);
     }
 
     public static synchronized void errorLog(int fehlerNummer, Exception ex, String text[]) {
-        PLogger.LogSevere(text.toString(), ex);
+        String log = PStringUtils.appendArray(text, "\n");
+        if (log.isEmpty()) {
+            return;
+        }
+        log = fehlerNummer + "\n" + log;
+        PLogger.LogSevere(log, ex);
     }
 
-    // Fehlermeldungen
     public static synchronized void errorLog(int fehlerNummer, String text) {
-        PLogger.LogSevere(text);
+        PLogger.LogSevere(addErrNr(fehlerNummer, text));
     }
 
     public static synchronized void errorLog(int fehlerNummer, String[] text) {
-        PLogger.LogSevere(text.toString());
+        String log = PStringUtils.appendArray(text, "\n");
+        if (log.isEmpty()) {
+            return;
+        }
+        log = fehlerNummer + "\n" + log;
+        PLogger.LogSevere(log);
     }
 
+    /*
+    empty line
+     */
+    public static synchronized void emptyLine() {
+        PLogger.LogInfo("");
+    }
+
+    /*
+    Systeminfos
+     */
     public static synchronized void sysLog(String text) {
         PLogger.LogInfo(text);
     }
@@ -250,21 +263,36 @@ public class PLog {
         PLogger.LogInfo(log);
     }
 
+    /*
+    Infos die auch der User im Tab Meldungen sieht
+     */
     public static synchronized void userLog(String text[]) {
         String log = PStringUtils.appendArray(text, "\n");
         if (log.isEmpty()) {
             return;
         }
-        PLogger.LogInfo(log);
 
+        PLogger.LogUserMsg(log);
         SysMsg.sysMsg(text);
+    }
+
+    public static synchronized void userLog(ArrayList<String> list) {
+        String log = PStringUtils.appendList(list, "\n");
+        if (log.isEmpty()) {
+            return;
+        }
+        PLogger.LogUserMsg(log);
+        SysMsg.sysMsg(list);
     }
 
     public static synchronized void userLog(String text) {
-        PLogger.LogInfo(text);
+        PLogger.LogUserMsg(text);
         SysMsg.sysMsg(text);
     }
 
+    /*
+    Meldungen zur Zeitmessung
+     */
     public static synchronized void durationLog(ArrayList<String> list) {
         String log = PStringUtils.appendList(list, "\n");
         if (log.isEmpty()) {
@@ -272,6 +300,10 @@ public class PLog {
         }
 
         PLogger.LogDuration(log);
+    }
+
+    private static String addErrNr(int errNr, String txt) {
+        return errNr + "  " + txt;
     }
 
 

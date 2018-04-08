@@ -182,7 +182,6 @@ public class Duration {
     }
 
     private static void staticPing(String klasse, String text, String extra, List<String> pingText) {
-        ArrayList<String> list = new ArrayList<>();
         final Date now = new Date(System.currentTimeMillis());
         long sekunden;
         try {
@@ -190,17 +189,18 @@ public class Duration {
         } catch (final Exception ex) {
             sekunden = -1;
         }
-        list.add("-------------------------------------------------------------------------------");
-        list.add("| DURATION " + sum++ + ":  " + text + "  [" + roundDuration(sekunden) + "]");
-        list.add("|   Klasse:  " + klasse);
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add(PLog.LILNE3);
+        list.add("DURATION " + sum++ + ":  " + text + "  [" + roundDuration(sekunden) + "]");
+        list.add("  Klasse:  " + klasse);
         if (pingText != null && !pingText.isEmpty()) {
             pingText.stream().forEach(s -> list.add(s));
         }
         if (!extra.isEmpty()) {
-            list.add("|   " + extra);
+            list.add("  " + extra);
         }
-        list.add("-------------------------------------------------------------------------------");
-
+        list.add(PLog.LILNE3);
         PLog.durationLog(list);
 
         stopZeitStatic = now;

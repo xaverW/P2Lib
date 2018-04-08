@@ -63,8 +63,7 @@ public class PFormatter extends SimpleFormatter {
                 PrintWriter pw = new PrintWriter(sw);
                 record.getThrown().printStackTrace(pw);
                 pw.close();
-                sb.append(LINE_SEPARATOR);
-                formatMultiLine(emptyEx + sw.toString(), sb, emptyEx);
+                formatMultiLineSimple(emptyEx + sw.toString(), sb, emptyEx);
                 sb.append(LINE_SEPARATOR);
                 sb.append(LINE_SEPARATOR);
             } catch (Exception ex) {
@@ -76,7 +75,29 @@ public class PFormatter extends SimpleFormatter {
     }
 
 
+    private final String I = "| ";
+
     private void formatMultiLine(String msg, StringBuilder sb, String before) {
+        String[] arr = msg.split("\n");
+        if (arr.length == 0) {
+            return;
+        }
+
+        sb.append(arr[0]);
+
+        for (int i = 1; i < arr.length; ++i) {
+            sb.append(LINE_SEPARATOR);
+            sb.append(before);
+            if (i == arr.length - 1) {
+                sb.append(arr[i]);
+            } else {
+                sb.append(I + arr[i]);
+            }
+        }
+        sb.append(LINE_SEPARATOR);
+    }
+
+    private void formatMultiLineSimple(String msg, StringBuilder sb, String before) {
         String[] arr = msg.split("\n");
         if (arr.length == 0) {
             return;

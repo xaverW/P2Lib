@@ -50,47 +50,51 @@ class BackupConfigFile {
      * Create backup copies of settings file.
      */
     void konfigCopy() {
-        if (!alreadyMadeBackup) {
-            // nur einmal pro Programmstart machen
-            PLog.sysLog("-------------------------------------------------------");
-            PLog.sysLog("Einstellungen sichern");
+        if (alreadyMadeBackup) {
+            return;
+        }
 
-            try {
-                long creatTime = -1;
+        ArrayList<String> list = new ArrayList<>();
+        // nur einmal pro Programmstart machen
+        list.add(PLog.LILNE3);
+        list.add("Einstellungen sichern");
 
-                Path confFileCopy = filePath.getParent().resolve(backupFileName + 1);
-                if (Files.exists(confFileCopy)) {
-                    final BasicFileAttributes attrs = Files.readAttributes(confFileCopy, BasicFileAttributes.class);
-                    final FileTime d = attrs.lastModifiedTime();
-                    creatTime = d.toMillis();
-                }
+        try {
+            long creatTime = -1;
 
-                if (creatTime == -1 || creatTime < getHeute_0Uhr()) {
-                    // nur dann ist die letzte Kopie älter als einen Tag
-                    for (int i = maxCopyBackup; i > 1; --i) {
-                        confFileCopy = filePath.getParent().resolve(backupFileName + (i - 1));
-                        final Path confFileCopy_2 = filePath.getParent().resolve(backupFileName + i);
-                        if (Files.exists(confFileCopy)) {
-                            Files.move(confFileCopy, confFileCopy_2, StandardCopyOption.REPLACE_EXISTING);
-                        }
-                    }
-                    if (Files.exists(filePath)) {
-                        Files.move(filePath,
-                                filePath.getParent().resolve(backupFileName + 1),
-                                StandardCopyOption.REPLACE_EXISTING);
-                    }
-                    PLog.sysLog("Einstellungen wurden gesichert");
-                } else {
-                    PLog.sysLog("Einstellungen wurden heute schon gesichert");
-                }
-            } catch (final IOException e) {
-                PLog.sysLog("Die Einstellungen konnten nicht komplett gesichert werden!");
-                PLog.errorLog(795623147, e);
+            Path confFileCopy = filePath.getParent().resolve(backupFileName + 1);
+            if (Files.exists(confFileCopy)) {
+                final BasicFileAttributes attrs = Files.readAttributes(confFileCopy, BasicFileAttributes.class);
+                final FileTime d = attrs.lastModifiedTime();
+                creatTime = d.toMillis();
             }
 
-            alreadyMadeBackup = true;
-            PLog.sysLog("-------------------------------------------------------");
+            if (creatTime == -1 || creatTime < getHeute_0Uhr()) {
+                // nur dann ist die letzte Kopie älter als einen Tag
+                for (int i = maxCopyBackup; i > 1; --i) {
+                    confFileCopy = filePath.getParent().resolve(backupFileName + (i - 1));
+                    final Path confFileCopy_2 = filePath.getParent().resolve(backupFileName + i);
+                    if (Files.exists(confFileCopy)) {
+                        Files.move(confFileCopy, confFileCopy_2, StandardCopyOption.REPLACE_EXISTING);
+                    }
+                }
+                if (Files.exists(filePath)) {
+                    Files.move(filePath,
+                            filePath.getParent().resolve(backupFileName + 1),
+                            StandardCopyOption.REPLACE_EXISTING);
+                }
+                list.add("Einstellungen wurden gesichert");
+            } else {
+                list.add("Einstellungen wurden heute schon gesichert");
+            }
+        } catch (final IOException e) {
+            list.add("Die Einstellungen konnten nicht komplett gesichert werden!");
+            PLog.errorLog(795623147, e);
         }
+
+        alreadyMadeBackup = true;
+        list.add(PLog.LILNE3);
+        PLog.sysLog(list);
     }
 
     boolean loadBackup(ArrayList<PDataList> pDataListArr, ArrayList<PData> pDataArr) {

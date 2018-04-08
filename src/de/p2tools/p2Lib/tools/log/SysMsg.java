@@ -19,6 +19,8 @@ package de.p2tools.p2Lib.tools.log;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+
 /**
  * diese Meldungen können in einem Tab "Meldungen" angesehen werden
  * und sind für die User gedacht (werden aber auch im PLog eingetragen)
@@ -33,6 +35,10 @@ public class SysMsg {
 
     public static final String LILNE = "################################################################################";
 
+    static synchronized void sysMsg(ArrayList<String> text) {
+        systemmeldung(text.toArray(new String[]{}));
+    }
+
     static synchronized void sysMsg(String[] text) {
         systemmeldung(text);
     }
@@ -43,18 +49,15 @@ public class SysMsg {
 
     private static void systemmeldung(String[] texte) {
         if (texte.length <= 1) {
-            PLog.sysLog(texte[0]);
             notify(texte[0]);
 
         } else {
             String zeile = "----------------------------------------                    ";
             String txt;
-            PLog.sysLog(zeile);
             notify(zeile);
 
             for (int i = 0; i < texte.length; ++i) {
                 txt = "| " + texte[i];
-                PLog.sysLog(txt);
                 if (i == 0) {
                     notify(texte[i]);
                 } else {
@@ -62,7 +65,6 @@ public class SysMsg {
                 }
             }
             notify(" ");
-            PLog.sysLog(zeile);
         }
     }
 

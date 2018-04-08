@@ -23,14 +23,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.*;
 
-class DurLevel extends Level {
-    public static final Level DURATION = new DurLevel("DURATION", Level.INFO.intValue() + 1);
-
-    public DurLevel(String name, int value) {
-        super(name, value);
-    }
-}
-
 public class PLogger {
 
     private static final Logger LOGGER = Logger.getLogger(PLogger.class.getName());
@@ -75,6 +67,10 @@ public class PLogger {
 
     public static void LogDuration(String info) {
         LOGGER.log(DurLevel.DURATION, info);
+    }
+
+    public static void LogUserMsg(String info) {
+        LOGGER.log(UsrMsgLevel.USERMSG, info);
     }
 
     public static void LogWarning(String info) {
