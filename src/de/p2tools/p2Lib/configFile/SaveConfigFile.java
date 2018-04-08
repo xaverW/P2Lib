@@ -23,7 +23,6 @@ import de.p2tools.p2Lib.configFile.configList.ConfigList;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2Lib.tools.log.SysMsg;
 import javafx.collections.ObservableList;
 
 import javax.xml.stream.XMLOutputFactory;
@@ -56,7 +55,7 @@ class SaveConfigFile implements AutoCloseable {
     }
 
     synchronized void write() {
-        SysMsg.sysMsg("ProgData Schreiben nach: " + xmlFilePath.toString());
+        PLog.sysLog("ProgData Schreiben nach: " + xmlFilePath.toString());
         xmlDatenSchreiben();
     }
 
@@ -87,7 +86,7 @@ class SaveConfigFile implements AutoCloseable {
     }
 
     private void xmlSchreibenStart() throws IOException, XMLStreamException {
-        SysMsg.sysMsg("Start Schreiben nach: " + xmlFilePath.toAbsolutePath());
+        PLog.sysLog("Start Schreiben nach: " + xmlFilePath.toAbsolutePath());
         os = Files.newOutputStream(xmlFilePath);
         out = new OutputStreamWriter(os, StandardCharsets.UTF_8);
 
@@ -103,7 +102,7 @@ class SaveConfigFile implements AutoCloseable {
         writer.writeEndElement();
         writer.writeEndDocument();
         writer.flush();
-        SysMsg.sysMsg("geschrieben!");
+        PLog.sysLog("geschrieben!");
     }
 
     @Override
@@ -133,7 +132,7 @@ class SaveConfigFile implements AutoCloseable {
         } else if (o instanceof Config) {
             writeConfig((Config) o, tab);
         } else {
-            SysMsg.sysMsg("Fehler beim Schreiben von: " + o.getClass().toString());
+            PLog.sysLog("Fehler beim Schreiben von: " + o.getClass().toString());
         }
     }
 

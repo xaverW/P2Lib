@@ -18,6 +18,7 @@ package de.p2tools.p2Lib.tools.log;
 
 import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.tools.Functions;
+import de.p2tools.p2Lib.tools.PStringUtils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -35,10 +36,12 @@ public class PLog {
             " ██████╔╝ █████╔╝   ██║   ██║   ██║██║   ██║██║     ███████╗\n" +
             " ██╔═══╝ ██╔═══╝    ██║   ██║   ██║██║   ██║██║     ╚════██║\n" +
             " ██║     ███████╗   ██║   ╚██████╔╝╚██████╔╝███████╗███████║\n" +
-            " ╚═╝     ╚══════╝   ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝\n" +
-            "\n";
+            " ╚═╝     ╚══════╝   ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝\n";
+
+    public static final String LILNE1 = "################################################################################";
+    public static final String LILNE2 = "================================================================================";
+
     private static final long TO_MEGABYTE = 1000L * 1000L;
-    public static final String LILNE = "################################################################################";
     public static final Date startZeit = new Date(System.currentTimeMillis());
     private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
@@ -64,16 +67,13 @@ public class PLog {
     public static void versionMsg(String progName) {
         ArrayList<String> arrayList = new ArrayList<>(25);
 
-        arrayList.add("");
-        arrayList.add("");
-        arrayList.add("");
+        arrayList.add(LILNE1);
         arrayList.add(LOGO);
         arrayList.add("");
-        arrayList.add("");
 
-        arrayList.add(LILNE);
+        arrayList.add(LILNE2);
         arrayList.add("Programmstart: " + dateFormatter.format(PLog.startZeit));
-        arrayList.add(LILNE);
+        arrayList.add(LILNE2);
         arrayList.add("");
 
         final long totalMem = Runtime.getRuntime().totalMemory();
@@ -83,7 +83,7 @@ public class PLog {
         final long freeMem = Runtime.getRuntime().freeMemory();
         arrayList.add("freeMemory: " + freeMem / TO_MEGABYTE + " MB");
         arrayList.add("");
-        arrayList.add(LILNE);
+        arrayList.add(LILNE2);
         arrayList.add("");
 
         //Version
@@ -94,7 +94,7 @@ public class PLog {
         }
 
         arrayList.add("");
-        arrayList.add(LILNE);
+        arrayList.add(LILNE2);
         arrayList.add("");
         arrayList.add("Java");
         final String[] java = Functions.getJavaVersion();
@@ -102,17 +102,20 @@ public class PLog {
             arrayList.add(ja);
         }
         arrayList.add("");
+        arrayList.add(LILNE1);
+        arrayList.add("");
 
-        sysLog(arrayList.toArray(new String[]{}));
+        sysLog("");
+        sysLog("");
+        sysLog(arrayList);
     }
 
     public static void endMsg() {
-        sysLog("");
-        sysLog("");
-        sysLog("");
-        sysLog("");
+        ArrayList<String> arrayList = new ArrayList<>(25);
 
-        printErrorMsg().forEach(PLog::sysLog);
+        arrayList.add(LILNE1);
+        arrayList.add("Programm beendet");
+        arrayList.add("=================");
 
         // Laufzeit ausgeben
         Date stopZeit = new Date(System.currentTimeMillis());
@@ -122,106 +125,155 @@ public class PLog {
         } catch (Exception ex) {
             minuten = -1;
         }
+        arrayList.add("");
+        arrayList.add(LILNE2);
+        arrayList.add("  --> Beginn: " + dateFormatter.format(PLog.startZeit));
+        arrayList.add("  --> Fertig: " + dateFormatter.format(stopZeit));
+        arrayList.add("  --> Dauer[Min]: " + (minuten == 0 ? "<1" : minuten));
+        arrayList.add(LILNE2);
+        arrayList.add("");
+        arrayList.add("");
+        arrayList.add("");
+
+        // Fehlermeldungen
+        arrayList.add(LILNE2);
+        arrayList.addAll(printErrorMsg());
+        arrayList.add(LILNE2);
+        arrayList.add("");
+        arrayList.add("");
+        arrayList.add("");
+
+
+        // jetzt noch die Durations
+        arrayList.add(LILNE2);
+        arrayList.addAll(Duration.getCounter());
+        arrayList.add(LILNE2);
+
+        arrayList.add("");
+        arrayList.add("");
+        arrayList.add("und Tschuess");
+        arrayList.add("");
+        arrayList.add(LILNE1);
+        arrayList.add("");
+
         sysLog("");
         sysLog("");
-        sysLog(LILNE);
-        sysLog("   --> Beginn: " + dateFormatter.format(PLog.startZeit));
-        sysLog("   --> Fertig: " + dateFormatter.format(stopZeit));
-        sysLog("   --> Dauer[Min]: " + (minuten == 0 ? "<1" : minuten));
-        sysLog(LILNE);
-        sysLog("");
-        sysLog("   und Tschuess");
-        sysLog("");
-        sysLog("");
-        sysLog(LILNE);
+        sysLog(arrayList);
     }
 
     public static synchronized ArrayList<String> printErrorMsg() {
         int max = 0;
-        ArrayList<String> retList = new ArrayList<>();
-        retList.add("");
-        retList.add(LILNE);
+        ArrayList<String> list = new ArrayList<>();
         if (fehlerListe.isEmpty()) {
-            retList.add(" Keine Fehler :)");
-        } else {
-            // Fehler ausgeben
-            int i_1;
-            int i_2;
-            for (Error e : fehlerListe) {
-                if (e.callClass.length() > max) {
-                    max = e.callClass.length();
-                }
-            }
-            max++;
-            for (Error e : fehlerListe) {
-                while (e.callClass.length() < max) {
-                    e.callClass = e.callClass + ' ';
-                }
-            }
-            for (int i = 1; i < fehlerListe.size(); ++i) {
-                for (int k = i; k > 0; --k) {
-                    i_1 = fehlerListe.get(k - 1).errorNr;
-                    i_2 = fehlerListe.get(k).errorNr;
-                    // if (str1.compareToIgnoreCase(str2) > 0) {
-                    if (i_1 < i_2) {
-                        fehlerListe.add(k - 1, fehlerListe.remove(k));
-                    } else {
-                        break;
-                    }
-                }
-            }
-            for (Error e : fehlerListe) {
-                String strEx;
-                if (e.ex) {
-                    strEx = "Ex! ";
-                } else {
-                    strEx = "    ";
-                }
-                retList.add(strEx + e.callClass + " Fehlernummer: " + e.errorNr + " Anzahl: " + e.count);
+            list.add("Keine Fehler :)");
+            return list;
+        }
+        list.add("Fehler:");
+        list.add("===========");
+        // Fehler ausgeben
+        int i_1;
+        int i_2;
+        for (Error e : fehlerListe) {
+            if (e.callClass.length() > max) {
+                max = e.callClass.length();
             }
         }
-        retList.add(LILNE);
-        return retList;
+        max++;
+        for (Error e : fehlerListe) {
+            while (e.callClass.length() < max) {
+                e.callClass = e.callClass + ' ';
+            }
+        }
+        for (int i = 1; i < fehlerListe.size(); ++i) {
+            for (int k = i; k > 0; --k) {
+                i_1 = fehlerListe.get(k - 1).errorNr;
+                i_2 = fehlerListe.get(k).errorNr;
+                // if (str1.compareToIgnoreCase(str2) > 0) {
+                if (i_1 < i_2) {
+                    fehlerListe.add(k - 1, fehlerListe.remove(k));
+                } else {
+                    break;
+                }
+            }
+        }
+        for (Error e : fehlerListe) {
+            String strEx;
+            if (e.ex) {
+                strEx = "  Ex! ";
+            } else {
+                strEx = "      ";
+            }
+            list.add(strEx + e.callClass + " Fehlernummer: " + e.errorNr + " Anzahl: " + e.count);
+        }
+        return list;
     }
 
     // Fehlermeldung mit Exceptions
     public static synchronized void errorLog(int fehlerNummer, Exception ex) {
-        fehlermeldung_(fehlerNummer, ex, new String[]{});
         PLogger.LogSevere(ex);
     }
 
     public static synchronized void errorLog(int fehlerNummer, Exception ex, String text) {
-        fehlermeldung_(fehlerNummer, ex, new String[]{text});
         PLogger.LogSevere(text, ex);
     }
 
     public static synchronized void errorLog(int fehlerNummer, Exception ex, String text[]) {
-        fehlermeldung_(fehlerNummer, ex, text);
         PLogger.LogSevere(text.toString(), ex);
     }
 
     // Fehlermeldungen
     public static synchronized void errorLog(int fehlerNummer, String text) {
-        fehlermeldung_(fehlerNummer, null, new String[]{text});
         PLogger.LogSevere(text);
     }
 
     public static synchronized void errorLog(int fehlerNummer, String[] text) {
-        fehlermeldung_(fehlerNummer, null, text);
         PLogger.LogSevere(text.toString());
     }
 
     public static synchronized void sysLog(String text) {
-        systemmeldung_(new String[]{text});
         PLogger.LogInfo(text);
     }
 
     public static synchronized void sysLog(String text[]) {
-        systemmeldung_(text);
-        for (String s : text) {
-            PLogger.LogInfo(s);
+        String log = PStringUtils.appendArray(text, "\n");
+        if (log.isEmpty()) {
+            return;
         }
+        PLogger.LogInfo(log);
     }
+
+    public static synchronized void sysLog(ArrayList<String> list) {
+        String log = PStringUtils.appendList(list, "\n");
+        if (log.isEmpty()) {
+            return;
+        }
+        PLogger.LogInfo(log);
+    }
+
+    public static synchronized void userLog(String text[]) {
+        String log = PStringUtils.appendArray(text, "\n");
+        if (log.isEmpty()) {
+            return;
+        }
+        PLogger.LogInfo(log);
+
+        SysMsg.sysMsg(text);
+    }
+
+    public static synchronized void userLog(String text) {
+        PLogger.LogInfo(text);
+        SysMsg.sysMsg(text);
+    }
+
+    public static synchronized void durationLog(ArrayList<String> list) {
+        String log = PStringUtils.appendList(list, "\n");
+        if (log.isEmpty()) {
+            return;
+        }
+
+        PLogger.LogDuration(log);
+    }
+
 
     private static void addFehlerNummer(int nr, String classs, boolean exception) {
         for (Error e : fehlerListe) {

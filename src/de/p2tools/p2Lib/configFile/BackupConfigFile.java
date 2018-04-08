@@ -22,7 +22,6 @@ import de.p2tools.p2Lib.configFile.pData.PDataList;
 import de.p2tools.p2Lib.dialog.PAlert;
 import de.p2tools.p2Lib.dialog.PAlertFileChosser;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2Lib.tools.log.SysMsg;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -53,8 +52,8 @@ class BackupConfigFile {
     void konfigCopy() {
         if (!alreadyMadeBackup) {
             // nur einmal pro Programmstart machen
-            SysMsg.sysMsg("-------------------------------------------------------");
-            SysMsg.sysMsg("Einstellungen sichern");
+            PLog.sysLog("-------------------------------------------------------");
+            PLog.sysLog("Einstellungen sichern");
 
             try {
                 long creatTime = -1;
@@ -80,17 +79,17 @@ class BackupConfigFile {
                                 filePath.getParent().resolve(backupFileName + 1),
                                 StandardCopyOption.REPLACE_EXISTING);
                     }
-                    SysMsg.sysMsg("Einstellungen wurden gesichert");
+                    PLog.sysLog("Einstellungen wurden gesichert");
                 } else {
-                    SysMsg.sysMsg("Einstellungen wurden heute schon gesichert");
+                    PLog.sysLog("Einstellungen wurden heute schon gesichert");
                 }
             } catch (final IOException e) {
-                SysMsg.sysMsg("Die Einstellungen konnten nicht komplett gesichert werden!");
+                PLog.sysLog("Die Einstellungen konnten nicht komplett gesichert werden!");
                 PLog.errorLog(795623147, e);
             }
 
             alreadyMadeBackup = true;
-            SysMsg.sysMsg("-------------------------------------------------------");
+            PLog.sysLog("-------------------------------------------------------");
         }
     }
 
@@ -100,12 +99,12 @@ class BackupConfigFile {
         final ArrayList<Path> path = new ArrayList<>();
         getXmlCopyFilePath(path);
         if (path.isEmpty()) {
-            SysMsg.sysMsg("Es gibt kein Backup");
+            PLog.sysLog("Es gibt kein Backup");
             return false;
         }
 
         // dann gibts ein Backup
-        SysMsg.sysMsg("Es gibt ein Backup");
+        PLog.sysLog("Es gibt ein Backup");
 
 
         if (PAlert.BUTTON.YES != new PAlertFileChosser().showAlert_yes_no("Gesicherte Einstellungen laden?",
@@ -116,16 +115,16 @@ class BackupConfigFile {
                         + "(ansonsten startet das Programm mit\n"
                         + "Standardeinstellungen)")) {
 
-            SysMsg.sysMsg("User will kein Backup laden.");
+            PLog.sysLog("User will kein Backup laden.");
             return false;
         }
 
 
         for (final Path p : path) {
             // teils geladene Reste entfernen
-            SysMsg.sysMsg(new String[]{"Versuch Backup zu laden:", p.toString()});
+            PLog.sysLog(new String[]{"Versuch Backup zu laden:", p.toString()});
             if (new LoadConfigFile(p, pDataListArr, pDataArr).readConfiguration()) {
-                SysMsg.sysMsg(new String[]{"Backup hat geklappt:", p.toString()});
+                PLog.sysLog(new String[]{"Backup hat geklappt:", p.toString()});
                 ret = true;
                 break;
             }

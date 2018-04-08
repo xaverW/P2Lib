@@ -19,7 +19,6 @@ package de.p2tools.p2Lib.tools;
 import de.p2tools.p2Lib.dialog.PAlert;
 import de.p2tools.p2Lib.dialog.PAlertFileChosser;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2Lib.tools.log.SysMsg;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.File;
@@ -308,7 +307,7 @@ public class FileUtils {
             if (new PAlertFileChosser().showAlert("Datei Löschen?", "", "Die Datei löschen:\n\n" + strFile)) {
 
                 // und jetzt die Datei löschen
-                SysMsg.sysMsg(new String[]{"Datei löschen: ", file.getAbsolutePath()});
+                PLog.sysLog(new String[]{"Datei löschen: ", file.getAbsolutePath()});
                 if (!file.delete()) {
                     throw new Exception();
                 }
@@ -334,7 +333,7 @@ public class FileUtils {
             }
 
             // und jetzt die Datei löschen
-            SysMsg.sysMsg(new String[]{"Datei löschen: ", file.getAbsolutePath()});
+            PLog.sysLog(new String[]{"Datei löschen: ", file.getAbsolutePath()});
             if (!file.delete()) {
                 throw new Exception();
             }

@@ -19,7 +19,7 @@ package de.p2tools.p2Lib.configFile;
 
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
-import de.p2tools.p2Lib.tools.log.SysMsg;
+import de.p2tools.p2Lib.tools.log.PLog;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -69,11 +69,11 @@ public class ConfigFile {
     public boolean readConfigFile(ArrayList<PDataList> pDataList, ArrayList<PData> pData) {
 
         if (new LoadConfigFile(configFile, pDataList, pData).readConfiguration()) {
-            SysMsg.sysMsg("Config geladen");
+            PLog.sysLog("Config geladen");
             return true;
 
         } else if (new BackupConfigFile(maxCopyBackupfile, configFile).loadBackup(pDataList, pData)) {
-            SysMsg.sysMsg("Config-Backup geladen");
+            PLog.sysLog("Config-Backup geladen");
             return true;
         }
 

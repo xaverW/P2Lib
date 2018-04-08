@@ -23,9 +23,8 @@ import de.p2tools.p2Lib.configFile.config.ConfigPDataList;
 import de.p2tools.p2Lib.configFile.configList.ConfigList;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
-import de.p2tools.p2Lib.tools.Duration;
+import de.p2tools.p2Lib.tools.log.Duration;
 import de.p2tools.p2Lib.tools.log.PLog;
-import de.p2tools.p2Lib.tools.log.SysMsg;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -154,7 +153,7 @@ class LoadConfigFile implements AutoCloseable {
             return getConfig(parser, (Config) o);
 
         } else {
-            SysMsg.sysMsg("Fehler beim Lesen: " + o.getClass().toString());
+            PLog.sysLog("Fehler beim Lesen: " + o.getClass().toString());
             return false;
         }
 

@@ -26,92 +26,53 @@ import javafx.collections.ObservableList;
 public class SysMsg {
 
     public static ObservableList<String> textSystem = FXCollections.observableArrayList();
-    public static ObservableList<String> textProgramm = FXCollections.observableArrayList();
-
-    public static final int LOG_SYSTEM = 1;
-    public static final int LOG_PLAYER = 2;
 
     private static final int MAX_LAENGE_1 = 50000;
     private static final int MAX_LAENGE_2 = 30000;
     private static int zeilenNrSystem = 0;
-    private static int zeilenNrProgramm = 0;
 
     public static final String LILNE = "################################################################################";
 
-    public static synchronized void sysMsg(String[] text) {
+    static synchronized void sysMsg(String[] text) {
         systemmeldung(text);
     }
 
-    public static synchronized void sysMsg(String text) {
+    static synchronized void sysMsg(String text) {
         systemmeldung(new String[]{text});
-    }
-
-    public static synchronized void playerMsg(String text) {
-        playermeldung(new String[]{text});
     }
 
     private static void systemmeldung(String[] texte) {
         if (texte.length <= 1) {
             PLog.sysLog(texte[0]);
-            notify(LOG_SYSTEM, texte[0]);
+            notify(texte[0]);
 
         } else {
             String zeile = "----------------------------------------                    ";
             String txt;
             PLog.sysLog(zeile);
-            notify(LOG_SYSTEM, zeile);
+            notify(zeile);
 
             for (int i = 0; i < texte.length; ++i) {
                 txt = "| " + texte[i];
                 PLog.sysLog(txt);
                 if (i == 0) {
-                    notify(LOG_SYSTEM, texte[i]);
+                    notify(texte[i]);
                 } else {
-                    notify(LOG_SYSTEM, "    " + texte[i]);
+                    notify("    " + texte[i]);
                 }
             }
-            notify(LOG_SYSTEM, " ");
+            notify(" ");
             PLog.sysLog(zeile);
         }
     }
 
-    private static void playermeldung(String[] texte) {
-        final String z = "  >>";
-        PLog.sysLog(z + " " + texte[0]);
-
-        notify(LOG_PLAYER, texte[0]);
-        for (int i = 1; i < texte.length; ++i) {
-            notify(LOG_PLAYER, texte[i]);
-            PLog.sysLog(z + " " + texte[i]);
-        }
+    public static void clearText() {
+        zeilenNrSystem = 0;
+        textSystem.clear();
     }
 
-    public static void clearText(int art) {
-        switch (art) {
-            case LOG_SYSTEM:
-                zeilenNrSystem = 0;
-                textSystem.clear();
-                break;
-            case LOG_PLAYER:
-                zeilenNrProgramm = 0;
-                textProgramm.clear();
-                break;
-            default:
-                break;
-        }
-    }
-
-    private static void notify(final int art, String zeile) {
-        switch (art) {
-            case LOG_SYSTEM:
-                addText(textSystem, "[" + getNr(zeilenNrSystem++) + "]   " + zeile);
-                break;
-            case LOG_PLAYER:
-                addText(textProgramm, "[" + getNr(zeilenNrProgramm++) + "]   " + zeile);
-                break;
-            default:
-                break;
-        }
+    private static void notify(String zeile) {
+        addText(textSystem, "[" + getNr(zeilenNrSystem++) + "]   " + zeile);
     }
 
     private static String getNr(int nr) {
@@ -131,13 +92,9 @@ public class SysMsg {
         text.add(texte + System.getProperty("line.separator"));
     }
 
-    public synchronized static String getText(int logArt) {
+    public synchronized static String getText() {
         // wegen synchronized hier
-        if (logArt == SysMsg.LOG_SYSTEM) {
-            return String.join("", textSystem);
-        } else {
-            return String.join("", textProgramm);
-        }
+        return String.join("", textSystem);
     }
 
 }

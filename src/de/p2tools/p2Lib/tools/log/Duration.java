@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2Lib.tools;
+package de.p2tools.p2Lib.tools.log;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -111,8 +111,17 @@ public class Duration {
         staticPing(getClassName(), text, extra, cc.pingText);
     }
 
-    public static synchronized void printCounter() {
+    public static synchronized ArrayList<String> getCounter() {
+        ArrayList<String> list = new ArrayList<>();
+        if (COUNTER_LIST.isEmpty()) {
+            list.add("keine Counter");
+            return list;
+        }
+
         int max = 0;
+        list.add("Counter:");
+        list.add("============");
+
         for (final Counter c : COUNTER_LIST) {
             if (c.text.length() > max) {
                 max = c.text.length();
@@ -125,14 +134,11 @@ public class Duration {
             }
         }
 
-        System.out.println("");
-        System.out.println("");
-        System.out.println("#################################################################");
         for (final Counter c : COUNTER_LIST) {
-            System.out.println(c.text + " Anzahl: " + c.count + "   Gesamtdauer: " + roundDuration(c.time));
+            list.add("  " + c.text + " Anzahl: " + c.count + "   Gesamtdauer: " + roundDuration(c.time));
         }
-        System.out.println("#################################################################");
-        System.out.println("");
+
+        return list;
     }
 
     public synchronized static void staticPing(String text) {
@@ -175,7 +181,8 @@ public class Duration {
         return kl;
     }
 
-    private static void staticPing(String klasse, String text, String extra, List pingText) {
+    private static void staticPing(String klasse, String text, String extra, List<String> pingText) {
+        ArrayList<String> list = new ArrayList<>();
         final Date now = new Date(System.currentTimeMillis());
         long sekunden;
         try {
@@ -183,16 +190,18 @@ public class Duration {
         } catch (final Exception ex) {
             sekunden = -1;
         }
-        System.out.println("–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––");
-        System.out.println("DURATION " + sum++ + ":  " + text + "  [" + roundDuration(sekunden) + "]");
-//        System.out.println("   Klasse:  " + klasse);
+        list.add("-------------------------------------------------------------------------------");
+        list.add("| DURATION " + sum++ + ":  " + text + "  [" + roundDuration(sekunden) + "]");
+        list.add("|   Klasse:  " + klasse);
         if (pingText != null && !pingText.isEmpty()) {
-            pingText.stream().forEach(s -> System.out.println(s));
+            pingText.stream().forEach(s -> list.add(s));
         }
         if (!extra.isEmpty()) {
-            System.out.println("   " + extra);
+            list.add("|   " + extra);
         }
-        System.out.println("‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾");
+        list.add("-------------------------------------------------------------------------------");
+
+        PLog.durationLog(list);
 
         stopZeitStatic = now;
     }

@@ -17,6 +17,7 @@
 
 package de.p2tools.p2Lib.tools.log;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.io.PrintWriter;
@@ -28,22 +29,33 @@ import java.util.logging.SimpleFormatter;
 public class PFormatter extends SimpleFormatter {
 
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
-    public static final FastDateFormat HHmmss = FastDateFormat.getInstance("HH:mm:ss");
+    private static final FastDateFormat HHmmss = FastDateFormat.getInstance("HH:mm:ss");
+    private static final int MSG_SIZE = 14;
+    private static final int INDENT = 11 + MSG_SIZE;
+    final String empty = StringUtils.leftPad("", INDENT);
+    final String emptyEx = StringUtils.leftPad("", 10);
+
 
     @Override
+
     public String format(LogRecord record) {
-        if (record.getMessage().isEmpty() ||
-                record.getMessage().trim().equals("\n")) {
+        if (record.getThrown() == null &&
+                (record.getMessage().isEmpty() || record.getMessage().trim().equals("\n"))) {
             return "\n";
         }
 
         StringBuilder sb = new StringBuilder();
         sb.append("[" + HHmmss.format(new Date(record.getMillis())) + "]")
                 .append(" ")
-                .append(record.getLevel().getLocalizedName())
-                .append(": ")
-                .append(formatMessage(record))
-                .append(LINE_SEPARATOR);
+                .append(StringUtils.rightPad(record.getLevel().getLocalizedName() + ": ", MSG_SIZE));
+
+        if (record.getMessage().contains(LINE_SEPARATOR)) {
+            formatMultiLine(record.getMessage(), sb, empty);
+
+        } else {
+            sb.append(formatMessage(record))
+                    .append(LINE_SEPARATOR);
+        }
 
         if (record.getThrown() != null) {
             try {
@@ -51,13 +63,34 @@ public class PFormatter extends SimpleFormatter {
                 PrintWriter pw = new PrintWriter(sw);
                 record.getThrown().printStackTrace(pw);
                 pw.close();
-                sb.append(sw.toString());
+                sb.append(LINE_SEPARATOR);
+                formatMultiLine(emptyEx + sw.toString(), sb, emptyEx);
+                sb.append(LINE_SEPARATOR);
+                sb.append(LINE_SEPARATOR);
             } catch (Exception ex) {
                 // ignore
             }
         }
 
         return sb.toString();
-
     }
+
+
+    private void formatMultiLine(String msg, StringBuilder sb, String before) {
+        String[] arr = msg.split("\n");
+        if (arr.length == 0) {
+            return;
+        }
+
+        sb.append(arr[0]);
+
+        for (int i = 1; i < arr.length; ++i) {
+            sb.append(LINE_SEPARATOR);
+            sb.append(before);
+            sb.append(arr[i]);
+        }
+        sb.append(LINE_SEPARATOR);
+    }
+
+
 }
