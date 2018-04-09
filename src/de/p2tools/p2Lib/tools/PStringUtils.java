@@ -18,6 +18,7 @@
 package de.p2tools.p2Lib.tools;
 
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 public class PStringUtils {
 
@@ -63,5 +64,23 @@ public class PStringUtils {
         return log.toString();
     }
 
+    public static void appendString(ArrayList<String> list, String ap) {
+        ListIterator<String> iterator = list.listIterator();
+        while (iterator.hasNext()) {
+            String next = iterator.next();
+            iterator.set(ap + next);
+        }
+    }
+
+    public static void appendString(ArrayList<String> list, String ap, String without) {
+        ListIterator<String> iterator = list.listIterator();
+        while (iterator.hasNext()) {
+            String next = iterator.next();
+            if (next.startsWith(without)) {
+                continue;
+            }
+            iterator.set(ap + next);
+        }
+    }
 
 }

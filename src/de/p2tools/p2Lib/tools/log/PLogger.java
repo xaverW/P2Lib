@@ -36,11 +36,30 @@ public class PLogger {
         consoleHandler.setLevel(Level.ALL);
         consoleHandler.setFormatter(new PFormatter());
 
+//        try {
+//            File dir = new File(PConst.logdir);
+//            dir.mkdirs();
+//
+//            Handler fileHandler = new FileHandler(PConst.logdir + File.separator + PConst.logfile,
+//                    5_000_000, 5, false);
+//
+//            LOGGER.addHandler(fileHandler);
+//            fileHandler.setLevel(Level.ALL);
+//            fileHandler.setFormatter(new PFormatter());
+//        } catch (IOException exception) {
+//            LOGGER.log(Level.SEVERE, "Error occur in FileHandler.", exception);
+//        }
+
+        LOGGER.setLevel(Level.ALL);
+    }
+
+    public static void setFileHandler(String path) {
+        String logDir = path.isEmpty() ? PConst.logdir : path;
         try {
-            File dir = new File(PConst.logdir);
+            File dir = new File(logDir);
             dir.mkdirs();
 
-            Handler fileHandler = new FileHandler(PConst.logdir + File.separator + PConst.logfile,
+            Handler fileHandler = new FileHandler(logDir + File.separator + PConst.logfile,
                     5_000_000, 5, false);
 
             LOGGER.addHandler(fileHandler);
@@ -50,11 +69,6 @@ public class PLogger {
             LOGGER.log(Level.SEVERE, "Error occur in FileHandler.", exception);
         }
 
-        LOGGER.setLevel(Level.ALL);
-    }
-
-    public Logger getLogger() {
-        return LOGGER;
     }
 
     public static void LogConfig(String info) {

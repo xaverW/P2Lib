@@ -17,7 +17,9 @@
 
 package de.p2tools.p2Lib.tools.log;
 
-public class Logo {
+import java.util.ArrayList;
+
+public class P2Logo {
 
     public static String LOGO = "\n" +
             "\n" +
@@ -27,4 +29,16 @@ public class Logo {
             " ██╔═══╝ ██╔═══╝    ██║   ██║   ██║██║   ██║██║     ╚════██║\n" +
             " ██║     ███████╗   ██║   ╚██████╔╝╚██████╔╝███████╗███████║\n" +
             " ╚═╝     ╚══════╝   ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝\n";
+
+    public static ArrayList<String> LOGO_LIST = new ArrayList<>();
+
+    static {
+        LOGO_LIST.add(" ██████╗ ██████╗ ████████╗ ██████╗  ██████╗ ██╗     ███████╗");
+        LOGO_LIST.add(" ██╔══██╗╚════██╗╚══██╔══╝██╔═══██╗██╔═══██╗██║     ██╔════╝");
+        LOGO_LIST.add(" ██████╔╝ █████╔╝   ██║   ██║   ██║██║   ██║██║     ███████╗");
+        LOGO_LIST.add(" ██╔═══╝ ██╔═══╝    ██║   ██║   ██║██║   ██║██║     ╚════██║");
+        LOGO_LIST.add(" ██║     ███████╗   ██║   ╚██████╔╝╚██████╔╝███████╗███████║");
+        LOGO_LIST.add(" ╚═╝     ╚══════╝   ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝");
+    }
+
 }

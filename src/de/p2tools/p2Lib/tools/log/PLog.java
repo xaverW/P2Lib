@@ -56,58 +56,89 @@ public class PLog {
         }
     }
 
-    public static void versionMsg(String progName) {
-        ArrayList<String> arrayList = new ArrayList<>(25);
+    public static void versionMsg(String progName, ArrayList<String> addInfo) {
+        ArrayList<String> list = new ArrayList<>(25);
 
-        arrayList.add(LILNE1);
-        arrayList.add(Logo.LOGO);
-        arrayList.add("");
+        list.add(LILNE1);
+        // Logo
+        list.add("");
+        list.addAll(P2Logo.LOGO_LIST);
+        list.add("");
 
-        arrayList.add(LILNE2);
-        arrayList.add("Programmstart: " + dateFormatter.format(PLog.startZeit));
-        arrayList.add(LILNE2);
-        arrayList.add("");
+        // Startzeit
+        list.add(LILNE2);
+        list.add("");
+        list.add("Programmstart: " + dateFormatter.format(PLog.startZeit));
 
+        list.add("");
+        list.add(LILNE2);
+        list.add("");
+
+        // Speicher
         final long totalMem = Runtime.getRuntime().totalMemory();
-        arrayList.add("totalMemory: " + totalMem / TO_MEGABYTE + " MB");
+        list.add("totalMemory: " + totalMem / TO_MEGABYTE + " MB");
         final long maxMem = Runtime.getRuntime().maxMemory();
-        arrayList.add("maxMemory: " + maxMem / TO_MEGABYTE + " MB");
+        list.add("maxMemory: " + maxMem / TO_MEGABYTE + " MB");
         final long freeMem = Runtime.getRuntime().freeMemory();
-        arrayList.add("freeMemory: " + freeMem / TO_MEGABYTE + " MB");
-        arrayList.add("");
-        arrayList.add(LILNE2);
-        arrayList.add("");
+        list.add("freeMemory: " + freeMem / TO_MEGABYTE + " MB");
 
-        //Version
-        arrayList.add(progName + Functions.getProgVersionString());
+        list.add("");
+        list.add(LILNE2);
+        list.add("");
+
+        // Programmversion
+        list.add(progName + Functions.getProgVersionString());
         String compile = Functions.getCompileDate();
         if (!compile.isEmpty()) {
-            arrayList.add("Compiled: " + compile);
+            list.add("Compiled: " + compile);
         }
 
-        arrayList.add("");
-        arrayList.add(LILNE2);
-        arrayList.add("");
-        arrayList.add("Java");
+        list.add("");
+        list.add(LILNE2);
+        list.add("");
+
+        // BS
+        list.add("Betriebssystem: " + System.getProperty("os.name"));
+        list.add("Bs-Version:     " + System.getProperty("os.version"));
+        list.add("Bs-Architektur: " + System.getProperty("os.arch"));
+
+        list.add("");
+        list.add(LILNE2);
+        list.add("");
+
+        // Javaversion
+        list.add("Java");
         final String[] java = Functions.getJavaVersion();
         for (String ja : java) {
-            arrayList.add(ja);
+            list.add(ja);
         }
-        arrayList.add("");
-        arrayList.add(LILNE1);
-        arrayList.add("");
+
+        list.add("");
+        list.add(LILNE2);
+        list.add("");
+
+        // Zusatzinfo, extra für jedes Programm
+        if (addInfo != null && !addInfo.isEmpty()) {
+            list.addAll(addInfo);
+        }
+
+        list.add("");
+        list.add(LILNE1);
+
+        PStringUtils.appendString(list, "#  ", "#");
 
         sysLog("");
+        sysLog(list);
         sysLog("");
-        sysLog(arrayList);
     }
 
     public static void endMsg() {
-        ArrayList<String> arrayList = new ArrayList<>(25);
+        ArrayList<String> list = new ArrayList<>(25);
 
-        arrayList.add(LILNE1);
-        arrayList.add("Programm beendet");
-        arrayList.add("=================");
+        list.add(LILNE1);
+        list.add("");
+        list.add("Programm beendet");
+        list.add("=================");
 
         // Laufzeit ausgeben
         Date stopZeit = new Date(System.currentTimeMillis());
@@ -117,39 +148,40 @@ public class PLog {
         } catch (Exception ex) {
             minuten = -1;
         }
-        arrayList.add("");
-        arrayList.add(LILNE2);
-        arrayList.add("  --> Beginn: " + dateFormatter.format(PLog.startZeit));
-        arrayList.add("  --> Fertig: " + dateFormatter.format(stopZeit));
-        arrayList.add("  --> Dauer[Min]: " + (minuten == 0 ? "<1" : minuten));
-        arrayList.add(LILNE2);
-        arrayList.add("");
-        arrayList.add("");
-        arrayList.add("");
+        list.add("");
+        list.add(LILNE2);
+        list.add("  --> Beginn: " + dateFormatter.format(PLog.startZeit));
+        list.add("  --> Fertig: " + dateFormatter.format(stopZeit));
+        list.add("  --> Dauer[Min]: " + (minuten == 0 ? "<1" : minuten));
+        list.add(LILNE2);
+        list.add("");
+        list.add("");
+        list.add("");
 
         // Fehlermeldungen
-        arrayList.add(LILNE2);
-        arrayList.addAll(printErrorMsg());
-        arrayList.add(LILNE2);
-        arrayList.add("");
-        arrayList.add("");
-        arrayList.add("");
+        list.add(LILNE2);
+        list.addAll(printErrorMsg());
+        list.add(LILNE2);
+        list.add("");
+        list.add("");
+        list.add("");
 
         // jetzt noch die Durations
-        arrayList.add(LILNE2);
-        arrayList.addAll(Duration.getCounter());
-        arrayList.add(LILNE2);
+        list.add(LILNE2);
+        list.addAll(Duration.getCounter());
+        list.add(LILNE2);
 
-        arrayList.add("");
-        arrayList.add("");
-        arrayList.add("und Tschuess");
-        arrayList.add("");
-        arrayList.add(LILNE1);
-        arrayList.add("");
+        list.add("");
+        list.add("");
+        list.add("und Tschuess");
+        list.add("");
+        list.add(LILNE1);
+
+        PStringUtils.appendString(list, "#  ", "#");
 
         sysLog("");
+        sysLog(list);
         sysLog("");
-        sysLog(arrayList);
     }
 
     public static synchronized ArrayList<String> printErrorMsg() {

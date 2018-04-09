@@ -32,6 +32,7 @@ public class PFormatter extends SimpleFormatter {
     private static final FastDateFormat HHmmss = FastDateFormat.getInstance("HH:mm:ss");
     private static final int MSG_SIZE = 14;
     private static final int INDENT = 11 + MSG_SIZE;
+    private final String I = "";
     final String empty = StringUtils.leftPad("", INDENT);
     final String emptyEx = StringUtils.leftPad("", 10);
 
@@ -74,8 +75,6 @@ public class PFormatter extends SimpleFormatter {
         return sb.toString();
     }
 
-
-    private final String I = "| ";
 
     private void formatMultiLine(String msg, StringBuilder sb, String before) {
         String[] arr = msg.split("\n");

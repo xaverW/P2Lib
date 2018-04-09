@@ -16,6 +16,8 @@
 
 package de.p2tools.p2Lib.tools.log;
 
+import de.p2tools.p2Lib.tools.PStringUtils;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -201,6 +203,9 @@ public class Duration {
             list.add("  " + extra);
         }
         list.add(PLog.LILNE3);
+
+        PStringUtils.appendString(list, "|  ", "-");
+
         PLog.durationLog(list);
 
         stopZeitStatic = now;
