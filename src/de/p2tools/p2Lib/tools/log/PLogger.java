@@ -39,20 +39,6 @@ public class PLogger {
         consoleHandler.setLevel(Level.ALL);
         consoleHandler.setFormatter(new PFormatter());
 
-//        try {
-//            File dir = new File(PConst.logdir);
-//            dir.mkdirs();
-//
-//            Handler fileHandler = new FileHandler(PConst.logdir + File.separator + PConst.logfile,
-//                    5_000_000, 5, false);
-//
-//            LOGGER.addHandler(fileHandler);
-//            fileHandler.setLevel(Level.ALL);
-//            fileHandler.setFormatter(new PFormatter());
-//        } catch (IOException exception) {
-//            LOGGER.log(Level.SEVERE, "Error occur in FileHandler.", exception);
-//        }
-
         LOGGER.setLevel(Level.ALL);
     }
 

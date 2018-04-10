@@ -21,8 +21,7 @@ import java.util.ArrayList;
 
 public class P2Logo {
 
-    public static String LOGO = "\n" +
-            "\n" +
+    public static String LOGO = "" +
             " ██████╗ ██████╗ ████████╗ ██████╗  ██████╗ ██╗     ███████╗\n" +
             " ██╔══██╗╚════██╗╚══██╔══╝██╔═══██╗██╔═══██╗██║     ██╔════╝\n" +
             " ██████╔╝ █████╔╝   ██║   ██║   ██║██║   ██║██║     ███████╗\n" +

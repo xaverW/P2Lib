@@ -33,8 +33,6 @@ public class SysMsg {
     private static final int MAX_LAENGE_2 = 30000;
     private static int zeilenNrSystem = 0;
 
-    public static final String LILNE = "################################################################################";
-
     static synchronized void sysMsg(ArrayList<String> text) {
         systemmeldung(text.toArray(new String[]{}));
     }

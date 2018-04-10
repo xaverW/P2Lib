@@ -73,25 +73,6 @@ public class Duration {
         }
     }
 
-    public static synchronized void counterPing(String text) {
-        Counter cc = null;
-        for (final Counter c : COUNTER_LIST) {
-            if (c.text.equals(text)) {
-                cc = c;
-                break;
-            }
-        }
-        if (cc != null) {
-            try {
-                final long time = Math.round(new Date().getTime() - cc.pingTime.getTime());
-                cc.startPingTime();
-                String extra = "  --> Ping Dauer: " + roundDuration(time);
-                cc.pingText.add(extra);
-            } catch (final Exception ex) {
-            }
-        }
-    }
-
     public static synchronized void counterStop(String text) {
         String extra = "";
         Counter cc = null;
@@ -111,6 +92,29 @@ public class Duration {
             }
         }
         staticPing(getClassName(), text, extra, cc.pingText);
+    }
+
+    public static synchronized void counterPing(String text) {
+        Counter cc = null;
+        for (final Counter c : COUNTER_LIST) {
+            if (c.text.equals(text)) {
+                cc = c;
+                break;
+            }
+        }
+        if (cc != null) {
+            try {
+                final long time = Math.round(new Date().getTime() - cc.pingTime.getTime());
+                cc.startPingTime();
+                String extra = "  --> Ping Dauer: " + roundDuration(time);
+                cc.pingText.add(extra);
+            } catch (final Exception ex) {
+            }
+        }
+    }
+
+    public synchronized static void staticPing(String text) {
+        staticPing(getClassName(), text, "", null);
     }
 
     public static synchronized ArrayList<String> getCounter() {
@@ -141,26 +145,6 @@ public class Duration {
         }
 
         return list;
-    }
-
-    public synchronized static void staticPing(String text) {
-        final Throwable t = new Throwable();
-        final StackTraceElement methodCaller = t.getStackTrace()[2];
-        final String klasse = methodCaller.getClassName() + "." + methodCaller.getMethodName();
-        String kl;
-        try {
-            kl = klasse;
-            while (kl.contains(".")) {
-                if (Character.isUpperCase(kl.charAt(0))) {
-                    break;
-                } else {
-                    kl = kl.substring(kl.indexOf(".") + 1);
-                }
-            }
-        } catch (final Exception ignored) {
-            kl = klasse;
-        }
-        staticPing(kl, text, "", null);
     }
 
     private static String getClassName() {
@@ -205,13 +189,12 @@ public class Duration {
         list.add(PLog.LILNE3);
 
         PStringUtils.appendString(list, "|  ", "-");
-
         PLog.durationLog(list);
 
         stopZeitStatic = now;
     }
 
-    public static String roundDuration(long s) {
+    private static String roundDuration(long s) {
         String ret;
         if (s > 1_000.0) {
             ret = DF.format(s / 1_000.0) + " s";
