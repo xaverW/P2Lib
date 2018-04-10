@@ -23,7 +23,7 @@ public class PConst {
     public static String progName = "P2Tools";
     public static String cssFile = "";
     public static String userAgent = "";
-    public static String logfile = "P2Tools.log";
+    public static String logfile = "P2Tools_%g.log";
     public static String logdir = "Log";
 
     public static boolean debug = false; // Debugmodus
