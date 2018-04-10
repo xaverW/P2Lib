@@ -18,6 +18,8 @@
 package de.p2tools.p2Lib.tools.log;
 
 import de.p2tools.p2Lib.PConst;
+import de.p2tools.p2Lib.dialog.PAlert;
+import javafx.application.Platform;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +28,8 @@ import java.util.logging.*;
 public class PLogger {
 
     private static final Logger LOGGER = Logger.getLogger(PLogger.class.getName());
-
+    private static Handler fileHandler = null;
+    private static String handlerDir = "";
 
     static {
         LOGGER.setUseParentHandlers(false);
@@ -53,13 +56,32 @@ public class PLogger {
         LOGGER.setLevel(Level.ALL);
     }
 
+    public static void removeFileHandler() {
+        if (fileHandler != null) {
+            PLog.sysLog("kein Logfile anlegen");
+            LOGGER.removeHandler(fileHandler);
+            fileHandler.close();
+            fileHandler = null;
+        }
+    }
+
     public static void setFileHandler(String path) {
         String logDir = path.isEmpty() ? PConst.logdir : path;
+
+        if (handlerDir.equals(logDir) && fileHandler != null) {
+            // dann stimmts schon
+            return;
+        }
+
+        removeFileHandler();
+        handlerDir = logDir;
+        PLog.sysLog("Logfile anlegen: " + handlerDir);
+
         try {
-            File dir = new File(logDir);
+            File dir = new File(handlerDir);
             dir.mkdirs();
 
-            Handler fileHandler = new FileHandler(logDir + File.separator + PConst.logfile,
+            fileHandler = new FileHandler(handlerDir + File.separator + PConst.logfile,
                     5_000_000, 5, false);
 
             LOGGER.addHandler(fileHandler);
@@ -67,6 +89,8 @@ public class PLogger {
             fileHandler.setFormatter(new PFormatter());
         } catch (IOException exception) {
             LOGGER.log(Level.SEVERE, "Error occur in FileHandler.", exception);
+            Platform.runLater(() -> PAlert.showErrorAlert("Logfile anlegen", "Das Logfile kann icht angelegt werden, " +
+                    "bitte Pfad zum Logfile prüfen."));
         }
 
     }
