@@ -20,18 +20,19 @@ package de.p2tools.p2Lib.guiTools;
 import de.p2tools.p2Lib.dialog.PAlert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class PButton {
 
-    private static ImageView imageView = null;
+    private static Image hlpImage = null;
 
-    public static ImageView getImageView() {
-        return imageView;
+    public static Image getHlpImage() {
+        return hlpImage;
     }
 
-    public static void setImageView(ImageView imageView) {
-        PButton.imageView = imageView;
+    public static void setHlpImage(Image hlpImage) {
+        PButton.hlpImage = hlpImage;
     }
 
     public Button helpButton(ImageView imageView, String header, String helpText) {
@@ -45,10 +46,10 @@ public class PButton {
     public Button helpButton(String header, String helpText) {
         final Button btnHelp = new Button("");
         btnHelp.setTooltip(new Tooltip("Hilfe anzeigen."));
-        if (imageView == null) {
+        if (hlpImage == null) {
             btnHelp.setText("Hilfe");
         } else {
-            btnHelp.setGraphic(imageView);
+            btnHelp.setGraphic(new ImageView(hlpImage));
         }
         btnHelp.setOnAction(a -> PAlert.showHelpAlert(header, helpText));
         return btnHelp;
