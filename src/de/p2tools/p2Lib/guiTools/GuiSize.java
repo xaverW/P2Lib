@@ -33,33 +33,33 @@ public class GuiSize {
     }
 
     public static int getWidth(StringProperty nr) {
-        int breite = 0;
+        int width = 0;
         final String[] arr = nr.getValue().split(":");
 
         try {
             if (arr.length == 4 || arr.length == 2) {
-                breite = Integer.parseInt(arr[0]);
+                width = Integer.parseInt(arr[0]);
             }
         } catch (final Exception ex) {
-            breite = 0;
+            width = 0;
         }
 
-        return breite;
+        return width;
     }
 
     public static int getHeight(StringProperty nr) {
-        int hoehe = 0;
+        int height = 0;
         final String[] arr = nr.getValue().split(":");
 
         try {
             if (arr.length == 4 || arr.length == 2) {
-                hoehe = Integer.parseInt(arr[1]);
+                height = Integer.parseInt(arr[1]);
             }
         } catch (final Exception ex) {
-            hoehe = 0;
+            height = 0;
         }
 
-        return hoehe;
+        return height;
     }
 
     public static void setPos(StringProperty nr, Stage stage) {

@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2Lib.dialog;
+package de.p2tools.p2Lib.guiTools;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectProperty;
