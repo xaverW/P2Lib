@@ -66,6 +66,20 @@ public class ConfigFile {
         return ret;
     }
 
+    public boolean readConfigFile() {
+
+        if (new LoadConfigFile(configFile, pDataList, pData).readConfiguration()) {
+            PLog.sysLog("Config geladen");
+            return true;
+
+        } else if (new BackupConfigFile(maxCopyBackupfile, configFile).loadBackup(pDataList, pData)) {
+            PLog.sysLog("Config-Backup geladen");
+            return true;
+        }
+
+        return false;
+    }
+
     public boolean readConfigFile(ArrayList<PDataList> pDataList, ArrayList<PData> pData) {
 
         if (new LoadConfigFile(configFile, pDataList, pData).readConfiguration()) {

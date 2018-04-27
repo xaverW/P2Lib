@@ -42,7 +42,7 @@ public class PDate extends Date {
         super(l);
     }
 
-    public void setDatum(String strDate, String strTime) {
+    public void setPDate(String strDate, String strTime) {
         if (!strDate.isEmpty()) {
             try {
                 if (!strTime.isEmpty()) {
@@ -53,6 +53,19 @@ public class PDate extends Date {
             } catch (final Exception ex) {
                 setTime(0);
                 PLog.errorLog(649897321, ex, new String[]{"Datum: " + strDate, "Zeit: " + strTime});
+            }
+        } else {
+            setTime(0);
+        }
+    }
+
+    public void setPDate(String strDate) {
+        if (!strDate.isEmpty()) {
+            try {
+                setTime(FORMATTER_ddMMyyyy.parse(strDate).getTime());
+            } catch (final Exception ex) {
+                setTime(0);
+                PLog.errorLog(915260104, ex, new String[]{"Datum: " + strDate});
             }
         } else {
             setTime(0);
@@ -81,7 +94,7 @@ public class PDate extends Date {
      *
      * @return Differenz in Sekunden.
      */
-    public int diffInSekunden() {
+    public int diffInSeconds() {
         final int ret = new Long((this.getTime() - new PDate().getTime()) / (1000)).intValue();
         return Math.abs(ret);
     }
@@ -91,7 +104,7 @@ public class PDate extends Date {
      *
      * @return Differenz in Minuten.
      */
-    public int diffInMinuten() {
-        return (diffInSekunden() / 60);
+    public int diffInMinutes() {
+        return (diffInSeconds() / 60);
     }
 }
