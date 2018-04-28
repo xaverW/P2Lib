@@ -35,13 +35,15 @@ public abstract class Config {
 
     public Config() {
         this.key = "";
-        initValue = "";
+        initValue = null;
+//        initValue = "";
         actValue = "";
     }
 
     public Config(String key) {
         this.key = key;
-        initValue = "";
+        initValue = null;
+//        initValue = "";
         actValue = "";
     }
 

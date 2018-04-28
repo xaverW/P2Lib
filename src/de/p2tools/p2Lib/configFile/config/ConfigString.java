@@ -19,8 +19,13 @@ package de.p2tools.p2Lib.configFile.config;
 
 public abstract class ConfigString extends Config {
 
-    private String initValue;
+    private String initValue = null;
     private String actValue;
+
+    public ConfigString(String key, String actValue) {
+        super(key);
+        this.actValue = actValue;
+    }
 
     public ConfigString(String key, String initValue, String actValue) {
         super(key);
@@ -29,7 +34,7 @@ public abstract class ConfigString extends Config {
     }
 
     public String getInitValue() {
-        return initValue;
+        return initValue == null ? "" : initValue;
     }
 
     public String getActValue() {
