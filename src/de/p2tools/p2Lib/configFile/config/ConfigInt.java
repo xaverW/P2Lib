@@ -19,26 +19,24 @@ package de.p2tools.p2Lib.configFile.config;
 
 public abstract class ConfigInt extends Config {
 
-    private int initValue;
     private int actValue;
 
-    public ConfigInt(String key, int initValue, int actValue) {
+    public ConfigInt(String key, int actValue) {
         super(key);
-        this.initValue = initValue;
         this.actValue = actValue;
     }
 
-    public Integer getInitValue() {
-        return initValue;
-    }
 
+    @Override
     public Integer getActValue() {
         return actValue;
     }
 
+    @Override
     public String getActValueString() {
         return String.valueOf(actValue);
     }
 
+    @Override
     public abstract void setActValue(String act);
 }

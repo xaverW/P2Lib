@@ -21,31 +21,24 @@ import javafx.beans.property.StringProperty;
 
 public class ConfigStringProp extends Config {
 
-    private String initValue;
     private StringProperty actValue;
 
-    public ConfigStringProp(String key, String initValue, StringProperty actValue) {
+    public ConfigStringProp(String key, StringProperty actValue) {
         super(key);
-        this.initValue = initValue;
         this.actValue = actValue;
     }
 
-    public String getInitValue() {
-        return initValue;
-    }
-
+    @Override
     public String getActValue() {
         return actValue.getValue();
     }
 
+    @Override
     public String getActValueString() {
         return getActValue();
     }
 
-    public StringProperty getActValueProperty() {
-        return actValue;
-    }
-
+    @Override
     public void setActValue(String act) {
         actValue.setValue(act);
     }

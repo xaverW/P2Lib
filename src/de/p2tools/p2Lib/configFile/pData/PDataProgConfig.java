@@ -35,49 +35,52 @@ public class PDataProgConfig extends PDataSample<PDataProgConfig> {
     public static final String TAG = "ProgConfig";
     private static final ArrayList<Config> arrayList = new ArrayList<>();
 
+    @Override
     public String getTag() {
         return TAG;
     }
 
+    @Override
     public String getComment() {
         return "Programmeinstellungen";
     }
 
+    @Override
     public Config[] getConfigsArr() {
         return arrayList.toArray(new Config[]{});
     }
 
     public static synchronized StringProperty addStrProp(String key) {
         StringProperty property = new SimpleStringProperty("");
-        ConfigStringProp c = new ConfigStringProp(key, "", property);
+        ConfigStringProp c = new ConfigStringProp(key, property);
         arrayList.add(c);
         return property;
     }
 
     public static synchronized StringProperty addStrProp(String key, String init) {
         StringProperty property = new SimpleStringProperty(init);
-        ConfigStringProp c = new ConfigStringProp(key, init, property);
+        ConfigStringProp c = new ConfigStringProp(key, property);
         arrayList.add(c);
         return property;
     }
 
     public static synchronized IntegerProperty addIntProp(String key, int init) {
         IntegerProperty property = new SimpleIntegerProperty(init);
-        ConfigIntProp c = new ConfigIntProp(key, init, property);
+        ConfigIntProp c = new ConfigIntProp(key, property);
         arrayList.add(c);
         return property;
     }
 
     public static synchronized DoubleProperty addDoubleProp(String key, double init) {
         DoubleProperty property = new SimpleDoubleProperty(init);
-        ConfigDoubleProp c = new ConfigDoubleProp(key, init, property);
+        ConfigDoubleProp c = new ConfigDoubleProp(key, property);
         arrayList.add(c);
         return property;
     }
 
     public static synchronized BooleanProperty addBoolProp(String key, boolean init) {
         BooleanProperty property = new SimpleBooleanProperty(init);
-        ConfigBoolProp c = new ConfigBoolProp(key, init, property);
+        ConfigBoolProp c = new ConfigBoolProp(key, property);
         arrayList.add(c);
         return property;
     }

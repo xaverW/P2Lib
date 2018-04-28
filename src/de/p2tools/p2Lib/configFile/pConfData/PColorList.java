@@ -81,7 +81,7 @@ public class PColorList {
 
         ArrayList<Config> arr = new ArrayList<>(HASHMAP.size());
         for (String[] sArr : liste) {
-            arr.add(new ConfigColor(sArr[0], sArr[1], sArr[2]));
+            arr.add(new ConfigColor(sArr[0], sArr[2]));
         }
 
         return arr;
@@ -89,18 +89,21 @@ public class PColorList {
 
 
     private static class ConfigColor extends Config {
-        public ConfigColor(String key, String initValue, String actValue) {
-            super(key, initValue, actValue);
+        public ConfigColor(String key, String actValue) {
+            super(key, actValue);
         }
 
+        @Override
         public String getActValue() {
             return super.getActValueString();
         }
 
+        @Override
         public String getActValueString() {
             return super.getActValueString();
         }
 
+        @Override
         public void setActValue(String act) {
             super.setActValue(act);
 

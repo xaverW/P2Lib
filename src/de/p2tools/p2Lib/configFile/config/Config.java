@@ -27,30 +27,20 @@ package de.p2tools.p2Lib.configFile.config;
 public abstract class Config {
 
     final String key;
-    final Object initValue;
     Object actValue;
 
     public Config() {
         this.key = "";
-        initValue = null;
         actValue = null;
     }
 
     public Config(String key) {
         this.key = key;
-        initValue = null;
         actValue = null;
     }
 
     public Config(String key, Object actValue) {
         this.key = key;
-        initValue = null;
-        this.actValue = actValue;
-    }
-
-    public Config(String key, Object initValue, Object actValue) {
-        this.key = key;
-        this.initValue = initValue;
         this.actValue = actValue;
     }
 
@@ -70,9 +60,6 @@ public abstract class Config {
         return actValue.toString();
     }
 
-    public Object getInitValue() {
-        return initValue;
-    }
 }
 
 

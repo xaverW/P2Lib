@@ -21,31 +21,25 @@ import javafx.beans.property.BooleanProperty;
 
 public class ConfigBoolProp extends Config {
 
-    private boolean initValue;
     private BooleanProperty actValue;
 
-    public ConfigBoolProp(String key, boolean initValue, BooleanProperty actValue) {
+    public ConfigBoolProp(String key, BooleanProperty actValue) {
         super(key);
-        this.initValue = initValue;
         this.actValue = actValue;
     }
 
-    public Boolean getInitValue() {
-        return initValue;
-    }
 
+    @Override
     public Boolean getActValue() {
         return actValue.getValue();
     }
 
+    @Override
     public String getActValueString() {
         return String.valueOf(getActValue());
     }
 
-    public BooleanProperty getActValueProperty() {
-        return actValue;
-    }
-
+    @Override
     public void setActValue(String act) {
         try {
             actValue.setValue(Boolean.valueOf(act));

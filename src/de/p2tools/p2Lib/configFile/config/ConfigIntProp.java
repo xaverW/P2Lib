@@ -21,35 +21,29 @@ import javafx.beans.property.IntegerProperty;
 
 public class ConfigIntProp extends Config {
 
-    private int initValue;
     private IntegerProperty actValue;
 
-    public ConfigIntProp(String key, int initValue, IntegerProperty actValue) {
+    public ConfigIntProp(String key, IntegerProperty actValue) {
         super(key);
-        this.initValue = initValue;
         this.actValue = actValue;
     }
 
-    public Integer getInitValue() {
-        return initValue;
-    }
 
+    @Override
     public Integer getActValue() {
         return actValue.getValue();
     }
 
+    @Override
     public String getActValueString() {
         return String.valueOf(getActValue());
-    }
-
-    public IntegerProperty getActValueProperty() {
-        return actValue;
     }
 
     public void setActValue(int act) {
         actValue.setValue(act);
     }
 
+    @Override
     public void setActValue(String act) {
         try {
             actValue.setValue(Integer.parseInt(act));

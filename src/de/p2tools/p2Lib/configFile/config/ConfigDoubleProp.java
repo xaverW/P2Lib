@@ -21,31 +21,25 @@ import javafx.beans.property.DoubleProperty;
 
 public class ConfigDoubleProp extends Config {
 
-    private Double initValue;
     private DoubleProperty actValue;
 
-    public ConfigDoubleProp(String key, Double initValue, DoubleProperty actValue) {
+    public ConfigDoubleProp(String key, DoubleProperty actValue) {
         super(key);
-        this.initValue = initValue;
         this.actValue = actValue;
     }
 
-    public Double getInitValue() {
-        return initValue;
-    }
 
+    @Override
     public Double getActValue() {
         return actValue.getValue();
     }
 
+    @Override
     public String getActValueString() {
         return String.valueOf(getActValue());
     }
 
-    public DoubleProperty getActValueProperty() {
-        return actValue;
-    }
-
+    @Override
     public void setActValue(String act) {
         try {
             actValue.setValue(Double.parseDouble(act));

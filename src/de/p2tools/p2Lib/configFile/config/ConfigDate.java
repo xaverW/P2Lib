@@ -19,45 +19,34 @@ package de.p2tools.p2Lib.configFile.config;
 
 import de.p2tools.p2Lib.tools.PDate;
 
-public abstract class ConfigDate extends Config {
+public class ConfigDate extends Config {
 
-    private String initValue;
-    private String actValue;
     private PDate pDate;
 
-    public ConfigDate(String key, String initValue, String actValue) {
+    public ConfigDate(String key, String actValue) {
         super(key);
-        this.initValue = initValue;
-        this.actValue = actValue;
         pDate = new PDate();
         pDate.setPDate(actValue);
     }
 
-    public ConfigDate(String key, PDate initPDate, PDate actPDate) {
-        super(key);
-        this.initValue = initPDate.toString();
-        this.actValue = actPDate.toString();
-        this.pDate = actPDate;
-    }
-
     public ConfigDate(String key, PDate actPDate) {
         super(key);
-        this.initValue = "";
-        this.actValue = actPDate.toString();
         this.pDate = actPDate;
     }
 
-    public String getInitValue() {
-        return initValue;
-    }
 
+    @Override
     public String getActValue() {
-        return actValue;
+        return pDate.toString();
     }
 
+    @Override
     public String getActValueString() {
-        return actValue;
+        return pDate.toString();
     }
 
-    public abstract void setActValue(String act);
+    @Override
+    public void setActValue(String act) {
+        pDate.setPDate(act);
+    }
 }
