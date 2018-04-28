@@ -49,8 +49,8 @@ public class PColorList {
             }
 
             @Override
-            public ArrayList<Config> getConfigsArr() {
-                return PColorList.getConfigsArr();
+            public Config[] getConfigsArr() {
+                return PColorList.getConfigsArr().toArray(new Config[]{});
             }
         };
         return cd;

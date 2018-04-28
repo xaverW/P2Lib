@@ -19,8 +19,6 @@ package de.p2tools.p2Lib.configFile.pData;
 
 import de.p2tools.p2Lib.configFile.config.Config;
 
-import java.util.ArrayList;
-
 /**
  * this are the Classes in witch the configurationdata are stored
  * the configurationdata has a *TAG*, which is tha name of the XML-TAG
@@ -35,6 +33,6 @@ public interface PData {
 
     String getComment();
 
-    ArrayList<Config> getConfigsArr();
+    Config[] getConfigsArr();
 
 }

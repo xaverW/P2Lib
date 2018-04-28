@@ -43,8 +43,8 @@ public class PDataProgConfig extends PDataSample<PDataProgConfig> {
         return "Programmeinstellungen";
     }
 
-    public ArrayList<Config> getConfigsArr() {
-        return arrayList;
+    public Config[] getConfigsArr() {
+        return arrayList.toArray(new Config[]{});
     }
 
     public static synchronized StringProperty addStrProp(String key) {

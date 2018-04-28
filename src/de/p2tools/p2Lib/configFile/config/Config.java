@@ -17,8 +17,6 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import javafx.beans.property.ObjectProperty;
-
 /**
  * this is the class for one configuration
  * for example: the configsData for a USER(name,age,size)
@@ -31,20 +29,23 @@ public abstract class Config {
     final String key;
     final Object initValue;
     Object actValue;
-    ObjectProperty actValueProperty = null;
 
     public Config() {
         this.key = "";
         initValue = null;
-//        initValue = "";
-        actValue = "";
+        actValue = null;
     }
 
     public Config(String key) {
         this.key = key;
         initValue = null;
-//        initValue = "";
-        actValue = "";
+        actValue = null;
+    }
+
+    public Config(String key, Object actValue) {
+        this.key = key;
+        initValue = null;
+        this.actValue = actValue;
     }
 
     public Config(String key, Object initValue, Object actValue) {
@@ -67,10 +68,6 @@ public abstract class Config {
 
     public String getActValueString() {
         return actValue.toString();
-    }
-
-    public Object getActValueProperty() {
-        return actValueProperty;
     }
 
     public Object getInitValue() {

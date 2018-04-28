@@ -19,8 +19,6 @@ package de.p2tools.p2Lib.configFile.pData;
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.tools.GermanStringSorter;
 
-import java.util.ArrayList;
-
 public abstract class PDataSample<E> implements PData, Comparable<E> {
 
     public static String TAG;
@@ -38,7 +36,7 @@ public abstract class PDataSample<E> implements PData, Comparable<E> {
     }
 
 
-    public ArrayList<Config> getConfigsArr() {
+    public Config[] getConfigsArr() {
         return null;
     }
 
