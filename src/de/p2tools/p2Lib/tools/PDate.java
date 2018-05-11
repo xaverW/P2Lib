@@ -72,6 +72,14 @@ public class PDate extends Date {
         }
     }
 
+    public String getDateTime() {
+        if (this.getTime() == 0) {
+            return "";
+        } else {
+            return FORMATTER_ddMMyyyyHHmm.format(this);
+        }
+    }
+
     @Override
     public String toString() {
         if (this.getTime() == 0) {

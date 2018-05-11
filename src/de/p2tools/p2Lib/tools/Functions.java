@@ -53,7 +53,7 @@ public class Functions {
 
     public enum OperatingSystemType {
 
-        UNKNOWN(""), WIN32("Windows"), WIN64("Windows"), LINUX("Linux"), MAC("Mac");
+        UNKNOWN(""), WIN("Windows"), WIN32("Windows"), WIN64("Windows"), LINUX("Linux"), MAC("Mac");
         private final String name;
 
         OperatingSystemType(String name) {

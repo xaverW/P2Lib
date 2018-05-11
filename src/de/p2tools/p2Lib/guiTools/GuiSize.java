@@ -21,9 +21,9 @@ import javafx.stage.Stage;
 
 public class GuiSize {
 
-    public static void getSizeScene(StringProperty nr, Stage stage) {
-        if (stage != null && stage.getScene() != null && nr != null) {
-            nr.set((int) stage.getScene().getWidth() + ":"
+    public static void getSizeScene(StringProperty property, Stage stage) {
+        if (stage != null && stage.getScene() != null && property != null) {
+            property.set((int) stage.getScene().getWidth() + ":"
                     + (int) stage.getScene().getHeight()
                     + ':'
                     + (int) stage.getX()
@@ -32,9 +32,9 @@ public class GuiSize {
         }
     }
 
-    public static int getWidth(StringProperty nr) {
+    public static int getWidth(StringProperty property) {
         int width = 0;
-        final String[] arr = nr.getValue().split(":");
+        final String[] arr = property.getValue().split(":");
 
         try {
             if (arr.length == 4 || arr.length == 2) {
@@ -47,9 +47,9 @@ public class GuiSize {
         return width;
     }
 
-    public static int getHeight(StringProperty nr) {
+    public static int getHeight(StringProperty property) {
         int height = 0;
-        final String[] arr = nr.getValue().split(":");
+        final String[] arr = property.getValue().split(":");
 
         try {
             if (arr.length == 4 || arr.length == 2) {
@@ -62,11 +62,11 @@ public class GuiSize {
         return height;
     }
 
-    public static void setPos(StringProperty nr, Stage stage) {
+    public static void setPos(StringProperty property, Stage stage) {
         int posX, posY;
         posX = 0;
         posY = 0;
-        final String[] arr = nr.getValue().split(":");
+        final String[] arr = property.getValue().split(":");
         try {
             if (arr.length == 4) {
                 posX = Integer.parseInt(arr[2]);
