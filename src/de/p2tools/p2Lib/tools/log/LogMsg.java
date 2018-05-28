@@ -38,7 +38,7 @@ public class LogMsg {
         // Startzeit
         list.add(PLog.LILNE2);
         list.add("");
-        list.add("Programmstart: " + PLog.dateFormatter.format(PLog.startZeit));
+        list.add("Programmstart: " + PLog.dateFormatter.format(PLog.startTime));
 
         list.add("");
         list.add(PLog.LILNE2);
@@ -111,18 +111,18 @@ public class LogMsg {
         list.add("=================");
 
         // Laufzeit ausgeben
-        Date stopZeit = new Date(System.currentTimeMillis());
-        int minuten;
+        Date stopTime = new Date(System.currentTimeMillis());
+        int minute;
         try {
-            minuten = Math.round((stopZeit.getTime() - PLog.startZeit.getTime()) / (1000 * 60));
+            minute = Math.round((stopTime.getTime() - PLog.startTime.getTime()) / (1000 * 60));
         } catch (Exception ex) {
-            minuten = -1;
+            minute = -1;
         }
         list.add("");
         list.add(PLog.LILNE2);
-        list.add("  --> Beginn: " + PLog.dateFormatter.format(PLog.startZeit));
-        list.add("  --> Fertig: " + PLog.dateFormatter.format(stopZeit));
-        list.add("  --> Dauer[Min]: " + (minuten == 0 ? "<1" : minuten));
+        list.add("  --> Beginn: " + PLog.dateFormatter.format(PLog.startTime));
+        list.add("  --> Fertig: " + PLog.dateFormatter.format(stopTime));
+        list.add("  --> Dauer[Min]: " + (minute == 0 ? "<1" : minute));
         list.add(PLog.LILNE2);
         list.add("");
         list.add("");
@@ -157,7 +157,7 @@ public class LogMsg {
     public static synchronized ArrayList<String> printErrorMsg() {
         int max = 0;
         ArrayList<String> list = new ArrayList<>();
-        if (PLog.fehlerListe.isEmpty()) {
+        if (PLog.errorList.isEmpty()) {
             list.add("Keine Fehler :)");
             return list;
         }
@@ -166,30 +166,30 @@ public class LogMsg {
         // Fehler ausgeben
         int i_1;
         int i_2;
-        for (PLog.Error e : PLog.fehlerListe) {
+        for (PLog.Error e : PLog.errorList) {
             if (e.callClass.length() > max) {
                 max = e.callClass.length();
             }
         }
         max++;
-        for (PLog.Error e : PLog.fehlerListe) {
+        for (PLog.Error e : PLog.errorList) {
             while (e.callClass.length() < max) {
                 e.callClass = e.callClass + ' ';
             }
         }
-        for (int i = 1; i < PLog.fehlerListe.size(); ++i) {
+        for (int i = 1; i < PLog.errorList.size(); ++i) {
             for (int k = i; k > 0; --k) {
-                i_1 = PLog.fehlerListe.get(k - 1).errorNr;
-                i_2 = PLog.fehlerListe.get(k).errorNr;
+                i_1 = PLog.errorList.get(k - 1).errorNr;
+                i_2 = PLog.errorList.get(k).errorNr;
                 // if (str1.compareToIgnoreCase(str2) > 0) {
                 if (i_1 < i_2) {
-                    PLog.fehlerListe.add(k - 1, PLog.fehlerListe.remove(k));
+                    PLog.errorList.add(k - 1, PLog.errorList.remove(k));
                 } else {
                     break;
                 }
             }
         }
-        for (PLog.Error e : PLog.fehlerListe) {
+        for (PLog.Error e : PLog.errorList) {
             String strEx;
             if (e.ex) {
                 strEx = "  Ex! ";

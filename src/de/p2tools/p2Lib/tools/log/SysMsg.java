@@ -31,7 +31,7 @@ public class SysMsg {
 
     private static final int MAX_LAENGE_1 = 50000;
     private static final int MAX_LAENGE_2 = 30000;
-    private static int zeilenNrSystem = 0;
+    private static int lineNrSystem = 0;
 
     static synchronized void sysMsg(ArrayList<String> text) {
         systemmeldung(text.toArray(new String[]{}));
@@ -45,21 +45,21 @@ public class SysMsg {
         systemmeldung(new String[]{text});
     }
 
-    private static void systemmeldung(String[] texte) {
-        if (texte.length <= 1) {
-            notify(texte[0]);
+    private static void systemmeldung(String[] text) {
+        if (text.length <= 1) {
+            notify(text[0]);
 
         } else {
-            String zeile = "----------------------------------------                    ";
+            String line = "----------------------------------------                    ";
             String txt;
-            notify(zeile);
+            notify(line);
 
-            for (int i = 0; i < texte.length; ++i) {
-                txt = "| " + texte[i];
+            for (int i = 0; i < text.length; ++i) {
+                txt = "| " + text[i];
                 if (i == 0) {
-                    notify(texte[i]);
+                    notify(text[i]);
                 } else {
-                    notify("    " + texte[i]);
+                    notify("    " + text[i]);
                 }
             }
             notify(" ");
@@ -67,12 +67,12 @@ public class SysMsg {
     }
 
     public static void clearText() {
-        zeilenNrSystem = 0;
+        lineNrSystem = 0;
         textSystem.clear();
     }
 
-    private static void notify(String zeile) {
-        addText(textSystem, "[" + getNr(zeilenNrSystem++) + "]   " + zeile);
+    private static void notify(String line) {
+        addText(textSystem, "[" + getNr(lineNrSystem++) + "]   " + line);
     }
 
     private static String getNr(int nr) {

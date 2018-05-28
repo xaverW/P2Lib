@@ -26,7 +26,7 @@ import java.util.List;
 
 public class Duration {
 
-    private static Date stopZeitStatic = new Date(System.currentTimeMillis());
+    private static Date stopTimeStatic = new Date(System.currentTimeMillis());
     private static final DecimalFormat DF = new DecimalFormat("###,##0.00");
     private static int sum = 0;
     private static final ArrayList<Counter> COUNTER_LIST = new ArrayList<>();
@@ -150,10 +150,10 @@ public class Duration {
     private static String getClassName() {
         final Throwable t = new Throwable();
         final StackTraceElement methodCaller = t.getStackTrace()[2];
-        final String klasse = methodCaller.getClassName() + "." + methodCaller.getMethodName();
+        final String className = methodCaller.getClassName() + "." + methodCaller.getMethodName();
         String kl;
         try {
-            kl = klasse;
+            kl = className;
             while (kl.contains(".")) {
                 if (Character.isUpperCase(kl.charAt(0))) {
                     break;
@@ -162,24 +162,24 @@ public class Duration {
                 }
             }
         } catch (final Exception ignored) {
-            kl = klasse;
+            kl = className;
         }
         return kl;
     }
 
-    private static void staticPing(String klasse, String text, String extra, List<String> pingText) {
+    private static void staticPing(String className, String text, String extra, List<String> pingText) {
         final Date now = new Date(System.currentTimeMillis());
-        long sekunden;
+        long second;
         try {
-            sekunden = Math.round(now.getTime() - stopZeitStatic.getTime());
+            second = Math.round(now.getTime() - stopTimeStatic.getTime());
         } catch (final Exception ex) {
-            sekunden = -1;
+            second = -1;
         }
 
         ArrayList<String> list = new ArrayList<>();
         list.add(PLog.LILNE3);
-        list.add("DURATION " + sum++ + ":  " + text + "  [" + roundDuration(sekunden) + "]");
-        list.add("  Klasse:  " + klasse);
+        list.add("DURATION " + sum++ + ":  " + text + "  [" + roundDuration(second) + "]");
+        list.add("  Klasse:  " + className);
         if (pingText != null && !pingText.isEmpty()) {
             pingText.stream().forEach(s -> list.add(s));
         }
@@ -191,7 +191,7 @@ public class Duration {
         PStringUtils.appendString(list, "|  ", "-");
         PLog.durationLog(list);
 
-        stopZeitStatic = now;
+        stopTimeStatic = now;
     }
 
     private static String roundDuration(long s) {

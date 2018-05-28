@@ -59,10 +59,10 @@ public class FileUtils {
         return count;
     }
 
-    public static String addsPfad(String pfad1, String pfad2) {
-        final String ret = concatPaths(pfad1, pfad2);
+    public static String addsPath(String path1, String path2) {
+        final String ret = concatPaths(path1, path2);
         if (ret.isEmpty()) {
-            PLog.errorLog(283946015, pfad1 + " - " + pfad2);
+            PLog.errorLog(283946015, path1 + " - " + path2);
         }
         return ret;
     }
@@ -112,25 +112,25 @@ public class FileUtils {
         return true;
     }
 
-    public static String concatPaths(String pfad1, String pfad2) {
+    public static String concatPaths(String path1, String path2) {
         String ret;
 
-        if (pfad1 == null || pfad2 == null) {
+        if (path1 == null || path2 == null) {
             return "";
         }
-        if (pfad1.isEmpty() || pfad2.isEmpty()) {
-            return pfad1 + pfad2;
+        if (path1.isEmpty() || path2.isEmpty()) {
+            return path1 + path2;
         }
 
-        if (pfad1.endsWith(File.separator)) {
-            ret = pfad1.substring(0, pfad1.length() - 1);
+        if (path1.endsWith(File.separator)) {
+            ret = path1.substring(0, path1.length() - 1);
         } else {
-            ret = pfad1;
+            ret = path1;
         }
-        if (pfad2.charAt(0) == File.separatorChar) {
-            ret += pfad2;
+        if (path2.charAt(0) == File.separatorChar) {
+            ret += path2;
         } else {
-            ret += File.separator + pfad2;
+            ret += File.separator + path2;
         }
         return ret;
     }
@@ -164,18 +164,18 @@ public class FileUtils {
         return name;
     }
 
-    public static boolean istUrl(String dateiUrl) {
+    public static boolean istUrl(String fileUrl) {
         // return dateiUrl.startsWith("http") ? true : false || dateiUrl.startsWith("www") ? true :
         // false;
-        return dateiUrl.startsWith("http") || dateiUrl.startsWith("www");
+        return fileUrl.startsWith("http") || fileUrl.startsWith("www");
     }
 
-    public static String getDateiName(String pfad) {
+    public static String getFileName(String path) {
         // Dateinamen einer URL extrahieren
         String ret = "";
-        if (pfad != null) {
-            if (!pfad.isEmpty()) {
-                ret = pfad.substring(pfad.lastIndexOf('/') + 1);
+        if (path != null) {
+            if (!path.isEmpty()) {
+                ret = path.substring(path.lastIndexOf('/') + 1);
             }
         }
         if (ret.contains("?")) {
@@ -185,14 +185,14 @@ public class FileUtils {
             ret = ret.substring(0, ret.indexOf('&'));
         }
         if (ret.isEmpty()) {
-            PLog.errorLog(395019631, pfad);
+            PLog.errorLog(395019631, path);
         }
         return ret;
     }
 
-    public static String getHash(String pfad) {
+    public static String getHash(String path) {
         // Hash eines Dateinamens zB. 1433245578
-        int h = pfad.hashCode(); // kann auch negativ sein
+        int h = path.hashCode(); // kann auch negativ sein
         h = Math.abs(h);
         String hh = h + "";
         while (hh.length() < 10) {
@@ -201,50 +201,50 @@ public class FileUtils {
         return hh;
     }
 
-    public static String getFileNameWithoutSuffix(String pfad) {
+    public static String getFileNameWithoutSuffix(String path) {
         // Suffix einer URL extrahieren
         // "http://ios-ondemand.swr.de/i/swr-fernsehen/bw-extra/20130202/601676.,m,s,l,.mp4.csmil/index_2_av.m3u8?e=b471643725c47acd"
         // FILENAME.SUFF
         String ret = "";
-        if (pfad != null) {
-            if (!pfad.isEmpty() && pfad.contains(".")) {
-                ret = pfad.substring(0, pfad.lastIndexOf('.'));
+        if (path != null) {
+            if (!path.isEmpty() && path.contains(".")) {
+                ret = path.substring(0, path.lastIndexOf('.'));
             }
         }
         if (ret.isEmpty()) {
-            ret = pfad;
-            PLog.errorLog(945123647, pfad);
+            ret = path;
+            PLog.errorLog(945123647, path);
         }
         return ret;
     }
 
-    public static String getFileNameSuffix(String pfad) {
+    public static String getFileNameSuffix(String path) {
         // Suffix einer Pfad/Dateinamen extrahieren
         // FILENAME.SUFF
         String ret = "";
-        if (pfad != null) {
-            if (!pfad.isEmpty() && pfad.contains(".")) {
-                ret = pfad.substring(pfad.lastIndexOf('.') + 1);
+        if (path != null) {
+            if (!path.isEmpty() && path.contains(".")) {
+                ret = path.substring(path.lastIndexOf('.') + 1);
             }
         }
         if (ret.isEmpty()) {
-            ret = pfad;
-            PLog.errorLog(802103647, pfad);
+            ret = path;
+            PLog.errorLog(802103647, path);
         }
         return ret;
     }
 
-    public static String getPath(String pfad) {
+    public static String getPath(String path) {
         // Pfad aus Pfad/File extrahieren
         String ret = "";
-        if (pfad != null) {
-            if (!pfad.isEmpty() && pfad.contains(File.separator)) {
-                ret = pfad.substring(0, pfad.lastIndexOf(File.separator));
+        if (path != null) {
+            if (!path.isEmpty() && path.contains(File.separator)) {
+                ret = path.substring(0, path.lastIndexOf(File.separator));
             }
         }
         if (ret.isEmpty()) {
-            ret = pfad;
-            PLog.errorLog(945120365, pfad);
+            ret = path;
+            PLog.errorLog(945120365, path);
         }
         return ret;
     }

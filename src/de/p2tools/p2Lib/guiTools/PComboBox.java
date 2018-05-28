@@ -156,9 +156,9 @@ public class PComboBox extends ComboBox<String> {
     private ContextMenu getMenu() {
         final ContextMenu contextMenu = new ContextMenu();
 
-        MenuItem delEntys = new MenuItem("Einträge löschen");
-        delEntys.setOnAction(a -> delList());
-        contextMenu.getItems().addAll(delEntys);
+        MenuItem delEntrys = new MenuItem("Einträge löschen");
+        delEntrys.setOnAction(a -> delList());
+        contextMenu.getItems().addAll(delEntrys);
         return contextMenu;
     }
 }

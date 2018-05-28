@@ -56,13 +56,13 @@ class SaveConfigFile implements AutoCloseable {
 
     synchronized void write() {
         PLog.sysLog("ProgData Schreiben nach: " + xmlFilePath.toString());
-        xmlDatenSchreiben();
+        xmlDataWrite();
     }
 
 
-    private void xmlDatenSchreiben() {
+    private void xmlDataWrite() {
         try {
-            xmlSchreibenStart();
+            xmlWriteStart();
 
             for (PData pData : this.pData) {
 
@@ -79,13 +79,13 @@ class SaveConfigFile implements AutoCloseable {
             }
 
             writer.writeCharacters("\n\n");
-            xmlSchreibenEnde();
+            xmlWriteEnd();
         } catch (final Exception ex) {
             PLog.errorLog(656328109, ex);
         }
     }
 
-    private void xmlSchreibenStart() throws IOException, XMLStreamException {
+    private void xmlWriteStart() throws IOException, XMLStreamException {
         PLog.sysLog("Start Schreiben nach: " + xmlFilePath.toAbsolutePath());
         os = Files.newOutputStream(xmlFilePath);
         out = new OutputStreamWriter(os, StandardCharsets.UTF_8);
@@ -98,7 +98,7 @@ class SaveConfigFile implements AutoCloseable {
         writer.writeCharacters("\n");
     }
 
-    private void xmlSchreibenEnde() throws XMLStreamException {
+    private void xmlWriteEnd() throws XMLStreamException {
         writer.writeEndElement();
         writer.writeEndDocument();
         writer.flush();

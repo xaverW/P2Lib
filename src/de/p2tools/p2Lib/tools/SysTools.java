@@ -50,6 +50,6 @@ public class SysTools {
      * @return Standardpfad zu den Downloads.
      */
     public static String getStandardDownloadPath() {
-        return FileUtils.addsPfad(FileUtils.getHomePath(), "Downloads");
+        return FileUtils.addsPath(FileUtils.getHomePath(), "Downloads");
     }
 }

@@ -48,12 +48,12 @@ public class LinuxJavaFx {
      * Setup the X11 window manager WM_CLASS hint. Enables e.g. GNOME to determine application name
      * and to enable app specific functionality.
      */
-    public static void setupX11WindowManagerClassName(String progname) {
+    public static void setupX11WindowManagerClassName(String progName) {
         try {
             final Toolkit xToolkit = Toolkit.getDefaultToolkit();
             final java.lang.reflect.Field awtAppClassNameField = xToolkit.getClass().getDeclaredField(X11_AWT_APP_CLASS_NAME);
             awtAppClassNameField.setAccessible(true);
-            awtAppClassNameField.set(xToolkit, progname);
+            awtAppClassNameField.set(xToolkit, progName);
         } catch (final Exception ignored) {
             System.err.println("Couldn't set awtAppClassName");
         }

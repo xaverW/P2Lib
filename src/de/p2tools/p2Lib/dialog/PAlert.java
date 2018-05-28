@@ -16,6 +16,7 @@
 
 package de.p2tools.p2Lib.dialog;
 
+import de.p2tools.p2Lib.PConst;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import javafx.scene.text.TextFlow;
@@ -29,6 +30,7 @@ public class PAlert {
 
     public static boolean showAlert(String title, String header, String content) {
         final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initOwner(PConst.primaryStage);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
@@ -44,6 +46,7 @@ public class PAlert {
 
     public static BUTTON showAlert_yes_no(String title, String header, String content) {
         final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initOwner(PConst.primaryStage);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
@@ -75,6 +78,7 @@ public class PAlert {
 
     public static BUTTON showAlert_yes_no_cancel(String title, String header, String content, boolean noBtn) {
         final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initOwner(PConst.primaryStage);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
@@ -109,6 +113,7 @@ public class PAlert {
 
     public static BUTTON showAlert_yes_no_cancel(String title, String header, TextFlow content, boolean noBtn) {
         final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initOwner(PConst.primaryStage);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.getDialogPane().setContent(content);
@@ -144,6 +149,7 @@ public class PAlert {
 
     public static boolean showHelpAlert(String header, TextFlow content) {
         final Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(PConst.primaryStage);
         alert.setTitle("Hilfe");
         alert.setHeaderText(header);
 
@@ -158,6 +164,7 @@ public class PAlert {
 
     public static boolean showHelpAlert(String header, String content) {
         final Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(PConst.primaryStage);
         alert.setTitle("Hilfe");
         alert.setHeaderText(header);
 
@@ -182,6 +189,7 @@ public class PAlert {
 
     public static boolean showInfoAlert(String title, String header, String content) {
         final Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(PConst.primaryStage);
         alert.setTitle(title);
         alert.setHeaderText(header);
 
@@ -205,6 +213,7 @@ public class PAlert {
 
     public static boolean showInfoAlert(String title, String header, String content, boolean txtArea) {
         final Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(PConst.primaryStage);
         alert.setTitle(title);
         alert.setHeaderText(header);
 
@@ -233,6 +242,7 @@ public class PAlert {
 
     public static boolean showErrorAlert(String title, String header, String content) {
         final Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.initOwner(PConst.primaryStage);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
@@ -248,6 +258,7 @@ public class PAlert {
 
     public static boolean showInfoNoSelection() {
         final Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(PConst.primaryStage);
         alert.setTitle("keine Auswahl");
         alert.setHeaderText("Es wurden nichts markiert.");
         alert.setContentText("Zeile auswählen!");

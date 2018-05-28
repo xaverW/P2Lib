@@ -30,24 +30,24 @@ public class POpen {
 
     // todo erweitern mit eigener Auswahl der Programme
 
-    public static void openDestDir(String ordner, StringProperty prog) {
-        openDestDir(ordner);
+    public static void openDestDir(String path, StringProperty prog) {
+        openDestDir(path);
     }
 
-    public static void openDestDir(String ordner) {
+    public static void openDestDir(String path) {
         File directory;
 
-        if (ordner.isEmpty()) {
+        if (path.isEmpty()) {
             return;
         }
-        if (!ordner.endsWith(File.separator)) {
-            ordner += File.separator;
+        if (!path.endsWith(File.separator)) {
+            path += File.separator;
         }
 
-        if (new File(ordner).exists()) {
-            directory = new File(ordner);
+        if (new File(path).exists()) {
+            directory = new File(path);
         } else {
-            directory = new File(ordner).getParentFile();
+            directory = new File(path).getParentFile();
         }
 
         Thread th = new Thread(() -> {
@@ -67,17 +67,17 @@ public class POpen {
 
     }
 
-    public static void playStoredFilm(String datei, StringProperty prog) {
-        playStoredFilm(datei);
+    public static void playStoredFilm(String file, StringProperty prog) {
+        playStoredFilm(file);
     }
 
-    public static void playStoredFilm(String datei) {
+    public static void playStoredFilm(String file) {
 
         File filmFile;
-        if (datei.isEmpty()) {
+        if (file.isEmpty()) {
             return;
         }
-        filmFile = new File(datei);
+        filmFile = new File(file);
 
         if (!filmFile.exists()) {
             new PAlertFileChosser().showErrorAlert("Fehler", "Kein Film", "Film existiert noch nicht!");

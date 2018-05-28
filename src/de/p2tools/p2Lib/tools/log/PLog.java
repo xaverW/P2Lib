@@ -29,13 +29,13 @@ public class PLog {
     public static final String LILNE1 = "################################################################################";
     public static final String LILNE2 = "================================================================================";
     public static final String LILNE3 = "--------------------------------------------------------------------------------";
-    static String FEHLER = "Fehler(" + PConst.progName + "): ";
+    static String ERROR = "Fehler(" + PConst.progName + "): ";
 
     static final long TO_MEGABYTE = 1000L * 1000L;
-    public static final Date startZeit = new Date(System.currentTimeMillis());
+    public static final Date startTime = new Date(System.currentTimeMillis());
     static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
-    static final LinkedList<Error> fehlerListe = new LinkedList<>();
+    static final LinkedList<Error> errorList = new LinkedList<>();
     static final ArrayList<String> logList = new ArrayList<>();
     static boolean progress = false;
 
@@ -57,39 +57,39 @@ public class PLog {
     Fehlermeldungen
      */
 
-    public static synchronized void errorLog(int fehlerNummer, Exception ex) {
-        PLogger.LogSevere(addErrNr(fehlerNummer, ""), ex);
-        fehlermeldung_(fehlerNummer, ex, new String[]{});
+    public static synchronized void errorLog(int errorNumber, Exception ex) {
+        PLogger.LogSevere(addErrNr(errorNumber, ""), ex);
+        fehlermeldung_(errorNumber, ex, new String[]{});
     }
 
-    public static synchronized void errorLog(int fehlerNummer, Exception ex, String text) {
-        PLogger.LogSevere(addErrNr(fehlerNummer, text), ex);
-        fehlermeldung_(fehlerNummer, ex, new String[]{text});
+    public static synchronized void errorLog(int errorNumber, Exception ex, String text) {
+        PLogger.LogSevere(addErrNr(errorNumber, text), ex);
+        fehlermeldung_(errorNumber, ex, new String[]{text});
     }
 
-    public static synchronized void errorLog(int fehlerNummer, Exception ex, String text[]) {
+    public static synchronized void errorLog(int errorNumber, Exception ex, String text[]) {
         String log = PStringUtils.appendArray(text, "\n");
         if (log.isEmpty()) {
             return;
         }
-        log = fehlerNummer + "\n" + log;
+        log = errorNumber + "\n" + log;
         PLogger.LogSevere(log, ex);
-        fehlermeldung_(fehlerNummer, ex, text);
+        fehlermeldung_(errorNumber, ex, text);
     }
 
-    public static synchronized void errorLog(int fehlerNummer, String text) {
-        PLogger.LogSevere(addErrNr(fehlerNummer, text));
-        fehlermeldung_(fehlerNummer, null, new String[]{text});
+    public static synchronized void errorLog(int errorNumber, String text) {
+        PLogger.LogSevere(addErrNr(errorNumber, text));
+        fehlermeldung_(errorNumber, null, new String[]{text});
     }
 
-    public static synchronized void errorLog(int fehlerNummer, String[] text) {
+    public static synchronized void errorLog(int errorNumber, String[] text) {
         String log = PStringUtils.appendArray(text, "\n");
         if (log.isEmpty()) {
             return;
         }
-        log = fehlerNummer + "\n" + log;
+        log = errorNumber + "\n" + log;
         PLogger.LogSevere(log);
-        fehlermeldung_(fehlerNummer, null, text);
+        fehlermeldung_(errorNumber, null, text);
     }
 
     /*
@@ -173,17 +173,17 @@ public class PLog {
 
 
     private static void addFehlerNummer(int nr, String classs, boolean exception) {
-        for (Error e : fehlerListe) {
+        for (Error e : errorList) {
             if (e.errorNr == nr) {
                 ++e.count;
                 return;
             }
         }
         // dann gibts die Nummer noch nicht
-        fehlerListe.add(new Error(nr, classs, exception));
+        errorList.add(new Error(nr, classs, exception));
     }
 
-    private static void fehlermeldung_(int fehlerNummer, Exception ex, String[] texte) {
+    private static void fehlermeldung_(int errorNumber, Exception ex, String[] texte) {
         final Throwable t = new Throwable();
         final StackTraceElement methodCaller = t.getStackTrace()[2];
         final String klasse = methodCaller.getClassName() + '.' + methodCaller.getMethodName();
@@ -200,7 +200,7 @@ public class PLog {
         } catch (Exception ignored) {
             kl = klasse;
         }
-        addFehlerNummer(fehlerNummer, kl, ex != null);
+        addFehlerNummer(errorNumber, kl, ex != null);
         resetProgress();
     }
 

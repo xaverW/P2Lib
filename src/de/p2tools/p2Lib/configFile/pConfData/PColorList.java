@@ -73,14 +73,14 @@ public class PColorList {
     }
 
     static ArrayList<Config> getConfigsArr() {
-        final LinkedList<String[]> liste = new LinkedList<>();
+        final LinkedList<String[]> list = new LinkedList<>();
         for (PColorData c : HASHMAP.values()) {
-            liste.add(new String[]{c.getKey(), PColorData.getColorToWeb(c.getColorReset()), c.getColorToWeb()});
+            list.add(new String[]{c.getKey(), PColorData.getColorToWeb(c.getColorReset()), c.getColorToWeb()});
         }
-        listeSort(liste, 0);
+        sortList(list, 0);
 
         ArrayList<Config> arr = new ArrayList<>(HASHMAP.size());
-        for (String[] sArr : liste) {
+        for (String[] sArr : list) {
             arr.add(new ConfigColor(sArr[0], sArr[2]));
         }
 
@@ -127,19 +127,19 @@ public class PColorList {
         return c;
     }
 
-    private static void listeSort(LinkedList<String[]> liste, int stelle) {
+    private static void sortList(LinkedList<String[]> list, int index) {
         // Stringliste alphabetisch sortieren
         final GermanStringSorter sorter = GermanStringSorter.getInstance();
-        if (liste == null) {
+        if (list == null) {
             return;
         }
 
-        for (int i = 1; i < liste.size(); ++i) {
+        for (int i = 1; i < list.size(); ++i) {
             for (int k = i; k > 0; --k) {
-                final String str1 = liste.get(k - 1)[stelle];
-                final String str2 = liste.get(k)[stelle];
+                final String str1 = list.get(k - 1)[index];
+                final String str2 = list.get(k)[index];
                 if (sorter.compare(str1, str2) > 0) {
-                    liste.add(k - 1, liste.remove(k));
+                    list.add(k - 1, list.remove(k));
                 } else {
                     break;
                 }

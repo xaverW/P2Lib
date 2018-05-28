@@ -26,16 +26,16 @@ public class Functions {
 
     private static final String VERSION = "version";
 
-    public static String textLaenge(int max, String text, boolean mitte, boolean addVorne) {
+    public static String textLength(int max, String text, boolean center, boolean addInFront) {
         if (text.length() > max) {
-            if (mitte) {
+            if (center) {
                 text = text.substring(0, 25) + " .... " + text.substring(text.length() - (max - 31));
             } else {
                 text = text.substring(0, max - 1);
             }
         }
         while (text.length() < max) {
-            if (addVorne) {
+            if (addInFront) {
                 text = ' ' + text;
             } else {
                 text = text + ' ';
@@ -44,7 +44,7 @@ public class Functions {
         return text;
     }
 
-    public static String minTextLaenge(int max, String text) {
+    public static String minTextLength(int max, String text) {
         while (text.length() < max) {
             text = text + ' ';
         }
@@ -169,28 +169,28 @@ public class Functions {
         return "0";
     }
 
-    public static String addsPfad(String pfad1, String pfad2) {
+    public static String addsPath(String path1, String path2) {
         String ret = "";
-        if (pfad1 != null && pfad2 != null) {
-            if (pfad1.isEmpty()) {
-                ret = pfad2;
-            } else if (pfad2.isEmpty()) {
-                ret = pfad1;
-            } else if (!pfad1.isEmpty() && !pfad2.isEmpty()) {
-                if (pfad1.endsWith(File.separator)) {
-                    ret = pfad1.substring(0, pfad1.length() - 1);
+        if (path1 != null && path2 != null) {
+            if (path1.isEmpty()) {
+                ret = path2;
+            } else if (path2.isEmpty()) {
+                ret = path1;
+            } else if (!path1.isEmpty() && !path2.isEmpty()) {
+                if (path1.endsWith(File.separator)) {
+                    ret = path1.substring(0, path1.length() - 1);
                 } else {
-                    ret = pfad1;
+                    ret = path1;
                 }
-                if (pfad2.charAt(0) == File.separatorChar) {
-                    ret += pfad2;
+                if (path2.charAt(0) == File.separatorChar) {
+                    ret += path2;
                 } else {
-                    ret += File.separator + pfad2;
+                    ret += File.separator + path2;
                 }
             }
         }
         if (ret.isEmpty()) {
-            PLog.errorLog(283946015, pfad1 + " - " + pfad2);
+            PLog.errorLog(283946015, path1 + " - " + path2);
         }
         return ret;
     }
@@ -203,18 +203,18 @@ public class Functions {
         }
     }
 
-    public static boolean istUrl(String dateiUrl) {
+    public static boolean istUrl(String fileUrl) {
         // return dateiUrl.startsWith("http") ? true : false || dateiUrl.startsWith("www") ? true :
         // false;
-        return dateiUrl.startsWith("http") || dateiUrl.startsWith("www");
+        return fileUrl.startsWith("http") || fileUrl.startsWith("www");
     }
 
-    public static String getDateiName(String pfad) {
+    public static String getFileName(String path) {
         // Dateinamen einer URL extrahieren
         String ret = "";
-        if (pfad != null) {
-            if (!pfad.isEmpty()) {
-                ret = pfad.substring(pfad.lastIndexOf('/') + 1);
+        if (path != null) {
+            if (!path.isEmpty()) {
+                ret = path.substring(path.lastIndexOf('/') + 1);
             }
         }
         if (ret.contains("?")) {
@@ -224,7 +224,7 @@ public class Functions {
             ret = ret.substring(0, ret.indexOf('&'));
         }
         if (ret.isEmpty()) {
-            PLog.errorLog(395019631, pfad);
+            PLog.errorLog(395019631, path);
         }
         return ret;
     }

@@ -59,7 +59,7 @@ public class ConfigFile {
 
     public boolean writeConfigFile() {
         boolean ret = false;
-        new BackupConfigFile(maxCopyBackupfile, configFile).konfigCopy();
+        new BackupConfigFile(maxCopyBackupfile, configFile).configCopy();
 
         SaveConfigFile saveConfigFile = new SaveConfigFile(xmlStart, configFile, pDataList, pData);
         saveConfigFile.write();

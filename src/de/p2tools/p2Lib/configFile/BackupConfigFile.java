@@ -49,7 +49,7 @@ class BackupConfigFile {
     /**
      * Create backup copies of settings file.
      */
-    void konfigCopy() {
+    void configCopy() {
         if (alreadyMadeBackup) {
             return;
         }
@@ -60,16 +60,16 @@ class BackupConfigFile {
         list.add("Einstellungen sichern");
 
         try {
-            long creatTime = -1;
+            long createTime = -1;
 
             Path confFileCopy = filePath.getParent().resolve(backupFileName + 1);
             if (Files.exists(confFileCopy)) {
                 final BasicFileAttributes attrs = Files.readAttributes(confFileCopy, BasicFileAttributes.class);
                 final FileTime d = attrs.lastModifiedTime();
-                creatTime = d.toMillis();
+                createTime = d.toMillis();
             }
 
-            if (creatTime == -1 || creatTime < getHeute_0Uhr()) {
+            if (createTime == -1 || createTime < getToday_00_00()) {
                 // nur dann ist die letzte Kopie älter als einen Tag
                 for (int i = maxCopyBackup; i > 1; --i) {
                     confFileCopy = filePath.getParent().resolve(backupFileName + (i - 1));
@@ -156,7 +156,7 @@ class BackupConfigFile {
      *
      * @return Number of milliseconds from today´s midnight.
      */
-    private long getHeute_0Uhr() {
+    private long getToday_00_00() {
         final Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
