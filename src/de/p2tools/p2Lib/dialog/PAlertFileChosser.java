@@ -30,13 +30,13 @@ import java.util.Optional;
 
 public class PAlertFileChosser extends PAlert {
 
-    public static String showAlertFileCooser(String title, String header, String content, boolean dir, Stage primaryStage, ImageView imageView) {
-        return showAlertFileCooser(title, header, content, dir, true, "", primaryStage, imageView);
+    public static String showAlertFileChooser(String title, String header, String content, boolean dir, Stage primaryStage, ImageView imageView) {
+        return showAlertFileChooser(title, header, content, dir, true, "", primaryStage, imageView);
     }
 
-    public static String showAlertFileCooser(String title, String header, String content,
-                                             boolean dir, boolean txtArea, String startFile,
-                                             Stage primaryStage, ImageView imageView) {
+    public static String showAlertFileChooser(String title, String header, String content,
+                                              boolean dir, boolean txtArea, String startFile,
+                                              Stage primaryStage, ImageView imageView) {
 
         String ret = "";
 

@@ -16,6 +16,7 @@
 
 package de.p2tools.p2Lib.guiTools;
 
+import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.dialog.PAlert;
 import de.p2tools.p2Lib.dialog.PAlertFileChosser;
 import javafx.application.Platform;
@@ -27,14 +28,7 @@ import java.net.URI;
 
 public class POpen {
 
-
-    // todo erweitern mit eigener Auswahl der Programme
-
-    public static void openDestDir(String path, StringProperty prog) {
-        openDestDir(path);
-    }
-
-    public static void openDestDir(String path) {
+    public static void openDir(String path, StringProperty prog) {
         File directory;
 
         if (path.isEmpty()) {
@@ -50,28 +44,41 @@ public class POpen {
             directory = new File(path).getParentFile();
         }
 
-        Thread th = new Thread(() -> {
+        if (prog != null && !prog.getValueSafe().isEmpty()) {
             try {
-                if (Desktop.isDesktopSupported()) {
-                    final Desktop d = Desktop.getDesktop();
-                    if (d.isSupported(Desktop.Action.OPEN)) {
-                        d.open(directory);
-                    }
-                }
-            } catch (Exception ex) {
-                Platform.runLater(() -> afterPlay(TEXT.DIR));
+                final String program = prog.getValueSafe();
+                final String[] arrProgCallArray = {program, directory.getAbsolutePath()};
+                Runtime.getRuntime().exec(arrProgCallArray);
+            } catch (final Exception ex) {
+                Platform.runLater(() -> afterPlay(TEXT.DIR, prog));
             }
-        });
-        th.setName("openDestDir");
-        th.start();
 
+
+        } else {
+            Thread th = new Thread(() -> {
+                try {
+                    if (Desktop.isDesktopSupported()) {
+                        final Desktop d = Desktop.getDesktop();
+                        if (d.isSupported(Desktop.Action.OPEN)) {
+                            d.open(directory);
+                        }
+                    }
+                } catch (Exception ex) {
+                    Platform.runLater(() -> afterPlay(TEXT.DIR, prog));
+                }
+            });
+            th.setName("openDir");
+            th.start();
+
+        }
+
+    }
+
+    public static void openDir(String path) {
+        openDir(path, null);
     }
 
     public static void playStoredFilm(String file, StringProperty prog) {
-        playStoredFilm(file);
-    }
-
-    public static void playStoredFilm(String file) {
 
         File filmFile;
         if (file.isEmpty()) {
@@ -84,60 +91,125 @@ public class POpen {
             return;
         }
 
-        // den Systemeigenen Player starten
-        Thread th = new Thread(() -> {
+        if (prog != null && !prog.getValueSafe().isEmpty()) {
+            // dann mit dem vorgegebenen Player starten
             try {
-                if (Desktop.isDesktopSupported()) {
-                    final Desktop d = Desktop.getDesktop();
-                    if (d.isSupported(Desktop.Action.OPEN)) {
-                        d.open(filmFile);
-                    }
-                }
-            } catch (Exception ex) {
-                Platform.runLater(() -> afterPlay(TEXT.FILE));
+                final String program = prog.getValueSafe();
+                final String[] cmd = {program, filmFile.getAbsolutePath()};
+                Runtime.getRuntime().exec(cmd);
+            } catch (final Exception ex) {
+                Platform.runLater(() -> afterPlay(TEXT.FILM, prog));
             }
-        });
-        th.setName("playStoredFilm");
-        th.start();
+
+
+        } else {
+            // den Systemeigenen Player starten
+            Thread th = new Thread(() -> {
+                try {
+                    if (Desktop.isDesktopSupported()) {
+                        final Desktop d = Desktop.getDesktop();
+                        if (d.isSupported(Desktop.Action.OPEN)) {
+                            d.open(filmFile);
+                        }
+                    }
+                } catch (Exception ex) {
+                    Platform.runLater(() -> afterPlay(TEXT.FILM, prog));
+                }
+            });
+            th.setName("playStoredFilm");
+            th.start();
+
+        }
 
     }
 
-    public static void openURL(String url, StringProperty prog) {
-        openURL(url);
+    public static void playStoredFilm(String file) {
+        playStoredFilm(file, null);
     }
 
     public static void openURL(String url) {
+        openURL(url, null);
+    }
 
+    public static void openURL(String url, StringProperty prog) {
         if (url.isEmpty()) {
             return;
         }
 
-        // den Systemeigenen Player starten
-        Thread th = new Thread(() -> {
+        if (prog != null && !prog.getValueSafe().isEmpty()) {
+            // dann mit dem vorgegebenen Player starten
             try {
-                if (Desktop.isDesktopSupported()) {
-                    final Desktop d = Desktop.getDesktop();
-                    if (d.isSupported(Desktop.Action.BROWSE)) {
-                        d.browse(new URI(url));
-                    }
-                }
-            } catch (Exception ex) {
-                Platform.runLater(() -> afterPlay(TEXT.URL));
+                final String program = prog.getValueSafe();
+                final String[] cmd = {program, url};
+                Runtime.getRuntime().exec(cmd);
+            } catch (final Exception ex) {
+                afterPlay(TEXT.URL, prog);
             }
-        });
-        th.setName("openURL");
-        th.start();
+
+        } else {
+            // den Systemeigenen Player starten
+            Thread th = new Thread(() -> {
+                try {
+                    if (Desktop.isDesktopSupported()) {
+                        final Desktop d = Desktop.getDesktop();
+                        if (d.isSupported(Desktop.Action.BROWSE)) {
+                            d.browse(new URI(url));
+                        }
+                    }
+                } catch (Exception ex) {
+                    Platform.runLater(() -> afterPlay(TEXT.URL, prog));
+                }
+            });
+            th.setName("openURL");
+            th.start();
+        }
 
     }
 
-    enum TEXT {FILE, DIR, URL}
+    enum TEXT {FILM, DIR, URL}
+
+    private static void afterPlay(TEXT t, StringProperty stringProperty) {
+        if (stringProperty == null) {
+            afterPlay(t);
+            return;
+        }
+
+        String title, header, cont;
+        String program;
+
+        switch (t) {
+            default:
+            case FILM:
+                title = "Kein Videoplayer";
+                header = "Videoplayer auswählen";
+                cont = "Der Videoplayer \"" + stringProperty.getValueSafe() + "\" zum Abspielen wird nicht gefunden.";
+                break;
+            case DIR:
+                title = "Kein Dateimanager";
+                header = "Dateimanager auswählen";
+                cont = "Der Dateimanager \"" + stringProperty.getValueSafe() + "\" zum Anzeigen des Speicherordners wird nicht gefunden.";
+                break;
+            case URL:
+                title = "Kein Browser";
+                header = "Browser auswählen";
+                cont = "Der Browser \"" + stringProperty.getValueSafe() + "\" zum Anzeigen der URL wird nicht gefunden.";
+                break;
+        }
+
+        program = PAlertFileChosser.showAlertFileChooser(title, header, cont,
+                false, PConst.primaryStage, null);
+
+        if (!program.isEmpty()) {
+            stringProperty.setValue(program);
+        }
+    }
 
     private static void afterPlay(TEXT t) {
         String header, cont;
 
         switch (t) {
             default:
-            case FILE:
+            case FILM:
                 header = "Kein Videoplayer";
                 cont = "Ein Videoplayer zum Abspielen wird nicht gefunden.";
                 break;
@@ -153,5 +225,4 @@ public class POpen {
 
         PAlert.showErrorAlert(header, cont);
     }
-
 }
