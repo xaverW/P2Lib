@@ -19,8 +19,10 @@ package de.p2tools.p2Lib.guiTools;
 import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.dialog.PAlert;
 import de.p2tools.p2Lib.dialog.PAlertFileChosser;
+import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
+import javafx.scene.image.ImageView;
 
 import java.awt.*;
 import java.io.File;
@@ -28,7 +30,7 @@ import java.net.URI;
 
 public class POpen {
 
-    public static void openDir(String path, StringProperty prog) {
+    public static void openDir(String path, StringProperty prog, ImageView getProgIcon) {
         File directory;
 
         if (path.isEmpty()) {
@@ -50,7 +52,7 @@ public class POpen {
                 final String[] arrProgCallArray = {program, directory.getAbsolutePath()};
                 Runtime.getRuntime().exec(arrProgCallArray);
             } catch (final Exception ex) {
-                Platform.runLater(() -> afterPlay(TEXT.DIR, prog));
+                Platform.runLater(() -> afterPlay(TEXT.DIR, prog, directory.getAbsolutePath(), getProgIcon));
             }
 
 
@@ -64,7 +66,7 @@ public class POpen {
                         }
                     }
                 } catch (Exception ex) {
-                    Platform.runLater(() -> afterPlay(TEXT.DIR, prog));
+                    Platform.runLater(() -> afterPlay(TEXT.DIR, prog, directory.getAbsolutePath(), getProgIcon));
                 }
             });
             th.setName("openDir");
@@ -75,10 +77,10 @@ public class POpen {
     }
 
     public static void openDir(String path) {
-        openDir(path, null);
+        openDir(path, null, null);
     }
 
-    public static void playStoredFilm(String file, StringProperty prog) {
+    public static void playStoredFilm(String file, StringProperty prog, ImageView getProgIcon) {
 
         File filmFile;
         if (file.isEmpty()) {
@@ -98,7 +100,7 @@ public class POpen {
                 final String[] cmd = {program, filmFile.getAbsolutePath()};
                 Runtime.getRuntime().exec(cmd);
             } catch (final Exception ex) {
-                Platform.runLater(() -> afterPlay(TEXT.FILM, prog));
+                Platform.runLater(() -> afterPlay(TEXT.FILM, prog, file, getProgIcon));
             }
 
 
@@ -113,7 +115,7 @@ public class POpen {
                         }
                     }
                 } catch (Exception ex) {
-                    Platform.runLater(() -> afterPlay(TEXT.FILM, prog));
+                    Platform.runLater(() -> afterPlay(TEXT.FILM, prog, file, getProgIcon));
                 }
             });
             th.setName("playStoredFilm");
@@ -124,14 +126,14 @@ public class POpen {
     }
 
     public static void playStoredFilm(String file) {
-        playStoredFilm(file, null);
+        playStoredFilm(file, null, null);
     }
 
     public static void openURL(String url) {
-        openURL(url, null);
+        openURL(url, null, null);
     }
 
-    public static void openURL(String url, StringProperty prog) {
+    public static void openURL(String url, StringProperty prog, ImageView getProgIcon) {
         if (url.isEmpty()) {
             return;
         }
@@ -143,7 +145,7 @@ public class POpen {
                 final String[] cmd = {program, url};
                 Runtime.getRuntime().exec(cmd);
             } catch (final Exception ex) {
-                afterPlay(TEXT.URL, prog);
+                afterPlay(TEXT.URL, prog, url, getProgIcon);
             }
 
         } else {
@@ -157,7 +159,7 @@ public class POpen {
                         }
                     }
                 } catch (Exception ex) {
-                    Platform.runLater(() -> afterPlay(TEXT.URL, prog));
+                    Platform.runLater(() -> afterPlay(TEXT.URL, prog, url, getProgIcon));
                 }
             });
             th.setName("openURL");
@@ -168,14 +170,15 @@ public class POpen {
 
     enum TEXT {FILM, DIR, URL}
 
-    private static void afterPlay(TEXT t, StringProperty stringProperty) {
+    private static void afterPlay(TEXT t, StringProperty stringProperty, String fileUrl, ImageView getProgIcon) {
         if (stringProperty == null) {
             afterPlay(t);
             return;
         }
 
         String title, header, cont;
-        String program;
+        String program = "";
+        boolean ok;
 
         switch (t) {
             default:
@@ -196,12 +199,32 @@ public class POpen {
                 break;
         }
 
-        program = PAlertFileChosser.showAlertFileChooser(title, header, cont,
-                false, PConst.primaryStage, null);
 
-        if (!program.isEmpty()) {
-            stringProperty.setValue(program);
+        try {
+            program = PAlertFileChosser.showAlertFileChooser(title, header, cont,
+                    false, PConst.primaryStage, getProgIcon);
+
+            if (!program.isEmpty()) {
+                final String[] cmd = {program, fileUrl};
+                Runtime.getRuntime().exec(cmd);
+                stringProperty.set(program);
+                ok = true;
+            } else {
+                // abgebrochen
+                ok = true;
+            }
+
+        } catch (final Exception eex) {
+            ok = false;
+            PLog.errorLog(912030654, eex, new String[]{"Kann nicht öffnen,", "Programm: " + program,
+                    "File/Url: " + fileUrl});
         }
+
+        if (!ok) {
+            stringProperty.set("");
+            new PAlert().showErrorAlert("Fehler beim öffnen des Programms", "Kann das Programm nicht öffnen!");
+        }
+
     }
 
     private static void afterPlay(TEXT t) {

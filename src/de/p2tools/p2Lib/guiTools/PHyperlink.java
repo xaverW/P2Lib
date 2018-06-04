@@ -22,6 +22,7 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseButton;
@@ -29,11 +30,13 @@ import javafx.scene.input.MouseButton;
 public class PHyperlink extends Hyperlink {
     private final String url;
     private final StringProperty prog;
+    private ImageView imageView = null;
 
-    public PHyperlink(String url, StringProperty prog) {
+    public PHyperlink(String url, StringProperty prog, ImageView imageView) {
         super(url);
         this.url = url;
         this.prog = prog;
+        this.imageView = imageView;
         init();
     }
 
@@ -49,7 +52,7 @@ public class PHyperlink extends Hyperlink {
         setOnAction(a -> {
             try {
                 if (prog != null) {
-                    POpen.openURL(url, prog);
+                    POpen.openURL(url, prog, imageView);
                 } else {
                     POpen.openURL(url);
                 }
