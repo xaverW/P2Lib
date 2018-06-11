@@ -222,7 +222,7 @@ public class MTDialog {
         }
     }
 
-    Stage getStage() {
+    public Stage getStage() {
         return stage;
     }
 

@@ -111,6 +111,43 @@ public class PAlert {
         return ret;
     }
 
+    public static BUTTON showAlert_yes_no_cancel(String title, String header, String content,
+                                                 boolean noBtn,
+                                                 String yesButton, String noButton) {
+        final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initOwner(PConst.primaryStage);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+
+        ButtonType btnYes = new ButtonType(yesButton, ButtonBar.ButtonData.YES);
+        ButtonType btnNo = new ButtonType(noButton, ButtonBar.ButtonData.NO);
+        ButtonType btnCancel = new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        if (noBtn) {
+            alert.getButtonTypes().setAll(btnYes, btnNo, btnCancel);
+        } else {
+            alert.getButtonTypes().setAll(btnYes, btnCancel);
+        }
+
+        ((Button) alert.getDialogPane().lookupButton(btnYes)).setDefaultButton(false);
+        ((Button) alert.getDialogPane().lookupButton(btnCancel)).setDefaultButton(true);
+
+        BUTTON ret = BUTTON.CANCEL;
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == btnYes) {
+            ret = BUTTON.YES;
+        } else if (result.get() == btnNo) {
+            ret = BUTTON.NO;
+        } else if (result.get() == btnCancel) {
+            ret = BUTTON.CANCEL;
+        }
+
+        return ret;
+    }
+
     public static BUTTON showAlert_yes_no_cancel(String title, String header, TextFlow content, boolean noBtn) {
         final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.initOwner(PConst.primaryStage);
