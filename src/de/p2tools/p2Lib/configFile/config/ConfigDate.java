@@ -29,11 +29,16 @@ public class ConfigDate extends Config {
         pDate.setPDate(actValue);
     }
 
+    public ConfigDate(String key, String actValue, boolean intern) {
+        super(key, null, intern);
+        pDate = new PDate();
+        pDate.setPDate(actValue);
+    }
+
     public ConfigDate(String key, PDate actPDate) {
         super(key);
         this.pDate = actPDate;
     }
-
 
     @Override
     public String getActValue() {
@@ -49,4 +54,5 @@ public class ConfigDate extends Config {
     public void setActValue(String act) {
         pDate.setPDate(act);
     }
+
 }

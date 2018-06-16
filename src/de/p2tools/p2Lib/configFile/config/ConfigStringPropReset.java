@@ -19,16 +19,19 @@ package de.p2tools.p2Lib.configFile.config;
 
 import javafx.beans.property.StringProperty;
 
-public class ConfigStringProp extends Config {
+public class ConfigStringPropReset extends Config {
 
     private StringProperty actValue;
+    private String resetValue = "";
 
-    public ConfigStringProp(String key, StringProperty actValue) {
+    public ConfigStringPropReset(String key, String resetValue, StringProperty actValue) {
         super(key);
+        this.resetValue = resetValue;
         this.actValue = actValue;
     }
 
-    public ConfigStringProp(String key, StringProperty actValue, boolean intern) {
+
+    public ConfigStringPropReset(String key, StringProperty actValue, boolean intern) {
         super(key, null, intern);
         this.actValue = actValue;
     }
@@ -51,5 +54,17 @@ public class ConfigStringProp extends Config {
     @Override
     public StringProperty getProperty() {
         return actValue;
+    }
+
+    public String getResetValue() {
+        return resetValue;
+    }
+
+    public void setResetValue(String resetValue) {
+        this.resetValue = resetValue;
+    }
+
+    public void resetValue() {
+        setActValue(resetValue);
     }
 }

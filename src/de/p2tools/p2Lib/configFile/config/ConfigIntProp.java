@@ -29,6 +29,12 @@ public class ConfigIntProp extends Config {
     }
 
 
+    public ConfigIntProp(String key, IntegerProperty actValue, boolean intern) {
+        super(key, null, intern);
+        this.actValue = actValue;
+    }
+
+
     @Override
     public Integer getActValue() {
         return actValue.getValue();
@@ -50,5 +56,10 @@ public class ConfigIntProp extends Config {
         } catch (Exception ex) {
             actValue.setValue(0);
         }
+    }
+
+    @Override
+    public IntegerProperty getProperty() {
+        return actValue;
     }
 }

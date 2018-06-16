@@ -26,6 +26,11 @@ public abstract class ConfigString extends Config {
         this.actValue = actValue;
     }
 
+    public ConfigString(String key, String actValue, boolean intern) {
+        super(key, null, intern);
+        this.actValue = actValue;
+    }
+
     @Override
     public String getActValue() {
         return actValue;

@@ -27,6 +27,12 @@ public abstract class ConfigInt extends Config {
     }
 
 
+    public ConfigInt(String key, int actValue, boolean intern) {
+        super(key, null, intern);
+        this.actValue = actValue;
+    }
+
+
     @Override
     public Integer getActValue() {
         return actValue;

@@ -17,6 +17,8 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
+import javafx.beans.value.ObservableValue;
+
 /**
  * this is the class for one configuration
  * for example: the configsData for a USER(name,age,size)
@@ -28,6 +30,7 @@ public abstract class Config {
 
     final String key;
     Object actValue;
+
 
     public Config() {
         this.key = "";
@@ -44,6 +47,16 @@ public abstract class Config {
         this.actValue = actValue;
     }
 
+    public Config(String key, Object actValue, boolean intern) {
+        if (intern) {
+            this.key = key.intern();
+            this.actValue = actValue;
+        } else {
+            this.key = key;
+            this.actValue = actValue;
+        }
+    }
+
     public String getKey() {
         return key;
     }
@@ -58,6 +71,14 @@ public abstract class Config {
 
     public String getActValueString() {
         return actValue.toString();
+    }
+
+    public ObservableValue getProperty() {
+        return null;
+    }
+
+    public void resetValue() {
+
     }
 
 }

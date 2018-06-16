@@ -28,6 +28,11 @@ public class ConfigBoolProp extends Config {
         this.actValue = actValue;
     }
 
+    public ConfigBoolProp(String key, BooleanProperty actValue, boolean intern) {
+        super(key, null, intern);
+        this.actValue = actValue;
+    }
+
 
     @Override
     public Boolean getActValue() {
@@ -45,5 +50,10 @@ public class ConfigBoolProp extends Config {
             actValue.setValue(Boolean.valueOf(act));
         } catch (Exception ex) {
         }
+    }
+
+    @Override
+    public BooleanProperty getProperty() {
+        return actValue;
     }
 }

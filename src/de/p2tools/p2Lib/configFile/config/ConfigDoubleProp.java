@@ -29,6 +29,12 @@ public class ConfigDoubleProp extends Config {
     }
 
 
+    public ConfigDoubleProp(String key, DoubleProperty actValue, boolean intern) {
+        super(key, null, intern);
+        this.actValue = actValue;
+    }
+
+
     @Override
     public Double getActValue() {
         return actValue.getValue();
@@ -46,5 +52,10 @@ public class ConfigDoubleProp extends Config {
         } catch (Exception ex) {
             actValue.setValue(0.0);
         }
+    }
+
+    @Override
+    public DoubleProperty getProperty() {
+        return actValue;
     }
 }

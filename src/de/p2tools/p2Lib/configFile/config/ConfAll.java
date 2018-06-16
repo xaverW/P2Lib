@@ -30,40 +30,41 @@ import java.util.Locale;
 public class ConfAll extends Config {
 
     private final String key;
-    private final String initValue;
+    private final String init;
     private final StringProperty aktValue;
 
     public ConfAll(String key) {
         this.key = key;
-        initValue = "";
-        aktValue = new SimpleStringProperty(initValue);
+        init = "";
+        aktValue = new SimpleStringProperty(init);
     }
 
     public ConfAll(String key, String init) {
         this.key = key;
-        initValue = init;
-        aktValue = new SimpleStringProperty(initValue);
+        this.init = init;
+        aktValue = new SimpleStringProperty(this.init);
     }
 
     public ConfAll(String key, int init) {
         this.key = key;
-        initValue = String.valueOf(init);
-        aktValue = new SimpleStringProperty(initValue);
+        this.init = String.valueOf(init);
+        aktValue = new SimpleStringProperty(this.init);
     }
 
     public ConfAll(String key, boolean init) {
         this.key = key;
-        initValue = String.valueOf(init);
-        aktValue = new SimpleStringProperty(initValue);
+        this.init = String.valueOf(init);
+        aktValue = new SimpleStringProperty(this.init);
     }
 
+    @Override
     public String getKey() {
         return key;
     }
 
-    public String getInitValue() {
-        return initValue;
-    }
+//    public String getInit() {
+//        return init;
+//    }
 
     public StringProperty getAktValue() {
         return aktValue;
