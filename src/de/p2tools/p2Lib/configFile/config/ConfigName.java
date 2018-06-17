@@ -26,33 +26,39 @@ import javafx.beans.value.ObservableValue;
  * a config can store the info in a STRING or a PROPERTY
  */
 
-public abstract class Config {
+public abstract class ConfigName extends Config {
 
     final String key;
     Object actValue;
+    String name;
 
 
-    public Config() {
+    public ConfigName() {
         this.key = "";
+        this.name = "";
         actValue = null;
     }
 
-    public Config(String key) {
+    public ConfigName(String key, String name) {
         this.key = key;
+        this.name = name;
         actValue = null;
     }
 
-    public Config(String key, Object actValue) {
+    public ConfigName(String key, String name, Object actValue) {
         this.key = key;
+        this.name = name;
         this.actValue = actValue;
     }
 
-    public Config(String key, Object actValue, boolean intern) {
+    public ConfigName(String key, String name, Object actValue, boolean intern) {
         if (intern) {
             this.key = key.intern();
+            this.name = name.intern();
             this.actValue = actValue;
         } else {
             this.key = key;
+            this.name = name;
             this.actValue = actValue;
         }
     }
@@ -81,11 +87,12 @@ public abstract class Config {
     }
 
     public String getName() {
-        return "";
+        return name;
     }
 
-    public void setName(String name) {
 
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

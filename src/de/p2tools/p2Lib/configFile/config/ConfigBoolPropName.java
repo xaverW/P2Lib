@@ -17,54 +17,43 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.BooleanProperty;
 
-public class ConfigStringPropReset extends Config {
+public class ConfigBoolPropName extends ConfigName {
 
-    private StringProperty actValue;
-    private String resetValue = "";
+    private BooleanProperty actValue;
 
-    public ConfigStringPropReset(String key, String resetValue, StringProperty actValue) {
-        super(key);
-        this.resetValue = resetValue;
+    public ConfigBoolPropName(String key, String name, BooleanProperty actValue) {
+        super(key, name);
         this.actValue = actValue;
     }
 
-
-    public ConfigStringPropReset(String key, StringProperty actValue, boolean intern) {
-        super(key, null, intern);
+    public ConfigBoolPropName(String key, String name, BooleanProperty actValue, boolean intern) {
+        super(key, name, null, intern);
         this.actValue = actValue;
     }
+
 
     @Override
-    public String getActValue() {
+    public Boolean getActValue() {
         return actValue.getValue();
     }
 
     @Override
     public String getActValueString() {
-        return getActValue();
+        return String.valueOf(getActValue());
     }
 
     @Override
     public void setActValue(String act) {
-        actValue.setValue(act);
+        try {
+            actValue.setValue(Boolean.valueOf(act));
+        } catch (Exception ex) {
+        }
     }
 
     @Override
-    public StringProperty getProperty() {
+    public BooleanProperty getProperty() {
         return actValue;
-    }
-
-    public String getResetValue() {
-        return resetValue;
-    }
-
-    public void setResetValue(String resetValue) {
-        this.resetValue = resetValue;
-    }
-
-    public void resetValue() {
-        setActValue(resetValue);
     }
 }
