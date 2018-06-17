@@ -23,63 +23,68 @@ import java.util.ListIterator;
 public class PStringUtils {
 
     /**
-     * append all String from the list to one String,
+     * append all String from the list to one String
+     * and append "append" between the elements
      *
      * @param list
-     * @param add
+     * @param separator
      * @return
      */
-    public static String appendList(ArrayList<String> list, String add) {
-        if (list == null || list.size() == 0) {
-            return "";
-        }
-
-        StringBuilder log = new StringBuilder(list.get(0));
-        for (int i = 1; i < list.size(); ++i) {
-            log.append("\n");
-            log.append(list.get(i));
-        }
-
-        return log.toString();
+    public static String appendList(ArrayList<String> list, String separator) {
+        return appendArray(list.toArray(new String[]{}), separator);
     }
 
     /**
-     * append all String from the list to one String,
+     * append all String from the list to one String
+     * and append "append" between the elements
      *
      * @param list
-     * @param add
+     * @param separator
      * @return
      */
-    public static String appendArray(String[] list, String add) {
+    public static String appendArray(String[] list, String separator) {
         if (list == null || list.length == 0) {
             return "";
         }
 
-        StringBuilder log = new StringBuilder(list[0]);
+        StringBuilder builder = new StringBuilder(list[0]);
         for (int i = 1; i < list.length; ++i) {
-            log.append("\n");
-            log.append(list[i]);
+            builder.append(separator);
+            builder.append(list[i]);
         }
 
-        return log.toString();
+        return builder.toString();
     }
 
-    public static void appendString(ArrayList<String> list, String ap) {
-        ListIterator<String> iterator = list.listIterator();
-        while (iterator.hasNext()) {
-            String next = iterator.next();
-            iterator.set(ap + next);
-        }
+    /**
+     * prefix the "prefix" to all Strings from the list
+     *
+     * @param list
+     * @param prefix
+     * @return
+     */
+    public static void appendString(ArrayList<String> list, String prefix) {
+        appendString(list, prefix, "");
     }
 
-    public static void appendString(ArrayList<String> list, String ap, String without) {
+    /**
+     * prefix the "prefix" to all Strings from the list
+     * without the strings, starts with "without"
+     *
+     * @param list
+     * @param prefix
+     * @param without
+     * @return
+     */
+    public static void appendString(ArrayList<String> list, String prefix, String without) {
         ListIterator<String> iterator = list.listIterator();
+
         while (iterator.hasNext()) {
             String next = iterator.next();
-            if (next.startsWith(without)) {
+            if (!without.isEmpty() && next.startsWith(without)) {
                 continue;
             }
-            iterator.set(ap + next);
+            iterator.set(prefix + next);
         }
     }
 
