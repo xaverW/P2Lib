@@ -18,7 +18,7 @@
 package de.p2tools.p2Lib.guiTools;
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.scene.control.TextField;
 import javafx.util.converter.NumberStringConverter;
 
@@ -27,45 +27,45 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
-public class PTextFieldDouble extends TextField {
-    DoubleProperty doubleProperty = null;
+public class PTextFieldInteger extends TextField {
+    IntegerProperty integerProperty = null;
 
     final Locale locale = Locale.GERMAN;
     final NumberFormat nf = NumberFormat.getNumberInstance(locale);
 
-    public PTextFieldDouble() {
+    public PTextFieldInteger() {
     }
 
-    public PTextFieldDouble(DoubleProperty doubleProperty) {
-        this.doubleProperty = doubleProperty;
+    public PTextFieldInteger(IntegerProperty integerProperty) {
+        this.integerProperty = integerProperty;
         bind();
     }
 
-    public DoubleProperty getDoubleProperty() {
-        return doubleProperty;
+    public IntegerProperty getIntegerProperty() {
+        return integerProperty;
     }
 
-    public void setDoubleProperty(DoubleProperty doubleProperty) {
+    public void setIntegerProperty(IntegerProperty integerProperty) {
         unBind();
-        this.doubleProperty = doubleProperty;
+        this.integerProperty = integerProperty;
         bind();
     }
 
-    public double getDouble() {
-        return doubleProperty.get();
+    public int getInt() {
+        return integerProperty.get();
     }
 
-    public void bind(DoubleProperty doubleProperty) {
-        this.doubleProperty = doubleProperty;
+    public void bind(IntegerProperty integerProperty) {
+        this.integerProperty = integerProperty;
         bind();
     }
 
     public void bind() {
-        if (doubleProperty == null) {
+        if (integerProperty == null) {
             return;
         }
 
-        Bindings.bindBidirectional(textProperty(), doubleProperty, new NumberStringConverter(new DecimalFormat("###,##0.00")) {
+        Bindings.bindBidirectional(textProperty(), integerProperty, new NumberStringConverter(new DecimalFormat("###,###")) {
             @Override
             public Number fromString(String value) {
                 Number ret = 0;
@@ -95,10 +95,10 @@ public class PTextFieldDouble extends TextField {
     }
 
     public void unBind() {
-        if (doubleProperty == null) {
+        if (integerProperty == null) {
             return;
         }
 
-        textProperty().unbindBidirectional(doubleProperty);
+        textProperty().unbindBidirectional(integerProperty);
     }
 }
