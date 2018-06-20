@@ -36,34 +36,39 @@ public class PComboBox extends ComboBox<String> {
 
     private int maxElements = MAX_ELEMENTS;
     private StringProperty stringProperty = null;
-    private ObservableList<String> data = null;
+    private ObservableList<String> dataList = null;
 
     public PComboBox() {
         this.setEditable(true);
     }
 
-    public void init(ObservableList<String> data, StringProperty stringProperty) {
+    public void init(ObservableList<String> dataList, StringProperty stringProperty) {
         this.stringProperty = stringProperty;
-        this.data = data;
+        this.dataList = dataList;
 
-        if (!getItems().contains(stringProperty.getValueSafe())) {
-            getItems().add(stringProperty.getValueSafe());
-        }
-        getSelectionModel().select(stringProperty.getValueSafe());
-
+        selectElement(stringProperty.getValueSafe());
         setCombo();
     }
 
-    public void init(ObservableList<String> data, String init, StringProperty stringProperty) {
+    public void init(ObservableList<String> dataList, String init, StringProperty stringProperty) {
         this.stringProperty = stringProperty;
-        this.data = data;
+        this.dataList = dataList;
 
-        if (!getItems().contains(init)) {
-            getItems().add(init);
-        }
-        getSelectionModel().select(init);
-
+        selectElement(init);
         setCombo();
+    }
+
+    public void bindProperty(StringProperty stringProperty) {
+        unbind();
+        this.stringProperty = stringProperty;
+        selectElement(stringProperty.getValueSafe());
+        bind();
+    }
+
+    public void unbindProperty() {
+        unbind();
+        this.stringProperty = null;
+        this.selectElement("");
     }
 
     public String getSel() {
@@ -99,16 +104,16 @@ public class PComboBox extends ComboBox<String> {
     }
 
     private void setCombo() {
-        if (data == null || stringProperty == null) {
+        if (dataList == null) {
             return;
         }
 
-        Collections.sort(data);
-        setItems(data);
+        Collections.sort(dataList);
+        this.setItems(dataList);
 
         getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null && !data.contains(newValue)) {
-                data.add(newValue);
+            if (newValue != null && !dataList.contains(newValue)) {
+                dataList.add(newValue);
             }
         });
 
@@ -118,26 +123,42 @@ public class PComboBox extends ComboBox<String> {
             }
         });
 
-        data.addListener((ListChangeListener<String>) c -> {
-                    if (data.size() == 1) {
+        dataList.addListener((ListChangeListener<String>) c -> {
+                    if (dataList.size() == 1) {
                         getSelectionModel().selectFirst();
                     }
                 }
         );
 
+        bind();
+        reduceList();
+    }
+
+    private void bind() {
+        if (stringProperty == null) {
+            return;
+        }
+
+//        valueProperty().bindBidirectional(stringProperty);
         stringProperty.bind(Bindings.createStringBinding(() ->
                         getSelectionModel().selectedItemProperty().isNull().get() ?
                                 "" : getSelectionModel().selectedItemProperty().get(),
                 getSelectionModel().selectedItemProperty()));
+    }
 
+    private void unbind() {
+        if (stringProperty == null) {
+            return;
+        }
 
-        reduceList();
+//        valueProperty().unbindBidirectional(stringProperty);
+        stringProperty.unbind();
     }
 
     private void delList() {
         ArrayList<String> list = new ArrayList<>();
         list.add("");
-        data.setAll(list);
+        dataList.setAll(list);
         getSelectionModel().selectFirst();
     }
 
@@ -145,12 +166,12 @@ public class PComboBox extends ComboBox<String> {
         ArrayList<String> list = new ArrayList<>();
         list.add("");
 
-        data.stream().forEach(d -> {
+        dataList.stream().forEach(d -> {
             if (!list.contains(d) && list.size() < maxElements) {
                 list.add(d);
             }
         });
-        data.setAll(list);
+        dataList.setAll(list);
     }
 
     private ContextMenu getMenu() {
