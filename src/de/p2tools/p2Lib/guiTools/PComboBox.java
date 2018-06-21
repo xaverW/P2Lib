@@ -17,7 +17,6 @@
 
 package de.p2tools.p2Lib.guiTools;
 
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ListChangeListener;
@@ -35,43 +34,48 @@ public class PComboBox extends ComboBox<String> {
     public final int MAX_ELEMENTS = 15;
 
     private int maxElements = MAX_ELEMENTS;
-    private StringProperty stringProperty = null;
-    private ObservableList<String> dataList = null;
+    private StringProperty selValueStringProperty = null;
+    private ObservableList<String> itemsList = null;
 
     public PComboBox() {
         this.setEditable(true);
     }
 
-    public void init(ObservableList<String> dataList, StringProperty stringProperty) {
-        this.stringProperty = stringProperty;
-        this.dataList = dataList;
+    public void init(ObservableList<String> dataList) {
+        this.itemsList = dataList;
 
-        selectElement(stringProperty.getValueSafe());
         setCombo();
     }
 
-    public void init(ObservableList<String> dataList, String init, StringProperty stringProperty) {
-        this.stringProperty = stringProperty;
-        this.dataList = dataList;
+    public void init(ObservableList<String> dataList, StringProperty selValueStringProperty) {
+        this.selValueStringProperty = selValueStringProperty;
+        this.itemsList = dataList;
+
+        selectElement(selValueStringProperty.getValueSafe());
+        setCombo();
+    }
+
+    public void init(ObservableList<String> dataList, String init, StringProperty selValueStringProperty) {
+        this.selValueStringProperty = selValueStringProperty;
+        this.itemsList = dataList;
 
         selectElement(init);
         setCombo();
     }
 
-    public void bindProperty(StringProperty stringProperty) {
+    public void bindSelValueProperty(StringProperty stringProperty) {
         unbind();
-        this.stringProperty = stringProperty;
-        selectElement(stringProperty.getValueSafe());
+        selValueStringProperty = stringProperty;
         bind();
     }
 
-    public void unbindProperty() {
+    public void unbindSelValueProperty() {
         unbind();
-        this.stringProperty = null;
+        this.selValueStringProperty = null;
         this.selectElement("");
     }
 
-    public String getSel() {
+    public String getSelValue() {
         String s = this.getSelectionModel().getSelectedItem();
         if (s == null) {
             s = "";
@@ -79,20 +83,13 @@ public class PComboBox extends ComboBox<String> {
         return s;
     }
 
-    public ReadOnlyObjectProperty<String> getSelProperty() {
+    public ReadOnlyObjectProperty<String> getSelValueProperty() {
         ReadOnlyObjectProperty<String> s = this.getSelectionModel().selectedItemProperty();
         return s;
     }
 
     public void selectElement(String element) {
-        if (!getItems().contains(element)) {
-            getItems().add(element);
-        }
-        getSelectionModel().select(element);
-    }
-
-    public void setEditAble(boolean editAble) {
-        super.setEditable(editAble);
+        setValue(element);
     }
 
     public int getMaxElements() {
@@ -104,16 +101,20 @@ public class PComboBox extends ComboBox<String> {
     }
 
     private void setCombo() {
-        if (dataList == null) {
+        if (itemsList == null) {
             return;
         }
 
-        Collections.sort(dataList);
-        this.setItems(dataList);
+        reduceList();
+        Collections.sort(itemsList); // todo?? immer das zueltzt verwendete vorne???
+        this.setItems(itemsList);
 
         getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null && !dataList.contains(newValue)) {
-                dataList.add(newValue);
+            if (newValue != null && !itemsList.contains(newValue)) {
+                // itemsList.add(newValue);
+                // oder
+                itemsList.add(0, newValue);
+                setValue(newValue);
             }
         });
 
@@ -123,42 +124,37 @@ public class PComboBox extends ComboBox<String> {
             }
         });
 
-        dataList.addListener((ListChangeListener<String>) c -> {
-                    if (dataList.size() == 1) {
-                        getSelectionModel().selectFirst();
+        itemsList.addListener((ListChangeListener<String>) c -> {
+                    if (itemsList.size() == 1) {
+                        getSelectionModel().selectFirst(); // ist: ""
                     }
                 }
         );
 
         bind();
-        reduceList();
     }
 
     private void bind() {
-        if (stringProperty == null) {
+        if (selValueStringProperty == null) {
             return;
         }
 
-//        valueProperty().bindBidirectional(stringProperty);
-        stringProperty.bind(Bindings.createStringBinding(() ->
-                        getSelectionModel().selectedItemProperty().isNull().get() ?
-                                "" : getSelectionModel().selectedItemProperty().get(),
-                getSelectionModel().selectedItemProperty()));
+        valueProperty().bindBidirectional(selValueStringProperty);
     }
 
     private void unbind() {
-        if (stringProperty == null) {
+        if (selValueStringProperty == null) {
+            setValue("");
             return;
         }
 
-//        valueProperty().unbindBidirectional(stringProperty);
-        stringProperty.unbind();
+        valueProperty().unbindBidirectional(selValueStringProperty);
     }
 
     private void delList() {
         ArrayList<String> list = new ArrayList<>();
         list.add("");
-        dataList.setAll(list);
+        itemsList.setAll(list);
         getSelectionModel().selectFirst();
     }
 
@@ -166,20 +162,20 @@ public class PComboBox extends ComboBox<String> {
         ArrayList<String> list = new ArrayList<>();
         list.add("");
 
-        dataList.stream().forEach(d -> {
+        itemsList.stream().forEach(d -> {
             if (!list.contains(d) && list.size() < maxElements) {
                 list.add(d);
             }
         });
-        dataList.setAll(list);
+        itemsList.setAll(list);
     }
 
     private ContextMenu getMenu() {
         final ContextMenu contextMenu = new ContextMenu();
 
-        MenuItem delEntrys = new MenuItem("Einträge löschen");
-        delEntrys.setOnAction(a -> delList());
-        contextMenu.getItems().addAll(delEntrys);
+        MenuItem delEntries = new MenuItem("Einträge löschen");
+        delEntries.setOnAction(a -> delList());
+        contextMenu.getItems().addAll(delEntries);
         return contextMenu;
     }
 }
