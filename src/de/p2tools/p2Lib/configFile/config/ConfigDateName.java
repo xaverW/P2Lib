@@ -21,7 +21,7 @@ import de.p2tools.p2Lib.tools.PDate;
 
 public class ConfigDateName extends ConfigName {
 
-    private PDate pDate;
+    private PDate pDate = null;
 
     public ConfigDateName(String key, String name, String actValue) {
         super(key, name);
@@ -43,6 +43,10 @@ public class ConfigDateName extends ConfigName {
     @Override
     public String getActValue() {
         return pDate.toString();
+    }
+
+    public PDate getpDate() {
+        return pDate;
     }
 
     @Override
