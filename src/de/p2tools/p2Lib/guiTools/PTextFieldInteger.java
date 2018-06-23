@@ -20,18 +20,20 @@ package de.p2tools.p2Lib.guiTools;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.scene.control.TextField;
-import javafx.util.converter.NumberStringConverter;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.Locale;
 
 public class PTextFieldInteger extends TextField {
+
     IntegerProperty integerProperty = null;
 
-    final Locale locale = Locale.GERMAN;
-    final NumberFormat nf = NumberFormat.getNumberInstance(locale);
+    private final Locale locale = Locale.GERMAN;
+    private NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
+
+//    private String pattern = "###,###";
+//    private NumberFormat numberFormat = new DecimalFormat(pattern);
+
 
     public PTextFieldInteger() {
     }
@@ -56,42 +58,15 @@ public class PTextFieldInteger extends TextField {
     }
 
     public void bind(IntegerProperty integerProperty) {
+        unBind();
         this.integerProperty = integerProperty;
         bind();
     }
 
-    public void bind() {
-        if (integerProperty == null) {
-            return;
-        }
-
-        Bindings.bindBidirectional(textProperty(), integerProperty, new NumberStringConverter(new DecimalFormat("###,###")) {
-            @Override
-            public Number fromString(String value) {
-                Number ret = 0;
-                try {
-                    if (value == null) {
-                        setStyle("");
-                        return null;
-                    }
-
-                    value = value.trim();
-
-                    if (value.length() < 1) {
-                        setStyle("");
-                        return null;
-                    }
-
-                    ret = nf.parse(value);
-                    setStyle("");
-                } catch (ParseException ex) {
-                    setStyle("");
-                    setStyle("-fx-control-inner-background: #FF0000;");
-                }
-                return ret;
-            }
-        });
-
+    public void setPattern(NumberFormat numberFormat) {
+        this.numberFormat = numberFormat;
+        unBind();
+        bind();
     }
 
     public void unBind() {
@@ -100,5 +75,14 @@ public class PTextFieldInteger extends TextField {
         }
 
         textProperty().unbindBidirectional(integerProperty);
+    }
+
+    private void bind() {
+        if (integerProperty == null) {
+            return;
+        }
+
+        Bindings.bindBidirectional(textProperty(), integerProperty, new PNumberStringConverter(this));
+
     }
 }
