@@ -1,5 +1,5 @@
 /*
- * MTPlayer Copyright (C) 2017 W. Xaver W.Xaver[at]googlemail.com
+  * P2tools Copyright (C) 2018 W. Xaver W.Xaver[at]googlemail.com
  * https://sourceforge.net/projects/mtplayer/
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
