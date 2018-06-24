@@ -17,10 +17,8 @@
 
 package de.p2tools.p2Lib.guiTools;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.IntegerProperty;
+import de.p2tools.p2Lib.tools.PRegEx;
 import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -29,23 +27,26 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Locale;
+import java.util.regex.Pattern;
 
-public class PComboBoxInteger extends ComboBox<String> {
+public class PComboBoxRegEx extends ComboBox<String> {
 
     public final int MAX_ELEMENTS = 15;
 
     private int maxElements = MAX_ELEMENTS;
     private StringProperty selValueStringProperty = null;
     private ObservableList<String> itemsList = null;
-    private final Locale locale = Locale.GERMAN;
-    private NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
+    Pattern pattern = null;
 
-    public PComboBoxInteger() {
+    public PComboBoxRegEx() {
         this.setEditable(true);
+    }
+
+    public PComboBoxRegEx(String regEx) {
+        this.setEditable(true);
+        pattern = PRegEx.makePattern(regEx);
     }
 
     public void init(ObservableList<String> dataList) {
@@ -54,25 +55,29 @@ public class PComboBoxInteger extends ComboBox<String> {
         setCombo();
     }
 
-    public void init(ObservableList<String> dataList, IntegerProperty property) {
-        this.selValueStringProperty = getStringProperty(property);
+    public void init(ObservableList<String> dataList, StringProperty selValueStringProperty) {
+        this.selValueStringProperty = selValueStringProperty;
         this.itemsList = dataList;
 
         selectElement(selValueStringProperty.getValueSafe());
         setCombo();
     }
 
-    public void init(ObservableList<String> dataList, String init, IntegerProperty property) {
-        this.selValueStringProperty = getStringProperty(property);
+    public void init(ObservableList<String> dataList, String init, StringProperty selValueStringProperty) {
+        this.selValueStringProperty = selValueStringProperty;
         this.itemsList = dataList;
 
         selectElement(init);
         setCombo();
     }
 
-    public void bindSelValueProperty(IntegerProperty property) {
+    public void setRegEx(String regEx) {
+        pattern = PRegEx.makePattern(regEx);
+    }
+
+    public void bindSelValueProperty(StringProperty stringProperty) {
         unbind();
-        selValueStringProperty = getStringProperty(property);
+        selValueStringProperty = stringProperty;
         bind();
     }
 
@@ -123,6 +128,7 @@ public class PComboBoxInteger extends ComboBox<String> {
                 itemsList.add(0, newValue);
                 setValue(newValue);
             }
+            check();
         });
 
         getEditor().setOnMousePressed(m -> {
@@ -186,20 +192,12 @@ public class PComboBoxInteger extends ComboBox<String> {
         return contextMenu;
     }
 
-    private StringProperty getStringProperty(IntegerProperty ip) {
-        if (ip == null) {
-            return null;
+    private void check() {
+        setStyle("");
+        if (!PRegEx.check(valueProperty().getValue(), pattern)) {
+            setStyle("-fx-control-inner-background: #FF0000;");
         }
-
-        final StringProperty sp = new SimpleStringProperty();
-        sp.setValue(String.valueOf(ip.getValue()));
-
-        bind(ip, sp);
-
-        return sp;
     }
 
-    private void bind(IntegerProperty ip, StringProperty sp) {
-        Bindings.bindBidirectional(sp, ip, new PNumberStringConverter(this));
-    }
+
 }
