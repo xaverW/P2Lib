@@ -38,6 +38,11 @@ public class PTextFieldRegEx extends TextField {
         init();
     }
 
+    public PTextFieldRegEx(String regEx) {
+        init();
+        pattern = PRegEx.makePattern(regEx);
+    }
+
     public StringProperty getStringProperty() {
         return stringProperty;
     }
@@ -46,6 +51,10 @@ public class PTextFieldRegEx extends TextField {
         unBind();
         this.stringProperty = property;
         bind();
+    }
+
+    public void setRegEx(String regEx) {
+        pattern = PRegEx.makePattern(regEx);
     }
 
     public void bind(StringProperty property) {

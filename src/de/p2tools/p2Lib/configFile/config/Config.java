@@ -80,12 +80,18 @@ public abstract class Config {
     public void resetValue() {
     }
 
+    public void setRegEx(String regEx) {
+    }
+
+    public String getRegEx() {
+        return "";
+    }
+
     public String getName() {
         return "";
     }
 
     public void setName(String name) {
-
     }
 
 }

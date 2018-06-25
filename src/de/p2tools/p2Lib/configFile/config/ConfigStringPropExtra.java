@@ -17,20 +17,28 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
+import de.p2tools.p2Lib.guiTools.PTextFieldRegEx;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.Control;
+import javafx.scene.control.TextField;
 
-public class ConfigStringPropName extends ConfigName {
+public class ConfigStringPropExtra extends ConfigExtra {
 
     private StringProperty actValue;
     private String name = "";
 
-    public ConfigStringPropName(String key, String name, StringProperty actValue) {
+    public ConfigStringPropExtra(String key, String name, StringProperty actValue) {
         super(key, name);
         this.actValue = actValue;
     }
 
-    public ConfigStringPropName(String key, String name, StringProperty actValue, boolean intern) {
-        super(key, name, null, intern);
+    public ConfigStringPropExtra(String key, String name, String regEx, StringProperty actValue) {
+        super(key, name, regEx, null, false);
+        this.actValue = actValue;
+    }
+
+    public ConfigStringPropExtra(String key, String name, String regEx, StringProperty actValue, boolean intern) {
+        super(key, name, regEx, null, intern);
         this.actValue = actValue;
     }
 
@@ -54,4 +62,22 @@ public class ConfigStringPropName extends ConfigName {
         return actValue;
     }
 
+    @Override
+    public Control getControl() {
+        Control control;
+
+        if (regEx != null && !regEx.isEmpty()) {
+            final PTextFieldRegEx txt = new PTextFieldRegEx(regEx);
+            txt.setStringProperty(getProperty());
+            control = txt;
+
+        } else {
+            final TextField txt = new TextField();
+            txt.textProperty().bindBidirectional(getProperty());
+            control = txt;
+
+        }
+
+        return control;
+    }
 }

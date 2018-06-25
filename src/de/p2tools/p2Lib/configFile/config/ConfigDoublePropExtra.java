@@ -17,20 +17,22 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
+import de.p2tools.p2Lib.guiTools.PTextFieldDouble;
 import javafx.beans.property.DoubleProperty;
+import javafx.scene.control.Control;
 
-public class ConfigDoublePropName extends ConfigName {
+public class ConfigDoublePropExtra extends ConfigExtra {
 
     private DoubleProperty actValue;
 
-    public ConfigDoublePropName(String key, String name, DoubleProperty actValue) {
+    public ConfigDoublePropExtra(String key, String name, DoubleProperty actValue) {
         super(key, name);
         this.actValue = actValue;
     }
 
 
-    public ConfigDoublePropName(String key, String name, DoubleProperty actValue, boolean intern) {
-        super(key, name, null, intern);
+    public ConfigDoublePropExtra(String key, String name, DoubleProperty actValue, boolean intern) {
+        super(key, name, "", null, intern);
         this.actValue = actValue;
     }
 
@@ -57,5 +59,11 @@ public class ConfigDoublePropName extends ConfigName {
     @Override
     public DoubleProperty getProperty() {
         return actValue;
+    }
+
+    @Override
+    public Control getControl() {
+        PTextFieldDouble control = new PTextFieldDouble(getProperty());
+        return control;
     }
 }

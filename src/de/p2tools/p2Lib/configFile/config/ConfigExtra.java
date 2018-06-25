@@ -18,6 +18,7 @@
 package de.p2tools.p2Lib.configFile.config;
 
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Control;
 
 /**
  * this is the class for one configuration
@@ -26,39 +27,35 @@ import javafx.beans.value.ObservableValue;
  * a config can store the info in a STRING or a PROPERTY
  */
 
-public abstract class ConfigName extends Config {
+public abstract class ConfigExtra extends Config {
 
     final String key;
     Object actValue;
     String name;
+    String regEx = "";
 
-
-    public ConfigName() {
+    public ConfigExtra() {
         this.key = "";
         this.name = "";
         actValue = null;
     }
 
-    public ConfigName(String key, String name) {
+    public ConfigExtra(String key, String name) {
         this.key = key;
         this.name = name;
         actValue = null;
     }
 
-    public ConfigName(String key, String name, Object actValue) {
-        this.key = key;
-        this.name = name;
-        this.actValue = actValue;
-    }
-
-    public ConfigName(String key, String name, Object actValue, boolean intern) {
+    public ConfigExtra(String key, String name, String regEx, Object actValue, boolean intern) {
         if (intern) {
             this.key = key.intern();
             this.name = name.intern();
+            this.regEx = regEx;
             this.actValue = actValue;
         } else {
             this.key = key;
             this.name = name;
+            this.regEx = regEx;
             this.actValue = actValue;
         }
     }
@@ -86,6 +83,14 @@ public abstract class ConfigName extends Config {
     public void resetValue() {
     }
 
+    public void setRegEx(String regEx) {
+        this.regEx = regEx;
+    }
+
+    public String getRegEx() {
+        return regEx;
+    }
+
     public String getName() {
         return name;
     }
@@ -94,6 +99,11 @@ public abstract class ConfigName extends Config {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Control getControl() {
+        return null;
+    }
+
 
 }
 

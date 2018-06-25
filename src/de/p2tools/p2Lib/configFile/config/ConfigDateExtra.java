@@ -17,43 +17,54 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import javafx.beans.property.BooleanProperty;
+import de.p2tools.p2Lib.guiTools.PDatePicker;
+import de.p2tools.p2Lib.tools.PDate;
+import javafx.scene.control.Control;
 
-public class ConfigBoolPropName extends ConfigName {
+public class ConfigDateExtra extends ConfigExtra {
 
-    private BooleanProperty actValue;
+    private PDate pDate = null;
 
-    public ConfigBoolPropName(String key, String name, BooleanProperty actValue) {
+    public ConfigDateExtra(String key, String name, String actValue) {
         super(key, name);
-        this.actValue = actValue;
+        pDate = new PDate();
+        pDate.setPDate(actValue);
     }
 
-    public ConfigBoolPropName(String key, String name, BooleanProperty actValue, boolean intern) {
-        super(key, name, null, intern);
-        this.actValue = actValue;
+    public ConfigDateExtra(String key, String name, String actValue, boolean intern) {
+        super(key, name, "", null, intern);
+        pDate = new PDate();
+        pDate.setPDate(actValue);
     }
 
+    public ConfigDateExtra(String key, String name, PDate actPDate) {
+        super(key, name);
+        this.pDate = actPDate;
+    }
 
     @Override
-    public Boolean getActValue() {
-        return actValue.getValue();
+    public String getActValue() {
+        return pDate.toString();
+    }
+
+    public PDate getpDate() {
+        return pDate;
     }
 
     @Override
     public String getActValueString() {
-        return String.valueOf(getActValue());
+        return pDate.toString();
     }
 
     @Override
     public void setActValue(String act) {
-        try {
-            actValue.setValue(Boolean.valueOf(act));
-        } catch (Exception ex) {
-        }
+        pDate.setPDate(act);
     }
 
     @Override
-    public BooleanProperty getProperty() {
-        return actValue;
+
+    public Control getControl() {
+        PDatePicker control = new PDatePicker(getpDate());
+        return control;
     }
 }

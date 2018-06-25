@@ -18,18 +18,20 @@
 package de.p2tools.p2Lib.configFile.config;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Control;
 
-public class ConfigBoolProp extends Config {
+public class ConfigBoolPropExtra extends ConfigExtra {
 
     private BooleanProperty actValue;
 
-    public ConfigBoolProp(String key, BooleanProperty actValue) {
-        super(key);
+    public ConfigBoolPropExtra(String key, String name, BooleanProperty actValue) {
+        super(key, name);
         this.actValue = actValue;
     }
 
-    public ConfigBoolProp(String key, BooleanProperty actValue, boolean intern) {
-        super(key, null, intern);
+    public ConfigBoolPropExtra(String key, String name, String regEx, BooleanProperty actValue, boolean intern) {
+        super(key, name, regEx, null, intern);
         this.actValue = actValue;
     }
 
@@ -57,4 +59,10 @@ public class ConfigBoolProp extends Config {
         return actValue;
     }
 
+    @Override
+    public Control getControl() {
+        CheckBox control = new CheckBox();
+        control.selectedProperty().bindBidirectional(getProperty());
+        return control;
+    }
 }
