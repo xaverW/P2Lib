@@ -17,6 +17,7 @@
 
 package de.p2tools.p2Lib.guiTools;
 
+import de.p2tools.p2Lib.tools.PRegEx;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ListChangeListener;
@@ -28,6 +29,7 @@ import javafx.scene.input.MouseButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.regex.Pattern;
 
 public class PComboBox extends ComboBox<String> {
 
@@ -36,9 +38,15 @@ public class PComboBox extends ComboBox<String> {
     private int maxElements = MAX_ELEMENTS;
     private StringProperty selValueStringProperty = null;
     private ObservableList<String> itemsList = null;
+    Pattern pattern = null;
 
     public PComboBox() {
         this.setEditable(true);
+    }
+
+    public PComboBox(String regEx) {
+        this.setEditable(true);
+        pattern = PRegEx.makePattern(regEx);
     }
 
     public void init(ObservableList<String> dataList) {
@@ -61,6 +69,10 @@ public class PComboBox extends ComboBox<String> {
 
         selectElement(init);
         setCombo();
+    }
+
+    public void setRegEx(String regEx) {
+        pattern = PRegEx.makePattern(regEx);
     }
 
     public void bindSelValueProperty(StringProperty stringProperty) {
@@ -116,6 +128,14 @@ public class PComboBox extends ComboBox<String> {
                 itemsList.add(0, newValue);
                 setValue(newValue);
             }
+        });
+
+        getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+//            if (newValue != null && !itemsList.contains(newValue)) {
+//                itemsList.add(0, newValue); todo da landen sonst alle Tippser in der Liste ??
+//                setValue(newValue);
+//            }
+            check();
         });
 
         getEditor().setOnMousePressed(m -> {
@@ -177,5 +197,17 @@ public class PComboBox extends ComboBox<String> {
         delEntries.setOnAction(a -> delList());
         contextMenu.getItems().addAll(delEntries);
         return contextMenu;
+    }
+
+    private void check() {
+        if (pattern == null) {
+            return;
+        }
+
+        setStyle("");
+        if (/*!PRegEx.check(valueProperty().getValue(), pattern) ||*/
+                !PRegEx.check(getEditor().textProperty().getValue(), pattern)) {
+            setStyle("-fx-control-inner-background: #FF0000;");
+        }
     }
 }

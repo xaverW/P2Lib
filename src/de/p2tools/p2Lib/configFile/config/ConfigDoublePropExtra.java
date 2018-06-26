@@ -31,12 +31,6 @@ public class ConfigDoublePropExtra extends ConfigExtra {
     }
 
 
-    public ConfigDoublePropExtra(String key, String name, DoubleProperty actValue, boolean intern) {
-        super(key, name, "", null, intern);
-        this.actValue = actValue;
-    }
-
-
     @Override
     public Double getActValue() {
         return actValue.getValue();

@@ -17,21 +17,21 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.scene.control.CheckBox;
+import de.p2tools.p2Lib.guiTools.PTextFieldLong;
+import javafx.beans.property.LongProperty;
 import javafx.scene.control.Control;
 
-public class ConfigBoolPropExtra extends ConfigExtra {
+public class ConfigLongPropExtra extends ConfigExtra {
 
-    private BooleanProperty actValue;
+    private LongProperty actValue;
 
-    public ConfigBoolPropExtra(String key, String name, BooleanProperty actValue) {
+    public ConfigLongPropExtra(String key, String name, LongProperty actValue) {
         super(key, name);
         this.actValue = actValue;
     }
 
     @Override
-    public Boolean getActValue() {
+    public Long getActValue() {
         return actValue.getValue();
     }
 
@@ -40,23 +40,27 @@ public class ConfigBoolPropExtra extends ConfigExtra {
         return String.valueOf(getActValue());
     }
 
+    public void setActValue(long act) {
+        actValue.setValue(act);
+    }
+
     @Override
     public void setActValue(String act) {
         try {
-            actValue.setValue(Boolean.valueOf(act));
+            actValue.setValue(Long.parseLong(act));
         } catch (Exception ex) {
+            actValue.setValue(0);
         }
     }
 
     @Override
-    public BooleanProperty getProperty() {
+    public LongProperty getProperty() {
         return actValue;
     }
 
     @Override
     public Control getControl() {
-        CheckBox control = new CheckBox();
-        control.selectedProperty().bindBidirectional(getProperty());
+        PTextFieldLong control = new PTextFieldLong(getProperty());
         return control;
     }
 }

@@ -15,23 +15,34 @@
  */
 
 
-package de.p2tools.p2Lib.tools;
+package de.p2tools.p2Lib.configFile.config;
 
-import java.util.Date;
+public abstract class ConfigLong extends Config {
 
-public class PIndex {
+    private long actValue;
 
-    public static String getIndex(String prefix) {
-        final String idx;
-        if (prefix == null || prefix.isEmpty()) {
-            idx = new Date().getTime() + "";
-        } else {
-            idx = prefix + "-" + new Date().getTime();
-        }
-        return idx;
+    public ConfigLong(String key, long actValue) {
+        super(key);
+        this.actValue = actValue;
     }
 
-    public static long getIndex() {
-        return new Date().getTime();
+
+    public ConfigLong(String key, long actValue, boolean intern) {
+        super(key, null, intern);
+        this.actValue = actValue;
     }
+
+
+    @Override
+    public Long getActValue() {
+        return actValue;
+    }
+
+    @Override
+    public String getActValueString() {
+        return String.valueOf(actValue);
+    }
+
+    @Override
+    public abstract void setActValue(String act);
 }

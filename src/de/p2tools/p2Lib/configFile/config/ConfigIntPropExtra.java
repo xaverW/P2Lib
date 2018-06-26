@@ -30,13 +30,6 @@ public class ConfigIntPropExtra extends ConfigExtra {
         this.actValue = actValue;
     }
 
-
-    public ConfigIntPropExtra(String key, String name, IntegerProperty actValue, boolean intern) {
-        super(key, name, "", null, intern);
-        this.actValue = actValue;
-    }
-
-
     @Override
     public Integer getActValue() {
         return actValue.getValue();

@@ -46,18 +46,11 @@ public abstract class ConfigExtra extends Config {
         actValue = null;
     }
 
-    public ConfigExtra(String key, String name, String regEx, Object actValue, boolean intern) {
-        if (intern) {
-            this.key = key.intern();
-            this.name = name.intern();
-            this.regEx = regEx;
-            this.actValue = actValue;
-        } else {
-            this.key = key;
-            this.name = name;
-            this.regEx = regEx;
-            this.actValue = actValue;
-        }
+    public ConfigExtra(String key, String name, String regEx, Object actValue) {
+        this.key = key;
+        this.name = name;
+        this.regEx = regEx;
+        this.actValue = actValue;
     }
 
     public String getKey() {

@@ -69,6 +69,7 @@ public class PTextFieldRegEx extends TextField {
 
         stringProperty.addListener(changeListener);
         textProperty().bindBidirectional(stringProperty);
+        check();
     }
 
     public void unBind() {

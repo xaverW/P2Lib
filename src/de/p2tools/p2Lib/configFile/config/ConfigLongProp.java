@@ -17,21 +17,26 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Control;
+import javafx.beans.property.LongProperty;
 
-public class ConfigBoolPropExtra extends ConfigExtra {
+public class ConfigLongProp extends Config {
 
-    private BooleanProperty actValue;
+    private LongProperty actValue;
 
-    public ConfigBoolPropExtra(String key, String name, BooleanProperty actValue) {
-        super(key, name);
+    public ConfigLongProp(String key, LongProperty actValue) {
+        super(key);
         this.actValue = actValue;
     }
 
+
+    public ConfigLongProp(String key, LongProperty actValue, boolean intern) {
+        super(key, null, intern);
+        this.actValue = actValue;
+    }
+
+
     @Override
-    public Boolean getActValue() {
+    public Long getActValue() {
         return actValue.getValue();
     }
 
@@ -40,23 +45,21 @@ public class ConfigBoolPropExtra extends ConfigExtra {
         return String.valueOf(getActValue());
     }
 
+    public void setActValue(long act) {
+        actValue.setValue(act);
+    }
+
     @Override
     public void setActValue(String act) {
         try {
-            actValue.setValue(Boolean.valueOf(act));
+            actValue.setValue(Long.parseLong(act));
         } catch (Exception ex) {
+            actValue.setValue(0);
         }
     }
 
     @Override
-    public BooleanProperty getProperty() {
+    public LongProperty getProperty() {
         return actValue;
-    }
-
-    @Override
-    public Control getControl() {
-        CheckBox control = new CheckBox();
-        control.selectedProperty().bindBidirectional(getProperty());
-        return control;
     }
 }

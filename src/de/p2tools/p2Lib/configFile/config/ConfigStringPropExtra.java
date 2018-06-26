@@ -33,12 +33,7 @@ public class ConfigStringPropExtra extends ConfigExtra {
     }
 
     public ConfigStringPropExtra(String key, String name, String regEx, StringProperty actValue) {
-        super(key, name, regEx, null, false);
-        this.actValue = actValue;
-    }
-
-    public ConfigStringPropExtra(String key, String name, String regEx, StringProperty actValue, boolean intern) {
-        super(key, name, regEx, null, intern);
+        super(key, name, regEx, null);
         this.actValue = actValue;
     }
 

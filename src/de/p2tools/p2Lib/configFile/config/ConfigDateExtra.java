@@ -31,12 +31,6 @@ public class ConfigDateExtra extends ConfigExtra {
         pDate.setPDate(actValue);
     }
 
-    public ConfigDateExtra(String key, String name, String actValue, boolean intern) {
-        super(key, name, "", null, intern);
-        pDate = new PDate();
-        pDate.setPDate(actValue);
-    }
-
     public ConfigDateExtra(String key, String name, PDate actPDate) {
         super(key, name);
         this.pDate = actPDate;
