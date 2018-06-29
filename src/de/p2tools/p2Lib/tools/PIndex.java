@@ -21,17 +21,20 @@ import java.util.Date;
 
 public class PIndex {
 
-    public static String getIndex(String prefix) {
+    private static long counter = new Date().getTime();
+
+    public synchronized static String getIndex(String prefix) {
         final String idx;
         if (prefix == null || prefix.isEmpty()) {
-            idx = new Date().getTime() + "";
+            idx = getIndex() + "";
         } else {
-            idx = prefix + "-" + new Date().getTime();
+            idx = prefix + "-" + getIndex();
         }
         return idx;
     }
 
-    public static long getIndex() {
-        return new Date().getTime();
+    public synchronized static long getIndex() {
+        ++counter;
+        return counter;
     }
 }

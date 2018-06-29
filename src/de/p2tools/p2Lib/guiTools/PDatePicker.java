@@ -85,8 +85,8 @@ public class PDatePicker extends DatePicker {
 
         setOnAction(event -> {
             LocalDate date = getValue();
-            System.out.println("Selected date: " + date);
-            System.out.println("         date: " + date.toString());
+//            System.out.println("Selected date: " + date);
+//            System.out.println("         date: " + date.toString());
         });
     }
 }
