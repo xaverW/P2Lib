@@ -56,7 +56,6 @@ public class ConfigDateExtra extends ConfigExtra {
     }
 
     @Override
-
     public Control getControl() {
         PDatePicker control = new PDatePicker(getpDate());
         return control;

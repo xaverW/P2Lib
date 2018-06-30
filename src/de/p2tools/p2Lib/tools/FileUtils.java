@@ -165,8 +165,6 @@ public class FileUtils {
     }
 
     public static boolean istUrl(String fileUrl) {
-        // return dateiUrl.startsWith("http") ? true : false || dateiUrl.startsWith("www") ? true :
-        // false;
         return fileUrl.startsWith("http") || fileUrl.startsWith("www");
     }
 
