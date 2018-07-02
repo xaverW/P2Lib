@@ -30,8 +30,9 @@ import java.util.Locale;
 public class PTextFieldDouble extends TextField {
     DoubleProperty doubleProperty = null;
 
-    final Locale locale = Locale.GERMAN;
-    final NumberFormat nf = NumberFormat.getNumberInstance(locale);
+    private final Locale locale = Locale.GERMAN;
+    private final NumberFormat nf = NumberFormat.getNumberInstance(locale);
+    private final DecimalFormat df = new DecimalFormat("###,##0.00");
 
     public PTextFieldDouble() {
     }
@@ -53,6 +54,11 @@ public class PTextFieldDouble extends TextField {
 
     public double getDouble() {
         return doubleProperty.get();
+    }
+
+
+    public void setText(Double text) {
+        this.setText(df.format(text));
     }
 
     public void bind(DoubleProperty doubleProperty) {

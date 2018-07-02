@@ -17,7 +17,7 @@
 
 package de.p2tools.p2Lib.tools;
 
-public class PException extends Exception {
+public class PException extends RuntimeException {
 
     public PException() {
         super();
