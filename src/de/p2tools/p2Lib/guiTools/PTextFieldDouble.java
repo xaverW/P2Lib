@@ -35,6 +35,7 @@ public class PTextFieldDouble extends TextField {
     private final DecimalFormat df = new DecimalFormat("###,##0.00");
 
     public PTextFieldDouble() {
+        textProperty().addListener((observable, oldValue, newValue) -> setTextStyle(getText()));
     }
 
     public PTextFieldDouble(DoubleProperty doubleProperty) {
@@ -61,6 +62,7 @@ public class PTextFieldDouble extends TextField {
         this.setText(df.format(text));
     }
 
+
     public void bind(DoubleProperty doubleProperty) {
         this.doubleProperty = doubleProperty;
         bind();
@@ -75,24 +77,21 @@ public class PTextFieldDouble extends TextField {
             @Override
             public Number fromString(String value) {
                 Number ret = 0;
+                setTextStyle(value);
+
                 try {
                     if (value == null) {
-                        setStyle("");
                         return null;
                     }
 
                     value = value.trim();
 
                     if (value.length() < 1) {
-                        setStyle("");
                         return null;
                     }
 
                     ret = nf.parse(value);
-                    setStyle("");
                 } catch (ParseException ex) {
-                    setStyle("");
-                    setStyle("-fx-control-inner-background: #FF0000;");
                 }
                 return ret;
             }
@@ -106,5 +105,19 @@ public class PTextFieldDouble extends TextField {
         }
 
         textProperty().unbindBidirectional(doubleProperty);
+    }
+
+    private void setTextStyle(String value) {
+        setStyle("");
+
+        if (value == null || value.trim().isEmpty()) {
+            return;
+        }
+
+        try {
+            nf.parse(value.trim());
+        } catch (ParseException ex) {
+            setStyle("-fx-control-inner-background: #FF0000;");
+        }
     }
 }
