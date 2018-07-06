@@ -48,6 +48,11 @@ public class PDatePicker extends DatePicker {
         this.setValue(LocalDate.parse(stringDate, dateFormatter));
     }
 
+    public void clearDate() {
+        this.pDate = null;
+        this.setValue(null);
+    }
+
     public String getDate() {
         String ret = "";
 
@@ -64,10 +69,17 @@ public class PDatePicker extends DatePicker {
         StringConverter converter = new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate date) {
+                if (pDate == null) {
+                    return "";
+                }
                 if (date != null) {
 
                     final String str = dateFormatter.format(date);
                     pDate.setPDate(str);
+
+                    if (pDate.getTime() == 0) {
+                        return "";
+                    }
 
                     return str;
                 } else {
