@@ -18,9 +18,32 @@
 package de.p2tools.p2Lib.tools;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.ListIterator;
 
 public class PStringUtils {
+
+    /**
+     * removes all empty Strings from the list
+     *
+     * @param list
+     * @return
+     */
+    public static List<String> removeEmptyStrings(List<String> list) {
+        if (list == null || list.size() == 0) {
+            return list;
+        }
+
+        Iterator<String> it = list.listIterator();
+        while (it.hasNext()) {
+            String str = it.next();
+            if (str.isEmpty()) {
+                it.remove();
+            }
+        }
+        return list;
+    }
 
     /**
      * append all String from the list to one String
@@ -30,8 +53,8 @@ public class PStringUtils {
      * @param separator
      * @return
      */
-    public static String appendList(ArrayList<String> list, String separator) {
-        return appendArray(list.toArray(new String[]{}), separator);
+    public static String appendList(List<String> list, String separator) {
+        return appendArray(list.toArray(new String[list.size()]), separator);
     }
 
     /**

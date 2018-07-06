@@ -25,7 +25,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class PDatePicker extends DatePicker {
-    private PDate pDate = null;
+    private PDate pDate = new PDate();
     private final String pattern = "dd.MM.yyyy";
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
@@ -38,6 +38,10 @@ public class PDatePicker extends DatePicker {
         this.pDate = pDate;
         dataP();
         setDate(pDate.toString());
+    }
+
+    public void setPDate(PDate pDate) {
+        this.pDate = pDate;
     }
 
     public void setDate(String stringDate) {
