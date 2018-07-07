@@ -31,7 +31,7 @@ public class PDatePicker extends DatePicker {
 
     public PDatePicker() {
         dataP();
-        setValue(LocalDate.now());
+        setValue(null);
     }
 
     public PDatePicker(PDate pDate) {
@@ -42,6 +42,7 @@ public class PDatePicker extends DatePicker {
 
     public void setPDate(PDate pDate) {
         this.pDate = pDate;
+        setDate(pDate.toString());
     }
 
     public void setDate(String stringDate) {
@@ -99,10 +100,10 @@ public class PDatePicker extends DatePicker {
         setConverter(converter);
 
 
-        setOnAction(event -> {
-            LocalDate date = getValue();
+//        setOnAction(event -> {
+//            LocalDate date = getValue();
 //            System.out.println("Selected date: " + date);
 //            System.out.println("         date: " + date.toString());
-        });
+//        });
     }
 }
