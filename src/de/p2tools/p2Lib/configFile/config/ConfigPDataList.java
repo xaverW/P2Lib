@@ -38,4 +38,7 @@ public class ConfigPDataList extends Config {
         return actValue;
     }
 
+    public String getName() {
+        return super.getKey();
+    }
 }

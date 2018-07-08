@@ -19,19 +19,16 @@ package de.p2tools.p2Lib.tools;
 import de.p2tools.p2Lib.tools.log.PLog;
 import org.apache.commons.lang3.time.FastDateFormat;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @SuppressWarnings("serial")
 public class PDate extends Date {
-    private final static SimpleDateFormat dateFormatter1 = new SimpleDateFormat("dd.MM.yyyy");
-    private final static SimpleDateFormat dateFormatter2 = new SimpleDateFormat("yyyy.MM.dd");
-
-    public static final FastDateFormat FORMATTER_ddMMyyyy = FastDateFormat.getInstance("dd.MM.yyyy");
-    public static final FastDateFormat FORMATTER_yyyyMMdd = FastDateFormat.getInstance("yyyyMMdd");
-    public static final FastDateFormat FORMATTER_HHmmss = FastDateFormat.getInstance("HH:mm:ss");
-    public static final FastDateFormat FORMATTER_ddMMyyyyHHmm = FastDateFormat.getInstance("dd.MM.yyyy, HH:mm");
-    public static final FastDateFormat FORMATTER_ddMMyyyyHHmmss = FastDateFormat.getInstance("dd.MM.yyyyHH:mm:ss");
+    public static final FastDateFormat FORMAT_HH_mm_ss = FastDateFormat.getInstance("HH:mm:ss");
+    public static final FastDateFormat FORMAT_dd_MM_yyyy = FastDateFormat.getInstance("dd.MM.yyyy");
+    public static final FastDateFormat FORMAT_yyyy_MM_dd = FastDateFormat.getInstance("yyyy.MM.dd");
+    public static final FastDateFormat FORMAT_dd_MM_yyyyKomma__HH_mm = FastDateFormat.getInstance("dd.MM.yyyy, HH:mm");
+    public static final FastDateFormat FORMAT_dd_MM_yyyyKomma__HH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyy, HH:mm:ss");
+    public static final FastDateFormat FORMAT_dd_MM_yyyy_HH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss");
 
 
     public PDate() {
@@ -42,41 +39,73 @@ public class PDate extends Date {
         super(l);
     }
 
-    public void setPDate(String strDate, String strTime) {
-        if (!strDate.isEmpty()) {
-            try {
-                if (!strTime.isEmpty()) {
-                    setTime(FORMATTER_ddMMyyyyHHmmss.parse(strDate + strTime).getTime());
-                } else {
-                    setTime(FORMATTER_ddMMyyyy.parse(strDate).getTime());
-                }
-            } catch (final Exception ex) {
-                setTime(0);
-                PLog.errorLog(649897321, ex, new String[]{"Datum: " + strDate, "Zeit: " + strTime});
-            }
-        } else {
-            setTime(0);
-        }
+    public PDate(String date) {
+        setPDate(date);
+    }
+
+    public PDate(String date, String time) {
+        setPDate(date, time);
     }
 
     public void setPDate(String strDate) {
-        if (!strDate.isEmpty()) {
-            try {
-                setTime(FORMATTER_ddMMyyyy.parse(strDate).getTime());
-            } catch (final Exception ex) {
-                setTime(0);
-                PLog.errorLog(915260104, ex, new String[]{"Datum: " + strDate});
-            }
-        } else {
+        setPDate(strDate, "");
+    }
+
+    public void setPDate(String strDate, String strTime) {
+        if (strDate.isEmpty()) {
             setTime(0);
+            return;
+        }
+
+        try {
+            if (strTime.isEmpty()) {
+                setTime(FORMAT_dd_MM_yyyy.parse(strDate).getTime());
+            } else {
+                setTime(FORMAT_dd_MM_yyyyKomma__HH_mm.parse(strDate + strTime).getTime());
+            }
+            return;
+        } catch (final Exception ex) {
+        }
+
+        try {
+            if (strTime.isEmpty()) {
+                setTime(FORMAT_dd_MM_yyyy.parse(strDate).getTime());
+            } else {
+                setTime(FORMAT_dd_MM_yyyyKomma__HH_mm_ss.parse(strDate + strTime).getTime());
+            }
+            return;
+        } catch (final Exception ex) {
+            PLog.errorLog(952103654, ex, new String[]{"Datum: " + strDate, "Zeit: " + strTime});
+        }
+
+        setTime(0);
+    }
+
+    public void setPDateToday() {
+        try {
+            final String strToday = new PDate().getDateTime(FORMAT_dd_MM_yyyy);
+            final long lToday = FORMAT_dd_MM_yyyy.parse(strToday).getTime();
+            setTime(lToday);
+        } catch (final Exception ex) {
+            setTime(0);
+            PLog.errorLog(915263630, ex);
         }
     }
 
-    public String getDateTime() {
+    public void setPDateNow() {
+        try {
+            setTime(new PDate().getTime());
+        } catch (final Exception ex) {
+            setTime(0);
+            PLog.errorLog(915263630, ex);
+        }
+    }
+
+    public String getDateTime(FastDateFormat format) {
         if (this.getTime() == 0) {
             return "";
         } else {
-            return FORMATTER_ddMMyyyyHHmm.format(this);
+            return format.format(this);
         }
     }
 
@@ -85,25 +114,25 @@ public class PDate extends Date {
         if (this.getTime() == 0) {
             return "";
         } else {
-            return dateFormatter1.format(this);
+            return FORMAT_dd_MM_yyyy.format(this);
         }
     }
 
     public String toStringR() {
         if (this.getTime() == 0) {
-            return dateFormatter2.format(new Date());
+            return FORMAT_yyyy_MM_dd.format(new Date());
         } else {
-            return dateFormatter2.format(this);
+            return FORMAT_yyyy_MM_dd.format(this);
         }
     }
 
     /**
-     * Liefert den Betrag der Zeitdifferenz zu jetzt.
+     * Liefert den Betrag! der Zeitdifferenz zu jetzt.
      *
      * @return Differenz in Sekunden.
      */
-    public int diffInSeconds() {
-        final int ret = new Long((this.getTime() - new PDate().getTime()) / (1000)).intValue();
+    public long diffInSeconds() {
+        final long ret = new Long((this.getTime() - new PDate().getTime()) / (1000)).intValue();
         return Math.abs(ret);
     }
 
@@ -112,7 +141,7 @@ public class PDate extends Date {
      *
      * @return Differenz in Minuten.
      */
-    public int diffInMinutes() {
+    public long diffInMinutes() {
         return (diffInSeconds() / 60);
     }
 }

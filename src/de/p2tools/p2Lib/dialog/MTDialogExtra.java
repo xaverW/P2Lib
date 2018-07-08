@@ -20,15 +20,15 @@ import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 public class MTDialogExtra extends MTDialog {
 
     private VBox vBoxDialog = new VBox();
     private VBox vboxCont = new VBox();
-    private TilePane tilePaneOk = new TilePane();
+    private HBox hBoxOk = new HBox(10);
 
 
     public MTDialogExtra(String fxml, StringProperty conf, String title, boolean modal) {
@@ -43,12 +43,12 @@ public class MTDialogExtra extends MTDialog {
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
+
         vboxCont.setPadding(new Insets(5));
         VBox.setVgrow(vboxCont, Priority.ALWAYS);
         scrollPane.setContent(vboxCont);
 
-        tilePaneOk.setHgap(10);
-        tilePaneOk.setAlignment(Pos.CENTER_RIGHT);
+        hBoxOk.setAlignment(Pos.CENTER_RIGHT);
 
         VBox vBox = new VBox();
         vBox.getStyleClass().add("dialog-border");
@@ -56,7 +56,7 @@ public class MTDialogExtra extends MTDialog {
         vBox.getChildren().add(scrollPane);
 
         VBox.setVgrow(vBox, Priority.ALWAYS);
-        vBoxDialog.getChildren().addAll(vBox, tilePaneOk);
+        vBoxDialog.getChildren().addAll(vBox, hBoxOk);
     }
 
     public VBox getvBoxDialog() {
@@ -75,11 +75,11 @@ public class MTDialogExtra extends MTDialog {
         this.vboxCont = vboxCont;
     }
 
-    public TilePane getTilePaneOk() {
-        return tilePaneOk;
+    public HBox getHboxOk() {
+        return hBoxOk;
     }
 
-    public void setTilePaneOk(TilePane tilePaneOk) {
-        this.tilePaneOk = tilePaneOk;
+    public void sethBoxOk(HBox hBoxOk) {
+        this.hBoxOk = hBoxOk;
     }
 }
