@@ -25,13 +25,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class PDatePicker extends DatePicker {
-    private PDate pDate = new PDate();
+    private PDate pDate = null;
     private final String pattern = "dd.MM.yyyy";
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
     public PDatePicker() {
         dataP();
-        setValue(null);
+        setDate(null);
     }
 
     public PDatePicker(PDate pDate) {
@@ -42,11 +42,15 @@ public class PDatePicker extends DatePicker {
 
     public void setPDate(PDate pDate) {
         this.pDate = pDate;
-        setDate(pDate.toString());
+        setDate(pDate == null ? null : pDate.toString());
     }
 
     public void setDate(String stringDate) {
-        this.setValue(LocalDate.parse(stringDate, dateFormatter));
+        if (stringDate == null || stringDate.isEmpty()) {
+            this.setValue(null);
+        } else {
+            this.setValue(LocalDate.parse(stringDate, dateFormatter));
+        }
     }
 
     public void clearDate() {
@@ -70,6 +74,8 @@ public class PDatePicker extends DatePicker {
         StringConverter converter = new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate date) {
+                System.out.println("");
+                System.out.println("LocalDate: " + (date == null ? "null" : date.toString()));
                 if (pDate == null) {
                     return "";
                 }
@@ -84,12 +90,14 @@ public class PDatePicker extends DatePicker {
 
                     return str;
                 } else {
+                    pDate.clearPDate();
                     return "";
                 }
             }
 
             @Override
             public LocalDate fromString(String string) {
+                System.out.println("String: " + (string == null ? "null" : string));
                 if (string != null && !string.isEmpty()) {
                     return LocalDate.parse(string, dateFormatter);
                 } else {

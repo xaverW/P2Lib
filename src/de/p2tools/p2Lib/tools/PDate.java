@@ -81,6 +81,10 @@ public class PDate extends Date {
         setTime(0);
     }
 
+    public void clearPDate() {
+        setTime(0);
+    }
+
     public void setPDateToday() {
         try {
             final String strToday = new PDate().getDateTime(FORMAT_dd_MM_yyyy);

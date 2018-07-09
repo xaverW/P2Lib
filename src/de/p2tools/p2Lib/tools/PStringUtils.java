@@ -17,10 +17,8 @@
 
 package de.p2tools.p2Lib.tools;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class PStringUtils {
 
@@ -70,13 +68,18 @@ public class PStringUtils {
             return "";
         }
 
-        StringBuilder builder = new StringBuilder(list[0]);
-        for (int i = 1; i < list.length; ++i) {
-            builder.append(separator);
-            builder.append(list[i]);
-        }
+        Stream<String> stream = Stream.of(list);
+        Optional<String> optionalS = stream.reduce((s1, s2) -> s1 + separator + s2);
 
-        return builder.toString();
+        return (optionalS.isPresent() ? optionalS.get() : "");
+
+//        StringBuilder builder = new StringBuilder(list[0]);
+//        for (int i = 1; i < list.length; ++i) {
+//            builder.append(separator);
+//            builder.append(list[i]);
+//        }
+//
+//        return builder.toString();
     }
 
     /**
@@ -101,7 +104,6 @@ public class PStringUtils {
      */
     public static void appendString(ArrayList<String> list, String prefix, String without) {
         ListIterator<String> iterator = list.listIterator();
-
         while (iterator.hasNext()) {
             String next = iterator.next();
             if (!without.isEmpty() && next.startsWith(without)) {
