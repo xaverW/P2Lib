@@ -18,30 +18,35 @@
 package de.p2tools.p2Lib.guiTools;
 
 import de.p2tools.p2Lib.tools.PDate;
+import de.p2tools.p2Lib.tools.PDateProperty;
 import javafx.scene.control.DatePicker;
 import javafx.util.StringConverter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class PDatePicker extends DatePicker {
-    private PDate pDate = null;
+public class PDatePropertyPicker extends DatePicker {
+    private PDateProperty pDateProperty = new PDateProperty();
     private final String pattern = "dd.MM.yyyy";
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
-    public PDatePicker() {
+    public PDatePropertyPicker() {
         setDatePickerConverter();
         setDate(null);
     }
 
-    public PDatePicker(PDate pDate) {
-        this.pDate = pDate;
+    public PDatePropertyPicker(PDateProperty pDateProperty) {
+        this.pDateProperty = pDateProperty;
         setDatePickerConverter();
-        setDate(pDate.toString());
     }
 
-    public void setPDate(PDate pDate) {
-        this.pDate = pDate;
+    public void setpDateProperty(PDateProperty pDateProperty) {
+        this.pDateProperty = pDateProperty;
+        setDate(pDateProperty == null ? null : pDateProperty.toString());
+    }
+
+    private void setDate() {
+        PDate pDate = pDateProperty.getValue();
         setDate(pDate == null ? null : pDate.toString());
     }
 
@@ -54,7 +59,7 @@ public class PDatePicker extends DatePicker {
     }
 
     public void clearDate() {
-        this.pDate = null;
+        this.pDateProperty = null;
         this.setValue(null);
     }
 
@@ -76,21 +81,21 @@ public class PDatePicker extends DatePicker {
             public String toString(LocalDate date) {
 //                System.out.println("");
 //                System.out.println("LocalDate: " + (date == null ? "null" : date.toString()));
-                if (pDate == null) {
+                if (pDateProperty == null) {
                     return "";
                 }
                 if (date != null) {
 
                     final String str = dateFormatter.format(date);
-                    pDate.setPDate(str);
+                    pDateProperty.setPDate(str);
 
-                    if (pDate.getTime() == 0) {
+                    if (pDateProperty.getValue().getTime() == 0) {
                         return "";
                     }
 
                     return str;
                 } else {
-                    pDate.clearPDate();
+                    pDateProperty.clearPDate();
                     return "";
                 }
             }

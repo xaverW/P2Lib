@@ -19,40 +19,48 @@ package de.p2tools.p2Lib.configFile.config;
 
 import de.p2tools.p2Lib.guiTools.PDatePicker;
 import de.p2tools.p2Lib.tools.PDate;
+import de.p2tools.p2Lib.tools.PDateProperty;
 import javafx.scene.control.Control;
 
-public class ConfigDateExtra extends ConfigExtra {
+public class ConfigDatePropExtra extends ConfigExtra {
 
-    private PDate pDate = null;
+    private PDateProperty actValue;
 
-    public ConfigDateExtra(String key, String name, String actValue) {
+    public ConfigDatePropExtra(String key, String name, PDateProperty actValue) {
         super(key, name);
-        pDate = new PDate();
-        pDate.setPDate(actValue);
-    }
-
-    public ConfigDateExtra(String key, String name, PDate actPDate) {
-        super(key, name);
-        this.pDate = actPDate;
+        this.actValue = actValue;
     }
 
     public PDate getPDate() {
-        return pDate;
+        return actValue.getValue();
     }
 
     @Override
-    public String getActValue() {
-        return pDate.toString();
+    public PDate getActValue() {
+        return actValue.getValue();
     }
 
     @Override
     public String getActValueString() {
-        return pDate.toString();
+        return getActValue().toString();
+    }
+
+    public void setActValue(PDate act) {
+        actValue.setValue(act);
     }
 
     @Override
     public void setActValue(String act) {
-        pDate.setPDate(act);
+        try {
+            actValue.setValue(new PDate(act));
+        } catch (Exception ex) {
+            actValue.setValue(new PDate());
+        }
+    }
+
+    @Override
+    public PDateProperty getProperty() {
+        return actValue;
     }
 
     @Override

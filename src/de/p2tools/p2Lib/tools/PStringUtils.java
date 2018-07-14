@@ -35,8 +35,8 @@ public class PStringUtils {
 
         Iterator<String> it = list.listIterator();
         while (it.hasNext()) {
-            String str = it.next();
-            if (str.isEmpty()) {
+            final String str = it.next();
+            if (str == null || str.isEmpty()) {
                 it.remove();
             }
         }
@@ -103,13 +103,23 @@ public class PStringUtils {
      * @return
      */
     public static void appendString(ArrayList<String> list, String prefix, String without) {
-        ListIterator<String> iterator = list.listIterator();
-        while (iterator.hasNext()) {
-            String next = iterator.next();
+        if (list == null || list.size() == 0) {
+            return;
+        }
+
+        ListIterator<String> it = list.listIterator();
+        while (it.hasNext()) {
+            final String next = it.next();
+
+            if (next == null) {
+                it.remove();
+                continue;
+            }
+
             if (!without.isEmpty() && next.startsWith(without)) {
                 continue;
             }
-            iterator.set(prefix + next);
+            it.set(prefix + next);
         }
     }
 
