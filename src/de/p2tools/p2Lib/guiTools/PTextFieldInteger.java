@@ -26,21 +26,43 @@ import java.util.Locale;
 
 public class PTextFieldInteger extends TextField {
 
+    private boolean stateLabel = false;
     IntegerProperty integerProperty = null;
 
     private final Locale locale = Locale.GERMAN;
     private NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
 
-//    private String pattern = "###,###";
-//    private NumberFormat numberFormat = new DecimalFormat(pattern);
-
 
     public PTextFieldInteger() {
+    }
+
+    public PTextFieldInteger(boolean stateLabel) {
+        this.stateLabel = stateLabel;
+        setStateLabel();
     }
 
     public PTextFieldInteger(IntegerProperty integerProperty) {
         this.integerProperty = integerProperty;
         bind();
+    }
+
+    public PTextFieldInteger(IntegerProperty integerProperty, boolean stateLabel) {
+        this.integerProperty = integerProperty;
+        this.stateLabel = stateLabel;
+        setStateLabel();
+        bind();
+    }
+
+    public void setStateLabel(boolean stateLabel) {
+        this.stateLabel = stateLabel;
+        setStateLabel();
+    }
+
+    private void setStateLabel() {
+        setEditable(!stateLabel);
+        if (stateLabel) {
+            setStyle(PStyles.PTEXTFIELD_LABEL);
+        }
     }
 
     public IntegerProperty getIntegerProperty() {
@@ -82,7 +104,7 @@ public class PTextFieldInteger extends TextField {
             return;
         }
 
-        Bindings.bindBidirectional(textProperty(), integerProperty, new PNumberStringConverter(this));
+        Bindings.bindBidirectional(textProperty(), integerProperty, new PNumberStringConverter(this, stateLabel));
 
     }
 }

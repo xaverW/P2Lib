@@ -17,6 +17,7 @@
 
 package de.p2tools.p2Lib.guiTools;
 
+import de.p2tools.p2Lib.tools.GermanStringSorter;
 import de.p2tools.p2Lib.tools.PRegEx;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.StringProperty;
@@ -34,17 +35,18 @@ import java.util.regex.Pattern;
 public class PComboBox extends ComboBox<String> {
 
     public final int MAX_ELEMENTS = 15;
-
     private int maxElements = MAX_ELEMENTS;
     private StringProperty selValueStringProperty = null;
     private ObservableList<String> itemsList = null;
     Pattern pattern = null;
 
     public PComboBox() {
+        super();
         this.setEditable(true);
     }
 
     public PComboBox(String regEx) {
+        super();
         this.setEditable(true);
         pattern = PRegEx.makePattern(regEx);
     }
@@ -118,14 +120,14 @@ public class PComboBox extends ComboBox<String> {
         }
 
         reduceList();
-        Collections.sort(itemsList); // todo?? immer das zueltzt verwendete vorne???
+        Collections.sort(itemsList, new GermanStringSorter());
         this.setItems(itemsList);
 
         getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && !itemsList.contains(newValue)) {
                 // itemsList.add(newValue);
                 // oder
-                itemsList.add(0, newValue);
+                itemsList.add(1, newValue);
                 setValue(newValue);
             }
         });
@@ -154,6 +156,7 @@ public class PComboBox extends ComboBox<String> {
         bind();
     }
 
+
     private void bind() {
         if (selValueStringProperty == null) {
             return;
@@ -172,6 +175,22 @@ public class PComboBox extends ComboBox<String> {
     }
 
     private void delList() {
+        String akt = getSelValue();
+        int select = 0;
+        ArrayList<String> list = new ArrayList<>();
+        list.add("");
+
+
+        if (!akt.isEmpty()) {
+            list.add(akt);
+            select = 1;
+        }
+
+        itemsList.setAll(list);
+        getSelectionModel().select(select);
+    }
+
+    private void delAll() {
         ArrayList<String> list = new ArrayList<>();
         list.add("");
         itemsList.setAll(list);
@@ -196,6 +215,10 @@ public class PComboBox extends ComboBox<String> {
         MenuItem delEntries = new MenuItem("Einträge löschen");
         delEntries.setOnAction(a -> delList());
         contextMenu.getItems().addAll(delEntries);
+
+        MenuItem delAll = new MenuItem("Alles löschen");
+        delAll.setOnAction(a -> delAll());
+        contextMenu.getItems().addAll(delAll);
         return contextMenu;
     }
 
@@ -204,10 +227,15 @@ public class PComboBox extends ComboBox<String> {
             return;
         }
 
-        setStyle("");
         if (/*!PRegEx.check(valueProperty().getValue(), pattern) ||*/
-                !PRegEx.check(getEditor().textProperty().getValue(), pattern)) {
-            setStyle("-fx-control-inner-background: #FF0000;");
+                PRegEx.check(getEditor().textProperty().getValue(), pattern)) {
+            this.getEditor().setStyle("");
+//            this.setStyle("");
+        } else {
+            this.getEditor().setStyle(PStyles.PCOMBO_ERROR);
+//            this.setStyle(PStyles.PCOMBO_ERROR);
         }
+
     }
+
 }

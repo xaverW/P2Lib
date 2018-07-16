@@ -29,17 +29,29 @@ public class PNumberStringConverter extends NumberStringConverter {
     private final Locale locale = Locale.GERMAN;
     private NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
     private final Node node;
+    private boolean stateLabel = false;
 
     public PNumberStringConverter(Node node) {
         this.node = node;
     }
 
+    public PNumberStringConverter(Node node, boolean stateLabel) {
+        this.stateLabel = stateLabel;
+        this.node = node;
+        setStateLabel();
+    }
+
+    private void setStateLabel() {
+        if (stateLabel) {
+            node.setStyle(PStyles.PTEXTFIELD_LABEL);
+        }
+    }
 
     @Override
     public Number fromString(String value) {
         Number ret = 0;
         try {
-            setNodeStyle("");
+            setNodeStyle(stateLabel ? PStyles.PTEXTFIELD_LABEL : "");
             if (value == null) {
                 return null;
             }
@@ -53,10 +65,10 @@ public class PNumberStringConverter extends NumberStringConverter {
 
             ret = numberFormat.parse(value);
             if (!value.equals(ret + "")) {
-                setNodeStyle("-fx-control-inner-background: #FF0000;");
+                setNodeStyle(stateLabel ? PStyles.PTEXTFIELD_LABEL_ERROR : PStyles.PTEXTFIELD_ERROR);
             }
         } catch (ParseException ex) {
-            setNodeStyle("-fx-control-inner-background: #FF0000;");
+            setNodeStyle(stateLabel ? PStyles.PTEXTFIELD_LABEL_ERROR : PStyles.PTEXTFIELD_ERROR);
         }
         return ret;
     }

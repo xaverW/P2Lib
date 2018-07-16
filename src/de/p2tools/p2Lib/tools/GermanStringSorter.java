@@ -25,16 +25,20 @@ public class GermanStringSorter implements Comparator<String> {
     private static Collator collator;
     private static GermanStringSorter instance;
 
-    private GermanStringSorter() {
+    /**
+     * can be used, as one Comperator (static) or
+     * many, a new one in every location
+     */
+    public GermanStringSorter() {
         super();
+        // ignore lower/upper case, but accept special characters in localised alphabetical order
+        collator = Collator.getInstance(Locale.GERMANY);
+        collator.setStrength(Collator.SECONDARY);
     }
 
     public static GermanStringSorter getInstance() {
         if (instance == null) {
             instance = new GermanStringSorter();
-            collator = Collator.getInstance(Locale.GERMANY);
-            // ignore lower/upper case, but accept special characters in localised alphabetical order
-            collator.setStrength(Collator.SECONDARY);
         }
         return instance;
     }

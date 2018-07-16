@@ -17,49 +17,38 @@
 
 package de.p2tools.p2Lib.guiTools;
 
-import de.p2tools.p2Lib.tools.PRegEx;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.scene.control.TextField;
 
-import java.util.regex.Pattern;
-
-public class PTextFieldRegEx extends TextField {
+public class PTextField extends TextField {
     StringProperty stringProperty = null;
 
     private boolean stateLabel = false;
-    private ChangeListener changeListener;
-    private Pattern pattern = null;
 
-    public PTextFieldRegEx() {
+    public PTextField() {
         init();
     }
 
-    public PTextFieldRegEx(boolean stateLabel) {
+    public PTextField(boolean stateLabel) {
         this.stateLabel = stateLabel;
         setStateLabel();
         init();
     }
 
-    public PTextFieldRegEx(StringProperty property) {
+    public PTextField(StringProperty property) {
         this.stringProperty = property;
         init();
     }
 
-    public PTextFieldRegEx(StringProperty property, boolean stateLabel) {
+    public PTextField(StringProperty property, boolean stateLabel) {
         this.stringProperty = property;
         this.stateLabel = stateLabel;
         setStateLabel();
         init();
     }
 
-    public PTextFieldRegEx(String regEx) {
-        this.pattern = PRegEx.makePattern(regEx);
-        init();
-    }
-
-    public PTextFieldRegEx(String regEx, boolean stateLabel) {
-        this.pattern = PRegEx.makePattern(regEx);
+    public PTextField(String text, boolean stateLabel) {
+        this.setText(text);
         this.stateLabel = stateLabel;
         setStateLabel();
         init();
@@ -87,10 +76,6 @@ public class PTextFieldRegEx extends TextField {
         bind();
     }
 
-    public void setRegEx(String regEx) {
-        pattern = PRegEx.makePattern(regEx);
-    }
-
     public void bind(StringProperty property) {
         this.stringProperty = property;
         bind();
@@ -101,9 +86,7 @@ public class PTextFieldRegEx extends TextField {
             return;
         }
 
-        stringProperty.addListener(changeListener);
         textProperty().bindBidirectional(stringProperty);
-        check();
     }
 
     public void unBind() {
@@ -111,21 +94,10 @@ public class PTextFieldRegEx extends TextField {
             return;
         }
 
-        stringProperty.removeListener(changeListener);
         textProperty().unbindBidirectional(stringProperty);
     }
 
     private void init() {
         bind();
-        changeListener = (observable, oldValue, newValue) -> check();
-    }
-
-    private void check() {
-        if (PRegEx.check(stringProperty.getValue(), pattern)) {
-            setStyle(stateLabel ? PStyles.PTEXTFIELD_LABEL : "");
-
-        } else {
-            setStyle(stateLabel ? PStyles.PTEXTFIELD_LABEL_ERROR : PStyles.PTEXTFIELD_ERROR);
-        }
     }
 }

@@ -30,6 +30,7 @@ import java.util.Locale;
 public class PTextFieldDouble extends TextField {
     DoubleProperty doubleProperty = null;
 
+    private boolean stateLabel = false;
     private final Locale locale = Locale.GERMAN;
     private final NumberFormat nf = NumberFormat.getNumberInstance(locale);
     private final DecimalFormat df = new DecimalFormat("###,##0.00");
@@ -38,9 +39,34 @@ public class PTextFieldDouble extends TextField {
         textProperty().addListener((observable, oldValue, newValue) -> setTextStyle(getText()));
     }
 
+    public PTextFieldDouble(boolean stateLabel) {
+        this.stateLabel = stateLabel;
+        setStateLabel();
+        textProperty().addListener((observable, oldValue, newValue) -> setTextStyle(getText()));
+    }
+
     public PTextFieldDouble(DoubleProperty doubleProperty) {
         this.doubleProperty = doubleProperty;
         bind();
+    }
+
+    public PTextFieldDouble(DoubleProperty doubleProperty, boolean stateLabel) {
+        this.doubleProperty = doubleProperty;
+        this.stateLabel = stateLabel;
+        setStateLabel();
+        bind();
+    }
+
+    public void setStateLabel(boolean stateLabel) {
+        this.stateLabel = stateLabel;
+        setStateLabel();
+    }
+
+    private void setStateLabel() {
+        setEditable(!stateLabel);
+        if (stateLabel) {
+            setStyle(PStyles.PTEXTFIELD_LABEL);
+        }
     }
 
     public DoubleProperty getDoubleProperty() {
@@ -108,7 +134,7 @@ public class PTextFieldDouble extends TextField {
     }
 
     private void setTextStyle(String value) {
-        setStyle("");
+        setStyle(stateLabel ? PStyles.PTEXTFIELD_LABEL : "");
 
         if (value == null || value.trim().isEmpty()) {
             return;
@@ -117,7 +143,7 @@ public class PTextFieldDouble extends TextField {
         try {
             nf.parse(value.trim());
         } catch (ParseException ex) {
-            setStyle("-fx-control-inner-background: #FF0000;");
+            setStyle(stateLabel ? PStyles.PTEXTFIELD_LABEL_ERROR : PStyles.PTEXTFIELD_ERROR);
         }
     }
 }

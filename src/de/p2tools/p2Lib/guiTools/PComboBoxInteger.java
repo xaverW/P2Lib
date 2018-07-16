@@ -42,7 +42,6 @@ public class PComboBoxInteger extends ComboBox<String> {
     private StringProperty selValueStringProperty = null;
     private ObservableList<String> itemsList = null;
     private final Locale locale = Locale.GERMAN;
-    private NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
 
     public PComboBoxInteger() {
         this.setEditable(true);

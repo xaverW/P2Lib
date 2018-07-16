@@ -26,9 +26,15 @@ import java.util.Locale;
 
 public class PTextFieldLong extends TextField {
 
+    private boolean stateLabel = false;
     private final Locale locale = Locale.GERMAN;
     private NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
     LongProperty longProperty = null;
+
+    public PTextFieldLong(boolean stateLabel) {
+        this.stateLabel = stateLabel;
+        setStateLabel();
+    }
 
     public PTextFieldLong() {
     }
@@ -36,6 +42,25 @@ public class PTextFieldLong extends TextField {
     public PTextFieldLong(LongProperty longProperty) {
         this.longProperty = longProperty;
         bind();
+    }
+
+    public PTextFieldLong(LongProperty longProperty, boolean stateLabel) {
+        this.longProperty = longProperty;
+        this.stateLabel = stateLabel;
+        setStateLabel();
+        bind();
+    }
+
+    public void setStateLabel(boolean stateLabel) {
+        this.stateLabel = stateLabel;
+        setStateLabel();
+    }
+
+    private void setStateLabel() {
+        setEditable(!stateLabel);
+        if (stateLabel) {
+            setStyle(PStyles.PTEXTFIELD_LABEL);
+        }
     }
 
     public LongProperty getLongProperty() {
@@ -77,7 +102,7 @@ public class PTextFieldLong extends TextField {
             return;
         }
 
-        Bindings.bindBidirectional(textProperty(), longProperty, new PNumberStringConverter(this));
+        Bindings.bindBidirectional(textProperty(), longProperty, new PNumberStringConverter(this, stateLabel));
 
     }
 }
