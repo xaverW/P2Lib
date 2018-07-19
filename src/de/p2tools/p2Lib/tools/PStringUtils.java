@@ -17,7 +17,11 @@
 
 package de.p2tools.p2Lib.tools;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PStringUtils {
@@ -52,7 +56,7 @@ public class PStringUtils {
      * @return
      */
     public static String appendList(List<String> list, String separator) {
-        return appendArray(list.toArray(new String[list.size()]), separator);
+        return appendStream(list.stream(), separator);
     }
 
     /**
@@ -69,17 +73,24 @@ public class PStringUtils {
         }
 
         Stream<String> stream = Stream.of(list);
-        Optional<String> optionalS = stream.reduce((s1, s2) -> s1 + separator + s2);
+        return appendStream(stream, separator);
 
-        return (optionalS.isPresent() ? optionalS.get() : "");
+
+//        Stream<String> stream = Stream.of(list);
+//        Optional<String> optionalS = stream.reduce((s1, s2) -> s1 + separator + s2);
+//        return (optionalS.isPresent() ? optionalS.get() : "");
+
 
 //        StringBuilder builder = new StringBuilder(list[0]);
 //        for (int i = 1; i < list.length; ++i) {
 //            builder.append(separator);
 //            builder.append(list[i]);
 //        }
-//
 //        return builder.toString();
+    }
+
+    private static String appendStream(Stream<String> stream, String separator) {
+        return stream.filter(s -> s != null).filter(s -> !s.isEmpty()).collect(Collectors.joining(separator));
     }
 
     /**

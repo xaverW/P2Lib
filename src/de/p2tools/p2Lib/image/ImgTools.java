@@ -51,22 +51,27 @@ public class ImgTools {
     }
 
     public static Color getColor(BufferedImage img) {
-        Raster rast = img.getRaster();
+        Raster raster = img.getRaster();
         long r = 0, g = 0, b = 0;
         long count = 0;
         try {
-            for (int x = rast.getMinX(); x < (rast.getMinX() + rast.getWidth()); x++) {
-                for (int y = rast.getMinY(); y < (rast.getMinY() + rast.getHeight()); y++) {
-                    r += rast.getSample(x, y, 0);
-                    g += rast.getSample(x, y, 1);
-                    b += rast.getSample(x, y, 2);
+            for (int x = raster.getMinX(); x < (raster.getMinX() + raster.getWidth()); x++) {
+
+                for (int y = raster.getMinY(); y < (raster.getMinY() + raster.getHeight()); y++) {
+                    r += raster.getSample(x, y, 0);
+                    g += raster.getSample(x, y, 1);
+                    b += raster.getSample(x, y, 2);
                     ++count;
                 }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        int rr = (int) (r / count), gg = (int) (g / count), bb = (int) (b / count);
+        int rr = (int) (r / count);
+        int gg = (int) (g / count);
+        int bb = (int) (b / count);
+
         Color ret = new Color(rr, gg, bb);
         return ret;
     }
