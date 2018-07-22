@@ -24,11 +24,11 @@ public class PStyles {
     public static String PTEXTFIELD_ERROR = " -fx-background-color: #ff0000, #ffbbbb;" +
             " -fx-background-insets: 0, 1;";
 
-    public static String PTEXTFIELD_LABEL = " -fx-border-color: grey;" +
+    public static String PTEXTFIELD_LABEL = " -fx-border-color: gray;" +
             " -fx-border-width: 1;" +
             " -fx-background-color: transparent;";
 
-    public static String PTEXTFIELD_LABEL_ERROR = " -fx-border-color: grey;" +
+    public static String PTEXTFIELD_LABEL_ERROR = " -fx-border-color: gray;" +
             " -fx-border-width: 1;" +
             PTEXTFIELD_ERROR;
 

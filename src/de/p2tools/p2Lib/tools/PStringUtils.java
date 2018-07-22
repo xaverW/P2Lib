@@ -56,7 +56,14 @@ public class PStringUtils {
      * @return
      */
     public static String appendList(List<String> list, String separator) {
-        return appendStream(list.stream(), separator);
+        return appendList(list, separator, false);
+    }
+
+    public static String appendList(List<String> list, String separator, boolean removeEmpty) {
+        if (list == null || list.isEmpty()) {
+            return "";
+        }
+        return appendStream(list.stream(), separator, removeEmpty);
     }
 
     /**
@@ -68,29 +75,24 @@ public class PStringUtils {
      * @return
      */
     public static String appendArray(String[] list, String separator) {
+        return appendArray(list, separator, false);
+    }
+
+    public static String appendArray(String[] list, String separator, boolean removeEmpty) {
         if (list == null || list.length == 0) {
             return "";
         }
 
         Stream<String> stream = Stream.of(list);
-        return appendStream(stream, separator);
-
-
-//        Stream<String> stream = Stream.of(list);
-//        Optional<String> optionalS = stream.reduce((s1, s2) -> s1 + separator + s2);
-//        return (optionalS.isPresent() ? optionalS.get() : "");
-
-
-//        StringBuilder builder = new StringBuilder(list[0]);
-//        for (int i = 1; i < list.length; ++i) {
-//            builder.append(separator);
-//            builder.append(list[i]);
-//        }
-//        return builder.toString();
+        return appendStream(stream, separator, removeEmpty);
     }
 
-    private static String appendStream(Stream<String> stream, String separator) {
-        return stream.filter(s -> s != null).filter(s -> !s.isEmpty()).collect(Collectors.joining(separator));
+    private static String appendStream(Stream<String> stream, String separator, boolean removeEmpty) {
+        if (removeEmpty) {
+            return stream.filter(s -> s != null).filter(s -> !s.isEmpty()).collect(Collectors.joining(separator));
+        } else {
+            return stream.filter(s -> s != null).collect(Collectors.joining(separator));
+        }
     }
 
     /**

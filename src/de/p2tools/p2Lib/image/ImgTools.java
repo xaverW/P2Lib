@@ -76,6 +76,12 @@ public class ImgTools {
         return ret;
     }
 
+    public static int getGrayValue(BufferedImage img) {
+        Color c = getColor(img);
+        final long gray = (c.getRed() + c.getGreen() + c.getBlue()) / 3;
+        return (int) gray;
+    }
+
     public static void changeToGrayscale(BufferedImage img) {
         //get image width and height
         int width = img.getWidth();
