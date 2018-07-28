@@ -17,7 +17,9 @@
 
 package de.p2tools.p2Lib.tools;
 
-public class PException extends RuntimeException {
+import de.p2tools.p2Lib.tools.log.PLog;
+
+public class PException extends IllegalStateException {
 
     public PException() {
         super();
@@ -38,4 +40,14 @@ public class PException extends RuntimeException {
     public String getMsg() {
         return super.getMessage();
     }
+
+    public static void throwPException(String message) {
+        throwPException(000000000, message);
+    }
+
+    public static void throwPException(int nr, String message) {
+        PLog.errorLog(nr, message);
+        throw new PException(message);
+    }
+
 }
