@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+/*
+ * changed by Xaver W.
+ * 27.07.2018
+ */
+
 .notification {
     -fx-background-color : rgba(15, 0, 0, 0.8);
     -fx-background-radius: 0;

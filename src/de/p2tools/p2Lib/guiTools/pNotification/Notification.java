@@ -43,16 +43,15 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.stream.IntStream;
-/**
- * changed by Xaver W.
- * 27.07.2018
- */
 
 /**
  * Created by
  * User: hansolo
  * Date: 01.07.13
  * Time: 07:10
+ * <p>
+ * changed by Xaver W.
+ * 27.07.2018
  */
 public class Notification {
 

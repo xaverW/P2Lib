@@ -25,6 +25,10 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * changed by Xaver W.
+ * 27.07.2018
+ */
 public class PNotification {
 
     public enum STATE {INFO, WARNING, SUCCESS, ERROR}

@@ -24,15 +24,12 @@ import javafx.util.Duration;
 import java.util.HashMap;
 
 /**
- * changed by Xaver W.
- * 27.07.2018
- */
-
-
-/**
  * User: hansolo
  * Date: 29.04.14
  * Time: 08:32
+ * <p>
+ * changed by Xaver W.
+ * 27.07.2018
  */
 public class NotifierBuilder<B extends NotifierBuilder<B>> {
     private HashMap<String, Property> properties = new HashMap<>();

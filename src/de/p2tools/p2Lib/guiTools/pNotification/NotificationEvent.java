@@ -21,15 +21,12 @@ import javafx.event.EventTarget;
 import javafx.event.EventType;
 
 /**
- * changed by Xaver W.
- * 27.07.2018
- */
-
-
-/**
  * User: hansolo
  * Date: 29.04.14
  * Time: 10:03
+ * <p>
+ * changed by Xaver W.
+ * 27.07.2018
  */
 public class NotificationEvent extends Event {
     public static final EventType<NotificationEvent> NOTIFICATION_PRESSED = new EventType(ANY, "NOTIFICATION_PRESSED");

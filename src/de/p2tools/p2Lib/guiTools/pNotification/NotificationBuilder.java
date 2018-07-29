@@ -22,15 +22,12 @@ import javafx.scene.image.Image;
 import java.util.HashMap;
 
 /**
- * changed by Xaver W.
- * 27.07.2018
- */
-
-
-/**
  * User: hansolo
  * Date: 29.04.14
  * Time: 08:53
+ *
+ * changed by Xaver W.
+ * 27.07.2018
  */
 public class NotificationBuilder<B extends NotificationBuilder<B>> {
     private HashMap<String, Property> properties = new HashMap<>();
