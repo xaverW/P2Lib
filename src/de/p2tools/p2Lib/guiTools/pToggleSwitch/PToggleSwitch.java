@@ -68,7 +68,7 @@ public class PToggleSwitch extends HBox {
 
     private void init() {
         this.setAlignment(Pos.CENTER_LEFT);
-        this.setSpacing(5);
+        this.setSpacing(10);
         this.setPadding(new Insets(2));
 
         label.setMaxWidth(Double.MAX_VALUE);

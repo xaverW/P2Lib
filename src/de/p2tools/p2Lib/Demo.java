@@ -23,6 +23,7 @@ import de.p2tools.p2Lib.guiTools.pNotification.NotifierBuilder;
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
@@ -76,7 +77,7 @@ public class Demo extends Application {
     private void startNotify() {
         Notification.setStage(stage);
         notifier = NotifierBuilder.create()
-                //.popupLocation(Pos.TOP_RIGHT)
+                .popupLocation(Pos.BOTTOM_RIGHT)
                 //.popupLifeTime(Duration.millis(10000))
                 //.styleSheet(getClass().getResource("mynotification.css").toExternalForm())
                 .build();
@@ -88,11 +89,11 @@ public class Demo extends Application {
     private void addCont() {
         vBoxCont.getChildren().addAll(btnNotification);
 
-        PToggleSwitch pToggleSwitchOn = new PToggleSwitch("Toggle On");
+        PToggleSwitch pToggleSwitchOn = new PToggleSwitch("Toggle On:");
         pToggleSwitchOn.setSelected(true);
         pToggleSwitchOn.setTooltip(new Tooltip("Tooltip On"));
 
-        PToggleSwitch pToggleSwitchOff = new PToggleSwitch("Toggle Off");
+        PToggleSwitch pToggleSwitchOff = new PToggleSwitch("Toggle Off:");
         pToggleSwitchOff.setSelected(false);
         pToggleSwitchOff.setTooltip(new Tooltip("Tooltip Off"));
 

@@ -21,7 +21,7 @@
 
 .pToggleSwitch .check-box .box{
     -fx-pref-width: 60;
-    -fx-pref-height: 22;
+    -fx-pref-height: 20;
 
     -fx-min-width: -fx-pref-width;
     -fx-max-width: -fx-pref-width;
@@ -36,14 +36,14 @@
     -fx-border-insets: -1;
     -fx-border-color: lightgray;
 
-    -fx-background-image: url("markOff.png");
+    -fx-background-image: url("toggleOff.png");
     -fx-background-repeat: no-repeat no-repeat;
-    -fx-background-size: 20 20;
+    -fx-background-size: 24 18;
     -fx-background-position: left center;
 }
 
 .pToggleSwitch .check-box:selected .box{
-    -fx-background-image: url("markOn.png");
+    -fx-background-image: url("toggleOn.png");
     -fx-background-position: right center;
     -fx-background-color: lightsteelblue;
 }
