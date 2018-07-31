@@ -26,8 +26,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.CustomMenuItem;
-import javafx.scene.control.MenuButton;
+import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
@@ -35,10 +36,9 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class PCheckComboBox extends HBox {
-    private MenuButton menuButton = new MenuButton();
+    private SplitMenuButton menuButton = new SplitMenuButton();
     private final ObservableList<String> items = FXCollections.observableArrayList();
     private final ArrayList<CheckBox> arrayList = new ArrayList<>();
-    private String title = "";
 
     public PCheckComboBox() {
         init();
@@ -62,12 +62,13 @@ public class PCheckComboBox extends HBox {
 
     private void add(String item, BooleanProperty property) {
         CheckBox cb = new CheckBox("Item ");
-        CustomMenuItem cmi = new CustomMenuItem(cb);
-        cmi.setHideOnClick(false);
         cb.selectedProperty().bindBidirectional(property);
         cb.setText(item);
+//        cb.prefWidthProperty().bind(menuButton.widthProperty());
         addListener(cb);
 
+        CustomMenuItem cmi = new CustomMenuItem(cb);
+        cmi.setHideOnClick(false);
         menuButton.getItems().add(cmi);
     }
 
@@ -94,6 +95,12 @@ public class PCheckComboBox extends HBox {
         HBox.setHgrow(menuButton, Priority.ALWAYS);
         menuButton.setMaxWidth(Double.MAX_VALUE);
         this.getChildren().addAll(menuButton);
+
+        menuButton.setOnMouseClicked(m -> {
+            if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {
+                arrayList.stream().forEach(ch -> ch.setSelected(false));
+            }
+        });
 
         getStyleClass().add("pCheckComboBox");
         final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pCheckComboBox/pCheckComboBox.css";

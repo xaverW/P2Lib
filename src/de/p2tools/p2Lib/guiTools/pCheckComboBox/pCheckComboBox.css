@@ -18,33 +18,13 @@
 .pCheckComboBox  * {
 }
 
-.pCheckComboBox .button{
+.pCheckComboBox .menu-button{
     -fx-background-radius: 10;
 
     -fx-border-radius: 10;
     -fx-border-width: 2;
     -fx-border-insets: -5 -10;
     -fx-border-color: darkgrey;
-
-    -fx-background-image: url("icon.png");
-    -fx-background-repeat: no-repeat no-repeat;
-    -fx-background-size: 30 15;
-    -fx-background-position: right center;
-    -fx-background-insets: -5 -10;
-}
-.pCheckComboBox .menu{
-    -fx-background-radius: 10;
-
-    -fx-border-radius: 10;
-    -fx-border-width: 2;
-    -fx-border-insets: -5 -10;
-    -fx-border-color: darkgrey;
-
-    -fx-background-image: url("icon.png");
-    -fx-background-repeat: no-repeat no-repeat;
-    -fx-background-size: 30 15;
-    -fx-background-position: right center;
-    -fx-background-insets: -5 -10;
 }
 /*
 
