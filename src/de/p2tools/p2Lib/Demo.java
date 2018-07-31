@@ -17,11 +17,13 @@
 
 package de.p2tools.p2Lib;
 
+import de.p2tools.p2Lib.guiTools.pCheckComboBox.PCheckComboBox;
 import de.p2tools.p2Lib.guiTools.pNotification.Notification;
 import de.p2tools.p2Lib.guiTools.pNotification.NotificationBuilder;
 import de.p2tools.p2Lib.guiTools.pNotification.NotifierBuilder;
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import javafx.application.Application;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -98,6 +100,15 @@ public class Demo extends Application {
         pToggleSwitchOff.setTooltip(new Tooltip("Tooltip Off"));
 
         vBoxCont.getChildren().addAll(pToggleSwitchOn, pToggleSwitchOff);
+
+
+        PCheckComboBox pCheckComboBox = new PCheckComboBox();
+        pCheckComboBox.setTooltip(new Tooltip("Tooltip Off"));
+        pCheckComboBox.addItem("Item 1", new SimpleBooleanProperty());
+        pCheckComboBox.addItem("Item 2", new SimpleBooleanProperty());
+        pCheckComboBox.addItem("Item 3", new SimpleBooleanProperty());
+
+        vBoxCont.getChildren().addAll(pCheckComboBox);
     }
 
     @Override

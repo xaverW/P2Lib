@@ -15,45 +15,40 @@
  */
 
 
-.pToggleSwitch  * {
-    -fx-background-color: transparent;
+.pCheckComboBox  * {
 }
 
-.pToggleSwitch .check-box .box{
-    -fx-pref-width: 50;
-    -fx-pref-height: 20;
+.pCheckComboBox .button{
+    -fx-background-radius: 10;
 
-    -fx-min-width: -fx-pref-width;
-    -fx-max-width: -fx-pref-width;
-    -fx-min-height: -fx-pref-height;
-    -fx-max-height: -fx-pref-height;
-
-    -fx-background-color: TRANSPARENT;
-    -fx-background-radius: 15;
-
-    -fx-border-radius: 15;
+    -fx-border-radius: 10;
     -fx-border-width: 2;
-    -fx-border-insets: -1;
+    -fx-border-insets: -5 -10;
     -fx-border-color: darkgrey;
 
-    -fx-background-image: url("toggleOff.png");
+    -fx-background-image: url("icon.png");
     -fx-background-repeat: no-repeat no-repeat;
-    -fx-background-size: 24 18;
-    -fx-background-position: left center;
-}
-
-.pToggleSwitch .check-box:selected .box{
-    -fx-border-color: lightslategrey;
-
-    -fx-background-image: url("toggleOn.png");
+    -fx-background-size: 30 15;
     -fx-background-position: right center;
-    -fx-background-color: lightblue;
+    -fx-background-insets: -5 -10;
 }
+.pCheckComboBox .menu{
+    -fx-background-radius: 10;
 
-.pToggleSwitch .check-box .mark {
-    -fx-background-color: transparent;
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+    -fx-border-insets: -5 -10;
+    -fx-border-color: darkgrey;
+
+    -fx-background-image: url("icon.png");
+    -fx-background-repeat: no-repeat no-repeat;
+    -fx-background-size: 30 15;
+    -fx-background-position: right center;
+    -fx-background-insets: -5 -10;
 }
+/*
 
-.pToggleSwitch .tooltip {
+.pCheckComboBox .tooltip {
     -fx-background-color: black;
 }
+*/
