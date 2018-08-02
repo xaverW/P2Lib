@@ -47,7 +47,7 @@
 
     -fx-background-image: url("toggleOn.png");
     -fx-background-position: right center;
-    -fx-background-color: lightblue;
+    -fx-background-color: #d9e2e7;
 }
 
 .pToggleSwitch .check-box .mark {

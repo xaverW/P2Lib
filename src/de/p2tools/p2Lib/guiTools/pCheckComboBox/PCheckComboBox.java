@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class PCheckComboBox extends HBox {
-    private SplitMenuButton menuButton = new SplitMenuButton();
+    private final SplitMenuButton menuButton = new SplitMenuButton();
     private final ObservableList<String> items = FXCollections.observableArrayList();
     private final ArrayList<CheckBox> arrayList = new ArrayList<>();
 
@@ -99,6 +99,16 @@ public class PCheckComboBox extends HBox {
         menuButton.setOnMouseClicked(m -> {
             if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {
                 arrayList.stream().forEach(ch -> ch.setSelected(false));
+            }
+        });
+
+        menuButton.setOnMousePressed(event -> {
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 1) {
+                if (menuButton.isShowing()) {
+                    menuButton.hide();
+                } else {
+                    menuButton.show();
+                }
             }
         });
 

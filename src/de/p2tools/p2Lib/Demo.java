@@ -21,9 +21,11 @@ import de.p2tools.p2Lib.guiTools.pCheckComboBox.PCheckComboBox;
 import de.p2tools.p2Lib.guiTools.pNotification.Notification;
 import de.p2tools.p2Lib.guiTools.pNotification.NotificationBuilder;
 import de.p2tools.p2Lib.guiTools.pNotification.NotifierBuilder;
+import de.p2tools.p2Lib.guiTools.pTimePeriod.PTimePeriodBox;
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import javafx.application.Application;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -91,6 +93,7 @@ public class Demo extends Application {
     private void addCont() {
         vBoxCont.getChildren().addAll(btnNotification);
 
+
         PToggleSwitch pToggleSwitchOn = new PToggleSwitch("Toggle On:");
         pToggleSwitchOn.setSelected(true);
         pToggleSwitchOn.setTooltip(new Tooltip("Tooltip On"));
@@ -98,7 +101,6 @@ public class Demo extends Application {
         PToggleSwitch pToggleSwitchOff = new PToggleSwitch("Toggle Off:");
         pToggleSwitchOff.setSelected(false);
         pToggleSwitchOff.setTooltip(new Tooltip("Tooltip Off"));
-
         vBoxCont.getChildren().addAll(pToggleSwitchOn, pToggleSwitchOff);
 
 
@@ -107,8 +109,10 @@ public class Demo extends Application {
         pCheckComboBox.addItem("Item 1", new SimpleBooleanProperty());
         pCheckComboBox.addItem("Item 2", new SimpleBooleanProperty());
         pCheckComboBox.addItem("Item 3", new SimpleBooleanProperty());
-
         vBoxCont.getChildren().addAll(pCheckComboBox);
+
+        PTimePeriodBox pTimePeriodBox = new PTimePeriodBox(new SimpleIntegerProperty(), new SimpleIntegerProperty());
+        vBoxCont.getChildren().add(pTimePeriodBox);
     }
 
     @Override
