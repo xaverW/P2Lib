@@ -21,11 +21,11 @@ import de.p2tools.p2Lib.guiTools.pCheckComboBox.PCheckComboBox;
 import de.p2tools.p2Lib.guiTools.pNotification.Notification;
 import de.p2tools.p2Lib.guiTools.pNotification.NotificationBuilder;
 import de.p2tools.p2Lib.guiTools.pNotification.NotifierBuilder;
-import de.p2tools.p2Lib.guiTools.pTimePeriod.PTimePeriodBox;
+import de.p2tools.p2Lib.guiTools.pRange.PRangeBox;
+import de.p2tools.p2Lib.guiTools.pRange.PTimePeriodBox;
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import javafx.application.Application;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -111,8 +111,13 @@ public class Demo extends Application {
         pCheckComboBox.addItem("Item 3", new SimpleBooleanProperty());
         vBoxCont.getChildren().addAll(pCheckComboBox);
 
-        PTimePeriodBox pTimePeriodBox = new PTimePeriodBox(new SimpleIntegerProperty(), new SimpleIntegerProperty());
+        PTimePeriodBox pTimePeriodBox = new PTimePeriodBox();
         vBoxCont.getChildren().add(pTimePeriodBox);
+
+        PRangeBox pRangeBox = new PRangeBox(0, 150);
+        pRangeBox.setVluePrefix("Auszeit: ");
+        pRangeBox.setUnitSuffix(" s");
+        vBoxCont.getChildren().add(pRangeBox);
     }
 
     @Override

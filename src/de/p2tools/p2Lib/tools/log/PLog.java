@@ -16,7 +16,6 @@
 
 package de.p2tools.p2Lib.tools.log;
 
-import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.tools.PStringUtils;
 
 import java.text.SimpleDateFormat;
@@ -26,10 +25,9 @@ import java.util.LinkedList;
 
 public class PLog {
 
-    public static final String LILNE1 = "################################################################################";
-    public static final String LILNE2 = "================================================================================";
-    public static final String LILNE3 = "--------------------------------------------------------------------------------";
-    static String ERROR = "Fehler(" + PConst.progName + "): ";
+    public static final String LILNE1 = "############################################################";
+    public static final String LILNE2 = "============================================================";
+    public static final String LILNE3 = "------------------------------------------------------------";
 
     static final long TO_MEGABYTE = 1000L * 1000L;
     public static final Date startTime = new Date(System.currentTimeMillis());

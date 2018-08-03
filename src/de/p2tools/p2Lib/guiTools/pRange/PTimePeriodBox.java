@@ -15,9 +15,10 @@
  */
 
 
-package de.p2tools.p2Lib.guiTools.pTimePeriod;
+package de.p2tools.p2Lib.guiTools.pRange;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
@@ -31,7 +32,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class PTimePeriodBox extends VBox {
-    public static final int IME_MAX_SEC = 24 * 60 * 60 - 1;
+    public static final int TIME_MAX_SEC = 24 * 60 * 60 - 1;
     private final String pattern = "HH:mm";
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
@@ -41,8 +42,8 @@ public class PTimePeriodBox extends VBox {
     private final int MAX_VALUE = 24 * 60 / MIN_DIST; // Max MIN_DIST
     private final int MIN_DIST_SEC = 15 * 60; // min einstellbarer Wert [s]
 
-    private final IntegerProperty minProperty;
-    private final IntegerProperty maxProperty;
+    private final IntegerProperty minValue = new SimpleIntegerProperty();
+    private final IntegerProperty maxValue = new SimpleIntegerProperty();
 
     private final SplitMenuButton menuButton = new SplitMenuButton();
     private final Slider sliderMin = new Slider();
@@ -51,12 +52,23 @@ public class PTimePeriodBox extends VBox {
     private final Label lblMax = new Label("Bis:");
     private final Label lblValueMin = new Label();
     private final Label lblValueMax = new Label();
-    private final Label lblTime = new Label();
+    private String vluePrefix = "Dauer: ";
 
 
-    public PTimePeriodBox(IntegerProperty minProperty, IntegerProperty maxProperty) {
-        this.minProperty = minProperty;
-        this.maxProperty = maxProperty;
+    public PTimePeriodBox() {
+        setPropValue(minValue, MIN_VALUE);
+        setPropValue(maxValue, MAX_VALUE);
+
+        this.minValue.setValue(MIN_VALUE * MIN_DIST);
+        this.maxValue.setValue(MAX_VALUE * MIN_DIST);
+
+        init();
+        initSlider();
+    }
+
+    public PTimePeriodBox(IntegerProperty minValue, IntegerProperty maxValue) {
+        this.minValue.bindBidirectional(minValue);
+        this.maxValue.bindBidirectional(maxValue);
 
         init();
         initSlider();
@@ -66,16 +78,50 @@ public class PTimePeriodBox extends VBox {
         menuButton.setTooltip(value);
     }
 
+    public int getMinValue() {
+        return minValue.get();
+    }
+
+    public IntegerProperty minValueProperty() {
+        return minValue;
+    }
+
+    public void setMinValue(int minValue) {
+        this.minValue.set(minValue);
+    }
+
+    public int getMaxValue() {
+        return maxValue.get();
+    }
+
+    public IntegerProperty maxValueProperty() {
+        return maxValue;
+    }
+
+    public void setMaxValue(int maxValue) {
+        this.maxValue.set(maxValue);
+    }
+
+    public String getVluePrefix() {
+        return vluePrefix;
+    }
+
+    public void setVluePrefix(String vluePrefix) {
+        this.vluePrefix = vluePrefix;
+        setTimeTxt();
+    }
+
     private void init() {
         this.setSpacing(5);
-        this.setPadding(new Insets(2));
+        this.setPadding(new Insets(0));
 
         HBox.setHgrow(menuButton, Priority.ALWAYS);
         menuButton.setMaxWidth(Double.MAX_VALUE);
-        this.getChildren().addAll(lblTime, menuButton);
+        this.getChildren().addAll(menuButton);
 
         menuButton.setOnMouseClicked(m -> {
             if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {
+                resetSlider();
             }
         });
 
@@ -107,34 +153,52 @@ public class PTimePeriodBox extends VBox {
         menuButton.getItems().add(cmi);
 
         getStyleClass().add("pTimePeriodBox");
-        final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pTimePeriodBox/pTimePeriodBox.css";
+        final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pRange/pTimePeriodBox.css";
         getStylesheets().add(CSS_FILE);
     }
 
     private void initSlider() {
+        // slider MIN
         sliderMin.setMin(MIN_VALUE);
         sliderMin.setMax(MAX_VALUE - 1);
+        initSlider(sliderMin, minValue);
+        // kein direktes binding wegen: valueChangingProperty, nur melden wenn "steht"
+        sliderMin.setValue(minValue.getValue() / MIN_DIST_SEC);
 
-        initSlider(sliderMin, minProperty);
+        minValue.addListener(l -> {
+            sliderMin.setValue(minValue.getValue() / MIN_DIST_SEC);
+        });
         sliderMin.valueChangingProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
-                minProperty.setValue((int) sliderMin.getValue() * MIN_DIST_SEC);
+                setPropValue(minValue, (int) sliderMin.getValue());
                 repairMaxValue();
-                System.out.println("minProperty: " + minProperty.getValue() / 60);
             }
         });
 
+        // slider MAX
         sliderMax.setMin(MIN_VALUE + 1);
         sliderMax.setMax(MAX_VALUE);
 
-        initSlider(sliderMax, maxProperty);
+        initSlider(sliderMax, maxValue);
+        // kein direktes binding wegen: valueChangingProperty, nur melden wenn "steht"
+        sliderMax.setValue(maxValue.getValue() / MIN_DIST_SEC);
+
+        maxValue.addListener(l -> {
+            sliderMax.setValue(maxValue.getValue() / MIN_DIST_SEC);
+        });
         sliderMax.valueChangingProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
-                maxProperty.setValue((int) sliderMax.getValue() * MIN_DIST_SEC);
+                setPropValue(maxValue, (int) sliderMax.getValue());
                 repairMinValue();
-                System.out.println("maxProperty: " + maxProperty.getValue() / 60);
             }
         });
+        setTimeTxt();
+    }
+
+    private void resetSlider() {
+        setPropValue(minValue, MIN_VALUE);
+        setPropValue(maxValue, MAX_VALUE);
+        setTimeTxt();
     }
 
     private void initSlider(Slider slider, IntegerProperty ip) {
@@ -159,13 +223,7 @@ public class PTimePeriodBox extends VBox {
             }
         });
 
-        // kein direktes binding wegen: valueChangingProperty, nur melden wenn "steht"
-        slider.setValue(ip.getValue() / MIN_DIST_SEC);
-
-        ip.addListener(l -> {
-            slider.setValue(ip.getValue() / MIN_DIST_SEC);
-        });
-        slider.valueProperty().addListener(l -> setLabel());
+        slider.valueProperty().addListener(l -> setTimeTxt());
     }
 
     private void repairMinValue() {
@@ -175,6 +233,7 @@ public class PTimePeriodBox extends VBox {
             low = height - 1;
             low = low < 0 ? 0 : low;
             sliderMin.setValue(low);
+            setPropValue(minValue, low);
         }
     }
 
@@ -185,26 +244,32 @@ public class PTimePeriodBox extends VBox {
             height = low + 1;
             height = height > MAX_VALUE ? MAX_VALUE : height;
             sliderMax.setValue(height);
+            setPropValue(maxValue, height);
         }
     }
 
-    private void setLabel() {
+    private void setPropValue(IntegerProperty ip, int value) {
+        ip.setValue(value * MIN_DIST_SEC);
+    }
+
+    private void setTimeTxt() {
         final String STR_ALLES = "alles";
         int iLowSecond = (int) sliderMin.getValue() * MIN_DIST_SEC;
         LocalTime lt = LocalTime.ofSecondOfDay(iLowSecond);
         String timeL = lt.format(formatter);
 
         int iHiSecond = (int) sliderMax.getValue() * MIN_DIST_SEC;
-        iHiSecond = iHiSecond > IME_MAX_SEC ? IME_MAX_SEC : iHiSecond;
+        iHiSecond = iHiSecond > TIME_MAX_SEC ? TIME_MAX_SEC : iHiSecond;
         lt = LocalTime.ofSecondOfDay(iHiSecond);
-        String timeH = iHiSecond == IME_MAX_SEC ? "24:00" : lt.format(formatter);
+        String timeH = iHiSecond == TIME_MAX_SEC ? "24:00" : lt.format(formatter);
 
-        if (iLowSecond == 0 && iHiSecond == IME_MAX_SEC) {
-            lblTime.setText("Sendezeit: " + STR_ALLES);
+        if (iLowSecond == 0 && iHiSecond == TIME_MAX_SEC) {
+            final String text = vluePrefix + STR_ALLES;
+            menuButton.setText(text);
         } else {
-            lblTime.setText("Sendezeit: von " + timeL + " bis " + timeH);
+            final String text = vluePrefix + "von " + timeL + " bis " + timeH;
+            menuButton.setText(text);
         }
-
     }
 
 }
