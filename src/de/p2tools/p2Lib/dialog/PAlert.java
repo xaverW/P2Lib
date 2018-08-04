@@ -50,7 +50,6 @@ public class PAlert {
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
-
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 
         ButtonType btnYes = new ButtonType("Ja", ButtonBar.ButtonData.YES);

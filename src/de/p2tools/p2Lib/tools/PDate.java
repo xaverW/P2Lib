@@ -136,7 +136,7 @@ public class PDate extends Date {
      * @return Differenz in Sekunden.
      */
     public long diffInSeconds() {
-        final long ret = new Long((this.getTime() - new PDate().getTime()) / (1000)).intValue();
+        final long ret = (int) (1L * (this.getTime() - new PDate().getTime()) / 1000L);
         return Math.abs(ret);
     }
 

@@ -140,8 +140,7 @@ public class PDateProperty extends SimpleObjectProperty<PDate> {
      * @return Differenz in Sekunden.
      */
     public long diffInSeconds() {
-        final long ret = new Long((this.getValue().getTime() - new PDate().getTime()) / (1000)).intValue();
-        return Math.abs(ret);
+        return getValue().diffInSeconds();
     }
 
     /**

@@ -33,7 +33,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-public class MemoryUsageDialog extends MTDialogExtra {
+public class MemoryUsageDialog extends PDialogExtra {
 
     private final Button btnOk = new Button("Ok");
     private final Button btnGc = new Button("Speicher aufräumen");

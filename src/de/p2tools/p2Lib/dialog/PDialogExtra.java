@@ -24,14 +24,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class MTDialogExtra extends MTDialog {
+public class PDialogExtra extends PDialog {
 
     private VBox vBoxDialog = new VBox();
     private VBox vboxCont = new VBox();
     private HBox hBoxOk = new HBox(10);
 
 
-    public MTDialogExtra(String fxml, StringProperty conf, String title, boolean modal) {
+    public PDialogExtra(String fxml, StringProperty conf, String title, boolean modal) {
         super(fxml, conf, title, modal);
         initDialog();
     }

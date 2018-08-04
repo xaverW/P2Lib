@@ -34,7 +34,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 
 
-public class MTDialog {
+public class PDialog {
     private Scene scene = null;
     private Stage stage = null;
 
@@ -46,28 +46,28 @@ public class MTDialog {
     private double stageWidth = 0;
     private double stageHeight = 0;
 
-    public MTDialog(String fxml, StringProperty conf, String title, boolean modal) {
+    public PDialog(String fxml, StringProperty conf, String title, boolean modal) {
         this.fxml = fxml;
         this.conf = conf;
         this.modal = modal;
         this.title = title;
     }
 
-    public MTDialog(StringProperty conf, String title, boolean modal) {
+    public PDialog(StringProperty conf, String title, boolean modal) {
         this.fxml = null;
         this.conf = conf;
         this.modal = modal;
         this.title = title;
     }
 
-    public MTDialog(String fxml, String title, boolean modal) {
+    public PDialog(String fxml, String title, boolean modal) {
         this.fxml = fxml;
         this.conf = null;
         this.modal = modal;
         this.title = title;
     }
 
-    public MTDialog(String title, boolean modal) {
+    public PDialog(String title, boolean modal) {
         this.fxml = null;
         this.conf = null;
         this.modal = modal;

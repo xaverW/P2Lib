@@ -38,8 +38,6 @@ public class PAlertFileChosser extends PAlert {
                                               boolean dir, boolean txtArea, String startFile,
                                               Stage primaryStage, ImageView imageView) {
 
-        String ret = "";
-
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle(title);
         dialog.setHeaderText(header);
