@@ -16,6 +16,7 @@
 
 package de.p2tools.p2Lib.tools;
 
+import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.dialog.PAlert;
 import de.p2tools.p2Lib.dialog.PAlertFileChosser;
 import de.p2tools.p2Lib.tools.log.PLog;
@@ -69,15 +70,15 @@ public class FileUtils {
 
     public static boolean movePath(String from, String to) {
         if (from.isEmpty()) {
-            new PAlert().showErrorAlert("Verzeichnis verschieben", "Das Quellverzeichnis:\n" +
-                    to + "\n\n" +
+            new PAlert().showErrorAlert("Verzeichnis verschieben", "Das Quellverzeichnis:" + PConst.LINE_SEPARATOR +
+                    to + PConst.LINE_SEPARATORx2 +
                     "ist kein Verzeichnis");
             return false;
         }
 
         if (to.isEmpty()) {
-            new PAlert().showErrorAlert("Verzeichnis verschieben", "Das Zielverzeichnis:\n" +
-                    to + "\n\n" +
+            new PAlert().showErrorAlert("Verzeichnis verschieben", "Das Zielverzeichnis:" + PConst.LINE_SEPARATOR +
+                    to + PConst.LINE_SEPARATORx2 +
                     "ist kein Verzeichnis");
             return false;
         }
@@ -87,15 +88,15 @@ public class FileUtils {
             Path dest = Paths.get(to);
 
             if (dest.toFile().exists() && !dest.toFile().isDirectory()) {
-                new PAlert().showErrorAlert("Verzeichnis verschieben", "Das Zielverzeichnis:\n" +
-                        to + "\n\n" +
+                new PAlert().showErrorAlert("Verzeichnis verschieben", "Das Zielverzeichnis:" + PConst.LINE_SEPARATOR +
+                        to + PConst.LINE_SEPARATORx2 +
                         "ist kein Verzeichnis");
                 return false;
             }
 
             if (dest.toFile().exists() && dest.toFile().isDirectory() && dest.toFile().list().length > 0) {
                 new PAlert().showErrorAlert("Verzeichnis verschieben",
-                        "Das Zielverzeichnis:\n" + to + "\n\n" +
+                        "Das Zielverzeichnis:" + PConst.LINE_SEPARATOR + to + PConst.LINE_SEPARATORx2 +
                                 "existiert bereits und ist nicht leer!");
                 return false;
             }
@@ -242,7 +243,7 @@ public class FileUtils {
         }
         if (ret.isEmpty()) {
             ret = path;
-            PLog.errorLog(945120365, path);
+            PLog.errorLog(915201236, path);
         }
         return ret;
     }
@@ -302,7 +303,7 @@ public class FileUtils {
                 return false;
             }
 
-            if (new PAlertFileChosser().showAlert("Datei Löschen?", "", "Die Datei löschen:\n\n" + strFile)) {
+            if (new PAlertFileChosser().showAlert("Datei Löschen?", "", "Die Datei löschen:" + PConst.LINE_SEPARATORx2 + strFile)) {
 
                 // und jetzt die Datei löschen
                 PLog.sysLog(new String[]{"Datei löschen: ", file.getAbsolutePath()});
@@ -314,7 +315,7 @@ public class FileUtils {
         } catch (Exception ex) {
             ret = false;
             new PAlertFileChosser().showErrorAlert("Datei löschen",
-                    "Konnte die Datei nicht löschen!", "Fehler beim löschen von:\n\n" +
+                    "Konnte die Datei nicht löschen!", "Fehler beim löschen von:" + PConst.LINE_SEPARATORx2 +
                             strFile);
             PLog.errorLog(912036547, "Fehler beim löschen: " + strFile);
         }
@@ -340,7 +341,7 @@ public class FileUtils {
         } catch (Exception ex) {
             ret = false;
             new PAlertFileChosser().showErrorAlert("Datei löschen",
-                    "Konnte die Datei nicht löschen!", "Fehler beim löschen von:\n\n" +
+                    "Konnte die Datei nicht löschen!", "Fehler beim löschen von:" + PConst.LINE_SEPARATORx2 +
                             strFile);
             PLog.errorLog(912036547, "Fehler beim löschen: " + strFile);
         }

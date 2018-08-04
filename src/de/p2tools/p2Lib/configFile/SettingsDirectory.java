@@ -17,7 +17,9 @@
 
 package de.p2tools.p2Lib.configFile;
 
+import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.dialog.PAlert;
+import de.p2tools.p2Lib.tools.PException;
 import de.p2tools.p2Lib.tools.log.PLog;
 import org.apache.commons.lang3.SystemUtils;
 
@@ -51,14 +53,7 @@ public class SettingsDirectory {
         if (configDir == null || configDir.isEmpty()) {
 
             if (SystemUtils.IS_OS_WINDOWS) {
-                //set hidden attribute on windows
-                try {
-                    baseDirectoryPath = Paths.get(System.getProperty("user.home"), stdDir);
-                    Files.setAttribute(baseDirectoryPath, "dos:hidden", Boolean.TRUE, LinkOption.NOFOLLOW_LINKS);
-                } catch (IOException ex) {
-                    PLog.errorLog(945120365, ex);
-                    baseDirectoryPath = Paths.get(System.getProperty("user.home"), stdDir);
-                }
+                baseDirectoryPath = Paths.get(System.getProperty("user.home"), stdDir);
 
             } else {
                 // x-systeme
@@ -78,14 +73,23 @@ public class SettingsDirectory {
         if (Files.notExists(path)) {
             try {
                 Files.createDirectories(path);
+                if (SystemUtils.IS_OS_WINDOWS) {
+                    try {
+                        //set hidden attribute on windows
+                        Files.setAttribute(path, "dos:hidden", Boolean.TRUE, LinkOption.NOFOLLOW_LINKS);
+                    } catch (IOException ex) {
+                        PLog.errorLog(795412365, ex);
+                    }
+                }
+
             } catch (final IOException ioException) {
                 PLog.errorLog(912030306, ioException, "Ordner anlegen: " + path);
                 PAlert.showErrorAlert("Ordner anlegen", " Der Ordner " + path +
-                        " konnte nicht angelegt werden.\n" +
+                        " konnte nicht angelegt werden." + PConst.LINE_SEPARATOR +
                         "Bitte prüfen Sie die Dateirechte.");
 
-                throw new IllegalStateException(" Der Ordner " + path +
-                        " konnte nicht angelegt werden.\n" +
+                throw new PException(" Der Ordner " + path +
+                        " konnte nicht angelegt werden." + PConst.LINE_SEPARATOR +
                         "Bitte prüfen Sie die Dateirechte.", ioException);
             }
         }

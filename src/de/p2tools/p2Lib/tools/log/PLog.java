@@ -16,6 +16,7 @@
 
 package de.p2tools.p2Lib.tools.log;
 
+import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.tools.PStringUtils;
 
 import java.text.SimpleDateFormat;
@@ -66,11 +67,11 @@ public class PLog {
     }
 
     public static synchronized void errorLog(int errorNumber, Exception ex, String text[]) {
-        String log = PStringUtils.appendArray(text, "\n");
+        String log = PStringUtils.appendArray(text, PConst.LINE_SEPARATOR);
         if (log.isEmpty()) {
             return;
         }
-        log = errorNumber + "\n" + log;
+        log = errorNumber + PConst.LINE_SEPARATOR + log;
         PLogger.LogSevere(log, ex);
         fehlermeldung_(errorNumber, ex, text);
     }
@@ -81,11 +82,11 @@ public class PLog {
     }
 
     public static synchronized void errorLog(int errorNumber, String[] text) {
-        String log = PStringUtils.appendArray(text, "\n");
+        String log = PStringUtils.appendArray(text, PConst.LINE_SEPARATOR);
         if (log.isEmpty()) {
             return;
         }
-        log = errorNumber + "\n" + log;
+        log = errorNumber + PConst.LINE_SEPARATOR + log;
         PLogger.LogSevere(log);
         fehlermeldung_(errorNumber, null, text);
     }
@@ -106,7 +107,7 @@ public class PLog {
     }
 
     public static synchronized void sysLog(String text[]) {
-        String log = PStringUtils.appendArray(text, "\n");
+        String log = PStringUtils.appendArray(text, PConst.LINE_SEPARATOR);
         if (log.isEmpty()) {
             return;
         }
@@ -115,7 +116,7 @@ public class PLog {
     }
 
     public static synchronized void sysLog(ArrayList<String> list) {
-        String log = PStringUtils.appendList(list, "\n");
+        String log = PStringUtils.appendList(list, PConst.LINE_SEPARATOR);
         if (log.isEmpty()) {
             return;
         }
@@ -127,7 +128,7 @@ public class PLog {
     Infos die auch der User im Tab Meldungen sieht
      */
     public static synchronized void userLog(String text[]) {
-        String log = PStringUtils.appendArray(text, "\n");
+        String log = PStringUtils.appendArray(text, PConst.LINE_SEPARATOR);
         if (log.isEmpty()) {
             return;
         }
@@ -138,7 +139,7 @@ public class PLog {
     }
 
     public static synchronized void userLog(ArrayList<String> list) {
-        String log = PStringUtils.appendList(list, "\n");
+        String log = PStringUtils.appendList(list, PConst.LINE_SEPARATOR);
         if (log.isEmpty()) {
             return;
         }
@@ -157,7 +158,7 @@ public class PLog {
     Meldungen zur Zeitmessung
      */
     public static synchronized void durationLog(ArrayList<String> list) {
-        String log = PStringUtils.appendList(list, "\n");
+        String log = PStringUtils.appendList(list, PConst.LINE_SEPARATOR);
         if (log.isEmpty()) {
             return;
         }

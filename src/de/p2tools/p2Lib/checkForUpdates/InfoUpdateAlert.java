@@ -17,6 +17,7 @@
 
 package de.p2tools.p2Lib.checkForUpdates;
 
+import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
 import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Insets;
@@ -126,7 +127,7 @@ public class InfoUpdateAlert {
         if (newVersion) {
             textArea.setText(progInfo.getProgReleaseNotes());
         } else {
-            textArea.setText("\nSie benutzen die neueste Version von " + progInfo.getProgName() + ".");
+            textArea.setText(PConst.LINE_SEPARATOR + "Sie benutzen die neueste Version von " + progInfo.getProgName() + ".");
         }
 
         textArea.setWrapText(true);

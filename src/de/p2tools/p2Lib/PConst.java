@@ -27,4 +27,9 @@ public class PConst {
     public static String logdir = "Log";
 
     public static boolean debug = false; // Debugmodus
+
+    public static final String LINE_SEPARATOR = System.getProperty("line.separator");
+    public static final String LINE_SEPARATORx2 = LINE_SEPARATOR + LINE_SEPARATOR;
+    public static final String LINE_SEPARATORx3 = LINE_SEPARATOR + LINE_SEPARATOR + LINE_SEPARATOR;
+    public static final String LINE_SEPARATORx4 = LINE_SEPARATOR + LINE_SEPARATOR + LINE_SEPARATOR + LINE_SEPARATOR;
 }

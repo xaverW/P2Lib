@@ -16,6 +16,7 @@
 
 package de.p2tools.p2Lib.configFile;
 
+import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.configFile.config.ConfigPData;
 import de.p2tools.p2Lib.configFile.config.ConfigPDataList;
@@ -66,19 +67,19 @@ class SaveConfigFile implements AutoCloseable {
 
             for (PData pData : this.pData) {
 
-                writer.writeCharacters("\n\n");
+                writer.writeCharacters(PConst.LINE_SEPARATORx2);
                 writer.writeComment(pData.getComment());
-                writer.writeCharacters("\n");
+                writer.writeCharacters(PConst.LINE_SEPARATOR);
                 write(pData, 0);
             }
 
             for (PDataList cl : pDataList) {
-                writer.writeCharacters("\n");
+                writer.writeCharacters(PConst.LINE_SEPARATOR);
                 writer.writeComment(cl.getComment());
                 write(cl, 0);
             }
 
-            writer.writeCharacters("\n\n");
+            writer.writeCharacters(PConst.LINE_SEPARATORx2);
             xmlWriteEnd();
         } catch (final Exception ex) {
             PLog.errorLog(656328109, ex);
@@ -93,9 +94,9 @@ class SaveConfigFile implements AutoCloseable {
         final XMLOutputFactory outFactory = XMLOutputFactory.newInstance();
         writer = outFactory.createXMLStreamWriter(out);
         writer.writeStartDocument(StandardCharsets.UTF_8.name(), "1.0");
-        writer.writeCharacters("\n");
+        writer.writeCharacters(PConst.LINE_SEPARATOR);
         writer.writeStartElement(xmlStart);
-        writer.writeCharacters("\n");
+        writer.writeCharacters(PConst.LINE_SEPARATOR);
     }
 
     private void xmlWriteEnd() throws XMLStreamException {
@@ -142,7 +143,7 @@ class SaveConfigFile implements AutoCloseable {
 
         writeTab(tab++);
         writer.writeStartElement(xmlName);
-        writer.writeCharacters("\n"); // neue Zeile
+        writer.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
 
         for (Config config : pData.getConfigsArr()) {
             write(config, tab);
@@ -150,18 +151,18 @@ class SaveConfigFile implements AutoCloseable {
 
         writeTab(--tab);
         writer.writeEndElement();
-        writer.writeCharacters("\n"); // neue Zeile
+        writer.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
     }
 
 
     private void writePDataList(PDataList pDataList, int tab) throws XMLStreamException {
 
         String xmlName = pDataList.getTag();
-        writer.writeCharacters("\n"); // neue Zeile
+        writer.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
 
         writeTab(tab++);
         writer.writeStartElement(xmlName);
-        writer.writeCharacters("\n"); // neue Zeile
+        writer.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
 
         for (Object configsData : pDataList) {
             write(configsData, tab);
@@ -169,7 +170,7 @@ class SaveConfigFile implements AutoCloseable {
 
         writeTab(--tab);
         writer.writeEndElement();
-        writer.writeCharacters("\n"); // neue Zeile
+        writer.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
     }
 
     private void writeConfigPDataList(ConfigPDataList configPDataList, int tab) throws XMLStreamException {
@@ -187,7 +188,7 @@ class SaveConfigFile implements AutoCloseable {
 
             writeTab(tab++);
             writer.writeStartElement(config.getKey());
-            writer.writeCharacters("\n"); // neue Zeile
+            writer.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
 
             ObservableList<Object> actValue = config.getActValue();
             int i = 0;
@@ -197,12 +198,12 @@ class SaveConfigFile implements AutoCloseable {
                 writer.writeStartElement(config.getKey() + "-" + i);
                 writer.writeCharacters(o.toString());
                 writer.writeEndElement();
-                writer.writeCharacters("\n"); // neue Zeile
+                writer.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
             }
 
             writeTab(--tab);
             writer.writeEndElement();
-            writer.writeCharacters("\n"); // neue Zeile
+            writer.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
         }
     }
 
@@ -212,7 +213,7 @@ class SaveConfigFile implements AutoCloseable {
             writer.writeStartElement(config.getKey());
             writer.writeCharacters(config.getActValueString());
             writer.writeEndElement();
-            writer.writeCharacters("\n"); // neue Zeile
+            writer.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
         }
     }
 

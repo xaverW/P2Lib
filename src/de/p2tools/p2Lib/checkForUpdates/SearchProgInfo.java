@@ -38,7 +38,7 @@ public class SearchProgInfo {
 
     private final String UPDATE_SEARCH_TITLE = "Software-Aktualisierung";
     private final String UPDATE_ERROR_MESSAGE =
-            "Es ist ein Fehler bei der Softwareaktualisierung aufgetreten.\n"
+            "Es ist ein Fehler bei der Softwareaktualisierung aufgetreten." + PConst.LINE_SEPARATOR
                     + "Die aktuelle Version konnte nicht ermittelt werden.";
 
     private static final int TIMEOUT = 10_000; // timeout ms
