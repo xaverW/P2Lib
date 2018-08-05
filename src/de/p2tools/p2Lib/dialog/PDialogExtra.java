@@ -36,6 +36,11 @@ public class PDialogExtra extends PDialog {
         initDialog();
     }
 
+    public PDialogExtra(StringProperty conf, String title, boolean modal) {
+        super(conf, title, modal);
+        initDialog();
+    }
+
     private void initDialog() {
         vBoxDialog.setSpacing(10);
         vBoxDialog.setPadding(new Insets(10));
