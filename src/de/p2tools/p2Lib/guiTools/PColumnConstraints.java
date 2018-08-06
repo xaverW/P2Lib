@@ -23,19 +23,24 @@ import javafx.scene.layout.Region;
 
 public class PColumnConstraints {
 
-//    public static ColumnConstraints getCcLabelSize() {
-//        final ColumnConstraints cc = new ColumnConstraints();
-//        cc.setMinWidth(Region.USE_PREF_SIZE);
-//        return cc;
-//    }
 
+    /**
+     * sets the minimunsize
+     *
+     * @return
+     */
     public static ColumnConstraints getCcPrefSize() {
         final ColumnConstraints cc = new ColumnConstraints();
         cc.setMinWidth(Region.USE_PREF_SIZE);
         return cc;
     }
 
-    public static ColumnConstraints getCcComputedSize() {
+    /**
+     * sets the minimunsize and hgrow
+     *
+     * @return
+     */
+    public static ColumnConstraints getCcComputedSizeAndHgrow() {
         final ColumnConstraints cc = new ColumnConstraints();
         cc.setFillWidth(true);
         cc.setMinWidth(Region.USE_COMPUTED_SIZE);
