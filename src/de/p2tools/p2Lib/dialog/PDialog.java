@@ -23,12 +23,14 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
@@ -169,7 +171,11 @@ public class PDialog {
         }
 
         if (conf == null || !GuiSize.setPos(conf, stage)) {
-            setPrimaryStage();
+            if (owner == null) {
+                setInCenterOfScreen();
+            } else {
+                setInFrontOfPrimaryStage();
+            }
         }
 
         if (modal) {
@@ -179,7 +185,7 @@ public class PDialog {
         }
     }
 
-    private void setPrimaryStage() {
+    private void setInFrontOfPrimaryStage() {
         // vor Primär zentrieren
         if (owner != null) {
             ChangeListener<Number> widthListener = (observable, oldValue, newValue) -> {
@@ -189,6 +195,30 @@ public class PDialog {
             ChangeListener<Number> heightListener = (observable, oldValue, newValue) -> {
                 double stageHeight = newValue.doubleValue();
                 stage.setY(owner.getY() + owner.getHeight() / 2 - stageHeight / 2);
+            };
+
+            stage.widthProperty().addListener(widthListener);
+            stage.heightProperty().addListener(heightListener);
+
+            stage.setOnShown(e -> {
+                stage.widthProperty().removeListener(widthListener);
+                stage.heightProperty().removeListener(heightListener);
+            });
+        }
+    }
+
+    private void setInCenterOfScreen() {
+        // vor Primär zentrieren
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+
+        if (screenBounds != null) {
+            ChangeListener<Number> widthListener = (observable, oldValue, newValue) -> {
+                double stageWidth = newValue.doubleValue();
+                stage.setX(screenBounds.getWidth() / 2 - stageWidth / 2);
+            };
+            ChangeListener<Number> heightListener = (observable, oldValue, newValue) -> {
+                double stageHeight = newValue.doubleValue();
+                stage.setY(screenBounds.getHeight() / 2 - stageHeight / 2);
             };
 
             stage.widthProperty().addListener(widthListener);

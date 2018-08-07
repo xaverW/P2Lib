@@ -28,8 +28,9 @@ import javafx.scene.layout.Priority;
 
 public class PToggleSwitch extends HBox {
 
-    CheckBox checkBox = new CheckBox();
-    Label label = new Label();
+    private final CheckBox checkBox = new CheckBox();
+    private final Label label = new Label();
+    private boolean tglInFront = false;
 
     public PToggleSwitch() {
         super();
@@ -39,6 +40,13 @@ public class PToggleSwitch extends HBox {
     public PToggleSwitch(String text) {
         super();
         label.setText(text);
+        init();
+    }
+
+    public PToggleSwitch(String text, boolean tglInFront) {
+        super();
+        label.setText(text);
+        this.tglInFront = tglInFront;
         init();
     }
 
@@ -71,9 +79,15 @@ public class PToggleSwitch extends HBox {
         this.setSpacing(10);
         this.setPadding(new Insets(2));
 
-        label.setMaxWidth(Double.MAX_VALUE);
-        HBox.setHgrow(label, Priority.ALWAYS);
-        this.getChildren().addAll(label, checkBox);
+        if (tglInFront) {
+            label.setMaxWidth(Double.MAX_VALUE);
+            HBox.setHgrow(label, Priority.ALWAYS);
+            this.getChildren().addAll(checkBox, label);
+        } else {
+            label.setMaxWidth(Double.MAX_VALUE);
+            HBox.setHgrow(label, Priority.ALWAYS);
+            this.getChildren().addAll(label, checkBox);
+        }
 
         getStyleClass().add("pToggleSwitch");
         final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pToggleSwitch/pToggleSwitch.css";
