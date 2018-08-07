@@ -62,17 +62,24 @@ public class GuiSize {
         return height;
     }
 
-    public static void setPos(StringProperty property, Stage stage) {
+    public static boolean setPos(StringProperty property, Stage stage) {
         int posX, posY;
         posX = 0;
         posY = 0;
+        boolean ret = true;
         final String[] arr = property.getValue().split(":");
+        if (arr.length != 4) {
+            // dann ists eh noch leer
+            return false;
+        }
+
         try {
             if (arr.length == 4) {
                 posX = Integer.parseInt(arr[2]);
                 posY = Integer.parseInt(arr[3]);
             }
         } catch (final Exception ex) {
+            ret = false;
             posX = 0;
             posY = 0;
         }
@@ -80,6 +87,8 @@ public class GuiSize {
             stage.setX(posX);
             stage.setY(posY);
         }
+
+        return ret;
     }
 
 }

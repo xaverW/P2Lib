@@ -31,11 +31,6 @@ public class PDialogExtra extends PDialog {
     private HBox hBoxOk = new HBox(10);
 
 
-    public PDialogExtra(String fxml, StringProperty conf, String title, boolean modal) {
-        super(fxml, conf, title, modal);
-        initDialog();
-    }
-
     public PDialogExtra(StringProperty conf, String title, boolean modal) {
         super(conf, title, modal);
         initDialog();

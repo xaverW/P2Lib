@@ -18,15 +18,16 @@
 package de.p2tools.p2Lib.checkForUpdates;
 
 import de.p2tools.p2Lib.PConst;
+import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
 import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -42,16 +43,35 @@ public class InfoUpdateAlert {
     private final Tab tabInfos = new Tab("Programminfos");
     private final CheckBox chkSearchUpdateInfo = new CheckBox("Nach Programmupdates suchen.");
     private final boolean newVersion;
+    private final Stage stage;
     BooleanProperty bPropShowUpdateInfo = null;
 
+
     public InfoUpdateAlert(ProgInfo progInfo, ArrayList<Infos> newInfosList, boolean newVersion, BooleanProperty bPropShowUpdateInfo) {
+        this.stage = PConst.primaryStage;
         this.progInfo = progInfo;
         this.newInfosList = newInfosList;
         this.newVersion = newVersion;
         this.bPropShowUpdateInfo = bPropShowUpdateInfo;
     }
 
+    public InfoUpdateAlert(Stage stage, ProgInfo progInfo, ArrayList<Infos> newInfosList, boolean newVersion, BooleanProperty bPropShowUpdateInfo) {
+        this.stage = stage;
+        this.progInfo = progInfo;
+        this.newInfosList = newInfosList;
+        this.newVersion = newVersion;
+        this.bPropShowUpdateInfo = bPropShowUpdateInfo;
+    }
+
+    public InfoUpdateAlert(Stage stage, ProgInfo progInfo, ArrayList<Infos> newInfosList, boolean newVersion) {
+        this.stage = stage;
+        this.progInfo = progInfo;
+        this.newInfosList = newInfosList;
+        this.newVersion = newVersion;
+    }
+
     public InfoUpdateAlert(ProgInfo progInfo, ArrayList<Infos> newInfosList, boolean newVersion) {
+        this.stage = PConst.primaryStage;
         this.progInfo = progInfo;
         this.newInfosList = newInfosList;
         this.newVersion = newVersion;
@@ -59,6 +79,9 @@ public class InfoUpdateAlert {
 
     public boolean showInfoAlert(String title, String header) {
         final Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        if (stage != null) {
+            alert.initOwner(stage);
+        }
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setResizable(true);
@@ -157,9 +180,7 @@ public class InfoUpdateAlert {
             gridPane.add(textArea, 0, row, 2, 1);
         }
 
-        ColumnConstraints c0 = new ColumnConstraints();
-        gridPane.getColumnConstraints().addAll(c0);
-        c0.setMinWidth(GridPane.USE_PREF_SIZE);
+        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize());
 
         scrollPane.setContent(gridPane);
         tabVersion.setContent(scrollPane);
@@ -193,9 +214,7 @@ public class InfoUpdateAlert {
             gridPane.add(textArea, 1, row++);
         }
 
-        ColumnConstraints c0 = new ColumnConstraints();
-        gridPane.getColumnConstraints().addAll(c0);
-        c0.setMinWidth(GridPane.USE_PREF_SIZE);
+        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize());
 
         scrollPane.setContent(gridPane);
         tabInfos.setContent(scrollPane);

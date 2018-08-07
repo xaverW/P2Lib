@@ -18,11 +18,11 @@ package de.p2tools.p2Lib.dialog;
 
 import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.guiTools.GuiSize;
-import de.p2tools.p2Lib.tools.PException;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -31,38 +31,91 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.net.URL;
 
-public class PDialog {
+
+public class PDialogFxml {
     private Scene scene = null;
     private Stage stage = null;
 
     private final StringProperty conf;
+    private final String fxml;
     private final boolean modal;
     private final String title;
-    private final Stage owner;
+    private final Stage primaryStage;
 
     private double stageWidth = 0;
     private double stageHeight = 0;
 
-    public PDialog(Stage owner, StringProperty conf, String title, boolean modal) {
-        this.owner = owner;
+    public PDialogFxml(Stage primaryStage, String fxml, StringProperty conf, String title, boolean modal) {
+        this.primaryStage = primaryStage;
+        this.fxml = fxml;
         this.conf = conf;
         this.modal = modal;
         this.title = title;
     }
 
-    public PDialog(StringProperty conf, String title, boolean modal) {
-        this.owner = PConst.primaryStage;
+    public PDialogFxml(String fxml, StringProperty conf, String title, boolean modal) {
+        this.primaryStage = PConst.primaryStage;
+        this.fxml = fxml;
         this.conf = conf;
         this.modal = modal;
         this.title = title;
     }
 
-    public PDialog(String title, boolean modal) {
-        this.owner = PConst.primaryStage;
+    public PDialogFxml(Stage primaryStage, StringProperty conf, String title, boolean modal) {
+        this.primaryStage = primaryStage;
+        this.fxml = null;
+        this.conf = conf;
+        this.modal = modal;
+        this.title = title;
+    }
+
+    public PDialogFxml(StringProperty conf, String title, boolean modal) {
+        this.primaryStage = PConst.primaryStage;
+        this.fxml = null;
+        this.conf = conf;
+        this.modal = modal;
+        this.title = title;
+    }
+
+    public PDialogFxml(Stage primaryStage, String fxml, String title, boolean modal) {
+        this.primaryStage = primaryStage;
+        this.fxml = fxml;
         this.conf = null;
         this.modal = modal;
         this.title = title;
+    }
+
+    public PDialogFxml(String fxml, String title, boolean modal) {
+        this.primaryStage = PConst.primaryStage;
+        this.fxml = fxml;
+        this.conf = null;
+        this.modal = modal;
+        this.title = title;
+    }
+
+    public PDialogFxml(Stage primaryStage, String title, boolean modal) {
+        this.primaryStage = primaryStage;
+        this.fxml = null;
+        this.conf = null;
+        this.modal = modal;
+        this.title = title;
+    }
+
+    public PDialogFxml(String title, boolean modal) {
+        this.primaryStage = PConst.primaryStage;
+        this.fxml = null;
+        this.conf = null;
+        this.modal = modal;
+        this.title = title;
+    }
+
+    public void init() {
+        // die Dialoge werden beim Programmstart angelegt
+        Platform.runLater(() -> {
+            initDialog();
+        });
     }
 
     public void init(Pane pane) {
@@ -94,7 +147,12 @@ public class PDialog {
     private void initDialog() {
         try {
             if (scene == null) {
-                PException.throwPException(912012458, "no scene");
+                final URL fxmlUrl = getClass().getResource(fxml);
+                final FXMLLoader fXMLLoader = new FXMLLoader(fxmlUrl);
+                fXMLLoader.setController(this);
+                final Parent root = fXMLLoader.load();
+
+                setSize(root);
             }
 
             stage = new Stage();
@@ -181,14 +239,14 @@ public class PDialog {
 
     private void setPrimaryStage() {
         // vor Primär zentrieren
-        if (owner != null) {
+        if (primaryStage != null) {
             ChangeListener<Number> widthListener = (observable, oldValue, newValue) -> {
                 double stageWidth = newValue.doubleValue();
-                stage.setX(owner.getX() + owner.getWidth() / 2 - stageWidth / 2);
+                stage.setX(primaryStage.getX() + primaryStage.getWidth() / 2 - stageWidth / 2);
             };
             ChangeListener<Number> heightListener = (observable, oldValue, newValue) -> {
                 double stageHeight = newValue.doubleValue();
-                stage.setY(owner.getY() + owner.getHeight() / 2 - stageHeight / 2);
+                stage.setY(primaryStage.getY() + primaryStage.getHeight() / 2 - stageHeight / 2);
             };
 
             stage.widthProperty().addListener(widthListener);

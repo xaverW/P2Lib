@@ -22,6 +22,7 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.stage.Stage;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -49,21 +50,43 @@ public class SearchProgInfo {
     boolean newVersion = false;
     boolean newInfo = false;
     BooleanProperty bPropShowUpdateInfo = null;
+    Stage stage = null;
 
 
     public boolean checkUpdate(String searchUrl, int progVersion, IntegerProperty infoNr, BooleanProperty bPropShowUpdateInfo,
                                boolean showAllwaysInfo, boolean showError) {
-        // return neue Version oder neue Infos
 
+        return checkUpdate(PConst.primaryStage,
+                searchUrl, progVersion, infoNr, bPropShowUpdateInfo,
+                showAllwaysInfo, showError);
+    }
+
+    public boolean checkUpdate(Stage stage,
+                               String searchUrl, int progVersion, IntegerProperty infoNr, BooleanProperty bPropShowUpdateInfo,
+                               boolean showAllwaysInfo, boolean showError) {
+
+        // return neue Version oder neue Infos
         this.bPropShowUpdateInfo = bPropShowUpdateInfo;
         return checkUpdate(searchUrl, progVersion, infoNr, showAllwaysInfo, showError);
     }
 
-    public boolean checkUpdate(String searchUrl, int progVersion, IntegerProperty infoNr, boolean showAllwaysInfo, boolean showError) {
+    public boolean checkUpdate(String searchUrl,
+                               int progVersion, IntegerProperty infoNr, boolean showAllwaysInfo, boolean showError) {
+
+        return checkUpdate(PConst.primaryStage,
+                searchUrl, progVersion,
+                infoNr, showAllwaysInfo, showError);
+    }
+
+    public boolean checkUpdate(Stage stage,
+                               String searchUrl, int progVersion,
+                               IntegerProperty infoNr, boolean showAllwaysInfo, boolean showError) {
+
         // prüft auf neue Version, aneigen: wenn true
         // showProgInfo-> dann wird die Info immer angezeigt
 
         PLog.sysLog("check update");
+        this.stage = stage;
         this.searchUrl = searchUrl;
         this.lastInfoNr = infoNr.get();
 
@@ -78,7 +101,7 @@ public class SearchProgInfo {
 
             if (showAllwaysInfo || showError) {
                 // dann konnte die "Version" im xml nicht geparst werden
-                Platform.runLater(() -> new PAlert().showErrorAlert("Fehler", UPDATE_SEARCH_TITLE, UPDATE_ERROR_MESSAGE));
+                Platform.runLater(() -> new PAlert().showErrorAlert(stage, "Fehler", UPDATE_SEARCH_TITLE, UPDATE_ERROR_MESSAGE));
             }
             return false;
         }
