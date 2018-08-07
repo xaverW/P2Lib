@@ -30,13 +30,13 @@ import java.util.Optional;
 
 public class PAlertFileChosser extends PAlert {
 
-    public static String showAlertFileChooser(String title, String header, String content, boolean dir, Stage primaryStage, ImageView imageView) {
-        return showAlertFileChooser(title, header, content, dir, true, "", primaryStage, imageView);
+    public static String showAlertFileChooser(Stage stage, String title, String header, String content, boolean dir, ImageView imageView) {
+        return showAlertFileChooser(stage, title, header, content, dir, true, "", imageView);
     }
 
-    public static String showAlertFileChooser(String title, String header, String content,
-                                              boolean dir, boolean txtArea, String startFile,
-                                              Stage primaryStage, ImageView imageView) {
+    public static String showAlertFileChooser(Stage stage, String title, String header,
+                                              String content, boolean dir, boolean txtArea,
+                                              String startFile, ImageView imageView) {
 
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle(title);
@@ -74,9 +74,9 @@ public class PAlertFileChosser extends PAlert {
         }
         btnDest.setOnAction(event -> {
             if (dir) {
-                DirFileChooser.DirChooser(primaryStage, txtFile);
+                DirFileChooser.DirChooser(stage, txtFile);
             } else {
-                DirFileChooser.FileChooser(primaryStage, txtFile);
+                DirFileChooser.FileChooser(stage, txtFile);
             }
         });
 

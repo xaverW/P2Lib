@@ -28,4 +28,8 @@ public class PInit {
         PConst.debug = debug;
     }
 
+    public static void setPrimaryStage(Stage primaryStage) {
+        PConst.primaryStage = primaryStage;
+    }
+
 }

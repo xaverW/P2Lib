@@ -23,6 +23,7 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.File;
@@ -30,7 +31,19 @@ import java.net.URI;
 
 public class POpen {
 
+    public static void openDir(String path) {
+        openDir(PConst.primaryStage, path, null, null);
+    }
+
+    public static void openDir(Stage primaryStage, String path) {
+        openDir(primaryStage, path, null, null);
+    }
+
     public static void openDir(String path, StringProperty prog, ImageView getProgIcon) {
+        openDir(PConst.primaryStage, path, prog, getProgIcon);
+    }
+
+    public static void openDir(Stage stage, String path, StringProperty prog, ImageView getProgIcon) {
         File directory;
 
         if (path.isEmpty()) {
@@ -52,7 +65,7 @@ public class POpen {
                 final String[] arrProgCallArray = {program, directory.getAbsolutePath()};
                 Runtime.getRuntime().exec(arrProgCallArray);
             } catch (final Exception ex) {
-                Platform.runLater(() -> afterPlay(TEXT.DIR, prog, directory.getAbsolutePath(), getProgIcon));
+                Platform.runLater(() -> afterPlay(stage, TEXT.DIR, prog, directory.getAbsolutePath(), getProgIcon));
             }
 
 
@@ -66,7 +79,7 @@ public class POpen {
                         }
                     }
                 } catch (Exception ex) {
-                    Platform.runLater(() -> afterPlay(TEXT.DIR, prog, directory.getAbsolutePath(), getProgIcon));
+                    Platform.runLater(() -> afterPlay(stage, TEXT.DIR, prog, directory.getAbsolutePath(), getProgIcon));
                 }
             });
             th.setName("openDir");
@@ -76,11 +89,19 @@ public class POpen {
 
     }
 
-    public static void openDir(String path) {
-        openDir(path, null, null);
+    public static void playStoredFilm(String file) {
+        playStoredFilm(PConst.primaryStage, file, null, null);
+    }
+
+    public static void playStoredFilm(Stage primaryStage, String file) {
+        playStoredFilm(primaryStage, file, null, null);
     }
 
     public static void playStoredFilm(String file, StringProperty prog, ImageView getProgIcon) {
+        playStoredFilm(PConst.primaryStage, file, prog, getProgIcon);
+    }
+
+    public static void playStoredFilm(Stage stage, String file, StringProperty prog, ImageView getProgIcon) {
 
         File filmFile;
         if (file.isEmpty()) {
@@ -100,7 +121,7 @@ public class POpen {
                 final String[] cmd = {program, filmFile.getAbsolutePath()};
                 Runtime.getRuntime().exec(cmd);
             } catch (final Exception ex) {
-                Platform.runLater(() -> afterPlay(TEXT.FILM, prog, file, getProgIcon));
+                Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file, getProgIcon));
             }
 
 
@@ -115,7 +136,7 @@ public class POpen {
                         }
                     }
                 } catch (Exception ex) {
-                    Platform.runLater(() -> afterPlay(TEXT.FILM, prog, file, getProgIcon));
+                    Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file, getProgIcon));
                 }
             });
             th.setName("playStoredFilm");
@@ -125,15 +146,19 @@ public class POpen {
 
     }
 
-    public static void playStoredFilm(String file) {
-        playStoredFilm(file, null, null);
+    public static void openURL(String url) {
+        openURL(PConst.primaryStage, url);
     }
 
-    public static void openURL(String url) {
-        openURL(url, null, null);
+    public static void openURL(Stage primaryStage, String url) {
+        openURL(primaryStage, url, null, null);
     }
 
     public static void openURL(String url, StringProperty prog, ImageView getProgIcon) {
+        openURL(PConst.primaryStage, url, prog, getProgIcon);
+    }
+
+    public static void openURL(Stage stage, String url, StringProperty prog, ImageView getProgIcon) {
         if (url.isEmpty()) {
             return;
         }
@@ -145,7 +170,7 @@ public class POpen {
                 final String[] cmd = {program, url};
                 Runtime.getRuntime().exec(cmd);
             } catch (final Exception ex) {
-                afterPlay(TEXT.URL, prog, url, getProgIcon);
+                afterPlay(stage, TEXT.URL, prog, url, getProgIcon);
             }
 
         } else {
@@ -159,7 +184,7 @@ public class POpen {
                         }
                     }
                 } catch (Exception ex) {
-                    Platform.runLater(() -> afterPlay(TEXT.URL, prog, url, getProgIcon));
+                    Platform.runLater(() -> afterPlay(stage, TEXT.URL, prog, url, getProgIcon));
                 }
             });
             th.setName("openURL");
@@ -170,7 +195,7 @@ public class POpen {
 
     enum TEXT {FILM, DIR, URL}
 
-    private static void afterPlay(TEXT t, StringProperty stringProperty, String fileUrl, ImageView getProgIcon) {
+    private static void afterPlay(Stage stage, TEXT t, StringProperty stringProperty, String fileUrl, ImageView getProgIcon) {
         if (stringProperty == null) {
             afterPlay(t);
             return;
@@ -201,8 +226,8 @@ public class POpen {
 
 
         try {
-            program = PAlertFileChosser.showAlertFileChooser(title, header, cont,
-                    false, PConst.primaryStage, getProgIcon);
+            program = PAlertFileChosser.showAlertFileChooser(stage, title, header,
+                    cont, false, getProgIcon);
 
             if (!program.isEmpty()) {
                 final String[] cmd = {program, fileUrl};

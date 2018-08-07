@@ -20,6 +20,7 @@ import de.p2tools.p2Lib.PConst;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
 
 import java.util.Optional;
 
@@ -29,8 +30,12 @@ public class PAlert {
 
 
     public static boolean showAlert(String title, String header, String content) {
+        return showAlert(PConst.primaryStage, title, header, content);
+    }
+
+    public static boolean showAlert(Stage stage, String title, String header, String content) {
         final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initOwner(PConst.primaryStage);
+        alert.initOwner(stage);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
@@ -45,8 +50,12 @@ public class PAlert {
     }
 
     public static BUTTON showAlert_yes_no(String title, String header, String content) {
+        return showAlert_yes_no(PConst.primaryStage, title, header, content);
+    }
+
+    public static BUTTON showAlert_yes_no(Stage stage, String title, String header, String content) {
         final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initOwner(PConst.primaryStage);
+        alert.initOwner(stage);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
@@ -72,12 +81,12 @@ public class PAlert {
 
 
     public static BUTTON showAlert_yes_no_cancel(String title, String header, String content) {
-        return showAlert_yes_no_cancel(title, header, content, true);
+        return showAlert_yes_no_cancel(PConst.primaryStage, title, header, content, true);
     }
 
-    public static BUTTON showAlert_yes_no_cancel(String title, String header, String content, boolean noBtn) {
+    public static BUTTON showAlert_yes_no_cancel(Stage stage, String title, String header, String content, boolean noBtn) {
         final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initOwner(PConst.primaryStage);
+        alert.initOwner(stage);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
@@ -111,10 +120,14 @@ public class PAlert {
     }
 
     public static BUTTON showAlert_yes_no_cancel(String title, String header, String content,
-                                                 boolean noBtn,
-                                                 String yesButton, String noButton) {
+                                                 boolean noBtn, String yesButton, String noButton) {
+        return showAlert_yes_no_cancel(PConst.primaryStage, title, header, content, noBtn, yesButton, noButton);
+    }
+
+    public static BUTTON showAlert_yes_no_cancel(Stage stage, String title, String header, String content,
+                                                 boolean noBtn, String yesButton, String noButton) {
         final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initOwner(PConst.primaryStage);
+        alert.initOwner(stage);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
@@ -148,8 +161,12 @@ public class PAlert {
     }
 
     public static BUTTON showAlert_yes_no_cancel(String title, String header, TextFlow content, boolean noBtn) {
+        return showAlert_yes_no_cancel(PConst.primaryStage, title, header, content, noBtn);
+    }
+
+    public static BUTTON showAlert_yes_no_cancel(Stage stage, String title, String header, TextFlow content, boolean noBtn) {
         final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initOwner(PConst.primaryStage);
+        alert.initOwner(stage);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.getDialogPane().setContent(content);
@@ -184,8 +201,12 @@ public class PAlert {
 
 
     public static boolean showHelpAlert(String header, TextFlow content) {
+        return showHelpAlert(PConst.primaryStage, header, content);
+    }
+
+    public static boolean showHelpAlert(Stage stage, String header, TextFlow content) {
         final Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initOwner(PConst.primaryStage);
+        alert.initOwner(stage);
         alert.setTitle("Hilfe");
         alert.setHeaderText(header);
 
@@ -199,8 +220,12 @@ public class PAlert {
     }
 
     public static boolean showHelpAlert(String header, String content) {
+        return showHelpAlert(PConst.primaryStage, header, content);
+    }
+
+    public static boolean showHelpAlert(Stage stage, String header, String content) {
         final Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initOwner(PConst.primaryStage);
+        alert.initOwner(stage);
         alert.setTitle("Hilfe");
         alert.setHeaderText(header);
 
@@ -224,8 +249,12 @@ public class PAlert {
     }
 
     public static boolean showInfoAlert(String title, String header, String content) {
+        return showInfoAlert(PConst.primaryStage, title, header, content);
+    }
+
+    public static boolean showInfoAlert(Stage stage, String title, String header, String content) {
         final Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initOwner(PConst.primaryStage);
+        alert.initOwner(stage);
         alert.setTitle(title);
         alert.setHeaderText(header);
 
@@ -248,8 +277,12 @@ public class PAlert {
     }
 
     public static boolean showInfoAlert(String title, String header, String content, boolean txtArea) {
+        return showInfoAlert(PConst.primaryStage, title, header, content, txtArea);
+    }
+
+    public static boolean showInfoAlert(Stage stage, String title, String header, String content, boolean txtArea) {
         final Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initOwner(PConst.primaryStage);
+        alert.initOwner(stage);
         alert.setTitle(title);
         alert.setHeaderText(header);
 
@@ -273,12 +306,20 @@ public class PAlert {
     }
 
     public static boolean showErrorAlert(String header, String content) {
+        return showErrorAlert(PConst.primaryStage, header, content);
+    }
+
+    public static boolean showErrorAlert(Stage stage, String header, String content) {
         return showErrorAlert("Fehler", header, content);
     }
 
     public static boolean showErrorAlert(String title, String header, String content) {
+        return showErrorAlert(PConst.primaryStage, title, header, content);
+    }
+
+    public static boolean showErrorAlert(Stage stage, String title, String header, String content) {
         final Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.initOwner(PConst.primaryStage);
+        alert.initOwner(stage);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
@@ -293,8 +334,12 @@ public class PAlert {
     }
 
     public static boolean showInfoNoSelection() {
+        return showInfoNoSelection(PConst.primaryStage);
+    }
+
+    public static boolean showInfoNoSelection(Stage stage) {
         final Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initOwner(PConst.primaryStage);
+        alert.initOwner(stage);
         alert.setTitle("keine Auswahl");
         alert.setHeaderText("Es wurden nichts markiert.");
         alert.setContentText("Zeile auswählen!");

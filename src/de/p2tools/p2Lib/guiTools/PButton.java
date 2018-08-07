@@ -17,11 +17,13 @@
 
 package de.p2tools.p2Lib.guiTools;
 
+import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.dialog.PAlert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 public class PButton {
 
@@ -36,14 +38,22 @@ public class PButton {
     }
 
     public Button helpButton(ImageView imageView, String header, String helpText) {
+        return helpButton(PConst.primaryStage, imageView, header, helpText);
+    }
+
+    public Button helpButton(Stage stage, ImageView imageView, String header, String helpText) {
         final Button btnHelp = new Button("");
         btnHelp.setTooltip(new Tooltip("Hilfe anzeigen."));
         btnHelp.setGraphic(imageView);
-        btnHelp.setOnAction(a -> PAlert.showHelpAlert(header, helpText));
+        btnHelp.setOnAction(a -> PAlert.showHelpAlert(stage, header, helpText));
         return btnHelp;
     }
 
     public Button helpButton(String header, String helpText) {
+        return helpButton(PConst.primaryStage, header, helpText);
+    }
+
+    public Button helpButton(Stage stage, String header, String helpText) {
         final Button btnHelp = new Button("");
         btnHelp.setTooltip(new Tooltip("Hilfe anzeigen."));
         if (hlpImage == null) {
@@ -51,7 +61,7 @@ public class PButton {
         } else {
             btnHelp.setGraphic(new ImageView(hlpImage));
         }
-        btnHelp.setOnAction(a -> PAlert.showHelpAlert(header, helpText));
+        btnHelp.setOnAction(a -> PAlert.showHelpAlert(stage, header, helpText));
         return btnHelp;
     }
 

@@ -17,6 +17,7 @@
 
 package de.p2tools.p2Lib.guiTools;
 
+import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.ContextMenu;
@@ -26,14 +27,26 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseButton;
+import javafx.stage.Stage;
 
 public class PHyperlink extends Hyperlink {
     private final String url;
     private final StringProperty prog;
     private ImageView imageView = null;
+    private final Stage stage;
+
+    public PHyperlink(Stage stage, String url, StringProperty prog, ImageView imageView) {
+        super(url);
+        this.stage = stage;
+        this.url = url;
+        this.prog = prog;
+        this.imageView = imageView;
+        init();
+    }
 
     public PHyperlink(String url, StringProperty prog, ImageView imageView) {
         super(url);
+        stage = PConst.primaryStage;
         this.url = url;
         this.prog = prog;
         this.imageView = imageView;
@@ -42,6 +55,7 @@ public class PHyperlink extends Hyperlink {
 
     public PHyperlink(String url) {
         super(url);
+        stage = PConst.primaryStage;
         this.url = url;
         this.prog = null;
         init();
@@ -52,9 +66,9 @@ public class PHyperlink extends Hyperlink {
         setOnAction(a -> {
             try {
                 if (prog != null) {
-                    POpen.openURL(url, prog, imageView);
+                    POpen.openURL(stage, url, prog, imageView);
                 } else {
-                    POpen.openURL(url);
+                    POpen.openURL(stage, url);
                 }
             } catch (Exception e) {
                 PLog.errorLog(974125469, e);
