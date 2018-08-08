@@ -18,7 +18,6 @@
 package de.p2tools.p2Lib.guiTools.pToggleSwitch;
 
 import javafx.beans.property.BooleanProperty;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -31,6 +30,7 @@ public class PToggleSwitch extends HBox {
     private final CheckBox checkBox = new CheckBox();
     private final Label label = new Label();
     private boolean tglInFront = false;
+    private boolean hGrow = true;
 
     public PToggleSwitch() {
         super();
@@ -43,7 +43,7 @@ public class PToggleSwitch extends HBox {
         init();
     }
 
-    public PToggleSwitch(String text, boolean tglInFront) {
+    public PToggleSwitch(String text, boolean tglInFront, boolean hGrow) {
         super();
         label.setText(text);
         this.tglInFront = tglInFront;
@@ -74,25 +74,33 @@ public class PToggleSwitch extends HBox {
         checkBox.setTooltip(value);
     }
 
+    public final void setHGrow(boolean hGrow) {
+        this.hGrow = hGrow;
+        setCheckHgrow();
+    }
+
     private void init() {
         this.setAlignment(Pos.CENTER_LEFT);
-        this.setSpacing(10);
-        this.setPadding(new Insets(2));
+        this.setSpacing(15);
+//        this.setPadding(new Insets(2));
 
         if (tglInFront) {
             label.setMaxWidth(Double.MAX_VALUE);
-            HBox.setHgrow(label, Priority.ALWAYS);
             this.getChildren().addAll(checkBox, label);
         } else {
             label.setMaxWidth(Double.MAX_VALUE);
-            HBox.setHgrow(label, Priority.ALWAYS);
             this.getChildren().addAll(label, checkBox);
         }
-
+        setCheckHgrow();
         getStyleClass().add("pToggleSwitch");
         final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pToggleSwitch/pToggleSwitch.css";
         getStylesheets().add(CSS_FILE);
 
     }
 
+    private void setCheckHgrow() {
+        if (hGrow) {
+            HBox.setHgrow(label, Priority.ALWAYS);
+        }
+    }
 }
