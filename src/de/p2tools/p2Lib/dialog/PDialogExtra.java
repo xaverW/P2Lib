@@ -19,9 +19,11 @@ package de.p2tools.p2Lib.dialog;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 public class PDialogExtra extends PDialog {
@@ -59,6 +61,10 @@ public class PDialogExtra extends PDialog {
         vBoxDialog.getChildren().addAll(vBox, hBoxOk);
     }
 
+    public void init(boolean show) {
+        super.init(getvBoxDialog(), show);
+    }
+
     public VBox getvBoxDialog() {
         return vBoxDialog;
     }
@@ -79,7 +85,15 @@ public class PDialogExtra extends PDialog {
         return hBoxOk;
     }
 
-    public void sethBoxOk(HBox hBoxOk) {
-        this.hBoxOk = hBoxOk;
+    public void addOkButtons(Button... btnList) {
+        for (Button b : btnList) {
+            b.setMaxWidth(Double.MAX_VALUE);
+        }
+        TilePane tilePane = new TilePane(10, 10);
+        tilePane.setAlignment(Pos.CENTER_RIGHT);
+        tilePane.getChildren().addAll(btnList);
+        vBoxDialog.getChildren().remove(hBoxOk);
+        vBoxDialog.getChildren().add(tilePane);
     }
+
 }

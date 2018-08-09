@@ -69,32 +69,16 @@ public class PDialog {
 
     public void init(Pane pane) {
         // die Dialoge werden beim Programmstart angelegt
-        Platform.runLater(() -> {
-            init(pane, false);
-        });
-    }
-
-    public void init(boolean show) {
-        initDialog();
-        if (show) {
-            showDialog();
-        }
+        Platform.runLater(() -> init(pane, false));
     }
 
     public void init(Pane pane, boolean show) {
-        setSize(pane);
-        // todo ??
-        String css = this.getClass().getResource(PConst.cssFile).toExternalForm();
-        scene.getStylesheets().add(css);
-
-        initDialog();
-        if (show) {
-            showDialog();
-        }
-    }
-
-    private void initDialog() {
         try {
+            setSize(pane);
+
+            String css = this.getClass().getResource(PConst.cssFile).toExternalForm();
+            scene.getStylesheets().add(css);
+
             if (scene == null) {
                 PException.throwPException(912012458, "no scene");
             }
@@ -112,9 +96,7 @@ public class PDialog {
             });
             scene.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
                 if (keyEvent.getCode() == KeyCode.ESCAPE) {
-                    if (escEvent(keyEvent)) {
-                        close();
-                    }
+                    close();
                 }
             });
 
@@ -122,6 +104,10 @@ public class PDialog {
 
             if (conf == null) {
                 scene.getWindow().sizeToScene();
+            }
+
+            if (show) {
+                showDialog();
             }
 
         } catch (final Exception exc) {
@@ -141,10 +127,6 @@ public class PDialog {
                 this.scene = new Scene(parent);
             }
         }
-    }
-
-    public boolean escEvent(KeyEvent keyEvent) {
-        return true;
     }
 
     public void hide() {

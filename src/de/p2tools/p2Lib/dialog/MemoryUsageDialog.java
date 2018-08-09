@@ -48,7 +48,7 @@ public class MemoryUsageDialog extends PDialogExtra {
     public MemoryUsageDialog() {
         super(null, "Speicherverbrauch des Programms", false);
 
-        getHboxOk().getChildren().addAll(btnGc, btnOk);
+        addOkButtons(btnGc, btnOk);
         init(getvBoxDialog(), true);
     }
 
