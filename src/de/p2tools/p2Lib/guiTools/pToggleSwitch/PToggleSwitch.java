@@ -47,6 +47,7 @@ public class PToggleSwitch extends HBox {
         super();
         label.setText(text);
         this.tglInFront = tglInFront;
+        this.hGrow = hGrow;
         init();
     }
 

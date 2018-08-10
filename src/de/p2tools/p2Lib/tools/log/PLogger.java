@@ -44,7 +44,7 @@ public class PLogger {
 
     public static void removeFileHandler() {
         if (fileHandler != null) {
-            PLog.sysLog("kein Logfile anlegen");
+            PLog.sysLog("kein Logfile anlegen und handler schließen");
             fileHandler.close();
             LOGGER.removeHandler(fileHandler);
             fileHandler = null;
