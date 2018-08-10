@@ -29,7 +29,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class FileUtils {
+public class PFileUtils {
     private final static int WIN_MAX_PATH_LENGTH = 250;
     private final static int X_MAX_NAME_LENGTH = 255;
 

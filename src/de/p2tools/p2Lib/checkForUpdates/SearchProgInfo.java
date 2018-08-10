@@ -50,43 +50,40 @@ public class SearchProgInfo {
     boolean newVersion = false;
     boolean newInfo = false;
     BooleanProperty bPropShowUpdateInfo = null;
-    Stage stage = null;
+    private final Stage stage;
 
-
-    public boolean checkUpdate(String searchUrl, int progVersion, IntegerProperty infoNr, BooleanProperty bPropShowUpdateInfo,
-                               boolean showAllwaysInfo, boolean showError) {
-
-        return checkUpdate(PConst.primaryStage,
-                searchUrl, progVersion, infoNr, bPropShowUpdateInfo,
-                showAllwaysInfo, showError);
+    public SearchProgInfo() {
+        this.stage = PConst.primaryStage;
     }
 
-    public boolean checkUpdate(Stage stage,
-                               String searchUrl, int progVersion, IntegerProperty infoNr, BooleanProperty bPropShowUpdateInfo,
+    public SearchProgInfo(Stage stage) {
+        this.stage = stage;
+    }
+
+    public boolean checkUpdate(String searchUrl, int progVersion,
+                               IntegerProperty infoNr,
+                               boolean showAllwaysInfo, boolean showError) {
+
+        return check(searchUrl, progVersion, infoNr, showAllwaysInfo, showError);
+    }
+
+    public boolean checkUpdate(String searchUrl, int progVersion,
+                               IntegerProperty infoNr, BooleanProperty bPropShowUpdateInfo,
                                boolean showAllwaysInfo, boolean showError) {
 
         // return neue Version oder neue Infos
         this.bPropShowUpdateInfo = bPropShowUpdateInfo;
-        return checkUpdate(searchUrl, progVersion, infoNr, showAllwaysInfo, showError);
+        return check(searchUrl, progVersion, infoNr, showAllwaysInfo, showError);
     }
 
-    public boolean checkUpdate(String searchUrl,
-                               int progVersion, IntegerProperty infoNr, boolean showAllwaysInfo, boolean showError) {
-
-        return checkUpdate(PConst.primaryStage,
-                searchUrl, progVersion,
-                infoNr, showAllwaysInfo, showError);
-    }
-
-    public boolean checkUpdate(Stage stage,
-                               String searchUrl, int progVersion,
-                               IntegerProperty infoNr, boolean showAllwaysInfo, boolean showError) {
+    private boolean check(String searchUrl, int progVersion,
+                          IntegerProperty infoNr,
+                          boolean showAllwaysInfo, boolean showError) {
 
         // prüft auf neue Version, aneigen: wenn true
         // showProgInfo-> dann wird die Info immer angezeigt
 
         PLog.sysLog("check update");
-        this.stage = stage;
         this.searchUrl = searchUrl;
         this.lastInfoNr = infoNr.get();
 
@@ -127,7 +124,7 @@ public class SearchProgInfo {
     }
 
     private void displayNotification() {
-        Platform.runLater(() -> new InfoUpdateAlert(progInfo, newInfosList, newVersion, bPropShowUpdateInfo).showInfoAlert(
+        Platform.runLater(() -> new InfoUpdateAlert(stage, progInfo, newInfosList, newVersion, bPropShowUpdateInfo).showInfoAlert(
                 "Programminfos", (newVersion ? "Neue Version verfügbar" : "Infos")));
     }
 
