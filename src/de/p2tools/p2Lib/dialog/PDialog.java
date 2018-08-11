@@ -17,7 +17,7 @@
 package de.p2tools.p2Lib.dialog;
 
 import de.p2tools.p2Lib.PConst;
-import de.p2tools.p2Lib.guiTools.GuiSize;
+import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.tools.PException;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.application.Platform;
@@ -119,10 +119,10 @@ public class PDialog {
         if (conf == null) {
             this.scene = new Scene(parent);
         } else {
-            int w = GuiSize.getWidth(conf);
-            int h = GuiSize.getHeight(conf);
+            int w = PGuiSize.getWidth(conf);
+            int h = PGuiSize.getHeight(conf);
             if (w > 0 && h > 0) {
-                this.scene = new Scene(parent, GuiSize.getWidth(conf), GuiSize.getHeight(conf));
+                this.scene = new Scene(parent, PGuiSize.getWidth(conf), PGuiSize.getHeight(conf));
             } else {
                 this.scene = new Scene(parent);
             }
@@ -140,7 +140,7 @@ public class PDialog {
         stageHeight = stage.getHeight();
 
         if (conf != null) {
-            GuiSize.getSizeScene(conf, stage);
+            PGuiSize.getSizeScene(conf, stage);
         }
         stage.close();
     }
@@ -152,7 +152,7 @@ public class PDialog {
             stage.setWidth(stageWidth);
         }
 
-        if (conf == null || !GuiSize.setPos(conf, stage)) {
+        if (conf == null || !PGuiSize.setPos(conf, stage)) {
             if (owner == null) {
                 setInCenterOfScreen();
             } else {

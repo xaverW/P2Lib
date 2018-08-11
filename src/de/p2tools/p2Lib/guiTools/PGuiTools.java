@@ -15,7 +15,24 @@
  */
 
 
-.pTimePeriodBox  * {
+package de.p2tools.p2Lib.guiTools;
+
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+
+public class PGuiTools {
+
+    public static Region getHBoxGrower() {
+        Region region = new Region();
+        HBox.setHgrow(region, Priority.ALWAYS);
+        return region;
+    }
+
+    public static Region getVBoxGrower() {
+        Region region = new Region();
+        VBox.setVgrow(region, Priority.ALWAYS);
+        return region;
+    }
 }
-
-

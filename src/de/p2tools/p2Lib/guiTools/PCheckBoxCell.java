@@ -27,7 +27,7 @@ import javafx.util.Callback;
 /**
  * das style der box ist: "checkbox-table"
  */
-public class CheckBoxCell<S, T> extends TableCell<S, T> {
+public class PCheckBoxCell<S, T> extends TableCell<S, T> {
 
     public Callback<TableColumn<S, Boolean>, TableCell<S, Boolean>> cellFactoryBool
             = (final TableColumn<S, Boolean> param) -> {

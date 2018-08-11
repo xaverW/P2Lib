@@ -32,4 +32,7 @@ public class PConst {
     public static final String LINE_SEPARATORx2 = LINE_SEPARATOR + LINE_SEPARATOR;
     public static final String LINE_SEPARATORx3 = LINE_SEPARATOR + LINE_SEPARATOR + LINE_SEPARATOR;
     public static final String LINE_SEPARATORx4 = LINE_SEPARATOR + LINE_SEPARATOR + LINE_SEPARATOR + LINE_SEPARATOR;
+
+    public static final String CSS_BACKGROUND_COLOR_GREY = "-fx-background-color: #E0E0E0;";
+    public static final String CSS_COLOR_GREY = "#E0E0E0";
 }

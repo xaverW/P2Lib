@@ -171,6 +171,7 @@ public class PRangeBox extends VBox {
         cmi.setHideOnClick(false);
         menuButton.getItems().add(cmi);
 
+        menuButton.getStyleClass().add("pRangeButton");
         getStyleClass().add("pRangeBox");
         final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pRange/pRange.css";
         getStylesheets().add(CSS_FILE);

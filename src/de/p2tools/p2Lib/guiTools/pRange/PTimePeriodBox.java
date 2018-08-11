@@ -152,8 +152,9 @@ public class PTimePeriodBox extends VBox {
         cmi.setHideOnClick(false);
         menuButton.getItems().add(cmi);
 
+        menuButton.getStyleClass().add("pRangeButton");
         getStyleClass().add("pTimePeriodBox");
-        final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pRange/pTimePeriodBox.css";
+        final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pRange/pRange.css";
         getStylesheets().add(CSS_FILE);
     }
 
