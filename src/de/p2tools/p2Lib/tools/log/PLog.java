@@ -35,7 +35,6 @@ public class PLog {
     static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
     static final LinkedList<Error> errorList = new LinkedList<>();
-    static final ArrayList<String> logList = new ArrayList<>();
     static boolean progress = false;
 
     static class Error {
@@ -134,7 +133,7 @@ public class PLog {
         }
 
         PLogger.LogUserMsg(log);
-        SysMsg.sysMsg(text);
+        UserMessage.userMsg(text);
         resetProgress();
     }
 
@@ -144,13 +143,13 @@ public class PLog {
             return;
         }
         PLogger.LogUserMsg(log);
-        SysMsg.sysMsg(list);
+        UserMessage.userMsg(list);
         resetProgress();
     }
 
     public static synchronized void userLog(String text) {
         PLogger.LogUserMsg(text);
-        SysMsg.sysMsg(text);
+        UserMessage.userMsg(text);
         resetProgress();
     }
 

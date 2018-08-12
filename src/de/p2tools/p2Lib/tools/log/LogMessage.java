@@ -23,7 +23,7 @@ import de.p2tools.p2Lib.tools.PStringUtils;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class LogMsg {
+public class LogMessage {
 
 
     public static void startMsg(String progName, ArrayList<String> addInfo) {

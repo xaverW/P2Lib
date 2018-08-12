@@ -19,6 +19,8 @@ package de.p2tools.p2Lib.tools.log;
 
 import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.dialog.PAlert;
+import de.p2tools.p2Lib.tools.log.logLevel.DurLevel;
+import de.p2tools.p2Lib.tools.log.logLevel.UsrMsgLevel;
 import javafx.application.Platform;
 
 import java.io.File;

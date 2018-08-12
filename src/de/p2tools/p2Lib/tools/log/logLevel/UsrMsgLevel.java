@@ -15,14 +15,15 @@
  */
 
 
-package de.p2tools.p2Lib.tools.log;
+package de.p2tools.p2Lib.tools.log.logLevel;
 
 import java.util.logging.Level;
 
-public class DurLevel extends Level {
-    public static final Level DURATION = new DurLevel("DURATION", Level.INFO.intValue() + 1);
+public class UsrMsgLevel extends Level {
 
-    public DurLevel(String name, int value) {
+    public static final Level USERMSG = new UsrMsgLevel("USER_INFO", Level.INFO.intValue() + 2);
+
+    public UsrMsgLevel(String name, int value) {
         super(name, value);
     }
 

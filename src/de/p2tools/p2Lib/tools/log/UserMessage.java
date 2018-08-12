@@ -25,37 +25,35 @@ import java.util.ArrayList;
  * diese Meldungen können in einem Tab "Meldungen" angesehen werden
  * und sind für die User gedacht (werden aber auch im PLog eingetragen)
  */
-public class SysMsg {
+public class UserMessage {
 
-    public static ObservableList<String> textSystem = FXCollections.observableArrayList();
+    public static ObservableList<String> msgList = FXCollections.observableArrayList();
 
-    private static final int MAX_LAENGE_1 = 50000;
-    private static final int MAX_LAENGE_2 = 30000;
-    private static int lineNrSystem = 0;
+    private static final int MAX_SIZE_1 = 50000;
+    private static final int MAX_SIZE_2 = 30000;
+    private static int lineNo = 0;
 
-    static synchronized void sysMsg(ArrayList<String> text) {
-        systemmeldung(text.toArray(new String[]{}));
+    static synchronized void userMsg(ArrayList<String> text) {
+        message(text.toArray(new String[]{}));
     }
 
-    static synchronized void sysMsg(String[] text) {
-        systemmeldung(text);
+    static synchronized void userMsg(String[] text) {
+        message(text);
     }
 
-    static synchronized void sysMsg(String text) {
-        systemmeldung(new String[]{text});
+    static synchronized void userMsg(String text) {
+        message(new String[]{text});
     }
 
-    private static void systemmeldung(String[] text) {
+    private static void message(String[] text) {
         if (text.length <= 1) {
             notify(text[0]);
 
         } else {
             String line = "----------------------------------------                    ";
-            String txt;
             notify(line);
 
             for (int i = 0; i < text.length; ++i) {
-                txt = "| " + text[i];
                 if (i == 0) {
                     notify(text[i]);
                 } else {
@@ -67,12 +65,12 @@ public class SysMsg {
     }
 
     public static void clearText() {
-        lineNrSystem = 0;
-        textSystem.clear();
+        lineNo = 0;
+        msgList.clear();
     }
 
     private static void notify(String line) {
-        addText(textSystem, "[" + getNr(lineNrSystem++) + "]   " + line);
+        addText(msgList, "[" + getNr(lineNo++) + "]   " + line);
     }
 
     private static String getNr(int nr) {
@@ -86,15 +84,15 @@ public class SysMsg {
     }
 
     private synchronized static void addText(ObservableList<String> text, String texte) {
-        if (text.size() > MAX_LAENGE_1) {
-            text.remove(0, MAX_LAENGE_2);
+        if (text.size() > MAX_SIZE_1) {
+            text.remove(0, MAX_SIZE_2);
         }
         text.add(texte + System.getProperty("line.separator"));
     }
 
     public synchronized static String getText() {
         // wegen synchronized hier
-        return String.join("", textSystem);
+        return String.join("", msgList);
     }
 
 }
