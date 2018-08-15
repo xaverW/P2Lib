@@ -57,12 +57,12 @@ public class PLog {
 
     public static synchronized void errorLog(int errorNumber, Exception ex) {
         PLogger.LogSevere(addErrNr(errorNumber, ""), ex);
-        fehlermeldung_(errorNumber, ex, new String[]{});
+        error(errorNumber, ex, new String[]{});
     }
 
     public static synchronized void errorLog(int errorNumber, Exception ex, String text) {
         PLogger.LogSevere(addErrNr(errorNumber, text), ex);
-        fehlermeldung_(errorNumber, ex, new String[]{text});
+        error(errorNumber, ex, new String[]{text});
     }
 
     public static synchronized void errorLog(int errorNumber, Exception ex, String text[]) {
@@ -72,12 +72,12 @@ public class PLog {
         }
         log = errorNumber + PConst.LINE_SEPARATOR + log;
         PLogger.LogSevere(log, ex);
-        fehlermeldung_(errorNumber, ex, text);
+        error(errorNumber, ex, text);
     }
 
     public static synchronized void errorLog(int errorNumber, String text) {
         PLogger.LogSevere(addErrNr(errorNumber, text));
-        fehlermeldung_(errorNumber, null, new String[]{text});
+        error(errorNumber, null, new String[]{text});
     }
 
     public static synchronized void errorLog(int errorNumber, String[] text) {
@@ -87,7 +87,7 @@ public class PLog {
         }
         log = errorNumber + PConst.LINE_SEPARATOR + log;
         PLogger.LogSevere(log);
-        fehlermeldung_(errorNumber, null, text);
+        error(errorNumber, null, text);
     }
 
     /*
@@ -120,6 +120,14 @@ public class PLog {
             return;
         }
         PLogger.LogInfo(log);
+        resetProgress();
+    }
+
+    /*
+    Extere Tools Infos
+     */
+    public static synchronized void extToolLog(String text) {
+        PLogger.LogExtToolMsg(text);
         resetProgress();
     }
 
@@ -170,18 +178,7 @@ public class PLog {
     }
 
 
-    private static void addFehlerNummer(int nr, String classs, boolean exception) {
-        for (Error e : errorList) {
-            if (e.errorNr == nr) {
-                ++e.count;
-                return;
-            }
-        }
-        // dann gibts die Nummer noch nicht
-        errorList.add(new Error(nr, classs, exception));
-    }
-
-    private static void fehlermeldung_(int errorNumber, Exception ex, String[] texte) {
+    private static void error(int errorNumber, Exception ex, String[] texte) {
         final Throwable t = new Throwable();
         final StackTraceElement methodCaller = t.getStackTrace()[2];
         final String klasse = methodCaller.getClassName() + '.' + methodCaller.getMethodName();
@@ -198,8 +195,19 @@ public class PLog {
         } catch (Exception ignored) {
             kl = klasse;
         }
-        addFehlerNummer(errorNumber, kl, ex != null);
+        countError(errorNumber, kl, ex != null);
         resetProgress();
+    }
+
+    private static void countError(int nr, String classs, boolean exception) {
+        for (Error e : errorList) {
+            if (e.errorNr == nr) {
+                ++e.count;
+                return;
+            }
+        }
+        // dann gibts die Nummer noch nicht
+        errorList.add(new Error(nr, classs, exception));
     }
 
     public static synchronized void progress(String text) {

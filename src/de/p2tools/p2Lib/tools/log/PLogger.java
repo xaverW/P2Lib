@@ -20,6 +20,7 @@ package de.p2tools.p2Lib.tools.log;
 import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.dialog.PAlert;
 import de.p2tools.p2Lib.tools.log.logLevel.DurLevel;
+import de.p2tools.p2Lib.tools.log.logLevel.ExtToolMsgLevel;
 import de.p2tools.p2Lib.tools.log.logLevel.UsrMsgLevel;
 import javafx.application.Platform;
 
@@ -97,6 +98,10 @@ public class PLogger {
 
     public static void LogUserMsg(String info) {
         LOGGER.log(UsrMsgLevel.USERMSG, info);
+    }
+
+    public static void LogExtToolMsg(String info) {
+        LOGGER.log(ExtToolMsgLevel.EXT_TOOL_MSG, info);
     }
 
     public static void LogWarning(String info) {
