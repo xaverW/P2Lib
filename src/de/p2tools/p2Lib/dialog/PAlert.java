@@ -310,7 +310,7 @@ public class PAlert {
     }
 
     public static boolean showErrorAlert(Stage stage, String header, String content) {
-        return showErrorAlert("Fehler", header, content);
+        return showErrorAlert(stage, "Fehler", header, content);
     }
 
     public static boolean showErrorAlert(String title, String header, String content) {
@@ -319,6 +319,7 @@ public class PAlert {
 
     public static boolean showErrorAlert(Stage stage, String title, String header, String content) {
         final Alert alert = new Alert(Alert.AlertType.ERROR);
+//        alert.setResizable(true); // todo bei Oracle Jdk10 unter Linux geht der Dialog nur manchmal auf, stimmt was beim JDK nicht
         alert.initOwner(stage);
         alert.setTitle(title);
         alert.setHeaderText(header);

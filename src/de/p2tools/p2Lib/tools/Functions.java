@@ -203,12 +203,6 @@ public class Functions {
         }
     }
 
-    public static boolean istUrl(String fileUrl) {
-        // return dateiUrl.startsWith("http") ? true : false || dateiUrl.startsWith("www") ? true :
-        // false;
-        return fileUrl.startsWith("http") || fileUrl.startsWith("www");
-    }
-
     public static String getFileName(String path) {
         // Dateinamen einer URL extrahieren
         String ret = "";

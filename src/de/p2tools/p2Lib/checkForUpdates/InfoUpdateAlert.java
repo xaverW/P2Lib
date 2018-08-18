@@ -90,6 +90,7 @@ public class InfoUpdateAlert {
             chkSearchUpdateInfo.selectedProperty().bindBidirectional(bPropShowUpdateInfo);
             chkSearchUpdateInfo.setPadding(new Insets(10));
             vBox.setAlignment(Pos.CENTER_RIGHT);
+            VBox.setVgrow(tabPane, Priority.ALWAYS);
             vBox.getChildren().addAll(tabPane, chkSearchUpdateInfo);
             alert.getDialogPane().setContent(vBox);
         } else {
@@ -129,20 +130,16 @@ public class InfoUpdateAlert {
     }
 
     private void makeTabVersion() {
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-
-
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         scrollPane.setPadding(new Insets(10));
 
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
 
         Label txtVersion = new Label(progInfo.getProgVersion() + "");
-        GridPane.setHgrow(txtVersion, Priority.ALWAYS);
-
         Hyperlink hyperlinkUrl = new PHyperlink(progInfo.getProgUrl());
         Hyperlink hyperlinkDownUrl = new PHyperlink(progInfo.getProgDownloadUrl());
 
@@ -153,9 +150,9 @@ public class InfoUpdateAlert {
             textArea.setText(PConst.LINE_SEPARATOR + "Sie benutzen die neueste Version von " + progInfo.getProgName() + ".");
         }
 
+        textArea.setMinHeight(150);
         textArea.setWrapText(true);
         textArea.setEditable(false);
-        GridPane.setHgrow(textArea, Priority.ALWAYS);
         GridPane.setVgrow(textArea, Priority.ALWAYS);
 
         final Label lblVersion = new Label("Version:");
@@ -180,7 +177,8 @@ public class InfoUpdateAlert {
             gridPane.add(textArea, 0, row, 2, 1);
         }
 
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize());
+        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
+                PColumnConstraints.getCcComputedSizeAndHgrow());
 
         scrollPane.setContent(gridPane);
         tabVersion.setContent(scrollPane);
@@ -200,11 +198,10 @@ public class InfoUpdateAlert {
         for (int i = progInfo.getInfos().size() - 1; i >= 0; --i) {
             Infos infos = progInfo.getInfos().get(i);
             TextArea textArea = new TextArea(infos.getInfo());
-            textArea.setWrapText(true);
             textArea.setMinHeight(150);
-            textArea.setMaxHeight(150);
+            textArea.setWrapText(true);
             textArea.setEditable(false);
-            GridPane.setHgrow(textArea, Priority.ALWAYS);
+            GridPane.setVgrow(textArea, Priority.ALWAYS);
 
             if (!newInfosList.contains(infos)) {
                 textArea.setStyle("-fx-text-fill: gray;");
@@ -214,7 +211,8 @@ public class InfoUpdateAlert {
             gridPane.add(textArea, 1, row++);
         }
 
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize());
+        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
+                PColumnConstraints.getCcComputedSizeAndHgrow());
 
         scrollPane.setContent(gridPane);
         tabInfos.setContent(scrollPane);
