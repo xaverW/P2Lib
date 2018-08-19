@@ -34,13 +34,8 @@ public class PAlert {
     }
 
     public static boolean showAlert(Stage stage, String title, String header, String content) {
-        final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initOwner(stage);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
+        final Alert alert = getAlert(stage, Alert.AlertType.CONFIRMATION, title, header);
         alert.setContentText(content);
-
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 
         final Optional<ButtonType> bt = alert.showAndWait();
         if (bt.isPresent() && bt.get() == ButtonType.OK) {
@@ -54,12 +49,8 @@ public class PAlert {
     }
 
     public static BUTTON showAlert_yes_no(Stage stage, String title, String header, String content) {
-        final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initOwner(stage);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
+        final Alert alert = getAlert(stage, Alert.AlertType.CONFIRMATION, title, header);
         alert.setContentText(content);
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 
         ButtonType btnYes = new ButtonType("Ja", ButtonBar.ButtonData.YES);
         ButtonType btnNo = new ButtonType("Nein", ButtonBar.ButtonData.NO);
@@ -85,13 +76,8 @@ public class PAlert {
     }
 
     public static BUTTON showAlert_yes_no_cancel(Stage stage, String title, String header, String content, boolean noBtn) {
-        final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initOwner(stage);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
+        final Alert alert = getAlert(stage, Alert.AlertType.CONFIRMATION, title, header);
         alert.setContentText(content);
-
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 
         ButtonType btnYes = new ButtonType("Ja", ButtonBar.ButtonData.YES);
         ButtonType btnNo = new ButtonType("Nein", ButtonBar.ButtonData.NO);
@@ -126,13 +112,8 @@ public class PAlert {
 
     public static BUTTON showAlert_yes_no_cancel(Stage stage, String title, String header, String content,
                                                  boolean noBtn, String yesButton, String noButton) {
-        final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initOwner(stage);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
+        final Alert alert = getAlert(stage, Alert.AlertType.CONFIRMATION, title, header);
         alert.setContentText(content);
-
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 
         ButtonType btnYes = new ButtonType(yesButton, ButtonBar.ButtonData.YES);
         ButtonType btnNo = new ButtonType(noButton, ButtonBar.ButtonData.NO);
@@ -165,13 +146,8 @@ public class PAlert {
     }
 
     public static BUTTON showAlert_yes_no_cancel(Stage stage, String title, String header, TextFlow content, boolean noBtn) {
-        final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initOwner(stage);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
+        final Alert alert = getAlert(stage, Alert.AlertType.CONFIRMATION, title, header);
         alert.getDialogPane().setContent(content);
-
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 
         ButtonType btnYes = new ButtonType("Ja", ButtonBar.ButtonData.YES);
         ButtonType btnNo = new ButtonType("Nein", ButtonBar.ButtonData.NO);
@@ -205,10 +181,7 @@ public class PAlert {
     }
 
     public static boolean showHelpAlert(Stage stage, String header, TextFlow content) {
-        final Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initOwner(stage);
-        alert.setTitle("Hilfe");
-        alert.setHeaderText(header);
+        final Alert alert = getAlert(stage, Alert.AlertType.INFORMATION, "Hilfe", header);
 
         alert.getDialogPane().setContent(content);
 
@@ -224,10 +197,7 @@ public class PAlert {
     }
 
     public static boolean showHelpAlert(Stage stage, String header, String content) {
-        final Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initOwner(stage);
-        alert.setTitle("Hilfe");
-        alert.setHeaderText(header);
+        final Alert alert = getAlert(stage, Alert.AlertType.INFORMATION, "Hilfe", header);
 
         ScrollPane scroll = new ScrollPane();
         TextArea ta = new TextArea(content);
@@ -237,9 +207,6 @@ public class PAlert {
         scroll.setFitToHeight(true);
         scroll.setFitToWidth(true);
         alert.getDialogPane().setContent(scroll);
-        alert.setResizable(true);
-
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 
         final Optional<ButtonType> bt = alert.showAndWait();
         if (bt.isPresent() && bt.get() == ButtonType.OK) {
@@ -253,10 +220,7 @@ public class PAlert {
     }
 
     public static boolean showInfoAlert(Stage stage, String title, String header, String content) {
-        final Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initOwner(stage);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
+        final Alert alert = getAlert(stage, Alert.AlertType.INFORMATION, title, header);
 
         ScrollPane scroll = new ScrollPane();
         TextArea ta = new TextArea(content);
@@ -265,9 +229,6 @@ public class PAlert {
         scroll.setFitToHeight(true);
         scroll.setFitToWidth(true);
         alert.getDialogPane().setContent(scroll);
-        alert.setResizable(true);
-
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 
         final Optional<ButtonType> bt = alert.showAndWait();
         if (bt.isPresent() && bt.get() == ButtonType.OK) {
@@ -281,10 +242,7 @@ public class PAlert {
     }
 
     public static boolean showInfoAlert(Stage stage, String title, String header, String content, boolean txtArea) {
-        final Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initOwner(stage);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
+        final Alert alert = getAlert(stage, Alert.AlertType.INFORMATION, title, header);
 
         if (txtArea) {
             ScrollPane scroll = new ScrollPane();
@@ -292,11 +250,9 @@ public class PAlert {
             scroll.setFitToHeight(true);
             scroll.setFitToWidth(true);
             alert.getDialogPane().setContent(scroll);
-            alert.setResizable(true);
         } else {
             alert.setContentText(content);
         }
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 
         final Optional<ButtonType> bt = alert.showAndWait();
         if (bt.isPresent() && bt.get() == ButtonType.OK) {
@@ -318,14 +274,8 @@ public class PAlert {
     }
 
     public static boolean showErrorAlert(Stage stage, String title, String header, String content) {
-        final Alert alert = new Alert(Alert.AlertType.ERROR);
-//        alert.setResizable(true); // todo bei Oracle Jdk10 unter Linux geht der Dialog nur manchmal auf, stimmt was beim JDK nicht
-        alert.initOwner(stage);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
+        final Alert alert = getAlert(stage, Alert.AlertType.ERROR, title, header);
         alert.setContentText(content);
-
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 
         final Optional<ButtonType> bt = alert.showAndWait();
         if (bt.isPresent() && bt.get() == ButtonType.OK) {
@@ -339,13 +289,8 @@ public class PAlert {
     }
 
     public static boolean showInfoNoSelection(Stage stage) {
-        final Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initOwner(stage);
-        alert.setTitle("keine Auswahl");
-        alert.setHeaderText("Es wurden nichts markiert.");
+        final Alert alert = getAlert(stage, Alert.AlertType.INFORMATION, "keine Auswahl", "Es wurden nichts markiert.");
         alert.setContentText("Zeile auswählen!");
-
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 
         final Optional<ButtonType> bt = alert.showAndWait();
         if (bt.isPresent() && bt.get() == ButtonType.OK) {
@@ -354,4 +299,13 @@ public class PAlert {
         return false;
     }
 
+    private static Alert getAlert(Stage stage, Alert.AlertType alertType, String title, String header) {
+        final Alert alert = new Alert(alertType);
+        alert.setResizable(true); // todo bei Oracle Jdk10 unter Linux geht der Dialog nur manchmal auf, stimmt was beim JDK nicht
+        alert.initOwner(stage);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        return alert;
+    }
 }
