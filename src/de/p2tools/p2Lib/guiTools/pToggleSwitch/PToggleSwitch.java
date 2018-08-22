@@ -18,6 +18,8 @@
 package de.p2tools.p2Lib.guiTools.pToggleSwitch;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -28,9 +30,11 @@ import javafx.scene.layout.Priority;
 public class PToggleSwitch extends HBox {
 
     private final CheckBox checkBox = new CheckBox();
-    private final Label label = new Label();
+    private final Label lblLeft = new Label();
+    private Label lblRight = null;
     private boolean tglInFront = false;
     private boolean hGrow = true;
+    private String strOn = "", strOff = "", strIndeterminate = "";
 
     public PToggleSwitch() {
         super();
@@ -39,16 +43,50 @@ public class PToggleSwitch extends HBox {
 
     public PToggleSwitch(String text) {
         super();
-        label.setText(text);
+        lblLeft.setText(text);
         init();
     }
 
     public PToggleSwitch(String text, boolean tglInFront, boolean hGrow) {
         super();
-        label.setText(text);
+        lblLeft.setText(text);
         this.tglInFront = tglInFront;
         this.hGrow = hGrow;
         init();
+    }
+
+    public void setLabelRight(Label lblRight, String strOn, String strOff, String strIndeterminate) {
+        this.lblRight = lblRight;
+        this.strOn = strOn;
+        this.strOff = strOff;
+        this.strIndeterminate = strIndeterminate;
+        indeterminateProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                setRight();
+            }
+        });
+        selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                setRight();
+            }
+        });
+        setRight();
+    }
+
+    private void setRight() {
+        if (lblRight == null) {
+            return;
+        }
+
+        if (isIndeterminate()) {
+            lblRight.setText(strIndeterminate);
+        } else if (isSelected()) {
+            lblRight.setText(strOn);
+        } else {
+            lblRight.setText(strOff);
+        }
     }
 
     public final BooleanProperty selectedProperty() {
@@ -63,12 +101,29 @@ public class PToggleSwitch extends HBox {
         return checkBox.isSelected();
     }
 
+    public final BooleanProperty indeterminateProperty() {
+        return checkBox.indeterminateProperty();
+    }
+
+
+    public final void setIndeterminate(boolean value) {
+        checkBox.setIndeterminate(value);
+    }
+
+    public final boolean isIndeterminate() {
+        return checkBox.isIndeterminate();
+    }
+
+    public final void setAllowIndeterminate(boolean value) {
+        checkBox.setAllowIndeterminate(value);
+    }
+
     public final void setText(String value) {
-        label.setText(value);
+        lblLeft.setText(value);
     }
 
     public final String getText() {
-        return label.getText();
+        return lblLeft.getText();
     }
 
     public final void setTooltip(Tooltip value) {
@@ -83,25 +138,24 @@ public class PToggleSwitch extends HBox {
     private void init() {
         this.setAlignment(Pos.CENTER_LEFT);
         this.setSpacing(15);
-//        this.setPadding(new Insets(2));
+        lblLeft.disableProperty().bindBidirectional(indeterminateProperty());
 
         if (tglInFront) {
-            label.setMaxWidth(Double.MAX_VALUE);
-            this.getChildren().addAll(checkBox, label);
+            lblLeft.setMaxWidth(Double.MAX_VALUE);
+            this.getChildren().addAll(checkBox, lblLeft);
         } else {
-            label.setMaxWidth(Double.MAX_VALUE);
-            this.getChildren().addAll(label, checkBox);
+            lblLeft.setMaxWidth(Double.MAX_VALUE);
+            this.getChildren().addAll(lblLeft, checkBox);
         }
         setCheckHgrow();
         getStyleClass().add("pToggleSwitch");
         final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pToggleSwitch/pToggleSwitch.css";
         getStylesheets().add(CSS_FILE);
-
     }
 
     private void setCheckHgrow() {
         if (hGrow) {
-            HBox.setHgrow(label, Priority.ALWAYS);
+            HBox.setHgrow(lblLeft, Priority.ALWAYS);
         }
     }
 }

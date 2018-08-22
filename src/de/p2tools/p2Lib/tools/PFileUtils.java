@@ -68,6 +68,24 @@ public class PFileUtils {
         return ret;
     }
 
+    public static boolean fileExist(String file) {
+        if (file.isEmpty() || !new File(file).exists()) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean fileIsDirectoryExist(String file) {
+        if (!fileExist(file)) {
+            return false;
+        }
+
+        if (!new File(file).isDirectory()) {
+            return false;
+        }
+        return true;
+    }
+
     public static boolean movePath(String from, String to) {
         if (from.isEmpty()) {
             new PAlert().showErrorAlert("Verzeichnis verschieben", "Das Quellverzeichnis:" + PConst.LINE_SEPARATOR +

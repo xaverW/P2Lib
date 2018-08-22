@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.regex.Pattern;
 
-public class PComboBox extends ComboBox<String> {
+public class PComboBoxString extends ComboBox<String> {
 
     public final int MAX_ELEMENTS = 15;
     private int maxElements = MAX_ELEMENTS;
@@ -40,12 +40,12 @@ public class PComboBox extends ComboBox<String> {
     private ObservableList<String> itemsList = null;
     Pattern pattern = null;
 
-    public PComboBox() {
+    public PComboBoxString() {
         super();
         this.setEditable(true);
     }
 
-    public PComboBox(String regEx) {
+    public PComboBoxString(String regEx) {
         super();
         this.setEditable(true);
         pattern = PRegEx.makePattern(regEx);

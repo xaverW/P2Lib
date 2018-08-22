@@ -17,12 +17,51 @@
 
 package de.p2tools.p2Lib.tools;
 
+import de.p2tools.p2Lib.tools.log.PLog;
 import org.apache.commons.lang3.time.FastDateFormat;
 
-public class PDateUtils {
-    public static final FastDateFormat FORMAT_yyyy = FastDateFormat.getInstance("yyyy");
+import java.util.ArrayList;
+import java.util.List;
 
-    public static String getAktJear() {
+public class PDateUtils {
+    private static final FastDateFormat FORMAT_yyyy = FastDateFormat.getInstance("yyyy");
+
+    public static String getAktYearStr() {
         return new PDate().getDateTime(FORMAT_yyyy);
+    }
+
+    public static int getAktYearInt() {
+        return getYearIntFromString(getAktYearStr());
+    }
+
+    public static int getYearIntFromString(String year) {
+        int ret;
+        try {
+            final long y = FORMAT_yyyy.parse(year).getTime();
+            ret = Integer.parseInt(year);
+        } catch (Exception ex) {
+            ret = 0;
+            PLog.errorLog(621212154, "Jahr: " + year);
+        }
+
+        return ret;
+    }
+
+    public static List<String> getYearListSince(String year) {
+        List<String> list = new ArrayList<>();
+        int aktYear = getAktYearInt();
+        int startCheckYear = getYearIntFromString(year);
+
+        if (startCheckYear <= 0 ||
+                aktYear < startCheckYear) {
+            return list;
+        }
+
+        while (startCheckYear <= aktYear) {
+            list.add(startCheckYear + "");
+            ++startCheckYear;
+        }
+
+        return list;
     }
 }

@@ -46,6 +46,7 @@
     -fx-background-insets: 0, 1;
 }
 
+/*selected*/
 .pToggleSwitch .check-box:selected {
     -fx-padding: 32;
 
@@ -57,6 +58,18 @@
     -fx-background-color: linear-gradient(to bottom, derive(-fx-text-box-border, -20%), derive(-fx-text-box-border, -30%)),
                             linear-gradient(to bottom, derive(#0b99c9, 30%), #0b99c9);
     -fx-background-insets: 0, 1;
+}
+
+/*indeterminate*/
+.pToggleSwitch .check-box:indeterminate {
+    -fx-background-color: linear-gradient(to bottom, derive(-fx-text-box-border, -20%), derive(-fx-text-box-border, -30%)),
+                                -fx-inner-border,
+                                -fx-body-color;
+    -fx-background-insets: 0, 0, 0;
+}
+
+.pToggleSwitch .check-box:indeterminate .box{
+    -fx-background-color: transparent;
 }
 
 .pToggleSwitch .check-box .mark {
