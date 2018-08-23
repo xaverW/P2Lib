@@ -36,6 +36,17 @@ public class PColumnConstraints {
     }
 
     /**
+     * sets the minimunsize
+     *
+     * @return
+     */
+    public static ColumnConstraints getCcMinSize(int minWidth) {
+        final ColumnConstraints cc = new ColumnConstraints();
+        cc.setMinWidth(minWidth);
+        return cc;
+    }
+
+    /**
      * sets the minimunsize and hgrow
      *
      * @return

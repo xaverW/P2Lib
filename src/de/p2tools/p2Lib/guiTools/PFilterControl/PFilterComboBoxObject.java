@@ -15,8 +15,9 @@
  */
 
 
-package de.p2tools.p2Lib.guiTools;
+package de.p2tools.p2Lib.guiTools.PFilterControl;
 
+import de.p2tools.p2Lib.guiTools.PComboBoxObject;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
@@ -29,7 +30,7 @@ public class PFilterComboBoxObject<E> extends HBox {
 
 
     private ObservableList<E> itemsList;
-    private ObjectProperty<E> selVaueProperty;
+    private ObjectProperty<E> selValueProperty;
     private PComboBoxObject<E> pComboBoxObject = new PComboBoxObject<>();
     private Button btnClear = new Button("X");
 
@@ -39,10 +40,10 @@ public class PFilterComboBoxObject<E> extends HBox {
         initHBox();
     }
 
-    public PFilterComboBoxObject(ObservableList<E> itemsList, ObjectProperty<E> selVaueProperty) {
+    public PFilterComboBoxObject(ObservableList<E> itemsList, ObjectProperty<E> selValueProperty) {
         super();
         this.itemsList = itemsList;
-        this.selVaueProperty = selVaueProperty;
+        this.selValueProperty = selValueProperty;
 
         addCss();
         initHBox();
@@ -58,7 +59,7 @@ public class PFilterComboBoxObject<E> extends HBox {
 
     public void init(ObservableList<E> itemsList, ObjectProperty<E> selVaueProperty) {
         this.itemsList = itemsList;
-        this.selVaueProperty = selVaueProperty;
+        this.selValueProperty = selVaueProperty;
 
         selectElement();
         setCombo();
@@ -66,19 +67,19 @@ public class PFilterComboBoxObject<E> extends HBox {
 
     private void addCss() {
         getStyleClass().add("PFilterComboBoxObject");
-        final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pToggleSwitch/p2Lib.css";
+        final String CSS_FILE = "de/p2tools/p2Lib/p2Lib.css";
         getStylesheets().add(CSS_FILE);
     }
 
     public void bindSelValueProperty(ObjectProperty<E> stringProperty) {
         unbind();
-        selVaueProperty = stringProperty;
+        selValueProperty = stringProperty;
         bind();
     }
 
     public void unbindSelValueProperty() {
         unbind();
-        this.selVaueProperty = null;
+        this.selValueProperty = null;
         pComboBoxObject.getSelectionModel().clearSelection();
     }
 
@@ -93,10 +94,10 @@ public class PFilterComboBoxObject<E> extends HBox {
     }
 
     public void selectElement() {
-        if (selVaueProperty == null) {
+        if (selValueProperty == null) {
             pComboBoxObject.getSelectionModel().clearSelection();
         } else {
-            pComboBoxObject.setValue(selVaueProperty.getValue());
+            pComboBoxObject.setValue(selValueProperty.getValue());
         }
     }
 
@@ -128,20 +129,20 @@ public class PFilterComboBoxObject<E> extends HBox {
 
 
     private void bind() {
-        if (selVaueProperty == null) {
+        if (selValueProperty == null) {
             return;
         }
 
-        pComboBoxObject.valueProperty().bindBidirectional(selVaueProperty);
+        pComboBoxObject.valueProperty().bindBidirectional(selValueProperty);
     }
 
     private void unbind() {
-        if (selVaueProperty == null) {
+        if (selValueProperty == null) {
             pComboBoxObject.getSelectionModel().clearSelection();
             return;
         }
 
-        pComboBoxObject.valueProperty().unbindBidirectional(selVaueProperty);
+        pComboBoxObject.valueProperty().unbindBidirectional(selValueProperty);
     }
 
 }
