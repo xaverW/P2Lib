@@ -65,6 +65,10 @@ public class PFilterComboBoxObject<E> extends HBox {
         setCombo();
     }
 
+    public void setEditable(boolean editable) {
+        pComboBoxObject.setEditable(editable);
+    }
+
     private void addCss() {
         getStyleClass().add("PFilterComboBoxObject");
         final String CSS_FILE = "de/p2tools/p2Lib/p2Lib.css";

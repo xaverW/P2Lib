@@ -35,6 +35,7 @@ public class PToggleSwitch extends HBox {
     private boolean tglInFront = false;
     private boolean hGrow = true;
     private String strOn = "", strOff = "", strIndeterminate = "";
+    private Label lblOn, lblOff, lblIndeterminate;
 
     public PToggleSwitch() {
         super();
@@ -53,6 +54,25 @@ public class PToggleSwitch extends HBox {
         this.tglInFront = tglInFront;
         this.hGrow = hGrow;
         init();
+    }
+
+    public void setLabelRight(Label lblOn, Label lblOff, Label lblIndeterminate) {
+        this.lblOn = lblOn;
+        this.lblOff = lblOff;
+        this.lblIndeterminate = lblIndeterminate;
+        indeterminateProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                setRight();
+            }
+        });
+        selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                setRight();
+            }
+        });
+        setRight();
     }
 
     public void setLabelRight(Label lblRight, String strOn, String strOff, String strIndeterminate) {
@@ -76,16 +96,20 @@ public class PToggleSwitch extends HBox {
     }
 
     private void setRight() {
-        if (lblRight == null) {
-            return;
+        if (lblOn != null && lblOff != null && lblIndeterminate != null) {
+            lblIndeterminate.setVisible(isIndeterminate());
+            lblOn.setVisible(!isIndeterminate() && isSelected());
+            lblOff.setVisible(!isIndeterminate() && !isSelected());
         }
 
-        if (isIndeterminate()) {
-            lblRight.setText(strIndeterminate);
-        } else if (isSelected()) {
-            lblRight.setText(strOn);
-        } else {
-            lblRight.setText(strOff);
+        if (lblRight != null) {
+            if (isIndeterminate()) {
+                lblRight.setText(strIndeterminate);
+            } else if (isSelected()) {
+                lblRight.setText(strOn);
+            } else {
+                lblRight.setText(strOff);
+            }
         }
     }
 

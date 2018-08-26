@@ -85,13 +85,17 @@ public class PComboBoxObject<E> extends ComboBox<E> {
         }
     }
 
+    public void clearSelection() {
+        this.getSelectionModel().clearSelection();
+    }
+
     private void setCombo() {
         this.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent != null && mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
                 this.getSelectionModel().clearSelection();
             }
         });
-        
+
         if (itemsList == null) {
             return;
         }

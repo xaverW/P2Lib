@@ -32,7 +32,7 @@ public abstract class ConfigExtra extends Config {
     final String key;
     Object actValue;
     String name;
-    String regEx = "";
+    String regEx = ""; // damit kann eine Usereingebe als *falsch* markiert werden z.B. PLT muss 5 Zahlen haben
 
     public ConfigExtra() {
         this.key = "";
