@@ -43,14 +43,14 @@ public class PTextFieldInteger extends TextField {
 
     public PTextFieldInteger(IntegerProperty integerProperty) {
         this.integerProperty = integerProperty;
-        bind();
+        bindBidirectional();
     }
 
     public PTextFieldInteger(IntegerProperty integerProperty, boolean stateLabel) {
         this.integerProperty = integerProperty;
         this.stateLabel = stateLabel;
         setStateLabel();
-        bind();
+        bindBidirectional();
     }
 
     public void setStateLabel(boolean stateLabel) {
@@ -72,23 +72,23 @@ public class PTextFieldInteger extends TextField {
     public void setIntegerProperty(IntegerProperty integerProperty) {
         unBind();
         this.integerProperty = integerProperty;
-        bind();
+        bindBidirectional();
     }
 
     public int getInt() {
         return integerProperty.get();
     }
 
-    public void bind(IntegerProperty integerProperty) {
+    public void bindBidirectional(IntegerProperty integerProperty) {
         unBind();
         this.integerProperty = integerProperty;
-        bind();
+        bindBidirectional();
     }
 
     public void setPattern(NumberFormat numberFormat) {
         this.numberFormat = numberFormat;
         unBind();
-        bind();
+        bindBidirectional();
     }
 
     public void unBind() {
@@ -99,7 +99,7 @@ public class PTextFieldInteger extends TextField {
         textProperty().unbindBidirectional(integerProperty);
     }
 
-    private void bind() {
+    private void bindBidirectional() {
         if (integerProperty == null) {
             return;
         }

@@ -19,21 +19,20 @@ package de.p2tools.p2Lib.guiTools;
 
 import de.p2tools.p2Lib.tools.PDateUtils;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 
 public class PYearPicker extends Spinner<Integer> {
 
-    private IntegerProperty integerProperty = null;
-    public final int PYEAR_PICKER_EMPTY = 0;
-
+    private ObjectProperty<Integer> objInt = null;
 
     public PYearPicker() {
         init(PDateUtils.getAktYearInt());
     }
 
     public PYearPicker(int year, IntegerProperty integerProperty) {
-        this.integerProperty = integerProperty;
+        this.objInt = integerProperty.asObject();
         init(year);
     }
 
@@ -41,29 +40,37 @@ public class PYearPicker extends Spinner<Integer> {
         this.getValueFactory().setValue(year);
     }
 
-    public void setProperty(IntegerProperty integerProperty) {
-        if (this.integerProperty != null) {
-            this.integerProperty.unbind();
+    public void bindBidirectional(IntegerProperty integerProperty) {
+        unbind();
+        this.objInt = integerProperty.asObject();
+        bindBidirectional();
+    }
+
+    private void bindBidirectional() {
+        if (objInt != null) {
+            this.getValueFactory().valueProperty().bindBidirectional(objInt);
         }
-        this.integerProperty = integerProperty;
-        this.integerProperty.bind(this.valueProperty());
     }
 
-    public void clearYearPicker() {
-        this.getValueFactory().setValue(PYEAR_PICKER_EMPTY);
+    public void unbind() {
+        if (objInt != null) {
+            this.getValueFactory().valueProperty().unbindBidirectional(objInt);
+        }
     }
 
-    public String getYearPicker() {
+    public String getYear() {
         return this.valueFactoryProperty().getValue() + "";
     }
 
     private void init(int year) {
+        getStyleClass().add("PYearPicker");
+        final String CSS_FILE = "de/p2tools/p2Lib/p2Lib.css";
+        getStylesheets().add(CSS_FILE);
+
         this.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1950, 2050, year);
         this.setValueFactory(valueFactory);
         this.getValueFactory().setValue(year);
-        if (this.integerProperty != null) {
-            this.integerProperty.bind(this.valueProperty());
-        }
+        bindBidirectional();
     }
 }

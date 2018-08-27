@@ -41,14 +41,14 @@ public class PTextFieldLong extends TextField {
 
     public PTextFieldLong(LongProperty longProperty) {
         this.longProperty = longProperty;
-        bind();
+        bindBidirectional();
     }
 
     public PTextFieldLong(LongProperty longProperty, boolean stateLabel) {
         this.longProperty = longProperty;
         this.stateLabel = stateLabel;
         setStateLabel();
-        bind();
+        bindBidirectional();
     }
 
     public void setStateLabel(boolean stateLabel) {
@@ -70,23 +70,23 @@ public class PTextFieldLong extends TextField {
     public void setLongProperty(LongProperty longProperty) {
         unBind();
         this.longProperty = longProperty;
-        bind();
+        bindBidirectional();
     }
 
     public long getLong() {
         return longProperty.get();
     }
 
-    public void bind(LongProperty longProperty) {
+    public void bindBidirectional(LongProperty longProperty) {
         unBind();
         this.longProperty = longProperty;
-        bind();
+        bindBidirectional();
     }
 
     public void setPattern(NumberFormat numberFormat) {
         this.numberFormat = numberFormat;
         unBind();
-        bind();
+        bindBidirectional();
     }
 
     public void unBind() {
@@ -97,7 +97,7 @@ public class PTextFieldLong extends TextField {
         textProperty().unbindBidirectional(longProperty);
     }
 
-    private void bind() {
+    private void bindBidirectional() {
         if (longProperty == null) {
             return;
         }

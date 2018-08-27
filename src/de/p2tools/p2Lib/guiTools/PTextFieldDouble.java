@@ -47,14 +47,14 @@ public class PTextFieldDouble extends TextField {
 
     public PTextFieldDouble(DoubleProperty doubleProperty) {
         this.doubleProperty = doubleProperty;
-        bind();
+        bindBidirectional();
     }
 
     public PTextFieldDouble(DoubleProperty doubleProperty, boolean stateLabel) {
         this.doubleProperty = doubleProperty;
         this.stateLabel = stateLabel;
         setStateLabel();
-        bind();
+        bindBidirectional();
     }
 
     public void setStateLabel(boolean stateLabel) {
@@ -76,7 +76,7 @@ public class PTextFieldDouble extends TextField {
     public void setDoubleProperty(DoubleProperty doubleProperty) {
         unBind();
         this.doubleProperty = doubleProperty;
-        bind();
+        bindBidirectional();
     }
 
     public double getDouble() {
@@ -89,12 +89,12 @@ public class PTextFieldDouble extends TextField {
     }
 
 
-    public void bind(DoubleProperty doubleProperty) {
+    public void bindBidirectional(DoubleProperty doubleProperty) {
         this.doubleProperty = doubleProperty;
-        bind();
+        bindBidirectional();
     }
 
-    public void bind() {
+    public void bindBidirectional() {
         if (doubleProperty == null) {
             return;
         }

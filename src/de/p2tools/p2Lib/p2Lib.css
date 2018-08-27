@@ -37,3 +37,12 @@
     -fx-background-radius: 5 0 0 5;
 }
 
+.PDatePropertyPicker > * {
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+}
+
+.PYearPicker > * {
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+}
