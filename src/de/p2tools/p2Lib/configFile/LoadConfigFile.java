@@ -23,7 +23,7 @@ import de.p2tools.p2Lib.configFile.config.ConfigPDataList;
 import de.p2tools.p2Lib.configFile.configList.ConfigList;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
-import de.p2tools.p2Lib.tools.log.Duration;
+import de.p2tools.p2Lib.tools.log.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 
 import javax.xml.stream.XMLInputFactory;
@@ -63,11 +63,11 @@ class LoadConfigFile implements AutoCloseable {
     }
 
     boolean readConfiguration() {
-        Duration.counterStart("Konfig lesen");
+        PDuration.counterStart("Konfig lesen");
         boolean ret = false;
 
         if (!Files.exists(xmlFilePath)) {
-            Duration.counterStop("Konfig lesen");
+            PDuration.counterStop("Konfig lesen");
             return ret;
         }
 
@@ -105,7 +105,7 @@ class LoadConfigFile implements AutoCloseable {
             }
         }
 
-        Duration.counterStop("Konfig lesen");
+        PDuration.counterStop("Konfig lesen");
         return ret;
     }
 

@@ -17,10 +17,7 @@
 
 package de.p2tools.p2Lib.tools;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -56,14 +53,14 @@ public class PStringUtils {
      * @return
      */
     public static String appendList(List<String> list, String separator) {
-        return appendList(list, separator, false);
+        return appendList(list, separator, false, false);
     }
 
-    public static String appendList(List<String> list, String separator, boolean removeEmpty) {
+    public static String appendList(List<String> list, String separator, boolean removeEmpty, boolean removeDouble) {
         if (list == null || list.isEmpty()) {
             return "";
         }
-        return appendStream(list.stream(), separator, removeEmpty);
+        return appendStream(list.stream(), separator, removeEmpty, removeDouble);
     }
 
     /**
@@ -75,24 +72,43 @@ public class PStringUtils {
      * @return
      */
     public static String appendArray(String[] list, String separator) {
-        return appendArray(list, separator, false);
+        return appendArray(list, separator, false, false);
     }
 
-    public static String appendArray(String[] list, String separator, boolean removeEmpty) {
+    public static String appendArray(String[] list, String separator, boolean removeEmpty, boolean removeDouble) {
         if (list == null || list.length == 0) {
             return "";
         }
 
         Stream<String> stream = Stream.of(list);
-        return appendStream(stream, separator, removeEmpty);
+        return appendStream(stream, separator, removeEmpty, removeDouble);
     }
 
-    private static String appendStream(Stream<String> stream, String separator, boolean removeEmpty) {
-        if (removeEmpty) {
-            return stream.filter(s -> s != null).filter(s -> !s.isEmpty()).collect(Collectors.joining(separator));
-        } else {
-            return stream.filter(s -> s != null).collect(Collectors.joining(separator));
-        }
+//    private static String appendStream(Stream<String> stream, String separator, boolean removeEmpty) {
+//        if (removeEmpty) {
+//            return stream.filter(s -> s != null).filter(s -> !s.isEmpty()).collect(Collectors.joining(separator));
+//        } else {
+//            return stream.filter(s -> s != null).collect(Collectors.joining(separator));
+//        }
+//    }
+
+    private static String appendStream(Stream<String> stream, String separator, boolean removeEmpty, boolean removeDouble) {
+//        if (removeEmpty) {
+//            return stream.filter(s -> s != null).filter(s -> !s.isEmpty()).collect(Collectors.joining(separator));
+//        } else {
+//            return stream.filter(s -> s != null).collect(Collectors.joining(separator));
+//        }
+
+
+        HashSet set = (removeDouble ? new HashSet() : null);
+
+//        ArrayList<String> list = new ArrayList<>();
+        return stream
+                .filter(s -> s != null)
+                .filter(s -> !removeEmpty || !s.isEmpty())
+                .filter(s -> !removeDouble || set.add(s))
+                .collect(Collectors.joining(separator));
+
     }
 
     /**

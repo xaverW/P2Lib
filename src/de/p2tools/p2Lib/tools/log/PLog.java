@@ -19,9 +19,8 @@ package de.p2tools.p2Lib.tools.log;
 import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.tools.PStringUtils;
 
-import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 
 public class PLog {
@@ -31,8 +30,10 @@ public class PLog {
     public static final String LILNE3 = "------------------------------------------------------------";
 
     static final long TO_MEGABYTE = 1000L * 1000L;
-    public static final Date startTime = new Date(System.currentTimeMillis());
-    static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+    public static final Instant START_TIME = Instant.now();
+
+    //    public static final Date startTime = new Date(System.currentTimeMillis());
+//    static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
     static final LinkedList<Error> errorList = new LinkedList<>();
     static boolean progress = false;

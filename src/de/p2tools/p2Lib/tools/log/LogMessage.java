@@ -20,11 +20,16 @@ package de.p2tools.p2Lib.tools.log;
 import de.p2tools.p2Lib.tools.Functions;
 import de.p2tools.p2Lib.tools.PStringUtils;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class LogMessage {
 
+    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
+            .withZone(ZoneId.systemDefault());
 
     public static void startMsg(String progName, ArrayList<String> addInfo) {
         ArrayList<String> list = new ArrayList<>(25);
@@ -38,7 +43,8 @@ public class LogMessage {
         // Startzeit
         list.add(PLog.LILNE2);
         list.add("");
-        list.add("Programmstart: " + PLog.dateFormatter.format(PLog.startTime));
+//        list.add("Programmstart: " + PLog.dateFormatter.format(PLog.startTime));
+        list.add("Programmstart: " + formatter.format(PLog.START_TIME));
 
         list.add("");
         list.add(PLog.LILNE2);
@@ -111,17 +117,20 @@ public class LogMessage {
         list.add("=================");
 
         // Laufzeit ausgeben
-        Date stopTime = new Date(System.currentTimeMillis());
-        int minute;
-        try {
-            minute = Math.round((stopTime.getTime() - PLog.startTime.getTime()) / (1000 * 60));
-        } catch (Exception ex) {
-            minute = -1;
-        }
+//        Date stopTime = new Date(System.currentTimeMillis());
+        Duration duration = Duration.between(PLog.START_TIME, Instant.now());
+        int minute = (int) duration.getSeconds() / 60;
+
+//        try {
+//            minute = Math.round((stopTime.getTime() - PLog.startTime.getTime()) / (1000 * 60));
+//        } catch (Exception ex) {
+//            minute = -1;
+//        }
+
         list.add("");
         list.add(PLog.LILNE2);
-        list.add("  --> Beginn: " + PLog.dateFormatter.format(PLog.startTime));
-        list.add("  --> Fertig: " + PLog.dateFormatter.format(stopTime));
+        list.add("  --> Beginn: " + formatter.format(PLog.START_TIME));
+        list.add("  --> Fertig: " + formatter.format(Instant.now()));
         list.add("  --> Dauer[Min]: " + (minute == 0 ? "<1" : minute));
         list.add(PLog.LILNE2);
         list.add("");
@@ -138,7 +147,7 @@ public class LogMessage {
 
         // jetzt noch die Durations
         list.add(PLog.LILNE2);
-        list.addAll(Duration.getCounter());
+        list.addAll(PDuration.getCounter());
         list.add(PLog.LILNE2);
 
         list.add("");

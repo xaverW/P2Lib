@@ -203,17 +203,17 @@ public class Notification {
         }
 
         /**
-         * Returns the Duration that the notification will stay on screen before it
+         * Returns the PDuration that the notification will stay on screen before it
          * will fade out. The default is 5000 ms
          *
-         * @return the Duration the popup notification will stay on screen
+         * @return the PDuration the popup notification will stay on screen
          */
         public Duration getPopupLifetime() {
             return popupLifetime;
         }
 
         /**
-         * Defines the Duration that the popup notification will stay on screen before it
+         * Defines the PDuration that the popup notification will stay on screen before it
          * will fade out. The parameter is limited to values between 2 and 20 seconds.
          *
          * @param POPUP_LIFETIME
@@ -223,17 +223,17 @@ public class Notification {
         }
 
         /**
-         * Returns the Duration that it takes to fade out the notification
+         * Returns the PDuration that it takes to fade out the notification
          * The parameter is limited to values between 0 and 1000 ms
          *
-         * @return the Duration that it takes to fade out the notification
+         * @return the PDuration that it takes to fade out the notification
          */
         public Duration getPopupAnimationTime() {
             return popupAnimationTime;
         }
 
         /**
-         * Defines the Duration that it takes to fade out the notification
+         * Defines the PDuration that it takes to fade out the notification
          * The parameter is limited to values between 0 and 1000 ms
          * Default value is 500 ms
          *
