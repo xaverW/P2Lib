@@ -36,14 +36,13 @@ public class PDuration {
 
         String counterName;
         List<String> pingText = new ArrayList<>();
-        int count;
+        int count = 0;
         Duration duration = Duration.ZERO;
         Instant pingTime;
         Instant startTime;
 
-        Counter(String counterName, int count) {
+        Counter(String counterName) {
             this.counterName = counterName;
-            this.count = count;
             startCounter();
         }
 
@@ -52,29 +51,33 @@ public class PDuration {
             startTime = Instant.now();
         }
 
-        void startPingTime() {
+        void pingTime() {
             pingTime = Instant.now();
         }
     }
 
-    public static synchronized void counterStart(String text) {
+    public static synchronized void counterStart(String counterName) {
         Counter usedCounter = null;
         for (final Counter c : COUNTER_LIST) {
-            if (c.counterName.equals(text)) {
+            if (c.counterName.equals(counterName)) {
                 usedCounter = c;
                 break;
             }
         }
+
         if (usedCounter == null) {
-            COUNTER_LIST.add(new Counter(text, 0));
+            // start a new counter with name: "counterName"
+            COUNTER_LIST.add(new Counter(counterName));
+
         } else {
+            // restart a previous used counter an clear the selected text
             usedCounter.pingText.clear();
             usedCounter.startCounter();
         }
     }
 
     public static synchronized void counterStop(String text) {
-        String extra = "";
+        String extraText = "";
         Counter usedCounter = null;
         for (final Counter c : COUNTER_LIST) {
             if (c.counterName.equals(text)) {
@@ -82,22 +85,18 @@ public class PDuration {
                 break;
             }
         }
+
         if (usedCounter == null) {
+            // should not happen
             return;
         }
 
         usedCounter.count++;
-        try {
-            Duration duration = Duration.between(usedCounter.startTime, Instant.now());
-            usedCounter.duration = usedCounter.duration.plus(duration);
-            extra = usedCounter.counterName + " Anzahl: " + usedCounter.count + "   Dauer: " + roundDuration(usedCounter.duration);
+        Duration duration = Duration.between(usedCounter.startTime, Instant.now());
+        usedCounter.duration = usedCounter.duration.plus(duration);
+        extraText = usedCounter.counterName + " Anzahl: " + usedCounter.count + "   Dauer: " + roundDuration(usedCounter.duration);
 
-//                final long time = Math.round(new Date().getTime() - usedCounter.startTime.getTime());
-//                usedCounter.time += time;
-//                extra = usedCounter.counterName + " Anzahl: " + usedCounter.count + "   Dauer: " + roundDuration(time);
-        } catch (final Exception ex) {
-        }
-        onlyPing(getClassName(), text, extra, usedCounter.pingText);
+        onlyPing(getClassName(), text, extraText, usedCounter.pingText);
     }
 
     public static synchronized void counterPing(String text) {
@@ -108,47 +107,39 @@ public class PDuration {
                 break;
             }
         }
+
         if (usedCounter == null) {
+            // should not happen
             return;
         }
 
-        try {
-            Duration duration = Duration.between(usedCounter.pingTime, Instant.now());
-            usedCounter.startPingTime();
-            String extra = "  --> Ping Dauer: " + roundDuration(duration);
-            usedCounter.pingText.add(extra);
+        Duration duration = Duration.between(usedCounter.pingTime, Instant.now());
+        usedCounter.pingTime();
+        String extra = "  --> Ping Dauer: " + roundDuration(duration);
+        usedCounter.pingText.add(extra);
 
-//                final long time = Math.round(new Date().getTime() - usedCounter.pingTime.getTime());
-//                usedCounter.startPingTime();
-//                String extra = "  --> Ping Dauer: " + roundDuration(time);
-//                usedCounter.pingText.add(extra);
-        } catch (final Exception ex) {
-        }
     }
 
     public synchronized static void onlyPing(String text) {
         onlyPing(getClassName(), text, "", null);
     }
 
-    private static void onlyPing(String className, String text, String extra, List<String> pingText) {
+    private static void onlyPing(String className, String text, String extraText, List<String> pingText) {
         final Instant now = Instant.now();
-//        long second;
-//        try {
-//            second = Duration.between(now, stopTimeStatic).toMillis();
-//        } catch (final Exception ex) {
-//            second = -1;
-//        }
 
         ArrayList<String> list = new ArrayList<>();
         list.add(PLog.LILNE3);
         list.add("DURATION " + sum++ + ":  " + text + "  [" + roundDuration(Duration.between(onlyPingTime, now)) + "]");
         list.add("  Klasse:  " + className);
+
         if (pingText != null && !pingText.isEmpty()) {
             pingText.stream().forEach(s -> list.add(s));
         }
-        if (!extra.isEmpty()) {
-            list.add("  " + extra);
+
+        if (!extraText.isEmpty()) {
+            list.add("  " + extraText);
         }
+
         list.add(PLog.LILNE3);
 
         PStringUtils.appendString(list, "|  ", "-");
@@ -173,10 +164,11 @@ public class PDuration {
                 max = counter.counterName.length();
             }
         }
+
         max++;
-        for (final Counter c : COUNTER_LIST) {
-            while (c.counterName.length() < max) {
-                c.counterName = c.counterName + " ";
+        for (final Counter counter : COUNTER_LIST) {
+            while (counter.counterName.length() < max) {
+                counter.counterName = counter.counterName + " ";
             }
         }
 

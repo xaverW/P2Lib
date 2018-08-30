@@ -17,8 +17,9 @@
 
 package de.p2tools.p2Lib.guiTools;
 
-import de.p2tools.p2Lib.tools.PDate;
-import de.p2tools.p2Lib.tools.PDateProperty;
+import de.p2tools.p2Lib.tools.PException;
+import de.p2tools.p2Lib.tools.PLocalDate;
+import de.p2tools.p2Lib.tools.PLocalDateProperty;
 import javafx.scene.control.DatePicker;
 import javafx.util.StringConverter;
 
@@ -26,40 +27,61 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class PDatePropertyPicker extends DatePicker {
-    private PDateProperty pDateProperty = new PDateProperty();
-    private final String pattern = "dd.MM.yyyy";
+    private PLocalDateProperty pLocalDateProperty = new PLocalDateProperty();
+    private static final String pattern = "dd.MM.yyyy";
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
     public PDatePropertyPicker() {
         setDatePickerConverter();
-        setDate(null);
+        setDate("");
     }
 
-    public PDatePropertyPicker(PDateProperty pDateProperty) {
-        this.pDateProperty = pDateProperty;
+    public PDatePropertyPicker(PLocalDateProperty pDateProperty) {
+        if (pDateProperty == null) {
+            PException.throwPException(978450201, this.getClass().toString());
+        }
+
+        this.pLocalDateProperty = pDateProperty;
         setDatePickerConverter();
+        setDate();
     }
 
-    public void setpDateProperty(PDateProperty pDateProperty) {
-        this.pDateProperty = pDateProperty;
-        setDate(pDateProperty == null ? null : pDateProperty.toString());
+    public void setpDateProperty(PLocalDateProperty pDateProperty) {
+        if (pDateProperty == null) {
+            PException.throwPException(978450201, this.getClass().toString());
+        }
+
+        this.pLocalDateProperty = pDateProperty;
+        setDate();
     }
 
     private void setDate() {
-        PDate pDate = pDateProperty.getValue();
-        setDate(pDate == null ? null : pDate.toString());
-    }
-
-    public void setDate(String stringDate) {
-        if (stringDate == null || stringDate.isEmpty()) {
+        if (this.pLocalDateProperty.getValue() == null) {
             this.setValue(null);
         } else {
-            this.setValue(LocalDate.parse(stringDate, dateFormatter));
+            this.setValue(this.pLocalDateProperty.getValue().getLocalDate());
         }
     }
 
+    public void setDate(PLocalDate pDate) {
+        this.pLocalDateProperty.setValue(pDate);
+        setDate();
+    }
+
+
+    public void setDate(String stringDate) {
+        if (stringDate == null || stringDate.isEmpty()) {
+            this.pLocalDateProperty.setValue(null);
+        } else {
+            final PLocalDate pLocalDate = new PLocalDate(LocalDate.parse(stringDate, dateFormatter));
+            this.pLocalDateProperty.setValue(pLocalDate);
+        }
+
+        setDate();
+    }
+
     public void clearDate() {
-        this.pDateProperty = null;
+        this.pLocalDateProperty = null;
         this.setValue(null);
     }
 
@@ -84,44 +106,33 @@ public class PDatePropertyPicker extends DatePicker {
         StringConverter converter = new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate date) {
-//                System.out.println("");
-//                System.out.println("LocalDate: " + (date == null ? "null" : date.toString()));
-                if (pDateProperty == null) {
+                if (pLocalDateProperty == null) {
                     return "";
                 }
-                if (date != null) {
 
-                    final String str = dateFormatter.format(date);
-                    pDateProperty.setPDate(str);
-
-                    if (pDateProperty.getValue().getTime() == 0) {
-                        return "";
-                    }
-
-                    return str;
-                } else {
-                    pDateProperty.clearPDate();
+                if (date == null) {
+                    pLocalDateProperty.clearPLocalDate();
                     return "";
+                }
+
+                pLocalDateProperty.setPLocalDate(date);
+                if (pLocalDateProperty.getValue().isEmpty()) {
+                    return "";
+                } else {
+                    return dateFormatter.format(date);
                 }
             }
 
             @Override
             public LocalDate fromString(String string) {
-//                System.out.println("String: " + (string == null ? "null" : string));
-                if (string != null && !string.isEmpty()) {
-                    return LocalDate.parse(string, dateFormatter);
-                } else {
+                if (string == null || string.isEmpty()) {
                     return null;
+
+                } else {
+                    return LocalDate.parse(string, dateFormatter);
                 }
             }
         };
         setConverter(converter);
-
-
-//        setOnAction(event -> {
-//            LocalDate date = getValue();
-//            System.out.println("Selected date: " + date);
-//            System.out.println("         date: " + date.toString());
-//        });
     }
 }

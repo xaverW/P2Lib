@@ -43,7 +43,6 @@ public class LogMessage {
         // Startzeit
         list.add(PLog.LILNE2);
         list.add("");
-//        list.add("Programmstart: " + PLog.dateFormatter.format(PLog.startTime));
         list.add("Programmstart: " + formatter.format(PLog.START_TIME));
 
         list.add("");
@@ -117,15 +116,8 @@ public class LogMessage {
         list.add("=================");
 
         // Laufzeit ausgeben
-//        Date stopTime = new Date(System.currentTimeMillis());
         Duration duration = Duration.between(PLog.START_TIME, Instant.now());
         int minute = (int) duration.getSeconds() / 60;
-
-//        try {
-//            minute = Math.round((stopTime.getTime() - PLog.startTime.getTime()) / (1000 * 60));
-//        } catch (Exception ex) {
-//            minute = -1;
-//        }
 
         list.add("");
         list.add(PLog.LILNE2);

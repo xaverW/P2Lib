@@ -17,42 +17,47 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import de.p2tools.p2Lib.tools.PDate;
+import de.p2tools.p2Lib.guiTools.PDatePicker;
+import de.p2tools.p2Lib.tools.PLocalDate;
+import javafx.scene.control.Control;
 
-public class ConfigDate extends Config {
+public class ConfigLocalDateExtra extends ConfigExtra {
 
-    private PDate pDate;
+    private PLocalDate pLocalDate = null;
 
-    public ConfigDate(String key, String actValue) {
-        super(key);
-        pDate = new PDate();
-        pDate.setPDate(actValue);
+    public ConfigLocalDateExtra(String key, String name, String actValue) {
+        super(key, name);
+        pLocalDate = new PLocalDate();
+        pLocalDate.setPDate(actValue);
     }
 
-    public ConfigDate(String key, String actValue, boolean intern) {
-        super(key, null, intern);
-        pDate = new PDate();
-        pDate.setPDate(actValue);
+    public ConfigLocalDateExtra(String key, String name, PLocalDate actPDate) {
+        super(key, name);
+        this.pLocalDate = actPDate;
     }
 
-    public ConfigDate(String key, PDate actPDate) {
-        super(key);
-        this.pDate = actPDate;
+    public PLocalDate getPDate() {
+        return pLocalDate;
     }
 
     @Override
     public String getActValue() {
-        return pDate.toString();
+        return pLocalDate.toString();
     }
 
     @Override
     public String getActValueString() {
-        return pDate.toString();
+        return pLocalDate.toString();
     }
 
     @Override
     public void setActValue(String act) {
-        pDate.setPDate(act);
+        pLocalDate.setPDate(act);
     }
 
+    @Override
+    public Control getControl() {
+        PDatePicker control = new PDatePicker(getPDate());
+        return control;
+    }
 }

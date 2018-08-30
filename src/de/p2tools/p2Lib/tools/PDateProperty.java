@@ -56,42 +56,14 @@ public class PDateProperty extends SimpleObjectProperty<PDate> {
     }
 
     public void setPDate(String strDate, String strTime) {
-        if (strDate.isEmpty()) {
-            this.setValue(new PDate(0));
-            return;
-        }
-
-        PDate pDate = new PDate(0);
-        try {
-            if (strTime.isEmpty()) {
-                pDate.setTime(FORMAT_dd_MM_yyyy.parse(strDate).getTime());
-            } else {
-                pDate.setTime(FORMAT_dd_MM_yyyyKomma__HH_mm.parse(strDate + strTime).getTime());
-            }
-            setValue(pDate);
-            return;
-        } catch (final Exception ex) {
-        }
-
-        try {
-            if (strTime.isEmpty()) {
-                pDate.setTime(FORMAT_dd_MM_yyyy.parse(strDate).getTime());
-            } else {
-                pDate.setTime(FORMAT_dd_MM_yyyyKomma__HH_mm_ss.parse(strDate + strTime).getTime());
-            }
-            setValue(pDate);
-            return;
-        } catch (final Exception ex) {
-            PLog.errorLog(952103654, ex, new String[]{"Datum: " + strDate, "Zeit: " + strTime});
-        }
-
+        PDate pDate = new PDate();
+        pDate.setPDate(strDate, strTime);
         setValue(pDate);
     }
 
     public void clearPDate() {
         this.setValue(new PDate(0));
         return;
-
     }
 
     public void setPDateToday() {

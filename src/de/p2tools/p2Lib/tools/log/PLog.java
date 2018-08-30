@@ -32,9 +32,6 @@ public class PLog {
     static final long TO_MEGABYTE = 1000L * 1000L;
     public static final Instant START_TIME = Instant.now();
 
-    //    public static final Date startTime = new Date(System.currentTimeMillis());
-//    static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-
     static final LinkedList<Error> errorList = new LinkedList<>();
     static boolean progress = false;
 

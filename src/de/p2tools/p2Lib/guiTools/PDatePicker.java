@@ -17,7 +17,7 @@
 
 package de.p2tools.p2Lib.guiTools;
 
-import de.p2tools.p2Lib.tools.PDate;
+import de.p2tools.p2Lib.tools.PLocalDate;
 import javafx.scene.control.DatePicker;
 import javafx.util.StringConverter;
 
@@ -25,36 +25,38 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class PDatePicker extends DatePicker {
-    private PDate pDate = null;
+    private PLocalDate pLocalDate = null;
     private final String pattern = "dd.MM.yyyy";
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
     public PDatePicker() {
-        setDatePickerConverter();
-        setDate(null);
+        setPLocalDatePickerConverter();
+        this.setValue(null);
     }
 
-    public PDatePicker(PDate pDate) {
-        this.pDate = pDate;
-        setDatePickerConverter();
-        setDate(pDate.toString());
+    public PDatePicker(PLocalDate pLocalDate) {
+        this.pLocalDate = pLocalDate;
+        setPLocalDatePickerConverter();
+        this.setValue(this.pLocalDate.getLocalDate());
     }
 
-    public void setPDate(PDate pDate) {
-        this.pDate = pDate;
-        setDate(pDate == null ? null : pDate.toString());
+    public void setDate(PLocalDate pLocalDate) {
+        this.pLocalDate = pLocalDate;
+        this.setValue(pLocalDate.getLocalDate());
     }
 
     public void setDate(String stringDate) {
         if (stringDate == null || stringDate.isEmpty()) {
             this.setValue(null);
+            this.pLocalDate.clearPDate();
         } else {
-            this.setValue(LocalDate.parse(stringDate, dateFormatter));
+            pLocalDate.setPDate(stringDate);
+            this.setValue(pLocalDate.getLocalDate());
         }
     }
 
     public void clearDate() {
-        this.pDate = null;
+        this.pLocalDate.clearPDate();
         this.setValue(null);
     }
 
@@ -69,35 +71,30 @@ public class PDatePicker extends DatePicker {
         return ret;
     }
 
-    private void setDatePickerConverter() {
+    private void setPLocalDatePickerConverter() {
         setPromptText(pattern.toLowerCase());
         StringConverter converter = new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate date) {
-//                System.out.println("");
-//                System.out.println("LocalDate: " + (date == null ? "null" : date.toString()));
-                if (pDate == null) {
+                if (pLocalDate == null) {
                     return "";
                 }
-                if (date != null) {
 
-                    final String str = dateFormatter.format(date);
-                    pDate.setPDate(str);
-
-                    if (pDate.getTime() == 0) {
-                        return "";
-                    }
-
-                    return str;
-                } else {
-                    pDate.clearPDate();
+                if (date == null) {
+                    pLocalDate.clearPDate();
                     return "";
+                }
+
+                pLocalDate.setPDate(date);
+                if (pLocalDate.isEmpty()) {
+                    return "";
+                } else {
+                    return pLocalDate.toString();
                 }
             }
 
             @Override
             public LocalDate fromString(String string) {
-//                System.out.println("String: " + (string == null ? "null" : string));
                 if (string != null && !string.isEmpty()) {
                     return LocalDate.parse(string, dateFormatter);
                 } else {
@@ -106,12 +103,5 @@ public class PDatePicker extends DatePicker {
             }
         };
         setConverter(converter);
-
-
-//        setOnAction(event -> {
-//            LocalDate date = getValue();
-//            System.out.println("Selected date: " + date);
-//            System.out.println("         date: " + date.toString());
-//        });
     }
 }
