@@ -22,6 +22,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
+import java.awt.*;
+
 public class PGuiTools {
 
     public static Region getHBoxGrower() {
@@ -34,5 +36,24 @@ public class PGuiTools {
         Region region = new Region();
         VBox.setVgrow(region, Priority.ALWAYS);
         return region;
+    }
+
+    /**
+     * Center a component (e.g. Dialog) on screen
+     *
+     * @param component The reference component
+     * @param absolute  if true, use absolute position, otherwise relative
+     */
+    public static void centerOnScreen(final Component component, final boolean absolute) {
+        final int width = component.getWidth();
+        final int height = component.getHeight();
+        final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (screenSize.width / 2) - (width / 2);
+        int y = (screenSize.height / 2) - (height / 2);
+        if (!absolute) {
+            x /= 2;
+            y /= 2;
+        }
+        component.setLocation(x, y);
     }
 }

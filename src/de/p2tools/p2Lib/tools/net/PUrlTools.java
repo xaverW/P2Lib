@@ -17,6 +17,8 @@
 
 package de.p2tools.p2Lib.tools.net;
 
+import de.p2tools.p2Lib.tools.log.PLog;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -38,5 +40,77 @@ public class PUrlTools {
         } catch (Exception ex) {
             return false;
         }
+    }
+
+    public static String getFileName(String path) {
+        // Dateinamen einer URL extrahieren
+        String ret = "";
+        if (path != null) {
+            if (!path.isEmpty()) {
+                ret = path.substring(path.lastIndexOf('/') + 1);
+            }
+        }
+        if (ret.contains("?")) {
+            ret = ret.substring(0, ret.indexOf('?'));
+        }
+        if (ret.contains("&")) {
+            ret = ret.substring(0, ret.indexOf('&'));
+        }
+        if (ret.isEmpty()) {
+            PLog.errorLog(395019631, path);
+        }
+        return ret;
+    }
+
+    public static String getSuffixFromUrl(String path) {
+        // Suffix einer URL extrahieren
+        // "http://ios-ondemand.swr.de/i/swr-fernsehen/bw-extra/20130202/601676.,m,s,l,.mp4.csmil/index_2_av.m3u8?e=b471643725c47acd"
+        String ret = "";
+        if (path != null) {
+            if (!path.isEmpty() && path.contains(".")) {
+                ret = path.substring(path.lastIndexOf('.') + 1);
+            }
+        }
+        if (ret.isEmpty()) {
+            PLog.errorLog(969871236, path);
+        }
+        if (ret.contains("?")) {
+            ret = ret.substring(0, ret.indexOf('?'));
+        }
+        if (ret.length() > 5) {
+            // dann ist was faul
+            ret = "---";
+            PLog.errorLog(821397046, path);
+        }
+        return ret;
+    }
+
+    public static String getFileNameWithoutSuffix(String path) {
+        // Suffix einer URL extrahieren
+        // "http://ios-ondemand.swr.de/i/swr-fernsehen/bw-extra/20130202/601676.,m,s,l,.mp4.csmil/index_2_av.m3u8?e=b471643725c47acd"
+        // FILENAME.SUFF
+        String ret = "";
+        if (path != null) {
+            if (!path.isEmpty() && path.contains(".")) {
+                ret = path.substring(0, path.lastIndexOf('.'));
+            }
+        }
+        if (ret.isEmpty()) {
+            ret = path;
+            PLog.errorLog(945123647, path);
+        }
+        return ret;
+    }
+
+    public static String addUrl(String u1, String u2) {
+        if (u1.endsWith("/")) {
+            return u1 + u2;
+        } else {
+            return u1 + '/' + u2;
+        }
+    }
+
+    public static String removeHtml(String in) {
+        return in.replaceAll("\\<.*?>", "");
     }
 }

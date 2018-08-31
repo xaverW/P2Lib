@@ -20,30 +20,12 @@ package de.p2tools.p2Lib.tools;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 
-public class SysTools {
+public class PSystemUtils {
 
     public static void copyToClipboard(String s) {
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(s), null);
     }
 
-    /**
-     * Center a component (e.g. Dialog) on screen
-     *
-     * @param component The reference component
-     * @param absolute  if true, use absolute position, otherwise relative
-     */
-    public static void centerOnScreen(final Component component, final boolean absolute) {
-        final int width = component.getWidth();
-        final int height = component.getHeight();
-        final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (screenSize.width / 2) - (width / 2);
-        int y = (screenSize.height / 2) - (height / 2);
-        if (!absolute) {
-            x /= 2;
-            y /= 2;
-        }
-        component.setLocation(x, y);
-    }
 
     /**
      * Liefert den Standardpfad für Downloads.

@@ -68,7 +68,7 @@ public class PLocalDate {
 
     public static LocalDate getPLocalDate(String strDate) {
         if (strDate == null || strDate.isEmpty()) {
-            return LocalDate.now();
+            return LocalDate.MIN;
         }
 
         try {
@@ -77,6 +77,14 @@ public class PLocalDate {
         }
 
         return LocalDate.MIN;
+    }
+
+    public String getYear() {
+        if (localDate.isEqual(LocalDate.MIN)) {
+            return "";
+        } else {
+            return localDate.format(FORMAT_yyyy);
+        }
     }
 
     @Override

@@ -21,7 +21,6 @@ import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.util.Date;
 
-@SuppressWarnings("serial")
 public class PDate extends Date {
     public static final FastDateFormat FORMAT_HH_mm_ss = FastDateFormat.getInstance("HH:mm:ss");
     public static final FastDateFormat FORMAT_dd_MM_yyyy = FastDateFormat.getInstance("dd.MM.yyyy");

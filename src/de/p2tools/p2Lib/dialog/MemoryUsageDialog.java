@@ -17,7 +17,7 @@
 package de.p2tools.p2Lib.dialog;
 
 
-import de.p2tools.p2Lib.tools.Functions;
+import de.p2tools.p2Lib.tools.ProgramTools;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -118,7 +118,7 @@ public class MemoryUsageDialog extends PDialogExtra {
 
     private void getMem() {
         final long maxMem;
-        if (Functions.getOs() == Functions.OperatingSystemType.LINUX) {
+        if (ProgramTools.getOs() == ProgramTools.OperatingSystemType.LINUX) {
             maxMem = rt.totalMemory();
         } else {
             maxMem = rt.maxMemory();

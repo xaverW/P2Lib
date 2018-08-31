@@ -152,4 +152,44 @@ public class PStringUtils {
         }
     }
 
+    /**
+     * shorten a string to "max" chars
+     *
+     * @param max
+     * @param text
+     * @param center
+     * @param addInFront
+     * @return
+     */
+    public static String shortenString(int max, String text, boolean center, boolean addInFront) {
+        if (text.length() > max) {
+            if (center && max > 32) {
+                text = text.substring(0, 25) + " .... " + text.substring(text.length() - (max - 31));
+            } else {
+                text = text.substring(0, max - 1);
+            }
+        }
+        while (text.length() < max) {
+            if (addInFront) {
+                text = ' ' + text;
+            } else {
+                text = text + ' ';
+            }
+        }
+        return text;
+    }
+
+    /**
+     * increase string to "max" length
+     *
+     * @param max
+     * @param text
+     * @return
+     */
+    public static String increaseString(int max, String text) {
+        while (text.length() < max) {
+            text = text + ' ';
+        }
+        return text;
+    }
 }

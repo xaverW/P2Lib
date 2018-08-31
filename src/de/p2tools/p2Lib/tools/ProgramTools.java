@@ -19,37 +19,11 @@ package de.p2tools.p2Lib.tools;
 import de.p2tools.p2Lib.tools.log.PLog;
 import org.apache.commons.lang3.SystemUtils;
 
-import java.io.File;
 import java.util.ResourceBundle;
 
-public class Functions {
+public class ProgramTools {
 
     private static final String VERSION = "version";
-
-    public static String textLength(int max, String text, boolean center, boolean addInFront) {
-        if (text.length() > max) {
-            if (center) {
-                text = text.substring(0, 25) + " .... " + text.substring(text.length() - (max - 31));
-            } else {
-                text = text.substring(0, max - 1);
-            }
-        }
-        while (text.length() < max) {
-            if (addInFront) {
-                text = ' ' + text;
-            } else {
-                text = text + ' ';
-            }
-        }
-        return text;
-    }
-
-    public static String minTextLength(int max, String text) {
-        while (text.length() < max) {
-            text = text + ' ';
-        }
-        return text;
-    }
 
     public enum OperatingSystemType {
 
@@ -65,6 +39,7 @@ public class Functions {
             return name;
         }
     }
+
 
     /**
      * Detect and return the currently used operating system.
@@ -169,61 +144,5 @@ public class Functions {
         return "0";
     }
 
-    public static String addsPath(String path1, String path2) {
-        String ret = "";
-        if (path1 != null && path2 != null) {
-            if (path1.isEmpty()) {
-                ret = path2;
-            } else if (path2.isEmpty()) {
-                ret = path1;
-            } else if (!path1.isEmpty() && !path2.isEmpty()) {
-                if (path1.endsWith(File.separator)) {
-                    ret = path1.substring(0, path1.length() - 1);
-                } else {
-                    ret = path1;
-                }
-                if (path2.charAt(0) == File.separatorChar) {
-                    ret += path2;
-                } else {
-                    ret += File.separator + path2;
-                }
-            }
-        }
-        if (ret.isEmpty()) {
-            PLog.errorLog(283946015, path1 + " - " + path2);
-        }
-        return ret;
-    }
 
-    public static String addUrl(String u1, String u2) {
-        if (u1.endsWith("/")) {
-            return u1 + u2;
-        } else {
-            return u1 + '/' + u2;
-        }
-    }
-
-    public static String getFileName(String path) {
-        // Dateinamen einer URL extrahieren
-        String ret = "";
-        if (path != null) {
-            if (!path.isEmpty()) {
-                ret = path.substring(path.lastIndexOf('/') + 1);
-            }
-        }
-        if (ret.contains("?")) {
-            ret = ret.substring(0, ret.indexOf('?'));
-        }
-        if (ret.contains("&")) {
-            ret = ret.substring(0, ret.indexOf('&'));
-        }
-        if (ret.isEmpty()) {
-            PLog.errorLog(395019631, path);
-        }
-        return ret;
-    }
-
-    public static String removeHtml(String in) {
-        return in.replaceAll("\\<.*?>", "");
-    }
 }

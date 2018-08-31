@@ -68,6 +68,29 @@ public class PFileUtils {
         return ret;
     }
 
+    public static String concatPaths(String path1, String path2) {
+        String ret;
+
+        if (path1 == null || path2 == null) {
+            return "";
+        }
+        if (path1.isEmpty() || path2.isEmpty()) {
+            return path1 + path2;
+        }
+
+        if (path1.endsWith(File.separator)) {
+            ret = path1.substring(0, path1.length() - 1);
+        } else {
+            ret = path1;
+        }
+        if (path2.charAt(0) == File.separatorChar) {
+            ret += path2;
+        } else {
+            ret += File.separator + path2;
+        }
+        return ret;
+    }
+
     public static boolean fileExist(String file) {
         if (file.isEmpty() || !new File(file).exists()) {
             return false;
@@ -131,29 +154,6 @@ public class PFileUtils {
         return true;
     }
 
-    public static String concatPaths(String path1, String path2) {
-        String ret;
-
-        if (path1 == null || path2 == null) {
-            return "";
-        }
-        if (path1.isEmpty() || path2.isEmpty()) {
-            return path1 + path2;
-        }
-
-        if (path1.endsWith(File.separator)) {
-            ret = path1.substring(0, path1.length() - 1);
-        } else {
-            ret = path1;
-        }
-        if (path2.charAt(0) == File.separatorChar) {
-            ret += path2;
-        } else {
-            ret += File.separator + path2;
-        }
-        return ret;
-    }
-
     public static String[] checkLengthPath(String[] pathName) {
         if (SystemUtils.IS_OS_WINDOWS) {
             // in Win dürfen die Pfade nicht länger als 260 Zeichen haben (für die Infodatei kommen noch
@@ -183,30 +183,6 @@ public class PFileUtils {
         return name;
     }
 
-    public static boolean istUrl(String fileUrl) {
-        return fileUrl.startsWith("http") || fileUrl.startsWith("www");
-    }
-
-    public static String getFileName(String path) {
-        // Dateinamen einer URL extrahieren
-        String ret = "";
-        if (path != null) {
-            if (!path.isEmpty()) {
-                ret = path.substring(path.lastIndexOf('/') + 1);
-            }
-        }
-        if (ret.contains("?")) {
-            ret = ret.substring(0, ret.indexOf('?'));
-        }
-        if (ret.contains("&")) {
-            ret = ret.substring(0, ret.indexOf('&'));
-        }
-        if (ret.isEmpty()) {
-            PLog.errorLog(395019631, path);
-        }
-        return ret;
-    }
-
     public static String getHash(String path) {
         // Hash eines Dateinamens zB. 1433245578
         int h = path.hashCode(); // kann auch negativ sein
@@ -216,23 +192,6 @@ public class PFileUtils {
             hh = '0' + hh;
         }
         return hh;
-    }
-
-    public static String getFileNameWithoutSuffix(String path) {
-        // Suffix einer URL extrahieren
-        // "http://ios-ondemand.swr.de/i/swr-fernsehen/bw-extra/20130202/601676.,m,s,l,.mp4.csmil/index_2_av.m3u8?e=b471643725c47acd"
-        // FILENAME.SUFF
-        String ret = "";
-        if (path != null) {
-            if (!path.isEmpty() && path.contains(".")) {
-                ret = path.substring(0, path.lastIndexOf('.'));
-            }
-        }
-        if (ret.isEmpty()) {
-            ret = path;
-            PLog.errorLog(945123647, path);
-        }
-        return ret;
     }
 
     public static String getFileNameSuffix(String path) {
@@ -321,7 +280,8 @@ public class PFileUtils {
                 return false;
             }
 
-            if (new PAlertFileChosser().showAlert("Datei Löschen?", "", "Die Datei löschen:" + PConst.LINE_SEPARATORx2 + strFile)) {
+            if (new PAlertFileChosser().showAlert("Datei Löschen?", "",
+                    "Die Datei löschen:" + PConst.LINE_SEPARATORx2 + strFile)) {
 
                 // und jetzt die Datei löschen
                 PLog.sysLog(new String[]{"Datei löschen: ", file.getAbsolutePath()});
