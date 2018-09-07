@@ -40,17 +40,27 @@ public class PDialog {
 
     private final StringProperty conf;
     private final boolean modal;
+    private final boolean setOnlySize;
     private final String title;
     private final Stage owner;
 
     private double stageWidth = 0;
     private double stageHeight = 0;
 
+    public PDialog(Stage owner, StringProperty conf, String title, boolean modal, boolean setOnlySize) {
+        this.owner = owner;
+        this.conf = conf;
+        this.modal = modal;
+        this.title = title;
+        this.setOnlySize = setOnlySize;
+    }
+
     public PDialog(Stage owner, StringProperty conf, String title, boolean modal) {
         this.owner = owner;
         this.conf = conf;
         this.modal = modal;
         this.title = title;
+        this.setOnlySize = false;
     }
 
     public PDialog(StringProperty conf, String title, boolean modal) {
@@ -58,6 +68,15 @@ public class PDialog {
         this.conf = conf;
         this.modal = modal;
         this.title = title;
+        this.setOnlySize = false;
+    }
+
+    public PDialog(StringProperty conf, String title, boolean modal, boolean setOnlySize) {
+        this.owner = PConst.primaryStage;
+        this.conf = conf;
+        this.modal = modal;
+        this.title = title;
+        this.setOnlySize = setOnlySize;
     }
 
     public PDialog(String title, boolean modal) {
@@ -65,6 +84,7 @@ public class PDialog {
         this.conf = null;
         this.modal = modal;
         this.title = title;
+        this.setOnlySize = false;
     }
 
     public void init(Pane pane) {
@@ -74,7 +94,7 @@ public class PDialog {
 
     public void init(Pane pane, boolean show) {
         try {
-            setSize(pane);
+            createNewScene(pane);
 
             String css = this.getClass().getResource(PConst.cssFile).toExternalForm();
             scene.getStylesheets().add(css);
@@ -102,7 +122,7 @@ public class PDialog {
 
             make();
 
-            if (conf == null) {
+            if (setOnlySize || conf == null) {
                 scene.getWindow().sizeToScene();
             }
 
@@ -115,7 +135,7 @@ public class PDialog {
         }
     }
 
-    private void setSize(Parent parent) {
+    private void createNewScene(Parent parent) {
         if (conf == null) {
             this.scene = new Scene(parent);
         } else {
@@ -152,7 +172,7 @@ public class PDialog {
             stage.setWidth(stageWidth);
         }
 
-        if (conf == null || !PGuiSize.setPos(conf, stage)) {
+        if (setOnlySize || conf == null || !PGuiSize.setPos(conf, stage)) {
             if (owner == null) {
                 setInCenterOfScreen();
             } else {
