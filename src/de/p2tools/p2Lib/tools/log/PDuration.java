@@ -94,9 +94,13 @@ public class PDuration {
         usedCounter.count++;
         Duration duration = Duration.between(usedCounter.startTime, Instant.now());
         usedCounter.duration = usedCounter.duration.plus(duration);
-        extraText = usedCounter.counterName + " Anzahl: " + usedCounter.count + "   Dauer: " + roundDuration(usedCounter.duration);
+        List<String> txt = new ArrayList<>();
+        txt.add(usedCounter.counterName);
+        txt.add("Anzahl: " + usedCounter.count +
+                "  Dauer: " + roundDuration(duration) +
+                "  Gesamtdauer: " + roundDuration(usedCounter.duration));
 
-        onlyPing(getClassName(), text, extraText, usedCounter.pingText);
+        onlyPing(getClassName(), text, txt, usedCounter.pingText);
     }
 
     public static synchronized void counterPing(String text) {
@@ -121,10 +125,10 @@ public class PDuration {
     }
 
     public synchronized static void onlyPing(String text) {
-        onlyPing(getClassName(), text, "", null);
+        onlyPing(getClassName(), text, null, null);
     }
 
-    private static void onlyPing(String className, String text, String extraText, List<String> pingText) {
+    private static void onlyPing(String className, String text, List<String> extraText, List<String> pingText) {
         final Instant now = Instant.now();
 
         ArrayList<String> list = new ArrayList<>();
@@ -136,8 +140,8 @@ public class PDuration {
             pingText.stream().forEach(s -> list.add(s));
         }
 
-        if (!extraText.isEmpty()) {
-            list.add("  " + extraText);
+        if (extraText != null && !extraText.isEmpty()) {
+            extraText.stream().forEach(txt -> list.add("  " + txt));
         }
 
         list.add(PLog.LILNE3);
