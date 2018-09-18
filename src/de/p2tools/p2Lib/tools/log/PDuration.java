@@ -22,6 +22,7 @@ import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -32,7 +33,7 @@ public class PDuration {
     private static int sum = 0;
     private static final ArrayList<Counter> COUNTER_LIST = new ArrayList<>();
 
-    private static class Counter {
+    private static class Counter implements Comparable<Counter> {
 
         String counterName;
         List<String> pingText = new ArrayList<>();
@@ -53,6 +54,11 @@ public class PDuration {
 
         void pingTime() {
             pingTime = Instant.now();
+        }
+
+        @Override
+        public int compareTo(Counter o) {
+            return counterName.compareTo(o.counterName);
         }
     }
 
@@ -176,6 +182,7 @@ public class PDuration {
             }
         }
 
+        Collections.sort(COUNTER_LIST);
         for (final Counter counter : COUNTER_LIST) {
             list.add("  " + counter.counterName + " Anzahl: " + counter.count + "   Gesamtdauer: " + roundDuration(counter.duration));
         }
