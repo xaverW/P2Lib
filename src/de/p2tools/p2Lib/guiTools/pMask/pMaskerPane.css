@@ -18,8 +18,31 @@
 .pMaskerPane {
     -fx-background-color : rgba(15, 15, 15, 0.8);
     -fx-background-radius: 5;
-    -fx-effect           : innershadow(two-pass-box, rgba(255, 255, 255, 0.6), 5.0, 0.25, 0, 0);    
+    -fx-effect           : innershadow(two-pass-box, rgba(255, 255, 255, 0.6), 5.0, 0.25, 0, 0);
     -foreground-color    : white;
     -icon-color          : white;
 }
 
+.textLabel {
+    -foreground-color    : snow;
+    -fx-background-color : lightgrey;
+    -fx-background-radius: 30;
+}
+
+.progressBar > .bar {
+    -fx-background-radius: 30;
+    -fx-background-color: linear-gradient(
+             from 0px .75em to .75em 0px,
+             repeat,
+             -fx-accent 0%,
+             -fx-accent 49%,
+             derive(-fx-accent, 30%) 50%,
+             derive(-fx-accent, 30%) 99%
+    );
+}
+
+.progressBar > .track {
+    -fx-background-color: steelblue, #c3c4c4;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0, 2;
+}

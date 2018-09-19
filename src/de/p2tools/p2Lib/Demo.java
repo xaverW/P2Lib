@@ -18,6 +18,7 @@
 package de.p2tools.p2Lib;
 
 import de.p2tools.p2Lib.guiTools.pCheckComboBox.PCheckComboBox;
+import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.guiTools.pNotification.Notification;
 import de.p2tools.p2Lib.guiTools.pNotification.NotificationBuilder;
 import de.p2tools.p2Lib.guiTools.pNotification.NotifierBuilder;
@@ -25,12 +26,14 @@ import de.p2tools.p2Lib.guiTools.pRange.PRangeBox;
 import de.p2tools.p2Lib.guiTools.pRange.PTimePeriodBox;
 import de.p2tools.p2Lib.guiTools.pToggleSwitch.PToggleSwitch;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -48,15 +51,21 @@ public class Demo extends Application {
 
     private Notification.Notifier notifier;
     private Button btnNotification;
+    private Button btnMaskerPane;
     private Stage stage;
-    private VBox vBoxCont = new VBox();
+    private StackPane stackPane = new StackPane();
+    private PMaskerPane maskerPane = new PMaskerPane();
 
+    private VBox vBoxCont = new VBox();
+    private double progress = 0;
 
     // ******************** Initialization ************************************
     @Override
     public void init() {
         btnNotification = new Button("Notify");
         btnNotification.setOnAction(event -> notifier.notify(P_NOTIFICATIONS[RND.nextInt(4)]));
+        btnMaskerPane = new Button("MaskerPane");
+        btnMaskerPane.setOnAction(event -> setMaskerPane());
     }
 
 
@@ -69,7 +78,10 @@ public class Demo extends Application {
         vBoxCont.setSpacing(20);
         addCont();
 
-        Scene scene = new Scene(vBoxCont);
+        Scene scene = new Scene(stackPane, 600, 500);
+        stackPane.getChildren().addAll(maskerPane, vBoxCont);
+        maskerPane.toFront();
+        maskerPane.setVisible(false);
 
         stage.setOnCloseRequest(observable -> notifier.stop());
         stage.setScene(scene);
@@ -90,8 +102,102 @@ public class Demo extends Application {
         notifier.setOnHideNotification(event -> System.out.println("Notification hidden: " + event.NOTIFICATION.TITLE));
     }
 
+
+    private void setMaskerPane() {
+        maskerPane.setVisible(true);
+
+        new Thread(() -> {
+
+            waiting();
+            Platform.runLater(() -> {
+                maskerPane.setProgress(progress, "Start: " + progress);
+                progress = progress + 0.1;
+            });
+
+            waiting();
+            Platform.runLater(() -> {
+                maskerPane.setProgress(progress, "..Weiter..: " + progress);
+                progress = progress + 0.1;
+            });
+
+            waiting();
+            Platform.runLater(() -> {
+                maskerPane.setProgress(progress, ".......Weiter.......: " + progress);
+                progress = progress + 0.1;
+            });
+
+            waiting();
+            Platform.runLater(() -> {
+                maskerPane.setProgress(progress, "..Weiter..: " + progress);
+                progress = progress + 0.1;
+            });
+
+            waiting();
+            Platform.runLater(() -> {
+                maskerPane.setProgress(progress, ".......Weiter.......: " + progress);
+                progress = progress + 0.1;
+            });
+
+            waiting();
+            Platform.runLater(() -> {
+                maskerPane.setProgress(progress, "");
+                progress = progress + 0.1;
+            });
+
+            waiting();
+            Platform.runLater(() -> {
+                maskerPane.setProgress(progress, ".......noch Weiter.......: " + progress);
+                progress = progress + 0.1;
+            });
+
+            waiting();
+            Platform.runLater(() -> {
+                maskerPane.setProgress(progress, ".......noch Weiter.......: " + progress);
+                progress = progress + 0.1;
+            });
+
+            waiting();
+            Platform.runLater(() -> {
+                maskerPane.setProgress(progress, ".......noch Weiter.......: " + progress);
+                progress = progress + 0.1;
+            });
+
+            waiting();
+            Platform.runLater(() -> {
+                maskerPane.setProgress(progress, ".......noch Weiter.......: " + progress);
+                progress = progress + 0.1;
+            });
+
+            waiting();
+            Platform.runLater(() -> {
+                progress = 1;
+                maskerPane.setProgress(progress, ".......Ende: " + progress);
+            });
+
+            waiting();
+            Platform.runLater(() -> {
+                maskerPane.resetProgress();
+                progress = 0;
+            });
+
+            waiting();
+            Platform.runLater(() -> {
+                maskerPane.setVisible(false);
+            });
+
+        }).start();
+
+    }
+
+    private void waiting() {
+        try {
+            Thread.sleep(2_000);
+        } catch (Exception ignore) {
+        }
+    }
+
     private void addCont() {
-        vBoxCont.getChildren().addAll(btnNotification);
+        vBoxCont.getChildren().addAll(btnNotification, btnMaskerPane);
 
 
         PToggleSwitch pToggleSwitchOn = new PToggleSwitch("Toggle On:");
