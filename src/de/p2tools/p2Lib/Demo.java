@@ -78,7 +78,7 @@ public class Demo extends Application {
         vBoxCont.setSpacing(20);
         addCont();
 
-        Scene scene = new Scene(stackPane, 600, 500);
+        Scene scene = new Scene(stackPane, 800, 500);
         stackPane.getChildren().addAll(maskerPane, vBoxCont);
         maskerPane.toFront();
         maskerPane.setVisible(false);
@@ -150,9 +150,10 @@ public class Demo extends Application {
                 progress = progress + 0.1;
             });
 
+            maskerPane.initButton("X");
             waiting();
             Platform.runLater(() -> {
-                maskerPane.setProgress(progress, ".......noch Weiter.......: " + progress);
+                maskerPane.setProgress(progress, "");
                 progress = progress + 0.1;
             });
 
