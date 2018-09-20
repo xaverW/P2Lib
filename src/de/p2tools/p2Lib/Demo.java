@@ -110,74 +110,75 @@ public class Demo extends Application {
 
             waiting();
             Platform.runLater(() -> {
-                maskerPane.setProgress(progress, "Start: " + progress);
+                maskerPane.setMaskerProgress(progress, "Start: " + progress);
                 progress = progress + 0.1;
             });
 
             waiting();
             Platform.runLater(() -> {
-                maskerPane.setProgress(progress, "..Weiter..: " + progress);
+                maskerPane.setMaskerProgress(progress, "..Weiter..: " + progress);
                 progress = progress + 0.1;
             });
 
             waiting();
             Platform.runLater(() -> {
-                maskerPane.setProgress(progress, ".......Weiter.......: " + progress);
+                maskerPane.setMaskerProgress(progress, ".......Weiter.......: " + progress);
                 progress = progress + 0.1;
             });
 
             waiting();
             Platform.runLater(() -> {
-                maskerPane.setProgress(progress, "..Weiter..: " + progress);
+                maskerPane.setMaskerProgress(progress, "..Weiter..: " + progress);
                 progress = progress + 0.1;
             });
 
             waiting();
             Platform.runLater(() -> {
-                maskerPane.setProgress(progress, ".......Weiter.......: " + progress);
+                maskerPane.setMaskerProgress(progress, ".......Weiter.......: " + progress);
                 progress = progress + 0.1;
             });
 
             waiting();
             Platform.runLater(() -> {
-                maskerPane.setProgress(progress, "");
+                maskerPane.setMaskerProgress(progress, "");
                 progress = progress + 0.1;
             });
 
             waiting();
             Platform.runLater(() -> {
-                maskerPane.setProgress(progress, ".......noch Weiter.......: " + progress);
-                progress = progress + 0.1;
-            });
-
-            maskerPane.initButton("X");
-            waiting();
-            Platform.runLater(() -> {
-                maskerPane.setProgress(progress, "");
+                maskerPane.setMaskerProgress(progress, ".......noch Weiter.......: " + progress);
                 progress = progress + 0.1;
             });
 
             waiting();
             Platform.runLater(() -> {
-                maskerPane.setProgress(progress, ".......noch Weiter.......: " + progress);
+                maskerPane.initButton("X");
+                maskerPane.setMaskerVisible(true, true);
+                maskerPane.setMaskerProgress(progress, "");
                 progress = progress + 0.1;
             });
 
             waiting();
             Platform.runLater(() -> {
-                maskerPane.setProgress(progress, ".......noch Weiter.......: " + progress);
+                maskerPane.setMaskerProgress(progress, ".......noch Weiter.......: " + progress);
+                progress = progress + 0.1;
+            });
+
+            waiting();
+            Platform.runLater(() -> {
+                maskerPane.setMaskerProgress(progress, ".......noch Weiter.......: " + progress);
                 progress = progress + 0.1;
             });
 
             waiting();
             Platform.runLater(() -> {
                 progress = 1;
-                maskerPane.setProgress(progress, ".......Ende: " + progress);
+                maskerPane.setMaskerProgress(progress, ".......Ende: " + progress);
             });
 
             waiting();
             Platform.runLater(() -> {
-                maskerPane.resetProgress();
+                maskerPane.setMaskerProgress("");
                 progress = 0;
             });
 

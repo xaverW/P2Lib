@@ -17,6 +17,7 @@
 
 package de.p2tools.p2Lib.guiTools.pMask;
 
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -35,24 +36,21 @@ public class PMaskerPane extends BorderPane {
     private final VBox vBox = new VBox(20);
     private final Label lblText = new Label("");
     private final Button btnStop = new Button("Stop");
-    private boolean useButton = false;
 
     public PMaskerPane() {
-
         // todo erst mal ein Anfang :)
 
         getStyleClass().add("pMaskerPane");
         lblText.getStyleClass().add("textLabel");
         progressBar.getStyleClass().add("progressBar");
         btnStop.getStyleClass().add("buttonStop");
+        setButtonVisible(false);
 
         final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pMask/pMaskerPane.css";
         getStylesheets().add(CSS_FILE);
 
-
         vBox.setPadding(new Insets(20));
         vBox.setAlignment(Pos.CENTER);
-        vBox.getChildren().addAll(progressIndicator);
 
         progressIndicator.setMaxSize(100, 100);
 
@@ -64,52 +62,83 @@ public class PMaskerPane extends BorderPane {
         lblText.setPadding(new Insets(3, 10, 3, 10));
 
         VBox.setVgrow(progressIndicator, Priority.ALWAYS);
-        VBox.setVgrow(progressBar, Priority.ALWAYS);
-        VBox.setVgrow(lblText, Priority.ALWAYS);
 
         setSize();
         this.setCenter(vBox);
+        this.setVisible(false);
+        setProgress(-1, "");
     }
 
     public Button initButton(String text) {
-        useButton = true;
-        btnStop.setText(text);
+        Platform.runLater(() -> {
+            btnStop.setText(text);
+        });
         return btnStop;
     }
 
-    public void setProgress(double progress, String text) {
+
+    public void setButtonVisible(boolean buttonVisible) {
+        Platform.runLater(() -> {
+            btnStop.setVisible(buttonVisible);
+            btnStop.setManaged(buttonVisible);
+        });
+    }
+
+    public void setMaskerVisible(boolean maskerVisible) {
+        setMaskerVisible(maskerVisible, false);
+    }
+
+    public void setMaskerVisible(boolean maskerVisible, boolean buttonVisible) {
+        Platform.runLater(() -> {
+            setButtonVisible(buttonVisible);
+            setVisible(maskerVisible);
+            setProgress(-1, "");
+        });
+    }
+
+    public void setMaskerProgress(double progress, String text) {
+        Platform.runLater(() -> {
+            setProgress(progress, text);
+        });
+    }
+
+    public void setMaskerProgress(String text) {
+        Platform.runLater(() -> {
+            setProgress(-1, text);
+        });
+    }
+
+    public void setMaskerProgress() {
+        Platform.runLater(() -> {
+            setProgress(-1, "");
+        });
+    }
+
+    public void setMaskerIndicator() {
+        Platform.runLater(() -> {
+            vBox.getChildren().clear();
+            vBox.getChildren().add(progressIndicator);
+        });
+    }
+
+    private void setProgress(double progress, String text) {
         progressBar.setProgress(progress);
         lblText.setText(text);
 
         vBox.getChildren().clear();
-        vBox.setAlignment(Pos.BOTTOM_CENTER);
+        HBox hBox = new HBox(10);
+        hBox.setAlignment(Pos.CENTER);
+        HBox.setHgrow(progressBar, Priority.ALWAYS);
+        hBox.getChildren().addAll(progressBar, btnStop);
 
-        if (text.isEmpty() && useButton) {
-            HBox hBox = new HBox(10);
-            HBox.setHgrow(progressBar, Priority.ALWAYS);
-            hBox.getChildren().addAll(progressBar, btnStop);
+        if (text.isEmpty()) {
             vBox.getChildren().addAll(hBox);
 
-        } else if (text.isEmpty() && !useButton) {
-            vBox.getChildren().addAll(progressBar);
-
-        } else if (!text.isEmpty() && useButton) {
-            HBox hBox = new HBox(10);
-            HBox.setHgrow(progressBar, Priority.ALWAYS);
-            hBox.getChildren().addAll(progressBar, btnStop);
+        } else if (!text.isEmpty()) {
             vBox.getChildren().addAll(hBox, lblText);
-
-        } else if (!text.isEmpty() && !useButton) {
-            vBox.getChildren().addAll(progressBar, lblText);
         }
 
         setSize();
-    }
-
-
-    public void resetProgress() {
-        vBox.getChildren().clear();
-        vBox.getChildren().add(progressIndicator);
     }
 
     private void setSize() {
@@ -125,4 +154,5 @@ public class PMaskerPane extends BorderPane {
         vBox.setMaxWidth(w);
         vBox.setAlignment(Pos.CENTER);
     }
+
 }
