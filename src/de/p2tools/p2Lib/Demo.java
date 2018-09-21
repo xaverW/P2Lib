@@ -152,7 +152,7 @@ public class Demo extends Application {
 
             waiting();
             Platform.runLater(() -> {
-                maskerPane.initButton("X");
+                maskerPane.setButtonText("X");
                 maskerPane.setMaskerVisible(true, true);
                 maskerPane.setMaskerProgress(progress, "");
                 progress = progress + 0.1;
@@ -178,7 +178,7 @@ public class Demo extends Application {
 
             waiting();
             Platform.runLater(() -> {
-                maskerPane.setMaskerProgress("");
+                maskerPane.setMaskerText("");
                 progress = 0;
             });
 

@@ -22,7 +22,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -30,29 +29,32 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class PMaskerPane extends BorderPane {
-    private final ProgressIndicator progressIndicator = new ProgressIndicator();
-    private final ProgressBar progressBar = new ProgressBar();
+    //    private final ProgressIndicator progressIndicator = new ProgressIndicator();
+    private final ProgressIndicator progressBar = new ProgressIndicator();
+//    private final ProgressBar progressBar = new ProgressBar();
 
-    private final VBox vBox = new VBox(20);
+    private final VBox vBoxCont = new VBox(20);
     private final Label lblText = new Label("");
     private final Button btnStop = new Button("Stop");
 
     public PMaskerPane() {
-        // todo erst mal ein Anfang :)
 
         getStyleClass().add("pMaskerPane");
         lblText.getStyleClass().add("textLabel");
         progressBar.getStyleClass().add("progressBar");
         btnStop.getStyleClass().add("buttonStop");
-        setButtonVisible(false);
-
         final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pMask/pMaskerPane.css";
         getStylesheets().add(CSS_FILE);
 
-        vBox.setPadding(new Insets(20));
-        vBox.setAlignment(Pos.CENTER);
+        vBoxCont.setPadding(new Insets(20));
+        vBoxCont.setAlignment(Pos.CENTER);
 
-        progressIndicator.setMaxSize(100, 100);
+        this.heightProperty().addListener((observable, oldValue, newValue) -> setSize());
+        this.widthProperty().addListener((observable, oldValue, newValue) -> setSize());
+
+//        progressIndicator.setMaxSize(200, 200);
+//        progressIndicator.setMinSize(200, 200);
+//        VBox.setVgrow(progressIndicator, Priority.ALWAYS);
 
         progressBar.setMaxWidth(Double.MAX_VALUE);
         progressBar.setMinHeight(30);
@@ -61,38 +63,40 @@ public class PMaskerPane extends BorderPane {
         lblText.setAlignment(Pos.CENTER);
         lblText.setPadding(new Insets(3, 10, 3, 10));
 
-        VBox.setVgrow(progressIndicator, Priority.ALWAYS);
-
+        setBtnVisible(false);
         setSize();
-        this.setCenter(vBox);
+        this.setCenter(vBoxCont);
         this.setVisible(false);
-        setProgress(-1, "");
+        setPBar();
     }
 
-    public Button initButton(String text) {
+    public Button getButton() {
+        return btnStop;
+    }
+
+    public void setButtonText(String text) {
         Platform.runLater(() -> {
             btnStop.setText(text);
         });
-        return btnStop;
     }
 
 
     public void setButtonVisible(boolean buttonVisible) {
         Platform.runLater(() -> {
-            btnStop.setVisible(buttonVisible);
-            btnStop.setManaged(buttonVisible);
+            setBtnVisible(buttonVisible);
         });
     }
 
     public void setMaskerVisible(boolean maskerVisible) {
-        setMaskerVisible(maskerVisible, false);
+        Platform.runLater(() -> {
+            setMaskerVisible(maskerVisible, false);
+        });
     }
 
     public void setMaskerVisible(boolean maskerVisible, boolean buttonVisible) {
         Platform.runLater(() -> {
-            setButtonVisible(buttonVisible);
+            setBtnVisible(buttonVisible);
             setVisible(maskerVisible);
-            setProgress(-1, "");
         });
     }
 
@@ -102,43 +106,37 @@ public class PMaskerPane extends BorderPane {
         });
     }
 
-    public void setMaskerProgress(String text) {
+    public void setMaskerText(String text) {
         Platform.runLater(() -> {
-            setProgress(-1, text);
+            lblText.setText(text);
         });
     }
 
-    public void setMaskerProgress() {
+    public void setMaskerProgressIndeterminate() {
         Platform.runLater(() -> {
             setProgress(-1, "");
         });
     }
 
-    public void setMaskerIndicator() {
-        Platform.runLater(() -> {
-            vBox.getChildren().clear();
-            vBox.getChildren().add(progressIndicator);
-        });
+    private void setBtnVisible(boolean visible) {
+        btnStop.setVisible(visible);
+        btnStop.setManaged(visible);
+    }
+
+    private void setPBar() {
+        vBoxCont.getChildren().clear();
+
+        HBox hBox = new HBox(10);
+        hBox.setAlignment(Pos.CENTER);
+        HBox.setHgrow(lblText, Priority.ALWAYS);
+        hBox.getChildren().addAll(lblText, btnStop);
+
+        vBoxCont.getChildren().addAll(progressBar, hBox);
     }
 
     private void setProgress(double progress, String text) {
         progressBar.setProgress(progress);
         lblText.setText(text);
-
-        vBox.getChildren().clear();
-        HBox hBox = new HBox(10);
-        hBox.setAlignment(Pos.CENTER);
-        HBox.setHgrow(progressBar, Priority.ALWAYS);
-        hBox.getChildren().addAll(progressBar, btnStop);
-
-        if (text.isEmpty()) {
-            vBox.getChildren().addAll(hBox);
-
-        } else if (!text.isEmpty()) {
-            vBox.getChildren().addAll(hBox, lblText);
-        }
-
-        setSize();
     }
 
     private void setSize() {
@@ -150,9 +148,9 @@ public class PMaskerPane extends BorderPane {
             return;
         }
 
-        vBox.setMinWidth(w);
-        vBox.setMaxWidth(w);
-        vBox.setAlignment(Pos.CENTER);
+        vBoxCont.setMinWidth(w);
+        vBoxCont.setMaxWidth(w);
+        vBoxCont.setAlignment(Pos.CENTER);
     }
 
 }
