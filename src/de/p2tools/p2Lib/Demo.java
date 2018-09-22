@@ -128,18 +128,6 @@ public class Demo extends Application {
 
             waiting();
             Platform.runLater(() -> {
-                maskerPane.setMaskerProgress(progress, "..Weiter..: " + progress);
-                progress = progress + 0.1;
-            });
-
-            waiting();
-            Platform.runLater(() -> {
-                maskerPane.setMaskerProgress(progress, ".......Weiter.......: " + progress);
-                progress = progress + 0.1;
-            });
-
-            waiting();
-            Platform.runLater(() -> {
                 maskerPane.setMaskerProgress(progress, "");
                 progress = progress + 0.1;
             });
@@ -174,6 +162,12 @@ public class Demo extends Application {
             Platform.runLater(() -> {
                 progress = 1;
                 maskerPane.setMaskerProgress(progress, ".......Ende: " + progress);
+            });
+
+            waiting();
+            Platform.runLater(() -> {
+                progress = 1;
+                maskerPane.setMaskerProgress(-1, ".......Ende: " + -1);
             });
 
             waiting();
