@@ -46,7 +46,7 @@ public class PRangeBox extends VBox {
     private final Label lblMax = new Label("Bis:");
     private final Label lblValueMin = new Label();
     private final Label lblValueMax = new Label();
-    private String vluePrefix = "Bereich: ";
+    private String valuePrefix = "Bereich: ";
     private String unitSuffix = " Minuten";
 
 
@@ -116,12 +116,12 @@ public class PRangeBox extends VBox {
         this.maxValue.set(maxValue);
     }
 
-    public String getVluePrefix() {
-        return vluePrefix;
+    public String getValuePrefix() {
+        return valuePrefix;
     }
 
-    public void setVluePrefix(String vluePrefix) {
-        this.vluePrefix = vluePrefix;
+    public void setValuePrefix(String valuePrefix) {
+        this.valuePrefix = valuePrefix;
         setRangeTxt();
     }
 
@@ -282,13 +282,13 @@ public class PRangeBox extends VBox {
 
         final String text;
         if (minIntSlider == MIN_VALUE && maxIntSlider == MAX_VALUE) {
-            text = vluePrefix + STR_ALLES;
+            text = valuePrefix + STR_ALLES;
         } else if (minIntSlider == MIN_VALUE) {
-            text = vluePrefix + "weniger als " + maxInt + unitSuffix;
+            text = valuePrefix + "weniger als " + maxInt + unitSuffix;
         } else if (maxIntSlider == MAX_VALUE) {
-            text = vluePrefix + "mehr als " + minInt + unitSuffix;
+            text = valuePrefix + "mehr als " + minInt + unitSuffix;
         } else {
-            text = vluePrefix + "von " + minInt + " bis " + maxInt + unitSuffix;
+            text = valuePrefix + "von " + minInt + " bis " + maxInt + unitSuffix;
         }
 
         menuButton.setText(text);

@@ -302,7 +302,9 @@ public class PAlert {
     private static Alert getAlert(Stage stage, Alert.AlertType alertType, String title, String header) {
         final Alert alert = new Alert(alertType);
         alert.setResizable(true); // todo bei Oracle Jdk10 unter Linux geht der Dialog nur manchmal auf, stimmt was beim JDK nicht
-        alert.initOwner(stage);
+        if (stage != null) {
+            alert.initOwner(stage);
+        }
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);

@@ -217,7 +217,7 @@ public class Demo extends Application {
         vBoxCont.getChildren().add(pTimePeriodBox);
 
         PRangeBox pRangeBox = new PRangeBox(0, 150);
-        pRangeBox.setVluePrefix("Auszeit: ");
+        pRangeBox.setValuePrefix("Auszeit: ");
         pRangeBox.setUnitSuffix(" s");
         vBoxCont.getChildren().add(pRangeBox);
     }

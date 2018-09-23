@@ -58,7 +58,7 @@ class BackupConfigFile {
         ArrayList<String> list = new ArrayList<>();
         // nur einmal pro Programmstart machen
         list.add(PLog.LILNE3);
-        list.add("Einstellungen sichern");
+        list.add("BackupConfigFile sichern");
 
         try {
             long createTime = -1;
@@ -84,9 +84,9 @@ class BackupConfigFile {
                             filePath.getParent().resolve(backupFileName + 1),
                             StandardCopyOption.REPLACE_EXISTING);
                 }
-                list.add("Einstellungen wurden gesichert");
+                list.add("BackupConfigFile wurden gesichert");
             } else {
-                list.add("Einstellungen wurden heute schon gesichert");
+                list.add("BackupConfigFile wurden heute schon gesichert");
             }
         } catch (final IOException e) {
             list.add("Die Einstellungen konnten nicht komplett gesichert werden!");

@@ -16,7 +16,7 @@
 
 
 .pMaskerPane {
-    -fx-background-color : rgba(15, 15, 15, 0.6);
+    -fx-background-color : rgba(15, 15, 15, 0.7);
     -fx-background-radius: 5;
     -fx-effect           : innershadow(two-pass-box, rgba(255, 255, 255, 0.6), 5.0, 0.25, 0, 0);
     -foreground-color    : white;
@@ -34,12 +34,17 @@
     -fx-background-color : whitesmoke;
 }
 
-/*
 .progressIndicator {
     -fx-background-radius: 30;
-    -fx-progress-color: mediumblue;
+    -fx-progress-color: deepskyblue;
 }
 
+.vBoxIndicator {
+    -fx-background-color: silver;
+    -fx-background-radius: 100;
+}
+
+/*
 .progressBar > .bar {
     -fx-background-radius: 30;
     -fx-background-color: linear-gradient(

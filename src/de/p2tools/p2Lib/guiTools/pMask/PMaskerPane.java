@@ -17,25 +17,24 @@
 
 package de.p2tools.p2Lib.guiTools.pMask;
 
-import de.p2tools.p2Lib.guiTools.pdfsam.RingProgressIndicator;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class PMaskerPane extends BorderPane {
-    // private final ProgressIndicator progressIndicator = new ProgressIndicator();
-    private RingProgressIndicator progressIndicator = new RingProgressIndicator();
+    private final ProgressIndicator progressIndicator = new ProgressIndicator();
     // private final ProgressBar progressBar = new ProgressBar();
 
     private final VBox vBoxCont = new VBox();
+    private final HBox vBoxIndicator = new HBox();
+    HBox hBoxText = new HBox(10);
     private final Label lblText = new Label("");
     private final Button btnStop = new Button("Stop");
 
@@ -43,7 +42,8 @@ public class PMaskerPane extends BorderPane {
 
         getStyleClass().add("pMaskerPane");
         lblText.getStyleClass().add("textLabel");
-        // progressIndicator.getStyleClass().add("progressIndicator");
+        progressIndicator.getStyleClass().add("progressIndicator");
+        vBoxIndicator.getStyleClass().add("vBoxIndicator");
         btnStop.getStyleClass().add("buttonStop");
         final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pMask/pMaskerPane.css";
         getStylesheets().add(CSS_FILE);
@@ -51,7 +51,7 @@ public class PMaskerPane extends BorderPane {
         this.heightProperty().addListener((observable, oldValue, newValue) -> setSize());
         this.widthProperty().addListener((observable, oldValue, newValue) -> setSize());
 
-        setVBox();
+        setVBoxCont();
         setSize();
         this.setCenter(vBoxCont);
         this.setVisible(false);
@@ -75,16 +75,25 @@ public class PMaskerPane extends BorderPane {
         });
     }
 
-    public void setMaskerVisible(boolean maskerVisible) {
+    public void setTextVisible(boolean textVisible) {
         Platform.runLater(() -> {
-            setMaskerVisible(maskerVisible, false);
+            setLblVisible(textVisible);
         });
     }
 
+    public void setMaskerVisible(boolean maskerVisible) {
+        setMaskerVisible(maskerVisible, false);
+    }
+
     public void setMaskerVisible(boolean maskerVisible, boolean buttonVisible) {
+        setMaskerVisible(maskerVisible, true, buttonVisible);
+    }
+
+    public void setMaskerVisible(boolean maskerVisible, boolean text, boolean buttonVisible) {
         Platform.runLater(() -> {
-            setBtnVisible(buttonVisible);
             setVisible(maskerVisible);
+            setLblVisible(text);
+            setBtnVisible(buttonVisible);
         });
     }
 
@@ -111,42 +120,39 @@ public class PMaskerPane extends BorderPane {
         btnStop.setManaged(visible);
     }
 
-    private void setVBox() {
+    private void setLblVisible(boolean visible) {
+        lblText.setVisible(visible);
+        lblText.setManaged(visible);
+    }
+
+    private void setVBoxCont() {
         vBoxCont.setSpacing(20);
         vBoxCont.setPadding(new Insets(20));
         vBoxCont.setAlignment(Pos.CENTER);
 
-//        progressIndicator.setMaxSize(100, 100);
-//        progressIndicator.setMinSize(100, 100);
-//        VBox.setVgrow(progressIndicator, Priority.ALWAYS);
-
-//        progressIndicator.setMaxWidth(Double.MAX_VALUE);
-//        progressIndicator.setMinHeight(30);
+        progressIndicator.setMaxSize(120, 120);
+        progressIndicator.setMinSize(120, 120);
 
         lblText.setMaxWidth(Double.MAX_VALUE);
         lblText.setAlignment(Pos.CENTER);
         lblText.setPadding(new Insets(3, 10, 3, 10));
 
-        setBtnVisible(false);
-
-        HBox hBox = new HBox(10);
-        hBox.setAlignment(Pos.CENTER);
-        HBox.setHgrow(lblText, Priority.ALWAYS);
-        btnStop.heightProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (newValue != null) {
-                    lblText.setMinHeight(newValue.doubleValue());
-                }
+        btnStop.heightProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                lblText.setMinHeight(newValue.doubleValue());
             }
         });
-        hBox.getChildren().addAll(lblText, btnStop);
+        setBtnVisible(false);
 
-        vBoxCont.getChildren().addAll(progressIndicator, hBox);
+        hBoxText.setAlignment(Pos.CENTER);
+        HBox.setHgrow(lblText, Priority.ALWAYS);
+        hBoxText.getChildren().addAll(lblText, btnStop);
+
+        vBoxCont.getChildren().addAll(progressIndicator, hBoxText);
     }
 
     private void setProgress(double progress, String text) {
-        progressIndicator.setProgress((int) (100 * progress));
+        progressIndicator.setProgress(progress);
         lblText.setText(text);
     }
 
