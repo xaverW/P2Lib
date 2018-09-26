@@ -295,7 +295,7 @@ public class PFileUtils {
             new PAlertFileChosser().showErrorAlert("Datei löschen",
                     "Konnte die Datei nicht löschen!", "Fehler beim löschen von:" + PConst.LINE_SEPARATORx2 +
                             strFile);
-            PLog.errorLog(912036547, "Fehler beim löschen: " + strFile);
+            PLog.errorLog(987451206, "Fehler beim löschen: " + strFile);
         }
         return ret;
     }
@@ -321,7 +321,7 @@ public class PFileUtils {
             new PAlertFileChosser().showErrorAlert("Datei löschen",
                     "Konnte die Datei nicht löschen!", "Fehler beim löschen von:" + PConst.LINE_SEPARATORx2 +
                             strFile);
-            PLog.errorLog(912036547, "Fehler beim löschen: " + strFile);
+            PLog.errorLog(302015478, "Fehler beim löschen: " + strFile);
         }
         return ret;
     }

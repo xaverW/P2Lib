@@ -91,7 +91,7 @@ public class PMaskerPane extends BorderPane {
 
     public void setMaskerVisible(boolean maskerVisible, boolean text, boolean buttonVisible) {
         Platform.runLater(() -> {
-            setVisible(maskerVisible);
+            setPaneVisible(maskerVisible);
             setLblVisible(text);
             setBtnVisible(buttonVisible);
         });
@@ -123,6 +123,14 @@ public class PMaskerPane extends BorderPane {
     private void setLblVisible(boolean visible) {
         lblText.setVisible(visible);
         lblText.setManaged(visible);
+    }
+
+    private void setPaneVisible(boolean visible) {
+        this.setVisible(visible);
+        progressIndicator.setVisible(visible);
+//        if (!visible) {
+//            progressIndicator.setProgress(0);
+//        }
     }
 
     private void setVBoxCont() {
