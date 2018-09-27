@@ -81,8 +81,12 @@ public class PMaskerPane extends BorderPane {
         });
     }
 
+    public void switchOffMasker() {
+        setMaskerVisible(false);
+    }
+
     public void setMaskerVisible(boolean maskerVisible) {
-        setMaskerVisible(maskerVisible, false);
+        setMaskerVisible(maskerVisible, true, false);
     }
 
     public void setMaskerVisible(boolean maskerVisible, boolean buttonVisible) {
@@ -103,15 +107,15 @@ public class PMaskerPane extends BorderPane {
         });
     }
 
-    public void setMaskerText(String text) {
-        Platform.runLater(() -> {
-            lblText.setText(text);
-        });
-    }
-
     public void setMaskerProgressIndeterminate() {
         Platform.runLater(() -> {
             setProgress(-1, "");
+        });
+    }
+
+    public void setMaskerText(String text) {
+        Platform.runLater(() -> {
+            lblText.setText(text);
         });
     }
 
@@ -128,9 +132,6 @@ public class PMaskerPane extends BorderPane {
     private void setPaneVisible(boolean visible) {
         this.setVisible(visible);
         progressIndicator.setVisible(visible);
-//        if (!visible) {
-//            progressIndicator.setProgress(0);
-//        }
     }
 
     private void setVBoxCont() {
