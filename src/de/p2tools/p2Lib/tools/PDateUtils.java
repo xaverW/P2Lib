@@ -26,6 +26,10 @@ import java.util.List;
 public class PDateUtils {
     private static final FastDateFormat FORMAT_yyyy = FastDateFormat.getInstance("yyyy");
 
+    public static String getTodayStr() {
+        return new PDate().getDateTime(PDate.FORMAT_dd_MM_yyyy);
+    }
+
     public static String getAktYearStr() {
         return new PDate().getDateTime(FORMAT_yyyy);
     }

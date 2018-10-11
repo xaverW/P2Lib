@@ -112,7 +112,7 @@ public class PFileUtils {
     public static boolean movePath(String from, String to) {
         if (from.isEmpty()) {
             new PAlert().showErrorAlert("Verzeichnis verschieben", "Das Quellverzeichnis:" + PConst.LINE_SEPARATOR +
-                    to + PConst.LINE_SEPARATORx2 +
+                    from + PConst.LINE_SEPARATORx2 +
                     "ist kein Verzeichnis");
             return false;
         }
@@ -149,6 +149,60 @@ public class PFileUtils {
             org.apache.commons.io.FileUtils.moveDirectory(src.toFile(), dest.toFile());
         } catch (IOException ex) {
             PLog.errorLog(645121047, "move path: " + from + " to " + to);
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean copyFile(Path from, Path dest) {
+        return copyFile(from, dest, true);
+    }
+
+    public static boolean copyFile(Path from, Path dest, boolean ask) {
+        try {
+
+            if (from.toString().isEmpty()) {
+                new PAlert().showErrorAlert("Datei kopieren", "Es wurde keine Quelldatei angegeben.");
+                return false;
+            }
+
+            if (dest.toString().isEmpty()) {
+                new PAlert().showErrorAlert("Datei kopieren", "Es wurde keine Zeildatei angegeben.");
+                return false;
+            }
+
+            if (!from.toFile().exists()) {
+                new PAlert().showErrorAlert("Datei kopieren", "Die Quelldatei:" + PConst.LINE_SEPARATOR +
+                        from.toString() + PConst.LINE_SEPARATORx2 +
+                        "existiert nicht.");
+                return false;
+            }
+
+            if (dest.toFile().isDirectory()) {
+                new PAlert().showErrorAlert("Datei kopieren", "Die Zieldatei:" + PConst.LINE_SEPARATOR +
+                        dest.toString() + PConst.LINE_SEPARATORx2 +
+                        "ist ein Verzeichnis.");
+                return false;
+            }
+
+            if (ask && dest.toFile().exists()) {
+                PAlert.BUTTON button = PAlert.showAlert_yes_no("Hinweis", "Datei kopieren",
+                        "Die Zieldatei exisiert bereits:" + PConst.LINE_SEPARATOR +
+                                dest.toString() +
+                                PConst.LINE_SEPARATORx2 +
+                                "Soll die Datei überschrieben werden?");
+                if (!button.equals(PAlert.BUTTON.YES)) {
+                    return false;
+                }
+            }
+
+            if (dest.toFile().exists()) {
+                dest.toFile().delete();
+            }
+
+            org.apache.commons.io.FileUtils.copyFile(from.toFile(), dest.toFile());
+        } catch (IOException ex) {
+            PLog.errorLog(978451203, "copy file: " + from.toString() + " to " + dest.toString());
             return false;
         }
         return true;

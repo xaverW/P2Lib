@@ -17,12 +17,17 @@
 
 package de.p2tools.p2Lib.tools;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 public class FileSize implements Comparable<FileSize> {
     private long sizeL = 0;
     private String sizeStr = "";
+
     private static final long GBYTE = 1000L * 1000L * 1000L;
     private static final long MBYTE = 1000L * 1000L;
     private static final long KBYTE = 1000L;
+    private static final NumberFormat formatter = new DecimalFormat("#0.00");
 
     public FileSize(long sizeL) {
         this.sizeL = sizeL;
@@ -39,19 +44,25 @@ public class FileSize implements Comparable<FileSize> {
     }
 
     private void convertToStr() {
-        if (sizeL == 0) {
+        if (sizeL <= 0) {
             sizeStr = "";
-        } else if (sizeL < KBYTE) {
-            sizeStr = sizeL + " Byte";
+            return;
+        }
+
+        if (sizeL < KBYTE) {
+            sizeStr = sizeL + " B";
 
         } else if (sizeL < MBYTE) {
-            sizeStr = sizeL / KBYTE + " kB";
+            double size = 1.0 * sizeL / KBYTE;
+            sizeStr = formatter.format(size) + " kB";
 
         } else if (sizeL < GBYTE) {
-            sizeStr = sizeL / MBYTE + " MB";
+            double size = 1.0 * sizeL / MBYTE;
+            sizeStr = formatter.format(size) + " MB";
 
         } else {
-            sizeStr = sizeL / GBYTE + " GB";
+            double size = 1.0 * sizeL / GBYTE;
+            sizeStr = formatter.format(size) + " GB";
         }
     }
 
