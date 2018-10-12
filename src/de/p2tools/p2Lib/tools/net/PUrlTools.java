@@ -23,6 +23,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class PUrlTools {
+    public static final int TIME_OUT = 10_000;
+
     public static boolean isUrl(String fileUrl) {
         // return dateiUrl.startsWith("http") ? true : false || dateiUrl.startsWith("www") ? true :
         // false;
@@ -31,12 +33,14 @@ public class PUrlTools {
 
     public static boolean urlExists(String url) {
         try {
-            HttpURLConnection.setFollowRedirects(false);
-            // note : you may also need
-            //        HttpURLConnection.setInstanceFollowRedirects(false)
+//            HttpURLConnection.setFollowRedirects(true);
             HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
-            con.setRequestMethod("HEAD");
-            return (con.getResponseCode() == HttpURLConnection.HTTP_OK);
+            con.setRequestMethod("GET");
+            con.setConnectTimeout(TIME_OUT);
+            con.setReadTimeout(10_000);
+            final int responseCode = con.getResponseCode();
+
+            return (responseCode == HttpURLConnection.HTTP_OK);
         } catch (Exception ex) {
             return false;
         }

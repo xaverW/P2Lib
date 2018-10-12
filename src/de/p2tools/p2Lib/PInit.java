@@ -20,12 +20,13 @@ import javafx.stage.Stage;
 
 public class PInit {
 
-    public static void initLib(Stage primaryStage, String progName, String cssFile, String userAgent, boolean debug) {
+    public static void initLib(Stage primaryStage, String progName, String cssFile, String userAgent, boolean debug, boolean duration) {
         PConst.primaryStage = primaryStage;
         PConst.progName = progName;
         PConst.cssFile = cssFile;
         PConst.userAgent = userAgent;
         PConst.debug = debug;
+        PConst.duration = duration;
     }
 
     public static void setPrimaryStage(Stage primaryStage) {

@@ -168,7 +168,10 @@ public class PLog {
             return;
         }
 
-        PLogger.LogDuration(log);
+        if (PConst.duration) {
+            // nur dann sollen sie mit ausgegeben werden
+            PLogger.LogDuration(log);
+        }
     }
 
     private static String addErrNr(int errNr, String txt) {

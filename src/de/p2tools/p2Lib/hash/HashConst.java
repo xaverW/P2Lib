@@ -22,33 +22,11 @@ public class HashConst {
     public final static String HASH_MD5 = "MD5";
     public final static String HASH_SHA1 = "SHA-1";
     public final static String HASH_SHA256 = "SHA-256";
+    public final static String HASH_SHA512 = "SHA-512";
 
     public final static String HASH_MD5_SUFFIX = "md5";
     public final static String HASH_SHA1_SUFFIX = "sha1";
     public final static String HASH_SHA256_SUFFIX = "sha256";
+    public final static String HASH_SHA512_SUFFIX = "sha512";
 
-//    public enum HASH_ALGORITHM {
-//
-//        MD5("MD5", "md5"), SHA_1("SHA-1", "sha1"), SHA_256("SHA-256", "sha256");
-//        private final String name;
-//        private final String suffix;
-//
-//        HASH_ALGORITHM(String name, String suffix) {
-//            this.name = name;
-//            this.suffix = suffix;
-//        }
-//
-//        public String getName() {
-//            return name;
-//        }
-//
-//        public String getSuffix() {
-//            return suffix;
-//        }
-//
-//        @Override
-//        public String toString() {
-//            return name;
-//        }
-//    }
 }
