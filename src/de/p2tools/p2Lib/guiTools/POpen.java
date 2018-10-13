@@ -31,6 +31,38 @@ import java.net.URI;
 
 public class POpen {
 
+    public static void openFile(String path) {
+        openFile(PConst.primaryStage, path);
+    }
+
+    public static void openFile(Stage stage, String fileStr) {
+        File file;
+
+        if (fileStr.isEmpty()) {
+            return;
+        }
+        if (!new File(fileStr).exists()) {
+            return;
+        }
+
+        file = new File(fileStr);
+        Thread th = new Thread(() -> {
+            try {
+                if (Desktop.isDesktopSupported()) {
+                    final Desktop d = Desktop.getDesktop();
+                    if (d.isSupported(Desktop.Action.OPEN)) {
+                        d.open(file);
+                    }
+                }
+            } catch (Exception ex) {
+                new PAlert().showErrorAlert(stage,
+                        "Fehler beim öffnen der Datei", "Kann die Datei nicht öffnen!");
+            }
+        });
+        th.setName("openFile");
+        th.start();
+    }
+
     public static void openDir(String path) {
         openDir(PConst.primaryStage, path, null, null);
     }

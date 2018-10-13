@@ -19,6 +19,7 @@ package de.p2tools.p2Lib.tools.log;
 
 import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.dialog.PAlert;
+import de.p2tools.p2Lib.guiTools.POpen;
 import de.p2tools.p2Lib.tools.log.logLevel.DurLevel;
 import de.p2tools.p2Lib.tools.log.logLevel.ExtToolMsgLevel;
 import de.p2tools.p2Lib.tools.log.logLevel.UsrMsgLevel;
@@ -26,6 +27,8 @@ import javafx.application.Platform;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.*;
 
 public class PLogger {
@@ -52,6 +55,21 @@ public class PLogger {
             LOGGER.removeHandler(fileHandler);
             fileHandler = null;
         }
+    }
+
+    public static void openLogFile() {
+        if (handlerDir.isEmpty()) {
+            return;
+        }
+
+        // wenn logfile existiert, dann das öffnen, ansonsten den Ordner
+        Path path = Paths.get(handlerDir, PConst.logfile_0);
+        if (path.toFile().exists()) {
+            POpen.openFile(path.toString());
+        } else {
+            POpen.openDir(handlerDir);
+        }
+
     }
 
     public static void setFileHandler(String path) {
