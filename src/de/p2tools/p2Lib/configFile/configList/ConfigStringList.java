@@ -39,5 +39,8 @@ public class ConfigStringList extends ConfigList {
         return actValue;
     }
 
+    public String getActValueString() {
+        return super.getKey();
+    }
 
 }

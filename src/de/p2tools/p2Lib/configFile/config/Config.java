@@ -70,7 +70,7 @@ public abstract class Config {
     }
 
     public String getActValueString() {
-        return actValue.toString();
+        return actValue == null ? "" : actValue.toString();
     }
 
     public ObservableValue getProperty() {

@@ -69,19 +69,19 @@ public class SearchProgInfo {
 
     public boolean checkUpdate(String searchUrl, int progVersion,
                                IntegerProperty infoNr, BooleanProperty bPropShowUpdateInfo,
-                               boolean showAllwaysInfo, boolean showError) {
+                               boolean showAlwaysInfo, boolean showError) {
 
         // return neue Version oder neue Infos
         this.bPropShowUpdateInfo = bPropShowUpdateInfo;
-        return check(searchUrl, progVersion, infoNr, showAllwaysInfo, showError);
+        return check(searchUrl, progVersion, infoNr, showAlwaysInfo, showError);
     }
 
     private boolean check(String searchUrl, int progVersion,
                           IntegerProperty infoNr,
-                          boolean showAllwaysInfo, boolean showError) {
+                          boolean showAlwaysInfo, boolean showError) {
 
         // prüft auf neue Version, aneigen: wenn true
-        // showProgInfo-> dann wird die Info immer angezeigt
+        // showAllwaysInfo-> dann wird die Info immer angezeigt
 
         PLog.sysLog("check update");
         this.searchUrl = searchUrl;
@@ -96,7 +96,7 @@ public class SearchProgInfo {
             // dann hats nicht geklappt
             PLog.errorLog(978451203, "Das Suchen nach einem Programmupdate hat nicht geklappt!");
 
-            if (showAllwaysInfo || showError) {
+            if (showAlwaysInfo || showError) {
                 // dann konnte die "Version" im xml nicht geparst werden
                 Platform.runLater(() -> new PAlert().showErrorAlert(stage, "Fehler", UPDATE_SEARCH_TITLE, UPDATE_ERROR_MESSAGE));
             }
@@ -115,12 +115,12 @@ public class SearchProgInfo {
             }
         }
 
-        if (newVersion || newInfo || showAllwaysInfo) {
+        if (newVersion || newInfo || showAlwaysInfo) {
             // wenn Version<0 hat was nicht geklappt
             displayNotification();
         }
 
-        return newVersion || newInfo;
+        return newVersion;
     }
 
     private void displayNotification() {
