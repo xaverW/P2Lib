@@ -20,6 +20,7 @@ package de.p2tools.p2Lib.tools.log;
 import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.dialog.PAlert;
 import de.p2tools.p2Lib.guiTools.POpen;
+import de.p2tools.p2Lib.tools.log.logLevel.AddInfoLevel;
 import de.p2tools.p2Lib.tools.log.logLevel.DurLevel;
 import de.p2tools.p2Lib.tools.log.logLevel.ExtToolMsgLevel;
 import de.p2tools.p2Lib.tools.log.logLevel.UsrMsgLevel;
@@ -108,6 +109,10 @@ public class PLogger {
 
     public static void LogInfo(String info) {
         LOGGER.info(info);
+    }
+
+    public static void LogAddInfo(String info) {
+        LOGGER.log(AddInfoLevel.ADD_INFO, info);
     }
 
     public static void LogDuration(String info) {

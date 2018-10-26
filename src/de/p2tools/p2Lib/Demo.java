@@ -208,9 +208,9 @@ public class Demo extends Application {
 
         PCheckComboBox pCheckComboBox = new PCheckComboBox();
         pCheckComboBox.setTooltip(new Tooltip("Tooltip Off"));
-        pCheckComboBox.addItem("Item 1", new SimpleBooleanProperty());
-        pCheckComboBox.addItem("Item 2", new SimpleBooleanProperty());
-        pCheckComboBox.addItem("Item 3", new SimpleBooleanProperty());
+        pCheckComboBox.addItem("Item 1", "ToolTip", new SimpleBooleanProperty());
+        pCheckComboBox.addItem("Item 2", "ToolTip", new SimpleBooleanProperty());
+        pCheckComboBox.addItem("Item 3", "ToolTip", new SimpleBooleanProperty());
         vBoxCont.getChildren().addAll(pCheckComboBox);
 
         PTimePeriodBox pTimePeriodBox = new PTimePeriodBox();

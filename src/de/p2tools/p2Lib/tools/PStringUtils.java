@@ -84,25 +84,9 @@ public class PStringUtils {
         return appendStream(stream, separator, removeEmpty, removeDouble);
     }
 
-//    private static String appendStream(Stream<String> stream, String separator, boolean removeEmpty) {
-//        if (removeEmpty) {
-//            return stream.filter(s -> s != null).filter(s -> !s.isEmpty()).collect(Collectors.joining(separator));
-//        } else {
-//            return stream.filter(s -> s != null).collect(Collectors.joining(separator));
-//        }
-//    }
-
     private static String appendStream(Stream<String> stream, String separator, boolean removeEmpty, boolean removeDouble) {
-//        if (removeEmpty) {
-//            return stream.filter(s -> s != null).filter(s -> !s.isEmpty()).collect(Collectors.joining(separator));
-//        } else {
-//            return stream.filter(s -> s != null).collect(Collectors.joining(separator));
-//        }
-
-
         HashSet set = (removeDouble ? new HashSet() : null);
 
-//        ArrayList<String> list = new ArrayList<>();
         return stream
                 .filter(s -> s != null)
                 .filter(s -> !removeEmpty || !s.isEmpty())

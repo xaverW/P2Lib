@@ -22,6 +22,7 @@ import de.p2tools.p2Lib.tools.PStringUtils;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class PLog {
 
@@ -112,12 +113,38 @@ public class PLog {
         resetProgress();
     }
 
-    public static synchronized void sysLog(ArrayList<String> list) {
+    public static synchronized void sysLog(List<String> list) {
         String log = PStringUtils.appendList(list, PConst.LINE_SEPARATOR);
         if (log.isEmpty()) {
             return;
         }
         PLogger.LogInfo(log);
+        resetProgress();
+    }
+
+    /*
+    add Systeminfos
+     */
+    public static synchronized void addSysLog(String text) {
+        PLogger.LogAddInfo(text);
+        resetProgress();
+    }
+
+    public static synchronized void addSysLog(String text[]) {
+        String log = PStringUtils.appendArray(text, PConst.LINE_SEPARATOR);
+        if (log.isEmpty()) {
+            return;
+        }
+        PLogger.LogAddInfo(log);
+        resetProgress();
+    }
+
+    public static synchronized void addSysLog(List<String> list) {
+        String log = PStringUtils.appendList(list, PConst.LINE_SEPARATOR);
+        if (log.isEmpty()) {
+            return;
+        }
+        PLogger.LogAddInfo(log);
         resetProgress();
     }
 

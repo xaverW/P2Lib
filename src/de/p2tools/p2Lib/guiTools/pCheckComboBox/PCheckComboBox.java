@@ -44,7 +44,7 @@ public class PCheckComboBox extends HBox {
         init();
     }
 
-    public void addItem(String item, BooleanProperty property) {
+    public void addItem(String item, String toolTip, BooleanProperty property) {
         Optional<String> otp = items.stream().filter(p -> p.equals(item)).findAny();
         if (otp.isPresent()) {
             PException.throwPException(912032014, "Item exists already");
@@ -52,7 +52,7 @@ public class PCheckComboBox extends HBox {
         }
 
         items.add(item);
-        add(item, property);
+        add(item, toolTip, property);
         setTitle();
     }
 
@@ -60,10 +60,11 @@ public class PCheckComboBox extends HBox {
         menuButton.setTooltip(value);
     }
 
-    private void add(String item, BooleanProperty property) {
+    private void add(String item, String toolTip, BooleanProperty property) {
         CheckBox cb = new CheckBox("Item ");
         cb.selectedProperty().bindBidirectional(property);
         cb.setText(item);
+        cb.setTooltip(new Tooltip(toolTip));
 //        cb.prefWidthProperty().bind(menuButton.widthProperty());
         addListener(cb);
 

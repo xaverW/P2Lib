@@ -32,6 +32,9 @@ public class PDuration {
     private static final DecimalFormat DF = new DecimalFormat("###,##0.00");
     private static int sum = 0;
     private static final ArrayList<Counter> COUNTER_LIST = new ArrayList<>();
+    private static final String DURATION = "DURATION";
+    private static final String PING = "PING";
+
 
     private static class Counter implements Comparable<Counter> {
 
@@ -83,7 +86,6 @@ public class PDuration {
     }
 
     public static synchronized void counterStop(String text) {
-        String extraText = "";
         Counter usedCounter = null;
         for (final Counter c : COUNTER_LIST) {
             if (c.counterName.equals(text)) {
@@ -101,12 +103,11 @@ public class PDuration {
         Duration duration = Duration.between(usedCounter.startTime, Instant.now());
         usedCounter.duration = usedCounter.duration.plus(duration);
         List<String> txt = new ArrayList<>();
-        txt.add(usedCounter.counterName);
         txt.add("Anzahl: " + usedCounter.count +
                 "  Dauer: " + roundDuration(duration) +
                 "  Gesamtdauer: " + roundDuration(usedCounter.duration));
 
-        onlyPing(getClassName(), text, txt, usedCounter.pingText);
+        onlyPing(getClassName(), DURATION, text, txt, usedCounter.pingText);
     }
 
     public static synchronized void counterPing(String text) {
@@ -131,15 +132,16 @@ public class PDuration {
     }
 
     public synchronized static void onlyPing(String text) {
-        onlyPing(getClassName(), text, null, null);
+        onlyPing(getClassName(), PING, text, null, null);
     }
 
-    private static void onlyPing(String className, String text, List<String> extraText, List<String> pingText) {
+    private static void onlyPing(String className, String kind, String text, List<String> extraText, List<String> pingText) {
         final Instant now = Instant.now();
 
         ArrayList<String> list = new ArrayList<>();
         list.add(PLog.LILNE3);
-        list.add("DURATION " + sum++ + ":  " + text + "  [" + roundDuration(Duration.between(onlyPingTime, now)) + "]");
+        list.add(kind + " " + sum++ + ":  " + text + "  [" + roundDuration(Duration.between(onlyPingTime, now)) + "]");
+//        list.add("DURATION " + sum++ + ":  " + text + "  [" + roundDuration(Duration.between(onlyPingTime, now)) + "]");
         list.add("  Klasse:  " + className);
 
         if (pingText != null && !pingText.isEmpty()) {

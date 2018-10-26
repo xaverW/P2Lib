@@ -32,6 +32,7 @@ public class PFormatter extends SimpleFormatter {
     private static final FastDateFormat HHmmss = FastDateFormat.getInstance("HH:mm:ss");
     private static final int MSG_SIZE = 14;
     private static final int INDENT = 11 + MSG_SIZE;
+    private static final int ADD_INFO = INDENT;
     private final String I = "";
     final String empty = StringUtils.leftPad("", INDENT);
     final String emptyEx = StringUtils.leftPad("", 10);
@@ -41,14 +42,20 @@ public class PFormatter extends SimpleFormatter {
 
     public String format(LogRecord record) {
         if (record.getThrown() == null &&
-                (record.getMessage().isEmpty() || record.getMessage().trim().equals(PConst.LINE_SEPARATOR))) {
+                (record.getMessage().isEmpty() ||
+                        record.getMessage().trim().equals(PConst.LINE_SEPARATOR))) {
             return PConst.LINE_SEPARATOR;
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("[" + HHmmss.format(new Date(record.getMillis())) + "]")
-                .append(" ")
-                .append(StringUtils.rightPad(record.getLevel().getLocalizedName() + ": ", MSG_SIZE));
+        if (record.getLevel().getLocalizedName().isEmpty()) {
+            sb.append(StringUtils.leftPad("", ADD_INFO));
+
+        } else {
+            sb.append("[" + HHmmss.format(new Date(record.getMillis())) + "]")
+                    .append(" ")
+                    .append(StringUtils.rightPad(record.getLevel().getLocalizedName() + ": ", MSG_SIZE));
+        }
 
         if (record.getMessage().contains(PConst.LINE_SEPARATOR)) {
             formatMultiLine(record.getMessage(), sb, empty);
