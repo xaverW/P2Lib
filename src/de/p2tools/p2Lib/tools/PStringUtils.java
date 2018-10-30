@@ -17,11 +17,58 @@
 
 package de.p2tools.p2Lib.tools;
 
+import de.p2tools.p2Lib.tools.log.PLog;
+
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.CharacterCodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
+import java.nio.charset.CodingErrorAction;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PStringUtils {
+
+    /**
+     * Convert a string from Java´s native UTF-16 to US-ASCII character encoding.
+     *
+     * @param string The UTF-16 string.
+     * @return US-ASCII encoded string for the OS.
+     */
+    public static String convertToASCIIEncoding(String string) {
+        String ret = string;
+
+        ret = ret.replace("ä", "ae");
+        ret = ret.replace("ö", "oe");
+        ret = ret.replace("ü", "ue");
+        ret = ret.replace("Ä", "Ae");
+        ret = ret.replace("Ö", "Oe");
+        ret = ret.replace("Ü", "Ue");
+        ret = ret.replace("ß", "ss");
+
+        //convert our filename to OS encoding...
+        try {
+            final CharsetEncoder charsetEncoder = Charset.forName("US-ASCII").newEncoder();
+            charsetEncoder.onMalformedInput(CodingErrorAction.REPLACE); // otherwise breaks on first unconvertable char
+            charsetEncoder.onUnmappableCharacter(CodingErrorAction.REPLACE);
+            charsetEncoder.replaceWith(new byte[]{'_'});
+
+            final ByteBuffer buf = charsetEncoder.encode(CharBuffer.wrap(ret));
+            if (buf.hasArray()) {
+                ret = new String(buf.array());
+            }
+
+            //remove NUL character from conversion...
+            ret = ret.replaceAll("\\u0000", "");
+        } catch (CharacterCodingException ex) {
+            PLog.errorLog(945120201, ex);
+        }
+
+        return ret;
+    }
+
 
     /**
      * removes all empty Strings from the list
