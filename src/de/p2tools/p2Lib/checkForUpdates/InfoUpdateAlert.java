@@ -204,15 +204,17 @@ public class InfoUpdateAlert {
             GridPane.setVgrow(textArea, Priority.ALWAYS);
 
             if (!newInfosList.contains(infos)) {
+                if (infos.getInfoNr() == 1) {
+                    // ist die Begrüßungsnachricht, macht nur beim ersten Start sinn
+                    continue;
+                }
                 textArea.setStyle("-fx-text-fill: gray;");
             }
 
-            gridPane.add(new Label(infos.getInfoNr() + ""), 0, row);
-            gridPane.add(textArea, 1, row++);
+            gridPane.add(textArea, 0, row++);
         }
 
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcComputedSizeAndHgrow());
 
         scrollPane.setContent(gridPane);
         tabInfos.setContent(scrollPane);
