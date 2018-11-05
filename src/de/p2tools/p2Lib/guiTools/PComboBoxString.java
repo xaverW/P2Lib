@@ -30,6 +30,7 @@ import javafx.scene.input.MouseButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.regex.Pattern;
 
 public class PComboBoxString extends ComboBox<String> {
@@ -199,14 +200,30 @@ public class PComboBoxString extends ComboBox<String> {
 
     private void reduceList() {
         ArrayList<String> list = new ArrayList<>();
-        list.add("");
 
-        itemsList.stream().forEach(d -> {
-            if (!list.contains(d) && list.size() < maxElements) {
-                list.add(d);
+        if (itemsList.isEmpty() || itemsList.get(0) != "") {
+            itemsList.add(0, "");
+        }
+
+        Iterator<String> it = itemsList.listIterator();
+        while (it.hasNext()) {
+            String s = it.next();
+            if (!list.contains(s)) {
+                list.add(s);
+            } else {
+                it.remove();
             }
-        });
-        itemsList.setAll(list);
+        }
+
+
+        // macht Probleme wenn die Liste für 2 Combos benutzt wird
+//        list.add("");
+//        itemsList.stream().forEach(d -> {
+//            if (!list.contains(d) && list.size() < maxElements) {
+//                list.add(d);
+//            }
+//        });
+//        itemsList.setAll(list);
     }
 
     private ContextMenu getMenu() {

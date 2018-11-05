@@ -29,7 +29,6 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
@@ -165,6 +164,7 @@ public class PComboBoxInteger extends ComboBox<String> {
     }
 
     private void reduceList() {
+        // todo -> comboString
         ArrayList<String> list = new ArrayList<>();
         list.add("");
 
