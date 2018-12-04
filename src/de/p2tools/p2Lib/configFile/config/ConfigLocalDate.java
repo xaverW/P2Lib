@@ -17,7 +17,7 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import de.p2tools.p2Lib.tools.PLocalDate;
+import de.p2tools.p2Lib.tools.date.PLocalDate;
 
 public class ConfigLocalDate extends Config {
 

@@ -21,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.awt.*;
@@ -65,6 +66,10 @@ public class PGuiTools {
     }
 
     public static String getNextName(String name, String suffix) {
+        if (name == null || suffix == null) {
+            return "";
+        }
+
         String ret = name;
         String suff = suffix.startsWith(".") ? suffix : "." + suffix;
 
@@ -75,6 +80,7 @@ public class PGuiTools {
         final String s2 = getTime(name, suff, FORMATTER_ddMMyyyyHHmmss);
 
         if (!name.endsWith(suff)) {
+            name = FilenameUtils.removeExtension(name); // evt. alte Suff entfernen
             ret = name + suff;
 
         } else if (!s1.isEmpty()) {

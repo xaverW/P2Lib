@@ -20,6 +20,7 @@ import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.dialog.PAlert;
 import de.p2tools.p2Lib.dialog.PAlertFileChosser;
 import de.p2tools.p2Lib.tools.log.PLog;
+import javafx.stage.Stage;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.File;
@@ -92,7 +93,14 @@ public class PFileUtils {
     }
 
     public static boolean fileExist(String file) {
-        if (file.isEmpty() || !new File(file).exists()) {
+        if (file == null || file.isEmpty() || !new File(file).exists()) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean fileExist(File file) {
+        if (file == null || !file.exists()) {
             return false;
         }
         return true;
@@ -205,6 +213,31 @@ public class PFileUtils {
             PLog.errorLog(978451203, "copy file: " + from.toString() + " to " + dest.toString());
             return false;
         }
+        return true;
+    }
+
+    public static boolean checkFileToCreate(Stage stage, Path pathToCheck) {
+
+        if (pathToCheck.toString().isEmpty()) {
+            new PAlert().showErrorAlert(stage, "Datei anlegen", "Es wurde keine Datei angegeben.");
+            return false;
+        }
+
+        if (pathToCheck.toFile().exists()) {
+            PAlert.BUTTON button = PAlert.showAlert_yes_no(stage, "Hinweis", "Datei anlegen",
+                    "Die Datei exisiert bereits:" + PConst.LINE_SEPARATOR +
+                            pathToCheck.toString() +
+                            PConst.LINE_SEPARATORx2 +
+                            "Soll die Datei überschrieben werden?");
+            if (!button.equals(PAlert.BUTTON.YES)) {
+                return false;
+            }
+        }
+
+        if (pathToCheck.toFile().exists()) {
+            pathToCheck.toFile().delete();
+        }
+
         return true;
     }
 

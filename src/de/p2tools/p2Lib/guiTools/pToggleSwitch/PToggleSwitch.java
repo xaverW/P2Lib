@@ -18,8 +18,6 @@
 package de.p2tools.p2Lib.guiTools.pToggleSwitch;
 
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -60,18 +58,8 @@ public class PToggleSwitch extends HBox {
         this.lblOn = lblOn;
         this.lblOff = lblOff;
         this.lblIndeterminate = lblIndeterminate;
-        indeterminateProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                setRight();
-            }
-        });
-        selectedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                setRight();
-            }
-        });
+        indeterminateProperty().addListener((observable, oldValue, newValue) -> setRight());
+        selectedProperty().addListener((observable, oldValue, newValue) -> setRight());
         setRight();
     }
 
@@ -80,18 +68,8 @@ public class PToggleSwitch extends HBox {
         this.strOn = strOn;
         this.strOff = strOff;
         this.strIndeterminate = strIndeterminate;
-        indeterminateProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                setRight();
-            }
-        });
-        selectedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                setRight();
-            }
-        });
+        indeterminateProperty().addListener((observable, oldValue, newValue) -> setRight());
+        selectedProperty().addListener((observable, oldValue, newValue) -> setRight());
         setRight();
     }
 

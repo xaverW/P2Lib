@@ -1,5 +1,5 @@
 /*
-  * P2tools Copyright (C) 2018 W. Xaver W.Xaver[at]googlemail.com
+ * P2tools Copyright (C) 2018 W. Xaver W.Xaver[at]googlemail.com
  * https://sourceforge.net/projects/mtplayer/
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
@@ -22,6 +22,7 @@ import de.p2tools.p2Lib.configFile.configList.ConfigStringList;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.StringConverter;
 
 import java.util.ArrayList;
 
@@ -32,8 +33,8 @@ import java.util.ArrayList;
  */
 public class PDataProgConfig extends PDataSample<PDataProgConfig> {
 
-    public static final String TAG = "ProgConfig";
-    private static final ArrayList<Config> arrayList = new ArrayList<>();
+    public String TAG = "ProgConfig";
+    private ArrayList<Config> arrayList;
 
     @Override
     public String getTag() {
@@ -50,45 +51,124 @@ public class PDataProgConfig extends PDataSample<PDataProgConfig> {
         return arrayList.toArray(new Config[]{});
     }
 
-    public static synchronized StringProperty addStrProp(String key) {
+    public PDataProgConfig() {
+    }
+
+    public PDataProgConfig(ArrayList<Config> arrayList, String TAG) {
+        this.arrayList = arrayList;
+        this.TAG = TAG;
+    }
+
+    public void init(ArrayList<Config> arrayList, String TAG) {
+        this.arrayList = arrayList;
+        this.TAG = TAG;
+    }
+
+    public void init(String TAG) {
+        this.TAG = TAG;
+    }
+
+    public void init(ArrayList<Config> arrayList) {
+        this.arrayList = arrayList;
+    }
+
+
+    public static synchronized StringProperty addStrProp(ArrayList<Config> arrayList, String key) {
         StringProperty property = new SimpleStringProperty("");
         ConfigStringProp c = new ConfigStringProp(key, property);
         arrayList.add(c);
         return property;
     }
 
-    public static synchronized StringProperty addStrProp(String key, String init) {
+    public static synchronized StringProperty addStrProp(ArrayList<Config> arrayList, String key, String init) {
         StringProperty property = new SimpleStringProperty(init);
         ConfigStringProp c = new ConfigStringProp(key, property);
         arrayList.add(c);
         return property;
     }
 
-    public static synchronized IntegerProperty addIntProp(String key, int init) {
+    public static synchronized IntegerProperty addIntProp(ArrayList<Config> arrayList, String key, int init) {
         IntegerProperty property = new SimpleIntegerProperty(init);
         ConfigIntProp c = new ConfigIntProp(key, property);
         arrayList.add(c);
         return property;
     }
 
-    public static synchronized DoubleProperty addDoubleProp(String key, double init) {
+    public static synchronized LongProperty addLongProp(ArrayList<Config> arrayList, String key, long init) {
+        LongProperty property = new SimpleLongProperty(init);
+        ConfigLongProp c = new ConfigLongProp(key, property);
+        arrayList.add(c);
+        return property;
+    }
+
+    public static synchronized DoubleProperty addDoubleProp(ArrayList<Config> arrayList, String key, double init) {
         DoubleProperty property = new SimpleDoubleProperty(init);
         ConfigDoubleProp c = new ConfigDoubleProp(key, property);
         arrayList.add(c);
         return property;
     }
 
-    public static synchronized BooleanProperty addBoolProp(String key, boolean init) {
+    public static synchronized BooleanProperty addBoolProp(ArrayList<Config> arrayList, String key, boolean init) {
         BooleanProperty property = new SimpleBooleanProperty(init);
         ConfigBoolProp c = new ConfigBoolProp(key, property);
         arrayList.add(c);
         return property;
     }
 
-    public static synchronized ObservableList<String> addListProp(String key) {
+    public static synchronized ObservableList<String> addListProp(ArrayList<Config> arrayList, String key) {
         ObservableList<String> list = FXCollections.observableArrayList();
         ConfigStringList c = new ConfigStringList(key, list);
         arrayList.add(c);
         return list;
+    }
+
+    public static synchronized ObjectProperty<String> addObjStrProp(ArrayList<Config> arrayList, String key) {
+        StringProperty property = new SimpleStringProperty("");
+        ConfigStringProp c = new ConfigStringProp(key, property);
+        arrayList.add(c);
+
+        ObjectProperty<String> objP = new SimpleObjectProperty<>("");
+        property.bindBidirectional(objP, new StringConverter<String>() {
+            @Override
+            public String toString(String string) {
+                return string == null ? "" : string;
+            }
+
+            @Override
+            public String fromString(String string) {
+                return string == null ? "" : string;
+            }
+        });
+
+        return objP;
+    }
+
+    public static synchronized ObjectProperty<Integer> addObjIntProp(ArrayList<Config> arrayList, String key) {
+        StringProperty property = new SimpleStringProperty("");
+        ConfigStringProp c = new ConfigStringProp(key, property);
+        arrayList.add(c);
+
+        ObjectProperty<Integer> objP = new SimpleObjectProperty<>();
+        property.bindBidirectional(objP, new StringConverter<Integer>() {
+            @Override
+            public String toString(Integer integer) {
+                return integer == null ? "" : integer + "";
+            }
+
+            @Override
+            public Integer fromString(String string) {
+                if (string == null || string.isEmpty()) {
+                    return 0;
+                } else {
+                    try {
+                        return Integer.parseInt(string);
+                    } catch (NumberFormatException e) {
+                        return 0;
+                    }
+                }
+            }
+        });
+
+        return objP;
     }
 }

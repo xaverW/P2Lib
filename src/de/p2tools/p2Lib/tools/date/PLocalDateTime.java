@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2Lib.tools;
+package de.p2tools.p2Lib.tools.date;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

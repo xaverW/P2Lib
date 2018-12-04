@@ -17,18 +17,19 @@
 
 package de.p2tools.p2Lib.guiTools;
 
-import de.p2tools.p2Lib.tools.PDateUtils;
+import de.p2tools.p2Lib.tools.date.PDateFactory;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.layout.Region;
 
 public class PYearPicker extends Spinner<Integer> {
 
     private ObjectProperty<Integer> objInt = null;
 
     public PYearPicker() {
-        init(PDateUtils.getAktYearInt());
+        init(PDateFactory.getAktYearInt());
     }
 
     public PYearPicker(int year, IntegerProperty integerProperty) {
@@ -66,6 +67,7 @@ public class PYearPicker extends Spinner<Integer> {
         getStyleClass().add("PYearPicker");
         final String CSS_FILE = "de/p2tools/p2Lib/p2Lib.css";
         getStylesheets().add(CSS_FILE);
+        this.setMinWidth(Region.USE_PREF_SIZE);
 
         this.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1950, 2050, year);

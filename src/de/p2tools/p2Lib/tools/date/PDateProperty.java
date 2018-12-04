@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2Lib.tools;
+package de.p2tools.p2Lib.tools.date;
 
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.beans.property.SimpleObjectProperty;
@@ -23,12 +23,6 @@ import org.apache.commons.lang3.time.FastDateFormat;
 import java.util.Date;
 
 public class PDateProperty extends SimpleObjectProperty<PDate> {
-    public static final FastDateFormat FORMAT_HH_mm_ss = FastDateFormat.getInstance("HH:mm:ss");
-    public static final FastDateFormat FORMAT_dd_MM_yyyy = FastDateFormat.getInstance("dd.MM.yyyy");
-    public static final FastDateFormat FORMAT_yyyy_MM_dd = FastDateFormat.getInstance("yyyy.MM.dd");
-    public static final FastDateFormat FORMAT_dd_MM_yyyyKomma__HH_mm = FastDateFormat.getInstance("dd.MM.yyyy, HH:mm");
-    public static final FastDateFormat FORMAT_dd_MM_yyyyKomma__HH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyy, HH:mm:ss");
-    public static final FastDateFormat FORMAT_dd_MM_yyyy_HH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss");
 
 
     public PDateProperty() {
@@ -68,8 +62,8 @@ public class PDateProperty extends SimpleObjectProperty<PDate> {
 
     public void setPDateToday() {
         try {
-            final String strToday = new PDate().getDateTime(FORMAT_dd_MM_yyyy);
-            final long lToday = FORMAT_dd_MM_yyyy.parse(strToday).getTime();
+            final String strToday = new PDate().getDateTime(PDateFactory.FORMAT_dd_MM_yyyy);
+            final long lToday = PDateFactory.FORMAT_dd_MM_yyyy.parse(strToday).getTime();
             this.setValue(new PDate(lToday));
         } catch (final Exception ex) {
             this.setValue(new PDate(0));
@@ -94,15 +88,15 @@ public class PDateProperty extends SimpleObjectProperty<PDate> {
         if (this.getValue().getTime() == 0) {
             return "";
         } else {
-            return FORMAT_dd_MM_yyyy.format(this.getValue());
+            return PDateFactory.FORMAT_dd_MM_yyyy.format(this.getValue());
         }
     }
 
     public String toStringR() {
         if (this.getValue().getTime() == 0) {
-            return FORMAT_yyyy_MM_dd.format(new Date());
+            return PDateFactory.FORMAT_yyyy_MM_dd.format(new Date());
         } else {
-            return FORMAT_yyyy_MM_dd.format(this.getValue());
+            return PDateFactory.FORMAT_yyyy_MM_dd.format(this.getValue());
         }
     }
 

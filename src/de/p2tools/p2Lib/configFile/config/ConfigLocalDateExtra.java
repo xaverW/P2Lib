@@ -18,7 +18,7 @@
 package de.p2tools.p2Lib.configFile.config;
 
 import de.p2tools.p2Lib.guiTools.PDatePicker;
-import de.p2tools.p2Lib.tools.PLocalDate;
+import de.p2tools.p2Lib.tools.date.PLocalDate;
 import javafx.scene.control.Control;
 
 public class ConfigLocalDateExtra extends ConfigExtra {

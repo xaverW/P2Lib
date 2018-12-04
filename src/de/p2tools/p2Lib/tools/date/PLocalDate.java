@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2Lib.tools;
+package de.p2tools.p2Lib.tools.date;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -55,7 +55,7 @@ public class PLocalDate {
     }
 
     public void setPDateNow() {
-        localDate = LocalDate.MIN;
+        localDate = LocalDate.now();
     }
 
     public String getDateTime(DateTimeFormatter format) {

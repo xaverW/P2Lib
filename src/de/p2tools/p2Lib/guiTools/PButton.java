@@ -29,6 +29,9 @@ public class PButton {
 
     private static Image hlpImage = null;
 
+    private PButton() {
+    }
+
     public static Image getHlpImage() {
         return hlpImage;
     }
@@ -37,11 +40,11 @@ public class PButton {
         PButton.hlpImage = hlpImage;
     }
 
-    public Button helpButton(ImageView imageView, String header, String helpText) {
+    public static Button helpButton(ImageView imageView, String header, String helpText) {
         return helpButton(PConst.primaryStage, imageView, header, helpText);
     }
 
-    public Button helpButton(Stage stage, ImageView imageView, String header, String helpText) {
+    public static Button helpButton(Stage stage, ImageView imageView, String header, String helpText) {
         final Button btnHelp = new Button("");
         btnHelp.setTooltip(new Tooltip("Hilfe anzeigen."));
         btnHelp.setGraphic(imageView);
@@ -49,11 +52,11 @@ public class PButton {
         return btnHelp;
     }
 
-    public Button helpButton(String header, String helpText) {
+    public static Button helpButton(String header, String helpText) {
         return helpButton(PConst.primaryStage, header, helpText);
     }
 
-    public Button helpButton(Stage stage, String header, String helpText) {
+    public static Button helpButton(Stage stage, String header, String helpText) {
         final Button btnHelp = new Button("");
         btnHelp.setTooltip(new Tooltip("Hilfe anzeigen."));
         if (hlpImage == null) {
@@ -65,5 +68,11 @@ public class PButton {
         return btnHelp;
     }
 
+    public static Button getButton(ImageView imageView, String helpText) {
+        final Button btnHelp = new Button("");
+        btnHelp.setTooltip(new Tooltip(helpText));
+        btnHelp.setGraphic(imageView);
+        return btnHelp;
+    }
 
 }

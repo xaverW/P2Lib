@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2Lib.tools;
+package de.p2tools.p2Lib.tools.date;
 
 import de.p2tools.p2Lib.tools.log.PLog;
 import org.apache.commons.lang3.time.FastDateFormat;
@@ -23,11 +23,22 @@ import org.apache.commons.lang3.time.FastDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PDateUtils {
-    private static final FastDateFormat FORMAT_yyyy = FastDateFormat.getInstance("yyyy");
+public class PDateFactory {
+    public static final FastDateFormat FORMAT_HH_mm_ss = FastDateFormat.getInstance("HH:mm:ss");
+    public static final FastDateFormat FORMAT_dd_MM_yyyy = FastDateFormat.getInstance("dd.MM.yyyy");
+    public static final FastDateFormat FORMAT_yyyy = FastDateFormat.getInstance("yyyy");
+    public static final FastDateFormat FORMAT_yyyy_MM_dd = FastDateFormat.getInstance("yyyy.MM.dd");
+    public static final FastDateFormat FORMAT_dd_MM_yyyyKomma__HH_mm = FastDateFormat.getInstance("dd.MM.yyyy, HH:mm");
+    public static final FastDateFormat FORMAT_dd_MM_yyyyKomma__HH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyy, HH:mm:ss");
+    public static final FastDateFormat FORMAT_dd_MM_yyyy_HH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss");
+
 
     public static String getTodayStr() {
-        return new PDate().getDateTime(PDate.FORMAT_dd_MM_yyyy);
+        return new PDate().getDateTime(FORMAT_dd_MM_yyyy);
+    }
+
+    public static String getTodayInverseStr() {
+        return new PDate().getDateTime(FORMAT_yyyy_MM_dd);
     }
 
     public static String getAktYearStr() {
