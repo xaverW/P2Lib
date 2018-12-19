@@ -26,6 +26,7 @@ public class PColorData {
     private String cssFontBold = "";
     private String cssFont = "";
     private String cssBackground = "";
+    private String cssBackgroundSel = "";
 
     private String key;
     private String text = "";
@@ -50,6 +51,9 @@ public class PColorData {
         cssFont = "-fx-text-fill: " + getColorToWeb() + ";".intern();
         cssBackground = "-fx-control-inner-background: " + getColorToWeb() + ";"
                 + "-fx-control-inner-background-alt: derive(-fx-control-inner-background, 25%);".intern();
+        cssBackgroundSel = ("-fx-control-inner-background: " + getColorToWeb() + ";" +
+                "-fx-selection-bar: " + getColorDarkToWeb() + ";" +
+                " -fx-selection-bar-non-focused: " + getColorDarkToWeb() + ";").intern();
     }
 
 
@@ -94,6 +98,10 @@ public class PColorData {
         return cssBackground;
     }
 
+    public String getCssBackgroundSel() {
+        return cssBackgroundSel;
+    }
+
     public String getCssFont() {
         return cssFont;
     }
@@ -104,6 +112,10 @@ public class PColorData {
 
     public String getColorToWeb() {
         return "#" + getColorToHex(color.getValue());
+    }
+
+    public String getColorDarkToWeb() {
+        return "#" + getColorToHex(getDarkerColor(color.getValue()));
     }
 
     public static String getColorToWeb(Color color) {
@@ -130,6 +142,34 @@ public class PColorData {
         );
     }
 
+    final double DIV = 0.3;
+
+    private Color getDarkerColor(Color color) {
+        Color c;
+        double dist = color.getRed() < color.getGreen() ? color.getRed() : color.getGreen();
+        dist = dist < color.getBlue() ? dist : color.getBlue();
+        dist = 0.99 * dist;
+
+        dist = dist < DIV ? dist : DIV;
+        double red;
+        double green;
+        double blue;
+
+        if (dist > 0.1) {
+            red = color.getRed() - dist;
+            green = color.getGreen() - dist;
+            blue = color.getBlue() - dist;
+
+        } else {
+            // da ändert sich dann auch der Farbton
+            red = color.getRed() > DIV ? (color.getRed() - DIV) : color.getRed();
+            green = color.getGreen() > DIV ? (color.getGreen() - DIV) : color.getGreen();
+            blue = color.getBlue() > DIV ? (color.getBlue() - DIV) : color.getBlue();
+        }
+        c = new Color(red, green, blue, color.getOpacity());
+        return c;
+    }
+
     private static String colorChanelToHex(double chanelValue) {
         String rtn = Integer.toHexString((int) Math.min(Math.round(chanelValue * 255), 255));
         if (rtn.length() == 1) {
@@ -137,5 +177,4 @@ public class PColorData {
         }
         return rtn;
     }
-
 }

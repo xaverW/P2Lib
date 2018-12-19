@@ -17,6 +17,8 @@
 
 package de.p2tools.p2Lib.tools;
 
+import de.p2tools.p2Lib.tools.file.PFileUtils;
+
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 

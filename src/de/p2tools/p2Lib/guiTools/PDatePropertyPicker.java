@@ -98,8 +98,8 @@ public class PDatePropertyPicker extends DatePicker {
 
     private void setDatePickerConverter() {
         getStyleClass().add("PDatePropertyPicker");
-        final String CSS_FILE = "de/p2tools/p2Lib/p2Lib.css";
-        getStylesheets().add(CSS_FILE);
+//        final String CSS_FILE = "de/p2tools/p2Lib/p2Lib.css";
+//        getStylesheets().add(CSS_FILE);
 
 
         setPromptText(pattern.toLowerCase());

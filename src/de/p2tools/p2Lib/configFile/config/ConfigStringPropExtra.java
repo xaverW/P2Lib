@@ -30,11 +30,17 @@ public class ConfigStringPropExtra extends ConfigExtra {
     public ConfigStringPropExtra(String key, String name, StringProperty actValue) {
         super(key, name);
         this.actValue = actValue;
+        if (actValue.getValue() == null) {
+            actValue.setValue("");
+        }
     }
 
     public ConfigStringPropExtra(String key, String name, String regEx, StringProperty actValue) {
         super(key, name, regEx, null);
         this.actValue = actValue;
+        if (actValue.getValue() == null) {
+            actValue.setValue("");
+        }
     }
 
     @Override

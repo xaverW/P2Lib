@@ -140,7 +140,7 @@ public class PToggleSwitch extends HBox {
     private void init() {
         this.setAlignment(Pos.CENTER_LEFT);
         this.setSpacing(15);
-        lblLeft.disableProperty().bindBidirectional(indeterminateProperty());
+//        lblLeft.disableProperty().bindBidirectional(indeterminateProperty()); // ist vielleicht klarer??
 
         if (tglInFront) {
             lblLeft.setMaxWidth(Double.MAX_VALUE);
@@ -151,8 +151,8 @@ public class PToggleSwitch extends HBox {
         }
         setCheckHgrow();
         getStyleClass().add("pToggleSwitch");
-        final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pToggleSwitch/pToggleSwitch.css";
-        getStylesheets().add(CSS_FILE);
+//        final String CSS_FILE = "de/p2tools/p2Lib/pToggleSwitch.css";
+//        getStylesheets().add(CSS_FILE);
     }
 
     private void setCheckHgrow() {

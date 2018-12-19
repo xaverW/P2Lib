@@ -16,6 +16,7 @@
 
 package de.p2tools.p2Lib;
 
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class PInit {
@@ -33,4 +34,8 @@ public class PInit {
         PConst.primaryStage = primaryStage;
     }
 
+    public static void addP2LibCss(Scene scene) {
+        scene.getStylesheets().addAll("de/p2tools/p2Lib/p2Lib.css");
+        scene.getStylesheets().addAll("de/p2tools/p2Lib/pToggleSwitch.css");
+    }
 }

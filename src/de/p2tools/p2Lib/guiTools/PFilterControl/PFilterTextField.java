@@ -72,8 +72,8 @@ public class PFilterTextField extends HBox {
 
     private void initHBox() {
         getStyleClass().add("PFilterTextField");
-        final String CSS_FILE = "de/p2tools/p2Lib/p2Lib.css";
-        getStylesheets().add(CSS_FILE);
+//        final String CSS_FILE = "de/p2tools/p2Lib/p2Lib.css";
+//        getStylesheets().add(CSS_FILE);
 
         textField.setMaxWidth(Double.MAX_VALUE);
         HBox.setHgrow(textField, Priority.ALWAYS);

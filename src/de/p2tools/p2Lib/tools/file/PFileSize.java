@@ -15,12 +15,12 @@
  */
 
 
-package de.p2tools.p2Lib.tools;
+package de.p2tools.p2Lib.tools.file;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-public class FileSize implements Comparable<FileSize> {
+public class PFileSize implements Comparable<PFileSize> {
     private long sizeL = 0;
     private String sizeStr = "";
 
@@ -29,12 +29,12 @@ public class FileSize implements Comparable<FileSize> {
     private static final long KBYTE = 1000L;
     private static final NumberFormat formatter = new DecimalFormat("#0.00");
 
-    public FileSize(long sizeL) {
+    public PFileSize(long sizeL) {
         this.sizeL = sizeL;
         convertToStr();
     }
 
-    public FileSize(String sizeStr) {
+    public PFileSize(String sizeStr) {
         try {
             sizeL = Long.parseLong(sizeStr);
         } catch (Exception ex) {
@@ -82,12 +82,12 @@ public class FileSize implements Comparable<FileSize> {
             return false;
         }
 
-        final FileSize other = (FileSize) obj;
+        final PFileSize other = (PFileSize) obj;
         return other.sizeL == sizeL;
     }
 
     @Override
-    public int compareTo(FileSize o) {
+    public int compareTo(PFileSize o) {
         if (sizeL < o.sizeL) {
             return -1;
         }

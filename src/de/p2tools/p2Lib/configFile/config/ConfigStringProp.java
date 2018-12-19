@@ -26,11 +26,17 @@ public class ConfigStringProp extends Config {
     public ConfigStringProp(String key, StringProperty actValue) {
         super(key);
         this.actValue = actValue;
+        if (actValue.getValue() == null) {
+            actValue.setValue("");
+        }
     }
 
     public ConfigStringProp(String key, StringProperty actValue, boolean intern) {
         super(key, null, intern);
         this.actValue = actValue;
+        if (actValue.getValue() == null) {
+            actValue.setValue("");
+        }
     }
 
     @Override

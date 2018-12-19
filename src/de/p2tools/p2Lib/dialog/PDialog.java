@@ -38,7 +38,7 @@ public class PDialog {
     private Scene scene = null;
     private Stage stage = null;
 
-    private final StringProperty conf;
+    private final StringProperty sizeConfiguration;
     private final boolean modal;
     private final boolean setOnlySize;
     private final String title;
@@ -47,33 +47,33 @@ public class PDialog {
     private double stageWidth = 0;
     private double stageHeight = 0;
 
-    public PDialog(Stage owner, StringProperty conf, String title, boolean modal, boolean setOnlySize) {
+    public PDialog(Stage owner, StringProperty sizeConfiguration, String title, boolean modal, boolean setOnlySize) {
         this.owner = owner;
-        this.conf = conf;
+        this.sizeConfiguration = sizeConfiguration;
         this.modal = modal;
         this.title = title;
         this.setOnlySize = setOnlySize;
     }
 
-    public PDialog(Stage owner, StringProperty conf, String title, boolean modal) {
+    public PDialog(Stage owner, StringProperty sizeConfiguration, String title, boolean modal) {
         this.owner = owner;
-        this.conf = conf;
+        this.sizeConfiguration = sizeConfiguration;
         this.modal = modal;
         this.title = title;
         this.setOnlySize = false;
     }
 
-    public PDialog(StringProperty conf, String title, boolean modal) {
+    public PDialog(StringProperty sizeConfiguration, String title, boolean modal) {
         this.owner = PConst.primaryStage;
-        this.conf = conf;
+        this.sizeConfiguration = sizeConfiguration;
         this.modal = modal;
         this.title = title;
         this.setOnlySize = false;
     }
 
-    public PDialog(StringProperty conf, String title, boolean modal, boolean setOnlySize) {
+    public PDialog(StringProperty sizeConfiguration, String title, boolean modal, boolean setOnlySize) {
         this.owner = PConst.primaryStage;
-        this.conf = conf;
+        this.sizeConfiguration = sizeConfiguration;
         this.modal = modal;
         this.title = title;
         this.setOnlySize = setOnlySize;
@@ -81,7 +81,7 @@ public class PDialog {
 
     public PDialog(String title, boolean modal) {
         this.owner = PConst.primaryStage;
-        this.conf = null;
+        this.sizeConfiguration = null;
         this.modal = modal;
         this.title = title;
         this.setOnlySize = false;
@@ -122,7 +122,7 @@ public class PDialog {
 
             make();
 
-            if (setOnlySize || conf == null) {
+            if (setOnlySize || sizeConfiguration == null) {
                 scene.getWindow().sizeToScene();
             }
 
@@ -136,13 +136,13 @@ public class PDialog {
     }
 
     private void createNewScene(Parent parent) {
-        if (conf == null) {
+        if (sizeConfiguration == null) {
             this.scene = new Scene(parent);
         } else {
-            int w = PGuiSize.getWidth(conf);
-            int h = PGuiSize.getHeight(conf);
+            int w = PGuiSize.getWidth(sizeConfiguration);
+            int h = PGuiSize.getHeight(sizeConfiguration);
             if (w > 0 && h > 0) {
-                this.scene = new Scene(parent, PGuiSize.getWidth(conf), PGuiSize.getHeight(conf));
+                this.scene = new Scene(parent, PGuiSize.getWidth(sizeConfiguration), PGuiSize.getHeight(sizeConfiguration));
             } else {
                 this.scene = new Scene(parent);
             }
@@ -159,8 +159,8 @@ public class PDialog {
         stageWidth = stage.getWidth();
         stageHeight = stage.getHeight();
 
-        if (conf != null) {
-            PGuiSize.getSizeScene(conf, stage);
+        if (sizeConfiguration != null) {
+            PGuiSize.getSizeScene(sizeConfiguration, stage);
         }
         stage.close();
     }
@@ -172,7 +172,7 @@ public class PDialog {
             stage.setWidth(stageWidth);
         }
 
-        if (setOnlySize || conf == null || !PGuiSize.setPos(conf, stage)) {
+        if (setOnlySize || sizeConfiguration == null || !PGuiSize.setPos(sizeConfiguration, stage)) {
             if (owner == null) {
                 setInCenterOfScreen();
             } else {

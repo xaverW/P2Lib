@@ -65,8 +65,8 @@ public class PYearPicker extends Spinner<Integer> {
 
     private void init(int year) {
         getStyleClass().add("PYearPicker");
-        final String CSS_FILE = "de/p2tools/p2Lib/p2Lib.css";
-        getStylesheets().add(CSS_FILE);
+//        final String CSS_FILE = "de/p2tools/p2Lib/p2Lib.css";
+//        getStylesheets().add(CSS_FILE);
         this.setMinWidth(Region.USE_PREF_SIZE);
 
         this.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);

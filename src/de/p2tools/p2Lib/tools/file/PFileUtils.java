@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2Lib.tools;
+package de.p2tools.p2Lib.tools.file;
 
 import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.dialog.PAlert;
@@ -232,10 +232,13 @@ public class PFileUtils {
             if (!button.equals(PAlert.BUTTON.YES)) {
                 return false;
             }
-        }
 
-        if (pathToCheck.toFile().exists()) {
-            pathToCheck.toFile().delete();
+            if (!pathToCheck.toFile().delete()) {
+                new PAlert().showErrorAlert(stage, "Datei löschen", "Die Datei: \n" +
+                        pathToCheck.toFile() + "\n" +
+                        "kann nicht gelöscht werden.");
+                return false;
+            }
         }
 
         return true;
@@ -312,30 +315,30 @@ public class PFileUtils {
         return ret;
     }
 
-    public static String getNextFileName(String path, String selName, String suff) {
-        String ret = "";
+//    public static String getNextFileName(String path, String selName, String suff) {
+//        String ret;
+//
+//        Path dir = Paths.get(path);
+//        if (!Files.exists(dir)) {
+//            return selName;
+//        }
+//
+//        String name = getName(selName, suff);
+//        Path baseDirectoryPath = Paths.get(path, name);
+//        int nr = 1;
+//
+//        while (Files.exists(baseDirectoryPath)) {
+//            name = getName(selName + "_" + nr++, suff);
+//            baseDirectoryPath = Paths.get(path, name);
+//        }
+//
+//        ret = baseDirectoryPath.getFileName().toString();
+//        return ret;
+//    }
 
-        Path dir = Paths.get(path);
-        if (!Files.exists(dir)) {
-            return selName;
-        }
-
-        String name = getName(selName, suff);
-        Path baseDirectoryPath = Paths.get(path, name);
-        int nr = 1;
-
-        while (Files.exists(baseDirectoryPath)) {
-            name = getName(selName + "_" + nr++, suff);
-            baseDirectoryPath = Paths.get(path, name);
-        }
-
-        ret = baseDirectoryPath.getFileName().toString();
-        return ret;
-    }
-
-    private static String getName(String name, String suff) {
-        return name + "." + suff;
-    }
+//    private static String getName(String name, String suff) {
+//        return name + "." + suff;
+//    }
 
     /**
      * Get the free disk space for a selected path.

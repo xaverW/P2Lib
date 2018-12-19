@@ -48,6 +48,9 @@ public class PCheckBoxCell<S, T> extends TableCell<S, T> {
                 CheckBox box = new CheckBox();
                 box.setDisable(true);
                 box.getStyleClass().add("checkbox-table");
+//                final String CSS_FILE = "de/p2tools/p2Lib/p2Lib.css";
+//                box.getStylesheets().add(CSS_FILE);
+
 
                 box.setSelected(item.booleanValue());
                 setGraphic(box);
