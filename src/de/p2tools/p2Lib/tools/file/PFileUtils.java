@@ -315,31 +315,6 @@ public class PFileUtils {
         return ret;
     }
 
-//    public static String getNextFileName(String path, String selName, String suff) {
-//        String ret;
-//
-//        Path dir = Paths.get(path);
-//        if (!Files.exists(dir)) {
-//            return selName;
-//        }
-//
-//        String name = getName(selName, suff);
-//        Path baseDirectoryPath = Paths.get(path, name);
-//        int nr = 1;
-//
-//        while (Files.exists(baseDirectoryPath)) {
-//            name = getName(selName + "_" + nr++, suff);
-//            baseDirectoryPath = Paths.get(path, name);
-//        }
-//
-//        ret = baseDirectoryPath.getFileName().toString();
-//        return ret;
-//    }
-
-//    private static String getName(String name, String suff) {
-//        return name + "." + suff;
-//    }
-
     /**
      * Get the free disk space for a selected path.
      *
