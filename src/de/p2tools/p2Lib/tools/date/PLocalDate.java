@@ -47,11 +47,11 @@ public class PLocalDate {
     }
 
     public void clearPDate() {
-        localDate = LocalDate.MIN;
+        localDate = null;
     }
 
     public boolean isEmpty() {
-        return localDate.isEqual(LocalDate.MIN);
+        return localDate == null;
     }
 
     public void setPDateNow() {
@@ -59,7 +59,7 @@ public class PLocalDate {
     }
 
     public String getDateTime(DateTimeFormatter format) {
-        return localDate.format(format);
+        return localDate == null ? "" : localDate.format(format);
     }
 
     public LocalDate getLocalDate() {
@@ -68,7 +68,7 @@ public class PLocalDate {
 
     public static LocalDate getPLocalDate(String strDate) {
         if (strDate == null || strDate.isEmpty()) {
-            return LocalDate.MIN;
+            return null;
         }
 
         try {
@@ -76,11 +76,11 @@ public class PLocalDate {
         } catch (final Exception ex) {
         }
 
-        return LocalDate.MIN;
+        return null;
     }
 
     public String getYear() {
-        if (localDate.isEqual(LocalDate.MIN)) {
+        if (localDate == null) {
             return "";
         } else {
             return localDate.format(FORMAT_yyyy);
@@ -89,7 +89,7 @@ public class PLocalDate {
 
     @Override
     public String toString() {
-        if (localDate.isEqual(LocalDate.MIN)) {
+        if (localDate == null) {
             return "";
         } else {
             return localDate.format(FORMAT_dd_MM_yyyy);
@@ -97,7 +97,7 @@ public class PLocalDate {
     }
 
     public String toStringR() {
-        if (localDate.isEqual(LocalDate.MIN)) {
+        if (localDate == null) {
             return "";
         } else {
             return localDate.format(FORMAT_yyyy_MM_dd);
