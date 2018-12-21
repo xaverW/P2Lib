@@ -192,10 +192,13 @@ class LoadConfigFile implements AutoCloseable {
                 if (getConf(parser, pData)) {
                     ret = true;
 
-//                    PDuration.counterStart("getPdataList");
+//                    PDuration.counterStart("LoadConfigFile.getPdataList-addNewItem");
                     pDataList.addNewItem(pData);
-//                    PDuration.counterStop("getPdataList");
+//                    PDuration.counterStop("LoadConfigFile.getPdataList-addNewItem");
+
+//                    PDuration.counterStart("LoadConfigFile.getPdataList-getNewItem");
                     pData = pDataList.getNewItem();
+//                    PDuration.counterStop("LoadConfigFile.getPdataList-getNewItem");
 
                 }
 
