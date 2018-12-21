@@ -25,6 +25,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class PDialogExtra extends PDialog {
 
@@ -35,6 +36,11 @@ public class PDialogExtra extends PDialog {
 
     public PDialogExtra(StringProperty conf, String title, boolean modal) {
         super(conf, title, modal);
+        initDialog();
+    }
+
+    public PDialogExtra(Stage stage, StringProperty conf, String title, boolean modal, boolean setOnlySize) {
+        super(stage, conf, title, modal, setOnlySize);
         initDialog();
     }
 

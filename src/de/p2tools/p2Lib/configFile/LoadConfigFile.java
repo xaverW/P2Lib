@@ -23,7 +23,6 @@ import de.p2tools.p2Lib.configFile.config.ConfigPDataList;
 import de.p2tools.p2Lib.configFile.configList.ConfigList;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
-import de.p2tools.p2Lib.tools.log.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 
 import javax.xml.stream.XMLInputFactory;
@@ -45,6 +44,11 @@ class LoadConfigFile implements AutoCloseable {
     private ArrayList<PDataList> pDataListArr = null;
     private ArrayList<PData> pDataArr = null;
 
+    /**
+     * @param filePath
+     * @param configsListArrayDataList
+     * @param pDataArr
+     */
     LoadConfigFile(Path filePath, ArrayList<PDataList> configsListArrayDataList, ArrayList<PData> pDataArr) {
         this.xmlFilePath = filePath;
         this.pDataListArr = configsListArrayDataList;
@@ -54,6 +58,10 @@ class LoadConfigFile implements AutoCloseable {
         inFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.FALSE);
     }
 
+    /**
+     * @param filePath
+     * @param pDataArr
+     */
     LoadConfigFile(Path filePath, ArrayList<PData> pDataArr) {
         this.xmlFilePath = filePath;
         this.pDataArr = pDataArr;
@@ -62,12 +70,13 @@ class LoadConfigFile implements AutoCloseable {
         inFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.FALSE);
     }
 
+    /**
+     * @return
+     */
     boolean readConfiguration() {
-        PDuration.counterStart("Konfig lesen");
         boolean ret = false;
 
         if (!Files.exists(xmlFilePath)) {
-            PDuration.counterStop("Konfig lesen");
             return ret;
         }
 
@@ -105,7 +114,6 @@ class LoadConfigFile implements AutoCloseable {
             }
         }
 
-        PDuration.counterStop("Konfig lesen");
         return ret;
     }
 
@@ -183,8 +191,12 @@ class LoadConfigFile implements AutoCloseable {
 
                 if (getConf(parser, pData)) {
                     ret = true;
+
+//                    PDuration.counterStart("getPdataList");
                     pDataList.addNewItem(pData);
+//                    PDuration.counterStop("getPdataList");
                     pData = pDataList.getNewItem();
+
                 }
 
             }
@@ -207,6 +219,7 @@ class LoadConfigFile implements AutoCloseable {
                 if (event == XMLStreamConstants.END_ELEMENT && parser.getLocalName().equals(xmlElem)) {
                     break;
                 }
+
                 if (event != XMLStreamConstants.START_ELEMENT) {
                     continue;
                 }
@@ -214,7 +227,7 @@ class LoadConfigFile implements AutoCloseable {
                 final String localName = parser.getLocalName();
                 for (Config config : pData.getConfigsArr()) {
 
-                    String key = config.getKey();
+//                    String key = config.getKey();
                     if (config.getKey().equals(localName)) {
                         getConf(parser, config);
                         break;
@@ -244,7 +257,7 @@ class LoadConfigFile implements AutoCloseable {
                     continue;
                 }
 
-                final String localName = parser.getLocalName();
+//                final String localName = parser.getLocalName();
                 final String n = parser.getElementText();
                 config.setActValue(n);
 

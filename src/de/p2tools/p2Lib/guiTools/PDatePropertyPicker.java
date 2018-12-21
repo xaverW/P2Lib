@@ -34,7 +34,7 @@ public class PDatePropertyPicker extends DatePicker {
     public PDatePropertyPicker() {
         setDatePickerConverter();
         setDate("");
-        this.getEditor().setOnAction(a -> System.out.println("TEST"));
+//        this.getEditor().setOnAction(a -> System.out.println("TEST"));
     }
 
     public PDatePropertyPicker(PLocalDateProperty pDateProperty) {

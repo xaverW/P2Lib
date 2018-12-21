@@ -66,28 +66,36 @@ public class ConfigFile {
         return ret;
     }
 
+    /**
+     * @return
+     */
     public boolean readConfigFile() {
 
         if (new LoadConfigFile(configFile, pDataList, pData).readConfiguration()) {
-            PLog.sysLog("Config geladen");
+            PLog.sysLog("Config geladen: " + configFile.toString());
             return true;
 
         } else if (new BackupConfigFile(maxCopyBackupfile, configFile).loadBackup(pDataList, pData)) {
-            PLog.sysLog("Config-Backup geladen");
+            PLog.sysLog("Config-Backup geladen: " + configFile.toString());
             return true;
         }
 
         return false;
     }
 
+    /**
+     * @param pDataList
+     * @param pData
+     * @return
+     */
     public boolean readConfigFile(ArrayList<PDataList> pDataList, ArrayList<PData> pData) {
 
         if (new LoadConfigFile(configFile, pDataList, pData).readConfiguration()) {
-            PLog.sysLog("Config geladen");
+            PLog.sysLog("Config geladen: " + configFile.toString());
             return true;
 
         } else if (new BackupConfigFile(maxCopyBackupfile, configFile).loadBackup(pDataList, pData)) {
-            PLog.sysLog("Config-Backup geladen");
+            PLog.sysLog("Config-Backup geladen: " + configFile.toString());
             return true;
         }
 
