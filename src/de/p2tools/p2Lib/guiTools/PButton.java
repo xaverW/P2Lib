@@ -69,10 +69,10 @@ public class PButton {
     }
 
     public static Button getButton(ImageView imageView, String helpText) {
-        final Button btnHelp = new Button("");
-        btnHelp.setTooltip(new Tooltip(helpText));
-        btnHelp.setGraphic(imageView);
-        return btnHelp;
+        final Button button = new Button("");
+        button.setTooltip(new Tooltip(helpText));
+        button.setGraphic(imageView);
+        return button;
     }
 
 }

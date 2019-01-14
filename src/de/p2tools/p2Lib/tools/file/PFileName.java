@@ -44,12 +44,12 @@ public class PFileName {
 
         String name = selName + "." + suff;
         Path baseDirectoryPath = Paths.get(path, name);
-        int nr = 1;
+        int no = 1;
 
         while (Files.exists(baseDirectoryPath)) {
-            name = selName + STR + nr + "." + suff;
+            name = selName + STR + no + "." + suff;
             baseDirectoryPath = Paths.get(path, name);
-            ++nr;
+            ++no;
         }
 
         ret = baseDirectoryPath.getFileName().toString();

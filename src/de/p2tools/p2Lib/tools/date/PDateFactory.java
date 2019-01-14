@@ -20,6 +20,7 @@ package de.p2tools.p2Lib.tools.date;
 import de.p2tools.p2Lib.tools.log.PLog;
 import org.apache.commons.lang3.time.FastDateFormat;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,11 +43,13 @@ public class PDateFactory {
     }
 
     public static String getAktYearStr() {
-        return new PDate().getDateTime(FORMAT_yyyy);
+        return LocalDate.now().getYear() + "";
+//        return new PDate().getDateTime(FORMAT_yyyy);
     }
 
     public static int getAktYearInt() {
-        return getYearIntFromString(getAktYearStr());
+        return LocalDate.now().getYear();
+//        return getYearIntFromString(getAktYearStr());
     }
 
     public static int getYearIntFromString(String year) {
@@ -74,6 +77,25 @@ public class PDateFactory {
 
         while (startCheckYear <= aktYear) {
             list.add(startCheckYear + "");
+            ++startCheckYear;
+        }
+
+        return list;
+    }
+
+    public static List<Integer> getYearListSince(int year) {
+        List<Integer> list = new ArrayList<>();
+
+        int aktYear = getAktYearInt();
+        int startCheckYear = getYearIntFromString(year + "");
+
+        if (startCheckYear <= 0 ||
+                aktYear < startCheckYear) {
+            return list;
+        }
+
+        while (startCheckYear <= aktYear) {
+            list.add(startCheckYear);
             ++startCheckYear;
         }
 

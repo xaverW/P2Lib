@@ -227,15 +227,15 @@ public class PLog {
         resetProgress();
     }
 
-    private static void countError(int nr, String classs, boolean exception) {
+    private static void countError(int no, String classs, boolean exception) {
         for (Error e : errorList) {
-            if (e.errorNr == nr) {
+            if (e.errorNr == no) {
                 ++e.count;
                 return;
             }
         }
         // dann gibts die Nummer noch nicht
-        errorList.add(new Error(nr, classs, exception));
+        errorList.add(new Error(no, classs, exception));
     }
 
     public static synchronized void progress(String text) {

@@ -45,8 +45,8 @@ public class PException extends IllegalStateException {
         throwPException(000000000, message);
     }
 
-    public static void throwPException(int nr, String message) {
-        PLog.errorLog(nr, message);
+    public static void throwPException(int no, String message) {
+        PLog.errorLog(no, message);
         throw new PException(message);
     }
 

@@ -20,9 +20,12 @@ package de.p2tools.p2Lib.guiTools;
 
 import javafx.scene.control.TableView;
 
+import java.util.HashSet;
+import java.util.List;
+
 public class PTableViewTools {
 
-    public static void invertSelection(TableView tableView) {
+    public static void invertSelection_(TableView tableView) {
         for (int i = 0; i < tableView.getItems().size(); ++i) {
             if (tableView.getSelectionModel().isSelected(i)) {
                 tableView.getSelectionModel().clearSelection(i);
@@ -30,5 +33,28 @@ public class PTableViewTools {
                 tableView.getSelectionModel().select(i);
             }
         }
+    }
+
+    public static void invertSelection(TableView tableView) {
+        final List<Integer> selArr = tableView.getSelectionModel().getSelectedIndices();
+        final HashSet<Integer> selHash = new HashSet<>(selArr);
+
+        tableView.getSelectionModel().selectAll();
+        int sum = tableView.getItems().size();
+
+        int sel = -1;
+        for (int i = 0; i < sum; ++i) {
+            if (selHash.contains(i)) {
+                tableView.getSelectionModel().clearSelection(i);
+            } else if (sel < 0) {
+                sel = i;
+            }
+        }
+
+        if (sel >= 0) {
+            // damits auch gemeldet wird
+            tableView.getSelectionModel().select(sel);
+        }
+
     }
 }

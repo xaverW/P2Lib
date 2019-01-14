@@ -25,11 +25,26 @@ import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.nio.charset.CodingErrorAction;
+import java.text.NumberFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PStringUtils {
+    private static final NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.GERMANY);
+
+    private PStringUtils() {
+    }
+
+    /**
+     * get formatted String from an integer
+     *
+     * @param number
+     * @return
+     */
+    public static String getFormattedString(int number) {
+        return numberFormat.format(number);
+    }
 
     /**
      * Convert a string from Java´s native UTF-16 to US-ASCII character encoding.

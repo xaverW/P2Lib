@@ -17,6 +17,7 @@
 package de.p2tools.p2Lib.dialog;
 
 import de.p2tools.p2Lib.PConst;
+import de.p2tools.p2Lib.PInit;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.tools.PException;
 import de.p2tools.p2Lib.tools.log.PLog;
@@ -95,9 +96,7 @@ public class PDialog {
     public void init(Pane pane, boolean show) {
         try {
             createNewScene(pane);
-
-            String css = this.getClass().getResource(PConst.cssFile).toExternalForm();
-            scene.getStylesheets().add(css);
+            PInit.addP2LibCss(scene);
 
             if (scene == null) {
                 PException.throwPException(912012458, "no scene");

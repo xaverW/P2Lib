@@ -73,10 +73,10 @@ public class UserMessage {
         addText(msgList, "[" + getNr(lineNo++) + "]   " + line);
     }
 
-    private static String getNr(int nr) {
+    private static String getNr(int no) {
         final int MAX_STELLEN = 5;
         final String FUELL_ZEICHEN = "0";
-        String str = String.valueOf(nr);
+        String str = String.valueOf(no);
         while (str.length() < MAX_STELLEN) {
             str = FUELL_ZEICHEN + str;
         }

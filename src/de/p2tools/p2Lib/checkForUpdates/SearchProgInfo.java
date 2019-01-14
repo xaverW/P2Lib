@@ -199,15 +199,15 @@ public class SearchProgInfo {
                     case ProgInfo.ParserTags.PROG_INFOS:
 
                         final int count = parser.getAttributeCount();
-                        String nr = "";
+                        String no = "";
                         for (int i = 0; i < count; ++i) {
                             if (parser.getAttributeName(i).toString().equals(ProgInfo.ParserTags.PROG_INFOS_NUMBER)) {
-                                nr = parser.getAttributeValue(i);
+                                no = parser.getAttributeValue(i);
                             }
                         }
                         final String info = parser.getElementText();
-                        if (!nr.isEmpty() && !info.isEmpty()) {
-                            progInfo.addProgInfo(new Infos(info, nr));
+                        if (!no.isEmpty() && !info.isEmpty()) {
+                            progInfo.addProgInfo(new Infos(info, no));
                         }
                         break;
 

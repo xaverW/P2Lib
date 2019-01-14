@@ -19,12 +19,13 @@ package de.p2tools.p2Lib.tools.date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class PLocalDate {
+public class PLocalDate implements Comparable<PLocalDate> {
+
     public static final DateTimeFormatter FORMAT_dd_MM_yyyy = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     public static final DateTimeFormatter FORMAT_yyyy = DateTimeFormatter.ofPattern("yyyy");
     public static final DateTimeFormatter FORMAT_yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy.MM.dd");
 
-    private LocalDate localDate;
+    private LocalDate localDate; // todo
 
     public PLocalDate() {
         localDate = LocalDate.now();
@@ -104,4 +105,17 @@ public class PLocalDate {
         }
     }
 
+    @Override
+    public int compareTo(PLocalDate o) {
+
+        if (o == null || o.localDate == null) {
+            return 1;
+        }
+
+        if (this.localDate == null) {
+            return -1;
+        }
+
+        return this.localDate.compareTo(o.localDate);
+    }
 }

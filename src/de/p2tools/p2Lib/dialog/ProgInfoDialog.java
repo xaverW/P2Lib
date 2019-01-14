@@ -17,23 +17,24 @@
 package de.p2tools.p2Lib.dialog;
 
 
+import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.tools.ProgramTools;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-public class MemoryUsageDialog extends PDialogExtra {
+public class ProgInfoDialog extends PDialogExtra {
 
     private final Button btnOk = new Button("Ok");
     private final Button btnGc = new Button("Speicher aufräumen");
@@ -45,7 +46,7 @@ public class MemoryUsageDialog extends PDialogExtra {
     private final Color GRAY = Color.DARKSLATEGRAY;
 
 
-    public MemoryUsageDialog() {
+    public ProgInfoDialog() {
         super(null, "Speicherverbrauch des Programms", false);
 
         addOkButtons(btnGc, btnOk);
@@ -68,42 +69,36 @@ public class MemoryUsageDialog extends PDialogExtra {
         // Java
         Text text = new Text("Java Informationen");
         text.setFont(Font.font(null, FontWeight.BOLD, 15));
-        gridPane.add(text, 0, row, 2, 1);
+        gridPane.add(text, 0, row, 3, 1);
 
-        text = new Text("Version:");
-        text.setFont(new Font(15));
-        text.setFill(GRAY);
-        gridPane.add(text, 0, ++row);
+        gridPane.add(new Label("Version:"), 0, ++row);
+        gridPane.add(new Label(System.getProperty("java.version")), 1, row, 2, 1);
 
-        text = new Text(System.getProperty("java.version"));
-        text.setFont(new Font(15));
-        text.setFill(GRAY);
-        gridPane.add(text, 1, row);
-
-        text = new Text("Type:");
-        text.setFont(new Font(15));
-        text.setFill(GRAY);
-        gridPane.add(text, 0, ++row);
-
+        gridPane.add(new Label("Type:"), 0, ++row);
         String strVmType = System.getProperty("java.vm.name");
         strVmType += " (" + System.getProperty("java.vendor") + ")";
-        text = new Text(strVmType);
-        text.setFont(new Font(15));
-        text.setFill(GRAY);
-        gridPane.add(text, 1, row);
+        gridPane.add(new Label(strVmType), 1, row, 2, 1);
 
-        gridPane.add(new Label(" "), 1, ++row);
+
+        gridPane.add(new Label(" "), 0, ++row);
 
         // Memory
         text = new Text("Speicherverbrauch des Programms");
         text.setFont(Font.font(null, FontWeight.BOLD, 15));
-        gridPane.add(text, 0, ++row, 2, 1);
+        gridPane.add(text, 0, ++row, 3, 1);
 
-        progressBar.setPrefWidth(200);
-        GridPane.setHalignment(btnGc, HPos.RIGHT);
-        gridPane.add(progressBar, 0, ++row);
-        gridPane.add(btnGc, 1, row);
-        gridPane.add(lblMemInfo, 0, ++row, 2, 1);
+        progressBar.setMaxWidth(Double.MAX_VALUE);
+        progressBar.setMinWidth(10);
+        lblMemInfo.setMaxWidth(Region.USE_PREF_SIZE);
+
+        gridPane.add(btnGc, 0, ++row);
+        gridPane.add(progressBar, 1, row);
+        gridPane.add(lblMemInfo, 2, row);
+
+
+        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
+                PColumnConstraints.getCcComputedSizeAndHgrow(),
+                PColumnConstraints.getCcPrefSize());
 
         getVboxCont().getChildren().add(gridPane);
 

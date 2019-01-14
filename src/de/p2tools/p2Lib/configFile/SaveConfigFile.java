@@ -88,11 +88,13 @@ class SaveConfigFile implements AutoCloseable {
 
     private void xmlWriteStart() throws IOException, XMLStreamException {
         PLog.sysLog("Start Schreiben nach: " + xmlFilePath.toAbsolutePath());
+        Files.createDirectories(xmlFilePath.getParent());
+
         os = Files.newOutputStream(xmlFilePath);
         out = new OutputStreamWriter(os, StandardCharsets.UTF_8);
-
         final XMLOutputFactory outFactory = XMLOutputFactory.newInstance();
         writer = outFactory.createXMLStreamWriter(out);
+
         writer.writeStartDocument(StandardCharsets.UTF_8.name(), "1.0");
         writer.writeCharacters(PConst.LINE_SEPARATOR);
         writer.writeStartElement(xmlStart);
