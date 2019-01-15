@@ -19,6 +19,8 @@ package de.p2tools.p2Lib.dialog;
 
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.tools.ProgramTools;
+import de.p2tools.p2Lib.tools.duration.PDuration;
+import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -34,10 +36,13 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+import java.util.List;
+
 public class ProgInfoDialog extends PDialogExtra {
 
     private final Button btnOk = new Button("Ok");
     private final Button btnGc = new Button("Speicher aufräumen");
+    private final Button btnDuration = new Button("Laufzeiten ausgeben");
     private final ProgressBar progressBar = new ProgressBar();
     private final Label lblMemInfo = new Label("");
 
@@ -56,9 +61,17 @@ public class ProgInfoDialog extends PDialogExtra {
 
     @Override
     public void make() {
+        final String line = "<==/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\==>";
         btnOk.setOnAction(a -> close());
         btnGc.setOnAction(a -> System.gc());
-
+        btnDuration.setOnAction(a -> {
+            List list = PDuration.getCounter();
+            list.add(0, new String(line));
+            list.add(new String(line));
+            list.add(new String(" "));
+            list.add(new String(" "));
+            PLog.sysLog(list);
+        });
         final GridPane gridPane = new GridPane();
         gridPane.setHgap(5);
         gridPane.setVgap(5);
@@ -80,9 +93,8 @@ public class ProgInfoDialog extends PDialogExtra {
         gridPane.add(new Label(strVmType), 1, row, 2, 1);
 
 
-        gridPane.add(new Label(" "), 0, ++row);
-
         // Memory
+        gridPane.add(new Label(" "), 0, ++row);
         text = new Text("Speicherverbrauch des Programms");
         text.setFont(Font.font(null, FontWeight.BOLD, 15));
         gridPane.add(text, 0, ++row, 3, 1);
@@ -94,6 +106,14 @@ public class ProgInfoDialog extends PDialogExtra {
         gridPane.add(btnGc, 0, ++row);
         gridPane.add(progressBar, 1, row);
         gridPane.add(lblMemInfo, 2, row);
+
+
+        // Laufzeiten
+        gridPane.add(new Label(" "), 0, ++row);
+        text = new Text("Laufzeiten des Programms");
+        text.setFont(Font.font(null, FontWeight.BOLD, 15));
+        gridPane.add(text, 0, ++row, 3, 1);
+        gridPane.add(btnDuration, 0, ++row);
 
 
         gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
