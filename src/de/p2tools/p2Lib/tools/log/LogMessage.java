@@ -19,6 +19,7 @@ package de.p2tools.p2Lib.tools.log;
 
 import de.p2tools.p2Lib.tools.PStringUtils;
 import de.p2tools.p2Lib.tools.ProgramTools;
+import de.p2tools.p2Lib.tools.duration.PDuration;
 
 import java.time.Duration;
 import java.time.Instant;
