@@ -35,10 +35,10 @@ public class PColumnConstraints {
         return cc;
     }
 
-    public static ColumnConstraints getCcPrefMaxSize() {
+    public static ColumnConstraints getCcPrefMaxSize(int maxWidth) {
         final ColumnConstraints cc = new ColumnConstraints();
         cc.setMinWidth(Region.USE_PREF_SIZE);
-        cc.setMaxWidth(Region.USE_PREF_SIZE);
+        cc.setMaxWidth(maxWidth);
         return cc;
     }
 

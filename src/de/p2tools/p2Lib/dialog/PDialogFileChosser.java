@@ -16,6 +16,7 @@
 
 package de.p2tools.p2Lib.dialog;
 
+import de.p2tools.p2Lib.alert.PAlert;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -28,15 +29,16 @@ import javafx.stage.Stage;
 
 import java.util.Optional;
 
-public class PAlertFileChosser extends PAlert {
+public class PDialogFileChosser extends PAlert {
 
-    public static String showAlertFileChooser(Stage stage, String title, String header, String content, boolean dir, ImageView imageView) {
-        return showAlertFileChooser(stage, title, header, content, dir, true, "", imageView);
+    // todo deprecated
+    public static String showFileChooser(Stage stage, String title, String header, String content, boolean dir, ImageView imageView) {
+        return showFileChooser(stage, title, header, content, dir, true, "", imageView);
     }
 
-    public static String showAlertFileChooser(Stage stage, String title, String header,
-                                              String content, boolean dir, boolean txtArea,
-                                              String startFile, ImageView imageView) {
+    public static String showFileChooser(Stage stage, String title, String header,
+                                         String content, boolean dir, boolean txtArea,
+                                         String startFile, ImageView imageView) {
 
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle(title);

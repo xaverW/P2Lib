@@ -15,30 +15,25 @@
  */
 
 
-package de.p2tools.p2Lib.configFile.config;
+package de.p2tools.p2Lib.configFile.pData;
 
-import de.p2tools.p2Lib.configFile.pData.PData;
-import de.p2tools.p2Lib.configFile.pData.PDataList;
+import java.util.Map;
 
 /**
- * its a pseudo CONFIG, it contains a
- * CONFIGSLIST, therefore a list of ConfigData
- * and that contains a array of Config
+ * this is a list of the "same" configurationdata
+ * for example a list of "Persons" with the *DATA* fields:
+ * NAME, SIZE, ...
+ *
+ * @param <E>
  */
-public class ConfigPDataList extends Config {
+public interface PDataMap<K, E extends PData> extends Map<K, E> {
 
-    private PDataList<? extends PData> actValue;
+    String getTag();
 
-    public ConfigPDataList(PDataList<? extends PData> pDataList) {
-        super(pDataList.getTag());
-        this.actValue = pDataList;
-    }
+    String getComment();
 
-    public PDataList<? extends PData> getActValue() {
-        return actValue;
-    }
+    PData getNewItem();
 
-    public String getName() {
-        return super.getKey();
-    }
+    void addNewItem(Object obj);
+
 }

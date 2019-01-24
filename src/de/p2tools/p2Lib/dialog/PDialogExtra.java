@@ -39,6 +39,16 @@ public class PDialogExtra extends PDialog {
         initDialog();
     }
 
+    public PDialogExtra(Stage stage, String title) {
+        super(stage, null, title, true, true);
+        initDialog();
+    }
+
+    public PDialogExtra(Stage stage, StringProperty conf, String title) {
+        super(stage, conf, title, true, true);
+        initDialog();
+    }
+
     public PDialogExtra(Stage stage, StringProperty conf, String title, boolean modal, boolean setOnlySize) {
         super(stage, conf, title, modal, setOnlySize);
         initDialog();

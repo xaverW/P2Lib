@@ -18,10 +18,10 @@
 package de.p2tools.p2Lib.configFile;
 
 import de.p2tools.p2Lib.PConst;
+import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
-import de.p2tools.p2Lib.dialog.PAlert;
-import de.p2tools.p2Lib.dialog.PAlertFileChosser;
+import de.p2tools.p2Lib.dialog.PDialogFileChosser;
 import de.p2tools.p2Lib.tools.log.PLog;
 
 import java.io.IOException;
@@ -112,7 +112,7 @@ class BackupConfigFile {
         PLog.sysLog("Es gibt ein Backup");
 
 
-        if (PAlert.BUTTON.YES != new PAlertFileChosser().showAlert_yes_no("Gesicherte Einstellungen laden?",
+        if (PAlert.BUTTON.YES != new PDialogFileChosser().showAlert_yes_no("Gesicherte Einstellungen laden?",
                 "Die Einstellungen sind beschädigt" + PConst.LINE_SEPARATOR +
                         "und können nicht geladen werden.",
                 "Soll versucht werden, mit gesicherten" + PConst.LINE_SEPARATOR

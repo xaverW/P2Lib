@@ -17,6 +17,7 @@
 
 package de.p2tools.p2Lib;
 
+import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.pCheckComboBox.PCheckComboBox;
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import de.p2tools.p2Lib.guiTools.pNotification.Notification;
@@ -220,6 +221,10 @@ public class Demo extends Application {
         pRangeBox.setValuePrefix("Auszeit: ");
         pRangeBox.setUnitSuffix(" s");
         vBoxCont.getChildren().add(pRangeBox);
+
+        Button btn = new Button("Alert");
+        btn.setOnAction(a -> PAlert.showErrorAlert("Header", "Content"));
+        vBoxCont.getChildren().add(btn);
     }
 
     @Override

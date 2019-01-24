@@ -18,7 +18,7 @@
 package de.p2tools.p2Lib.guiTools;
 
 import de.p2tools.p2Lib.PConst;
-import de.p2tools.p2Lib.dialog.PAlert;
+import de.p2tools.p2Lib.alert.PAlert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;

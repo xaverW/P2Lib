@@ -18,7 +18,7 @@
 package de.p2tools.p2Lib.configFile;
 
 import de.p2tools.p2Lib.PConst;
-import de.p2tools.p2Lib.dialog.PAlert;
+import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.tools.PException;
 import de.p2tools.p2Lib.tools.log.PLog;
 import org.apache.commons.lang3.SystemUtils;

@@ -30,7 +30,7 @@ import java.util.Locale;
 public class PTextFieldDouble extends TextField {
     DoubleProperty doubleProperty = null;
 
-    private boolean stateLabel = false;
+    private boolean stateLikeLabel = false;
     private final Locale locale = Locale.GERMAN;
     private final NumberFormat nf = NumberFormat.getNumberInstance(locale);
     private final DecimalFormat df = new DecimalFormat("###,##0.00");
@@ -39,9 +39,9 @@ public class PTextFieldDouble extends TextField {
         textProperty().addListener((observable, oldValue, newValue) -> setTextStyle(getText()));
     }
 
-    public PTextFieldDouble(boolean stateLabel) {
-        this.stateLabel = stateLabel;
-        setStateLabel();
+    public PTextFieldDouble(boolean stateLikeLabel) {
+        this.stateLikeLabel = stateLikeLabel;
+        setStateLikeLabel();
         textProperty().addListener((observable, oldValue, newValue) -> setTextStyle(getText()));
     }
 
@@ -50,21 +50,21 @@ public class PTextFieldDouble extends TextField {
         bindBidirectional();
     }
 
-    public PTextFieldDouble(DoubleProperty doubleProperty, boolean stateLabel) {
+    public PTextFieldDouble(DoubleProperty doubleProperty, boolean stateLikeLabel) {
         this.doubleProperty = doubleProperty;
-        this.stateLabel = stateLabel;
-        setStateLabel();
+        this.stateLikeLabel = stateLikeLabel;
+        setStateLikeLabel();
         bindBidirectional();
     }
 
-    public void setStateLabel(boolean stateLabel) {
-        this.stateLabel = stateLabel;
-        setStateLabel();
+    public void setStateLikeLabel(boolean stateLikeLabel) {
+        this.stateLikeLabel = stateLikeLabel;
+        setStateLikeLabel();
     }
 
-    private void setStateLabel() {
-        setEditable(!stateLabel);
-        if (stateLabel) {
+    private void setStateLikeLabel() {
+        setEditable(!stateLikeLabel);
+        if (stateLikeLabel) {
             setStyle(PStyles.PTEXTFIELD_LABEL);
         }
     }
@@ -103,15 +103,14 @@ public class PTextFieldDouble extends TextField {
             @Override
             public Number fromString(String value) {
                 Number ret = 0;
-                setTextStyle(value);
 
+                setTextStyle(value);
                 try {
                     if (value == null) {
                         return null;
                     }
 
                     value = value.trim();
-
                     if (value.length() < 1) {
                         return null;
                     }
@@ -134,7 +133,7 @@ public class PTextFieldDouble extends TextField {
     }
 
     private void setTextStyle(String value) {
-        setStyle(stateLabel ? PStyles.PTEXTFIELD_LABEL : "");
+        setStyle(stateLikeLabel ? PStyles.PTEXTFIELD_LABEL : "");
 
         if (value == null || value.trim().isEmpty()) {
             return;
@@ -143,7 +142,7 @@ public class PTextFieldDouble extends TextField {
         try {
             nf.parse(value.trim());
         } catch (ParseException ex) {
-            setStyle(stateLabel ? PStyles.PTEXTFIELD_LABEL_ERROR : PStyles.PTEXTFIELD_ERROR);
+            setStyle(stateLikeLabel ? PStyles.PTEXTFIELD_LABEL_ERROR : PStyles.PTEXTFIELD_ERROR);
         }
     }
 }

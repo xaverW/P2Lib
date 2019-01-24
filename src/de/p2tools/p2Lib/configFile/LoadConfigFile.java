@@ -23,6 +23,7 @@ import de.p2tools.p2Lib.configFile.config.ConfigPDataList;
 import de.p2tools.p2Lib.configFile.configList.ConfigList;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
+import de.p2tools.p2Lib.configFile.pData.PDataMap;
 import de.p2tools.p2Lib.tools.log.PLog;
 
 import javax.xml.stream.XMLInputFactory;
@@ -146,6 +147,9 @@ class LoadConfigFile implements AutoCloseable {
         } else if (o instanceof PDataList) {
             return getPDataList(parser, (PDataList) o);
 
+        } else if (o instanceof PDataMap) {
+            return getPDataMap(parser, (PDataMap) o);
+
         } else if (o instanceof ConfigPDataList) {
             PDataList<? extends PData> actValue = ((ConfigPDataList) o).getActValue();
             return getPDataList(parser, actValue);
@@ -191,14 +195,45 @@ class LoadConfigFile implements AutoCloseable {
 
                 if (getConf(parser, pData)) {
                     ret = true;
-
-//                    PDuration.counterStart("LoadConfigFile.getPdataList-addNewItem");
                     pDataList.addNewItem(pData);
-//                    PDuration.counterStop("LoadConfigFile.getPdataList-addNewItem");
-
-//                    PDuration.counterStart("LoadConfigFile.getPdataList-getNewItem");
                     pData = pDataList.getNewItem();
-//                    PDuration.counterStop("LoadConfigFile.getPdataList-getNewItem");
+                }
+
+            }
+        } catch (final Exception ex) {
+            ret = false;
+            PLog.errorLog(302104541, ex);
+        }
+
+        return ret;
+    }
+
+    private boolean getPDataMap(XMLStreamReader parser, PDataMap pDataMap) {
+        boolean ret = false;
+        final String configsListTagName = pDataMap.getTag();
+
+        try {
+            PData pData = pDataMap.getNewItem();
+            while (parser.hasNext()) {
+                final int event = parser.next();
+
+                if (event == XMLStreamConstants.END_ELEMENT && parser.getLocalName().equals(configsListTagName)) {
+                    break;
+                }
+
+                if (event != XMLStreamConstants.START_ELEMENT) {
+                    continue;
+                }
+
+                String s = parser.getLocalName();
+                if (!pData.getTag().equals(s)) {
+                    continue;
+                }
+
+                if (getConf(parser, pData)) {
+                    ret = true;
+                    pDataMap.addNewItem(pData);
+                    pData = pDataMap.getNewItem();
 
                 }
 
@@ -216,6 +251,7 @@ class LoadConfigFile implements AutoCloseable {
         String xmlElem = parser.getLocalName();
 
         try {
+            Config[] configs = pData.getConfigsArr();
             while (parser.hasNext()) {
                 final int event = parser.next();
 
@@ -228,7 +264,7 @@ class LoadConfigFile implements AutoCloseable {
                 }
 
                 final String localName = parser.getLocalName();
-                for (Config config : pData.getConfigsArr()) {
+                for (Config config : configs) {
 
 //                    String key = config.getKey();
                     if (config.getKey().equals(localName)) {

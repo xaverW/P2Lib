@@ -17,8 +17,8 @@
 package de.p2tools.p2Lib.tools.file;
 
 import de.p2tools.p2Lib.PConst;
-import de.p2tools.p2Lib.dialog.PAlert;
-import de.p2tools.p2Lib.dialog.PAlertFileChosser;
+import de.p2tools.p2Lib.alert.PAlert;
+import de.p2tools.p2Lib.dialog.PDialogFileChosser;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.SystemUtils;
@@ -341,11 +341,11 @@ public class PFileUtils {
         try {
             File file = new File(strFile);
             if (!file.exists()) {
-                new PAlertFileChosser().showErrorAlert("Datei löschen", "", "Die Datei existiert nicht!");
+                new PDialogFileChosser().showErrorAlert("Datei löschen", "", "Die Datei existiert nicht!");
                 return false;
             }
 
-            if (new PAlertFileChosser().showAlert("Datei Löschen?", "",
+            if (new PDialogFileChosser().showAlertOkCancel("Datei Löschen?", "",
                     "Die Datei löschen:" + PConst.LINE_SEPARATORx2 + strFile)) {
 
                 // und jetzt die Datei löschen
@@ -357,7 +357,7 @@ public class PFileUtils {
             }
         } catch (Exception ex) {
             ret = false;
-            new PAlertFileChosser().showErrorAlert("Datei löschen",
+            new PDialogFileChosser().showErrorAlert("Datei löschen",
                     "Konnte die Datei nicht löschen!", "Fehler beim löschen von:" + PConst.LINE_SEPARATORx2 +
                             strFile);
             PLog.errorLog(987451206, "Fehler beim löschen: " + strFile);
@@ -370,7 +370,7 @@ public class PFileUtils {
         try {
             File file = new File(strFile);
             if (!file.exists()) {
-                new PAlertFileChosser().showErrorAlert("Datei löschen", "", "Die Datei existiert nicht!");
+                new PDialogFileChosser().showErrorAlert("Datei löschen", "", "Die Datei existiert nicht!");
                 return false;
             }
 
@@ -383,7 +383,7 @@ public class PFileUtils {
 
         } catch (Exception ex) {
             ret = false;
-            new PAlertFileChosser().showErrorAlert("Datei löschen",
+            new PDialogFileChosser().showErrorAlert("Datei löschen",
                     "Konnte die Datei nicht löschen!", "Fehler beim löschen von:" + PConst.LINE_SEPARATORx2 +
                             strFile);
             PLog.errorLog(302015478, "Fehler beim löschen: " + strFile);

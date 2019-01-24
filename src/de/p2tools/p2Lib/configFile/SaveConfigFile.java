@@ -23,6 +23,7 @@ import de.p2tools.p2Lib.configFile.config.ConfigPDataList;
 import de.p2tools.p2Lib.configFile.configList.ConfigList;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
+import de.p2tools.p2Lib.configFile.pData.PDataMap;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.collections.ObservableList;
 
@@ -123,6 +124,9 @@ class SaveConfigFile implements AutoCloseable {
         } else if (o instanceof PDataList) {
             writePDataList((PDataList) o, tab);
 
+        } else if (o instanceof PDataMap) {
+            writePDataMap((PDataMap) o, tab);
+
         } else if (o instanceof ConfigPDataList) {
             writeConfigPDataList((ConfigPDataList) o, tab);
 
@@ -167,6 +171,24 @@ class SaveConfigFile implements AutoCloseable {
         writer.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
 
         for (Object configsData : pDataList) {
+            write(configsData, tab);
+        }
+
+        writeTab(--tab);
+        writer.writeEndElement();
+        writer.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
+    }
+
+    private void writePDataMap(PDataMap pDataList, int tab) throws XMLStreamException {
+
+        String xmlName = pDataList.getTag();
+        writer.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
+
+        writeTab(tab++);
+        writer.writeStartElement(xmlName);
+        writer.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
+
+        for (Object configsData : pDataList.values()) {
             write(configsData, tab);
         }
 

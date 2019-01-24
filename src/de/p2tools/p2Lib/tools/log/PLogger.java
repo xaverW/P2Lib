@@ -18,7 +18,7 @@
 package de.p2tools.p2Lib.tools.log;
 
 import de.p2tools.p2Lib.PConst;
-import de.p2tools.p2Lib.dialog.PAlert;
+import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.POpen;
 import de.p2tools.p2Lib.tools.log.logLevel.AddInfoLevel;
 import de.p2tools.p2Lib.tools.log.logLevel.DurLevel;
