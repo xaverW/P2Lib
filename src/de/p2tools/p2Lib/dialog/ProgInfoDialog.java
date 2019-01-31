@@ -30,7 +30,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -48,14 +47,19 @@ public class ProgInfoDialog extends PDialogExtra {
 
     private final Runtime rt = Runtime.getRuntime();
     private static final int MEGABYTE = 1000 * 1000;
-    private final Color GRAY = Color.DARKSLATEGRAY;
-
 
     public ProgInfoDialog() {
         super(null, "Speicherverbrauch des Programms", false);
 
         addOkButtons(btnGc, btnOk);
         init(getvBoxDialog(), true);
+    }
+
+    public ProgInfoDialog(boolean showDialog) {
+        super(null, "Speicherverbrauch des Programms", false);
+
+        addOkButtons(btnGc, btnOk);
+        init(getvBoxDialog(), showDialog);
     }
 
 

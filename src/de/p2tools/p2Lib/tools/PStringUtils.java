@@ -233,8 +233,16 @@ public class PStringUtils {
      * @return
      */
     public static String increaseString(int max, String text) {
+        return increaseString(max, false, text);
+    }
+
+    public static String increaseString(int max, boolean front, String text) {
         while (text.length() < max) {
-            text = text + ' ';
+            if (front) {
+                text = ' ' + text;
+            } else {
+                text = text + ' ';
+            }
         }
         return text;
     }

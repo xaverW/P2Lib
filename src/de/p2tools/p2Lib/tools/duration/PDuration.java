@@ -136,8 +136,11 @@ public class PDuration {
 
         // die Counter ausgeben
         Collections.sort(PCounterList);
-        for (final PCounter PCounter : PCounterList) {
-            stringList.add("  " + PCounter.counterName + " Anzahl: " + PCounter.count + "   Gesamtdauer: " + roundDuration(PCounter.duration));
+        for (final PCounter pCounter : PCounterList) {
+            stringList.add("  " + pCounter.counterName
+                    + " Anzahl: " + PStringUtils.increaseString(2, true, pCounter.count + "")
+                    + "   ∑: " + PStringUtils.increaseString(10, true, roundDuration(pCounter.duration))
+                    + "   Ø: " + PStringUtils.increaseString(10, true, roundDuration(pCounter.getAverage())));
         }
 
         return stringList;
@@ -164,7 +167,10 @@ public class PDuration {
     }
 
     private static String roundDuration(Duration duration) {
-        long millis = duration.toMillis();
+        return roundDuration(duration.toMillis());
+    }
+
+    private static String roundDuration(long millis) {
         String ret;
         if (millis > 1_000.0) {
             ret = DF.format(millis / 1_000.0) + " s";

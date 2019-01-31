@@ -42,6 +42,11 @@ class PCounter implements Comparable<PCounter> {
         startTime = Instant.now();
     }
 
+    long getAverage() {
+        final long average = duration.toMillis() / count;
+        return average;
+    }
+
     void pingTime() {
         pingTime = Instant.now();
     }

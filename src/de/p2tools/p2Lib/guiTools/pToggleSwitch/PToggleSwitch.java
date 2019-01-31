@@ -34,6 +34,7 @@ public class PToggleSwitch extends HBox {
     private boolean hGrow = true;
     private String strOn = "", strOff = "", strIndeterminate = "";
     private Label lblOn, lblOff, lblIndeterminate;
+    private boolean bold = false;
 
     public PToggleSwitch() {
         super();
@@ -46,12 +47,23 @@ public class PToggleSwitch extends HBox {
         init();
     }
 
+    public PToggleSwitch(String text, boolean bold) {
+        super();
+        lblLeft.setText(text);
+        this.bold = bold;
+        init();
+    }
+
     public PToggleSwitch(String text, boolean tglInFront, boolean hGrow) {
         super();
         lblLeft.setText(text);
         this.tglInFront = tglInFront;
         this.hGrow = hGrow;
         init();
+    }
+
+    public void setBold() {
+        this.bold = true;
     }
 
     public void setLabelRight(Label lblOn, Label lblOff, Label lblIndeterminate) {
@@ -151,8 +163,9 @@ public class PToggleSwitch extends HBox {
         }
         setCheckHgrow();
         getStyleClass().add("pToggleSwitch");
-//        final String CSS_FILE = "de/p2tools/p2Lib/pToggleSwitch.css";
-//        getStylesheets().add(CSS_FILE);
+        if (bold) {
+            getStyleClass().add("pToggleSwitchBold");
+        }
     }
 
     private void setCheckHgrow() {

@@ -80,3 +80,6 @@
     -fx-background-color: black;
 }
 
+.pToggleSwitchBold .label{
+    -fx-font-weight: bold;
+}
