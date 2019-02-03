@@ -137,7 +137,7 @@ public class PDuration {
         // die Counter ausgeben
         Collections.sort(PCounterList);
         for (final PCounter pCounter : PCounterList) {
-            stringList.add("  " + pCounter.counterName
+            stringList.add(pCounter.counterName
                     + " Anzahl: " + PStringUtils.increaseString(2, true, pCounter.count + "")
                     + "   ∑: " + PStringUtils.increaseString(10, true, roundDuration(pCounter.duration))
                     + "   Ø: " + PStringUtils.increaseString(10, true, roundDuration(pCounter.getAverage())));
