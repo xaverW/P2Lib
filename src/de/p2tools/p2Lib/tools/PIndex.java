@@ -37,4 +37,8 @@ public class PIndex {
         ++counter;
         return counter;
     }
+
+    public synchronized static String getIndexStr() {
+        return getIndex() + "";
+    }
 }
