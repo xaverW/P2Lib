@@ -84,7 +84,7 @@ public class PUrlTools {
         if (ret.length() > 5) {
             // dann ist was faul
             ret = "---";
-            PLog.errorLog(821397046, path);
+            PLog.errorLog(821397046, "no Suffix for URL: " + path);
         }
         return ret;
     }

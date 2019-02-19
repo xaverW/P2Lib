@@ -37,5 +37,6 @@ public class PInit {
     public static void addP2LibCss(Scene scene) {
         scene.getStylesheets().addAll("de/p2tools/p2Lib/p2Lib.css");
         scene.getStylesheets().addAll("de/p2tools/p2Lib/pToggleSwitch.css");
+        scene.getStylesheets().addAll(PConst.cssFile);
     }
 }
