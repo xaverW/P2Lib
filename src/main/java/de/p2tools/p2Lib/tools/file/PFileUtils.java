@@ -248,21 +248,25 @@ public class PFileUtils {
         if (SystemUtils.IS_OS_WINDOWS) {
             // in Win dürfen die Pfade nicht länger als 260 Zeichen haben (für die Infodatei kommen noch
             // ".txt" dazu)
+
             if ((pathName[0].length() + 10) > WIN_MAX_PATH_LENGTH) {
                 // es sollen für den Dateinamen mind. 10 Zeichen bleiben
                 PLog.errorLog(102036598, "Pfad zu lang: " + pathName[0]);
                 pathName[0] = getHomePath();
             }
+
             if ((pathName[0].length() + pathName[1].length()) > WIN_MAX_PATH_LENGTH) {
                 PLog.errorLog(902367369, "Name zu lang: " + pathName[0]);
                 final int maxNameL = WIN_MAX_PATH_LENGTH - pathName[0].length();
                 pathName[1] = cutName(pathName[1], maxNameL);
             }
+
         } else // für X-Systeme
             if ((pathName[1].length()) > X_MAX_NAME_LENGTH) {
                 PLog.errorLog(823012012, "Name zu lang: " + pathName[1]);
                 pathName[1] = cutName(pathName[1], X_MAX_NAME_LENGTH);
             }
+
         return pathName;
     }
 

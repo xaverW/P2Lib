@@ -30,7 +30,7 @@ import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
 public class PHyperlink extends Hyperlink {
-    private final String url;
+    private String url;
     private final StringProperty prog;
     private ImageView imageView = null;
     private final Stage stage;
@@ -59,6 +59,12 @@ public class PHyperlink extends Hyperlink {
         this.url = url;
         this.prog = null;
         init();
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+        super.setText(url);
+//        init();
     }
 
     private void init() {

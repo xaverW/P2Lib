@@ -111,7 +111,7 @@ public class ProgramTools {
                 return rb.getString(TOKEN_VERSION);
             }
         } catch (final Exception e) {
-            PLog.errorLog(134679898, e);
+            PLog.errorLog(936251478, e);
         }
         return "";
     }
@@ -125,7 +125,7 @@ public class ProgramTools {
                 return Integer.parseInt(rb.getString(TOKEN_VERSION));
             }
         } catch (final Exception e) {
-            PLog.errorLog(134679898, e);
+            PLog.errorLog(951203647, e);
         }
         return 0;
     }
@@ -139,7 +139,7 @@ public class ProgramTools {
                 return rb.getString(TOKEN_VERSION);
             }
         } catch (final Exception e) {
-            PLog.errorLog(134679898, e);
+            PLog.errorLog(987012549, e);
         }
         return "0";
     }

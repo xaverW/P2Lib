@@ -19,6 +19,7 @@ package de.p2tools.p2Lib.dialog;
 import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.PInit;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
+import de.p2tools.p2Lib.icon.GetIcon;
 import de.p2tools.p2Lib.tools.PException;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.application.Platform;
@@ -119,6 +120,7 @@ public class PDialog {
                 }
             });
 
+            GetIcon.addWindowP2Icon(stage);
             make();
 
             if (setOnlySize || sizeConfiguration == null) {
