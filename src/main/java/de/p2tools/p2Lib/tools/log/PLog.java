@@ -29,6 +29,7 @@ public class PLog {
     public static final String LILNE1 = "############################################################";
     public static final String LILNE2 = "============================================================";
     public static final String LILNE3 = "------------------------------------------------------------";
+    public static final String LILNE_EMPTY = "  ";
 
     static final long TO_MEGABYTE = 1000L * 1000L;
     public static final Instant START_TIME = Instant.now();

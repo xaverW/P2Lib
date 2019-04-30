@@ -16,6 +16,7 @@
 
 package de.p2tools.p2Lib.tools.log;
 
+import de.p2tools.p2Lib.PConst;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -87,7 +88,7 @@ public class UserMessage {
         if (text.size() > MAX_SIZE_1) {
             text.remove(0, MAX_SIZE_2);
         }
-        text.add(texte + System.getProperty("line.separator"));
+        text.add(texte + PConst.LINE_SEPARATOR);
     }
 
     public synchronized static String getText() {
