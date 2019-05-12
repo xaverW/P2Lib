@@ -43,6 +43,7 @@ public class PDialogFileChosser extends PAlert {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle(title);
         dialog.setHeaderText(header);
+        dialog.setResizable(true);
 
         dialog.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 

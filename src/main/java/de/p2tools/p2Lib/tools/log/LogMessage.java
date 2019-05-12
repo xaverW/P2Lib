@@ -124,7 +124,7 @@ public class LogMessage {
         list.add(PLog.LILNE2);
         list.add("  --> Beginn: " + formatter.format(PLog.START_TIME));
         list.add("  --> Fertig: " + formatter.format(Instant.now()));
-        list.add("  --> Dauer[Min]: " + (minute == 0 ? "<1" : minute));
+        list.add("  --> Dauer[min]: " + (minute == 0 ? "<1" : minute));
         list.add(PLog.LILNE2);
         list.add("");
         list.add("");
