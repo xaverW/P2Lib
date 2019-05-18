@@ -128,7 +128,7 @@ class BackupConfigFile {
         for (final Path p : path) {
             // teils geladene Reste entfernen
             PLog.sysLog(new String[]{"Versuch Backup zu laden:", p.toString()});
-            if (new LoadConfigFile(p, pDataListArr, pDataArr).readConfiguration()) {
+            if (new LoadConfig(p, pDataListArr, pDataArr).readConfiguration()) {
                 PLog.sysLog(new String[]{"Backup hat geklappt:", p.toString()});
                 ret = true;
                 break;

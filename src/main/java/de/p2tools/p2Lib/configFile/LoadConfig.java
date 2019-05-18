@@ -37,7 +37,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-class LoadConfigFile implements AutoCloseable {
+class LoadConfig implements AutoCloseable {
 
     private XMLInputFactory inFactory;
     private final Path xmlFilePath;
@@ -50,7 +50,7 @@ class LoadConfigFile implements AutoCloseable {
      * @param configsListArrayDataList
      * @param pDataArr
      */
-    LoadConfigFile(Path filePath, ArrayList<PDataList> configsListArrayDataList, ArrayList<PData> pDataArr) {
+    LoadConfig(Path filePath, ArrayList<PDataList> configsListArrayDataList, ArrayList<PData> pDataArr) {
         this.xmlFilePath = filePath;
         this.pDataListArr = configsListArrayDataList;
         this.pDataArr = pDataArr;
@@ -63,7 +63,7 @@ class LoadConfigFile implements AutoCloseable {
      * @param filePath
      * @param pDataArr
      */
-    LoadConfigFile(Path filePath, ArrayList<PData> pDataArr) {
+    LoadConfig(Path filePath, ArrayList<PData> pDataArr) {
         this.xmlFilePath = filePath;
         this.pDataArr = pDataArr;
 
@@ -74,17 +74,52 @@ class LoadConfigFile implements AutoCloseable {
     /**
      * @return
      */
-    boolean readConfiguration() {
-        boolean ret = false;
+    boolean readConfiguration(InputStream inputStream) {
+        boolean ret;
 
-        if (!Files.exists(xmlFilePath)) {
-            return ret;
+        try {
+            InputStreamReader in = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+
+            ret = read(in);
+
+        } catch (final Exception ex) {
+            ret = false;
+            PLog.errorLog(732160795, ex);
         }
 
-        XMLStreamReader parser = null;
+        return ret;
+    }
+
+    /**
+     * @return
+     */
+    boolean readConfiguration() {
+        if (!Files.exists(xmlFilePath)) {
+            return false;
+        }
+
+        boolean ret = false;
         try (InputStream is = Files.newInputStream(xmlFilePath);
              InputStreamReader in = new InputStreamReader(is, StandardCharsets.UTF_8)) {
 
+            ret = read(in);
+
+        } catch (final Exception ex) {
+            ret = false;
+            PLog.errorLog(732160795, ex);
+        }
+
+        return ret;
+    }
+
+    /**
+     * @return
+     */
+    boolean read(InputStreamReader in) {
+        boolean ret = false;
+
+        XMLStreamReader parser = null;
+        try {
             parser = inFactory.createXMLStreamReader(in);
 
             nextTag:

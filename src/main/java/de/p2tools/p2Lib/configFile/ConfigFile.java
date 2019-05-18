@@ -19,19 +19,15 @@ package de.p2tools.p2Lib.configFile;
 
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
-import de.p2tools.p2Lib.tools.log.PLog;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class ConfigFile {
-    public static final int MAX_COPY_BACKUPFILE = 5; // Maximum number of backup files to be stored.
-
     private final Path configFile;
     private final ArrayList<PData> pData;
     private final ArrayList<PDataList> pDataList;
     private final String xmlStart;
-    private int maxCopyBackupfile = MAX_COPY_BACKUPFILE;
 
 
     public ConfigFile(String xmlStart, Path configFile) {
@@ -41,64 +37,71 @@ public class ConfigFile {
         this.pData = new ArrayList<>();
     }
 
-    public int getMaxCopyBackupfile() {
-        return maxCopyBackupfile;
+    public String getXmlStart() {
+        return xmlStart;
     }
 
-    public void setMaxCopyBackupfile(int maxCopyBackupfile) {
-        this.maxCopyBackupfile = maxCopyBackupfile;
-    }
-
-    public void addConfigs(PDataList configsData) {
-        pDataList.add(configsData);
+    public Path getConfigFile() {
+        return configFile;
     }
 
     public void addConfigs(PData pData) {
         this.pData.add(pData);
     }
 
-    public boolean writeConfigFile() {
-        boolean ret = false;
-        new BackupConfigFile(maxCopyBackupfile, configFile).configCopy();
-
-        SaveConfigFile saveConfigFile = new SaveConfigFile(xmlStart, configFile, pDataList, pData);
-        saveConfigFile.write();
-        return ret;
+    public ArrayList<PData> getpData() {
+        return pData;
     }
 
-    /**
-     * @return
-     */
-    public boolean readConfigFile() {
-
-        if (new LoadConfigFile(configFile, pDataList, pData).readConfiguration()) {
-            PLog.sysLog("Config geladen: " + configFile.toString());
-            return true;
-
-        } else if (new BackupConfigFile(maxCopyBackupfile, configFile).loadBackup(pDataList, pData)) {
-            PLog.sysLog("Config-Backup geladen: " + configFile.toString());
-            return true;
-        }
-
-        return false;
+    public void addConfigs(PDataList configsData) {
+        pDataList.add(configsData);
     }
 
-    /**
-     * @param pDataList
-     * @param pData
-     * @return
-     */
-    public boolean readConfigFile(ArrayList<PDataList> pDataList, ArrayList<PData> pData) {
-
-        if (new LoadConfigFile(configFile, pDataList, pData).readConfiguration()) {
-            PLog.sysLog("Config geladen: " + configFile.toString());
-            return true;
-
-        } else if (new BackupConfigFile(maxCopyBackupfile, configFile).loadBackup(pDataList, pData)) {
-            PLog.sysLog("Config-Backup geladen: " + configFile.toString());
-            return true;
-        }
-
-        return false;
+    public ArrayList<PDataList> getpDataList() {
+        return pDataList;
     }
+//    public boolean writeConfigFile() {
+//        boolean ret = false;
+//        new BackupConfigFile(maxCopyBackupfile, configFile).configCopy();
+//
+//        SaveConfig saveConfig = new SaveConfig(xmlStart, configFile, pDataList, pData);
+//        saveConfig.write();
+//        return ret;
+//    }
+//
+//    /**
+//     * @return
+//     */
+//    public boolean readConfigFile() {
+//
+//        if (new LoadConfig(configFile, pDataList, pData).readConfiguration()) {
+//            PLog.sysLog("Config geladen: " + configFile.toString());
+//            return true;
+//
+//        } else if (new BackupConfigFile(maxCopyBackupfile, configFile).loadBackup(pDataList, pData)) {
+//            PLog.sysLog("Config-Backup geladen: " + configFile.toString());
+//            return true;
+//        }
+//
+//        return false;
+//    }
+
+//    /**
+//     * @param pDataList
+//     * @param pData
+//     * @return
+//     */
+//    public boolean readConfigFile(ArrayList<PDataList> pDataList, ArrayList<PData> pData) {
+//
+//        if (new LoadConfig(configFile, pDataList, pData).readConfiguration()) {
+//            PLog.sysLog("Config geladen: " + configFile.toString());
+//            return true;
+//
+//        } else if (new BackupConfigFile(maxCopyBackupfile, configFile).loadBackup(pDataList, pData)) {
+//            PLog.sysLog("Config-Backup geladen: " + configFile.toString());
+//            return true;
+//        }
+//
+//        return false;
+//    }
 }

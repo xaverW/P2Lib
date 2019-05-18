@@ -76,7 +76,7 @@ public class PAlert extends PAlertWorker {
     public static BUTTON showAlert_yes_no_cancel(Stage stage, String title, String header, String content, boolean noBtn,
                                                  String yesButton, String noButton) {
 
-        return showAlert_yes_no_cancel(stage, title, header, content, noBtn,
+        return alert_yes_no_cancel(stage, title, header, content, noBtn,
                 yesButton, noButton);
     }
 
