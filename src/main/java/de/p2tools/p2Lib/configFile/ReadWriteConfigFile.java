@@ -54,6 +54,121 @@ public class ReadWriteConfigFile {
 
 
     /**
+     * read the configfile
+     *
+     * @param configFileZip
+     * @return
+     */
+    public boolean readConfigFileZip(Path configFileZip) {
+        return readConfigFileZip(configFileZip, "", "");
+
+    }
+
+    /**
+     * read the configfile and show the text if config is faulty
+     *
+     * @param configFileZip
+     * @param backupText
+     * @return
+     */
+    public boolean readConfigFileZip(Path configFileZip, String backupHeader, String backupText) {
+        if (readFileZip(configFileZip)) {
+            return true;
+        }
+
+
+        ArrayList<Path> pathList = new BackupConfigFile(maxCopyBackupfile, configFileZip).loadBackup(backupHeader, backupText);
+        if (pathList == null) {
+            // dann gibts keine Backups
+            return false;
+        }
+
+        for (Path p : pathList) {
+            if (readFileZip(p)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean readFileZip(Path configFileZip) {
+        boolean ret = true;
+
+        try {
+            ZipFile zipFile = new ZipFile(configFileZip.toFile());
+            Enumeration<? extends ZipEntry> entries = zipFile.entries();
+
+            while (entries.hasMoreElements()) {
+                ZipEntry entry = entries.nextElement();
+                InputStream stream = zipFile.getInputStream(entry);
+
+                for (ConfigFile cf : cFileList) {
+
+                    String cfFileName = cf.getConfigFile().getFileName() + "";
+                    String zipFileName = entry.getName();
+                    if (!cfFileName.equals(zipFileName)) {
+                        continue;
+                    }
+
+                    if (!new LoadConfig(cf.getConfigFile(), cf.getpDataList(), cf.getpData()).readConfiguration(stream)) {
+                        ret = false;
+                    }
+                    cFileList.remove(cf);
+                    break;
+                }
+            }
+
+        } catch (IOException ex) {
+            PLog.errorLog(821354180, ex, "readConfigFileZip");
+            ret = false;
+        }
+
+        return ret;
+    }
+
+
+    public boolean readConfigFile() {
+        return readConfigFile("", "");
+    }
+
+    public boolean readConfigFile(String backupHeader, String backupText) {
+        boolean ret = true;
+
+        for (ConfigFile cf : cFileList) {
+            if (!readFile(cf, backupHeader, backupText)) {
+                ret = false;
+            }
+        }
+
+        return ret;
+    }
+
+    private boolean readFile(ConfigFile cf, String backupHeader, String backupText) {
+        // todo-> kann zu unterschiedlichen Versionsständen kommen!
+        if (new LoadConfig(cf.getConfigFile(), cf.getpDataList(), cf.getpData()).readConfiguration()) {
+            PLog.sysLog("Config geladen: " + cf.getConfigFile().toString());
+            return true;
+        }
+
+        ArrayList<Path> pathList = new BackupConfigFile(maxCopyBackupfile, cf.getConfigFile()).
+                loadBackup(backupHeader, backupText);
+        if (pathList == null) {
+            // dann gibts keine Backups
+            return false;
+        }
+
+        for (Path p : pathList) {
+            if (new LoadConfig(p, cf.getpDataList(), cf.getpData()).readConfiguration()) {
+                PLog.sysLog("Config aus Backup geladen: " + cf.getConfigFile().toString());
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * write config zip-file, all configs in one zip-file, named by configFileZip
      *
      * @return
@@ -102,73 +217,4 @@ public class ReadWriteConfigFile {
         return ret;
     }
 
-
-    /**
-     * @return
-     */
-    public boolean readConfigFileZip(Path configFileZip) {
-        boolean ret = true;
-
-        try {
-            ZipFile zipFile = new ZipFile(configFileZip.toFile());
-            Enumeration<? extends ZipEntry> entries = zipFile.entries();
-
-            while (entries.hasMoreElements()) {
-                ZipEntry entry = entries.nextElement();
-                InputStream stream = zipFile.getInputStream(entry);
-
-                for (ConfigFile cf : cFileList) {
-
-                    String cfFileName = cf.getConfigFile().getFileName() + "";
-                    String zipFileName = entry.getName();
-                    if (!cfFileName.equals(zipFileName)) {
-                        continue;
-                    }
-
-                    ret = readFileZip(cf, stream);
-                    cFileList.remove(cf);
-                    break;
-                }
-            }
-
-        } catch (IOException ex) {
-            PLog.errorLog(987451203, ex, "readConfigFileZip");
-        }
-
-        return ret;
-    }
-
-    private boolean readFileZip(ConfigFile cf, InputStream stream) {
-        boolean ret = true;
-
-        if (new LoadConfig(cf.getConfigFile(), cf.getpDataList(), cf.getpData()).readConfiguration(stream)) {
-            PLog.sysLog("Config geladen: " + cf.getConfigFile().toString());
-
-        } else if (new BackupConfigFile(maxCopyBackupfile, cf.getConfigFile()).loadBackup(cf.getpDataList(), cf.getpData())) {
-            PLog.sysLog("Config-Backup geladen: " + cf.getConfigFile().toString());
-
-        } else {
-            ret = false;
-        }
-
-        return ret;
-    }
-
-    public boolean readConfigFile() {
-        boolean ret = true;
-
-        for (ConfigFile cf : cFileList) {
-
-            if (new LoadConfig(cf.getConfigFile(), cf.getpDataList(), cf.getpData()).readConfiguration()) {
-                PLog.sysLog("Config geladen: " + cf.getConfigFile().toString());
-            } else if (new BackupConfigFile(maxCopyBackupfile, cf.getConfigFile()).loadBackup(cf.getpDataList(), cf.getpData())) {
-                PLog.sysLog("Config-Backup geladen: " + cf.getConfigFile().toString());
-            } else {
-                ret = false;
-            }
-
-        }
-
-        return ret;
-    }
 }

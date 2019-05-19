@@ -19,8 +19,6 @@ package de.p2tools.p2Lib.configFile;
 
 import de.p2tools.p2Lib.PConst;
 import de.p2tools.p2Lib.alert.PAlert;
-import de.p2tools.p2Lib.configFile.pData.PData;
-import de.p2tools.p2Lib.configFile.pData.PDataList;
 import de.p2tools.p2Lib.dialog.PDialogFileChosser;
 import de.p2tools.p2Lib.tools.log.PLog;
 
@@ -98,14 +96,18 @@ class BackupConfigFile {
         PLog.sysLog(list);
     }
 
-    boolean loadBackup(ArrayList<PDataList> pDataListArr, ArrayList<PData> pDataArr) {
+    ArrayList<Path> loadBackup() {
+        return loadBackup("", "");
+    }
+
+    ArrayList<Path> loadBackup(String header, String text) {
 
         boolean ret = false;
-        final ArrayList<Path> path = new ArrayList<>();
-        getXmlCopyFilePath(path);
-        if (path.isEmpty()) {
+        final ArrayList<Path> pathList = new ArrayList<>();
+        getXmlCopyFilePath(pathList);
+        if (pathList.isEmpty()) {
             PLog.sysLog("Es gibt kein Backup");
-            return false;
+            return null;
         }
 
         // dann gibts ein Backup
@@ -113,29 +115,32 @@ class BackupConfigFile {
 
 
         if (PAlert.BUTTON.YES != new PDialogFileChosser().showAlert_yes_no("Gesicherte Einstellungen laden?",
-                "Die Einstellungen sind beschädigt" + PConst.LINE_SEPARATOR +
-                        "und können nicht geladen werden.",
-                "Soll versucht werden, mit gesicherten" + PConst.LINE_SEPARATOR
-                        + "Einstellungen zu starten?" + PConst.LINE_SEPARATORx2
-                        + "(ansonsten startet das Programm mit" + PConst.LINE_SEPARATOR
-                        + "Standardeinstellungen)")) {
+
+                header.isEmpty() ? "Die Einstellungen sind beschädigt" + PConst.LINE_SEPARATOR +
+                        "und können nicht geladen werden." : header,
+
+                text.isEmpty() ?
+                        "Soll versucht werden, mit gesicherten" + PConst.LINE_SEPARATOR
+                                + "Einstellungen zu starten?" + PConst.LINE_SEPARATORx2
+                                + "(ansonsten startet das Programm mit" + PConst.LINE_SEPARATOR
+                                + "Standardeinstellungen)" : text)) {
 
             PLog.sysLog("User will kein Backup laden.");
-            return false;
+            return null;
         }
 
-
-        for (final Path p : path) {
-            // teils geladene Reste entfernen
-            PLog.sysLog(new String[]{"Versuch Backup zu laden:", p.toString()});
-            if (new LoadConfig(p, pDataListArr, pDataArr).readConfiguration()) {
-                PLog.sysLog(new String[]{"Backup hat geklappt:", p.toString()});
-                ret = true;
-                break;
-            }
-        }
-
-        return ret;
+        return pathList;
+//        for (final Path p : pathList) {
+//            // teils geladene Reste entfernen
+//            PLog.sysLog(new String[]{"Versuch Backup zu laden:", p.toString()});
+//            if (new LoadConfig(p, pDataListArr, pDataArr).readConfiguration()) {
+//                PLog.sysLog(new String[]{"Backup hat geklappt:", p.toString()});
+//                ret = true;
+//                break;
+//            }
+//        }
+//
+//        return ret;
     }
 
     /**

@@ -39,9 +39,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-class SaveConfig implements AutoCloseable {
+class SaveConfig {
 
-    private OutputStream outputStream = null;
+    //    private OutputStream outputStream = null;
     private OutputStreamWriter outputStreamWriter = null;
     private XMLStreamWriter xmlStreamWriter = null;
     private Path xmlFilePath;
@@ -57,18 +57,12 @@ class SaveConfig implements AutoCloseable {
         this.pData = pData;
     }
 
-//    synchronized void write() {
-//        PLog.sysLog("ProgData Schreiben nach: " + xmlFilePath.toString());
-//        xmlDataWrite();
-//    }
-
     synchronized boolean write(OutputStream outputStream) {
-        boolean ret = false;
+        boolean ret;
         PLog.sysLog("ProgData Schreiben nach: " + outputStream.toString());
-        this.outputStream = outputStream;
 
         try {
-            xmlWriteStart();
+            xmlWriteStart(outputStream);
             xmlDataWrite();
             xmlWriteEnd();
 
@@ -82,17 +76,15 @@ class SaveConfig implements AutoCloseable {
     }
 
     synchronized boolean write() {
-        boolean ret = false;
+        boolean ret;
         PLog.sysLog("ProgData Schreiben nach: " + xmlFilePath.toString());
 
-        try {
-            outputStream = Files.newOutputStream(xmlFilePath);
+        try (OutputStream outputStream = Files.newOutputStream(xmlFilePath)) {
 
-            xmlWriteStart();
+            xmlWriteStart(outputStream);
             xmlDataWrite();
             xmlWriteEnd();
 
-            outputStream.close();
             ret = true;
         } catch (final Exception ex) {
             PLog.errorLog(656328109, ex);
@@ -102,15 +94,9 @@ class SaveConfig implements AutoCloseable {
         return ret;
     }
 
-
-    private void xmlWriteStart() throws IOException, XMLStreamException {
+    private void xmlWriteStart(OutputStream outputStream) throws IOException, XMLStreamException {
         PLog.sysLog("Start Schreiben nach: " + xmlFilePath.toAbsolutePath());
         Files.createDirectories(xmlFilePath.getParent());
-
-//        if (outputStream == null) {
-//            // sonst ist einer vorgegeben
-//            outputStream = Files.newOutputStream(xmlFilePath);
-//        }
 
         outputStreamWriter = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
         final XMLOutputFactory outFactory = XMLOutputFactory.newInstance();
@@ -144,13 +130,6 @@ class SaveConfig implements AutoCloseable {
         xmlStreamWriter.writeEndDocument();
         xmlStreamWriter.flush();
         PLog.sysLog("geschrieben!");
-    }
-
-    @Override
-    public void close() throws IOException, XMLStreamException {
-        xmlStreamWriter.close();
-        outputStreamWriter.close();
-//        outputStream.close();
     }
 
 
