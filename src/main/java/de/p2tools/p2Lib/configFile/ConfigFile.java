@@ -60,48 +60,4 @@ public class ConfigFile {
     public ArrayList<PDataList> getpDataList() {
         return pDataList;
     }
-//    public boolean writeConfigFile() {
-//        boolean ret = false;
-//        new BackupConfigFile(maxCopyBackupfile, configFile).configCopy();
-//
-//        SaveConfig saveConfig = new SaveConfig(xmlStart, configFile, pDataList, pData);
-//        saveConfig.write();
-//        return ret;
-//    }
-//
-//    /**
-//     * @return
-//     */
-//    public boolean readConfigFile() {
-//
-//        if (new LoadConfig(configFile, pDataList, pData).readConfiguration()) {
-//            PLog.sysLog("Config geladen: " + configFile.toString());
-//            return true;
-//
-//        } else if (new BackupConfigFile(maxCopyBackupfile, configFile).loadBackup(pDataList, pData)) {
-//            PLog.sysLog("Config-Backup geladen: " + configFile.toString());
-//            return true;
-//        }
-//
-//        return false;
-//    }
-
-//    /**
-//     * @param pDataList
-//     * @param pData
-//     * @return
-//     */
-//    public boolean readConfigFile(ArrayList<PDataList> pDataList, ArrayList<PData> pData) {
-//
-//        if (new LoadConfig(configFile, pDataList, pData).readConfiguration()) {
-//            PLog.sysLog("Config geladen: " + configFile.toString());
-//            return true;
-//
-//        } else if (new BackupConfigFile(maxCopyBackupfile, configFile).loadBackup(pDataList, pData)) {
-//            PLog.sysLog("Config-Backup geladen: " + configFile.toString());
-//            return true;
-//        }
-//
-//        return false;
-//    }
 }

@@ -77,9 +77,9 @@ public class PDialogFileChosser extends PAlert {
         }
         btnDest.setOnAction(event -> {
             if (dir) {
-                DirFileChooser.DirChooser(stage, txtFile);
+                PDirFileChooser.DirChooser(stage, txtFile);
             } else {
-                DirFileChooser.FileChooser(stage, txtFile);
+                PDirFileChooser.FileChooser(stage, txtFile);
             }
         });
 

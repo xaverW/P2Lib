@@ -16,6 +16,7 @@
 
 package de.p2tools.p2Lib.dialog;
 
+import de.p2tools.p2Lib.tools.file.PFileName;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -27,7 +28,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class DirFileChooser {
+public class PDirFileChooser {
 
     public static String FileChooserSave(Stage stage, String initDirStr, String initFileStr) {
         String ret = "";
@@ -86,32 +87,53 @@ public class DirFileChooser {
     }
 
     public static String FileChooser(Stage stage, ComboBox<String> cbPath, String startDir) {
+        return FileChooser(stage, cbPath, startDir, "");
+    }
+
+    public static String FileChooser(Stage stage, ComboBox<String> cbPath, String startDir, String relPath) {
         String ret = "";
-
         final FileChooser fileChooser = new FileChooser();
-        File initDir = new File(System.getProperty("user.home"));
 
-        Path path;
-        if (cbPath.getSelectionModel().getSelectedItem() != null &&
-                !cbPath.getSelectionModel().getSelectedItem().isEmpty()) {
-            path = Paths.get(cbPath.getSelectionModel().getSelectedItem());
+        File initDir;
+        if (!startDir.isEmpty()) {
+            initDir = new File(startDir);
+
         } else {
-            path = Paths.get(startDir);
-        }
+            Path path = null;
+            if (cbPath.getSelectionModel().getSelectedItem() != null &&
+                    !cbPath.getSelectionModel().getSelectedItem().isEmpty()) {
 
-        if (path.toFile().exists() && path.toFile().isDirectory()) {
-            initDir = path.toFile();
+                path = Paths.get(cbPath.getSelectionModel().getSelectedItem());
+            }
 
-        } else if (path.getParent() != null &&
-                path.getParent().toFile().exists() && path.getParent().toFile().isDirectory()) {
-            initDir = path.getParent().toFile();
+            if (path != null &&
+                    path.toFile().exists() &&
+                    path.toFile().isDirectory()) {
+
+                initDir = path.toFile();
+
+            } else if (path != null &&
+                    path.getParent() != null &&
+                    path.getParent().toFile().exists() &&
+                    path.getParent().toFile().isDirectory()) {
+
+                initDir = path.getParent().toFile();
+
+            } else {
+                initDir = new File(System.getProperty("user.home"));
+            }
         }
 
         fileChooser.setInitialDirectory(initDir);
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
             try {
-                ret = selectedFile.getAbsolutePath();
+                if (relPath.isEmpty()) {
+                    ret = selectedFile.getAbsolutePath();
+                } else {
+                    ret = PFileName.getFilenameRelative(selectedFile, relPath);
+                }
+
                 if (!cbPath.getItems().contains(ret)) {
                     cbPath.getItems().add(ret);
                 }

@@ -20,6 +20,7 @@ package de.p2tools.p2Lib.tools.file;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,7 +31,7 @@ public class PFileName {
     private static final FastDateFormat FORMATTER_ddMMyyyyHHmmss = FastDateFormat.getInstance(STR + "yyyyMMdd_HHmmss");
     private static final FastDateFormat FORMATTER_ddMMyyyy = FastDateFormat.getInstance(STR + "yyyyMMdd");
 
-    public static String getNextFileNameWithNr(String path, String selName, String suff) {
+    public static String getNextFileNameWithNo(String path, String selName, String suff) {
         String ret;
 
         Path dir = Paths.get(path);
@@ -55,33 +56,6 @@ public class PFileName {
         ret = baseDirectoryPath.getFileName().toString();
         return ret;
     }
-
-
-    //    public static String getNextFileName(String path, String selName, String suff) {
-//        String ret;
-//
-//        Path dir = Paths.get(path);
-//        if (!Files.exists(dir)) {
-//            return selName;
-//        }
-//
-//        String name = getName(selName, suff);
-//        Path baseDirectoryPath = Paths.get(path, name);
-//        int nr = 1;
-//
-//        while (Files.exists(baseDirectoryPath)) {
-//            name = getName(selName + "_" + nr++, suff);
-//            baseDirectoryPath = Paths.get(path, name);
-//        }
-//
-//        ret = baseDirectoryPath.getFileName().toString();
-//        return ret;
-//    }
-
-    //    private static String getName(String name, String suff) {
-//        return name + "." + suff;
-//    }
-
 
     public static String getNextFileNameWithDate(String name, String suffix) {
         return getNextFileNameWithDate("", name, suffix);
@@ -133,7 +107,7 @@ public class PFileName {
         }
 
         if (!path.isEmpty()) {
-            ret = getNextFileNameWithNr(path, ret, dotSuffix);
+            ret = getNextFileNameWithNo(path, ret, dotSuffix);
         } else {
             ret = ret + dotSuffix;
         }
@@ -152,7 +126,7 @@ public class PFileName {
             Path p = Paths.get(path, name);
             if (Files.exists(p)) {
                 final String n = FilenameUtils.removeExtension(removeCounter(name));
-                return getNextFileNameWithNr(path, n, dotSuffix);
+                return getNextFileNameWithNo(path, n, dotSuffix);
             }
         }
 
@@ -188,5 +162,21 @@ public class PFileName {
         }
 
         return "";
+    }
+
+    public static String getFilenameRelative(File file, String relative) {
+        if (file == null) {
+            return "";
+        }
+
+        String rel = file.toString();
+        if (rel.startsWith(relative)) {
+            rel = rel.replaceFirst(relative, "");
+        }
+
+        if (rel.startsWith(File.separator)) {
+            rel = rel.replaceFirst(File.separator, "");
+        }
+        return rel;
     }
 }

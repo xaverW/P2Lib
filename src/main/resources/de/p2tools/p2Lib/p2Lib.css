@@ -36,6 +36,16 @@
     -fx-border-radius: 5 0 0 5;
     -fx-background-radius: 5 0 0 5;
 }
+/*
+.PFilterComboBoxObject .combo-box .combo-box-popup .list-view{
+    -fx-border-radius: 0 0 5 5;
+    -fx-background-radius: 0 0 5 5;
+}
+.PFilterComboBoxObject .combo-box .combo-box-popup .list-cell{
+    -fx-border-radius: 0 0 15 15;
+    -fx-background-radius: 0 0 15 15;
+}
+*/
 
 .PDatePropertyPicker > * {
     -fx-border-radius: 2;
