@@ -44,21 +44,21 @@ public class PDialog {
     private final boolean modal;
     private final boolean setOnlySize;
     private final String title;
-    private final Stage owner;
+    private final Stage ownerForCenteringDialog;
 
     private double stageWidth = 0;
     private double stageHeight = 0;
 
-    public PDialog(Stage owner, StringProperty sizeConfiguration, String title, boolean modal, boolean setOnlySize) {
-        this.owner = owner;
+    public PDialog(Stage ownerForCenteringDialog, StringProperty sizeConfiguration, String title, boolean modal, boolean setOnlySize) {
+        this.ownerForCenteringDialog = ownerForCenteringDialog;
         this.sizeConfiguration = sizeConfiguration;
         this.modal = modal;
         this.title = title;
         this.setOnlySize = setOnlySize;
     }
 
-    public PDialog(Stage owner, StringProperty sizeConfiguration, String title, boolean modal) {
-        this.owner = owner;
+    public PDialog(Stage ownerForCenteringDialog, StringProperty sizeConfiguration, String title, boolean modal) {
+        this.ownerForCenteringDialog = ownerForCenteringDialog;
         this.sizeConfiguration = sizeConfiguration;
         this.modal = modal;
         this.title = title;
@@ -66,7 +66,7 @@ public class PDialog {
     }
 
     public PDialog(StringProperty sizeConfiguration, String title, boolean modal) {
-        this.owner = PConst.primaryStage;
+        this.ownerForCenteringDialog = PConst.primaryStage;
         this.sizeConfiguration = sizeConfiguration;
         this.modal = modal;
         this.title = title;
@@ -74,7 +74,7 @@ public class PDialog {
     }
 
     public PDialog(StringProperty sizeConfiguration, String title, boolean modal, boolean setOnlySize) {
-        this.owner = PConst.primaryStage;
+        this.ownerForCenteringDialog = PConst.primaryStage;
         this.sizeConfiguration = sizeConfiguration;
         this.modal = modal;
         this.title = title;
@@ -82,7 +82,7 @@ public class PDialog {
     }
 
     public PDialog(String title, boolean modal) {
-        this.owner = PConst.primaryStage;
+        this.ownerForCenteringDialog = PConst.primaryStage;
         this.sizeConfiguration = null;
         this.modal = modal;
         this.title = title;
@@ -174,7 +174,7 @@ public class PDialog {
         }
 
         if (setOnlySize || sizeConfiguration == null || !PGuiSize.setPos(sizeConfiguration, stage)) {
-            if (owner == null) {
+            if (ownerForCenteringDialog == null) {
                 setInCenterOfScreen();
             } else {
                 setInFrontOfPrimaryStage();
@@ -190,14 +190,14 @@ public class PDialog {
 
     private void setInFrontOfPrimaryStage() {
         // vor Primär zentrieren
-        if (owner != null) {
+        if (ownerForCenteringDialog != null) {
             ChangeListener<Number> widthListener = (observable, oldValue, newValue) -> {
                 double stageWidth = newValue.doubleValue();
-                stage.setX(owner.getX() + owner.getWidth() / 2 - stageWidth / 2);
+                stage.setX(ownerForCenteringDialog.getX() + ownerForCenteringDialog.getWidth() / 2 - stageWidth / 2);
             };
             ChangeListener<Number> heightListener = (observable, oldValue, newValue) -> {
                 double stageHeight = newValue.doubleValue();
-                stage.setY(owner.getY() + owner.getHeight() / 2 - stageHeight / 2);
+                stage.setY(ownerForCenteringDialog.getY() + ownerForCenteringDialog.getHeight() / 2 - stageHeight / 2);
             };
 
             stage.widthProperty().addListener(widthListener);
@@ -242,7 +242,7 @@ public class PDialog {
         return stage.isShowing();
     }
 
-    public void make() {
+    protected void make() {
     }
 
 }

@@ -59,8 +59,8 @@ public class PComboBoxString extends ComboBox<String> {
     }
 
     public void init(ObservableList<String> dataList, StringProperty selValueStringProperty) {
-        this.selValueStringProperty = selValueStringProperty;
         this.itemsList = dataList;
+        this.selValueStringProperty = selValueStringProperty;
 
         selectElement(selValueStringProperty.getValueSafe());
         setCombo();
@@ -229,11 +229,11 @@ public class PComboBoxString extends ComboBox<String> {
     private ContextMenu getMenu() {
         final ContextMenu contextMenu = new ContextMenu();
 
-        MenuItem delEntries = new MenuItem("Einträge löschen");
+        MenuItem delEntries = new MenuItem("andere Einträge löschen");
         delEntries.setOnAction(a -> delList());
         contextMenu.getItems().addAll(delEntries);
 
-        MenuItem delAll = new MenuItem("Alles löschen");
+        MenuItem delAll = new MenuItem("alles löschen");
         delAll.setOnAction(a -> delAll());
         contextMenu.getItems().addAll(delAll);
         return contextMenu;

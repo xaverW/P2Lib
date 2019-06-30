@@ -60,6 +60,8 @@ public class PTextFieldLong extends TextField {
         setEditable(!stateLabel);
         if (stateLabel) {
             setStyle(PStyles.PTEXTFIELD_LABEL);
+        } else {
+            setStyle(null);
         }
     }
 

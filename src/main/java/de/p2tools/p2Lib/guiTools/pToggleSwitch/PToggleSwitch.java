@@ -24,6 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 
 public class PToggleSwitch extends HBox {
 
@@ -107,6 +108,14 @@ public class PToggleSwitch extends HBox {
         return checkBox.selectedProperty();
     }
 
+    public final BooleanProperty checkBoxDisableProperty() {
+        return checkBox.disableProperty();
+    }
+
+    public void setCheckBoxDisable(boolean value) {
+        checkBox.setDisable(value);
+    }
+
     public final void setSelected(boolean value) {
         selectedProperty().set(value);
     }
@@ -170,7 +179,11 @@ public class PToggleSwitch extends HBox {
 
     private void setCheckHgrow() {
         if (hGrow) {
+            lblLeft.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(lblLeft, Priority.ALWAYS);
+        } else {
+            HBox.setHgrow(lblLeft, Priority.NEVER);
+            lblLeft.setMaxWidth(Region.USE_COMPUTED_SIZE);
         }
     }
 }

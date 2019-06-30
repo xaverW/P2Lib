@@ -233,18 +233,25 @@ public class PDirFileChooser {
     }
 
     public static String DirChooser(Stage stage, ComboBox<String> cbPath) {
+        return DirChooser(stage, cbPath, "");
+    }
+
+    public static String DirChooser(Stage stage, ComboBox<String> cbPath, String startDir) {
         String ret = "";
         final DirectoryChooser directoryChooser = new DirectoryChooser();
-        File initFile = new File(System.getProperty("user.home"));
+        File initFile = startDir.isEmpty() ? new File(System.getProperty("user.home")) : new File(startDir);
 
+        // wenn in Combo schon was passendes steht dann mit dem vorbelegen
         if (cbPath.getSelectionModel().getSelectedItem() != null &&
                 !cbPath.getSelectionModel().getSelectedItem().isEmpty()) {
+
             File f = new File(cbPath.getSelectionModel().getSelectedItem());
             if (f.exists() && f.isDirectory()) {
                 initFile = new File(cbPath.getSelectionModel().getSelectedItem());
             }
         }
 
+        // und jetzt Dir auswählen und Combo damit vorbelegen
         directoryChooser.setInitialDirectory(initFile);
         File selectedDir = directoryChooser.showDialog(stage);
         if (selectedDir != null) {
@@ -259,6 +266,7 @@ public class PDirFileChooser {
                 PLog.errorLog(912365478, ex);
             }
         }
+
         return ret;
     }
 

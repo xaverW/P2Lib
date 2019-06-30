@@ -172,11 +172,11 @@ public class PFileName {
         String rel = file.toString();
         if (rel.startsWith(relative)) {
             rel = rel.replaceFirst(relative, "");
+            if (rel.startsWith(File.separator)) {
+                rel = rel.replaceFirst(File.separator, "");
+            }
         }
 
-        if (rel.startsWith(File.separator)) {
-            rel = rel.replaceFirst(File.separator, "");
-        }
         return rel;
     }
 }

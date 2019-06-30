@@ -39,18 +39,18 @@ public class PDialogExtra extends PDialog {
         initDialog();
     }
 
-    public PDialogExtra(Stage stage, String title) {
-        super(stage, null, title, true, true);
+    public PDialogExtra(Stage ownerForCenteringDialog, String title) {
+        super(ownerForCenteringDialog, null, title, true, true);
         initDialog();
     }
 
-    public PDialogExtra(Stage stage, StringProperty conf, String title) {
-        super(stage, conf, title, true, true);
+    public PDialogExtra(Stage ownerForCenteringDialog, StringProperty conf, String title) {
+        super(ownerForCenteringDialog, conf, title, true, true);
         initDialog();
     }
 
-    public PDialogExtra(Stage stage, StringProperty conf, String title, boolean modal, boolean setOnlySize) {
-        super(stage, conf, title, modal, setOnlySize);
+    public PDialogExtra(Stage ownerForCenteringDialog, StringProperty conf, String title, boolean modal, boolean setOnlySize) {
+        super(ownerForCenteringDialog, conf, title, modal, setOnlySize);
         initDialog();
     }
 

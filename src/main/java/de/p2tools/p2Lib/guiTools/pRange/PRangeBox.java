@@ -195,6 +195,14 @@ public class PRangeBox extends VBox {
             }
         });
 
+
+        // todo gibt Probleme wenn nur geklickt wird
+//        sliderMin.valueProperty().addListener((observable, oldValue, newValue) -> {
+//            setPropValue(minValue, (int) sliderMin.getValue());
+//            repairMaxValue();
+//        });
+
+
         // slider MAX
         sliderMax.setMin(MIN_VALUE + 1);
         sliderMax.setMax(MAX_VALUE);

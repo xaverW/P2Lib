@@ -64,7 +64,7 @@ public class ProgInfoDialog extends PDialogExtra {
 
 
     @Override
-    public void make() {
+    protected void make() {
         final String line = "<==/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\==>";
         btnOk.setOnAction(a -> close());
         btnGc.setOnAction(a -> System.gc());
