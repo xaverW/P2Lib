@@ -103,8 +103,8 @@ public class PTextFieldLong extends TextField {
         if (longProperty == null) {
             return;
         }
-
-        Bindings.bindBidirectional(textProperty(), longProperty, new PNumberStringConverter(this, stateLabel));
-
+        PNumberStringConverter pnu = new PNumberStringConverter(this, stateLabel);
+        Bindings.bindBidirectional(textProperty(), longProperty, pnu);
+        pnu.check(this.getText()); // damit "false" beim Wechsel wieder gelöscht wird
     }
 }

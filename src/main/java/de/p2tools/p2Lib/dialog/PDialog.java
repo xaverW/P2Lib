@@ -26,7 +26,6 @@ import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -39,6 +38,7 @@ import javafx.stage.Stage;
 public class PDialog {
     private Scene scene = null;
     private Stage stage = null;
+    private Pane pane = null;
 
     private final StringProperty sizeConfiguration;
     private final boolean modal;
@@ -94,6 +94,14 @@ public class PDialog {
         Platform.runLater(() -> init(pane, false));
     }
 
+    protected void setPane(Pane pane) {
+        this.pane = pane;
+    }
+
+    public void init(boolean show) {
+        init(pane, show);
+    }
+
     public void init(Pane pane, boolean show) {
         try {
             createNewScene(pane);
@@ -136,16 +144,16 @@ public class PDialog {
         }
     }
 
-    private void createNewScene(Parent parent) {
+    private void createNewScene(Pane pane) {
         if (sizeConfiguration == null) {
-            this.scene = new Scene(parent);
+            this.scene = new Scene(pane);
         } else {
             int w = PGuiSize.getWidth(sizeConfiguration);
             int h = PGuiSize.getHeight(sizeConfiguration);
             if (w > 0 && h > 0) {
-                this.scene = new Scene(parent, PGuiSize.getWidth(sizeConfiguration), PGuiSize.getHeight(sizeConfiguration));
+                this.scene = new Scene(pane, PGuiSize.getWidth(sizeConfiguration), PGuiSize.getHeight(sizeConfiguration));
             } else {
-                this.scene = new Scene(parent);
+                this.scene = new Scene(pane);
             }
         }
     }

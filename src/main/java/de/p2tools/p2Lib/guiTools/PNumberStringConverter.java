@@ -49,6 +49,34 @@ public class PNumberStringConverter extends NumberStringConverter {
 
     @Override
     public Number fromString(String value) {
+        return check(value);
+
+//        Number ret = 0;
+//        try {
+//            setNodeStyle(stateLabel ? PStyles.PTEXTFIELD_LABEL : "");
+//            if (value == null) {
+//                return null;
+//            }
+//
+//            value = value.trim();
+//
+//            if (value.length() < 1) {
+//                setNodeStyle("");
+//                return null;
+//            }
+//
+//            ret = numberFormat.parse(value);
+//
+//            if (!value.equals(ret + "")) {
+//                setNodeStyle(stateLabel ? PStyles.PTEXTFIELD_LABEL_ERROR : PStyles.PTEXTFIELD_ERROR);
+//            }
+//        } catch (ParseException ex) {
+//            setNodeStyle(stateLabel ? PStyles.PTEXTFIELD_LABEL_ERROR : PStyles.PTEXTFIELD_ERROR);
+//        }
+//        return ret;
+    }
+
+    public Number check(String value) {
         Number ret = 0;
         try {
             setNodeStyle(stateLabel ? PStyles.PTEXTFIELD_LABEL : "");
@@ -64,12 +92,14 @@ public class PNumberStringConverter extends NumberStringConverter {
             }
 
             ret = numberFormat.parse(value);
+
             if (!value.equals(ret + "")) {
                 setNodeStyle(stateLabel ? PStyles.PTEXTFIELD_LABEL_ERROR : PStyles.PTEXTFIELD_ERROR);
             }
         } catch (ParseException ex) {
             setNodeStyle(stateLabel ? PStyles.PTEXTFIELD_LABEL_ERROR : PStyles.PTEXTFIELD_ERROR);
         }
+
         return ret;
     }
 

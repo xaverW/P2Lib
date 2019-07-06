@@ -55,26 +55,29 @@ public class PDialogExtra extends PDialog {
     }
 
     private void initDialog() {
+        hBoxOk.setAlignment(Pos.CENTER_RIGHT);
+
         vBoxDialog.setSpacing(10);
         vBoxDialog.setPadding(new Insets(10));
+
+        VBox vBoxStyledBorder = new VBox();
+        vBoxStyledBorder.getStyleClass().add("dialog-border");
+        VBox.setVgrow(vBoxStyledBorder, Priority.ALWAYS);
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
+        VBox.setVgrow(scrollPane, Priority.ALWAYS);
 
         vboxCont.setPadding(new Insets(5));
         VBox.setVgrow(vboxCont, Priority.ALWAYS);
+
+
+        vBoxDialog.getChildren().addAll(vBoxStyledBorder, hBoxOk);
+        vBoxStyledBorder.getChildren().add(scrollPane);
         scrollPane.setContent(vboxCont);
 
-        hBoxOk.setAlignment(Pos.CENTER_RIGHT);
-
-        VBox vBox = new VBox();
-        vBox.getStyleClass().add("dialog-border");
-        VBox.setVgrow(scrollPane, Priority.ALWAYS);
-        vBox.getChildren().add(scrollPane);
-
-        VBox.setVgrow(vBox, Priority.ALWAYS);
-        vBoxDialog.getChildren().addAll(vBox, hBoxOk);
+        super.setPane(getvBoxDialog());
     }
 
     public void init(boolean show) {
@@ -97,8 +100,26 @@ public class PDialogExtra extends PDialog {
         this.vboxCont = vboxCont;
     }
 
+    public void setContPadding(int p) {
+        vboxCont.setPadding(new Insets(p));
+    }
+
     public HBox getHboxOk() {
         return hBoxOk;
+    }
+
+    public void addHlpOkButtons(Button btnHelp, Button... btnList) {
+        HBox hBox = new HBox();
+        HBox.setHgrow(hBox, Priority.ALWAYS);
+        getHboxOk().getChildren().addAll(btnHelp, hBox);
+
+        for (Button b : btnList) {
+            b.setMaxWidth(Double.MAX_VALUE);
+        }
+        TilePane tilePane = new TilePane(10, 10);
+        tilePane.setAlignment(Pos.CENTER_RIGHT);
+        tilePane.getChildren().addAll(btnList);
+        getHboxOk().getChildren().add(tilePane);
     }
 
     public void addOkButtons(Button... btnList) {
