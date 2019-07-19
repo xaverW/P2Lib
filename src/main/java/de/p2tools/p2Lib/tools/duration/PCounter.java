@@ -43,6 +43,10 @@ class PCounter implements Comparable<PCounter> {
     }
 
     long getAverage() {
+        if (count == 0) {
+            return 0L;
+        }
+
         final long average = duration.toMillis() / count;
         return average;
     }

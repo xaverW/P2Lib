@@ -25,7 +25,6 @@ import javafx.scene.control.TextField;
 public class ConfigStringPropExtra extends ConfigExtra {
 
     private StringProperty actValue;
-    private String name = "";
 
     public ConfigStringPropExtra(String key, String name, StringProperty actValue) {
         super(key, name);
