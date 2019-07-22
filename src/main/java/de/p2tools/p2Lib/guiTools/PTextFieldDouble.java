@@ -28,12 +28,17 @@ import java.text.ParseException;
 import java.util.Locale;
 
 public class PTextFieldDouble extends TextField {
-    DoubleProperty doubleProperty = null;
+    private static final Locale locale = Locale.GERMAN;
+    private static final NumberFormat NF;
+    private static final DecimalFormat DF;
 
+    static {
+        NF = NumberFormat.getNumberInstance(locale);
+        DF = new DecimalFormat("###,##0.00");
+    }
+
+    private DoubleProperty doubleProperty = null;
     private boolean stateLikeLabel = false;
-    private final Locale locale = Locale.GERMAN;
-    private final NumberFormat nf = NumberFormat.getNumberInstance(locale);
-    private final DecimalFormat df = new DecimalFormat("###,##0.00");
 
     public PTextFieldDouble() {
         textProperty().addListener((observable, oldValue, newValue) -> setTextStyle(getText()));
@@ -85,7 +90,7 @@ public class PTextFieldDouble extends TextField {
 
 
     public void setText(Double text) {
-        this.setText(df.format(text));
+        this.setText(DF.format(text));
     }
 
 
@@ -115,7 +120,7 @@ public class PTextFieldDouble extends TextField {
                         return null;
                     }
 
-                    ret = nf.parse(value);
+                    ret = NF.parse(value);
                 } catch (ParseException ex) {
                 }
                 return ret;
@@ -140,7 +145,7 @@ public class PTextFieldDouble extends TextField {
         }
 
         try {
-            nf.parse(value.trim());
+            NF.parse(value.trim());
         } catch (ParseException ex) {
             setStyle(stateLikeLabel ? PStyles.PTEXTFIELD_LABEL_ERROR : PStyles.PTEXTFIELD_ERROR);
         }
