@@ -18,12 +18,18 @@
 package de.p2tools.p2Lib.guiTools;
 
 
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
 
+import java.text.NumberFormat;
 import java.util.HashSet;
 import java.util.List;
 
-public class PTableViewTools {
+public class PTableFactory {
 
     public static void invertSelection_(TableView tableView) {
         for (int i = 0; i < tableView.getItems().size(); ++i) {
@@ -56,5 +62,49 @@ public class PTableViewTools {
             tableView.getSelectionModel().select(sel);
         }
 
+    }
+
+    public static <S> void addAutoScroll(final TableView<S> view) {
+        if (view == null) {
+            throw new NullPointerException();
+        }
+        ObservableList<S> list = view.getItems();
+        list.addListener((ListChangeListener<S>) (c -> {
+            c.next();
+            final int size = view.getItems().size();
+            if (size > 0 && c.wasAdded()) {
+                S element = list.get(c.getFrom());
+
+                view.getSelectionModel().clearSelection();
+                view.scrollTo(element);
+                view.getSelectionModel().select(element);
+            }
+        }));
+    }
+
+    static NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+
+    public static class PCellMoney<A, V> extends TableCell<A, V> {
+
+
+        public PCellMoney() {
+            setAlignment(Pos.CENTER_RIGHT);
+            setPadding(new Insets(0, 5, 0, 0));
+        }
+
+        @Override
+        protected void updateItem(V value, boolean empty) {
+            super.updateItem(value, empty);
+            if (empty) {
+                setText(null);
+            } else {
+                if (value.getClass().equals(Long.class)) {
+                    double d = (Long) value;
+                    setText(currencyFormat.format(d / 100));
+                } else {
+                    setText(currencyFormat.format(value)); // todo
+                }
+            }
+        }
     }
 }

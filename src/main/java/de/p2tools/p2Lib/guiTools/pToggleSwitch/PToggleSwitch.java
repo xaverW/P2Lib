@@ -183,7 +183,7 @@ public class PToggleSwitch extends HBox {
             HBox.setHgrow(lblLeft, Priority.ALWAYS);
         } else {
             HBox.setHgrow(lblLeft, Priority.NEVER);
-            lblLeft.setMaxWidth(Region.USE_COMPUTED_SIZE);
+            lblLeft.setMaxWidth(Region.USE_PREF_SIZE);
         }
     }
 }
