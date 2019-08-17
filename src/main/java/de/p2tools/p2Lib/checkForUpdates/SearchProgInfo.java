@@ -46,7 +46,7 @@ public class SearchProgInfo {
     private ProgInfo progInfo = new ProgInfo();
     private String searchUrl = "";
     private int lastInfoNr;
-    ArrayList<Infos> newInfosList = new ArrayList<>(5);
+    private ArrayList<Infos> newInfosList = new ArrayList<>(5);
     boolean newVersion = false;
     boolean newInfo = false;
     BooleanProperty bPropShowUpdateInfo = null;

@@ -209,16 +209,21 @@ public class POpen {
             // den Systemeigenen Player starten
             Thread th = new Thread(() -> {
                 try {
-                    if (Desktop.isDesktopSupported()) {
-                        final Desktop d = Desktop.getDesktop();
-                        if (d.isSupported(Desktop.Action.BROWSE)) {
-                            d.browse(new URI(url));
-                        }
+                    if (Desktop.isDesktopSupported() &&
+                            Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+
+                        Desktop.getDesktop().browse(new URI(url));
+
+                    } else {
+                        Runtime runtime = Runtime.getRuntime();
+                        runtime.exec("xdg-open " + url);
                     }
+
                 } catch (Exception ex) {
                     Platform.runLater(() -> afterPlay(stage, TEXT.URL, prog, url, getProgIcon));
                 }
             });
+
             th.setName("openURL");
             th.start();
         }

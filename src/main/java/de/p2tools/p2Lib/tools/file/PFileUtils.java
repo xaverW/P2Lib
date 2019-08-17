@@ -239,6 +239,13 @@ public class PFileUtils {
                         "kann nicht gelöscht werden.");
                 return false;
             }
+            if (pathToCheck.toFile().exists()) {
+                // dann konnte die Datei nicht gelöscht werden
+                PAlert.showErrorAlert(stage, "Fehler",
+                        "Zieldatei existiert bereits!",
+                        "Die Zieldatei kann nicht überschrieben werden.");
+                return false;
+            }
         }
 
         return true;
