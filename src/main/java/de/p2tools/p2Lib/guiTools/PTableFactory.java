@@ -85,9 +85,15 @@ public class PTableFactory {
     static NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
 
     public static class PCellMoney<A, V> extends TableCell<A, V> {
-
+        boolean showNull = true;
 
         public PCellMoney() {
+            setAlignment(Pos.CENTER_RIGHT);
+            setPadding(new Insets(0, 5, 0, 0));
+        }
+
+        public PCellMoney(boolean showNull) {
+            this.showNull = showNull;
             setAlignment(Pos.CENTER_RIGHT);
             setPadding(new Insets(0, 5, 0, 0));
         }
@@ -100,7 +106,11 @@ public class PTableFactory {
             } else {
                 if (value.getClass().equals(Long.class)) {
                     double d = (Long) value;
-                    setText(currencyFormat.format(d / 100));
+                    if (!showNull && d == 0) {
+                        setText("");
+                    } else {
+                        setText(currencyFormat.format(d / 100));
+                    }
                 } else {
                     setText(currencyFormat.format(value)); // todo
                 }

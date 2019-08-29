@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 public class PButton {
 
     private static Image hlpImage = null;
+    public static final Image hlp = new Image(PButton.class.getResourceAsStream("button-help.png"));
 
     private PButton() {
     }
@@ -60,7 +61,7 @@ public class PButton {
         final Button btnHelp = new Button("");
         btnHelp.setTooltip(new Tooltip("Hilfe anzeigen."));
         if (hlpImage == null) {
-            btnHelp.setText("Hilfe");
+            btnHelp.setGraphic(new ImageView(hlp)); //neues ImageView!
         } else {
             btnHelp.setGraphic(new ImageView(hlpImage)); //neues ImageView!
         }
