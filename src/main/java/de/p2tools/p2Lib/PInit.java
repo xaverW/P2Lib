@@ -19,15 +19,39 @@ package de.p2tools.p2Lib;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Iterator;
+
 public class PInit {
 
     public static void initLib(Stage primaryStage, String progName, String cssFile, String userAgent, boolean debug, boolean duration) {
         PConst.primaryStage = primaryStage;
         PConst.progName = progName;
-        PConst.cssFile = cssFile;
+        PConst.cssFile.add(cssFile);
         PConst.userAgent = userAgent;
         PConst.debug = debug;
         PConst.duration = duration;
+    }
+
+    public static void addCssFile(String cssFile) {
+        boolean found = false;
+        for (String s : PConst.cssFile) {
+            if (s.equals(cssFile)) {
+                found = true;
+            }
+        }
+        if (!found) {
+            PConst.cssFile.add(cssFile);
+        }
+    }
+
+    public static void removeCssFile(String cssFile) {
+        Iterator<String> it = PConst.cssFile.listIterator();
+        while (it.hasNext()) {
+            String s = it.next();
+            if (s.equals(cssFile)) {
+                it.remove();
+            }
+        }
     }
 
     public static void setPrimaryStage(Stage primaryStage) {
@@ -37,6 +61,9 @@ public class PInit {
     public static void addP2LibCss(Scene scene) {
         scene.getStylesheets().addAll("de/p2tools/p2Lib/p2Lib.css");
         scene.getStylesheets().addAll("de/p2tools/p2Lib/pToggleSwitch.css");
-        scene.getStylesheets().addAll(PConst.cssFile);
+
+        for (String s : PConst.cssFile) {
+            scene.getStylesheets().addAll(s);
+        }
     }
 }

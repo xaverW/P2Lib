@@ -17,6 +17,7 @@
 package de.p2tools.p2Lib.dialog;
 
 import de.p2tools.p2Lib.PConst;
+import de.p2tools.p2Lib.PInit;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.application.Platform;
@@ -134,10 +135,6 @@ public class PDialogFxml {
 
     public void init(Pane pane, boolean show) {
         setSize(pane);
-        // todo ??
-        String css = this.getClass().getResource(PConst.cssFile).toExternalForm();
-        scene.getStylesheets().add(css);
-
         initDialog();
         if (show) {
             showDialog();
@@ -155,6 +152,7 @@ public class PDialogFxml {
                 setSize(root);
             }
 
+            PInit.addP2LibCss(scene);
             stage = new Stage();
             stage.setScene(scene);
             stage.setTitle(title);

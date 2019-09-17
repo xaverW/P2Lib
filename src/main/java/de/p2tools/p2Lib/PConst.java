@@ -18,10 +18,13 @@ package de.p2tools.p2Lib;
 
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PConst {
     public static Stage primaryStage = null;
     public static String progName = "P2Tools";
-    public static String cssFile = "";
+    public static List<String> cssFile = new ArrayList();
     public static String userAgent = "";
     public static String logfile = "P2Tools_%g.log";
     public static String logfile_0 = "P2Tools_0.log";
@@ -35,6 +38,6 @@ public class PConst {
     public static final String LINE_SEPARATORx3 = LINE_SEPARATOR + LINE_SEPARATOR + LINE_SEPARATOR;
     public static final String LINE_SEPARATORx4 = LINE_SEPARATOR + LINE_SEPARATOR + LINE_SEPARATOR + LINE_SEPARATOR;
 
-    public static final String CSS_BACKGROUND_COLOR_GREY = "-fx-background-color: #E0E0E0;";
-    public static final String CSS_COLOR_GREY = "#E0E0E0";
+    public static final String CSS_BACKGROUND_COLOR_GREY = "-fx-background-color: -fx-control-inner-background;";
+//    public static final String CSS_COLOR_GREY = "#E0E0E0";
 }
