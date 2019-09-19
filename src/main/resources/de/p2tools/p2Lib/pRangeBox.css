@@ -14,6 +14,11 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
+.pRangeButton {
+    -lin-grad-pRangeBox-1: linear-gradient(from 0% 0% to 100% 100%, #d6d6d6 50%, white 100%);
+    -rad-grad-pRangeBox-1: radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+    -pRangeBox-1: #9e9e9e;
+}
 
 .pRangeBox  * {
 }
@@ -22,32 +27,30 @@
 }
 
 .pRangeButton {
-    -fx-background-color: lightsteelblue,
-             linear-gradient(from 0% 0% to 100% 100%, #d6d6d6 20%, white 100%),
-             radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
-    -fx-background-insets: 0,1,1;
+    -fx-background-color: -pRangeBox-1; /*ist nur der kleine Rand um den Label*/
+    -fx-background-insets: 0;
     -fx-background-radius: 5;
-    -fx-padding: 2;
+    -fx-padding: 1;
 }
 
 .pRangeButton > .label {
     -fx-text-fill: -fx-text-base-color;
     -fx-background-color: #c3c4c4,
-        linear-gradient(from 0% 0% to 100% 100%, #d6d6d6 50%, white 100%),
-        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+        -lin-grad-pRangeBox-1,
+        -rad-grad-pRangeBox-1;
     -fx-background-insets: 0,1,1;
     -fx-background-radius: 5 0 0 5;
     -fx-padding: 5;
+    -fx-text-fill: black;
 }
 
 .pRangeButton > .arrow-button {
     -fx-background-color: #c3c4c4,
-        linear-gradient(from 0% 0% to 100% 100%, #d6d6d6 50%, white 100%),
-        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+        -lin-grad-pRangeBox-1,
+        -rad-grad-pRangeBox-1;
     -fx-background-insets: 0,1,1;
     -fx-background-radius: 0 5 5 0;
     -fx-padding: 0.5em 0.667em 0.5em 0.667em; /* 6 8 6 8 */
-    -fx-text-fill: red;
  }
 
 /*

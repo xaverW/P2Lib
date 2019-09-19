@@ -60,7 +60,11 @@ public class PInit {
 
     public static void addP2LibCss(Scene scene) {
         scene.getStylesheets().addAll("de/p2tools/p2Lib/p2Lib.css");
-        scene.getStylesheets().addAll("de/p2tools/p2Lib/pToggleSwitch.css");
+
+        scene.getStylesheets().add("de/p2tools/p2Lib/pCheckComboBox.css");
+        scene.getStylesheets().add("de/p2tools/p2Lib/pMaskerPane.css");
+        scene.getStylesheets().add("de/p2tools/p2Lib/pRangeBox.css");
+        scene.getStylesheets().add("de/p2tools/p2Lib/pToggleSwitch.css");
 
         for (String s : PConst.cssFile) {
             scene.getStylesheets().addAll(s);

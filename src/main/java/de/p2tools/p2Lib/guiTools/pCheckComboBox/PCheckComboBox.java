@@ -114,8 +114,8 @@ public class PCheckComboBox extends HBox {
         });
 
         getStyleClass().add("pCheckComboBox");
-        final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pCheckComboBox/pCheckComboBox.css";
-        getStylesheets().add(CSS_FILE);
+//        final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pCheckComboBox/pCheckComboBox.css";
+//        getStylesheets().add(CSS_FILE);
     }
 
 }

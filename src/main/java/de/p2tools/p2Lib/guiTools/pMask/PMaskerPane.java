@@ -45,8 +45,8 @@ public class PMaskerPane extends BorderPane {
         progressIndicator.getStyleClass().add("progressIndicator");
         vBoxIndicator.getStyleClass().add("vBoxIndicator");
         btnStop.getStyleClass().add("buttonStop");
-        final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pMask/pMaskerPane.css";
-        getStylesheets().add(CSS_FILE);
+//        final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pMask/pMaskerPane.css";
+//        getStylesheets().add(CSS_FILE);
 
         this.heightProperty().addListener((observable, oldValue, newValue) -> setSize());
         this.widthProperty().addListener((observable, oldValue, newValue) -> setSize());
