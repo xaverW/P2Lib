@@ -29,13 +29,18 @@ import javafx.stage.Stage;
 
 public class PDialogExtra extends PDialog {
 
-    private VBox vBoxDialog = new VBox();
-    private VBox vboxCont = new VBox();
-    private HBox hBoxOk = new HBox(10);
-
+    private VBox vBoxCompleteDialog = new VBox(); // ist der gesamte Dialog
+    private HBox hBoxTitle = new HBox(10); // ist den Bereich über dem Inhalt mit dem Titel
+    private VBox vboxCont = new VBox(); // ist der Inhalt des Dialogs
+    private HBox hBoxOk = new HBox(10); // ist die Zeile mit den Button
 
     public PDialogExtra(StringProperty conf, String title, boolean modal) {
         super(conf, title, modal);
+        initDialog();
+    }
+
+    public PDialogExtra(StringProperty conf, String title, boolean modal, boolean setOnlySize) {
+        super(conf, title, modal, setOnlySize);
         initDialog();
     }
 
@@ -54,14 +59,39 @@ public class PDialogExtra extends PDialog {
         initDialog();
     }
 
-    private void initDialog() {
-        hBoxOk.setAlignment(Pos.CENTER_RIGHT);
+    public void init(boolean show) {
+        super.init(vBoxCompleteDialog, show);
+    }
 
-        vBoxDialog.setSpacing(10);
-        vBoxDialog.setPadding(new Insets(10));
+    public VBox getVBoxCompleteDialog() {
+        return vBoxCompleteDialog;
+    }
+
+    public HBox getHBoxTitle() {
+        hBoxTitle.setVisible(true);
+        hBoxTitle.setManaged(true);
+        return hBoxTitle;
+    }
+
+    public VBox getVboxCont() {
+        return vboxCont;
+    }
+
+    public HBox getHboxOk() {
+        return hBoxOk;
+    }
+
+    private void initDialog() {
+        vBoxCompleteDialog.setSpacing(10);
+        vBoxCompleteDialog.setPadding(new Insets(10));
+
+        hBoxTitle.getStyleClass().add("dialog-title");
+        hBoxTitle.setVisible(false);
+        hBoxTitle.setManaged(false);
 
         VBox vBoxStyledBorder = new VBox();
         vBoxStyledBorder.getStyleClass().add("dialog-border");
+        vBoxStyledBorder.setSpacing(10);
         VBox.setVgrow(vBoxStyledBorder, Priority.ALWAYS);
 
         ScrollPane scrollPane = new ScrollPane();
@@ -72,41 +102,27 @@ public class PDialogExtra extends PDialog {
         vboxCont.setPadding(new Insets(5));
         VBox.setVgrow(vboxCont, Priority.ALWAYS);
 
+        hBoxOk.setAlignment(Pos.CENTER_RIGHT);
 
-        vBoxDialog.getChildren().addAll(vBoxStyledBorder, hBoxOk);
-        vBoxStyledBorder.getChildren().add(scrollPane);
         scrollPane.setContent(vboxCont);
-
-        super.setPane(getvBoxDialog());
+        vBoxStyledBorder.getChildren().addAll(hBoxTitle, scrollPane);
+        vBoxCompleteDialog.getChildren().addAll(vBoxStyledBorder, hBoxOk);
+        super.setPane(vBoxCompleteDialog);
     }
 
-    public void init(boolean show) {
-        super.init(getvBoxDialog(), show);
-    }
+//    public void setvBoxDialog(VBox vBoxDialog) {
 
-    public VBox getvBoxDialog() {
-        return vBoxDialog;
-    }
+//        this.vBoxDialog = vBoxDialog;
 
-    public void setvBoxDialog(VBox vBoxDialog) {
-        this.vBoxDialog = vBoxDialog;
-    }
+//    }
+//    public void setVboxCont(VBox vboxCont) {
+//        this.vboxCont = vboxCont;
 
-    public VBox getVboxCont() {
-        return vboxCont;
-    }
+//    }
 
-    public void setVboxCont(VBox vboxCont) {
-        this.vboxCont = vboxCont;
-    }
-
-    public void setContPadding(int p) {
-        vboxCont.setPadding(new Insets(p));
-    }
-
-    public HBox getHboxOk() {
-        return hBoxOk;
-    }
+//    public void setContPadding(int p) {
+//        vboxCont.setPadding(new Insets(p));
+//    }
 
     public void addHlpOkButtons(Button btnHelp, Button... btnList) {
         HBox hBox = new HBox();
@@ -129,8 +145,8 @@ public class PDialogExtra extends PDialog {
         TilePane tilePane = new TilePane(10, 10);
         tilePane.setAlignment(Pos.CENTER_RIGHT);
         tilePane.getChildren().addAll(btnList);
-        vBoxDialog.getChildren().remove(hBoxOk);
-        vBoxDialog.getChildren().add(tilePane);
+        vBoxCompleteDialog.getChildren().remove(hBoxOk);
+        vBoxCompleteDialog.getChildren().add(tilePane);
     }
 
 }

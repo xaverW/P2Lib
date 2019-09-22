@@ -292,9 +292,9 @@ public class PRangeBox extends VBox {
         if (minIntSlider == MIN_VALUE && maxIntSlider == MAX_VALUE) {
             text = valuePrefix + STR_ALLES;
         } else if (minIntSlider == MIN_VALUE) {
-            text = valuePrefix + "höchstens " + maxInt + unitSuffix;
+            text = valuePrefix + "max. " + maxInt + unitSuffix;
         } else if (maxIntSlider == MAX_VALUE) {
-            text = valuePrefix + "mindestens " + minInt + unitSuffix;
+            text = valuePrefix + "min. " + minInt + unitSuffix;
         } else {
             text = valuePrefix + "von " + minInt + " bis " + maxInt + unitSuffix;
         }

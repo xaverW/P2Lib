@@ -52,14 +52,14 @@ public class ProgInfoDialog extends PDialogExtra {
         super(null, "Speicherverbrauch des Programms", false);
 
         addOkButtons(btnGc, btnOk);
-        init(getvBoxDialog(), true);
+        init(getVBoxCompleteDialog(), true);
     }
 
     public ProgInfoDialog(boolean showDialog) {
         super(null, "Speicherverbrauch des Programms", false);
 
         addOkButtons(btnGc, btnOk);
-        init(getvBoxDialog(), showDialog);
+        init(getVBoxCompleteDialog(), showDialog);
     }
 
 
