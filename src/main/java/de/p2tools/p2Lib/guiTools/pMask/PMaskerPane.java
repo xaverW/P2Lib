@@ -30,7 +30,6 @@ import javafx.scene.layout.VBox;
 
 public class PMaskerPane extends BorderPane {
     private final ProgressIndicator progressIndicator = new ProgressIndicator();
-    // private final ProgressBar progressBar = new ProgressBar();
 
     private final VBox vBoxCont = new VBox();
     private final HBox vBoxIndicator = new HBox();
@@ -40,13 +39,11 @@ public class PMaskerPane extends BorderPane {
 
     public PMaskerPane() {
 
-        getStyleClass().add("pMaskerPane");
-        lblText.getStyleClass().add("textLabel");
-        progressIndicator.getStyleClass().add("progressIndicator");
-        vBoxIndicator.getStyleClass().add("vBoxIndicator");
-        btnStop.getStyleClass().add("buttonStop");
-//        final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pMask/pMaskerPane.css";
-//        getStylesheets().add(CSS_FILE);
+        getStyleClass().add("p2MaskerPane");
+        lblText.getStyleClass().add("p2MaskerTextLabel");
+        btnStop.getStyleClass().add("p2MaskerButtonStop");
+        progressIndicator.getStyleClass().add("p2MaskerProgressIndicator");
+        vBoxIndicator.getStyleClass().add("p2MaskerVBoxIndicator");
 
         this.heightProperty().addListener((observable, oldValue, newValue) -> setSize());
         this.widthProperty().addListener((observable, oldValue, newValue) -> setSize());
