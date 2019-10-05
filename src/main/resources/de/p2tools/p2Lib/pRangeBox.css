@@ -15,8 +15,8 @@
  */
 
 .pRangeButton {
-    -lin-grad-pRangeBox-1: linear-gradient(from 0% 0% to 100% 100%, #d6d6d6 50%, white 100%);
-    -rad-grad-pRangeBox-1: radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+    -lin-grad-pRangeBox-1: linear-gradient(to bottom, #EDEDED, #C6C6C6 100% );
+    -lin-grad-pRangeBox-2: linear-gradient(to bottom, #DDDDDD, #D6D6D6 100% );
     -pRangeBox-1: #9e9e9e;
 }
 
@@ -30,48 +30,47 @@
     -fx-background-color: -pRangeBox-1; /*ist nur der kleine Rand um den Label*/
     -fx-background-insets: 0;
     -fx-background-radius: 5;
+    -fx-border-radius: 5;
     -fx-padding: 1;
 }
 
 .pRangeButton > .label {
-    -fx-text-fill: -fx-text-base-color;
-    -fx-background-color: #c3c4c4,
-        -lin-grad-pRangeBox-1,
-        -rad-grad-pRangeBox-1;
-    -fx-background-insets: 0,1,1;
+    -fx-background-color: #c3c4c4, -lin-grad-pRangeBox-1;
+    -fx-background-insets: 0,0.8;
     -fx-background-radius: 5 0 0 5;
+    -fx-border-radius: 5 0 0 5;
     -fx-padding: 5;
+/*    -fx-text-fill: -fx-text-base-color;*/
     -fx-text-fill: black;
 }
 
 .pRangeButton > .arrow-button {
-    -fx-background-color: #c3c4c4,
-        -lin-grad-pRangeBox-1,
-        -rad-grad-pRangeBox-1;
-    -fx-background-insets: 0,1,1;
+    -fx-background-color: #c3c4c4, -lin-grad-pRangeBox-1;
+    -fx-background-insets: 0,0.8;
     -fx-background-radius: 0 5 5 0;
+    -fx-border-radius: 0 5 5 0;
     -fx-padding: 0.5em 0.667em 0.5em 0.667em; /* 6 8 6 8 */
  }
 
-/*
+.pRangeButton > .label:hover{
+    -fx-background-color: #3a3a3a, -lin-grad-pRangeBox-2;
+}
+.pRangeButton > .arrow-button:hover{
+    -fx-background-color: -lin-grad-1, -lin-grad-pRangeBox-2;
+}
 
- .pRangeButton:focused {
-     -fx-background-color: -fx-focus-color;
-     -fx-background-insets: -0.2;
-     -fx-background-radius: 3;
- }
+.pRangeButton:focused {
+    -fx-background-color: -fx-focus-color;
+    -fx-background-insets: -0.4;
+    -fx-background-radius: 5;
+}
+.pRangeButton:focused > .arrow-button {
+    -fx-background-color: -fx-inner-border, -fx-body-color, -fx-faint-focus-color, -fx-body-color;
+    -fx-background-insets: 1, 2, -1.4, 2.6;
+    -fx-background-radius: 0 2 2 0, 0 1 1 0, 0 4 4 0, 0;
+}
 
- .pRangeButton:focused > .label {
-     -fx-background-color: -fx-inner-border, -fx-body-color, -fx-faint-focus-color, -fx-body-color;
-     -fx-background-insets: 1 0 1 1, 2 1 2 2, -1.4 0 -1.4 -1.4, 2.6 1.6 2.6 2.6;
-     -fx-background-radius: 2 0 0 2, 1 0 0 1, 4 0 0 4, 0;
- }
-
- .pRangeButton:focused > .arrow-button {
-     -fx-background-color: -fx-inner-border, -fx-body-color, -fx-faint-focus-color, -fx-body-color;
-     -fx-background-insets: 1, 2, -1.4, 2.6;
-     -fx-background-radius: 0 2 2 0, 0 1 1 0, 0 4 4 0, 0;
- }
-
- */
-
+.pRangeButton > .label:hover,
+.pRangeButton > .arrow-button:hover{
+    -fx-color: -fx-hover-base;
+}

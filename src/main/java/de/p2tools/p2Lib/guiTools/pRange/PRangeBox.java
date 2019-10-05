@@ -173,8 +173,6 @@ public class PRangeBox extends VBox {
 
         menuButton.getStyleClass().add("pRangeButton");
         getStyleClass().add("pRangeBox");
-//        final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pRange/pRangeBox.css";
-//        getStylesheets().add(CSS_FILE);
     }
 
     private void initSlider() {
