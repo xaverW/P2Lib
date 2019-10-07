@@ -19,8 +19,6 @@ package de.p2tools.p2Lib;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.Iterator;
-
 public class PInit {
 
     public static void initLib(Stage primaryStage, String progName, String cssFile, String userAgent, boolean debug, boolean duration) {
@@ -45,13 +43,7 @@ public class PInit {
     }
 
     public static void removeCssFile(String cssFile) {
-        Iterator<String> it = PConst.cssFile.listIterator();
-        while (it.hasNext()) {
-            String s = it.next();
-            if (s.equals(cssFile)) {
-                it.remove();
-            }
-        }
+        PConst.cssFile.removeIf(cssF -> cssF.equals(cssFile));
     }
 
     public static void setPrimaryStage(Stage primaryStage) {
@@ -61,9 +53,9 @@ public class PInit {
     public static void addP2LibCss(Scene scene) {
         scene.getStylesheets().addAll("de/p2tools/p2Lib/p2Lib.css");
 
-        scene.getStylesheets().add("de/p2tools/p2Lib/pCheckComboBox.css");
+//        scene.getStylesheets().add("de/p2tools/p2Lib/pCheckComboBox.css");
+//        scene.getStylesheets().add("de/p2tools/p2Lib/pRangeBox.css");
         scene.getStylesheets().add("de/p2tools/p2Lib/pMaskerPane.css");
-        scene.getStylesheets().add("de/p2tools/p2Lib/pRangeBox.css");
         scene.getStylesheets().add("de/p2tools/p2Lib/pToggleSwitch.css");
 
         for (String s : PConst.cssFile) {

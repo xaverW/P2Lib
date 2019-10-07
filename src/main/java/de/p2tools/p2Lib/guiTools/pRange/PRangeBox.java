@@ -171,8 +171,8 @@ public class PRangeBox extends VBox {
         cmi.setHideOnClick(false);
         menuButton.getItems().add(cmi);
 
-        menuButton.getStyleClass().add("pRangeButton");
-        getStyleClass().add("pRangeBox");
+//        menuButton.getStyleClass().add("pRangeButton");
+//        getStyleClass().add("pRangeBox");
     }
 
     private void initSlider() {

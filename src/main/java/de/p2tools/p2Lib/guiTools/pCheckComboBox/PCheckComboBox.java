@@ -22,8 +22,6 @@ import de.p2tools.p2Lib.tools.PStringUtils;
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.SplitMenuButton;
@@ -75,23 +73,19 @@ public class PCheckComboBox extends HBox {
 
     private void addListener(CheckBox checkBox) {
         arrayList.add(checkBox);
-        checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            setTitle();
-        });
+        checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> setTitle());
     }
 
-    ArrayList<String> list = new ArrayList<>();
-
     private void setTitle() {
-        list.clear();
+        ArrayList<String> list = new ArrayList<>();
         arrayList.stream().filter(ch -> ch.isSelected()).forEach(ch -> list.add(ch.getText()));
         menuButton.setText(PStringUtils.appendList(list, ", "));
     }
 
     private void init() {
-        this.setAlignment(Pos.CENTER_LEFT);
-        this.setSpacing(10);
-        this.setPadding(new Insets(2));
+//        this.setAlignment(Pos.CENTER_LEFT);
+//        this.setSpacing(10);
+//        this.setPadding(new Insets(2));
 
         HBox.setHgrow(menuButton, Priority.ALWAYS);
         menuButton.setMaxWidth(Double.MAX_VALUE);
@@ -113,9 +107,7 @@ public class PCheckComboBox extends HBox {
             }
         });
 
-        getStyleClass().add("pCheckComboBox");
-//        final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pCheckComboBox/pCheckComboBox.css";
-//        getStylesheets().add(CSS_FILE);
+//        getStyleClass().add("pCheckComboBox");
     }
 
 }
