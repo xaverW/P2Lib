@@ -235,9 +235,12 @@ public class PRangeBox extends VBox {
         slider.setSnapToTicks(false);
         slider.setShowTickLabels(true);
 
-        slider.setLabelFormatter(new StringConverter<Double>() {
+        slider.setLabelFormatter(new StringConverter<>() {
             @Override
             public String toString(Double x) {
+                if (x == MIN_VALUE) return "alles";
+                if (x == MAX_VALUE) return "alles";
+
                 int i = x.intValue();
                 i = i * MIN_DIST;
                 return i + "";
