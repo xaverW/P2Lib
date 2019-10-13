@@ -163,16 +163,19 @@ public class PMaskerPane extends BorderPane {
     }
 
     private void setSize() {
-        double w = this.getWidth(), h = this.getHeight();
-        w = w / 3;
-        h = h / 3;
+        vBoxCont.setMinWidth(500);
+        vBoxCont.setMaxWidth(500);
 
-        if (w == 0 || h == 0) {
-            return;
-        }
-
-        vBoxCont.setMinWidth(w);
-        vBoxCont.setMaxWidth(w);
+//        double w = this.getWidth(), h = this.getHeight();
+//        w = w / 3;
+//        h = h / 3;
+//
+//        if (w == 0 || h == 0) {
+//            return;
+//        }
+//
+//        vBoxCont.setMinWidth(w);
+//        vBoxCont.setMaxWidth(w);
         vBoxCont.setAlignment(Pos.CENTER);
     }
 
