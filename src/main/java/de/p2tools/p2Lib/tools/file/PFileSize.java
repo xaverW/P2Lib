@@ -43,27 +43,50 @@ public class PFileSize implements Comparable<PFileSize> {
         convertToStr();
     }
 
-    private void convertToStr() {
+    public static String convertToStr(long sizeL) {
         if (sizeL <= 0) {
-            sizeStr = "";
-            return;
+            return "";
         }
 
         if (sizeL < KBYTE) {
-            sizeStr = sizeL + " B";
+            return sizeL + " B";
 
         } else if (sizeL < MBYTE) {
             double size = 1.0 * sizeL / KBYTE;
-            sizeStr = formatter.format(size) + " kB";
+            return formatter.format(size) + " kB";
 
         } else if (sizeL < GBYTE) {
             double size = 1.0 * sizeL / MBYTE;
-            sizeStr = formatter.format(size) + " MB";
+            return formatter.format(size) + " MB";
 
         } else {
             double size = 1.0 * sizeL / GBYTE;
-            sizeStr = formatter.format(size) + " GB";
+            return formatter.format(size) + " GB";
         }
+    }
+
+    private void convertToStr() {
+        sizeStr = convertToStr(sizeL);
+//        if (sizeL <= 0) {
+//            sizeStr = "";
+//            return;
+//        }
+//
+//        if (sizeL < KBYTE) {
+//            sizeStr = sizeL + " B";
+//
+//        } else if (sizeL < MBYTE) {
+//            double size = 1.0 * sizeL / KBYTE;
+//            sizeStr = formatter.format(size) + " kB";
+//
+//        } else if (sizeL < GBYTE) {
+//            double size = 1.0 * sizeL / MBYTE;
+//            sizeStr = formatter.format(size) + " MB";
+//
+//        } else {
+//            double size = 1.0 * sizeL / GBYTE;
+//            sizeStr = formatter.format(size) + " GB";
+//        }
     }
 
 
