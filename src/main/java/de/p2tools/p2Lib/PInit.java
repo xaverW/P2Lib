@@ -50,6 +50,11 @@ public class PInit {
         PConst.primaryStage = primaryStage;
     }
 
+    public static void updateP2LibCss(Scene scene) {
+        scene.getStylesheets().clear();
+        addP2LibCss(scene);
+    }
+
     public static void addP2LibCss(Scene scene) {
         scene.getStylesheets().addAll("de/p2tools/p2Lib/p2Lib.css");
 

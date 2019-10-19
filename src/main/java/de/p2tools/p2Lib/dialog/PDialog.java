@@ -144,6 +144,10 @@ public class PDialog {
         }
     }
 
+    public void updateCss() {
+        PInit.updateP2LibCss(scene);
+    }
+
     private void createNewScene(Pane pane) {
         if (sizeConfiguration == null) {
             this.scene = new Scene(pane);
