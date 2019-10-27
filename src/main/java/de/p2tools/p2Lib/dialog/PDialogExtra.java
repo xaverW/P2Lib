@@ -111,13 +111,10 @@ public class PDialogExtra extends PDialog {
     }
 
 //    public void setvBoxDialog(VBox vBoxDialog) {
-
 //        this.vBoxDialog = vBoxDialog;
-
 //    }
 //    public void setVboxCont(VBox vboxCont) {
 //        this.vboxCont = vboxCont;
-
 //    }
 
 //    public void setContPadding(int p) {

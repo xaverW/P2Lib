@@ -186,6 +186,13 @@ public class PRangeBox extends VBox {
         minValue.addListener(l -> {
             sliderMin.setValue(minValue.getValue() / MIN_DIST);
         });
+
+        sliderMin.valueProperty().addListener((o, oldV, newV) -> {
+            if (!sliderMin.isValueChanging()) {
+                setPropValue(minValue, (int) sliderMin.getValue());
+                repairMaxValue();
+            }
+        });
         sliderMin.valueChangingProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 setPropValue(minValue, (int) sliderMin.getValue());
@@ -211,6 +218,12 @@ public class PRangeBox extends VBox {
 
         maxValue.addListener(l -> {
             sliderMax.setValue(maxValue.getValue() / MIN_DIST);
+        });
+        sliderMax.valueProperty().addListener((o, oldV, newV) -> {
+            if (!sliderMax.isValueChanging()) {
+                setPropValue(maxValue, (int) sliderMax.getValue());
+                repairMinValue();
+            }
         });
         sliderMax.valueChangingProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
