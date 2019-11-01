@@ -16,7 +16,7 @@
 
 package de.p2tools.p2Lib.checkForUpdates;
 
-import de.p2tools.p2Lib.PConst;
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.application.Platform;
@@ -39,7 +39,7 @@ public class SearchProgInfo {
 
     private final String UPDATE_SEARCH_TITLE = "Software-Aktualisierung";
     private final String UPDATE_ERROR_MESSAGE =
-            "Es ist ein Fehler bei der Softwareaktualisierung aufgetreten." + PConst.LINE_SEPARATOR
+            "Es ist ein Fehler bei der Softwareaktualisierung aufgetreten." + P2LibConst.LINE_SEPARATOR
                     + "Die aktuelle Version konnte nicht ermittelt werden.";
 
     private static final int TIMEOUT = 10_000; // timeout ms
@@ -53,7 +53,7 @@ public class SearchProgInfo {
     private final Stage stage;
 
     public SearchProgInfo() {
-        this.stage = PConst.primaryStage;
+        this.stage = P2LibConst.primaryStage;
     }
 
     public SearchProgInfo(Stage stage) {
@@ -162,7 +162,7 @@ public class SearchProgInfo {
 
     private InputStream connectToServer() throws IOException {
         final HttpURLConnection conn = (HttpURLConnection) new URL(searchUrl).openConnection();
-        conn.setRequestProperty("User-Agent", PConst.userAgent);
+        conn.setRequestProperty("User-Agent", P2LibConst.userAgent);
         conn.setReadTimeout(TIMEOUT);
         conn.setConnectTimeout(TIMEOUT);
 

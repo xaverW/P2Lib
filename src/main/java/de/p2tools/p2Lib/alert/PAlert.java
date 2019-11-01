@@ -16,7 +16,7 @@
 
 package de.p2tools.p2Lib.alert;
 
-import de.p2tools.p2Lib.PConst;
+import de.p2tools.p2Lib.P2LibConst;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
@@ -28,7 +28,7 @@ public class PAlert extends PAlertWorker {
     //=======================
     // Ok Cancel
     public static boolean showAlertOkCancel(String title, String header, String content) {
-        return alertOkCancel(PConst.primaryStage, title, header, content);
+        return alertOkCancel(P2LibConst.primaryStage, title, header, content);
     }
 
     public static boolean showAlertOkCancel(Stage stage, String title, String header, String content) {
@@ -38,7 +38,7 @@ public class PAlert extends PAlertWorker {
     //=======================
     // yes no
     public static BUTTON showAlert_yes_no(String title, String header, String content) {
-        return alert_yes_no(PConst.primaryStage, title, header, content);
+        return alert_yes_no(P2LibConst.primaryStage, title, header, content);
     }
 
     public static BUTTON showAlert_yes_no(Stage stage, String title, String header, String content) {
@@ -49,7 +49,7 @@ public class PAlert extends PAlertWorker {
     //=======================
     // yes no Cancel
     public static BUTTON showAlert_yes_no_cancel(String title, String header, String content) {
-        return alert_yes_no_cancel(PConst.primaryStage, title, header, content, true);
+        return alert_yes_no_cancel(P2LibConst.primaryStage, title, header, content, true);
     }
 
     public static BUTTON showAlert_yes_no_cancel(Stage stage, String title, String header, String content, boolean noBtn) {
@@ -59,14 +59,14 @@ public class PAlert extends PAlertWorker {
     public static BUTTON showAlert_yes_no_cancel(String title, String header, String content, boolean noBtn,
                                                  String yesButton, String noButton) {
 
-        return alert_yes_no_cancel(PConst.primaryStage, title, header, content, noBtn, yesButton, noButton);
+        return alert_yes_no_cancel(P2LibConst.primaryStage, title, header, content, noBtn, yesButton, noButton);
     }
 
 
     //=======================
     // yes no Cancel
     public static BUTTON showAlert_yes_no_cancel(String title, String header, TextFlow content, boolean noBtn) {
-        return alert_yes_no_cancel(PConst.primaryStage, title, header, content, noBtn);
+        return alert_yes_no_cancel(P2LibConst.primaryStage, title, header, content, noBtn);
     }
 
     public static BUTTON showAlert_yes_no_cancel(Stage stage, String title, String header, TextFlow content, boolean noBtn) {
@@ -84,7 +84,7 @@ public class PAlert extends PAlertWorker {
     //=======================
     // Help
     public static boolean showHelpAlert(String header, TextFlow content) {
-        return helpAlert(PConst.primaryStage, header, content);
+        return helpAlert(P2LibConst.primaryStage, header, content);
     }
 
     public static boolean showHelpAlert(Stage stage, String header, TextFlow content) {
@@ -92,7 +92,7 @@ public class PAlert extends PAlertWorker {
     }
 
     public static boolean showHelpAlert(String header, String content) {
-        return helpAlert(PConst.primaryStage, header, content);
+        return helpAlert(P2LibConst.primaryStage, header, content);
     }
 
     public static boolean showHelpAlert(Stage stage, String header, String content) {
@@ -102,11 +102,11 @@ public class PAlert extends PAlertWorker {
     //=======================
     // Ok
     public static boolean showInfoAlert(String title, String header, String content) {
-        return infoAlert(PConst.primaryStage, title, header, content, false);
+        return infoAlert(P2LibConst.primaryStage, title, header, content, false);
     }
 
     public static boolean showInfoAlert(String title, String header, String content, boolean txtArea) {
-        return infoAlert(PConst.primaryStage, title, header, content, txtArea);
+        return infoAlert(P2LibConst.primaryStage, title, header, content, txtArea);
     }
 
     public static boolean showInfoAlert(Stage stage, String title, String header, String content) {
@@ -120,7 +120,7 @@ public class PAlert extends PAlertWorker {
     //=======================
     // Ok
     public static boolean showErrorAlert(String header, String content) {
-        return errorAlert(PConst.primaryStage, "Fehler", header, content);
+        return errorAlert(P2LibConst.primaryStage, "Fehler", header, content);
     }
 
     public static boolean showErrorAlert(Stage stage, String header, String content) {
@@ -128,7 +128,7 @@ public class PAlert extends PAlertWorker {
     }
 
     public static boolean showErrorAlert(String title, String header, String content) {
-        return errorAlert(PConst.primaryStage, title, header, content);
+        return errorAlert(P2LibConst.primaryStage, title, header, content);
     }
 
     public static boolean showErrorAlert(Stage stage, String title, String header, String content) {
@@ -138,7 +138,7 @@ public class PAlert extends PAlertWorker {
     //=======================
     // Ok
     public static boolean showInfoNoSelection() {
-        return infoNoSelection(PConst.primaryStage);
+        return infoNoSelection(P2LibConst.primaryStage);
     }
 
     public static boolean showInfoNoSelection(Stage stage) {

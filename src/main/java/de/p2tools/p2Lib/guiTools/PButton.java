@@ -17,7 +17,7 @@
 
 package de.p2tools.p2Lib.guiTools;
 
-import de.p2tools.p2Lib.PConst;
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.alert.PAlert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
@@ -42,7 +42,7 @@ public class PButton {
     }
 
     public static Button helpButton(ImageView imageView, String header, String helpText) {
-        return helpButton(PConst.primaryStage, imageView, header, helpText);
+        return helpButton(P2LibConst.primaryStage, imageView, header, helpText);
     }
 
     public static Button helpButton(Stage stage, ImageView imageView, String header, String helpText) {
@@ -54,7 +54,7 @@ public class PButton {
     }
 
     public static Button helpButton(String header, String helpText) {
-        return helpButton(PConst.primaryStage, header, helpText);
+        return helpButton(P2LibConst.primaryStage, header, helpText);
     }
 
     public static Button helpButton(Stage stage, String header, String helpText) {

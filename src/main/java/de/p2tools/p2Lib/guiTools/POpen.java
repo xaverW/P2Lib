@@ -16,7 +16,7 @@
 
 package de.p2tools.p2Lib.guiTools;
 
-import de.p2tools.p2Lib.PConst;
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.dialog.PDialogFileChosser;
 import de.p2tools.p2Lib.tools.log.PLog;
@@ -32,7 +32,7 @@ import java.net.URI;
 public class POpen {
 
     public static void openFile(String path) {
-        openFile(PConst.primaryStage, path);
+        openFile(P2LibConst.primaryStage, path);
     }
 
     public static void openFile(Stage stage, String fileStr) {
@@ -64,7 +64,7 @@ public class POpen {
     }
 
     public static void openDir(String path) {
-        openDir(PConst.primaryStage, path, null, null);
+        openDir(P2LibConst.primaryStage, path, null, null);
     }
 
     public static void openDir(Stage primaryStage, String path) {
@@ -72,7 +72,7 @@ public class POpen {
     }
 
     public static void openDir(String path, StringProperty prog, ImageView getProgIcon) {
-        openDir(PConst.primaryStage, path, prog, getProgIcon);
+        openDir(P2LibConst.primaryStage, path, prog, getProgIcon);
     }
 
     public static void openDir(Stage stage, String path, StringProperty prog, ImageView getProgIcon) {
@@ -122,7 +122,7 @@ public class POpen {
     }
 
     public static void playStoredFilm(String file) {
-        playStoredFilm(PConst.primaryStage, file, null, null);
+        playStoredFilm(P2LibConst.primaryStage, file, null, null);
     }
 
     public static void playStoredFilm(Stage primaryStage, String file) {
@@ -130,7 +130,7 @@ public class POpen {
     }
 
     public static void playStoredFilm(String file, StringProperty prog, ImageView getProgIcon) {
-        playStoredFilm(PConst.primaryStage, file, prog, getProgIcon);
+        playStoredFilm(P2LibConst.primaryStage, file, prog, getProgIcon);
     }
 
     public static void playStoredFilm(Stage stage, String file, StringProperty prog, ImageView getProgIcon) {
@@ -179,7 +179,7 @@ public class POpen {
     }
 
     public static void openURL(String url) {
-        openURL(PConst.primaryStage, url);
+        openURL(P2LibConst.primaryStage, url);
     }
 
     public static void openURL(Stage primaryStage, String url) {
@@ -187,7 +187,7 @@ public class POpen {
     }
 
     public static void openURL(String url, StringProperty prog, ImageView getProgIcon) {
-        openURL(PConst.primaryStage, url, prog, getProgIcon);
+        openURL(P2LibConst.primaryStage, url, prog, getProgIcon);
     }
 
     public static void openURL(Stage stage, String url, StringProperty prog, ImageView getProgIcon) {

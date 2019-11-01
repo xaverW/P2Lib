@@ -17,7 +17,7 @@
 
 package de.p2tools.p2Lib.checkForUpdates;
 
-import de.p2tools.p2Lib.PConst;
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
 import javafx.beans.property.BooleanProperty;
@@ -48,7 +48,7 @@ public class InfoUpdateAlert {
 
 
     public InfoUpdateAlert(ProgInfo progInfo, ArrayList<Infos> newInfosList, boolean newVersion, BooleanProperty bPropShowUpdateInfo) {
-        this.stage = PConst.primaryStage;
+        this.stage = P2LibConst.primaryStage;
         this.progInfo = progInfo;
         this.newInfosList = newInfosList;
         this.newVersion = newVersion;
@@ -71,7 +71,7 @@ public class InfoUpdateAlert {
     }
 
     public InfoUpdateAlert(ProgInfo progInfo, ArrayList<Infos> newInfosList, boolean newVersion) {
-        this.stage = PConst.primaryStage;
+        this.stage = P2LibConst.primaryStage;
         this.progInfo = progInfo;
         this.newInfosList = newInfosList;
         this.newVersion = newVersion;
@@ -147,7 +147,7 @@ public class InfoUpdateAlert {
         if (newVersion) {
             textArea.setText(progInfo.getProgReleaseNotes());
         } else {
-            textArea.setText(PConst.LINE_SEPARATOR + "Sie benutzen die neueste Version von " + progInfo.getProgName() + ".");
+            textArea.setText(P2LibConst.LINE_SEPARATOR + "Sie benutzen die neueste Version von " + progInfo.getProgName() + ".");
         }
 
         textArea.setMinHeight(150);

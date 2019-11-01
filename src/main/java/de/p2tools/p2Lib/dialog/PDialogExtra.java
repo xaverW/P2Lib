@@ -110,17 +110,6 @@ public class PDialogExtra extends PDialog {
         super.setPane(vBoxCompleteDialog);
     }
 
-//    public void setvBoxDialog(VBox vBoxDialog) {
-//        this.vBoxDialog = vBoxDialog;
-//    }
-//    public void setVboxCont(VBox vboxCont) {
-//        this.vboxCont = vboxCont;
-//    }
-
-//    public void setContPadding(int p) {
-//        vboxCont.setPadding(new Insets(p));
-//    }
-
     public void addHlpOkButtons(Button btnHelp, Button... btnList) {
         HBox hBox = new HBox();
         HBox.setHgrow(hBox, Priority.ALWAYS);

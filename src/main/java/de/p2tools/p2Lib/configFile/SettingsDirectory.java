@@ -17,7 +17,7 @@
 
 package de.p2tools.p2Lib.configFile;
 
-import de.p2tools.p2Lib.PConst;
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.tools.PException;
 import de.p2tools.p2Lib.tools.log.PLog;
@@ -85,11 +85,11 @@ public class SettingsDirectory {
             } catch (final IOException ioException) {
                 PLog.errorLog(912030306, ioException, "Ordner anlegen: " + path);
                 PAlert.showErrorAlert("Ordner anlegen", " Der Ordner " + path +
-                        " konnte nicht angelegt werden." + PConst.LINE_SEPARATOR +
+                        " konnte nicht angelegt werden." + P2LibConst.LINE_SEPARATOR +
                         "Bitte prüfen Sie die Dateirechte.");
 
                 throw new PException(" Der Ordner " + path +
-                        " konnte nicht angelegt werden." + PConst.LINE_SEPARATOR +
+                        " konnte nicht angelegt werden." + P2LibConst.LINE_SEPARATOR +
                         "Bitte prüfen Sie die Dateirechte.", ioException);
             }
         }

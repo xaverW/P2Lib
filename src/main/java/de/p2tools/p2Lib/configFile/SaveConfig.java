@@ -16,7 +16,7 @@
 
 package de.p2tools.p2Lib.configFile;
 
-import de.p2tools.p2Lib.PConst;
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.configFile.config.ConfigComment;
 import de.p2tools.p2Lib.configFile.config.ConfigPData;
@@ -103,26 +103,26 @@ class SaveConfig {
         xmlStreamWriter = outFactory.createXMLStreamWriter(outputStreamWriter);
 
         xmlStreamWriter.writeStartDocument(StandardCharsets.UTF_8.name(), "1.0");
-        xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATOR);
+        xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR);
         xmlStreamWriter.writeStartElement(xmlStart);
-        xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATOR);
+        xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR);
     }
 
     private void xmlDataWrite() throws XMLStreamException {
         for (PData pData : this.pData) {
-            xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATORx2);
+            xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATORx2);
             xmlStreamWriter.writeComment(pData.getComment());
-            xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATOR);
+            xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR);
             write(pData, 0);
         }
 
         for (PDataList cl : pDataList) {
-            xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATOR);
+            xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR);
             xmlStreamWriter.writeComment(cl.getComment());
             write(cl, 0);
         }
 
-        xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATORx2);
+        xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATORx2);
     }
 
     private void xmlWriteEnd() throws XMLStreamException {
@@ -168,7 +168,7 @@ class SaveConfig {
 
         writeTab(tab++);
         xmlStreamWriter.writeStartElement(xmlName);
-        xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
+        xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); // neue Zeile
 
         for (Config config : pData.getConfigsArr()) {
             write(config, tab);
@@ -176,18 +176,18 @@ class SaveConfig {
 
         writeTab(--tab);
         xmlStreamWriter.writeEndElement();
-        xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
+        xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); // neue Zeile
     }
 
 
     private void writePDataList(PDataList pDataList, int tab) throws XMLStreamException {
 
         String xmlName = pDataList.getTag();
-        xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
+        xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); // neue Zeile
 
         writeTab(tab++);
         xmlStreamWriter.writeStartElement(xmlName);
-        xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
+        xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); // neue Zeile
 
         for (Object configsData : pDataList) {
             write(configsData, tab);
@@ -195,17 +195,17 @@ class SaveConfig {
 
         writeTab(--tab);
         xmlStreamWriter.writeEndElement();
-        xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
+        xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); // neue Zeile
     }
 
     private void writePDataMap(PDataMap pDataList, int tab) throws XMLStreamException {
 
         String xmlName = pDataList.getTag();
-        xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
+        xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); // neue Zeile
 
         writeTab(tab++);
         xmlStreamWriter.writeStartElement(xmlName);
-        xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
+        xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); // neue Zeile
 
         for (Object configsData : pDataList.values()) {
             write(configsData, tab);
@@ -213,7 +213,7 @@ class SaveConfig {
 
         writeTab(--tab);
         xmlStreamWriter.writeEndElement();
-        xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
+        xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); // neue Zeile
     }
 
     private void writeConfigPDataList(ConfigPDataList configPDataList, int tab) throws XMLStreamException {
@@ -231,7 +231,7 @@ class SaveConfig {
 
             writeTab(tab++);
             xmlStreamWriter.writeStartElement(config.getKey());
-            xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
+            xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); // neue Zeile
 
             ObservableList<Object> actValue = config.getActValue();
             int i = 0;
@@ -241,21 +241,21 @@ class SaveConfig {
                 xmlStreamWriter.writeStartElement(config.getKey() + "-" + i);
                 xmlStreamWriter.writeCharacters(o.toString());
                 xmlStreamWriter.writeEndElement();
-                xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
+                xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); // neue Zeile
             }
 
             writeTab(--tab);
             xmlStreamWriter.writeEndElement();
-            xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
+            xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); // neue Zeile
         }
     }
 
     private void writeComment(Config config, int tab) throws XMLStreamException {
         if (config.getActValue() != null && !config.getActValueString().isEmpty()) {
             writeTab(tab);
-            xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATORx2);
+            xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATORx2);
             xmlStreamWriter.writeComment("  " + config.getActValueString() + "  ");
-            xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATOR);
+            xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR);
         }
     }
 
@@ -265,7 +265,7 @@ class SaveConfig {
             xmlStreamWriter.writeStartElement(config.getKey());
             xmlStreamWriter.writeCharacters(config.getActValueString());
             xmlStreamWriter.writeEndElement();
-            xmlStreamWriter.writeCharacters(PConst.LINE_SEPARATOR); // neue Zeile
+            xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); // neue Zeile
         }
     }
 

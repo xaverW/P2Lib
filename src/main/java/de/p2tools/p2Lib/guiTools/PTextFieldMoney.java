@@ -81,9 +81,7 @@ public class PTextFieldMoney extends TextField {
 
     private void setLabelLike() {
         setEditable(!labelLike);
-        if (labelLike) {
-            setStyle(PStyles.PTEXTFIELD_LABEL);
-        }
+        setStyle(labelLike ? PStyles.PTEXTFIELD_LABEL : "");
     }
 
     public void bindBidirectional(LongProperty longProperty) {

@@ -17,7 +17,7 @@
 
 package de.p2tools.p2Lib.tools.log;
 
-import de.p2tools.p2Lib.PConst;
+import de.p2tools.p2Lib.P2LibConst;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 
@@ -43,8 +43,8 @@ public class PFormatter extends SimpleFormatter {
     public String format(LogRecord record) {
         if (record.getThrown() == null &&
                 (record.getMessage().isEmpty() ||
-                        record.getMessage().trim().equals(PConst.LINE_SEPARATOR))) {
-            return PConst.LINE_SEPARATOR;
+                        record.getMessage().trim().equals(P2LibConst.LINE_SEPARATOR))) {
+            return P2LibConst.LINE_SEPARATOR;
         }
 
         StringBuilder sb = new StringBuilder();
@@ -57,12 +57,12 @@ public class PFormatter extends SimpleFormatter {
                     .append(StringUtils.rightPad(record.getLevel().getLocalizedName() + ": ", MSG_SIZE));
         }
 
-        if (record.getMessage().contains(PConst.LINE_SEPARATOR)) {
+        if (record.getMessage().contains(P2LibConst.LINE_SEPARATOR)) {
             formatMultiLine(record.getMessage(), sb, empty);
 
         } else {
             sb.append(formatMessage(record))
-                    .append(PConst.LINE_SEPARATOR);
+                    .append(P2LibConst.LINE_SEPARATOR);
         }
 
         if (record.getThrown() != null) {
@@ -72,8 +72,8 @@ public class PFormatter extends SimpleFormatter {
                 record.getThrown().printStackTrace(pw);
                 pw.close();
                 formatMultiLineSimple(emptyEx + sw.toString(), sb, emptyEx);
-                sb.append(PConst.LINE_SEPARATOR);
-                sb.append(PConst.LINE_SEPARATOR);
+                sb.append(P2LibConst.LINE_SEPARATOR);
+                sb.append(P2LibConst.LINE_SEPARATOR);
             } catch (Exception ex) {
                 // ignore
             }
@@ -84,7 +84,7 @@ public class PFormatter extends SimpleFormatter {
 
 
     private void formatMultiLine(String msg, StringBuilder sb, String before) {
-        String[] arr = msg.split(PConst.LINE_SEPARATOR);
+        String[] arr = msg.split(P2LibConst.LINE_SEPARATOR);
         if (arr.length == 0) {
             return;
         }
@@ -92,7 +92,7 @@ public class PFormatter extends SimpleFormatter {
         sb.append(arr[0]);
 
         for (int i = 1; i < arr.length; ++i) {
-            sb.append(PConst.LINE_SEPARATOR);
+            sb.append(P2LibConst.LINE_SEPARATOR);
             sb.append(before);
             if (i == arr.length - 1) {
                 sb.append(arr[i]);
@@ -100,11 +100,11 @@ public class PFormatter extends SimpleFormatter {
                 sb.append(I + arr[i]);
             }
         }
-        sb.append(PConst.LINE_SEPARATOR);
+        sb.append(P2LibConst.LINE_SEPARATOR);
     }
 
     private void formatMultiLineSimple(String msg, StringBuilder sb, String before) {
-        String[] arr = msg.split(PConst.LINE_SEPARATOR);
+        String[] arr = msg.split(P2LibConst.LINE_SEPARATOR);
         if (arr.length == 0) {
             return;
         }
@@ -112,11 +112,11 @@ public class PFormatter extends SimpleFormatter {
         sb.append(arr[0]);
 
         for (int i = 1; i < arr.length; ++i) {
-            sb.append(PConst.LINE_SEPARATOR);
+            sb.append(P2LibConst.LINE_SEPARATOR);
             sb.append(before);
             sb.append(arr[i]);
         }
-        sb.append(PConst.LINE_SEPARATOR);
+        sb.append(P2LibConst.LINE_SEPARATOR);
     }
 
 

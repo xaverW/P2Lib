@@ -17,7 +17,7 @@
 
 package de.p2tools.p2Lib.configFile;
 
-import de.p2tools.p2Lib.PConst;
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.dialog.PDialogFileChosser;
 import de.p2tools.p2Lib.tools.log.PLog;
@@ -116,13 +116,13 @@ class BackupConfigFile {
 
         if (PAlert.BUTTON.YES != new PDialogFileChosser().showAlert_yes_no("Gesicherte Einstellungen laden?",
 
-                header.isEmpty() ? "Die Einstellungen sind beschädigt" + PConst.LINE_SEPARATOR +
+                header.isEmpty() ? "Die Einstellungen sind beschädigt" + P2LibConst.LINE_SEPARATOR +
                         "und können nicht geladen werden." : header,
 
                 text.isEmpty() ?
-                        "Soll versucht werden, mit gesicherten" + PConst.LINE_SEPARATOR
-                                + "Einstellungen zu starten?" + PConst.LINE_SEPARATORx2
-                                + "(ansonsten startet das Programm mit" + PConst.LINE_SEPARATOR
+                        "Soll versucht werden, mit gesicherten" + P2LibConst.LINE_SEPARATOR
+                                + "Einstellungen zu starten?" + P2LibConst.LINE_SEPARATORx2
+                                + "(ansonsten startet das Programm mit" + P2LibConst.LINE_SEPARATOR
                                 + "Standardeinstellungen)" : text)) {
 
             PLog.sysLog("User will kein Backup laden.");

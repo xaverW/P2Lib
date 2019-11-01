@@ -21,10 +21,10 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PConst {
+public class P2LibConst {
     public static Stage primaryStage = null;
     public static String progName = "P2Tools";
-    public static List<String> cssFile = new ArrayList();
+    public static List<String> cssFileList = new ArrayList();
     public static String userAgent = "";
     public static String logfile = "P2Tools_%g.log";
     public static String logfile_0 = "P2Tools_0.log";

@@ -17,7 +17,7 @@
 
 package de.p2tools.p2Lib.guiTools.pNotification;
 
-import de.p2tools.p2Lib.PConst;
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.tools.PException;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -37,7 +37,7 @@ public class PNotification {
 
     static {
         Platform.runLater(() -> {
-            Stage stage = PConst.primaryStage;
+            Stage stage = P2LibConst.primaryStage;
             if (stage == null) {
                 PException.throwPException(912036447, "PNotification: stage not set");
             }

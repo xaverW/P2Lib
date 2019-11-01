@@ -16,8 +16,8 @@
 
 package de.p2tools.p2Lib.dialog;
 
-import de.p2tools.p2Lib.PConst;
-import de.p2tools.p2Lib.PInit;
+import de.p2tools.p2Lib.P2LibConst;
+import de.p2tools.p2Lib.P2LibInit;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.application.Platform;
@@ -57,7 +57,7 @@ public class PDialogFxml {
     }
 
     public PDialogFxml(String fxml, StringProperty conf, String title, boolean modal) {
-        this.primaryStage = PConst.primaryStage;
+        this.primaryStage = P2LibConst.primaryStage;
         this.fxml = fxml;
         this.conf = conf;
         this.modal = modal;
@@ -73,7 +73,7 @@ public class PDialogFxml {
     }
 
     public PDialogFxml(StringProperty conf, String title, boolean modal) {
-        this.primaryStage = PConst.primaryStage;
+        this.primaryStage = P2LibConst.primaryStage;
         this.fxml = null;
         this.conf = conf;
         this.modal = modal;
@@ -89,7 +89,7 @@ public class PDialogFxml {
     }
 
     public PDialogFxml(String fxml, String title, boolean modal) {
-        this.primaryStage = PConst.primaryStage;
+        this.primaryStage = P2LibConst.primaryStage;
         this.fxml = fxml;
         this.conf = null;
         this.modal = modal;
@@ -105,7 +105,7 @@ public class PDialogFxml {
     }
 
     public PDialogFxml(String title, boolean modal) {
-        this.primaryStage = PConst.primaryStage;
+        this.primaryStage = P2LibConst.primaryStage;
         this.fxml = null;
         this.conf = null;
         this.modal = modal;
@@ -152,7 +152,7 @@ public class PDialogFxml {
                 setSize(root);
             }
 
-            PInit.addP2LibCss(scene);
+            P2LibInit.addP2LibCssToScene(scene);
             stage = new Stage();
             stage.setScene(scene);
             stage.setTitle(title);

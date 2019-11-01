@@ -17,7 +17,7 @@
 
 package de.p2tools.p2Lib.tools.log;
 
-import de.p2tools.p2Lib.PConst;
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.POpen;
 import de.p2tools.p2Lib.tools.log.logLevel.AddInfoLevel;
@@ -64,7 +64,7 @@ public class PLogger {
         }
 
         // wenn logfile existiert, dann das öffnen, ansonsten den Ordner
-        Path path = Paths.get(handlerDir, PConst.logfile_0);
+        Path path = Paths.get(handlerDir, P2LibConst.logfile_0);
         if (path.toFile().exists()) {
             POpen.openFile(path.toString());
         } else {
@@ -74,7 +74,7 @@ public class PLogger {
     }
 
     public static void setFileHandler(String path) {
-        String logDir = path.isEmpty() ? PConst.logdir : path;
+        String logDir = path.isEmpty() ? P2LibConst.logdir : path;
 
         if (handlerDir.equals(logDir) && fileHandler != null) {
             // dann stimmts schon
@@ -89,7 +89,7 @@ public class PLogger {
             File dir = new File(handlerDir);
             dir.mkdirs();
 
-            fileHandler = new FileHandler(handlerDir + File.separator + PConst.logfile,
+            fileHandler = new FileHandler(handlerDir + File.separator + P2LibConst.logfile,
                     5_000_000, 5, false);
 
             LOGGER.addHandler(fileHandler);

@@ -16,8 +16,8 @@
 
 package de.p2tools.p2Lib.dialog;
 
-import de.p2tools.p2Lib.PConst;
-import de.p2tools.p2Lib.PInit;
+import de.p2tools.p2Lib.P2LibConst;
+import de.p2tools.p2Lib.P2LibInit;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.icon.GetIcon;
 import de.p2tools.p2Lib.tools.PException;
@@ -66,7 +66,7 @@ public class PDialog {
     }
 
     public PDialog(StringProperty sizeConfiguration, String title, boolean modal) {
-        this.ownerForCenteringDialog = PConst.primaryStage;
+        this.ownerForCenteringDialog = P2LibConst.primaryStage;
         this.sizeConfiguration = sizeConfiguration;
         this.modal = modal;
         this.title = title;
@@ -74,7 +74,7 @@ public class PDialog {
     }
 
     public PDialog(StringProperty sizeConfiguration, String title, boolean modal, boolean setOnlySize) {
-        this.ownerForCenteringDialog = PConst.primaryStage;
+        this.ownerForCenteringDialog = P2LibConst.primaryStage;
         this.sizeConfiguration = sizeConfiguration;
         this.modal = modal;
         this.title = title;
@@ -82,7 +82,7 @@ public class PDialog {
     }
 
     public PDialog(String title, boolean modal) {
-        this.ownerForCenteringDialog = PConst.primaryStage;
+        this.ownerForCenteringDialog = P2LibConst.primaryStage;
         this.sizeConfiguration = null;
         this.modal = modal;
         this.title = title;
@@ -105,7 +105,7 @@ public class PDialog {
     public void init(Pane pane, boolean show) {
         try {
             createNewScene(pane);
-            PInit.addP2LibCss(scene);
+            P2LibInit.addP2LibCssToScene(scene);
 
             if (scene == null) {
                 PException.throwPException(912012458, "no scene");
@@ -145,7 +145,7 @@ public class PDialog {
     }
 
     public void updateCss() {
-        PInit.updateP2LibCss(scene);
+        P2LibInit.addP2LibCssToScene(scene);
     }
 
     private void createNewScene(Pane pane) {

@@ -17,7 +17,7 @@
 
 package de.p2tools.p2Lib.guiTools;
 
-import de.p2tools.p2Lib.PConst;
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.ContextMenu;
@@ -46,7 +46,7 @@ public class PHyperlink extends Hyperlink {
 
     public PHyperlink(String url, StringProperty prog, ImageView imageView) {
         super(url);
-        stage = PConst.primaryStage;
+        stage = P2LibConst.primaryStage;
         this.url = url;
         this.prog = prog;
         this.imageView = imageView;
@@ -55,7 +55,7 @@ public class PHyperlink extends Hyperlink {
 
     public PHyperlink(String url) {
         super(url);
-        stage = PConst.primaryStage;
+        stage = P2LibConst.primaryStage;
         this.url = url;
         this.prog = null;
         init();

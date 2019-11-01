@@ -71,8 +71,6 @@ public class PFilterComboBoxObject<E> extends HBox {
 
     private void addCss() {
         getStyleClass().add("PFilterComboBoxObject");
-//        final String CSS_FILE = "de/p2tools/p2Lib/p2Lib.css";
-//        getStylesheets().add(CSS_FILE);
     }
 
     public void bindSelValueProperty(ObjectProperty<E> stringProperty) {
