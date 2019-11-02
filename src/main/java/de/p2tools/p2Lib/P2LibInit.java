@@ -57,6 +57,7 @@ public class P2LibInit {
         list.add("de/p2tools/p2Lib/p2Lib.css");
         list.add("de/p2tools/p2Lib/pMaskerPane.css");
         list.add("de/p2tools/p2Lib/pToggleSwitch.css");
+        list.add("de/p2tools/p2Lib/notifier.css");
         for (String s : P2LibConst.cssFileList) {
             list.add(s);
         }

@@ -125,10 +125,10 @@ public class Notification {
             if (scene == null) {
                 scene = pStage.getScene();
             }
-            if (styleSheet.isEmpty()) {
-                final String CSS_FILE = "de/p2tools/p2Lib/guiTools/pNotification/notifier.css";
-                setStyleSheet(CSS_FILE);
-            }
+//            if (styleSheet.isEmpty()) {
+//                final String CSS_FILE = "de/p2tools/p2Lib/notifier.css";
+//                setStyleSheet(CSS_FILE);
+//            }
         }
 
 
