@@ -47,12 +47,7 @@ public class P2LibInit {
         P2LibConst.cssFileList.removeIf(cssF -> cssF.equals(cssFile));
     }
 
-//    public static void updateSceneWithP2LibCss(Scene scene) {
-//        scene.getStylesheets().clear();
-//        addP2LibCssToScene(scene);
-//    }
-
-    public static void addP2LibCssToScene(Scene scene) {
+    public static void xaddP2LibCssToScene(Scene scene) {
         List<String> list = new ArrayList<>();
         list.add("de/p2tools/p2Lib/p2Lib.css");
         list.add("de/p2tools/p2Lib/pMaskerPane.css");
@@ -62,19 +57,5 @@ public class P2LibInit {
             list.add(s);
         }
         scene.getStylesheets().setAll(list);
-
-//        addStyleSheet(scene, "de/p2tools/p2Lib/p2Lib.css");
-//        addStyleSheet(scene, "de/p2tools/p2Lib/pMaskerPane.css");
-//        addStyleSheet(scene, "de/p2tools/p2Lib/pToggleSwitch.css");
-//
-//        for (String s : P2LibConst.cssFileList) {
-//            addStyleSheet(scene, s);
-//        }
     }
-
-//    private static void addStyleSheet(Scene scene, String styleSheet) {
-//        if (!scene.getStylesheets().contains(styleSheet)) {
-//            scene.getStylesheets().addAll(styleSheet); // todo-> werden doppelt gesetzt
-//        }
-//    }
 }
