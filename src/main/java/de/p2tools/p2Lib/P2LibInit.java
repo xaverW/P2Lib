@@ -47,7 +47,7 @@ public class P2LibInit {
         P2LibConst.cssFileList.removeIf(cssF -> cssF.equals(cssFile));
     }
 
-    public static void xaddP2LibCssToScene(Scene scene) {
+    public static void addP2LibCssToScene(Scene scene) {
         List<String> list = new ArrayList<>();
         list.add("de/p2tools/p2Lib/p2Lib.css");
         list.add("de/p2tools/p2Lib/pMaskerPane.css");
