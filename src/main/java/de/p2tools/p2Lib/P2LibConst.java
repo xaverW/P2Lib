@@ -29,6 +29,7 @@ public class P2LibConst {
     public static String logfile = "P2Tools_%g.log";
     public static String logfile_0 = "P2Tools_0.log";
     public static String logdir = "Log";
+    public static int MIN_BUTTON_WIDTH = 100;
 
     public static boolean debug = false; // Debugmodus
     public static boolean duration = false; // Duration ausgeben

@@ -17,6 +17,7 @@
 package de.p2tools.p2Lib.dialog;
 
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.tools.ProgramTools;
 import de.p2tools.p2Lib.tools.duration.PDuration;
@@ -66,6 +67,10 @@ public class ProgInfoDialog extends PDialogExtra {
     @Override
     protected void make() {
         final String line = "<==/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\==>";
+        btnOk.setMinWidth(P2LibConst.MIN_BUTTON_WIDTH);
+        btnGc.setMinWidth(P2LibConst.MIN_BUTTON_WIDTH);
+        btnDuration.setMinWidth(P2LibConst.MIN_BUTTON_WIDTH);
+
         btnOk.setOnAction(a -> close());
         btnGc.setOnAction(a -> System.gc());
         btnDuration.setOnAction(a -> {

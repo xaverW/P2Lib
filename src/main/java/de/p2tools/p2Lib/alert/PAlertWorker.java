@@ -246,6 +246,15 @@ public class PAlertWorker {
     private static Alert getAlert(Stage stage, Alert.AlertType alertType, String title, String header) {
         final Alert alert = new Alert(alertType);
         alert.setResizable(true); // todo bei Oracle Jdk10 unter Linux geht der Dialog nur manchmal auf, stimmt was beim JDK nicht
+        // so solls gehen:
+//        this.resizable = true
+//        this.onShown = {
+//                Platform.runLater {
+//                setResizable(false)
+//        }
+//        }
+
+
         if (stage != null) {
             alert.initOwner(stage);
         }
