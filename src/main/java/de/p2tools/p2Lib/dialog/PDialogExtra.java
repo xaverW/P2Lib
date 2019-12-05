@@ -19,7 +19,9 @@ package de.p2tools.p2Lib.dialog;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -32,7 +34,9 @@ public class PDialogExtra extends PDialog {
     private VBox vBoxCompleteDialog = new VBox(); // ist der gesamte Dialog
     private HBox hBoxTitle = new HBox(10); // ist den Bereich über dem Inhalt mit dem Titel
     private VBox vboxCont = new VBox(); // ist der Inhalt des Dialogs
-    private HBox hBoxOk = new HBox(10); // ist die Zeile mit den Button
+    private HBox hBoxLeft = new HBox(10); // ist vor der ButtonBar
+    private HBox hBoxRight = new HBox(10); // ist nach der ButtonBar
+    private ButtonBar buttonBar = new ButtonBar();
 
     public PDialogExtra(StringProperty conf, String title, boolean modal) {
         super(conf, title, modal);
@@ -78,7 +82,15 @@ public class PDialogExtra extends PDialog {
     }
 
     public HBox getHboxOk() {
-        return hBoxOk;
+        return hBoxLeft;
+    }
+
+    public HBox getHboxLeft() {
+        return hBoxLeft;
+    }
+
+    public HBox getHboxRight() {
+        return hBoxRight;
     }
 
     private void initDialog() {
@@ -102,11 +114,17 @@ public class PDialogExtra extends PDialog {
         vboxCont.setPadding(new Insets(5));
         VBox.setVgrow(vboxCont, Priority.ALWAYS);
 
-        hBoxOk.setAlignment(Pos.CENTER_RIGHT);
 
         scrollPane.setContent(vboxCont);
         vBoxStyledBorder.getChildren().addAll(hBoxTitle, scrollPane);
-        vBoxCompleteDialog.getChildren().addAll(vBoxStyledBorder, hBoxOk);
+
+        HBox h = new HBox();
+        h.setAlignment(Pos.CENTER_RIGHT);
+        hBoxLeft.setAlignment(Pos.CENTER_RIGHT);
+        hBoxRight.setAlignment(Pos.CENTER_RIGHT);
+        HBox.setHgrow(buttonBar, Priority.ALWAYS);
+        h.getChildren().addAll(hBoxLeft, buttonBar, hBoxRight);
+        vBoxCompleteDialog.getChildren().addAll(vBoxStyledBorder, h);
         super.setPane(vBoxCompleteDialog);
     }
 
@@ -124,15 +142,39 @@ public class PDialogExtra extends PDialog {
         getHboxOk().getChildren().add(tilePane);
     }
 
-    public void addOkButtons(Button... btnList) {
-        for (Button b : btnList) {
-            b.setMaxWidth(Double.MAX_VALUE);
+//    public void addOkButtons(Button... btnList) {
+//        for (Button b : btnList) {
+//            b.setMaxWidth(Double.MAX_VALUE);
+//        }
+//        TilePane tilePane = new TilePane(10, 10);
+//        tilePane.setAlignment(Pos.CENTER_RIGHT);
+//        tilePane.getChildren().addAll(btnList);
+//        vBoxCompleteDialog.getChildren().remove(hBoxOk);
+//        vBoxCompleteDialog.getChildren().add(tilePane);
+//    }
+
+    public void addButtons(Button btnOk) {
+        if (btnOk != null) {
+            ButtonBar.setButtonData(btnOk, ButtonBar.ButtonData.OK_DONE);
+            buttonBar.getButtons().addAll(btnOk);
         }
-        TilePane tilePane = new TilePane(10, 10);
-        tilePane.setAlignment(Pos.CENTER_RIGHT);
-        tilePane.getChildren().addAll(btnList);
-        vBoxCompleteDialog.getChildren().remove(hBoxOk);
-        vBoxCompleteDialog.getChildren().add(tilePane);
+    }
+
+    public void addButtons(Button btnOk, Button btnCancel) {
+        if (btnOk != null) {
+            ButtonBar.setButtonData(btnOk, ButtonBar.ButtonData.OK_DONE);
+            buttonBar.getButtons().addAll(btnOk);
+        }
+        if (btnCancel != null) {
+            ButtonBar.setButtonData(btnCancel, ButtonBar.ButtonData.CANCEL_CLOSE);
+            buttonBar.getButtons().addAll(btnCancel);
+        }
+    }
+
+    public void addAnyButton(Node btn) {
+        if (btn != null) {
+            buttonBar.getButtons().addAll(btn);
+        }
     }
 
 }
