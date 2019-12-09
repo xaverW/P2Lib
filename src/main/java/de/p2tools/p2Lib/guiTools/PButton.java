@@ -65,6 +65,8 @@ public class PButton {
         } else {
             btnHelp.setGraphic(new ImageView(hlpImage)); //neues ImageView!
         }
+
+
         btnHelp.setOnAction(a -> PAlert.showHelpAlert(stage, header, helpText));
         return btnHelp;
     }

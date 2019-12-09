@@ -39,9 +39,9 @@ import java.util.List;
 
 public class ProgInfoDialog extends PDialogExtra {
 
-    private final Button btnOk = new Button("Ok");
-    private final Button btnGc = new Button("Speicher aufräumen");
-    private final Button btnDuration = new Button("Laufzeiten ausgeben");
+    private final Button btnOk = new Button("_Ok");
+    private final Button btnGc = new Button("_Speicher aufräumen");
+    private final Button btnDuration = new Button("_Laufzeiten ausgeben");
     private final ProgressBar progressBar = new ProgressBar();
     private final Label lblMemInfo = new Label("");
 
