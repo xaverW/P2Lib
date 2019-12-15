@@ -55,9 +55,9 @@ public class PComboBoxObject<E> extends ComboBox<E> {
         setCombo();
     }
 
-    public void bindSelValueProperty(ObjectProperty<E> stringProperty) {
+    public void bindSelValueProperty(ObjectProperty<E> property) {
         unbind();
-        selVaueProperty = stringProperty;
+        selVaueProperty = property;
         bind();
     }
 
