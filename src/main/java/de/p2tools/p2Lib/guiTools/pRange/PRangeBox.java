@@ -157,19 +157,25 @@ public class PRangeBox extends VBox {
         sliderMin.setMinWidth(300);
         sliderMax.setMinWidth(300);
 
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.add(lblMin, 0, 0);
-        gridPane.add(sliderMin, 1, 0);
-        gridPane.add(lblValueMin, 2, 0);
-        gridPane.add(lblMax, 0, 1);
-        gridPane.add(sliderMax, 1, 1);
-        gridPane.add(lblValueMax, 2, 1);
+        GridPane gridPane1 = new GridPane();
+        gridPane1.setHgap(10);
+        gridPane1.setVgap(10);
+        gridPane1.add(lblMin, 0, 0);
+        gridPane1.add(sliderMin, 1, 0);
+        gridPane1.add(lblValueMin, 2, 0);
 
-        CustomMenuItem cmi = new CustomMenuItem(gridPane);
-        cmi.setHideOnClick(false);
-        menuButton.getItems().add(cmi);
+        GridPane gridPane2 = new GridPane();
+        gridPane2.setHgap(10);
+        gridPane2.setVgap(10);
+        gridPane2.add(lblMax, 0, 0);
+        gridPane2.add(sliderMax, 1, 0);
+        gridPane2.add(lblValueMax, 2, 0);
+
+        CustomMenuItem cmi1 = new CustomMenuItem(gridPane1);
+        CustomMenuItem cmi2 = new CustomMenuItem(gridPane2);
+        cmi1.setHideOnClick(false);
+        cmi2.setHideOnClick(false);
+        menuButton.getItems().addAll(cmi1, cmi2);
 
 //        menuButton.getStyleClass().add("pRangeButton");
 //        getStyleClass().add("pRangeBox");
