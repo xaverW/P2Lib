@@ -25,6 +25,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -37,30 +38,33 @@ public class InfoUpdateAlert {
     private final ProgInfo progInfo;
     private final ArrayList<Infos> newInfosList;
 
-    private final VBox vBox = new VBox(10);
     private final TabPane tabPane = new TabPane();
-    private final Tab tabVersion = new Tab("Neue Version");
+    private final Tab tabVersion = new Tab("neue Version");
     private final Tab tabInfos = new Tab("Programminfos");
-    private final CheckBox chkSearchUpdateInfo = new CheckBox("Nach Programmupdates suchen.");
+    private final CheckBox chkShowUpdate = new CheckBox("dieses Update nochmals melden");
+    private final CheckBox chkSearchUpdate = new CheckBox("nach Programmupdates suchen");
     private final boolean newVersion;
     private final Stage stage;
-    BooleanProperty bPropShowUpdateInfo = null;
+    BooleanProperty searchForUpdate = null;
+    BooleanProperty showUpdate = null;
 
 
-    public InfoUpdateAlert(ProgInfo progInfo, ArrayList<Infos> newInfosList, boolean newVersion, BooleanProperty bPropShowUpdateInfo) {
+    public InfoUpdateAlert(ProgInfo progInfo, ArrayList<Infos> newInfosList, boolean newVersion, BooleanProperty searchForUpdate) {
         this.stage = P2LibConst.primaryStage;
         this.progInfo = progInfo;
         this.newInfosList = newInfosList;
         this.newVersion = newVersion;
-        this.bPropShowUpdateInfo = bPropShowUpdateInfo;
+        this.searchForUpdate = searchForUpdate;
     }
 
-    public InfoUpdateAlert(Stage stage, ProgInfo progInfo, ArrayList<Infos> newInfosList, boolean newVersion, BooleanProperty bPropShowUpdateInfo) {
+    public InfoUpdateAlert(Stage stage, ProgInfo progInfo, ArrayList<Infos> newInfosList, boolean newVersion,
+                           BooleanProperty searchForUpdate, BooleanProperty showUpdate) {
         this.stage = stage;
         this.progInfo = progInfo;
         this.newInfosList = newInfosList;
         this.newVersion = newVersion;
-        this.bPropShowUpdateInfo = bPropShowUpdateInfo;
+        this.searchForUpdate = searchForUpdate;
+        this.showUpdate = showUpdate;
     }
 
     public InfoUpdateAlert(Stage stage, ProgInfo progInfo, ArrayList<Infos> newInfosList, boolean newVersion) {
@@ -86,13 +90,29 @@ public class InfoUpdateAlert {
         alert.setHeaderText(header);
         alert.setResizable(true);
 
-        if (bPropShowUpdateInfo != null) {
-            chkSearchUpdateInfo.selectedProperty().bindBidirectional(bPropShowUpdateInfo);
-            chkSearchUpdateInfo.setPadding(new Insets(10));
+        if (showUpdate != null || searchForUpdate != null) {
+            VBox vBox = new VBox(10);
             vBox.setAlignment(Pos.CENTER_RIGHT);
             VBox.setVgrow(tabPane, Priority.ALWAYS);
-            vBox.getChildren().addAll(tabPane, chkSearchUpdateInfo);
+            vBox.getChildren().addAll(tabPane);
+
+            HBox hBox = new HBox(10);
+            hBox.setAlignment(Pos.CENTER_RIGHT);
+            if (showUpdate != null) {
+                HBox hB = new HBox();
+                HBox.setHgrow(hB, Priority.ALWAYS);
+                chkShowUpdate.selectedProperty().bindBidirectional(showUpdate);
+//                chkShowUpdate.setPadding(new Insets(10));
+                hBox.getChildren().addAll(chkShowUpdate, hB);
+            }
+            if (searchForUpdate != null) {
+                chkSearchUpdate.selectedProperty().bindBidirectional(searchForUpdate);
+//                chkSearchUpdate.setPadding(new Insets(10));
+                hBox.getChildren().add(chkSearchUpdate);
+            }
+            vBox.getChildren().addAll(hBox);
             alert.getDialogPane().setContent(vBox);
+
         } else {
             alert.getDialogPane().setContent(tabPane);
         }
@@ -147,7 +167,7 @@ public class InfoUpdateAlert {
         if (newVersion) {
             textArea.setText(progInfo.getProgReleaseNotes());
         } else {
-            textArea.setText(P2LibConst.LINE_SEPARATOR + "Sie benutzen die neueste Version von " + progInfo.getProgName() + ".");
+            textArea.setText(P2LibConst.LINE_SEPARATOR + "Sie benutzen die aktuellste Version von " + progInfo.getProgName() + ".");
         }
 
         textArea.setMinHeight(150);
@@ -204,10 +224,11 @@ public class InfoUpdateAlert {
             GridPane.setVgrow(textArea, Priority.ALWAYS);
 
             if (!newInfosList.contains(infos)) {
-                if (infos.getInfoNr() == 1) {
-                    // ist die Begrüßungsnachricht, macht nur beim ersten Start sinn
-                    continue;
-                }
+//                if (infos.getInfoNr() == 1) {
+//                    // ist die Begrüßungsnachricht, macht nur beim ersten Start Sinn
+//                    continue;
+//                }
+                // dann ist eine alte Info: Grau
                 textArea.setStyle("-fx-text-fill: gray;");
             }
 

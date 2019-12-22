@@ -28,6 +28,8 @@ class ProgInfo {
     private String progUrl = "";
     private String progDownloadUrl = "";
     private int progVersion = -1;
+    private int progBuildNo = -1;
+    private String progBuildDate = "";
     private String progReleaseNotes = "";
     private ArrayList<Infos> infos = new ArrayList<>(5);
 
@@ -73,6 +75,31 @@ class ProgInfo {
         }
     }
 
+    public int getProgBuildNo() {
+        return progBuildNo;
+    }
+
+    public void setProgBuildNo(int progBuildNo) {
+        this.progBuildNo = progBuildNo;
+    }
+
+    public void setProgBuildNo(String progBuildNo) {
+        try {
+            this.progBuildNo = Integer.parseInt(progBuildNo);
+        } catch (NumberFormatException ex) {
+            PLog.errorLog(975120369, ex, "Fehler beim Parsen der BuildNo '" + progBuildNo + "'.");
+            this.progBuildNo = -1;
+        }
+    }
+
+    public String getProgBuildDate() {
+        return progBuildDate;
+    }
+
+    public void setProgBuildDate(String progBuildDate) {
+        this.progBuildDate = progBuildDate;
+    }
+
     public String getProgReleaseNotes() {
         return progReleaseNotes;
     }
@@ -98,6 +125,8 @@ class ProgInfo {
         final static String PROG_URL = "progUrl";
         final static String PROG_DOWNLOAD_URL = "progDownloadUrl";
         final static String PROG_VERSION = "progVersion";
+        final static String PROG_BUILD_NO = "progBuild";
+        final static String PROG_BUILD_DATE = "buildDate";
         final static String PROG_RELEASE_NOTES = "releaseNotes";
         final static String PROG_INFOS = "infos";
         final static String PROG_INFOS_NUMBER = "number";

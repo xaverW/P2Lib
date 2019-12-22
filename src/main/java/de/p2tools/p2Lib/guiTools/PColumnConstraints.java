@@ -20,6 +20,7 @@ package de.p2tools.p2Lib.guiTools;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.RowConstraints;
 
 public class PColumnConstraints {
 
@@ -64,5 +65,17 @@ public class PColumnConstraints {
         cc.setMinWidth(Region.USE_COMPUTED_SIZE);
         cc.setHgrow(Priority.ALWAYS);
         return cc;
+    }
+
+    public static RowConstraints getRcPrefSize() {
+        RowConstraints row = new RowConstraints();
+        row.setVgrow(Priority.NEVER);
+        return row;
+    }
+
+    public static RowConstraints getRcVgrow() {
+        RowConstraints row = new RowConstraints();
+        row.setVgrow(Priority.ALWAYS);
+        return row;
     }
 }

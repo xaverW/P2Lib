@@ -22,17 +22,9 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.stage.Stage;
 
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class SearchProgInfo {
@@ -42,15 +34,9 @@ public class SearchProgInfo {
             "Es ist ein Fehler bei der Softwareaktualisierung aufgetreten." + P2LibConst.LINE_SEPARATOR
                     + "Die aktuelle Version konnte nicht ermittelt werden.";
 
-    private static final int TIMEOUT = 10_000; // timeout ms
-    private ProgInfo progInfo = new ProgInfo();
-    private String searchUrl = "";
-    private int lastInfoNr;
-    private ArrayList<Infos> newInfosList = new ArrayList<>(5);
-    boolean newVersion = false;
-    boolean newInfo = false;
-    BooleanProperty bPropShowUpdateInfo = null;
+
     private final Stage stage;
+    private boolean newVersion;
 
     public SearchProgInfo() {
         this.stage = P2LibConst.primaryStage;
@@ -61,39 +47,42 @@ public class SearchProgInfo {
     }
 
     public boolean checkUpdate(String searchUrl, int progVersion,
-                               IntegerProperty infoNr,
-                               boolean showAllwaysInfo, boolean showError) {
+                               IntegerProperty lastVersion, IntegerProperty lastInfoNo,
+                               boolean showAlwaysInfo, boolean showError) {
 
-        return check(searchUrl, progVersion, infoNr, showAllwaysInfo, showError);
+        return checkVersion(searchUrl, progVersion, lastVersion, lastInfoNo,
+                null, false, showAlwaysInfo, showError);
     }
 
     public boolean checkUpdate(String searchUrl, int progVersion,
-                               IntegerProperty infoNr, BooleanProperty bPropShowUpdateInfo,
+                               IntegerProperty lastVersion, IntegerProperty lastInfoNo,
+                               BooleanProperty searchForUpdateInfos,
+                               boolean showUpdate,
                                boolean showAlwaysInfo, boolean showError) {
 
         // return neue Version oder neue Infos
-        this.bPropShowUpdateInfo = bPropShowUpdateInfo;
-        return check(searchUrl, progVersion, infoNr, showAlwaysInfo, showError);
+        return checkVersion(searchUrl, progVersion, lastVersion, lastInfoNo,
+                searchForUpdateInfos, showUpdate, showAlwaysInfo, showError);
     }
 
-    private boolean check(String searchUrl, int progVersion,
-                          IntegerProperty infoNr,
-                          boolean showAlwaysInfo, boolean showError) {
+    public boolean checkBetaUpdate(String searchUrl, int progVersion, int progBuild,
+                                   IntegerProperty lastVersion,
+                                   IntegerProperty lastBuildNo,
+                                   BooleanProperty searchForUpdateInfos, boolean showAlwaysInfo, boolean showError) {
 
-        // prüft auf neue Version, aneigen: wenn true
-        // showAllwaysInfo-> dann wird die Info immer angezeigt
+        // return neue Version oder neue Infos
+        return checkBeta(searchUrl, progVersion, progBuild, lastVersion, lastBuildNo,
+                searchForUpdateInfos, showAlwaysInfo, showError);
+    }
 
-        PLog.sysLog("check update");
-        this.searchUrl = searchUrl;
-        this.lastInfoNr = infoNr.get();
+    private boolean retrieveInfos(ProgInfo progInfo, String url, boolean showAlwaysInfo, boolean showError) {
+        // prüft of die Suche nach Updateinfos geklappt hat
 
-        if (!retrieveProgramInformation(progInfo)) {
+        if (!RetrieveProgInfo.retrieveProgramInformation(progInfo, url)) {
             progInfo = null;
         }
-
-
         if (progInfo == null || progInfo.getProgVersion() < 0) {
-            // dann hats nicht geklappt
+            // wenn Version < 0 hat was nicht geklappt
             PLog.errorLog(978451203, "Das Suchen nach einem Programmupdate hat nicht geklappt!");
 
             if (showAlwaysInfo || showError) {
@@ -103,122 +92,117 @@ public class SearchProgInfo {
             return false;
         }
 
+        return true;
+    }
 
-        // dann haben wir was gefunden -> auswerten
-        newVersion = progInfo.getProgVersion() > progVersion;
+    private boolean checkVersion(String searchUrl, int progVersion,
+                                 IntegerProperty lastVersion, IntegerProperty lastInfoNr,
+                                 BooleanProperty searchForUpdateInfos,
+                                 boolean showUpdate,
+                                 boolean showAlwaysInfo, boolean showError) {
+        // prüft auf neue Version, anzeigen: wenn true
+        // showAllwaysInfo-> dann wird die Info immer angezeigt
+        PLog.sysLog("check update");
 
-        for (Infos i : progInfo.getInfos()) {
-            if (i.getInfoNr() > lastInfoNr) {
-                newInfo = true;
-                infoNr.setValue(i.getInfoNr());
-                newInfosList.add(i);
+        ProgInfo progInfo = new ProgInfo();
+        if (!retrieveInfos(progInfo, searchUrl, showAlwaysInfo, showError)) {
+            return false;
+        }
+
+        // nach neuen Infos suchen
+        boolean newInfo = false;
+        ArrayList<Infos> newInfosList = new ArrayList<>(5);
+        if (lastInfoNr != null) {
+            int lInfoNr = lastInfoNr.get();
+            for (Infos infos : progInfo.getInfos()) {
+                if (infos.getInfoNr() > lInfoNr) {
+                    newInfo = true;
+                    lastInfoNr.setValue(infos.getInfoNr());
+                    newInfosList.add(infos);
+                }
             }
         }
 
-        if (newVersion || newInfo || showAlwaysInfo) {
-            // wenn Version<0 hat was nicht geklappt
-            displayNotification();
+        // nach regulärem Update suchen
+        boolean newVersion = progInfo.getProgVersion() > progVersion;
+        if (newVersion) {
+            // dann ist eine neue Version
+            PLog.sysLog("gibt eine neue Version: " + progInfo.getProgVersion());
+        }
+
+        if (newVersion && progInfo.getProgVersion() > lastVersion.get() || newInfo || showAlwaysInfo) {
+            Platform.runLater(() -> {
+                BooleanProperty shUp = new SimpleBooleanProperty(true);
+                new InfoUpdateAlert(stage, progInfo, newInfosList, newVersion, searchForUpdateInfos, showUpdate ? shUp : null).
+                        showInfoAlert("Programminfos", (newVersion ? "Neue Version verfügbar" : "Infos"));
+                if (showUpdate && !shUp.get() && newVersion) {
+                    // dann ists eine neue Version
+                    lastVersion.set(progInfo.getProgVersion());
+                }
+            });
         }
 
         return newVersion;
     }
 
-    private void displayNotification() {
-        Platform.runLater(() -> new InfoUpdateAlert(stage, progInfo, newInfosList, newVersion, bPropShowUpdateInfo).showInfoAlert(
-                "Programminfos", (newVersion ? "Neue Version verfügbar" : "Infos")));
-    }
+    private boolean checkBeta(String searchUrl, int progVersion, int progBuild,
+                              IntegerProperty lastVersion, IntegerProperty lastBuildNo,
+                              BooleanProperty searchForUpdateInfos,
+                              boolean showAlwaysInfo, boolean showError) {
 
-    /**
-     * Load and parse the update information.
-     *
-     * @return parsed update info for further use when successful
-     */
-    private boolean retrieveProgramInformation(ProgInfo progInfo) {
-        boolean ret;
-        XMLStreamReader parser = null;
 
-        final XMLInputFactory inFactory = XMLInputFactory.newInstance();
-        inFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.FALSE);
+        // prüft auf neue beta-Version, anzeigen: wenn true
+        // showAllwaysInfo-> dann wird die Info immer angezeigt
 
-        try (InputStreamReader inReader = new InputStreamReader(connectToServer(), StandardCharsets.UTF_8)) {
+        PLog.sysLog("check update beta");
+        newVersion = true;
+        String url = searchUrl;
+        ProgInfo progInfo = new ProgInfo();
 
-            parser = inFactory.createXMLStreamReader(inReader);
-            ret = getConfig(parser, progInfo);
+        if (!retrieveInfos(progInfo, url, showAlwaysInfo, showError)) {
+            return false;
+        }
+        int version = progInfo.getProgVersion();
+        int build = progInfo.getProgBuildNo();
 
-        } catch (final Exception ex) {
-            PLog.errorLog(951203214, ex);
-            ret = false;
-        } finally {
-            try {
-                if (parser != null) {
-                    parser.close();
-                }
-            } catch (final Exception ignored) {
-            }
+        // gibts eine Beta?
+        if (version < 0 || build < 0) {
+            // dann hats eine neue Version gegeben und gibt noch kein beta
+            newVersion = false;
         }
 
-        return ret;
-    }
-
-    private InputStream connectToServer() throws IOException {
-        final HttpURLConnection conn = (HttpURLConnection) new URL(searchUrl).openConnection();
-        conn.setRequestProperty("User-Agent", P2LibConst.userAgent);
-        conn.setReadTimeout(TIMEOUT);
-        conn.setConnectTimeout(TIMEOUT);
-
-        return conn.getInputStream();
-    }
-
-    private boolean getConfig(XMLStreamReader parser, ProgInfo progInfo) {
-        boolean ret = true;
-        try {
-            while (parser.hasNext()) {
-                int event = parser.next();
-                if (event != XMLStreamConstants.START_ELEMENT) {
-                    continue;
-                }
-                if (event == XMLStreamConstants.END_ELEMENT) {
-                    break;
-                }
-                switch (parser.getLocalName()) {
-                    case ProgInfo.ParserTags.PROG_NAME:
-                        progInfo.setProgName(parser.getElementText());
-                        break;
-                    case ProgInfo.ParserTags.PROG_URL:
-                        progInfo.setProgUrl(parser.getElementText());
-                        break;
-                    case ProgInfo.ParserTags.PROG_DOWNLOAD_URL:
-                        progInfo.setProgDownloadUrl(parser.getElementText());
-                        break;
-                    case ProgInfo.ParserTags.PROG_VERSION:
-                        progInfo.setProgVersion(parser.getElementText());
-                        break;
-                    case ProgInfo.ParserTags.PROG_RELEASE_NOTES:
-                        progInfo.setProgReleaseNotes(parser.getElementText());
-                        break;
-                    case ProgInfo.ParserTags.PROG_INFOS:
-
-                        final int count = parser.getAttributeCount();
-                        String no = "";
-                        for (int i = 0; i < count; ++i) {
-                            if (parser.getAttributeName(i).toString().equals(ProgInfo.ParserTags.PROG_INFOS_NUMBER)) {
-                                no = parser.getAttributeValue(i);
-                            }
-                        }
-                        final String info = parser.getElementText();
-                        if (!no.isEmpty() && !info.isEmpty()) {
-                            progInfo.addProgInfo(new Infos(info, no));
-                        }
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-        } catch (final Exception ex) {
-            ret = false;
-            PLog.errorLog(645120302, ex);
+        // mit Programmversion vergleichen
+        if (version < progVersion || version == progVersion && build <= progBuild) {
+            // dann ist die beta <= aktuelle Programmversion
+            newVersion = false;
         }
-        return ret;
+
+        // mit vorher schon gemeldeten vergleichen
+        if (version < lastVersion.get() || version == lastVersion.get() && build <= lastBuildNo.get()) {
+            // dann wurde schon mal gemeldet
+            newVersion = false;
+        }
+
+        if (newVersion) {
+            // dann ist eine neue beta
+            PLog.sysLog("gibt eine neue beta");
+            PLog.sysLog("  Version: " + version);
+            PLog.sysLog("    build: " + build);
+            lastVersion.set(version);
+            lastBuildNo.set(build);
+        }
+
+        if (newVersion || showAlwaysInfo) {
+            if (version > progVersion || version == progVersion && build > progBuild) {
+                // dann ist die beta aktueller alse die momentane Programmversion
+                // wurde abe evtl. schon mal gemeldet und desswegen noch ein check
+                newVersion = true;
+            }
+            Platform.runLater(() -> new InfoBetaUpdateAlert(stage, progInfo, newVersion, searchForUpdateInfos).showInfoAlert(
+                    "Programminfos", (newVersion ? "Neue beta Version verfügbar" : "Infos")));
+        }
+
+        return newVersion;
     }
+
 }
