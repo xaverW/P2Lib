@@ -14,9 +14,10 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2Lib.dialog;
+package de.p2tools.p2Lib.dialogs;
 
 
+import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.tools.ProgramTools;
 import de.p2tools.p2Lib.tools.duration.PDuration;
@@ -51,14 +52,14 @@ public class ProgInfoDialog extends PDialogExtra {
     public ProgInfoDialog() {
         super(null, "Speicherverbrauch des Programms", false);
 
-        addButtons(btnOk);
+        addOkButton(btnOk);
         init(getVBoxCompleteDialog(), true);
     }
 
     public ProgInfoDialog(boolean showDialog) {
         super(null, "Speicherverbrauch des Programms", false);
 
-        addButtons(btnOk);
+        addOkButton(btnOk);
         init(getVBoxCompleteDialog(), showDialog);
     }
 
@@ -66,10 +67,6 @@ public class ProgInfoDialog extends PDialogExtra {
     @Override
     protected void make() {
         final String line = "<==/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\==>";
-//        btnOk.setMinWidth(P2LibConst.MIN_BUTTON_WIDTH);
-//        btnGc.setMinWidth(P2LibConst.MIN_BUTTON_WIDTH);
-//        btnDuration.setMinWidth(P2LibConst.MIN_BUTTON_WIDTH);
-
         btnOk.setOnAction(a -> close());
         btnGc.setOnAction(a -> System.gc());
         btnDuration.setOnAction(a -> {
@@ -128,7 +125,7 @@ public class ProgInfoDialog extends PDialogExtra {
                 PColumnConstraints.getCcComputedSizeAndHgrow(),
                 PColumnConstraints.getCcPrefSize());
 
-        getVboxCont().getChildren().add(gridPane);
+        getvBoxCont().getChildren().add(gridPane);
 
         //Update every second...
         Timeline timeline = new Timeline(new KeyFrame(

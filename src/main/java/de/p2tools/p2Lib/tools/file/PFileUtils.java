@@ -18,7 +18,7 @@ package de.p2tools.p2Lib.tools.file;
 
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.alert.PAlert;
-import de.p2tools.p2Lib.dialog.PDialogFileChosser;
+import de.p2tools.p2Lib.dialogs.PDialogFileChosser;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.SystemUtils;

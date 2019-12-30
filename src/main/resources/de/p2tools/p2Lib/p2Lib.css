@@ -74,3 +74,25 @@
 .checkbox-table:selected .mark {
     -fx-background-color: black;
 }
+
+.dialog-border {
+    -fx-background-insets: 10, 40;
+    -fx-border-color: lightgray transparent lightgray transparent, -p2-color-blue1;
+    -fx-border-insets: 0, 15;
+    -fx-border-width: 20 5, 10 3;
+}
+
+.dialog-title {
+    -fx-background-color: lightgray;
+    -fx-background-insets: 0;
+    -fx-border-color: -p2-color-blue1 transparent;
+    -fx-border-insets: 0;
+    -fx-border-width: 2 0;
+
+    -fx-padding: 5px;
+    -fx-text-alignment: center;
+    -fx-alignment: center ;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.3em;
+}
+

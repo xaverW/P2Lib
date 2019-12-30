@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2Lib.dialog;
+package de.p2tools.p2Lib.dialogs;
 
 import de.p2tools.p2Lib.alert.PAlert;
 import javafx.geometry.Insets;

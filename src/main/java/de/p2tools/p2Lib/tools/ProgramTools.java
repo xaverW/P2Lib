@@ -117,13 +117,8 @@ public class ProgramTools {
     }
 
     public static int getProgVersionInt() {
-        final String TOKEN_VERSION = "VERSION";
         try {
-            ResourceBundle.clearCache();
-            final ResourceBundle rb = ResourceBundle.getBundle(VERSION);
-            if (rb.containsKey(TOKEN_VERSION)) {
-                return Integer.parseInt(rb.getString(TOKEN_VERSION));
-            }
+            return Integer.parseInt(getProgVersion());
         } catch (final Exception e) {
             PLog.errorLog(951203647, e);
         }
@@ -144,5 +139,13 @@ public class ProgramTools {
         return "0";
     }
 
+    public static int getBuildInt() {
+        try {
+            return Integer.parseInt(getBuild());
+        } catch (final Exception e) {
+            PLog.errorLog(951203647, e);
+        }
+        return 0;
+    }
 
 }

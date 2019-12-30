@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2Lib.dialog;
+package de.p2tools.p2Lib.dialogs.dialog;
 
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
@@ -25,18 +25,25 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class PDialogExtra extends PDialog {
 
     private VBox vBoxCompleteDialog = new VBox(); // ist der gesamte Dialog
-    private HBox hBoxTitle = new HBox(10); // ist den Bereich über dem Inhalt mit dem Titel
-    private VBox vboxCont = new VBox(); // ist der Inhalt des Dialogs
+    private final ScrollPane scrollPane = new ScrollPane();
+    private HBox hBoxOverAll = new HBox(10); // ist der Bereich über dem Inhalt und dem Scrollpanel
+    private HBox hBoxTitle = new HBox(10); // ist der Bereich über dem Inhalt mit dem Titel
+    private HBox hBoxOverButtons = new HBox(10); // ist der Bereich über den Buttons aber außerhalb des Rahmens
+    private VBox vBoxCont = new VBox(10); // ist der Inhalt des Dialogs
     private HBox hBoxLeft = new HBox(10); // ist vor der ButtonBar
     private HBox hBoxRight = new HBox(10); // ist nach der ButtonBar
     private ButtonBar buttonBar = new ButtonBar();
+    private DECO deco = DECO.BORDER;
+
+    public static enum DECO {
+        NONE, BORDER
+    }
 
     public PDialogExtra(StringProperty conf, String title, boolean modal) {
         super(conf, title, modal);
@@ -63,6 +70,19 @@ public class PDialogExtra extends PDialog {
         initDialog();
     }
 
+    public PDialogExtra(StringProperty conf, String title, boolean modal, boolean setOnlySize, DECO deco) {
+        super(conf, title, modal, setOnlySize);
+        this.deco = deco;
+        initDialog();
+    }
+
+    public PDialogExtra(Stage ownerForCenteringDialog, StringProperty conf, String title, boolean modal, boolean setOnlySize,
+                        DECO deco) {
+        super(ownerForCenteringDialog, conf, title, modal, setOnlySize);
+        this.deco = deco;
+        initDialog();
+    }
+
     public void init(boolean show) {
         super.init(vBoxCompleteDialog, show);
     }
@@ -71,14 +91,24 @@ public class PDialogExtra extends PDialog {
         return vBoxCompleteDialog;
     }
 
+    public HBox gethBoxOverAll() {
+        hBoxOverAll.setVisible(true);
+        hBoxOverAll.setManaged(true);
+        return hBoxOverAll;
+    }
+
     public HBox getHBoxTitle() {
         hBoxTitle.setVisible(true);
         hBoxTitle.setManaged(true);
         return hBoxTitle;
     }
 
-    public VBox getVboxCont() {
-        return vboxCont;
+    public VBox getvBoxCont() {
+        return vBoxCont;
+    }
+
+    public HBox getHBoxOverButtons() {
+        return hBoxOverButtons;
     }
 
     public HBox getHboxOk() {
@@ -93,70 +123,84 @@ public class PDialogExtra extends PDialog {
         return hBoxRight;
     }
 
+    public ButtonBar getButtonBar() {
+        return buttonBar;
+    }
+
     private void initDialog() {
+        initBefore();
+
+        switch (deco) {
+            case BORDER:
+                initBorder();
+                break;
+            case NONE:
+            default:
+                initNone();
+        }
+        addButtonBox(vBoxCompleteDialog);
+        super.setPane(vBoxCompleteDialog);
+    }
+
+    private void initBefore() {
         vBoxCompleteDialog.setSpacing(10);
         vBoxCompleteDialog.setPadding(new Insets(10));
+
+        hBoxOverAll.setVisible(false);
+        hBoxOverAll.setManaged(false);
 
         hBoxTitle.getStyleClass().add("dialog-title");
         hBoxTitle.setVisible(false);
         hBoxTitle.setManaged(false);
 
+        VBox.setVgrow(vBoxCont, Priority.ALWAYS);
+
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
+        VBox.setVgrow(scrollPane, Priority.ALWAYS);
+        scrollPane.setContent(vBoxCont);
+    }
+
+    private void initNone() {
+//        getHBoxTitle().getChildren().add(new Label("Test"));
+        vBoxCont.setPadding(new Insets(15));
+        vBoxCompleteDialog.getChildren().addAll(hBoxOverAll, hBoxTitle, scrollPane);
+    }
+
+    private void initBorder() {
+//        getHBoxTitle().getChildren().add(new Label("Test"));
         VBox vBoxStyledBorder = new VBox();
         vBoxStyledBorder.getStyleClass().add("dialog-border");
         vBoxStyledBorder.setSpacing(10);
         VBox.setVgrow(vBoxStyledBorder, Priority.ALWAYS);
 
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
-        VBox.setVgrow(scrollPane, Priority.ALWAYS);
+        vBoxCont.setPadding(new Insets(25));
+        vBoxCont.getChildren().add(hBoxOverAll);
+        vBoxStyledBorder.getChildren().addAll(scrollPane);
+        vBoxCompleteDialog.getChildren().addAll(hBoxTitle, vBoxStyledBorder);
+    }
 
-        vboxCont.setPadding(new Insets(5));
-        VBox.setVgrow(vboxCont, Priority.ALWAYS);
-
-
-        scrollPane.setContent(vboxCont);
-        vBoxStyledBorder.getChildren().addAll(hBoxTitle, scrollPane);
-
-        HBox h = new HBox();
-        h.setAlignment(Pos.CENTER_RIGHT);
+    private void addButtonBox(VBox vBox) {
+        HBox hButton = new HBox();
+        hButton.setAlignment(Pos.CENTER_RIGHT);
         hBoxLeft.setAlignment(Pos.CENTER_RIGHT);
         hBoxRight.setAlignment(Pos.CENTER_RIGHT);
         HBox.setHgrow(buttonBar, Priority.ALWAYS);
-        h.getChildren().addAll(hBoxLeft, buttonBar, hBoxRight);
-        vBoxCompleteDialog.getChildren().addAll(vBoxStyledBorder, h);
-        super.setPane(vBoxCompleteDialog);
+        hButton.getChildren().addAll(hBoxLeft, buttonBar, hBoxRight);
+        vBox.getChildren().addAll(hBoxOverButtons, hButton);
     }
 
-    public void addHlpOkButtons(Button btnHelp, Button... btnList) {
-        HBox hBox = new HBox();
-        HBox.setHgrow(hBox, Priority.ALWAYS);
-        getHboxOk().getChildren().addAll(btnHelp, hBox);
-
-        for (Button b : btnList) {
-            b.setMaxWidth(Double.MAX_VALUE);
-        }
-        TilePane tilePane = new TilePane(10, 10);
-        tilePane.setAlignment(Pos.CENTER_RIGHT);
-        tilePane.getChildren().addAll(btnList);
-        getHboxOk().getChildren().add(tilePane);
-    }
-
-//    public void addOkButtons(Button... btnList) {
-//        for (Button b : btnList) {
-//            b.setMaxWidth(Double.MAX_VALUE);
-//        }
-//        TilePane tilePane = new TilePane(10, 10);
-//        tilePane.setAlignment(Pos.CENTER_RIGHT);
-//        tilePane.getChildren().addAll(btnList);
-//        vBoxCompleteDialog.getChildren().remove(hBoxOk);
-//        vBoxCompleteDialog.getChildren().add(tilePane);
-//    }
-
-    public void addButtons(Button btnOk) {
+    public void addOkButton(Button btnOk) {
         if (btnOk != null) {
             ButtonBar.setButtonData(btnOk, ButtonBar.ButtonData.OK_DONE);
             buttonBar.getButtons().addAll(btnOk);
+        }
+    }
+
+    public void addCancelButton(Button btnCancel) {
+        if (btnCancel != null) {
+            ButtonBar.setButtonData(btnCancel, ButtonBar.ButtonData.CANCEL_CLOSE);
+            buttonBar.getButtons().addAll(btnCancel);
         }
     }
 
@@ -168,6 +212,13 @@ public class PDialogExtra extends PDialog {
         if (btnCancel != null) {
             ButtonBar.setButtonData(btnCancel, ButtonBar.ButtonData.CANCEL_CLOSE);
             buttonBar.getButtons().addAll(btnCancel);
+        }
+    }
+
+    public void addHlpButton(Node btn) {
+        if (btn != null) {
+            ButtonBar.setButtonData(btn, ButtonBar.ButtonData.HELP);
+            buttonBar.getButtons().add(btn);
         }
     }
 
