@@ -16,29 +16,24 @@
 
 package de.p2tools.p2Lib.dialogs.dialog;
 
-import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.P2LibInit;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.icon.GetIcon;
 import de.p2tools.p2Lib.tools.PException;
 import de.p2tools.p2Lib.tools.log.PLog;
-import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
 public class PDialog {
     private Scene scene = null;
     private Stage stage = null;
-    private Pane pane = null;
+    private Pane pane;
 
     private final StringProperty sizeConfiguration;
     private final boolean modal;
@@ -49,7 +44,9 @@ public class PDialog {
     private double stageWidth = 0;
     private double stageHeight = 0;
 
-    public PDialog(Stage ownerForCenteringDialog, StringProperty sizeConfiguration, String title, boolean modal, boolean setOnlySize) {
+    PDialog(Stage ownerForCenteringDialog, StringProperty sizeConfiguration,
+            String title, boolean modal, boolean setOnlySize) {
+
         this.ownerForCenteringDialog = ownerForCenteringDialog;
         this.sizeConfiguration = sizeConfiguration;
         this.modal = modal;
@@ -57,60 +54,18 @@ public class PDialog {
         this.setOnlySize = setOnlySize;
     }
 
-    public PDialog(Stage ownerForCenteringDialog, StringProperty sizeConfiguration, String title, boolean modal) {
-        this.ownerForCenteringDialog = ownerForCenteringDialog;
-        this.sizeConfiguration = sizeConfiguration;
-        this.modal = modal;
-        this.title = title;
-        this.setOnlySize = false;
-    }
-
-    public PDialog(StringProperty sizeConfiguration, String title, boolean modal) {
-        this.ownerForCenteringDialog = P2LibConst.primaryStage;
-        this.sizeConfiguration = sizeConfiguration;
-        this.modal = modal;
-        this.title = title;
-        this.setOnlySize = false;
-    }
-
-    public PDialog(StringProperty sizeConfiguration, String title, boolean modal, boolean setOnlySize) {
-        this.ownerForCenteringDialog = P2LibConst.primaryStage;
-        this.sizeConfiguration = sizeConfiguration;
-        this.modal = modal;
-        this.title = title;
-        this.setOnlySize = setOnlySize;
-    }
-
-    public PDialog(String title, boolean modal) {
-        this.ownerForCenteringDialog = P2LibConst.primaryStage;
-        this.sizeConfiguration = null;
-        this.modal = modal;
-        this.title = title;
-        this.setOnlySize = false;
-    }
-
-    public void init(Pane pane) {
-        // die Dialoge werden beim Programmstart angelegt
-        Platform.runLater(() -> init(pane, false));
-    }
-
-    protected void setPane(Pane pane) {
+    void setPane(Pane pane) {
         this.pane = pane;
     }
 
-    public void init(boolean show) {
-        init(pane, show);
-    }
-
-    public void init(Pane pane, boolean show) {
+    void init(boolean show) {
         try {
             createNewScene(pane);
-            P2LibInit.addP2LibCssToScene(scene);
-
             if (scene == null) {
                 PException.throwPException(912012458, "no scene");
             }
 
+            updateCss();
             stage = new Stage();
             stage.setScene(scene);
             stage.setTitle(title);
@@ -187,9 +142,9 @@ public class PDialog {
 
         if (setOnlySize || sizeConfiguration == null || !PGuiSize.setPos(sizeConfiguration, stage)) {
             if (ownerForCenteringDialog == null) {
-                setInCenterOfScreen();
+                PDialogFactory.setInCenterOfScreen(stage);
             } else {
-                setInFrontOfPrimaryStage();
+                PDialogFactory.setInFrontOfPrimaryStage(ownerForCenteringDialog, stage);
             }
         }
 
@@ -197,52 +152,6 @@ public class PDialog {
             stage.showAndWait();
         } else {
             stage.show();
-        }
-    }
-
-    private void setInFrontOfPrimaryStage() {
-        // vor Primär zentrieren
-        if (ownerForCenteringDialog != null) {
-            ChangeListener<Number> widthListener = (observable, oldValue, newValue) -> {
-                double stageWidth = newValue.doubleValue();
-                stage.setX(ownerForCenteringDialog.getX() + ownerForCenteringDialog.getWidth() / 2 - stageWidth / 2);
-            };
-            ChangeListener<Number> heightListener = (observable, oldValue, newValue) -> {
-                double stageHeight = newValue.doubleValue();
-                stage.setY(ownerForCenteringDialog.getY() + ownerForCenteringDialog.getHeight() / 2 - stageHeight / 2);
-            };
-
-            stage.widthProperty().addListener(widthListener);
-            stage.heightProperty().addListener(heightListener);
-
-            stage.setOnShown(e -> {
-                stage.widthProperty().removeListener(widthListener);
-                stage.heightProperty().removeListener(heightListener);
-            });
-        }
-    }
-
-    private void setInCenterOfScreen() {
-        // vor Primär zentrieren
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-
-        if (screenBounds != null) {
-            ChangeListener<Number> widthListener = (observable, oldValue, newValue) -> {
-                double stageWidth = newValue.doubleValue();
-                stage.setX(screenBounds.getWidth() / 2 - stageWidth / 2);
-            };
-            ChangeListener<Number> heightListener = (observable, oldValue, newValue) -> {
-                double stageHeight = newValue.doubleValue();
-                stage.setY(screenBounds.getHeight() / 2 - stageHeight / 2);
-            };
-
-            stage.widthProperty().addListener(widthListener);
-            stage.heightProperty().addListener(heightListener);
-
-            stage.setOnShown(e -> {
-                stage.widthProperty().removeListener(widthListener);
-                stage.heightProperty().removeListener(heightListener);
-            });
         }
     }
 

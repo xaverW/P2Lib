@@ -16,6 +16,7 @@
 
 package de.p2tools.p2Lib.dialogs.dialog;
 
+import de.p2tools.p2Lib.P2LibConst;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -30,61 +31,42 @@ import javafx.stage.Stage;
 
 public class PDialogExtra extends PDialog {
 
-    private VBox vBoxCompleteDialog = new VBox(); // ist der gesamte Dialog
+    private final VBox vBoxCompleteDialog = new VBox(); // ist der gesamte Dialog
     private final ScrollPane scrollPane = new ScrollPane();
-    private HBox hBoxOverAll = new HBox(10); // ist der Bereich über dem Inhalt und dem Scrollpanel
-    private HBox hBoxTitle = new HBox(10); // ist der Bereich über dem Inhalt mit dem Titel
-    private HBox hBoxOverButtons = new HBox(10); // ist der Bereich über den Buttons aber außerhalb des Rahmens
-    private VBox vBoxCont = new VBox(10); // ist der Inhalt des Dialogs
-    private HBox hBoxLeft = new HBox(10); // ist vor der ButtonBar
-    private HBox hBoxRight = new HBox(10); // ist nach der ButtonBar
-    private ButtonBar buttonBar = new ButtonBar();
+    private final HBox hBoxOverAll = new HBox(10); // ist der Bereich über dem Inhalt und dem Scrollpanel
+    private final HBox hBoxTitle = new HBox(10); // ist der Bereich über dem Inhalt mit dem Titel
+    private final HBox hBoxOverButtons = new HBox(10); // ist der Bereich über den Buttons aber außerhalb des Rahmens
+    private final VBox vBoxCont = new VBox(10); // ist der Inhalt des Dialogs
+    private final HBox hBoxLeft = new HBox(10); // ist vor der ButtonBar
+    private final HBox hBoxRight = new HBox(10); // ist nach der ButtonBar
+    private final ButtonBar buttonBar = new ButtonBar();
     private DECO deco = DECO.BORDER;
 
-    public static enum DECO {
+    public enum DECO {
         NONE, BORDER
     }
 
-    public PDialogExtra(StringProperty conf, String title, boolean modal) {
-        super(conf, title, modal);
+    public PDialogExtra(StringProperty conf, String title) {
+        // ist nur ein einfacher Dialog, zentral über dem Hauptfenster
+        super(P2LibConst.primaryStage, conf, title, true, true);
         initDialog();
     }
 
-    public PDialogExtra(StringProperty conf, String title, boolean modal, boolean setOnlySize) {
-        super(conf, title, modal, setOnlySize);
-        initDialog();
-    }
-
-    public PDialogExtra(Stage ownerForCenteringDialog, String title) {
-        super(ownerForCenteringDialog, null, title, true, true);
-        initDialog();
-    }
-
-    public PDialogExtra(Stage ownerForCenteringDialog, StringProperty conf, String title) {
-        super(ownerForCenteringDialog, conf, title, true, true);
-        initDialog();
-    }
-
-    public PDialogExtra(Stage ownerForCenteringDialog, StringProperty conf, String title, boolean modal, boolean setOnlySize) {
+    public PDialogExtra(Stage ownerForCenteringDialog, StringProperty conf,
+                        String title, boolean modal, boolean setOnlySize) {
         super(ownerForCenteringDialog, conf, title, modal, setOnlySize);
         initDialog();
     }
 
-    public PDialogExtra(StringProperty conf, String title, boolean modal, boolean setOnlySize, DECO deco) {
-        super(conf, title, modal, setOnlySize);
-        this.deco = deco;
-        initDialog();
-    }
-
-    public PDialogExtra(Stage ownerForCenteringDialog, StringProperty conf, String title, boolean modal, boolean setOnlySize,
-                        DECO deco) {
+    public PDialogExtra(Stage ownerForCenteringDialog, StringProperty conf,
+                        String title, boolean modal, boolean setOnlySize, DECO deco) {
         super(ownerForCenteringDialog, conf, title, modal, setOnlySize);
         this.deco = deco;
         initDialog();
     }
 
     public void init(boolean show) {
-        super.init(vBoxCompleteDialog, show);
+        super.init(show);
     }
 
     public VBox getVBoxCompleteDialog() {
@@ -111,10 +93,6 @@ public class PDialogExtra extends PDialog {
         return hBoxOverButtons;
     }
 
-    public HBox getHboxOk() {
-        return hBoxLeft;
-    }
-
     public HBox getHboxLeft() {
         return hBoxLeft;
     }
@@ -125,6 +103,44 @@ public class PDialogExtra extends PDialog {
 
     public ButtonBar getButtonBar() {
         return buttonBar;
+    }
+
+    public void addOkButton(Button btnOk) {
+        if (btnOk != null) {
+            ButtonBar.setButtonData(btnOk, ButtonBar.ButtonData.OK_DONE);
+            buttonBar.getButtons().addAll(btnOk);
+        }
+    }
+
+    public void addCancelButton(Button btnCancel) {
+        if (btnCancel != null) {
+            ButtonBar.setButtonData(btnCancel, ButtonBar.ButtonData.CANCEL_CLOSE);
+            buttonBar.getButtons().addAll(btnCancel);
+        }
+    }
+
+    public void addOkCancelButtons(Button btnOk, Button btnCancel) {
+        if (btnOk != null) {
+            ButtonBar.setButtonData(btnOk, ButtonBar.ButtonData.OK_DONE);
+            buttonBar.getButtons().addAll(btnOk);
+        }
+        if (btnCancel != null) {
+            ButtonBar.setButtonData(btnCancel, ButtonBar.ButtonData.CANCEL_CLOSE);
+            buttonBar.getButtons().addAll(btnCancel);
+        }
+    }
+
+    public void addHlpButton(Node btn) {
+        if (btn != null) {
+            ButtonBar.setButtonData(btn, ButtonBar.ButtonData.HELP);
+            buttonBar.getButtons().add(btn);
+        }
+    }
+
+    public void addAnyButton(Node btn) {
+        if (btn != null) {
+            buttonBar.getButtons().addAll(btn);
+        }
     }
 
     private void initDialog() {
@@ -139,10 +155,10 @@ public class PDialogExtra extends PDialog {
                 initNone();
         }
         addButtonBox(vBoxCompleteDialog);
-        super.setPane(vBoxCompleteDialog);
     }
 
     private void initBefore() {
+        super.setPane(vBoxCompleteDialog);
         vBoxCompleteDialog.setSpacing(10);
         vBoxCompleteDialog.setPadding(new Insets(10));
 
@@ -189,43 +205,4 @@ public class PDialogExtra extends PDialog {
         hButton.getChildren().addAll(hBoxLeft, buttonBar, hBoxRight);
         vBox.getChildren().addAll(hBoxOverButtons, hButton);
     }
-
-    public void addOkButton(Button btnOk) {
-        if (btnOk != null) {
-            ButtonBar.setButtonData(btnOk, ButtonBar.ButtonData.OK_DONE);
-            buttonBar.getButtons().addAll(btnOk);
-        }
-    }
-
-    public void addCancelButton(Button btnCancel) {
-        if (btnCancel != null) {
-            ButtonBar.setButtonData(btnCancel, ButtonBar.ButtonData.CANCEL_CLOSE);
-            buttonBar.getButtons().addAll(btnCancel);
-        }
-    }
-
-    public void addButtons(Button btnOk, Button btnCancel) {
-        if (btnOk != null) {
-            ButtonBar.setButtonData(btnOk, ButtonBar.ButtonData.OK_DONE);
-            buttonBar.getButtons().addAll(btnOk);
-        }
-        if (btnCancel != null) {
-            ButtonBar.setButtonData(btnCancel, ButtonBar.ButtonData.CANCEL_CLOSE);
-            buttonBar.getButtons().addAll(btnCancel);
-        }
-    }
-
-    public void addHlpButton(Node btn) {
-        if (btn != null) {
-            ButtonBar.setButtonData(btn, ButtonBar.ButtonData.HELP);
-            buttonBar.getButtons().add(btn);
-        }
-    }
-
-    public void addAnyButton(Node btn) {
-        if (btn != null) {
-            buttonBar.getButtons().addAll(btn);
-        }
-    }
-
 }

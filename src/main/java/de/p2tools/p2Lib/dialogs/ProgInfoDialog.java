@@ -17,6 +17,7 @@
 package de.p2tools.p2Lib.dialogs;
 
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.tools.ProgramTools;
@@ -50,17 +51,17 @@ public class ProgInfoDialog extends PDialogExtra {
     private static final int MEGABYTE = 1000 * 1000;
 
     public ProgInfoDialog() {
-        super(null, "Speicherverbrauch des Programms", false);
+        super(P2LibConst.primaryStage, null, "Speicherverbrauch des Programms", false, false);
 
         addOkButton(btnOk);
-        init(getVBoxCompleteDialog(), true);
+        init(true);
     }
 
     public ProgInfoDialog(boolean showDialog) {
-        super(null, "Speicherverbrauch des Programms", false);
+        super(P2LibConst.primaryStage, null, "Speicherverbrauch des Programms", false, false);
 
         addOkButton(btnOk);
-        init(getVBoxCompleteDialog(), showDialog);
+        init(showDialog);
     }
 
 
