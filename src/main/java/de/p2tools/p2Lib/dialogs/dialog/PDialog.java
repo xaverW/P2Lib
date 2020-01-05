@@ -86,7 +86,8 @@ public class PDialog {
             GetIcon.addWindowP2Icon(stage);
             make();
 
-            if (setOnlySize || sizeConfiguration == null) {
+            if (setOnlySize || sizeConfiguration == null || sizeConfiguration.get().isEmpty()) {
+                // auch für Dialoge die beim ersten Start keine Größenvorgabe haben
                 scene.getWindow().sizeToScene();
             }
 
