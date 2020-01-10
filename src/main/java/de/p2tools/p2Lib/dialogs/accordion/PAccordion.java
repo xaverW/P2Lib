@@ -15,13 +15,17 @@
  */
 
 
-package de.p2tools.p2Lib.guiTools;
+package de.p2tools.p2Lib.dialogs.accordion;
 
 import de.p2tools.p2Lib.tools.PException;
 import javafx.beans.property.IntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.VBox;
+
+import java.util.Collection;
 
 public class PAccordion {
 
@@ -41,8 +45,11 @@ public class PAccordion {
     }
 
     public static void setAccordionPane(Accordion accordion, IntegerProperty selectedPane) {
-        if (selectedPane.get() < 0) {
-            return; // beim Start
+        if (selectedPane.get() < 0 && accordion.getPanes().size() == 1) {
+            accordion.setExpandedPane(accordion.getPanes().get(0));
+            return; // beim Programmstart, ist das übersichtlicher, nur wenns nur einen gibt, dann anzuzeigen
+        } else if (selectedPane.get() < 0) {
+            return;
         }
 
         if (selectedPane.get() >= accordion.getPanes().size()) {
@@ -54,4 +61,19 @@ public class PAccordion {
     }
 
 
+    public static void setAccordion(boolean setAcc, Accordion accordion, VBox noAccordion, ScrollPane scrollPane,
+                                    Collection<TitledPane> titledPanes, IntegerProperty selectedPane) {
+        if (setAcc) {
+            noAccordion.getChildren().clear();
+            accordion.getPanes().addAll(titledPanes);
+            scrollPane.setContent(accordion);
+            setAccordionPane(accordion, selectedPane);
+
+        } else {
+            accordion.getPanes().clear();
+            noAccordion.getChildren().addAll(titledPanes);
+            titledPanes.stream().forEach(titledPane -> titledPane.setExpanded(true));
+            scrollPane.setContent(noAccordion);
+        }
+    }
 }
