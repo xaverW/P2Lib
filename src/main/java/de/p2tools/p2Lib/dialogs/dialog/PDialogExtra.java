@@ -175,6 +175,7 @@ public class PDialogExtra extends PDialog {
         scrollPane.setFitToWidth(true);
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
         scrollPane.setContent(vBoxCont);
+
     }
 
     private void initNone() {
@@ -192,6 +193,7 @@ public class PDialogExtra extends PDialog {
 
         vBoxCont.setPadding(new Insets(25));
         vBoxCont.getChildren().add(hBoxOverAll);
+
         vBoxStyledBorder.getChildren().addAll(scrollPane);
         vBoxCompleteDialog.getChildren().addAll(hBoxTitle, vBoxStyledBorder);
     }
