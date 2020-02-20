@@ -97,7 +97,7 @@ public class PTextFieldMoney extends TextField {
 
         lChangeListener = (observable, oldValue, newValue) -> {
             doubleProperty.set(0.01 * longProperty.get());
-            System.out.println("PTextFieldMoney--doubleProperty.set: " + 0.01 * longProperty.get());
+//            System.out.println("PTextFieldMoney--doubleProperty.set: " + 0.01 * longProperty.get());
         };
         longProperty.addListener(lChangeListener);
 
@@ -108,7 +108,7 @@ public class PTextFieldMoney extends TextField {
             dChangeListener = (observable, oldValue, newValue) -> {
                 Double d = doubleProperty.get() * 100;
                 longProperty.set(d.longValue());
-                System.out.println("PTextFieldMoney--longProperty.set: " + d.longValue());
+//                System.out.println("PTextFieldMoney--longProperty.set: " + d.longValue());
             };
             doubleProperty.addListener(dChangeListener);
         }

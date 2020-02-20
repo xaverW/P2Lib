@@ -55,23 +55,21 @@ public class PComboBoxString extends ComboBox<String> {
     public void init(ObservableList<String> dataList) {
         this.itemsList = dataList;
 
-        setCombo();
+        setCombo("");
     }
 
     public void init(ObservableList<String> dataList, StringProperty selValueStringProperty) {
         this.itemsList = dataList;
         this.selValueStringProperty = selValueStringProperty;
 
-        selectElement(selValueStringProperty.getValueSafe());
-        setCombo();
+        setCombo(selValueStringProperty.getValueSafe());
     }
 
     public void init(ObservableList<String> dataList, String init, StringProperty selValueStringProperty) {
         this.selValueStringProperty = selValueStringProperty;
         this.itemsList = dataList;
 
-        selectElement(init);
-        setCombo();
+        setCombo(init);
     }
 
     public void setRegEx(String regEx) {
@@ -115,14 +113,21 @@ public class PComboBoxString extends ComboBox<String> {
         this.maxElements = maxElements;
     }
 
-    private void setCombo() {
+    private void setCombo(String start) {
         if (itemsList == null) {
             return;
         }
 
+        if (!start.isEmpty() && !itemsList.contains(start)) {
+            itemsList.add(start);
+        }
         reduceList();
         Collections.sort(itemsList, new GermanStringSorter());
+
         this.setItems(itemsList);
+        if (!start.isEmpty()) {
+            selectElement(start);
+        }
 
         getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && !itemsList.contains(newValue)) {
