@@ -17,6 +17,7 @@
 package de.p2tools.p2Lib.checkForUpdates;
 
 import de.p2tools.p2Lib.P2LibConst;
+import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -86,6 +87,7 @@ public class SearchProgUpdate {
         if (searchUrl.isEmpty() || !UpdateFactory.retrieveInfos(stage, progInfo, searchUrl, showInfoAlways)) {
             progInfo = null;
         } else {
+            PLog.sysLog("check update");
             newVersion = UpdateFactory.checkVersion(progInfo, newInfosList, progVersion, lastInfoNo);
             showUpdate = UpdateFactory.checkVersionNotShown(progInfo, progVersion, newInfosList, lastVersion);
             if (showUpdate && lastVersion != null) {
@@ -98,6 +100,7 @@ public class SearchProgUpdate {
         if (searchUrlBeta.isEmpty() || !UpdateFactory.retrieveInfos(stage, progInfoBeta, searchUrlBeta, false)) {
             progInfoBeta = null;
         } else {
+            PLog.sysLog("check update beta");
             newVersionBeta = UpdateFactory.checkBeta(progInfoBeta, progVersion, progBuild);
             showUpdateBeta = UpdateFactory.checkVersionBetaNotShown(progInfoBeta, progVersion, progBuild, lastVersionBeta, lastBuildNoBeta);
             if (showUpdateBeta && lastVersionBeta != null && lastBuildNoBeta != null) {

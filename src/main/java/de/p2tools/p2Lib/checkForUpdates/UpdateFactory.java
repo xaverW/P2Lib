@@ -41,7 +41,6 @@ public class UpdateFactory {
     static boolean checkVersion(ProgInfo progInfo, ArrayList<Infos> newInfosList,
                                 int progVersion, IntegerProperty lastInfoNr) {
         // prüft auf neue Version oder neue Infos
-        PLog.sysLog("check update");
         boolean newVersion = false;
 
         // nach neuen Infos suchen
@@ -69,7 +68,6 @@ public class UpdateFactory {
     static boolean checkVersionNotShown(ProgInfo progInfo, int progVersion, ArrayList<Infos> newInfosList,
                                         IntegerProperty lastVersion) {
         // prüft auf neue Version und noch nicht angezeigt
-        PLog.sysLog("check update already shown");
         boolean showNewVersion = false;
 
         int version = progInfo.getProgVersion();
@@ -84,7 +82,6 @@ public class UpdateFactory {
 
     static boolean checkBeta(ProgInfo progInfo, int progVersion, int progBuild) {
         // prüft auf neue BETA-Version
-        PLog.sysLog("check update beta");
         boolean newVersion = false;
 
         int version = progInfo.getProgVersion();
@@ -111,7 +108,6 @@ public class UpdateFactory {
     static boolean checkVersionBetaNotShown(ProgInfo progInfo, int progVersion, int progBuild,
                                             IntegerProperty lastVersion, IntegerProperty lastBuildNo) {
         // prüft ob neue BETA-Version noch nicht gemeldet
-        PLog.sysLog("check beta update already shown");
         boolean showNewVersion = false;
 
         int version = progInfo.getProgVersion();
