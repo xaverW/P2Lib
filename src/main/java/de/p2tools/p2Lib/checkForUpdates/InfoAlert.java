@@ -83,7 +83,7 @@ public class InfoAlert {
         if (stage != null) {
             alert.initOwner(stage);
         }
-        alert.setTitle("Programminfos");
+        alert.setTitle("Updates");
         alert.setHeaderText(header);
         alert.setResizable(true);
 
