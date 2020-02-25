@@ -16,6 +16,7 @@
 
 .root{
     -p2-color-blue1: #4682B4;
+    -p2-color-blue2: #1d364b;
 }
 
 /* PFilterTextField */
@@ -85,6 +86,13 @@
     -fx-border-width: 20 5, 10 3;
 }
 
+.dialog-border-small {
+    -fx-background-insets: 10, 40;
+    -fx-border-color: lightgray, -p2-color-blue1;
+    -fx-border-insets: 0, 5;
+    -fx-border-width: 5, 1;
+}
+
 .dialog-title {
     -fx-background-color: lightgray;
     -fx-background-insets: 0;
@@ -98,4 +106,12 @@
     -fx-font-weight: bold;
     -fx-font-size: 1.3em;
 }
+
+.dialog-about {
+    -fx-background-insets: 100, 40;
+    -fx-border-color: -p2-color-blue1, -p2-color-blue2;
+    -fx-border-insets: 0, 3;
+    -fx-padding: 10;
+    -fx-border-width: 3, 2;
+ }
 

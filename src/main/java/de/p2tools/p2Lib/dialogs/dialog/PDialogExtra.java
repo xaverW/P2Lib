@@ -43,7 +43,7 @@ public class PDialogExtra extends PDialog {
     private DECO deco = DECO.BORDER;
 
     public enum DECO {
-        NONE, BORDER
+        NONE, BORDER, SMALL
     }
 
     public PDialogExtra(StringProperty conf, String title) {
@@ -150,6 +150,9 @@ public class PDialogExtra extends PDialog {
             case BORDER:
                 initBorder();
                 break;
+            case SMALL:
+                initBorderSmall();
+                break;
             case NONE:
             default:
                 initNone();
@@ -185,9 +188,21 @@ public class PDialogExtra extends PDialog {
     }
 
     private void initBorder() {
-//        getHBoxTitle().getChildren().add(new Label("Test"));
         VBox vBoxStyledBorder = new VBox();
         vBoxStyledBorder.getStyleClass().add("dialog-border");
+        vBoxStyledBorder.setSpacing(10);
+        VBox.setVgrow(vBoxStyledBorder, Priority.ALWAYS);
+
+        vBoxCont.setPadding(new Insets(25));
+        vBoxCont.getChildren().add(hBoxOverAll);
+
+        vBoxStyledBorder.getChildren().addAll(scrollPane);
+        vBoxCompleteDialog.getChildren().addAll(hBoxTitle, vBoxStyledBorder);
+    }
+
+    private void initBorderSmall() {
+        VBox vBoxStyledBorder = new VBox();
+        vBoxStyledBorder.getStyleClass().add("dialog-border-small");
         vBoxStyledBorder.setSpacing(10);
         VBox.setVgrow(vBoxStyledBorder, Priority.ALWAYS);
 
