@@ -31,8 +31,8 @@ public class SearchProgUpdate {
     private final Stage stage;
     private boolean newVersion = false;
     private boolean newVersionBeta = false;
-    private ProgInfo progInfo = new ProgInfo();
-    private ProgInfo progInfoBeta = new ProgInfo();
+    private ProgUpdateData progUpdateData = new ProgUpdateData();
+    private ProgUpdateData progUpdateDataBeta = new ProgUpdateData();
 
     public SearchProgUpdate() {
         this.stage = P2LibConst.primaryStage;
@@ -42,97 +42,91 @@ public class SearchProgUpdate {
         this.stage = stage;
     }
 
-    public boolean checkProgVersion(String searchUrl, int progVersion,
-                                    IntegerProperty lastVersion, IntegerProperty lastInfoNo,
-                                    BooleanProperty searchForUpdateInfo) {
-
-        return checkAllUpdates(searchUrl, "", progVersion, 0,
-                lastVersion, lastInfoNo, null, null,
-                searchForUpdateInfo, null,
-                false);
-    }
-
-    public boolean checkProgVersionBeta(String searchUrl, String searchUrlBeta, int progVersion, int progBuild,
-                                        IntegerProperty lastVersion, IntegerProperty lastInfoNo,
-                                        IntegerProperty lastVersionBeta, IntegerProperty lastBuildNoBeta,
-                                        BooleanProperty searchForUpdateInfo, BooleanProperty searchForUpdateInfoBeta) {
-
-        return checkAllUpdates(searchUrl, searchUrlBeta, progVersion, progBuild,
-                lastVersion, lastInfoNo, lastVersionBeta, lastBuildNoBeta,
-                searchForUpdateInfo, searchForUpdateInfoBeta,
-                false);
-    }
-
-    public boolean checkAll(String searchUrl, String searchUrlBeta,
-                            int progVersion, int progBuild) {
-
-        return checkAllUpdates(searchUrl, searchUrlBeta, progVersion, progBuild,
-                null, null, null, null, null, null,
-                true);
-    }
-
-
-    public boolean checkAllUpdates(String searchUrl, String searchUrlBeta,
-                                   int progVersion, int progBuild,
-                                   IntegerProperty lastVersion, IntegerProperty lastInfoNo,
-                                   IntegerProperty lastVersionBeta, IntegerProperty lastBuildNoBeta,
-                                   BooleanProperty searchForUpdateInfo, BooleanProperty searchForUpdateBetaInfo,
+    public boolean checkAllUpdates(UpdateSearchData updateSearchData,
+                                   UpdateSearchData updateSearchDataBeta,
                                    boolean showInfoAlways) {
 
         boolean showUpdate = false;
         boolean showUpdateBeta = false;
-        ArrayList<Infos> newInfosList = new ArrayList<>(5);
+        int progVersion = 0;
+        int progBuildNo = 0;
+        ArrayList<ProgUpdateInfoData> newProgUpdateInfoDataList = new ArrayList<>(5);
 
         // Programmupdate suchen
-        if (searchUrl.isEmpty() || !UpdateFactory.retrieveInfos(stage, progInfo, searchUrl, showInfoAlways)) {
-            progInfo = null;
+        if (updateSearchData == null ||
+                !UpdateFactory.retrieveInfos(stage, progUpdateData, updateSearchData.getUpdateUrl(), showInfoAlways)) {
+            progUpdateData = null;
+
         } else {
             PLog.sysLog("check update");
-            newVersion = UpdateFactory.checkVersion(progInfo, newInfosList, progVersion, lastInfoNo);
-            showUpdate = UpdateFactory.checkVersionNotShown(progInfo, progVersion, newInfosList, lastVersion);
-            if (showUpdate && lastVersion != null) {
+            progVersion = updateSearchData.getProgVersionNo();
+            progBuildNo = updateSearchData.getProgBuildNo();
+
+            newVersion = UpdateFactory.checkVersion(progUpdateData, progVersion,
+                    newProgUpdateInfoDataList, updateSearchData.updateInfoNoShownProperty());
+            showUpdate = UpdateFactory.checkVersionNotShown(progUpdateData, progVersion,
+                    newProgUpdateInfoDataList, updateSearchData.updateVersionShownProperty());
+
+            if (showUpdate && updateSearchData.updateVersionShownProperty() != null) {
                 // dann wurde was noch nicht gemeldet
-                lastVersion.set(progInfo.getProgVersion());
+                updateSearchData.updateVersionShownProperty().set(progUpdateData.getProgVersion());
             }
         }
 
         // BETA Update suchen
-        if (searchUrlBeta.isEmpty() || !UpdateFactory.retrieveInfos(stage, progInfoBeta, searchUrlBeta, false)) {
-            progInfoBeta = null;
+        if (updateSearchDataBeta == null ||
+                !UpdateFactory.retrieveInfos(stage, progUpdateDataBeta, updateSearchDataBeta.getUpdateUrl(), false)) {
+            progUpdateDataBeta = null;
+
         } else {
             PLog.sysLog("check update beta");
-            newVersionBeta = UpdateFactory.checkBeta(progInfoBeta, progVersion, progBuild);
-            showUpdateBeta = UpdateFactory.checkVersionBetaNotShown(progInfoBeta, progVersion, progBuild, lastVersionBeta, lastBuildNoBeta);
-            if (showUpdateBeta && lastVersionBeta != null && lastBuildNoBeta != null) {
+            progVersion = updateSearchDataBeta.getProgVersionNo();
+            progBuildNo = updateSearchDataBeta.getProgBuildNo();
+
+            newVersionBeta = UpdateFactory.checkBeta(progUpdateDataBeta, progVersion, progBuildNo);
+            showUpdateBeta = UpdateFactory.checkVersionBetaNotShown(progUpdateDataBeta, progVersion, progBuildNo,
+                    updateSearchDataBeta.updateVersionShownProperty(), updateSearchDataBeta.updateBuildNoShownProperty());
+
+            if (showUpdateBeta && updateSearchDataBeta.updateVersionShownProperty() != null &&
+                    updateSearchDataBeta.updateBuildNoShownProperty() != null) {
                 // dann wurde was noch nicht gemeldet
-                lastVersionBeta.set(progInfoBeta.getProgVersion());
-                lastBuildNoBeta.set(progInfoBeta.getProgBuildNo());
+                updateSearchDataBeta.updateVersionShownProperty().set(progUpdateDataBeta.getProgVersion());
+                updateSearchDataBeta.updateBuildNoShownProperty().set(progUpdateDataBeta.getProgBuildNo());
             }
         }
-        if (!newVersionBeta) {
-            // dann wird  nichts angezeigt
-            progInfoBeta = null;
-        }
 
-        if (progInfo == null && progInfoBeta == null) {
+//        if (!newVersionBeta) {
+//            // dann wird  nichts angezeigt
+//            progInfoBeta = null;
+//        }
+
+        if (progUpdateData == null && progUpdateDataBeta == null) {
             // dann hat was nicht geklappt
             return false;
         }
 
         // Infos anzeigen
         if (showInfoAlways || showUpdate || showUpdateBeta) {
-            showAlert(progVersion, progBuild, lastVersion, newInfosList,
-                    lastVersionBeta, lastBuildNoBeta,
-                    searchForUpdateInfo, searchForUpdateBetaInfo,
+            showAlert(progVersion, progBuildNo,
+                    updateSearchData != null ? updateSearchData.updateVersionShownProperty() : null,
+                    newProgUpdateInfoDataList,
+                    updateSearchDataBeta != null ? updateSearchDataBeta.updateVersionShownProperty() : null,
+                    updateSearchDataBeta != null ? updateSearchDataBeta.updateBuildNoShownProperty() : null,
+                    updateSearchData != null ? updateSearchData.searchUpdateProperty() : null,
+                    updateSearchDataBeta != null ? updateSearchDataBeta.searchUpdateProperty() : null,
                     showInfoAlways);
         }
 
-        return (newVersion || newVersionBeta) ? true : false;
+        return newVersion || newVersionBeta;
     }
 
-    private void showAlert(int progVersion, int progBuild, IntegerProperty lastVersion, ArrayList<Infos> newInfosList,
-                           IntegerProperty lastVersionBeta, IntegerProperty lastBuildNoBeta,
-                           BooleanProperty searchForUpdateInfo, BooleanProperty searchForUpdateBetaInfo,
+    private void showAlert(int progVersion, int progBuild,
+                           IntegerProperty lastVersionShown,
+                           ArrayList<ProgUpdateInfoData> newProgUpdateInfoDataList,
+                           IntegerProperty lastVersionShownBeta,
+                           IntegerProperty lastBuildNoShownBeta,
+                           BooleanProperty searchForUpdateInfo,
+                           BooleanProperty searchForUpdateBetaInfo,
                            boolean showInfoAlways) {
 
         Platform.runLater(() -> {
@@ -140,7 +134,8 @@ public class SearchProgUpdate {
             BooleanProperty showAgain = new SimpleBooleanProperty(false);
             BooleanProperty showBetaAgain = new SimpleBooleanProperty(false);
 
-            new InfoAlert(stage, progInfo, progInfoBeta, newInfosList, newVersion,
+            new InfoAlert(stage, progUpdateData, progUpdateDataBeta, newProgUpdateInfoDataList,
+                    newVersion, newVersionBeta,
                     searchForUpdateInfo, searchForUpdateBetaInfo,
                     newVersion && !showInfoAlways ? showAgain : null,
                     newVersionBeta && !showInfoAlways ? showBetaAgain : null)
@@ -149,15 +144,15 @@ public class SearchProgUpdate {
 
             if (newVersion && showAgain.get()) {
                 // dann wieder anzeigen
-                if (lastVersion != null) {
-                    lastVersion.set(progVersion);
+                if (lastVersionShown != null) {
+                    lastVersionShown.set(progVersion);
                 }
             }
             if (newVersionBeta && showBetaAgain.get()) {
                 // dann wieder anzeigen
-                if (lastVersionBeta != null && lastBuildNoBeta != null) {
-                    lastVersionBeta.set(progVersion);
-                    lastBuildNoBeta.set(progBuild);
+                if (lastVersionShownBeta != null && lastBuildNoShownBeta != null) {
+                    lastVersionShownBeta.set(progVersion);
+                    lastBuildNoShownBeta.set(progBuild);
                 }
             }
 

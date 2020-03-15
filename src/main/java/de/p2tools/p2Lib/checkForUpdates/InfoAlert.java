@@ -20,6 +20,8 @@ package de.p2tools.p2Lib.checkForUpdates;
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
+import de.p2tools.p2Lib.tools.download.DownloadFactory;
+import de.p2tools.p2Lib.tools.net.PUrlTools;
 import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -37,15 +39,15 @@ import java.util.Optional;
 
 public class InfoAlert {
 
-    private final ProgInfo progInfo;
-    private final ProgInfo progInfoBeta;
-    private final ArrayList<Infos> newInfosList;
+    private final ProgUpdateData progUpdateData;
+    private final ProgUpdateData progUpdateDataBeta;
+    private final ArrayList<ProgUpdateInfoData> newProgUpdateInfoDataList;
 
     private final CheckBox chkShowUpdateAgain = new CheckBox("dieses Update nochmals melden");
     private final CheckBox chkShowUpdateBetaAgain = new CheckBox("dieses Update nochmals melden");
     private final CheckBox chkSearchUpdate = new CheckBox("nach Programmupdates suchen");
     private final CheckBox chkSearchUpdateBeta = new CheckBox("nach Programmupdates suchen");
-    private final boolean newVersion;
+    private final boolean newVersion, newVersionBeta;
     private final Stage stage;
     private boolean newInfos = false;
     BooleanProperty searchForUpdate = null;
@@ -55,27 +57,31 @@ public class InfoAlert {
 
 
     public InfoAlert(Stage stage,
-                     ProgInfo progInfo, ProgInfo progInfoBeta, ArrayList<Infos> newInfosList,
-                     boolean newVersion, BooleanProperty searchForUpdate, BooleanProperty searchForUpdateBeta,
+                     ProgUpdateData progUpdateData, ProgUpdateData progUpdateDataBeta, ArrayList<ProgUpdateInfoData> newProgUpdateInfoDataList,
+                     boolean newVersion, boolean newVersionBeta,
+                     BooleanProperty searchForUpdate, BooleanProperty searchForUpdateBeta,
                      BooleanProperty showUpdateAgain, BooleanProperty showUpdateBetaAgain) {
+
         this.stage = stage;
-        this.progInfo = progInfo;
-        this.progInfoBeta = progInfoBeta;
-        this.newInfosList = newInfosList;
+        this.progUpdateData = progUpdateData;
+        this.progUpdateDataBeta = progUpdateDataBeta;
+        this.newProgUpdateInfoDataList = newProgUpdateInfoDataList;
         this.newVersion = newVersion;
+        this.newVersionBeta = newVersionBeta;
         this.searchForUpdate = searchForUpdate;
         this.searchForUpdateBeta = searchForUpdateBeta;
         this.showUpdateAgain = showUpdateAgain;
         this.showUpdateBetaAgain = showUpdateBetaAgain;
     }
 
-    public InfoAlert(Stage stage, ProgInfo progInfo, ProgInfo progInfoBeta, ArrayList<Infos> newInfosList,
-                     boolean newVersion) {
+    public InfoAlert(Stage stage, ProgUpdateData progUpdateData, ProgUpdateData progUpdateDataBeta, ArrayList<ProgUpdateInfoData> newProgUpdateInfoDataList,
+                     boolean newVersion, boolean newVersionBeta) {
         this.stage = stage;
-        this.progInfo = progInfo;
-        this.progInfoBeta = progInfoBeta;
-        this.newInfosList = newInfosList;
+        this.progUpdateData = progUpdateData;
+        this.progUpdateDataBeta = progUpdateDataBeta;
+        this.newProgUpdateInfoDataList = newProgUpdateInfoDataList;
         this.newVersion = newVersion;
+        this.newVersionBeta = newVersionBeta;
     }
 
     public boolean showInfoAlert(String header) {
@@ -131,7 +137,7 @@ public class InfoAlert {
     }
 
     private Tab addTabVersion() {
-        if (progInfo == null) {
+        if (progUpdateData == null) {
             return null;
         }
 
@@ -145,18 +151,21 @@ public class InfoAlert {
     }
 
     private Tab addTabBeta() {
-        if (progInfoBeta == null) {
+        if (progUpdateDataBeta == null) {
             return null;
         }
 
         final Tab tabBeta = new Tab("neue BETA");
+        if (!newVersionBeta) {
+            tabBeta.setText("aktuelle BETA");
+        }
         makeTabBeta(tabBeta);
         tabBeta.setClosable(false);
         return tabBeta;
     }
 
     private Tab addTabInfo() {
-        if (progInfo == null || progInfo.getInfos().isEmpty()) {
+        if (progUpdateData == null || progUpdateData.getInfos().isEmpty()) {
             return null;
         }
 
@@ -177,26 +186,25 @@ public class InfoAlert {
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
-        Label txtVersion = new Label(progInfo.getProgVersion() + "");
-        Hyperlink hyperlinkUrl = new PHyperlink(progInfo.getProgUrl());
-        Hyperlink hyperlinkDownUrl = new PHyperlink(progInfo.getProgDownloadUrl());
+        Label txtVersion = new Label(progUpdateData.getProgVersion() + "");
+        Hyperlink hyperlinkUrl = new PHyperlink(progUpdateData.getProgUrl());
+        Hyperlink hyperlinkDownUrl = new PHyperlink(progUpdateData.getProgDownloadUrl());
 
         TextArea textArea = new TextArea();
         if (newVersion) {
-            textArea.setText(progInfo.getProgReleaseNotes());
+            textArea.setText(progUpdateData.getProgReleaseNotes());
         } else {
-            textArea.setText(P2LibConst.LINE_SEPARATOR + "Sie benutzen die aktuellste Version von " + progInfo.getProgName() + ".");
+            textArea.setText(P2LibConst.LINE_SEPARATOR + "Sie benutzen die aktuellste Version von MTPlayer.");
             textArea.setPrefRowCount(2);
         }
 
-//        textArea.setMinHeight(150);
         textArea.setWrapText(true);
         textArea.setEditable(false);
         GridPane.setVgrow(textArea, Priority.ALWAYS);
 
         final Label lblVersion = new Label("Version:");
         final Label lblWeb = new Label("Webseite:");
-        final Label lblDown = new Label("Download-URL:");
+        final Label lblDown = new Label("Download-Website:");
         final Label lblRel = new Label(newVersion ? "Änderungen:" : "");
 
         int row = 0;
@@ -208,6 +216,8 @@ public class InfoAlert {
 
         gridPane.add(lblDown, 0, ++row);
         gridPane.add(hyperlinkDownUrl, 1, row);
+
+        row = getButton(progUpdateData, gridPane, row);
 
         gridPane.add(new Label(" "), 0, ++row);
         gridPane.add(lblRel, 0, ++row);
@@ -250,24 +260,28 @@ public class InfoAlert {
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
-        Label txtVersion = new Label(progInfoBeta.getProgVersion() + "");
-        Label txtBuild = new Label(progInfoBeta.getProgBuildNo() + " vom " + progInfoBeta.getProgBuildDate());
-        Hyperlink hyperlinkUrl = new PHyperlink(progInfoBeta.getProgUrl());
-        Hyperlink hyperlinkDownUrl = new PHyperlink(progInfoBeta.getProgDownloadUrl());
+        Label txtVersion = new Label(progUpdateDataBeta.getProgVersion() + "");
+        Label txtBuild = new Label(progUpdateDataBeta.getProgBuildNo() + " vom " + progUpdateDataBeta.getProgBuildDate());
+        Hyperlink hyperlinkUrl = new PHyperlink(progUpdateDataBeta.getProgUrl());
+        Hyperlink hyperlinkDownUrl = new PHyperlink(progUpdateDataBeta.getProgDownloadUrl());
 
         final Label lblVersion = new Label("Version:");
         final Label lblBuild = new Label("Build:");
         final Label lblWeb = new Label("Webseite:");
-        final Label lblDown = new Label("Download-URL:");
-        final Label lblRel = new Label(newVersion ? "Änderungen:" : "");
+        final Label lblDown = new Label("Download-Website:");
+        final Label lblRel = new Label(newVersionBeta ? "Änderungen:" : "");
 
         TextArea textAreaBeta = new TextArea();
         textAreaBeta.setWrapText(true);
         textAreaBeta.setEditable(false);
         GridPane.setVgrow(textAreaBeta, Priority.ALWAYS);
 
-        String text = progInfoBeta.getProgReleaseNotes();
-        textAreaBeta.setText(text);
+        if (newVersionBeta) {
+            textAreaBeta.setText(progUpdateDataBeta.getProgReleaseNotes());
+        } else {
+            textAreaBeta.setText(P2LibConst.LINE_SEPARATOR + "Es gibt keine aktuellere Beta-Version von MTPlayer.");
+            textAreaBeta.setPrefRowCount(2);
+        }
 
         int row = 0;
         gridPane.add(lblVersion, 0, row);
@@ -281,6 +295,8 @@ public class InfoAlert {
 
         gridPane.add(lblDown, 0, ++row);
         gridPane.add(hyperlinkDownUrl, 1, row);
+
+        row = getButton(progUpdateDataBeta, gridPane, row);
 
         gridPane.add(new Label(" "), 0, ++row);
         gridPane.add(lblRel, 0, ++row);
@@ -314,6 +330,26 @@ public class InfoAlert {
         tabVersion.setContent(scrollPane);
     }
 
+    private int getButton(ProgUpdateData progUpdateData, GridPane gridPane, int row) {
+        boolean done = false;
+        for (String url : progUpdateData.getDownloads()) {
+            Button button = new Button();
+            button.setMaxWidth(Double.MAX_VALUE);
+            String text = PUrlTools.getFileName(url);
+            button.setText(text);
+            button.setTooltip(new Tooltip(url));
+            button.setOnAction(a -> {
+                DownloadFactory.downloadFile(stage, url);
+            });
+            gridPane.add(button, 1, ++row);
+            if (!done) {
+                done = true;
+                gridPane.add(new Label("Download:"), 0, row);
+            }
+        }
+        return row;
+    }
+
     private void makeTabInfos(Tab tabInfos) {
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToHeight(true);
@@ -325,14 +361,14 @@ public class InfoAlert {
         gridPane.setVgap(10);
 
         int row = 0;
-        for (int i = progInfo.getInfos().size() - 1; i >= 0; --i) {
-            Infos infos = progInfo.getInfos().get(i);
-            TextArea textArea = new TextArea(infos.getInfo());
+        for (int i = progUpdateData.getInfos().size() - 1; i >= 0; --i) {
+            ProgUpdateInfoData progUpdateInfoData = progUpdateData.getInfos().get(i);
+            TextArea textArea = new TextArea(progUpdateInfoData.getInfo());
             textArea.setWrapText(true);
             textArea.setEditable(false);
             gridPane.add(textArea, 0, row++);
 
-            if (newInfosList.contains(infos)) {
+            if (newProgUpdateInfoDataList.contains(progUpdateInfoData)) {
                 // gibt dann neue Infos
                 newInfos = true;
             } else {

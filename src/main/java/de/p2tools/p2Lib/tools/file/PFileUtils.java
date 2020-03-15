@@ -21,6 +21,7 @@ import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.dialogs.PDialogFileChosser;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.stage.Stage;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.File;
@@ -298,17 +299,35 @@ public class PFileUtils {
     public static String getFileNameSuffix(String path) {
         // Suffix einer Pfad/Dateinamen extrahieren
         // FILENAME.SUFF
-        String ret = "";
-        if (path != null) {
-            if (!path.isEmpty() && path.contains(".")) {
-                ret = path.substring(path.lastIndexOf('.') + 1);
+
+        String suff = "";
+        try {
+            suff = FilenameUtils.getExtension(path);
+            if (suff == null || suff.isEmpty()) {
+                return "";
             }
+        } catch (Exception ignore) {
+            return "";
         }
-        if (ret.isEmpty()) {
-            ret = path;
-            PLog.errorLog(802103647, path);
+
+        return suff;
+    }
+
+    public static String removeFileNameSuffix(String path) {
+        // Suffix einer Pfad/Dateinamen extrahieren
+        // FILENAME.SUFF
+
+        String noSuff;
+        try {
+            noSuff = FilenameUtils.removeExtension(path);
+            if (noSuff == null || noSuff.isEmpty()) {
+                return "";
+            }
+        } catch (Exception ignore) {
+            return "";
         }
-        return ret;
+
+        return noSuff;
     }
 
     public static String getPath(String path) {

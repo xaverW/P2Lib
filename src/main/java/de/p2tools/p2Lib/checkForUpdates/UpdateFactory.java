@@ -38,41 +38,41 @@ public class UpdateFactory {
     }
 
 
-    static boolean checkVersion(ProgInfo progInfo, ArrayList<Infos> newInfosList,
-                                int progVersion, IntegerProperty lastInfoNr) {
+    static boolean checkVersion(ProgUpdateData progUpdateData, int progVersion,
+                                ArrayList<ProgUpdateInfoData> newProgUpdateInfoDataList, IntegerProperty lastInfoNr) {
         // prüft auf neue Version oder neue Infos
         boolean newVersion = false;
 
         // nach neuen Infos suchen
         if (lastInfoNr != null) {
             int lInfoNr = lastInfoNr.get();
-            for (Infos infos : progInfo.getInfos()) {
-                if (infos.getInfoNr() > lInfoNr) {
-                    lastInfoNr.setValue(infos.getInfoNr());
-                    newInfosList.add(infos);
+            for (ProgUpdateInfoData progUpdateInfoData : progUpdateData.getInfos()) {
+                if (progUpdateInfoData.getInfoNr() > lInfoNr) {
+                    lastInfoNr.setValue(progUpdateInfoData.getInfoNr());
+                    newProgUpdateInfoDataList.add(progUpdateInfoData);
                 }
             }
         }
 
         // nach regulärem Update suchen
-        int version = progInfo.getProgVersion();
+        int version = progUpdateData.getProgVersion();
         if (version > progVersion) {
             // dann gibts eine neue Version
             newVersion = true;
-            PLog.sysLog("gibt eine neue Version: " + progInfo.getProgVersion());
+            PLog.sysLog("gibt eine neue Version: " + progUpdateData.getProgVersion());
         }
 
         return newVersion;
     }
 
-    static boolean checkVersionNotShown(ProgInfo progInfo, int progVersion, ArrayList<Infos> newInfosList,
+    static boolean checkVersionNotShown(ProgUpdateData progUpdateData, int progVersion, ArrayList<ProgUpdateInfoData> newProgUpdateInfoDataList,
                                         IntegerProperty lastVersion) {
         // prüft auf neue Version und noch nicht angezeigt
         boolean showNewVersion = false;
 
-        int version = progInfo.getProgVersion();
+        int version = progUpdateData.getProgVersion();
         if (lastVersion != null &&
-                (!newInfosList.isEmpty() ||
+                (!newProgUpdateInfoDataList.isEmpty() ||
                         version > progVersion && version > lastVersion.get())) {
             showNewVersion = true;
         }
@@ -80,12 +80,12 @@ public class UpdateFactory {
         return showNewVersion;
     }
 
-    static boolean checkBeta(ProgInfo progInfo, int progVersion, int progBuild) {
+    static boolean checkBeta(ProgUpdateData progUpdateData, int progVersion, int progBuild) {
         // prüft auf neue BETA-Version
         boolean newVersion = false;
 
-        int version = progInfo.getProgVersion();
-        int build = progInfo.getProgBuildNo();
+        int version = progUpdateData.getProgVersion();
+        int build = progUpdateData.getProgBuildNo();
 
         // gibts eine neue Beta?
         if ((version > 0 && build >= 0) &&
@@ -105,13 +105,13 @@ public class UpdateFactory {
         return newVersion;
     }
 
-    static boolean checkVersionBetaNotShown(ProgInfo progInfo, int progVersion, int progBuild,
+    static boolean checkVersionBetaNotShown(ProgUpdateData progUpdateData, int progVersion, int progBuild,
                                             IntegerProperty lastVersion, IntegerProperty lastBuildNo) {
         // prüft ob neue BETA-Version noch nicht gemeldet
         boolean showNewVersion = false;
 
-        int version = progInfo.getProgVersion();
-        int build = progInfo.getProgBuildNo();
+        int version = progUpdateData.getProgVersion();
+        int build = progUpdateData.getProgBuildNo();
 
         // gibts eine neue nicht gemeldete Beta?
         if (version > 0 && build >= 0 &&
@@ -126,18 +126,18 @@ public class UpdateFactory {
         return showNewVersion;
     }
 
-    static boolean retrieveInfos(Stage stage, ProgInfo progInfo, String url, boolean showError) {
+    static boolean retrieveInfos(Stage stage, ProgUpdateData progUpdateData, String url, boolean showError) {
         // prüft of die Suche nach Updateinfos geklappt hat
 
-        if (progInfo == null || url.isEmpty()) {
+        if (progUpdateData == null || url.isEmpty()) {
             return false;
         }
 
-        if (!RetrieveProgInfo.retrieveProgramInformation(progInfo, url)) {
-            progInfo = null;
+        if (!RetrieveProgUpdateData.retrieveProgramInformation(progUpdateData, url)) {
+            progUpdateData = null;
         }
 
-        if (progInfo == null || progInfo.getProgVersion() < 0) {
+        if (progUpdateData == null || progUpdateData.getProgVersion() < 0) {
             // wenn Version < 0 hat was nicht geklappt
             PLog.errorLog(978451203, "Das Suchen nach einem Programmupdate hat nicht geklappt!");
 

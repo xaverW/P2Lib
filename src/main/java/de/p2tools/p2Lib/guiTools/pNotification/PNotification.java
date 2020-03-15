@@ -52,13 +52,11 @@ public class PNotification {
     }
 
     public static void addNotification(String title, String text, boolean error) {
-        Platform.runLater(() -> {
-            if (error) {
-                addNotification(title, text, STATE.ERROR);
-            } else {
-                addNotification(title, text, STATE.INFO);
-            }
-        });
+        if (error) {
+            addNotification(title, text, STATE.ERROR);
+        } else {
+            addNotification(title, text, STATE.INFO);
+        }
     }
 
     public static void addNotification(String title, String text, STATE state) {

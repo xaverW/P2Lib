@@ -23,7 +23,7 @@ import java.util.ArrayList;
 /**
  * Encapsulates the retrieved update information.
  */
-class ProgInfo {
+class ProgUpdateData {
     private String progName = "";
     private String progUrl = "";
     private String progDownloadUrl = "";
@@ -31,7 +31,8 @@ class ProgInfo {
     private int progBuildNo = -1;
     private String progBuildDate = "";
     private String progReleaseNotes = "";
-    private ArrayList<Infos> infos = new ArrayList<>(5);
+    private ArrayList<ProgUpdateInfoData> infos = new ArrayList<>(5);
+    private ArrayList<String> downloads = new ArrayList<>(3);
 
 
     public String getProgName() {
@@ -108,12 +109,20 @@ class ProgInfo {
         this.progReleaseNotes = progReleaseNotes;
     }
 
-    public ArrayList<Infos> getInfos() {
+    public ArrayList<ProgUpdateInfoData> getInfos() {
         return infos;
     }
 
-    public void addProgInfo(Infos info) {
+    public void addProgInfo(ProgUpdateInfoData info) {
         infos.add(info);
+    }
+
+    public ArrayList<String> getDownloads() {
+        return downloads;
+    }
+
+    public void addDownloads(String down) {
+        downloads.add(down);
     }
 
     /**
@@ -124,6 +133,7 @@ class ProgInfo {
         final static String PROG_NAME = "progName";
         final static String PROG_URL = "progUrl";
         final static String PROG_DOWNLOAD_URL = "progDownloadUrl";
+        final static String PROG_DOWNLOAD = "progDownload";
         final static String PROG_VERSION = "progVersion";
         final static String PROG_BUILD_NO = "progBuild";
         final static String PROG_BUILD_DATE = "buildDate";

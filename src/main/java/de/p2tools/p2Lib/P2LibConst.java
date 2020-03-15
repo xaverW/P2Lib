@@ -16,6 +16,7 @@
 
 package de.p2tools.p2Lib;
 
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -41,4 +42,8 @@ public class P2LibConst {
 
     public static final String CSS_BACKGROUND_COLOR_GREY = "-fx-background-color: -fx-control-inner-background;"; //todo unschön
 //    public static final String CSS_COLOR_GREY = "#E0E0E0";
+
+    public static final Image IMAGE_HELP = new Image(P2LibConst.class.getResourceAsStream("button-help.png"));
+    public static final Image IMAGE_FILE_OPEN = new Image(P2LibConst.class.getResourceAsStream("button-file-open.png"));
+
 }

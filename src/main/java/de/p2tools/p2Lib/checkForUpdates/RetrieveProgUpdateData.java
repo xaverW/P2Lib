@@ -29,11 +29,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-public class RetrieveProgInfo {
+public class RetrieveProgUpdateData {
 
     private static final int TIMEOUT = 10_000; // timeout ms
 
-    private RetrieveProgInfo() {
+    private RetrieveProgUpdateData() {
     }
 
 
@@ -42,7 +42,7 @@ public class RetrieveProgInfo {
      *
      * @return parsed update info for further use when successful
      */
-    public static boolean retrieveProgramInformation(ProgInfo progInfo, String searchUrl) {
+    public static boolean retrieveProgramInformation(ProgUpdateData progUpdateData, String searchUrl) {
         boolean ret;
         XMLStreamReader parser = null;
 
@@ -52,7 +52,7 @@ public class RetrieveProgInfo {
         try (InputStreamReader inReader = new InputStreamReader(connectToServer(searchUrl), StandardCharsets.UTF_8)) {
 
             parser = inFactory.createXMLStreamReader(inReader);
-            ret = getConfig(parser, progInfo);
+            ret = getConfig(parser, progUpdateData);
 
         } catch (final Exception ex) {
             PLog.errorLog(951203214, ex);
@@ -78,7 +78,7 @@ public class RetrieveProgInfo {
         return conn.getInputStream();
     }
 
-    private static boolean getConfig(XMLStreamReader parser, ProgInfo progInfo) {
+    private static boolean getConfig(XMLStreamReader parser, ProgUpdateData progUpdateData) {
         boolean ret = true;
         try {
             while (parser.hasNext()) {
@@ -90,40 +90,43 @@ public class RetrieveProgInfo {
                     break;
                 }
                 switch (parser.getLocalName()) {
-                    case ProgInfo.ParserTags.PROG_NAME:
-                        progInfo.setProgName(parser.getElementText());
+                    case ProgUpdateData.ParserTags.PROG_NAME:
+                        progUpdateData.setProgName(parser.getElementText());
                         break;
-                    case ProgInfo.ParserTags.PROG_URL:
-                        progInfo.setProgUrl(parser.getElementText());
+                    case ProgUpdateData.ParserTags.PROG_URL:
+                        progUpdateData.setProgUrl(parser.getElementText());
                         break;
-                    case ProgInfo.ParserTags.PROG_DOWNLOAD_URL:
-                        progInfo.setProgDownloadUrl(parser.getElementText());
+                    case ProgUpdateData.ParserTags.PROG_DOWNLOAD_URL:
+                        progUpdateData.setProgDownloadUrl(parser.getElementText());
                         break;
-                    case ProgInfo.ParserTags.PROG_VERSION:
-                        progInfo.setProgVersion(parser.getElementText());
+                    case ProgUpdateData.ParserTags.PROG_VERSION:
+                        progUpdateData.setProgVersion(parser.getElementText());
                         break;
-                    case ProgInfo.ParserTags.PROG_BUILD_NO:
-                        progInfo.setProgBuildNo(parser.getElementText());
+                    case ProgUpdateData.ParserTags.PROG_BUILD_NO:
+                        progUpdateData.setProgBuildNo(parser.getElementText());
                         break;
-                    case ProgInfo.ParserTags.PROG_BUILD_DATE:
-                        progInfo.setProgBuildDate(parser.getElementText());
+                    case ProgUpdateData.ParserTags.PROG_BUILD_DATE:
+                        progUpdateData.setProgBuildDate(parser.getElementText());
                         break;
-                    case ProgInfo.ParserTags.PROG_RELEASE_NOTES:
-                        progInfo.setProgReleaseNotes(parser.getElementText());
+                    case ProgUpdateData.ParserTags.PROG_RELEASE_NOTES:
+                        progUpdateData.setProgReleaseNotes(parser.getElementText());
                         break;
-                    case ProgInfo.ParserTags.PROG_INFOS:
+                    case ProgUpdateData.ParserTags.PROG_INFOS:
 
                         final int count = parser.getAttributeCount();
                         String no = "";
                         for (int i = 0; i < count; ++i) {
-                            if (parser.getAttributeName(i).toString().equals(ProgInfo.ParserTags.PROG_INFOS_NUMBER)) {
+                            if (parser.getAttributeName(i).toString().equals(ProgUpdateData.ParserTags.PROG_INFOS_NUMBER)) {
                                 no = parser.getAttributeValue(i);
                             }
                         }
                         final String info = parser.getElementText();
                         if (!no.isEmpty() && !info.isEmpty()) {
-                            progInfo.addProgInfo(new Infos(info, no));
+                            progUpdateData.addProgInfo(new ProgUpdateInfoData(info, no));
                         }
+                        break;
+                    case ProgUpdateData.ParserTags.PROG_DOWNLOAD:
+                        progUpdateData.addDownloads(parser.getElementText());
                         break;
 
                     default:

@@ -21,11 +21,11 @@ import de.p2tools.p2Lib.tools.log.PLog;
 /**
  * Encapsulates the retrieved update information.
  */
-class Infos {
+class ProgUpdateInfoData {
     private String info = "";
     private int infoNr = 0;
 
-    public Infos(String info, String infoNr) {
+    public ProgUpdateInfoData(String info, String infoNr) {
         this.info = info;
         try {
             this.infoNr = Integer.parseInt(infoNr);
