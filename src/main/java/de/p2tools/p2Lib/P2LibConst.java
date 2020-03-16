@@ -45,5 +45,6 @@ public class P2LibConst {
 
     public static final Image IMAGE_HELP = new Image(P2LibConst.class.getResourceAsStream("button-help.png"));
     public static final Image IMAGE_FILE_OPEN = new Image(P2LibConst.class.getResourceAsStream("button-file-open.png"));
+    public static final Image IMAGE_STOP = new Image(P2LibConst.class.getResourceAsStream("button-stop.png"));
 
 }

@@ -42,6 +42,7 @@ public class HttpDownload extends Thread {
 
     private String url;
     private String destDir;
+    private String destName;
     private String destDirFile;
     private String userAgent = "";
     private static final int TIMEOUT = 10_000;
@@ -53,13 +54,17 @@ public class HttpDownload extends Thread {
     private final int CONECTION_TIMEOUT_SECOND_DOWNLOAD = 250; // 250 Sekunden, wie bei Firefox
     private final int DOWNLOAD_MAX_RESTART_HTTP = 4;
     private final Stage stage;
+    private DownloadProgressDialog downloadProgressDialog;
 
-    public HttpDownload(Stage stage, String url, String destDir, String destName) {
+    public HttpDownload(Stage stage, String url, String destDir, String destName, DownloadProgressDialog downloadProgressDialog) {
         super();
         this.stage = stage;
         this.url = url;
         this.destDir = destDir;
+        this.destName = destName;
         this.destDirFile = PFileUtils.addsPath(destDir, destName);
+        this.downloadProgressDialog = downloadProgressDialog;
+
         setName("DOWNLOAD FILE THREAD: " + destName);
     }
 
@@ -121,21 +126,22 @@ public class HttpDownload extends Thread {
         }
 
         closeConn(conn);
-        deleteIfEmpty(new File(destDirFile));
+        deleteIfEmptyOrError(new File(destDirFile));
 
         if (error) {
             // dann hat der Download nicht geklappt
             Platform.runLater(() ->
                     PAlert.showErrorAlert(stage, "Download fehlgeschlagen",
                             "Download von: " + destDirFile + P2LibConst.LINE_SEPARATORx2 +
-                                    "Der Download hat nicht geklappt." + P2LibConst.LINE_SEPARATORx2 +
-                                    exMessage)
-            );
-        }
+                                    "Der Download hat nicht geklappt." +
+                                    (exMessage != null ? (P2LibConst.LINE_SEPARATORx2 + exMessage) : "")
+                    ));
 
-        PNotification.addNotification("Download",
-                "Der Download ist abgeschlossen und war " + (error ? "fehlerhaft." : "erfolgreich."),
-                error);
+        } else {
+            PNotification.addNotification("Download",
+                    "Der Download ist abgeschlossen" + P2LibConst.LINE_SEPARATOR +
+                            "und war erfolgreich.", PNotification.STATE.SUCCESS);
+        }
     }
 
     private HttpURLConnection startDownload(HttpURLConnection conn) {
@@ -186,20 +192,43 @@ public class HttpDownload extends Thread {
         final byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
         double p, pp = 0;
         int len;
-        long aktSize = 0;
+        int aktSize = 0; // Größe in kB
 
         while ((len = inputStream.read(buffer)) != -1) {
+            if (downloadProgressDialog != null && downloadProgressDialog.isCanceled()) {
+                error = true;
+                break;
+            }
+
             downloaded += len;
             fileOutputStream.write(buffer, 0, len);
-            aktSize += len;
 
+            aktSize += len / 1_000;
             if (aktSize > 0) {
                 p = 1.0 * aktSize / fileSize;
                 if (p != pp) {
                     pp = p;
                     // Fortschritt anzeigen
+                    if (downloadProgressDialog != null) {
+                        String akt;
+                        if (aktSize > 1_500_000 /*GB*/) {
+                            akt = aktSize / 1_000_000 + " GB";
+
+                        } else if (aktSize > 1_500 /*MB*/) {
+                            akt = aktSize / 1_000 + " MB";
+
+                        } else /*kB*/ {
+                            akt = aktSize + " kB";
+                        }
+
+                        downloadProgressDialog.setProgress(p, akt);
+                    }
                 }
             }
+        }
+
+        if (downloadProgressDialog != null) {
+            downloadProgressDialog.close();
         }
 
         if (check()) {
@@ -245,12 +274,12 @@ public class HttpDownload extends Thread {
         }
     }
 
-    private void deleteIfEmpty(File file) {
+    private void deleteIfEmptyOrError(File file) {
         try {
-            if (file.exists() && file.length() == 0) {
+            if (file.exists() && (error || file.length() == 0)) {
                 error = true;
                 // zum Wiederstarten/Aufräumen die leer/zu kleine Datei löschen, alles auf Anfang
-                PLog.sysLog(new String[]{"Restart/Aufräumen: leere Datei löschen", file.getAbsolutePath()});
+                PLog.sysLog(new String[]{"Fehler oder leere Datei: löschen", file.getAbsolutePath()});
                 if (!file.delete()) {
                     throw new Exception();
                 }

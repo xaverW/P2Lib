@@ -38,8 +38,11 @@ public class DownloadFactory {
         if (downloadDialogController.getOk()) {
             ret = true;
             PLog.sysLog("Download wird gestartet");
+
+            DownloadProgressDialog downloadProgressDialog = new DownloadProgressDialog(stage, downloadDialogController.getDestName());
             Thread download = new HttpDownload(stage,
-                    url, downloadDialogController.getDestPath(), downloadDialogController.getDestName());
+                    url, downloadDialogController.getDestPath(), downloadDialogController.getDestName(),
+                    downloadProgressDialog);
             download.start();
 
         } else {

@@ -38,6 +38,9 @@ public class PProgressBar extends StackPane {
         this.setAlignment(text, Pos.CENTER);
         setProgress();
         progressBar.setStyle("-fx-accent: #ddeeff; ");
+
+        progressBar.setMinWidth(100);
+        progressBar.setMaxWidth(Double.MAX_VALUE);
     }
 
     public void setProgress(final double progress, final String progressText) {
