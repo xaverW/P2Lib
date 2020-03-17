@@ -51,14 +51,14 @@ public class PProgressBar extends StackPane {
     }
 
     private void setProgress() {
-        if (progress == 0) {
-            text.setText("");
-            progressBar.setVisible(false);
-        } else {
-            progressBar.setVisible(true);
-            text.setText(progressText);
-            progressBar.setProgress(progress);
-        }
+//        if (progress == 0) {
+//            text.setText("");
+//            progressBar.setVisible(false);
+//        } else {
+//            progressBar.setVisible(true);
+        text.setText(progressText);
+        progressBar.setProgress(progress);
+//        }
 
         progressBar.setMinHeight(text.getBoundsInLocal().getHeight() + 10);
         progressBar.setMinWidth(text.getBoundsInLocal().getWidth() + 25);

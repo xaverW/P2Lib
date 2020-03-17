@@ -19,6 +19,7 @@ package de.p2tools.p2Lib.tools.download;
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.guiTools.pNotification.PNotification;
+import de.p2tools.p2Lib.tools.file.PFileSize;
 import de.p2tools.p2Lib.tools.file.PFileUtils;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.application.Platform;
@@ -33,6 +34,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class HttpDownload extends Thread {
 
@@ -54,16 +56,18 @@ public class HttpDownload extends Thread {
     private final int CONECTION_TIMEOUT_SECOND_DOWNLOAD = 250; // 250 Sekunden, wie bei Firefox
     private final int DOWNLOAD_MAX_RESTART_HTTP = 4;
     private final Stage stage;
-    private DownloadProgressDialog downloadProgressDialog;
+    private DownloadProgressDialog downloadProgressDialog = null;
 
-    public HttpDownload(Stage stage, String url, String destDir, String destName, DownloadProgressDialog downloadProgressDialog) {
+
+    public HttpDownload(Stage stage, String url, String destDir, String destName) {
         super();
         this.stage = stage;
         this.url = url;
         this.destDir = destDir;
         this.destName = destName;
         this.destDirFile = PFileUtils.addsPath(destDir, destName);
-        this.downloadProgressDialog = downloadProgressDialog;
+//        this.downloadProgressDialog = downloadProgressDialog;
+//        this.downloadProgressDialog = new DownloadProgressDialog(stage, destName);
 
         setName("DOWNLOAD FILE THREAD: " + destName);
     }
@@ -192,9 +196,15 @@ public class HttpDownload extends Thread {
         final byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
         double p, pp = 0;
         int len;
-        int aktSize = 0; // Größe in kB
+        long date1 = 0;
+        long date2 = 0;
+
+        Platform.runLater(() -> {
+            downloadProgressDialog = new DownloadProgressDialog(stage, destName, getText());
+        });
 
         while ((len = inputStream.read(buffer)) != -1) {
+            date1 = new Date().getTime();
             if (downloadProgressDialog != null && downloadProgressDialog.isCanceled()) {
                 error = true;
                 break;
@@ -203,26 +213,16 @@ public class HttpDownload extends Thread {
             downloaded += len;
             fileOutputStream.write(buffer, 0, len);
 
-            aktSize += len / 1_000;
-            if (aktSize > 0) {
-                p = 1.0 * aktSize / fileSize;
+            if (downloaded > 0 && date1 - date2 > 500 && downloadProgressDialog != null) {
+                date2 = new Date().getTime();
+
+                p = 1.0 * downloaded / fileSize;
+                long l = (long) (p * 1000);
+                p = 1.0 * l / 1000;
                 if (p != pp) {
-                    pp = p;
                     // Fortschritt anzeigen
-                    if (downloadProgressDialog != null) {
-                        String akt;
-                        if (aktSize > 1_500_000 /*GB*/) {
-                            akt = aktSize / 1_000_000 + " GB";
-
-                        } else if (aktSize > 1_500 /*MB*/) {
-                            akt = aktSize / 1_000 + " MB";
-
-                        } else /*kB*/ {
-                            akt = aktSize + " kB";
-                        }
-
-                        downloadProgressDialog.setProgress(p, akt);
-                    }
+                    pp = p;
+                    downloadProgressDialog.setProgress(p, getText());
                 }
             }
         }
@@ -236,6 +236,10 @@ public class HttpDownload extends Thread {
         } else {
             // Anzeige ändern - bei Fehler fehlt der Eintrag
         }
+    }
+
+    private String getText() {
+        return PFileSize.convertToStr(downloaded) + " von " + PFileSize.convertToStr(fileSize);
     }
 
     /**

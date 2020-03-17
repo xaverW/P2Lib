@@ -39,11 +39,13 @@ public class DownloadProgressDialog extends PDialogExtra {
     private PProgressBar progressBar = new PProgressBar();
     private Label lblName = new Label();
     private boolean isCanceled = false;
+    private String startText = "";
 
-    DownloadProgressDialog(Stage stage, String fileName) {
+    DownloadProgressDialog(Stage stage, String fileName, String text) {
         super(stage, null, "Download", false, false, DECO.NONE);
 
         this.lblName.setText(fileName);
+        this.startText = text;
 
         vBoxCont = getvBoxCont();
         init(true);
@@ -51,12 +53,19 @@ public class DownloadProgressDialog extends PDialogExtra {
 
     @Override
     public void make() {
+        getStage().setMinWidth(500);
         vBoxCont.setPadding(new Insets(5));
         vBoxCont.setSpacing(10);
         vBoxCont.getChildren().addAll(gridPane);
 
         progressBar.setMinWidth(100);
         progressBar.setMaxWidth(Double.MAX_VALUE);
+        progressBar.setProgress(0, startText);
+
+//        HBox hBox = new HBox(10);
+//        hBox.setAlignment(Pos.CENTER);
+//        hBox.getChildren().addAll(lblName, progressBar, btnCancel);
+//        vBoxCont.getChildren().addAll(hBox);
 
         gridPane.setMaxWidth(Double.MAX_VALUE);
         gridPane.setPadding(new Insets(0));
