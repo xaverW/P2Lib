@@ -19,16 +19,12 @@ package de.p2tools.p2Lib.checkForUpdates;
 
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
-import de.p2tools.p2Lib.guiTools.PHyperlink;
-import de.p2tools.p2Lib.tools.download.DownloadFactory;
-import de.p2tools.p2Lib.tools.net.PUrlTools;
 import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -42,6 +38,8 @@ public class InfoAlert {
     private final ProgUpdateData progUpdateData;
     private final ProgUpdateData progUpdateDataBeta;
     private final ArrayList<ProgUpdateInfoData> newProgUpdateInfoDataList;
+    private final int VERSION_PADDING_T = 5;
+    private final int VERSION_PADDING_B = 10;
 
     private final CheckBox chkShowUpdateAgain = new CheckBox("dieses Update nochmals melden");
     private final CheckBox chkShowUpdateBetaAgain = new CheckBox("dieses Update nochmals melden");
@@ -57,7 +55,8 @@ public class InfoAlert {
 
 
     public InfoAlert(Stage stage,
-                     ProgUpdateData progUpdateData, ProgUpdateData progUpdateDataBeta, ArrayList<ProgUpdateInfoData> newProgUpdateInfoDataList,
+                     ProgUpdateData progUpdateData, ProgUpdateData progUpdateDataBeta,
+                     ArrayList<ProgUpdateInfoData> newProgUpdateInfoDataList,
                      boolean newVersion, boolean newVersionBeta,
                      BooleanProperty searchForUpdate, BooleanProperty searchForUpdateBeta,
                      BooleanProperty showUpdateAgain, BooleanProperty showUpdateBetaAgain) {
@@ -74,8 +73,11 @@ public class InfoAlert {
         this.showUpdateBetaAgain = showUpdateBetaAgain;
     }
 
-    public InfoAlert(Stage stage, ProgUpdateData progUpdateData, ProgUpdateData progUpdateDataBeta, ArrayList<ProgUpdateInfoData> newProgUpdateInfoDataList,
+    public InfoAlert(Stage stage,
+                     ProgUpdateData progUpdateData, ProgUpdateData progUpdateDataBeta,
+                     ArrayList<ProgUpdateInfoData> newProgUpdateInfoDataList,
                      boolean newVersion, boolean newVersionBeta) {
+
         this.stage = stage;
         this.progUpdateData = progUpdateData;
         this.progUpdateDataBeta = progUpdateDataBeta;
@@ -145,7 +147,16 @@ public class InfoAlert {
         if (!newVersion) {
             tabVersion.setText("aktuelle Version");
         }
-        makeTabVersion(tabVersion);
+
+        progUpdateData.setVersionText(progUpdateData.getProgVersion() + "");
+        if (newVersion) {
+            progUpdateData.setShowText(progUpdateData.getProgReleaseNotes());
+        } else {
+            progUpdateData.setShowText(P2LibConst.LINE_SEPARATOR + "Sie benutzen die aktuellste Version von MTPlayer.");
+        }
+
+        InfoAlertFactory.makeTab(stage, progUpdateData, tabVersion, showUpdateAgain, searchForUpdate,
+                chkSearchUpdate, chkShowUpdateAgain, newVersion);
         tabVersion.setClosable(false);
         return tabVersion;
     }
@@ -159,7 +170,16 @@ public class InfoAlert {
         if (!newVersionBeta) {
             tabBeta.setText("aktuelle BETA");
         }
-        makeTabBeta(tabBeta);
+        progUpdateDataBeta.setVersionText(progUpdateDataBeta.getProgVersion() +
+                "   (Build " + progUpdateDataBeta.getProgBuildNo() + " vom " + progUpdateDataBeta.getProgBuildDate() + ")");
+        if (newVersionBeta) {
+            progUpdateDataBeta.setShowText(progUpdateDataBeta.getProgReleaseNotes());
+        } else {
+            progUpdateDataBeta.setShowText(P2LibConst.LINE_SEPARATOR + "Es gibt keine aktuellere Beta-Version von MTPlayer.");
+        }
+
+        InfoAlertFactory.makeTab(stage, progUpdateDataBeta, tabBeta, showUpdateBetaAgain, searchForUpdateBeta,
+                chkSearchUpdateBeta, chkShowUpdateBetaAgain, newVersionBeta);
         tabBeta.setClosable(false);
         return tabBeta;
     }
@@ -169,186 +189,12 @@ public class InfoAlert {
             return null;
         }
 
-
         final Tab tabInfos = new Tab("Programminfos");
         makeTabInfos(tabInfos);
         tabInfos.setClosable(false);
         return tabInfos;
     }
 
-    private void makeTabVersion(Tab tabVersion) {
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setPadding(new Insets(10));
-
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-
-        Label txtVersion = new Label(progUpdateData.getProgVersion() + "");
-        Hyperlink hyperlinkUrl = new PHyperlink(progUpdateData.getProgUrl());
-        Hyperlink hyperlinkDownUrl = new PHyperlink(progUpdateData.getProgDownloadUrl());
-
-        TextArea textArea = new TextArea();
-        if (newVersion) {
-            textArea.setText(progUpdateData.getProgReleaseNotes());
-        } else {
-            textArea.setText(P2LibConst.LINE_SEPARATOR + "Sie benutzen die aktuellste Version von MTPlayer.");
-            textArea.setPrefRowCount(2);
-        }
-
-        textArea.setWrapText(true);
-        textArea.setEditable(false);
-        GridPane.setVgrow(textArea, Priority.ALWAYS);
-
-        final Label lblVersion = new Label("Version:");
-        final Label lblWeb = new Label("Webseite:");
-        final Label lblDown = new Label("Download-Website:");
-        final Label lblRel = new Label(newVersion ? "Änderungen:" : "");
-
-        int row = 0;
-        gridPane.add(lblVersion, 0, row);
-        gridPane.add(txtVersion, 1, row);
-
-        gridPane.add(lblWeb, 0, ++row);
-        gridPane.add(hyperlinkUrl, 1, row);
-
-        gridPane.add(lblDown, 0, ++row);
-        gridPane.add(hyperlinkDownUrl, 1, row);
-
-        row = getButton(progUpdateData, gridPane, row);
-
-        gridPane.add(new Label(" "), 0, ++row);
-        gridPane.add(lblRel, 0, ++row);
-        gridPane.add(textArea, 0, ++row, 2, 1);
-
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow());
-
-        VBox vBox = new VBox(10);
-        vBox.getChildren().add(gridPane);
-        VBox.setVgrow(gridPane, Priority.ALWAYS);
-
-        if (showUpdateAgain != null || searchForUpdate != null) {
-            HBox hBox = new HBox(10);
-            hBox.setAlignment(Pos.CENTER_RIGHT);
-            if (showUpdateAgain != null) {
-                HBox hB = new HBox();
-                HBox.setHgrow(hB, Priority.ALWAYS);
-                chkShowUpdateAgain.selectedProperty().bindBidirectional(showUpdateAgain);
-                hBox.getChildren().addAll(chkShowUpdateAgain, hB);
-            }
-            if (searchForUpdate != null) {
-                chkSearchUpdate.selectedProperty().bindBidirectional(searchForUpdate);
-                hBox.getChildren().add(chkSearchUpdate);
-            }
-            vBox.getChildren().addAll(hBox);
-        }
-
-        scrollPane.setContent(vBox);
-        tabVersion.setContent(scrollPane);
-    }
-
-    private void makeTabBeta(Tab tabVersion) {
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setPadding(new Insets(10));
-
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-
-        Label txtVersion = new Label(progUpdateDataBeta.getProgVersion() + "");
-        Label txtBuild = new Label(progUpdateDataBeta.getProgBuildNo() + " vom " + progUpdateDataBeta.getProgBuildDate());
-        Hyperlink hyperlinkUrl = new PHyperlink(progUpdateDataBeta.getProgUrl());
-        Hyperlink hyperlinkDownUrl = new PHyperlink(progUpdateDataBeta.getProgDownloadUrl());
-
-        final Label lblVersion = new Label("Version:");
-        final Label lblBuild = new Label("Build:");
-        final Label lblWeb = new Label("Webseite:");
-        final Label lblDown = new Label("Download-Website:");
-        final Label lblRel = new Label(newVersionBeta ? "Änderungen:" : "");
-
-        TextArea textAreaBeta = new TextArea();
-        textAreaBeta.setWrapText(true);
-        textAreaBeta.setEditable(false);
-        GridPane.setVgrow(textAreaBeta, Priority.ALWAYS);
-
-        if (newVersionBeta) {
-            textAreaBeta.setText(progUpdateDataBeta.getProgReleaseNotes());
-        } else {
-            textAreaBeta.setText(P2LibConst.LINE_SEPARATOR + "Es gibt keine aktuellere Beta-Version von MTPlayer.");
-            textAreaBeta.setPrefRowCount(2);
-        }
-
-        int row = 0;
-        gridPane.add(lblVersion, 0, row);
-        gridPane.add(txtVersion, 1, row);
-
-        gridPane.add(lblBuild, 0, ++row);
-        gridPane.add(txtBuild, 1, row);
-
-        gridPane.add(lblWeb, 0, ++row);
-        gridPane.add(hyperlinkUrl, 1, row);
-
-        gridPane.add(lblDown, 0, ++row);
-        gridPane.add(hyperlinkDownUrl, 1, row);
-
-        row = getButton(progUpdateDataBeta, gridPane, row);
-
-        gridPane.add(new Label(" "), 0, ++row);
-        gridPane.add(lblRel, 0, ++row);
-        gridPane.add(textAreaBeta, 0, ++row, 2, 1);
-
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow());
-
-
-        VBox vBox = new VBox(10);
-        vBox.getChildren().add(gridPane);
-        VBox.setVgrow(gridPane, Priority.ALWAYS);
-
-        if (showUpdateBetaAgain != null || searchForUpdateBeta != null) {
-            HBox hBox = new HBox(10);
-            hBox.setAlignment(Pos.CENTER_RIGHT);
-            if (showUpdateBetaAgain != null) {
-                HBox hB = new HBox();
-                HBox.setHgrow(hB, Priority.ALWAYS);
-                chkShowUpdateBetaAgain.selectedProperty().bindBidirectional(showUpdateBetaAgain);
-                hBox.getChildren().addAll(chkShowUpdateBetaAgain, hB);
-            }
-            if (searchForUpdateBeta != null) {
-                chkSearchUpdateBeta.selectedProperty().bindBidirectional(searchForUpdateBeta);
-                hBox.getChildren().add(chkSearchUpdateBeta);
-            }
-            vBox.getChildren().addAll(hBox);
-        }
-
-        scrollPane.setContent(vBox);
-        tabVersion.setContent(scrollPane);
-    }
-
-    private int getButton(ProgUpdateData progUpdateData, GridPane gridPane, int row) {
-        boolean done = false;
-        for (String url : progUpdateData.getDownloads()) {
-            Button button = new Button();
-            button.setMaxWidth(Double.MAX_VALUE);
-            String text = PUrlTools.getFileName(url);
-            button.setText(text);
-            button.setTooltip(new Tooltip(url));
-            button.setOnAction(a -> {
-                DownloadFactory.downloadFile(stage, url);
-            });
-            gridPane.add(button, 1, ++row);
-            if (!done) {
-                done = true;
-                gridPane.add(new Label("Download:"), 0, row);
-            }
-        }
-        return row;
-    }
 
     private void makeTabInfos(Tab tabInfos) {
         ScrollPane scrollPane = new ScrollPane();

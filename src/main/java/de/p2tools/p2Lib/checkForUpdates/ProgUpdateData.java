@@ -31,6 +31,8 @@ class ProgUpdateData {
     private int progBuildNo = -1;
     private String progBuildDate = "";
     private String progReleaseNotes = "";
+    private String showText = "";
+    private String versionText = "";
     private ArrayList<ProgUpdateInfoData> infos = new ArrayList<>(5);
     private ArrayList<String> downloads = new ArrayList<>(3);
 
@@ -107,6 +109,22 @@ class ProgUpdateData {
 
     public void setProgReleaseNotes(String progReleaseNotes) {
         this.progReleaseNotes = progReleaseNotes;
+    }
+
+    public String getShowText() {
+        return showText;
+    }
+
+    public void setShowText(String showText) {
+        this.showText = showText;
+    }
+
+    public String getVersionText() {
+        return versionText;
+    }
+
+    public void setVersionText(String versionText) {
+        this.versionText = versionText;
     }
 
     public ArrayList<ProgUpdateInfoData> getInfos() {
