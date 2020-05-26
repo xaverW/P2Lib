@@ -79,7 +79,7 @@ public class DownloadProgressDialog extends PDialogExtra {
         gridPane.add(btnCancel, 2, 0);
 
         btnCancel.setGraphic(new ImageView(P2LibConst.IMAGE_STOP));
-        btnCancel.setTooltip(new Tooltip("Den Download abbrechen."));
+        btnCancel.setTooltip(new Tooltip("Den Download abbrechen"));
         btnCancel.setOnAction(event -> {
             isCanceled = true;
             quit();

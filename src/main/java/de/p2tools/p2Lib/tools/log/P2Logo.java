@@ -22,12 +22,12 @@ import java.util.ArrayList;
 public class P2Logo {
 
 //    public static String LOGO = "" +
-//            " ██████╗ ██████╗ ████████╗ ██████╗  ██████╗ ██╗     ███████╗" + PConst.LINE_SEPARATOR +
-//            " ██╔══██╗╚════██╗╚══██╔══╝██╔═══██╗██╔═══██╗██║     ██╔════╝" + PConst.LINE_SEPARATOR +
-//            " ██████╔╝ █████╔╝   ██║   ██║   ██║██║   ██║██║     ███████╗" + PConst.LINE_SEPARATOR +
-//            " ██╔═══╝ ██╔═══╝    ██║   ██║   ██║██║   ██║██║     ╚════██║" + PConst.LINE_SEPARATOR +
-//            " ██║     ███████╗   ██║   ╚██████╔╝╚██████╔╝███████╗███████║" + PConst.LINE_SEPARATOR +
-//            " ╚═╝     ╚══════╝   ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝" + PConst.LINE_SEPARATOR;
+//            " ██████╗ ██████╗ ████████╗ ██████╗  ██████╗ ██╗     ███████╗" + P2LibConst.LINE_SEPARATOR +
+//            " ██╔══██╗╚════██╗╚══██╔══╝██╔═══██╗██╔═══██╗██║     ██╔════╝" + P2LibConst.LINE_SEPARATOR +
+//            " ██████╔╝ █████╔╝   ██║   ██║   ██║██║   ██║██║     ███████╗" + P2LibConst.LINE_SEPARATOR +
+//            " ██╔═══╝ ██╔═══╝    ██║   ██║   ██║██║   ██║██║     ╚════██║" + P2LibConst.LINE_SEPARATOR +
+//            " ██║     ███████╗   ██║   ╚██████╔╝╚██████╔╝███████╗███████║" + P2LibConst.LINE_SEPARATOR +
+//            " ╚═╝     ╚══════╝   ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝" + P2LibConst.LINE_SEPARATOR;
 
     public static ArrayList<String> LOGO_LIST = new ArrayList<>();
 

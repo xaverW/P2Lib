@@ -27,7 +27,7 @@ import javafx.scene.layout.Priority;
 public class PFilterTextField extends HBox {
 
 
-    private StringProperty selValueProperty;
+    private StringProperty textProperty;
     private TextField textField = new TextField();
     private Button btnClear = new Button("X");
 
@@ -37,29 +37,29 @@ public class PFilterTextField extends HBox {
         initHBox();
     }
 
-    public PFilterTextField(StringProperty selValueProperty) {
+    public PFilterTextField(StringProperty textProperty) {
         super();
-        this.selValueProperty = selValueProperty;
+        this.textProperty = textProperty;
 
         initHBox();
         initTextField();
     }
 
     public void init(StringProperty selValueProperty) {
-        this.selValueProperty = selValueProperty;
+        this.textProperty = selValueProperty;
 
         initTextField();
     }
 
-    public void bindSelValueProperty(StringProperty stringProperty) {
+    public void bindTextProperty(StringProperty stringProperty) {
         unbind();
-        selValueProperty = stringProperty;
+        textProperty = stringProperty;
         bind();
     }
 
-    public void unbindSelValueProperty() {
+    public void unbindTextProperty() {
         unbind();
-        this.selValueProperty = null;
+        this.textProperty = null;
     }
 
     public String getText() {
@@ -93,21 +93,21 @@ public class PFilterTextField extends HBox {
 
 
     private void bind() {
-        if (selValueProperty == null) {
+        if (textProperty == null) {
             clearText();
             return;
         }
 
-        textField.textProperty().bindBidirectional(selValueProperty);
+        textField.textProperty().bindBidirectional(textProperty);
     }
 
     private void unbind() {
-        if (selValueProperty == null) {
+        if (textProperty == null) {
             clearText();
             return;
         }
 
-        textField.textProperty().unbindBidirectional(selValueProperty);
+        textField.textProperty().unbindBidirectional(textProperty);
     }
 
 }

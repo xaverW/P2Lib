@@ -71,7 +71,7 @@ public class ProgInfoDialog extends PDialogExtra {
         btnOk.setOnAction(a -> close());
         btnGc.setOnAction(a -> System.gc());
         btnDuration.setOnAction(a -> {
-            List list = PDuration.getCounter();
+            List<String> list = PDuration.getCounter();
             list.add(0, new String(line));
             list.add(new String(line));
             list.add(new String(" "));

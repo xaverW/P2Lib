@@ -46,7 +46,7 @@ public class PButton {
 
     public static Button helpButton(Stage stage, ImageView imageView, String header, String helpText) {
         final Button btnHelp = new Button("");
-        btnHelp.setTooltip(new Tooltip("Hilfe anzeigen."));
+        btnHelp.setTooltip(new Tooltip("Hilfe anzeigen"));
         btnHelp.setGraphic(imageView);
         btnHelp.setOnAction(a -> PAlert.showHelpAlert(stage, header, helpText));
         return btnHelp;
@@ -58,7 +58,7 @@ public class PButton {
 
     public static Button helpButton(Stage stage, String header, String helpText) {
         final Button btnHelp = new Button("");
-        btnHelp.setTooltip(new Tooltip("Hilfe anzeigen."));
+        btnHelp.setTooltip(new Tooltip("Hilfe anzeigen"));
         if (hlpImage == null) {
             btnHelp.setGraphic(new ImageView(P2LibConst.IMAGE_HELP)); //neues ImageView!
         } else {

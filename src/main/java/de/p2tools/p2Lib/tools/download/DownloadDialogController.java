@@ -102,7 +102,7 @@ public class DownloadDialogController extends PDialogExtra {
         });
         final Button btnDest = new Button();
         btnDest.setGraphic(new ImageView(P2LibConst.IMAGE_FILE_OPEN));
-        btnDest.setTooltip(new Tooltip("Einen Ordner zum Speichern der Datei auswählen."));
+        btnDest.setTooltip(new Tooltip("Einen Ordner zum Speichern der Datei auswählen"));
         btnDest.setOnAction(event -> {
             PDirFileChooser.DirChooser(stage, txtDestPath);
             boolean nc = nameChanged;
