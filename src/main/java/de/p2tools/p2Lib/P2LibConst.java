@@ -26,6 +26,10 @@ public class P2LibConst {
     public static Stage primaryStage = null;
     public static String progName = "P2Tools";
     public static List<String> cssFileList = new ArrayList();
+    public static final String CSS_GUI = "de/p2tools/p2Lib/p2-gui.css";
+    public static final String CSS_GUI_DARK = "de/p2tools/p2Lib/p2-gui-dark.css";
+
+
     public static String userAgent = "";
     public static String logfile = "P2Tools_%g.log";
     public static String logfile_0 = "P2Tools_0.log";

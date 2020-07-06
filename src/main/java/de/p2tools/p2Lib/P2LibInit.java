@@ -24,10 +24,9 @@ import java.util.List;
 
 public class P2LibInit {
 
-    public static void initLib(Stage primaryStage, String progName, String cssFile, String userAgent, boolean debug, boolean duration) {
+    public static void initLib(Stage primaryStage, String progName, String userAgent, boolean debug, boolean duration) {
         P2LibConst.primaryStage = primaryStage;
         P2LibConst.progName = progName;
-        addCssFile(cssFile);
         P2LibConst.userAgent = userAgent;
         P2LibConst.debug = debug;
         P2LibConst.duration = duration;

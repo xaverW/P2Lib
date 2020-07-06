@@ -1,0 +1,257 @@
+/*  Programmweites style sheet */
+
+.root {
+    -tab-button-1: #d6d6d6;
+    -tab-button-2: #e6e6e6;
+    -tab-button-3: rgba(230,230,230,0);
+
+    -filter-lin-grad-1: linear-gradient(from 50% 17% to 50% 114% , repeat, #E6E6E6, #CBD8EB 100% );
+
+    -lin-grad-1: linear-gradient(from 0% 0% to 100% 100%, -tab-button-1 50%, white 100%);
+    -rad-grad-1: radial-gradient(center 50% -40%, radius 200%, -tab-button-2 45%, -tab-button-3 50%);
+
+    -lin-grad-btn-func-1: linear-gradient(from 0% 0% to 100% 100%, -tab-button-1 40%, white 90%);
+    -rad-grad-btn-func-1: radial-gradient(center 80% -70%, radius 200%, -tab-button-2 35%, -tab-button-3 40%);
+
+    -style-tab-border-color-1: #4169E1; /*royalblue*/
+    -style-tab-border-color-2: #3a5fcc;
+
+    -style-extra-pane-color: derive(-fx-base,-5%);
+
+    -lblSelectedLines-color-1: derive(-fx-base, -40%);
+    -lblSelectedLines-color-2: derive(-fx-base, -10%);
+
+    -text-color-blue: #002fbe;
+}
+
+
+
+/* Button "Filme", "Downloads", "Abos" */
+.btnTab, .btnTab-sel{
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,1;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-padding: 10 20 10 20;
+    -fx-border: 10;
+}
+
+.btnTab:focused{
+    -fx-background-color: #355c8c, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.5,1,1;
+}
+.btnTab:hover{
+    -fx-background-insets: -1.0,1,1;
+}
+.btnTab:focused:hover{
+    -fx-background-insets: -1.5,1,1;
+}
+
+.btnTab-sel{
+    -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.3,1,1;
+    -fx-text-fill: -text-color-blue;
+}
+.btnTab-sel:focused{
+    -fx-background-insets: -1,1,1;
+}
+.btnTab-sel:hover{
+    -fx-background-insets: -1.5,1,1;
+}
+.btnTab-sel:focused:hover{
+    -fx-background-insets: -1.6,1,1;
+}
+
+
+/* Startdialog beim aller ersten Start */
+.btnStartDialog{
+    -fx-font-weight: bold;
+    -fx-alignment: center ;
+    -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,1;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-padding: 5 10;
+    -fx-border: 5;
+}
+.btnStartDialog:focused{
+    -fx-background-color: #8d8d8d, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.5,1,1;
+}
+.btnStartDialog:hover{
+    -fx-background-color: #98abc4, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.8,1,1;
+}
+.btnStartDialog:focused:hover{
+    -fx-background-color: #98abc4, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -1.4,1,1;
+}
+
+.btnStartDialogSel{
+    -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: 0,1,1;
+    -fx-text-fill: -text-color-blue;
+}
+.btnStartDialogSel:focused{
+    -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.5,1,1;
+}
+.btnStartDialogSel:hover{
+    -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.8,1,1;
+}
+.btnStartDialogSel:focused:hover{
+    -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -1.4,1,1;
+}
+
+/* Menü-Button */
+.btnFunction{
+    -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,1;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-padding: 5;
+    -fx-border: 5;
+}
+.btnFunction > .arrow-button {
+    /*Pfeil ausblenden*/
+    -fx-padding: 0;
+}
+.btnFunction > .arrow-button > .arrow {
+    /*Pfeil ausblenden*/
+    -fx-padding: 0;
+}
+.btnFunction:focused{
+    -fx-background-color: #4898de, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.4,1,1;
+}
+.btnFunction:hover{
+    -fx-background-color: #005ab0, -lin-grad-btn-func-1, -rad-grad-btn-func-1;
+    -fx-background-insets: -0.8,1,1;
+}
+.btnFunction:focused:hover{
+    -fx-background-color: #005ab0, -lin-grad-btn-func-1, -rad-grad-btn-func-1;
+    -fx-background-insets: -1.2,1,1;
+}
+
+
+
+
+
+.alignCenter {
+  -fx-alignment: center;
+}
+.alignCenterRight {
+  -fx-alignment: center-right;
+}
+.alignCenterLeft {
+  -fx-alignment: center-left;
+}
+
+
+
+/* farblich abgesetzter Bereich in vielen Panes/Dialogen*/
+.extra-pane {
+    -fx-background-color: -style-extra-pane-color;
+}
+
+
+/* ========================================================================== */
+/* sind javafx gui Elemente */
+/* ========================================================================== */
+
+/* sind alle Context-Menüs */
+.context-menu {
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-color: #939a9f;
+}
+.menu-item  {
+    -fx-background-radius: 5px;
+}
+.titled-pane > .title {
+    -fx-font-weight: bold;
+}
+.titled-pane:collapsed > .title {
+    -fx-font-weight: normal;
+}
+.combo-box-base{
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+.combo-box .arrow-button{
+    -fx-border-radius: 0 5 5 0;
+    -fx-background-radius: 0 5 5 0;
+}
+.combo-box > .list-cell{
+    -fx-border-radius: 5 0 0 5;
+    -fx-background-radius: 5 0 0 5;
+}
+.combo-box .text-input{
+    -fx-border-radius: 5 0 0 5;
+    -fx-background-radius: 5 0 0 5;
+}
+/* damit leere Tabellenzeilen nicht angezeigt werden */
+.table-row-cell:empty {
+    -fx-background-color: white;
+}
+
+.table-row-cell:empty .table-cell {
+    -fx-border-width: 0px;
+}
+
+/* tabs of the tabpane*/
+.tab .tab-label {
+    -fx-text-alignment: center;
+    -fx-alignment: center ;
+}
+.tab-pane {
+    -fx-border-width: 1;
+    -fx-border-color: -text-color-blue;
+ }
+.tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-padding: 0 10 0 10;
+
+    -fx-border-width: 1, 2;
+    -fx-border-radius: 8 8 0 0, 6 6 0 0;
+    -fx-border-insets: 0 3 0 0, 3 6 3 3;
+    -fx-border-color: -style-tab-border-color-1, transparent;
+
+    -fx-background-radius: 0, 10 10 0 0, 6 6 0 0;
+    -fx-background-insets: 0, 0 3 0 0, 2 5 2 2;
+    -fx-background-color:
+             transparent,
+             -lin-grad-1,
+             -rad-grad-1;
+    -fx-text-fill: black;
+ }
+.tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-border-width: 3, 2;
+    -fx-border-color: -style-tab-border-color-1, transparent;
+ }
+.tab-pane > .tab-header-area > .headers-region > .tab:hover {
+    -fx-border-width: 2, 1, 2;/* 3 Rahmen, damit die "Gesamtbreite" gleich bleibt */
+    -fx-border-color: -style-tab-border-color-1, -style-tab-border-color-2, transparent;
+ }
+.tab-pane > .tab-header-area > .headers-region > .tab:pressed {
+    -fx-border-width: 1, 2;
+    -fx-border-color: -style-tab-border-color-1, -style-tab-border-color-2;
+ }
+
+.tab .tab-label {
+     -fx-text-fill: black;
+}
+.tab:selected .tab-label {
+     -fx-text-fill: -text-color-blue;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab:selected  .focus-indicator {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
