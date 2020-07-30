@@ -84,6 +84,10 @@ public class ConfAll extends Config {
         getAktValue().setValue(String.valueOf(value));
     }
 
+    public synchronized void setValue(long value) {
+        getAktValue().setValue(String.valueOf(value));
+    }
+
     // ====================================================
     // get value
     public synchronized String get() {
