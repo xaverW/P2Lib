@@ -17,6 +17,7 @@
 
 package de.p2tools.p2Lib.guiTools;
 
+import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -36,6 +37,18 @@ public class PGuiTools {
         Region region = new Region();
         VBox.setVgrow(region, Priority.ALWAYS);
         return region;
+    }
+
+    public static HBox getHDistance(int size) {
+        HBox hBox = new HBox();
+        hBox.setPadding(new Insets(size, 0, 0, 0));
+        return hBox;
+    }
+
+    public static VBox getVDistance(int size) {
+        VBox vBox = new VBox();
+        vBox.setPadding(new Insets(0, size, 0, 0));
+        return vBox;
     }
 
     /**
