@@ -202,7 +202,7 @@ public class PFileUtils {
 
             if (ask && dest.toFile().exists()) {
                 PAlert.BUTTON button = PAlert.showAlert_yes_no("Hinweis", "Datei kopieren",
-                        "Die Zieldatei exisiert bereits:" + P2LibConst.LINE_SEPARATOR +
+                        "Die Zieldatei existiert bereits:" + P2LibConst.LINE_SEPARATOR +
                                 dest.toString() +
                                 P2LibConst.LINE_SEPARATORx2 +
                                 "Soll die Datei überschrieben werden?");
