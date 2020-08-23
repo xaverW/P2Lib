@@ -100,3 +100,7 @@
     -fx-background-color: #55595b, linear-gradient(from -50% 50% to 50% 50% , repeat, #CCCCCC, #A0A6AC 100% );
 }
 
+
+.button-accordion {
+    -fx-background-color: linear-gradient(from 15% 53% to 15% 120% , #9B9B9B, #DBDBDB 100% );
+}

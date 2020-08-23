@@ -55,6 +55,8 @@ public class P2LibInit {
         for (String s : P2LibConst.cssFileList) {
             list.add(s);
         }
-        scene.getStylesheets().setAll(list);
+        if (scene != null) {
+            scene.getStylesheets().setAll(list);
+        }
     }
 }
