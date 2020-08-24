@@ -42,13 +42,13 @@
 /* ========================================================================== */
 /* sind javafx gui Elemente */
 /* ========================================================================== */
-.table-row-cell:empty {
+/*.table-row-cell:empty {
     -fx-background-color: #b5babd;
 }
-
 .list-cell:empty {
     -fx-background-color: #b5babd;
-}
+}*/
+
 /* sind alle Context-Menüs */
 .context-menu {
     -fx-background-color: #44484a;

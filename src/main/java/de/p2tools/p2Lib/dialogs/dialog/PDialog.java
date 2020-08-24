@@ -37,7 +37,7 @@ public class PDialog {
 
     private final StringProperty sizeConfiguration;
     private final boolean modal;
-    private final boolean setOnlySize;
+    private final boolean setOnlySize; // dann wird nur die Größe nicht aber die Position gesetzt
     private final String title;
     private final Stage ownerForCenteringDialog;
 
