@@ -150,7 +150,7 @@ public class PLog {
     }
 
     /*
-    Extere Tools Infos
+    Externe Tools Infos
      */
     public static synchronized void extToolLog(String text) {
         PLogger.LogExtToolMsg(text);

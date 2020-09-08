@@ -66,6 +66,7 @@ public class PComboBoxString extends ComboBox<String> {
     }
 
     public void init(ObservableList<String> dataList, String init, StringProperty selValueStringProperty) {
+        // init wird gesetzt, wenn selValue leer ist
         this.selValueStringProperty = selValueStringProperty;
         this.itemsList = dataList;
 
@@ -102,6 +103,7 @@ public class PComboBoxString extends ComboBox<String> {
     }
 
     public void selectElement(String element) {
+//        selValueStringProperty.setValue(element);
         setValue(element);
     }
 
@@ -125,9 +127,9 @@ public class PComboBoxString extends ComboBox<String> {
         Collections.sort(itemsList, new GermanStringSorter());
 
         this.setItems(itemsList);
-        if (!start.isEmpty()) {
-            selectElement(start);
-        }
+//        if (!start.isEmpty()) {
+//            selectElement(start);
+//        }
 
         getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && !itemsList.contains(newValue)) {
@@ -160,6 +162,11 @@ public class PComboBoxString extends ComboBox<String> {
         );
 
         bind();
+
+        if (!start.isEmpty() && getSelValue().isEmpty()) {
+            selectElement(start);
+        }
+
     }
 
 

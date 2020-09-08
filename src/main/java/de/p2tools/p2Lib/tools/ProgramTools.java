@@ -19,6 +19,7 @@ package de.p2tools.p2Lib.tools;
 import de.p2tools.p2Lib.tools.log.PLog;
 import org.apache.commons.lang3.SystemUtils;
 
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ProgramTools {
@@ -78,13 +79,18 @@ public class ProgramTools {
     }
 
     public static String[] getJavaVersion() {
-        final String[] ret = new String[4];
-        int i = 0;
-        ret[i++] = "Vendor: " + System.getProperty("java.vendor");
-        ret[i++] = "VMname: " + System.getProperty("java.vm.name");
-        ret[i++] = "Version: " + System.getProperty("java.version");
-        ret[i++] = "Runtimeversion: " + System.getProperty("java.runtime.version");
-        return ret;
+        ArrayList<String> list = new ArrayList<>();
+        list.add("Vendor:  " + System.getProperty("java.vendor"));
+        list.add("VM-Name: " + System.getProperty("java.vm.name"));
+
+        list.add("Version: " + System.getProperty("java.version"));
+        list.add("         Feature: " + Runtime.version().feature() +
+                "  Interim: " + Runtime.version().interim() +
+                "  Update: " + Runtime.version().update() +
+                "  Patch: " + Runtime.version().patch());
+        list.add("         Runtimeversion: " + System.getProperty("java.runtime.version"));
+
+        return list.toArray(new String[0]);
     }
 
     public static String getCompileDate() {

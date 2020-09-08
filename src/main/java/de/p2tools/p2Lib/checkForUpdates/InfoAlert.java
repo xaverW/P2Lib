@@ -152,7 +152,7 @@ public class InfoAlert {
         if (newVersion) {
             progUpdateData.setShowText(progUpdateData.getProgReleaseNotes());
         } else {
-            progUpdateData.setShowText(P2LibConst.LINE_SEPARATOR + "Sie benutzen die aktuellste Version von MTPlayer.");
+            progUpdateData.setShowText(P2LibConst.LINE_SEPARATOR + "Sie benutzen die aktuellste Version.");
         }
 
         InfoAlertFactory.makeTab(stage, progUpdateData, tabVersion, showUpdateAgain, searchForUpdate,
@@ -175,7 +175,7 @@ public class InfoAlert {
         if (newVersionBeta) {
             progUpdateDataBeta.setShowText(progUpdateDataBeta.getProgReleaseNotes());
         } else {
-            progUpdateDataBeta.setShowText(P2LibConst.LINE_SEPARATOR + "Es gibt keine aktuellere Beta-Version von MTPlayer.");
+            progUpdateDataBeta.setShowText(P2LibConst.LINE_SEPARATOR + "Es gibt keine aktuellere Beta-Version.");
         }
 
         InfoAlertFactory.makeTab(stage, progUpdateDataBeta, tabBeta, showUpdateBetaAgain, searchForUpdateBeta,
