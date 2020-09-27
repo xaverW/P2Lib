@@ -32,19 +32,29 @@ public class PDatePropertyPicker extends DatePicker {
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
     public PDatePropertyPicker() {
-        setDatePickerConverter();
-        setDate("");
-//        this.getEditor().setOnAction(a -> System.out.println("TEST"));
+        this.pLocalDateProperty.setValue(null);
+        init();
     }
 
     public PDatePropertyPicker(PLocalDateProperty pDateProperty) {
         if (pDateProperty == null) {
             PException.throwPException(978450201, this.getClass().toString());
         }
-
         this.pLocalDateProperty = pDateProperty;
+        init();
+    }
+
+    private void init() {
         setDatePickerConverter();
         setDate();
+        this.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (pLocalDateProperty != null &&
+                    oldValue != null && !oldValue.isEmpty() &&
+                    newValue != null && !oldValue.equals(newValue)) {
+                System.out.println(oldValue + " - " + newValue);
+                pLocalDateProperty.setPLocalDate(newValue);
+            }
+        });
     }
 
     public void setpDateProperty(PLocalDateProperty pDateProperty) {

@@ -30,19 +30,30 @@ public class PDatePicker extends DatePicker {
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
     public PDatePicker() {
-        setPLocalDatePickerConverter();
-        this.setValue(null);
+        pLocalDate = new PLocalDate();
+        init();
     }
 
     public PDatePicker(PLocalDate pLocalDate) {
         this.pLocalDate = pLocalDate;
+        init();
+    }
+
+    private void init() {
         setPLocalDatePickerConverter();
         this.setValue(this.pLocalDate.getLocalDate());
+        this.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (oldValue != null && !oldValue.isEmpty() &&
+                    newValue != null && !oldValue.equals(newValue)) {
+                System.out.println(oldValue + " - " + newValue);
+                pLocalDate.setPDate(newValue);
+            }
+        });
     }
 
     public void setDate(PLocalDate pLocalDate) {
         this.pLocalDate = pLocalDate;
-        this.setValue(pLocalDate.getLocalDate());
+        this.setValue(this.pLocalDate.getLocalDate());
     }
 
     public void setDate(String stringDate) {
@@ -53,6 +64,10 @@ public class PDatePicker extends DatePicker {
             pLocalDate.setPDate(stringDate);
             this.setValue(pLocalDate.getLocalDate());
         }
+    }
+
+    public PLocalDate getpLocalDate() {
+        return pLocalDate;
     }
 
     public void clearDate() {
@@ -104,4 +119,5 @@ public class PDatePicker extends DatePicker {
         };
         setConverter(converter);
     }
+
 }
