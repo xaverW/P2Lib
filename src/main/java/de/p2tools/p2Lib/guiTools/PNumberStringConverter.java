@@ -70,6 +70,7 @@ public class PNumberStringConverter extends NumberStringConverter {
             ret = numberFormat.parse(value);
             String s = numberFormat.format(ret);
             if (!s.equals(value) && !value.equals(ret + "")) {
+                // decimal point!!
                 setNodeStyle(stateLabel ? PStyles.PTEXTFIELD_LABEL_ERROR : PStyles.PTEXTFIELD_ERROR);
             }
 
