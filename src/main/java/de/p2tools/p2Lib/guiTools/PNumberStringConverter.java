@@ -68,10 +68,15 @@ public class PNumberStringConverter extends NumberStringConverter {
             }
 
             ret = numberFormat.parse(value);
-
-            if (!value.equals(ret + "")) {
+            String s = numberFormat.format(ret);
+            if (!s.equals(value) && !value.equals(ret + "")) {
                 setNodeStyle(stateLabel ? PStyles.PTEXTFIELD_LABEL_ERROR : PStyles.PTEXTFIELD_ERROR);
             }
+
+//            ret = numberFormat.parse(value);
+//            if (!value.equals(ret + "")) {
+//                setNodeStyle(stateLabel ? PStyles.PTEXTFIELD_LABEL_ERROR : PStyles.PTEXTFIELD_ERROR);
+//            }
         } catch (ParseException ex) {
             setNodeStyle(stateLabel ? PStyles.PTEXTFIELD_LABEL_ERROR : PStyles.PTEXTFIELD_ERROR);
         }
