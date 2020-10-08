@@ -14,7 +14,7 @@
     -rad-grad-btn-func-1: radial-gradient(center 80% -70%, radius 200%, -tab-button-2 35%, -tab-button-3 40%);
 
     -style-tab-border-color-1: #4169E1; /*royalblue*/
-    -style-tab-border-color-2: #3a5fcc;
+    -style-tab-border-color-2: #4a77ff;
 
     -style-extra-pane-color: derive(-fx-base,-5%);
 
@@ -35,10 +35,9 @@
     -fx-background-insets: 0,1,1;
     -fx-text-fill: black;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
-    -fx-padding: 10 20 10 20;
-    -fx-border: 10;
+    -fx-padding: 5 20 5 20;
+    /*-fx-border: 5;*/
 }
-
 .btnTab:focused{
     -fx-background-color: #355c8c, -lin-grad-1, -rad-grad-1;
     -fx-background-insets: -0.5,1,1;
@@ -49,7 +48,6 @@
 .btnTab:focused:hover{
     -fx-background-insets: -1.5,1,1;
 }
-
 .btnTab-sel{
     -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
     -fx-background-insets: -0.3,1,1;
@@ -65,6 +63,14 @@
     -fx-background-insets: -1.6,1,1;
 }
 
+.pane-border {
+    -fx-border-width: 1;
+    -fx-border-color: -style-tab-border-color-1;
+}
+.pane-border-lightgray {
+    -fx-border-width: 1;
+    -fx-border-color: #d6d6d6;
+ }
 
 /* Startdialog beim aller ersten Start */
 .btnStartDialog{
@@ -76,7 +82,7 @@
     -fx-text-fill: black;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
     -fx-padding: 5 10;
-    -fx-border: 5;
+    /*-fx-border: 5;*/
 }
 .btnStartDialog:focused{
     -fx-background-color: #8d8d8d, -lin-grad-1, -rad-grad-1;
@@ -117,30 +123,36 @@
     -fx-text-fill: black;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
     -fx-padding: 5;
-    -fx-border: 5;
+    /*-fx-border: 20;*/
 }
-.btnFunction > .arrow-button {
+.btnFunctionWide{
+    -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,1;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-padding: 3 10 3 10;
+}
+.btnFunction > .arrow-button, .btnFunctionWide > .arrow-button {
     /*Pfeil ausblenden*/
     -fx-padding: 0;
 }
-.btnFunction > .arrow-button > .arrow {
+.btnFunction > .arrow-button > .arrow, .btnFunctionWide > .arrow-button > .arrow {
     /*Pfeil ausblenden*/
     -fx-padding: 0;
 }
-.btnFunction:focused{
+.btnFunction:focused, .btnFunctionWide:focused{
     -fx-background-color: #4898de, -lin-grad-1, -rad-grad-1;
     -fx-background-insets: -0.4,1,1;
 }
-.btnFunction:hover{
+.btnFunction:hover, .btnFunctionWide:hover{
     -fx-background-color: #005ab0, -lin-grad-btn-func-1, -rad-grad-btn-func-1;
     -fx-background-insets: -0.8,1,1;
 }
-.btnFunction:focused:hover{
+.btnFunction:focused:hover, .btnFunctionWide:focused:hover{
     -fx-background-color: #005ab0, -lin-grad-btn-func-1, -rad-grad-btn-func-1;
     -fx-background-insets: -1.2,1,1;
 }
-
-
 
 
 
@@ -208,9 +220,6 @@
 .table-row-cell:empty .table-cell {
     -fx-border-width: 0px;
 }
-/*.list-cell:empty {
-    -fx-background-color: transparent;
-}*/
 /* damit leere Treetable-Zeilen nicht angezeigt werden */
 .tree-table-row-cell:empty {
     -fx-border-width: 0;
@@ -303,7 +312,7 @@
     -fx-background-radius: 5;
     -fx-background-insets: 0,1;
     -fx-padding: 3 30 3 30;
-    -fx-border: 5;
+    /*-fx-border: 5;*/
     -fx-text-fill: black;
     -fx-font-size: 14px;
 }
