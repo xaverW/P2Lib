@@ -79,7 +79,7 @@ public class PDialogFileChosser extends PAlert {
             if (dir) {
                 PDirFileChooser.DirChooser(stage, txtFile);
             } else {
-                PDirFileChooser.FileChooser(stage, txtFile);
+                PDirFileChooser.FileChooserOpenFile(stage, txtFile);
             }
         });
 

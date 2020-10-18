@@ -20,6 +20,7 @@ package de.p2tools.p2Lib.configFile.pConfData;
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.tools.GermanStringSorter;
+import de.p2tools.p2Lib.tools.PColorFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
@@ -75,7 +76,7 @@ public class PColorList {
     static ArrayList<Config> getConfigsArr() {
         final LinkedList<String[]> list = new LinkedList<>();
         for (PColorData c : HASHMAP.values()) {
-            list.add(new String[]{c.getKey(), PColorData.getColorToWeb(c.getColorReset()), c.getColorToWeb()});
+            list.add(new String[]{c.getKey(), PColorFactory.getColorToWeb(c.getColorReset()), c.getColorToWeb()});
         }
         sortList(list, 0);
 

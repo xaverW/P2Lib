@@ -17,6 +17,7 @@
 
 package de.p2tools.p2Lib.configFile.pConfData;
 
+import de.p2tools.p2Lib.tools.PColorFactory;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Color;
@@ -111,35 +112,11 @@ public class PColorData {
     }
 
     public String getColorToWeb() {
-        return "#" + getColorToHex(color.getValue());
+        return "#" + PColorFactory.getColorToHex(color.getValue());
     }
 
     public String getColorDarkToWeb() {
-        return "#" + getColorToHex(getDarkerColor(color.getValue()));
-    }
-
-    public static String getColorToWeb(Color color) {
-        return "#" + colorChanelToHex(color.getRed())
-                + colorChanelToHex(color.getGreen())
-                + colorChanelToHex(color.getBlue())
-                + colorChanelToHex(color.getOpacity()
-        );
-    }
-
-    public static String getColorToHex(Color color) {
-        return colorChanelToHex(color.getRed())
-                + colorChanelToHex(color.getGreen())
-                + colorChanelToHex(color.getBlue())
-                + colorChanelToHex(color.getOpacity()
-        );
-    }
-
-    public String getColorToHex() {
-        return colorChanelToHex(color.getValue().getRed())
-                + colorChanelToHex(color.getValue().getGreen())
-                + colorChanelToHex(color.getValue().getBlue())
-                + colorChanelToHex(color.getValue().getOpacity()
-        );
+        return "#" + PColorFactory.getColorToHex(getDarkerColor(color.getValue()));
     }
 
     final double DIV = 0.3;

@@ -44,6 +44,25 @@ public class PDate extends Date {
         setPDate(strDate, "");
     }
 
+    public void setPDate(String strDate, String strTime, FastDateFormat dateF, FastDateFormat timeF) {
+        if (strDate.isEmpty()) {
+            setTime(0);
+            return;
+        }
+
+        try {
+            if (strTime.isEmpty()) {
+                setTime(dateF.parse(strDate).getTime());
+            } else {
+                setTime(timeF.parse(strDate + strTime).getTime());
+            }
+            return;
+        } catch (final Exception ex) {
+        }
+
+        setTime(0);
+    }
+
     public void setPDate(String strDate, String strTime) {
         if (strDate.isEmpty()) {
             setTime(0);
@@ -127,13 +146,21 @@ public class PDate extends Date {
         }
     }
 
+    public String get_yyyy_MM_dd() {
+        if (this.getTime() == 0) {
+            return PDateFactory.FORMATTER_yyyy_MM_dd.format(new Date());
+        } else {
+            return PDateFactory.FORMATTER_yyyy_MM_dd.format(this);
+        }
+    }
+
     /**
      * Liefert den Betrag! der Zeitdifferenz zu jetzt.
      *
      * @return Differenz in Sekunden.
      */
-    public long diffInSeconds() {
-        final long ret = (int) (1L * (this.getTime() - new PDate().getTime()) / 1000L);
+    public int diffInSeconds() {
+        final int ret = (int) (1L * (this.getTime() - new PDate().getTime()) / 1000L);
         return Math.abs(ret);
     }
 
@@ -142,7 +169,7 @@ public class PDate extends Date {
      *
      * @return Differenz in Minuten.
      */
-    public long diffInMinutes() {
+    public int diffInMinutes() {
         return (diffInSeconds() / 60);
     }
 }

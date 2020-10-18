@@ -46,12 +46,11 @@ public class PCheckBoxCell<S, T> extends TableCell<S, T> {
 
                 setAlignment(Pos.CENTER);
                 CheckBox box = new CheckBox();
+                box.setMaxHeight(6);
+                box.setMinHeight(6);
+                box.setPrefSize(6, 6);
                 box.setDisable(true);
                 box.getStyleClass().add("checkbox-table");
-//                final String CSS_FILE = "de/p2tools/p2Lib/p2Lib.css";
-//                box.getStylesheets().add(CSS_FILE);
-
-
                 box.setSelected(item.booleanValue());
                 setGraphic(box);
 
@@ -60,4 +59,16 @@ public class PCheckBoxCell<S, T> extends TableCell<S, T> {
         return cell;
     };
 
+    public void initCell(Boolean item) {
+        setAlignment(Pos.CENTER);
+        CheckBox box = new CheckBox();
+        box.setMaxHeight(6);
+        box.setMinHeight(6);
+        box.setPrefSize(6, 6);
+        box.setDisable(true);
+        box.getStyleClass().add("checkbox-table");
+
+        box.setSelected(item.booleanValue());
+        setGraphic(box);
+    }
 }

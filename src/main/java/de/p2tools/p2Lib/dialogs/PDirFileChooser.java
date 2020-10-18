@@ -33,13 +33,14 @@ public class PDirFileChooser {
     public static String FileChooserSave(Stage stage, String initDirStr, String initFileStr) {
         String ret = "";
         File initDir;
-        final FileChooser fileChooser = new FileChooser();
 
         if (initDirStr.isEmpty()) {
             initDir = new File(System.getProperty("user.home"));
         } else {
             initDir = new File(initDirStr);
         }
+
+        final FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(initDir);
 
         if (!initFileStr.isEmpty()) {
@@ -58,7 +59,36 @@ public class PDirFileChooser {
         return ret;
     }
 
-    public static void FileChooser(Stage stage, TextField txtFile) {
+    public static void FileChooserSaveFile(Stage stage, TextField txtFile) {
+
+        File initFile = new File(System.getProperty("user.home"));
+        String fileName = "";
+
+        if (!txtFile.getText().isEmpty()) {
+            File f = new File(txtFile.getText());
+            if (f.isDirectory()) {
+                initFile = f;
+            } else if (f.isFile()) {
+                initFile = f.getParentFile();
+                fileName = f.getName();
+            }
+        }
+
+        final FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(initFile);
+        fileChooser.setInitialFileName(fileName);
+
+        File selectedFile = fileChooser.showSaveDialog(stage);
+        if (selectedFile != null) {
+            txtFile.setText(selectedFile.getAbsolutePath());
+            if (selectedFile.exists()) {
+                // dann löschen, dass die Frage noch nochmal beim Schreiben kommt
+                selectedFile.delete();
+            }
+        }
+    }
+
+    public static void FileChooserOpenFile(Stage stage, TextField txtFile) {
         final FileChooser fileChooser = new FileChooser();
 
         File initFile = new File(System.getProperty("user.home"));

@@ -32,6 +32,13 @@ public class PDateFactory {
     public static final FastDateFormat FORMAT_dd_MM_yyyyKomma__HH_mm = FastDateFormat.getInstance("dd.MM.yyyy, HH:mm");
     public static final FastDateFormat FORMAT_dd_MM_yyyyKomma__HH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyy, HH:mm:ss");
     public static final FastDateFormat FORMAT_dd_MM_yyyy_HH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss");
+    public static final FastDateFormat FORMATTER_dd_MM_yyyy = FastDateFormat.getInstance("dd.MM.yyyy");
+    public static final FastDateFormat FORMATTER_ddMMyyyyHHmmss = FastDateFormat.getInstance("dd.MM.yyyyHH:mm:ss");
+
+    public static final FastDateFormat FORMATTER_ddMMyyyy = FastDateFormat.getInstance("dd.MM.yyyy");
+    public static final FastDateFormat FORMATTER_yyyyMMdd = FastDateFormat.getInstance("yyyyMMdd");
+    public static final FastDateFormat FORMATTER_yyyy_MM_dd = FastDateFormat.getInstance("yyyy.MM.dd");
+    public static final FastDateFormat FORMATTER_HHmmss = FastDateFormat.getInstance("HH:mm:ss");
 
 
     public static String getTodayStr() {
