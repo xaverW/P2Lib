@@ -36,6 +36,10 @@ public class P2LibInit {
         P2LibConst.primaryStage = primaryStage;
     }
 
+    public static void setStyleFile(String styleFile) {
+        P2LibConst.styleFile = styleFile;
+    }
+
     public static void addCssFile(String cssFile) {
         if (!P2LibConst.cssFileList.contains(cssFile)) {
             P2LibConst.cssFileList.add(cssFile);

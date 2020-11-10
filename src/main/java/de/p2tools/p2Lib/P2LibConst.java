@@ -29,11 +29,12 @@ public class P2LibConst {
     public static final String CSS_GUI = "de/p2tools/p2Lib/p2-gui.css";
     public static final String CSS_GUI_DARK = "de/p2tools/p2Lib/p2-gui-dark.css";
 
-
     public static String userAgent = "";
     public static String logfile = "P2Tools_%g.log";
     public static String logfile_0 = "P2Tools_0.log";
     public static String logdir = "Log";
+    public static String styleFile = "";
+    
     public static int MIN_BUTTON_WIDTH = 100;
 
     public static boolean debug = false; // Debugmodus

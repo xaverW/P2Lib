@@ -16,7 +16,9 @@
 
 package de.p2tools.p2Lib.dialogs.dialog;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.P2LibInit;
+import de.p2tools.p2Lib.configFile.IoReadWriteStyle;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.icon.GetIcon;
 import de.p2tools.p2Lib.tools.PException;
@@ -28,6 +30,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.nio.file.Path;
 
 
 public class PDialog {
@@ -102,6 +106,12 @@ public class PDialog {
 
     public void updateCss() {
         P2LibInit.addP2LibCssToScene(scene);
+
+
+        if (P2LibConst.styleFile != null && !P2LibConst.styleFile.isEmpty() && scene != null) {
+            final Path path = Path.of(P2LibConst.styleFile);
+            IoReadWriteStyle.readStyle(path, scene);
+        }
     }
 
     private void createNewScene(Pane pane) {
