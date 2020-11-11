@@ -69,6 +69,7 @@ public class IoReadWriteStyle {
 //                String uri = f.toURI().toString();
 //                scene.getStylesheets().add(uri);
 
+                scene.getStylesheets().removeAll(filePath.toUri().toString());
                 scene.getStylesheets().add(filePath.toUri().toString());
                 ret = true;
             } catch (NullPointerException ex) {
