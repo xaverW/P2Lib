@@ -76,7 +76,7 @@ public class PColorList {
     static ArrayList<Config> getConfigsArr() {
         final LinkedList<String[]> list = new LinkedList<>();
         for (PColorData c : HASHMAP.values()) {
-            list.add(new String[]{c.getKey(), PColorFactory.getColorToWeb(c.getColorReset()), c.getColorToWeb()});
+            list.add(new String[]{c.getKey(), PColorFactory.getColorToWeb(c.getResetColor()), c.getColorToWeb()});
         }
         sortList(list, 0);
 

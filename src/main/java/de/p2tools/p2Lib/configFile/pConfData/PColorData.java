@@ -31,7 +31,7 @@ public class PColorData {
 
     private String key;
     private String text = "";
-    private Color colorReset = Color.WHITE;
+    private Color resetColor = Color.WHITE;
 
     private final ObjectProperty<Color> color = new SimpleObjectProperty<>(this, "color", Color.WHITE);
 
@@ -39,7 +39,7 @@ public class PColorData {
         setKey(key);
         setColor(color);
         setText(text);
-        setColorReset(color);
+        setResetColor(color);
     }
 
     public Color getColor() {
@@ -79,16 +79,16 @@ public class PColorData {
     }
 
 
-    public Color getColorReset() {
-        return colorReset;
+    public Color getResetColor() {
+        return resetColor;
     }
 
-    public void setColorReset(Color colorReset) {
-        this.colorReset = colorReset;
+    public void setResetColor(Color resetColor) {
+        this.resetColor = resetColor;
     }
 
     public void resetColor() {
-        setColor(getColorReset());
+        setColor(getResetColor());
     }
 
     public void setColorFromHex(String hex) {
