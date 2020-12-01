@@ -21,7 +21,9 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PDateFactory {
@@ -49,14 +51,25 @@ public class PDateFactory {
         return new PDate().getDateTime(FORMAT_yyyy_MM_dd);
     }
 
+    public static PDate getToday() {
+        PDate pDate = new PDate();
+        pDate.setPDateToday();
+        return pDate;
+    }
+
+    public static PDate getYesterday() {
+        PLocalDate pDate = new PLocalDate();
+        pDate.setPDateYesterdy();
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+        return new PDate(Date.from(pDate.getLocalDate().atStartOfDay(defaultZoneId).toInstant()));
+    }
+
     public static String getAktYearStr() {
         return LocalDate.now().getYear() + "";
-//        return new PDate().getDateTime(FORMAT_yyyy);
     }
 
     public static int getAktYearInt() {
         return LocalDate.now().getYear();
-//        return getYearIntFromString(getAktYearStr());
     }
 
     public static int getYearIntFromString(String year) {

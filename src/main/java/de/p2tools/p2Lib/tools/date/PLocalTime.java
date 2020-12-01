@@ -16,30 +16,30 @@
 
 package de.p2tools.p2Lib.tools.date;
 
-import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class PLocalDate implements Comparable<PLocalDate> {
+public class PLocalTime implements Comparable<PLocalTime> {
 
     public static final DateTimeFormatter FORMAT_dd_MM_yyyy = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     public static final DateTimeFormatter FORMAT_yyyy = DateTimeFormatter.ofPattern("yyyy");
     public static final DateTimeFormatter FORMAT_yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy.MM.dd");
 
-    private LocalDate localDate; // todo
+    private LocalTime localDate; // todo
 
-    public PLocalDate() {
-        localDate = LocalDate.now();
+    public PLocalTime() {
+        localDate = LocalTime.now();
     }
 
-    public PLocalDate(String date) {
+    public PLocalTime(String date) {
         setPDate(date);
     }
 
-    public PLocalDate(LocalDate date) {
+    public PLocalTime(LocalTime date) {
         setPDate(date);
     }
 
-    public void setPDate(LocalDate date) {
+    public void setPDate(LocalTime date) {
         localDate = date;
     }
 
@@ -56,49 +56,28 @@ public class PLocalDate implements Comparable<PLocalDate> {
     }
 
     public void setPDateNow() {
-        localDate = LocalDate.now();
+        localDate = LocalTime.now();
     }
 
     public String getDateTime(DateTimeFormatter format) {
         return localDate == null ? "" : localDate.format(format);
     }
 
-    public LocalDate getLocalDate() {
+    public LocalTime getLocalDate() {
         return localDate;
     }
 
-    public static LocalDate getPLocalDate(String strDate) {
+    public static LocalTime getPLocalDate(String strDate) {
         if (strDate == null || strDate.isEmpty()) {
             return null;
         }
 
         try {
-            return LocalDate.parse(strDate, FORMAT_dd_MM_yyyy);
+            return LocalTime.parse(strDate, FORMAT_dd_MM_yyyy);
         } catch (final Exception ex) {
         }
 
         return null;
-    }
-
-    public String getYear() {
-        if (localDate == null) {
-            return "";
-        } else {
-            return localDate.format(FORMAT_yyyy);
-        }
-    }
-
-    public void setPDateYesterdy() {
-        setPDateNow();
-        localDate = localDate.minusDays(1);
-    }
-
-    public void setPDateBefore() {
-        localDate = localDate.minusDays(1);
-    }
-
-    public void setPDateNext() {
-        localDate = localDate.plusDays(1);
     }
 
     @Override
@@ -119,7 +98,7 @@ public class PLocalDate implements Comparable<PLocalDate> {
     }
 
     @Override
-    public int compareTo(PLocalDate o) {
+    public int compareTo(PLocalTime o) {
 
         if (o == null || o.localDate == null) {
             return 1;

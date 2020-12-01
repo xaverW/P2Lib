@@ -18,7 +18,6 @@
 package de.p2tools.p2Lib.configFile.config;
 
 import javafx.beans.value.ObservableValue;
-import javafx.scene.control.Control;
 
 /**
  * this is the class for one configuration
@@ -91,10 +90,6 @@ public abstract class ConfigExtra extends Config {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Control getControl() {
-        return null;
     }
 
 

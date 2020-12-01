@@ -51,7 +51,7 @@ public class PDatePropertyPicker extends DatePicker {
             if (pLocalDateProperty != null &&
                     oldValue != null && !oldValue.isEmpty() &&
                     newValue != null && !oldValue.equals(newValue)) {
-                System.out.println(oldValue + " - " + newValue);
+                //System.out.println(oldValue + " - " + newValue);
                 pLocalDateProperty.setPLocalDate(newValue);
             }
         });

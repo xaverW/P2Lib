@@ -121,9 +121,10 @@ public class PDialog {
             int w = PGuiSize.getWidth(sizeConfiguration);
             int h = PGuiSize.getHeight(sizeConfiguration);
             if (w > 0 && h > 0) {
-                this.scene = new Scene(pane, PGuiSize.getWidth(sizeConfiguration), PGuiSize.getHeight(sizeConfiguration));
+                this.scene = new Scene(pane, w, h);
             } else {
-                this.scene = new Scene(pane);
+                // für Win, damit die Dialoge nicht über den Bildschirm raus ragen
+                this.scene = new Scene(pane, 800, 700);
             }
         }
     }

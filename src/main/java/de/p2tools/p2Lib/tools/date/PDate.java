@@ -28,6 +28,10 @@ public class PDate extends Date {
         super();
     }
 
+    public PDate(Date date) {
+        super(date.getTime());
+    }
+
     public PDate(long l) {
         super(l);
     }
