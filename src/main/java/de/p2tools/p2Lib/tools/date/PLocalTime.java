@@ -21,14 +21,12 @@ import java.time.format.DateTimeFormatter;
 
 public class PLocalTime implements Comparable<PLocalTime> {
 
-    public static final DateTimeFormatter FORMAT_dd_MM_yyyy = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    public static final DateTimeFormatter FORMAT_yyyy = DateTimeFormatter.ofPattern("yyyy");
-    public static final DateTimeFormatter FORMAT_yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+    public static final DateTimeFormatter FORMAT_HH_mm = DateTimeFormatter.ofPattern("HH:mm");
 
-    private LocalTime localDate; // todo
+    private LocalTime localTime; // todo
 
     public PLocalTime() {
-        localDate = LocalTime.now();
+        localTime = LocalTime.now();
     }
 
     public PLocalTime(String date) {
@@ -40,31 +38,31 @@ public class PLocalTime implements Comparable<PLocalTime> {
     }
 
     public void setPDate(LocalTime date) {
-        localDate = date;
+        localTime = date;
     }
 
     public void setPDate(String strDate) {
-        localDate = getPLocalDate(strDate);
+        localTime = getPLocalDate(strDate);
     }
 
     public void clearPDate() {
-        localDate = null;
+        localTime = null;
     }
 
     public boolean isEmpty() {
-        return localDate == null;
+        return localTime == null;
     }
 
     public void setPDateNow() {
-        localDate = LocalTime.now();
+        localTime = LocalTime.now();
     }
 
     public String getDateTime(DateTimeFormatter format) {
-        return localDate == null ? "" : localDate.format(format);
+        return localTime == null ? "" : localTime.format(format);
     }
 
-    public LocalTime getLocalDate() {
-        return localDate;
+    public LocalTime getLocalTime() {
+        return localTime;
     }
 
     public static LocalTime getPLocalDate(String strDate) {
@@ -73,7 +71,7 @@ public class PLocalTime implements Comparable<PLocalTime> {
         }
 
         try {
-            return LocalTime.parse(strDate, FORMAT_dd_MM_yyyy);
+            return LocalTime.parse(strDate, FORMAT_HH_mm);
         } catch (final Exception ex) {
         }
 
@@ -82,32 +80,32 @@ public class PLocalTime implements Comparable<PLocalTime> {
 
     @Override
     public String toString() {
-        if (localDate == null) {
+        if (localTime == null) {
             return "";
         } else {
-            return localDate.format(FORMAT_dd_MM_yyyy);
+            return localTime.format(FORMAT_HH_mm);
         }
     }
 
     public String toStringR() {
-        if (localDate == null) {
+        if (localTime == null) {
             return "";
         } else {
-            return localDate.format(FORMAT_yyyy_MM_dd);
+            return localTime.format(FORMAT_HH_mm);
         }
     }
 
     @Override
     public int compareTo(PLocalTime o) {
 
-        if (o == null || o.localDate == null) {
+        if (o == null || o.localTime == null) {
             return 1;
         }
 
-        if (this.localDate == null) {
+        if (this.localTime == null) {
             return -1;
         }
 
-        return this.localDate.compareTo(o.localDate);
+        return this.localTime.compareTo(o.localTime);
     }
 }

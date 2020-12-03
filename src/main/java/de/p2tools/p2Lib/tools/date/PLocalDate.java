@@ -67,6 +67,14 @@ public class PLocalDate implements Comparable<PLocalDate> {
         return localDate;
     }
 
+    public LocalDate getNewLocalDate() {
+        return LocalDate.of(localDate.getYear(), localDate.getMonth(), localDate.getDayOfMonth());
+    }
+
+    public PLocalDate getNewPLocalDate() {
+        return new PLocalDate(LocalDate.of(localDate.getYear(), localDate.getMonth(), localDate.getDayOfMonth()));
+    }
+
     public static LocalDate getPLocalDate(String strDate) {
         if (strDate == null || strDate.isEmpty()) {
             return null;

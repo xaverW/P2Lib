@@ -17,7 +17,7 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import de.p2tools.p2Lib.guiTools.PDatePicker;
+import de.p2tools.p2Lib.guiTools.PTimePicker;
 import de.p2tools.p2Lib.tools.date.PLocalTime;
 import javafx.scene.control.Control;
 
@@ -57,8 +57,7 @@ public class ConfigLocalTimeExtra extends ConfigExtra {
 
     @Override
     public Control getControl() {
-        //todo
-        PDatePicker control = new PDatePicker();
+        PTimePicker control = new PTimePicker();
         return control;
     }
 }
