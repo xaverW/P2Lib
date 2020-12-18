@@ -30,22 +30,22 @@ public class PLocalTime implements Comparable<PLocalTime> {
     }
 
     public PLocalTime(String date) {
-        setPDate(date);
+        setPLocalTime(date);
     }
 
     public PLocalTime(LocalTime date) {
-        setPDate(date);
+        setPLocalTime(date);
     }
 
-    public void setPDate(LocalTime date) {
+    public void setPLocalTime(LocalTime date) {
         localTime = date;
     }
 
-    public void setPDate(String strDate) {
-        localTime = getPLocalDate(strDate);
+    public void setPLocalTime(String strDate) {
+        localTime = getPLocalTime(strDate);
     }
 
-    public void clearPDate() {
+    public void clearPLocalTime() {
         localTime = null;
     }
 
@@ -53,11 +53,11 @@ public class PLocalTime implements Comparable<PLocalTime> {
         return localTime == null;
     }
 
-    public void setPDateNow() {
+    public void setPLocalTimeNow() {
         localTime = LocalTime.now();
     }
 
-    public String getDateTime(DateTimeFormatter format) {
+    public String getPLocalTime(DateTimeFormatter format) {
         return localTime == null ? "" : localTime.format(format);
     }
 
@@ -65,13 +65,13 @@ public class PLocalTime implements Comparable<PLocalTime> {
         return localTime;
     }
 
-    public static LocalTime getPLocalDate(String strDate) {
-        if (strDate == null || strDate.isEmpty()) {
+    public static LocalTime getPLocalTime(String strTime) {
+        if (strTime == null || strTime.isEmpty()) {
             return null;
         }
 
         try {
-            return LocalTime.parse(strDate, FORMAT_HH_mm);
+            return LocalTime.parse(strTime, FORMAT_HH_mm);
         } catch (final Exception ex) {
         }
 

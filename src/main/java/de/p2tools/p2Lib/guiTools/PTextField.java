@@ -79,6 +79,7 @@ public class PTextField extends TextField {
     }
 
     public void bindBidirectional(StringProperty property) {
+        unBind();
         this.stringProperty = property;
         bindBidirectional();
     }

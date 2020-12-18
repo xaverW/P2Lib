@@ -36,19 +36,19 @@ public class PLocalTimeProperty extends SimpleObjectProperty<PLocalTime> {
 
     public void setPLocalTime(LocalTime localDate) {
         PLocalTime pLocalDate = new PLocalTime();
-        pLocalDate.setPDate(localDate);
+        pLocalDate.setPLocalTime(localDate);
         setValue(pLocalDate);
     }
 
     public void setPLocalTime(String strDate) {
         PLocalTime pLocalDate = new PLocalTime();
-        pLocalDate.setPDate(strDate);
+        pLocalDate.setPLocalTime(strDate);
         setValue(pLocalDate);
     }
 
     public void clearPLocalTime() {
         PLocalTime pLocalDate = new PLocalTime();
-        pLocalDate.clearPDate();
+        pLocalDate.clearPLocalTime();
         this.setValue(pLocalDate);
         return;
     }

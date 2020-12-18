@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PTimePicker extends ComboBox<PLocalTime> {
-    private PLocalTime pLocalTime = null;
+    private PLocalTime pLocalTime;
     private int addMinutes = 15;
 
     public PTimePicker() {
@@ -64,33 +64,36 @@ public class PTimePicker extends ComboBox<PLocalTime> {
         }
         this.getItems().addAll(list);
         this.getSelectionModel().select(plSelect);
-        pLocalTime.setPDate(plSelect.getLocalTime());
-
-//        if (pLocalTime == null) {
-//        } else {
-//        }
+        pLocalTime.setPLocalTime(plSelect.getLocalTime());
 
         this.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue != null && !oldValue.isEmpty() &&
                     newValue != null && !oldValue.equals(newValue)) {
                 //System.out.println(oldValue + " - " + newValue);
-                pLocalTime.setPDate(newValue);
+                pLocalTime.setPLocalTime(newValue);
             }
         });
     }
 
-    public void setTime(PLocalTime pLocalDate) {
-        this.pLocalTime = pLocalDate;
-        this.setValue(this.pLocalTime);
+    public void removeTime() {
+        this.pLocalTime = null;
+        this.setValue(null);
+    }
+
+    public void setTime(PLocalTime localTime) {
+        this.pLocalTime = localTime;
+//        this.setValue(this.pLocalTime);
+        this.getSelectionModel().select(this.pLocalTime);
     }
 
     public void setTime(String stringDate) {
         if (stringDate == null || stringDate.isEmpty()) {
             this.setValue(null);
-            this.pLocalTime.clearPDate();
+            this.pLocalTime.clearPLocalTime();
         } else {
-            pLocalTime.setPDate(stringDate);
-            this.setValue(pLocalTime);
+            pLocalTime.setPLocalTime(stringDate);
+//            this.setValue(pLocalTime);
+            this.getSelectionModel().select(pLocalTime);
         }
     }
 
@@ -99,7 +102,9 @@ public class PTimePicker extends ComboBox<PLocalTime> {
     }
 
     public void clearTime() {
-        this.pLocalTime.clearPDate();
+        if (this.pLocalTime != null) {
+            this.pLocalTime.clearPLocalTime();
+        }
         this.setValue(null);
     }
 

@@ -107,7 +107,6 @@ public class PDialog {
     public void updateCss() {
         P2LibInit.addP2LibCssToScene(scene);
 
-
         if (P2LibConst.styleFile != null && !P2LibConst.styleFile.isEmpty() && scene != null) {
             final Path path = Path.of(P2LibConst.styleFile);
             IoReadWriteStyle.readStyle(path, scene);

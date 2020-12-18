@@ -60,8 +60,8 @@ public class PAccordionPane extends AnchorPane {
         scrollPane.setFitToWidth(true);
         HBox.setHgrow(scrollPane, Priority.ALWAYS);
         hBox.getChildren().addAll(cbxAccordion, scrollPane);
-        getChildren().addAll(hBox);
 
+        getChildren().addAll(hBox);
         AnchorPane.setLeftAnchor(hBox, 10.0);
         AnchorPane.setBottomAnchor(hBox, 10.0);
         AnchorPane.setRightAnchor(hBox, 10.0);
@@ -85,4 +85,7 @@ public class PAccordionPane extends AnchorPane {
         return result;
     }
 
+    public HBox getHBox() {
+        return hBox;
+    }
 }
