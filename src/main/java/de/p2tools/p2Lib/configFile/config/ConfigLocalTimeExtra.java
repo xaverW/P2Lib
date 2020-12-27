@@ -23,41 +23,44 @@ import javafx.scene.control.Control;
 
 public class ConfigLocalTimeExtra extends ConfigExtra {
 
-    private PLocalTime pLocalDate = null;
+    private PLocalTime pLocalTime = null;
 
     public ConfigLocalTimeExtra(String key, String name, String actValue) {
         super(key, name);
-        pLocalDate = new PLocalTime();
-        pLocalDate.setPLocalTime(actValue);
+        pLocalTime = new PLocalTime();
+        pLocalTime.setPLocalTime(actValue);
     }
 
-    public ConfigLocalTimeExtra(String key, String name, PLocalTime actPDate) {
+    public ConfigLocalTimeExtra(String key, String name, PLocalTime localTime) {
         super(key, name);
-        this.pLocalDate = actPDate;
+        this.pLocalTime = localTime;
     }
 
     public PLocalTime getPDate() {
-        return pLocalDate;
+        return pLocalTime;
     }
 
     @Override
     public String getActValue() {
-        return pLocalDate.toString();
+        return pLocalTime.toString();
     }
 
     @Override
     public String getActValueString() {
-        return pLocalDate.toString();
+        return pLocalTime.toString();
     }
 
     @Override
     public void setActValue(String act) {
-        pLocalDate.setPLocalTime(act);
+        pLocalTime.setPLocalTime(act);
     }
 
     @Override
     public Control getControl() {
         PTimePicker control = new PTimePicker();
+//        control.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+//                pLocalTime.setPLocalTime(newValue.getLocalTime()));
+
         return control;
     }
 }

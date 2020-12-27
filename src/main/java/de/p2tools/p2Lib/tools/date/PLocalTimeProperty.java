@@ -47,9 +47,9 @@ public class PLocalTimeProperty extends SimpleObjectProperty<PLocalTime> {
     }
 
     public void clearPLocalTime() {
-        PLocalTime pLocalDate = new PLocalTime();
-        pLocalDate.clearPLocalTime();
-        this.setValue(pLocalDate);
+        PLocalTime pLocalTime = new PLocalTime();
+        pLocalTime.clearPLocalTime();
+        this.setValue(pLocalTime);
         return;
     }
 

@@ -53,6 +53,15 @@ public class PHyperlink extends Hyperlink {
         init();
     }
 
+    public PHyperlink(String url, ImageView imageView) {
+        super(url);
+        stage = P2LibConst.primaryStage;
+        this.url = url;
+        this.prog = null;
+        this.imageView = imageView;
+        init();
+    }
+
     public PHyperlink(String url) {
         super(url);
         stage = P2LibConst.primaryStage;
