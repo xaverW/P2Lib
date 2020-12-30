@@ -24,6 +24,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 
 public class PTextAreaIgnoreTab extends TextArea {
     final TextArea textArea = this;
@@ -74,40 +75,26 @@ public class PTextAreaIgnoreTab extends TextArea {
                             recodedEvent = recodeWithoutControlDown(event);
                             textArea.fireEvent(recodedEvent);
                         } else if (event.isShiftDown()) {
+                            //previous node
                             ObservableList<Node> children = parent.getChildrenUnmodifiable();
                             int idx = children.indexOf(textArea);
-                            if (idx > 0) {
-                                for (int i = idx - 1; i >= 0; i--) {
-                                    if (children.get(i).isFocusTraversable()) {
-                                        children.get(i).requestFocus();
-                                        break;
-                                    }
-                                }
-                                for (int i = children.size() - 1; i > idx; i--) {
-                                    if (children.get(i).isFocusTraversable()) {
-                                        children.get(i).requestFocus();
-                                        break;
-                                    }
-                                }
+                            if (idx < 0) {
+                                //dann gibts es nicht??
+                                break;
                             }
+                            selPreviousNode(parent, idx);
+
                         } else {
+                            //next node
                             ObservableList<Node> children = parent.getChildrenUnmodifiable();
                             int idx = children.indexOf(textArea);
-                            if (idx >= 0) {
-                                for (int i = idx + 1; i < children.size(); i++) {
-                                    if (children.get(i).isFocusTraversable()) {
-                                        children.get(i).requestFocus();
-                                        break;
-                                    }
-                                }
-                                for (int i = 0; i < idx; i++) {
-                                    if (children.get(i).isFocusTraversable()) {
-                                        children.get(i).requestFocus();
-                                        break;
-                                    }
-                                }
+                            if (idx < 0) {
+                                //dann gibts es nicht??
+                                break;
                             }
+                            selNextNode(parent, idx);
                         }
+
                         event.consume();
                         break;
                 }
@@ -126,6 +113,70 @@ public class PTextAreaIgnoreTab extends TextArea {
                     event.isMetaDown()
             );
         }
-    }
 
+
+        private boolean selPreviousNode(Parent parent, int startNode) {
+            ObservableList<Node> children = parent.getChildrenUnmodifiable();
+            for (int i = startNode - 1; i >= 0; i--) {
+                //vom startNode zurück
+                Node n = children.get(i);
+                if (!n.isFocusTraversable() && n instanceof Region) {
+                    if (selPreviousNode(((Region) n), ((Region) n).getChildrenUnmodifiable().size())) {
+                        return true;
+                    }
+                }
+                if (n.isFocusTraversable()) {
+                    n.requestFocus();
+                    return true;
+                }
+            }
+
+            for (int i = children.size() - 1; i > startNode; i--) {
+                //vom ende zum startNode
+                Node n = children.get(i);
+                if (!n.isFocusTraversable() && n instanceof Region) {
+                    if (selPreviousNode(((Region) n), ((Region) n).getChildrenUnmodifiable().size())) {
+                        return true;
+                    }
+                }
+                if (n.isFocusTraversable()) {
+                    n.requestFocus();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private boolean selNextNode(Parent parent, int startNode) {
+            ObservableList<Node> children = parent.getChildrenUnmodifiable();
+            for (int i = startNode + 1; i < children.size(); i++) {
+                Node n = children.get(i);
+                if (!n.isFocusTraversable() && n instanceof Region) {
+                    if (selNextNode(((Region) n), 0)) {
+                        return true;
+                    }
+                }
+                if (n.isFocusTraversable()) {
+                    n.requestFocus();
+                    return true;
+                }
+            }
+
+            for (int i = 0; i < startNode; i++) {
+                Node n = children.get(i);
+                if (!n.isFocusTraversable() && n instanceof Region) {
+                    if (selNextNode(((Region) n), 0)) {
+                        return true;
+                    }
+                }
+                if (n.isFocusTraversable()) {
+                    n.requestFocus();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
 }
