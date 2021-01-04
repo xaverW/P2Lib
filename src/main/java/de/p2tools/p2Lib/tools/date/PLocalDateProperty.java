@@ -36,13 +36,13 @@ public class PLocalDateProperty extends SimpleObjectProperty<PLocalDate> {
 
     public void setPLocalDate(LocalDate localDate) {
         PLocalDate pLocalDate = new PLocalDate();
-        pLocalDate.setPDate(localDate);
+        pLocalDate.setPLocalDate(localDate);
         setValue(pLocalDate);
     }
 
     public void setPLocalDate(String strDate) {
         PLocalDate pLocalDate = new PLocalDate();
-        pLocalDate.setPDate(strDate);
+        pLocalDate.setPLocalDate(strDate);
         setValue(pLocalDate);
     }
 

@@ -26,13 +26,13 @@ public class ConfigLocalDate extends Config {
     public ConfigLocalDate(String key, String actValue) {
         super(key);
         pLocalDate = new PLocalDate();
-        pLocalDate.setPDate(actValue);
+        pLocalDate.setPLocalDate(actValue);
     }
 
     public ConfigLocalDate(String key, String actValue, boolean intern) {
         super(key, null, intern);
         pLocalDate = new PLocalDate();
-        pLocalDate.setPDate(actValue);
+        pLocalDate.setPLocalDate(actValue);
     }
 
     public ConfigLocalDate(String key, PLocalDate actPDate) {
@@ -52,7 +52,7 @@ public class ConfigLocalDate extends Config {
 
     @Override
     public void setActValue(String act) {
-        pLocalDate.setPDate(act);
+        pLocalDate.setPLocalDate(act);
     }
 
 }

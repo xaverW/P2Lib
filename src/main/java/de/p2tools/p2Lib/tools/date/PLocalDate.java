@@ -25,38 +25,40 @@ public class PLocalDate implements Comparable<PLocalDate> {
     public static final DateTimeFormatter FORMAT_yyyy = DateTimeFormatter.ofPattern("yyyy");
     public static final DateTimeFormatter FORMAT_yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy.MM.dd");
 
-    private LocalDate localDate; // todo
+    private LocalDate localDate = null; // todo
 
     public PLocalDate() {
-        localDate = LocalDate.now();
+        setPLocalDate(LocalDate.now());
     }
 
     public PLocalDate(String date) {
-        setPDate(date);
+        setPLocalDate(date);
     }
 
     public PLocalDate(LocalDate date) {
-        setPDate(date);
+        setPLocalDate(date);
     }
 
-    public void setPDate(LocalDate date) {
+    //===================
+    public void setPLocalDate(LocalDate date) {
         localDate = date;
     }
 
-    public void setPDate(String strDate) {
+    public void setPLocalDate(String strDate) {
         localDate = getPLocalDate(strDate);
     }
 
-    public void clearPDate() {
-        localDate = null;
+    public void setPLocalDateNow() {
+        localDate = LocalDate.now();
     }
 
+    //====================
     public boolean isEmpty() {
         return localDate == null;
     }
 
-    public void setPDateNow() {
-        localDate = LocalDate.now();
+    public void clearPDate() {
+        localDate = null;
     }
 
     public String getDateTime(DateTimeFormatter format) {
@@ -96,16 +98,16 @@ public class PLocalDate implements Comparable<PLocalDate> {
         }
     }
 
-    public void setPDateYesterdy() {
-        setPDateNow();
+    public void setPLocalDateYesterdy() {
+        setPLocalDateNow();
         localDate = localDate.minusDays(1);
     }
 
-    public void setPDateBefore() {
+    public void setPLocalDateBeforeDay() {
         localDate = localDate.minusDays(1);
     }
 
-    public void setPDateNext() {
+    public void setPLocalDateNextDay() {
         localDate = localDate.plusDays(1);
     }
 

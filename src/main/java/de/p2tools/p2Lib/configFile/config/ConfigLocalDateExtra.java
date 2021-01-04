@@ -28,7 +28,7 @@ public class ConfigLocalDateExtra extends ConfigExtra {
     public ConfigLocalDateExtra(String key, String name, String actValue) {
         super(key, name);
         pLocalDate = new PLocalDate();
-        pLocalDate.setPDate(actValue);
+        pLocalDate.setPLocalDate(actValue);
     }
 
     public ConfigLocalDateExtra(String key, String name, PLocalDate actPDate) {
@@ -52,7 +52,7 @@ public class ConfigLocalDateExtra extends ConfigExtra {
 
     @Override
     public void setActValue(String act) {
-        pLocalDate.setPDate(act);
+        pLocalDate.setPLocalDate(act);
     }
 
     @Override

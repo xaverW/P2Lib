@@ -25,7 +25,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class PDatePicker extends DatePicker {
-    private PLocalDate pLocalDate = null;
+    private PLocalDate pLocalDate;
     private final String pattern = "dd.MM.yyyy";
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
@@ -43,10 +43,9 @@ public class PDatePicker extends DatePicker {
         setPLocalDatePickerConverter();
         this.setValue(this.pLocalDate.getLocalDate());
         this.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue != null && !oldValue.isEmpty() &&
-                    newValue != null && !oldValue.equals(newValue)) {
+            if (oldValue != null && newValue != null && !oldValue.equals(newValue)) {
                 //System.out.println(oldValue + " - " + newValue);
-                pLocalDate.setPDate(newValue);
+                pLocalDate.setPLocalDate(newValue);
             }
         });
     }
@@ -61,7 +60,7 @@ public class PDatePicker extends DatePicker {
             this.setValue(null);
             this.pLocalDate.clearPDate();
         } else {
-            pLocalDate.setPDate(stringDate);
+            pLocalDate.setPLocalDate(stringDate);
             this.setValue(pLocalDate.getLocalDate());
         }
     }
@@ -71,12 +70,6 @@ public class PDatePicker extends DatePicker {
     }
 
     public void clearDate() {
-        this.pLocalDate.clearPDate();
-        this.setValue(null);
-    }
-
-    public void clearPLocalDate() {
-        this.pLocalDate = new PLocalDate();
         this.pLocalDate.clearPDate();
         this.setValue(null);
     }
@@ -106,7 +99,7 @@ public class PDatePicker extends DatePicker {
                     return "";
                 }
 
-                pLocalDate.setPDate(date);
+                pLocalDate.setPLocalDate(date);
                 if (pLocalDate.isEmpty()) {
                     return "";
                 } else {
@@ -125,5 +118,4 @@ public class PDatePicker extends DatePicker {
         };
         setConverter(converter);
     }
-
 }

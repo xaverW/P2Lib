@@ -42,7 +42,9 @@ public class ConfigLocalDatePropExtra extends ConfigExtra {
 
     @Override
     public String getActValueString() {
-        return getActValue().toString();
+        //        return getActValue().toString();
+        final String ret = getActValue() == null ? "" : getActValue().toString();
+        return ret;
     }
 
     public void setActValue(PLocalDate act) {

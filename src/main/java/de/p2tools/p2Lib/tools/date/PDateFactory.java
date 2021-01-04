@@ -59,7 +59,7 @@ public class PDateFactory {
 
     public static PDate getYesterday() {
         PLocalDate pDate = new PLocalDate();
-        pDate.setPDateYesterdy();
+        pDate.setPLocalDateYesterdy();
         ZoneId defaultZoneId = ZoneId.systemDefault();
         return new PDate(Date.from(pDate.getLocalDate().atStartOfDay(defaultZoneId).toInstant()));
     }
