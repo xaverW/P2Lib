@@ -71,7 +71,11 @@ public class PDatePropertyPicker extends DatePicker {
     private void setDate() {
         if (this.getValue() == null) {
             if (boundPLocalDateProperty != null) {
-                boundPLocalDateProperty.getValue().clearPDate();
+                final PLocalDate pLocalDate = boundPLocalDateProperty.getValue();
+                if (pLocalDate != null) {
+                    pLocalDate.clearPDate();
+                }
+//                boundPLocalDateProperty.getValue().clearPDate();
             }
 
         } else {
@@ -106,10 +110,12 @@ public class PDatePropertyPicker extends DatePicker {
             PException.throwPException(978450201, this.getClass().toString());
         }
         if (boundPLocalDateProperty != null) {
+            //todo
             System.out.println("Remove Listener: " + --countListener);
             boundPLocalDateProperty.removeListener(changeListener);
         }
 
+        //todo
         System.out.println("Add Listener: " + ++countListener);
         this.boundPLocalDateProperty = pDateProperty;
         this.boundPLocalDateProperty.addListener(changeListener);
@@ -119,6 +125,7 @@ public class PDatePropertyPicker extends DatePicker {
 
     public void unbindPDateProperty() {
         if (boundPLocalDateProperty != null) {
+            //todo
             System.out.println("Remove Listener: " + --countListener);
             boundPLocalDateProperty.removeListener(changeListener);
         }

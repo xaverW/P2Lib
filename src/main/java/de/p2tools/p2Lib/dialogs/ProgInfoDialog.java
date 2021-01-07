@@ -72,10 +72,10 @@ public class ProgInfoDialog extends PDialogExtra {
         btnGc.setOnAction(a -> System.gc());
         btnDuration.setOnAction(a -> {
             List<String> list = PDuration.getCounter();
-            list.add(0, new String(line));
-            list.add(new String(line));
-            list.add(new String(" "));
-            list.add(new String(" "));
+            list.add(0, line);
+            list.add(line);
+            list.add(" ");
+            list.add(" ");
             PLog.sysLog(list);
         });
         final GridPane gridPane = new GridPane();

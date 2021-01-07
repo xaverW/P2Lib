@@ -51,7 +51,7 @@ public class PDuration {
         pCounter.startCounter();
     }
 
-    public static synchronized void counterStop(String counterName) {
+    public static synchronized List<String> counterStop(String counterName) {
         PCounter pCounter = getCounterEntry(counterName);
 
         pCounter.count++;
@@ -64,17 +64,16 @@ public class PDuration {
                 "  Gesamtdauer: " + roundDuration(pCounter.duration));
 
         onlyPing(getClassName(), DURATION, counterName, txt, pCounter.pingTextList);
+        return txt;
     }
 
-//    public static synchronized void counterPing(String counterName) {
-//        PCounter pCounter = getCounterEntry(counterName);
-//
-//        Duration duration = Duration.between(pCounter.pingTime, Instant.now());
-//        pCounter.pingTime();
-//        String text = "  --> Ping Dauer: " + roundDuration(duration);
-//        pCounter.pingTextList.add(text);
-//
-//    }
+    public static synchronized void counterStopAndLog(String counterName) {
+        List<String> txt = counterStop(counterName);
+        txt.add(0, counterName);
+        txt.add(0, "==============================================================");
+        txt.add("==============================================================");
+        PLog.sysLog(txt.toArray(new String[txt.size()]));
+    }
 
     public synchronized static void onlyPing(String text) {
         onlyPing(getClassName(), PING, text, null, null);
