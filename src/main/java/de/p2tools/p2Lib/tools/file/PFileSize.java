@@ -95,16 +95,13 @@ public class PFileSize implements Comparable<PFileSize> {
     }
 
     public boolean equals(final Object obj) {
-        if (this == obj) {
+        if (obj == this) {
             return true;
         }
-        if (obj == null) {
+        if (!(obj instanceof PFileSize)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
+        
         final PFileSize other = (PFileSize) obj;
         return other.sizeL == sizeL;
     }

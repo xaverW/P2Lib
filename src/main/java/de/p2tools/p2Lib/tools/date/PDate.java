@@ -67,6 +67,21 @@ public class PDate extends Date {
         setTime(0);
     }
 
+    public void setPDate(String strDate, FastDateFormat dateF) {
+        if (strDate.isEmpty()) {
+            setTime(0);
+            return;
+        }
+
+        try {
+            setTime(dateF.parse(strDate).getTime());
+            return;
+        } catch (final Exception ex) {
+        }
+
+        setTime(0);
+    }
+
     public void setPDate(String strDate, String strTime) {
         if (strDate.isEmpty()) {
             setTime(0);

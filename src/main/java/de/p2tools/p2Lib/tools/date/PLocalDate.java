@@ -22,6 +22,9 @@ import java.time.format.DateTimeFormatter;
 public class PLocalDate implements Comparable<PLocalDate> {
 
     public static final DateTimeFormatter FORMAT_dd_MM_yyyy = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    public static final DateTimeFormatter FORMAT_d_MM_yyyy = DateTimeFormatter.ofPattern("d.MM.yyyy");
+    public static final DateTimeFormatter FORMAT_dd_M_yyyy = DateTimeFormatter.ofPattern("dd.M.yyyy");
+    public static final DateTimeFormatter FORMAT_d_M_yyyy = DateTimeFormatter.ofPattern("d.M.yyyy");
     public static final DateTimeFormatter FORMAT_yyyy = DateTimeFormatter.ofPattern("yyyy");
     public static final DateTimeFormatter FORMAT_yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy.MM.dd");
 
@@ -84,6 +87,18 @@ public class PLocalDate implements Comparable<PLocalDate> {
 
         try {
             return LocalDate.parse(strDate, FORMAT_dd_MM_yyyy);
+        } catch (final Exception ex) {
+        }
+        try {
+            return LocalDate.parse(strDate, FORMAT_d_MM_yyyy);
+        } catch (final Exception ex) {
+        }
+        try {
+            return LocalDate.parse(strDate, FORMAT_dd_M_yyyy);
+        } catch (final Exception ex) {
+        }
+        try {
+            return LocalDate.parse(strDate, FORMAT_d_M_yyyy);
         } catch (final Exception ex) {
         }
 

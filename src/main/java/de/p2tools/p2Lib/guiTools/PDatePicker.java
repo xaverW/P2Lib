@@ -44,8 +44,27 @@ public class PDatePicker extends DatePicker {
         this.setValue(this.pLocalDate.getLocalDate());
         this.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue != null && newValue != null && !oldValue.equals(newValue)) {
-                //System.out.println(oldValue + " - " + newValue);
-                pLocalDate.setPLocalDate(newValue);
+                System.out.println(oldValue + " - " + newValue);
+
+
+                if (newValue == null || newValue.isEmpty()) {
+                    setValue(null);
+                } else {
+                    final PLocalDate pLocalDate = new PLocalDate(newValue);
+                    setValue(pLocalDate.getLocalDate());
+                }
+                setDate();
+
+
+                System.out.println("this.getvalue: " + this.getValue());
+//                setDate(newValue);
+
+//                LocalDate ld = PLocalDate.getPLocalDate(newValue);
+//                if (ld != null) {
+//                    setDate(new PLocalDate(ld));
+//                }
+
+//                pLocalDate.setPLocalDate(newValue);
             }
         });
     }
@@ -60,8 +79,19 @@ public class PDatePicker extends DatePicker {
             this.setValue(null);
             this.pLocalDate.clearPDate();
         } else {
-            pLocalDate.setPLocalDate(stringDate);
+            this.pLocalDate.setPLocalDate(stringDate);
             this.setValue(pLocalDate.getLocalDate());
+        }
+    }
+
+    private void setDate() {
+        if (this.getValue() == null) {
+            if (pLocalDate != null) {
+                pLocalDate.clearPDate();
+            }
+
+        } else {
+            pLocalDate.setPLocalDate(this.getValue());
         }
     }
 
