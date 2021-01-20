@@ -16,6 +16,8 @@
 
 package de.p2tools.p2Lib.tools;
 
+import de.p2tools.p2Lib.tools.log.PLog;
+
 import java.text.Collator;
 import java.util.Comparator;
 import java.util.Locale;
@@ -45,8 +47,10 @@ public class GermanStringIntSorter implements Comparator<String> {
 
     @Override
     public int compare(String o1, String o2) {
-        if (o1 != null && o2 != null) {
-            if (collator != null) {
+        try {
+            if (o1 != null && o2 != null) {
+                o1 = o1.toLowerCase(Locale.GERMANY);
+                o2 = o2.toLowerCase(Locale.GERMANY);
 
                 int l1 = o1.length();
                 int l2 = o2.length();
@@ -54,15 +58,15 @@ public class GermanStringIntSorter implements Comparator<String> {
                 char c1, c2;
 
                 String digit = "";
-                int digit1 = 0, digit2 = 0;
+                int digit1, digit2;
 
                 for (int i = 0; i < o1.length() && i < o2.length(); ++i) {
 
                     if (count1 >= l1 && count2 < l2) {
                         return -1;
-                    } else if (count1 < l1 || count2 >= l2) {
+                    } else if (count1 < l1 && count2 >= l2) {
                         return 1;
-                    } else if (count1 >= l1 || count2 >= l2) {
+                    } else if (count1 >= l1 && count2 >= l2) {
                         //dann hats nicht geklappt
                         break;
                     }
@@ -70,60 +74,66 @@ public class GermanStringIntSorter implements Comparator<String> {
                     c1 = o1.charAt(count1);
                     c2 = o2.charAt(count2);
 
+                    if (Character.isDigit(c1) && Character.isDigit(c2)) {
+                        //beide Character sind Digits
+
+                        //Zahl1
+                        while (count1 < l1 && Character.isDigit(o1.charAt(count1))) {
+                            c1 = o1.charAt(count1);
+                            digit += c1;
+                            ++count1;
+                        }
+                        digit1 = Integer.valueOf(digit + "");
+                        digit = "";
+
+                        //Zahl2
+                        while (count2 < l2 && Character.isDigit(o2.charAt(count2))) {
+                            c2 = o2.charAt(count2);
+                            digit += c2;
+                            ++count2;
+                        }
+                        digit2 = Integer.valueOf(digit + "");
+                        digit = "";
+
+                        //Vergleich
+                        ++count1;
+                        ++count2;
+                        if (digit1 == digit2 && count1 >= l1) {
+                            return 1;
+                        } else if (digit1 == digit2 && count2 >= l2) {
+                            return -1;
+
+                        } else if (digit1 == digit2) {
+                            continue;
+
+                        } else {
+                            final int ret = digit1 == digit2 ? 0 : (digit1 < digit2 ? -1 : 1);
+                            return ret;
+                        }
+
+                    }
+
                     if (c1 == c2) {
                         ++count1;
                         ++count2;
                         continue;
-                    }
 
-                    if (!Character.isDigit(c1) && !Character.isDigit(c2)) {
-                        return collator.compare(c1, c2);
+                    } else if (!Character.isDigit(c1) && !Character.isDigit(c2)) {
+                        return collator.compare(String.valueOf(c1), String.valueOf(c2));
 
                     } else if (Character.isDigit(c1) && !Character.isDigit(c2)) {
                         return -1;
 
                     } else if (!Character.isDigit(c1) && Character.isDigit(c2)) {
                         return 1;
-
-                    } else {
-                        //dann beide Digit
-                        while (count1 < l1 && Character.isDigit(c1)) {
-                            digit += c1;
-                            c1 = o1.charAt(++count1);
-                        }
-                        digit1 = Integer.valueOf(digit + "");
-                        digit = "";
-
-                        while (count2 < l2 && Character.isDigit(c2)) {
-                            digit += c2;
-                            c2 = o2.charAt(++count2);
-                        }
-                        digit2 = Integer.valueOf(digit + "");
-                        digit = "";
-
-                        ++count1;
-                        ++count2;
-                        if (digit1 == digit2 && count1 >= l1) {
-                            return -1;
-                        } else if (digit1 == digit2 && count2 >= l2) {
-                            return 1;
-
-                        } else if (digit1 == digit2) {
-                            continue;
-
-                        } else {
-                            final int ret = digit1 == digit2 ? 0 : (digit1 < digit2 ? 1 : -1);
-                            return ret;
-                        }
-
                     }
-                }
 
-                System.out.println("Compare - out");
+                }//for
+
                 return collator.compare(o1, o2);
             }
-
-            return o1.compareTo(o2);
+        } catch (Exception ex) {
+            PLog.errorLog(915247789, ex, new String[]{"GermanStringSorter:", o1, o2});
         }
 
         return 0;
