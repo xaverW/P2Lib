@@ -47,7 +47,7 @@ public class PAccordion {
     public static void setAccordionPane(Accordion accordion, IntegerProperty selectedPane) {
         if (selectedPane.get() < 0 && accordion.getPanes().size() == 1) {
             accordion.setExpandedPane(accordion.getPanes().get(0));
-            return; // beim Programmstart, ist das übersichtlicher, nur wenns nur einen gibt, dann anzuzeigen
+            return; // beim Programmstart, ist das übersichtlicher, nur wenn es einen gibt, dann anzuzeigen
         } else if (selectedPane.get() < 0) {
             return;
         }

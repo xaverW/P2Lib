@@ -24,7 +24,6 @@ import javafx.scene.input.KeyCombination;
 
 public class PShortcutWorker {
     private PShortcutWorker() {
-
     }
 
     public static void addShortCut(MenuItem menuItem, PShortcut shortcut) {
