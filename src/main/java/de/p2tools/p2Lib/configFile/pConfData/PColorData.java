@@ -1,6 +1,6 @@
 /*
- * P2tools Copyright (C) 2018 W. Xaver W.Xaver[at]googlemail.com
- * https://www.p2tools.de/
+ * MTPlayer Copyright (C) 2017 W. Xaver W.Xaver[at]googlemail.com
+ * https://www.p2tools.de
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the
@@ -24,46 +24,75 @@ import javafx.scene.paint.Color;
 
 public class PColorData {
 
+    private final double DIV = 0.4;
+    private final double DIV_DARK = 0.6;
+    public static final String SEPARATOR = "X";
+
     private String cssFontBold = "";
     private String cssFont = "";
     private String cssBackground = "";
     private String cssBackgroundSel = "";
 
-    private String key;
-    private String text = "";
-    private Color resetColor = Color.WHITE;
+    private boolean dark = false;
 
+    private final String key;
+    private final String text;
+    private final Color resetColor;
+    private final Color resetColorDark;
     private final ObjectProperty<Color> color = new SimpleObjectProperty<>(this, "color", Color.WHITE);
+    private final ObjectProperty<Color> colorDark = new SimpleObjectProperty<>(this, "colorDark", Color.WHITE);
 
     public PColorData(String key, Color color, String text) {
-        setKey(key);
-        setColor(color);
-        setText(text);
-        setResetColor(color);
+        //todo
+        this.key = key;
+        this.resetColor = color;
+        this.resetColorDark = colorDark.get();
+        this.color.set(color);
+        this.text = text;
+        setColorTheme(dark);
+    }
+
+    public PColorData(String key, Color color, Color colorDark, String text) {
+        //todo
+        this.key = key;
+        this.resetColor = color;
+        this.resetColorDark = colorDark;
+        this.color.set(color);
+        this.colorDark.set(colorDark);
+        this.text = text;
+        setColorTheme(dark);
+    }
+
+    public void setColorTheme(boolean dark) {
+        this.dark = dark;
+        changeMyColor(dark ? colorDark.get() : color.get());
     }
 
     public Color getColor() {
-        return color.get();
+        if (dark) {
+            return colorDark.get();
+        } else {
+            return color.get();
+        }
+    }
+
+    public Color getResetColorDark() {
+        return colorDark.get();
     }
 
     public void setColor(Color newColor) {
-        color.set(newColor);
-        cssFontBold = "-fx-font-weight: bold; -fx-text-fill: " + getColorToWeb() + ";".intern();
-        cssFont = "-fx-text-fill: " + getColorToWeb() + ";".intern();
-        cssBackground = "-fx-control-inner-background: " + getColorToWeb() + ";"
-                + "-fx-control-inner-background-alt: derive(-fx-control-inner-background, 25%);".intern();
-        cssBackgroundSel = ("-fx-control-inner-background: " + getColorToWeb() + ";" +
-                "-fx-selection-bar: " + getColorDarkToWeb() + ";" +
-                " -fx-selection-bar-non-focused: " + getColorDarkToWeb() + ";").intern();
+        //sichern
+        if (dark) {
+            colorDark.set(newColor);
+        } else {
+            color.set(newColor);
+        }
+        //Farbe setzen
+        changeMyColor(newColor);
     }
-
 
     public ObjectProperty<Color> colorProperty() {
         return color;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
     }
 
     public String getKey() {
@@ -74,26 +103,27 @@ public class PColorData {
         return text;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
-
     public Color getResetColor() {
-        return resetColor;
-    }
-
-    public void setResetColor(Color resetColor) {
-        this.resetColor = resetColor;
+        return (dark ? resetColorDark : resetColor);
     }
 
     public void resetColor() {
-        setColor(getResetColor());
+        // set reset color
+        setColor(dark ? resetColorDark : resetColor);
     }
 
     public void setColorFromHex(String hex) {
-        setColor(Color.web(hex));
+        if (hex.contains(SEPARATOR)) {
+            String[] arr = hex.split(SEPARATOR);
+            color.set(Color.web(arr[0]));
+            colorDark.set(Color.web(arr[1]));
+        } else {
+            setColor(Color.web(hex));
+        }
     }
+    // ============================================
+    // sind die CSS Farben
+    // ============================================
 
     public String getCssBackground() {
         return cssBackground;
@@ -111,47 +141,84 @@ public class PColorData {
         return cssFontBold;
     }
 
+    public String getDarkerColorToWeb() {
+        return "#" + PColorFactory.getColorToHex(dark ? getBrighterColor(color.getValue()) : getDarkerColor(color.getValue()));
+    }
+
     public String getColorToWeb() {
         return "#" + PColorFactory.getColorToHex(color.getValue());
     }
 
     public String getColorDarkToWeb() {
-        return "#" + PColorFactory.getColorToHex(getDarkerColor(color.getValue()));
+        return "#" + PColorFactory.getColorToHex(colorDark.getValue());
     }
 
-    final double DIV = 0.3;
+    private String getColorToHex() {
+        return PColorFactory.getColorToHex(color.getValue());
+    }
+
+    private void changeMyColor(Color newColor) {
+        // build the css for the color
+        cssFontBold = ("-fx-font-weight: bold; -fx-text-fill: " + getColorToWeb() + ";").intern();
+        cssFont = ("-fx-text-fill: " + getColorToWeb() + ";").intern();
+        cssBackground = ("-fx-control-inner-background: " + getColorToWeb() + ";").intern();
+        cssBackgroundSel = ("-fx-control-inner-background: " + getColorToWeb() + ";" +
+                "-fx-selection-bar: " + getDarkerColorToWeb() + ";" +
+                " -fx-selection-bar-non-focused: " + getDarkerColorToWeb() + ";").intern();
+    }
 
     private Color getDarkerColor(Color color) {
         Color c;
-        double dist = color.getRed() < color.getGreen() ? color.getRed() : color.getGreen();
-        dist = dist < color.getBlue() ? dist : color.getBlue();
-        dist = 0.99 * dist;
+        double min = color.getRed() < color.getGreen() ? color.getRed() : color.getGreen();
+        min = min < color.getBlue() ? min : color.getBlue();
 
-        dist = dist < DIV ? dist : DIV;
+        min = min < DIV ? min : DIV;
         double red;
         double green;
         double blue;
+        double change = 0.99 * min;
 
-        if (dist > 0.1) {
-            red = color.getRed() - dist;
-            green = color.getGreen() - dist;
-            blue = color.getBlue() - dist;
+        if (change > 0.2) {
+            red = color.getRed() - change;
+            green = color.getGreen() - change;
+            blue = color.getBlue() - change;
 
         } else {
             // da ändert sich dann auch der Farbton
-            red = color.getRed() > DIV ? (color.getRed() - DIV) : color.getRed();
-            green = color.getGreen() > DIV ? (color.getGreen() - DIV) : color.getGreen();
-            blue = color.getBlue() > DIV ? (color.getBlue() - DIV) : color.getBlue();
+            red = color.getRed() > DIV ? (color.getRed() - DIV) : 0.0;
+            green = color.getGreen() > DIV ? (color.getGreen() - DIV) : 0.0;
+            blue = color.getBlue() > DIV ? (color.getBlue() - DIV) : 0.0;
         }
         c = new Color(red, green, blue, color.getOpacity());
         return c;
     }
 
-    private static String colorChanelToHex(double chanelValue) {
-        String rtn = Integer.toHexString((int) Math.min(Math.round(chanelValue * 255), 255));
-        if (rtn.length() == 1) {
-            rtn = "0" + rtn;
+    private Color getBrighterColor(Color color) {
+        Color c;
+        double max = color.getRed() > color.getGreen() ? color.getRed() : color.getGreen();
+        max = max > color.getBlue() ? max : color.getBlue();
+
+        max = max > DIV_DARK ? max : DIV_DARK;
+        double red;
+        double green;
+        double blue;
+
+        double change = 1.0 - max;
+        change = 0.99 * change;
+
+        if (change > 0.2) {
+            red = color.getRed() + change;
+            green = color.getGreen() + change;
+            blue = color.getBlue() + change;
+
+        } else {
+            // da ändert sich dann auch der Farbton
+            red = color.getRed() < DIV_DARK ? (color.getRed() + DIV) : 1;
+            green = color.getGreen() < DIV_DARK ? (color.getGreen() + DIV) : 1;
+            blue = color.getBlue() < DIV_DARK ? (color.getBlue() + DIV) : 1;
         }
-        return rtn;
+        c = new Color(red, green, blue, color.getOpacity());
+        return c;
     }
+
 }

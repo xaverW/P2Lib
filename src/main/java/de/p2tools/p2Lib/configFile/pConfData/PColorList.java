@@ -20,7 +20,6 @@ package de.p2tools.p2Lib.configFile.pConfData;
 import de.p2tools.p2Lib.configFile.config.Config;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.tools.GermanStringSorter;
-import de.p2tools.p2Lib.tools.PColorFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
@@ -76,13 +75,14 @@ public class PColorList {
     static ArrayList<Config> getConfigsArr() {
         final LinkedList<String[]> list = new LinkedList<>();
         for (PColorData c : HASHMAP.values()) {
-            list.add(new String[]{c.getKey(), PColorFactory.getColorToWeb(c.getResetColor()), c.getColorToWeb()});
+            list.add(new String[]{c.getKey(), c.getColorToWeb(), c.getColorDarkToWeb()});
         }
         sortList(list, 0);
 
         ArrayList<Config> arr = new ArrayList<>(HASHMAP.size());
         for (String[] sArr : list) {
-            arr.add(new ConfigColor(sArr[0], sArr[2]));
+            final String c = sArr[1] + PColorData.SEPARATOR + sArr[2];
+            arr.add(new ConfigColor(sArr[0], c));
         }
 
         return arr;
@@ -114,12 +114,17 @@ public class PColorList {
                     continue;
                 }
             }
-
         }
     }
 
     public static PColorData get(String key) {
         return HASHMAP.get(key);
+    }
+
+    public static synchronized PColorData addNewKey(String key, Color color, Color colorBlack, String text) {
+        PColorData c = new PColorData(key, color, colorBlack, text);
+        HASHMAP.put(key, c);
+        return c;
     }
 
     public static synchronized PColorData addNewKey(String key, Color color, String text) {
