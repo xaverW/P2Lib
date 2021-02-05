@@ -90,9 +90,9 @@ public class PDate extends Date {
 
         try {
             if (strTime.isEmpty()) {
-                setTime(PDateFactory.FORMAT_dd_MM_yyyy.parse(strDate).getTime());
+                setTime(PDateFactory.F_FORMAT_dd_MM_yyyy.parse(strDate).getTime());
             } else {
-                setTime(PDateFactory.FORMAT_dd_MM_yyyyKomma__HH_mm.parse(strDate + strTime).getTime());
+                setTime(PDateFactory.F_FORMAT_dd_MM_yyyyKomma__HH_mm.parse(strDate + strTime).getTime());
             }
             return;
         } catch (final Exception ex) {
@@ -100,9 +100,9 @@ public class PDate extends Date {
 
         try {
             if (strTime.isEmpty()) {
-                setTime(PDateFactory.FORMAT_dd_MM_yyyy.parse(strDate).getTime());
+                setTime(PDateFactory.F_FORMAT_dd_MM_yyyy.parse(strDate).getTime());
             } else {
-                setTime(PDateFactory.FORMAT_dd_MM_yyyyKomma__HH_mm_ss.parse(strDate + strTime).getTime());
+                setTime(PDateFactory.F_FORMAT_dd_MM_yyyyKomma__HH_mm_ss.parse(strDate + strTime).getTime());
             }
             return;
         } catch (final Exception ex) {
@@ -110,6 +110,22 @@ public class PDate extends Date {
         }
 
         setTime(0);
+    }
+
+    public PLocalDate getPlocalDate() {
+        String strDate = toString();
+        if (strDate == null || strDate.isEmpty()) {
+            return null;
+        }
+
+        try {
+            PLocalDate pl = new PLocalDate();
+            pl.setPLocalDate(strDate);
+            return pl;
+        } catch (final Exception ex) {
+        }
+
+        return null;
     }
 
     public void clearPDate() {
@@ -122,8 +138,8 @@ public class PDate extends Date {
 
     public void setPDateToday() {
         try {
-            final String strToday = new PDate().getDateTime(PDateFactory.FORMAT_dd_MM_yyyy);
-            final long lToday = PDateFactory.FORMAT_dd_MM_yyyy.parse(strToday).getTime();
+            final String strToday = new PDate().getDateTime(PDateFactory.F_FORMAT_dd_MM_yyyy);
+            final long lToday = PDateFactory.F_FORMAT_dd_MM_yyyy.parse(strToday).getTime();
             setTime(lToday);
         } catch (final Exception ex) {
             setTime(0);
@@ -153,23 +169,23 @@ public class PDate extends Date {
         if (this.getTime() == 0) {
             return "";
         } else {
-            return PDateFactory.FORMAT_dd_MM_yyyy.format(this);
+            return PDateFactory.F_FORMAT_dd_MM_yyyy.format(this);
         }
     }
 
     public String toStringR() {
         if (this.getTime() == 0) {
-            return PDateFactory.FORMAT_yyyy_MM_dd.format(new Date());
+            return PDateFactory.F_FORMAT_yyyy_MM_dd.format(new Date());
         } else {
-            return PDateFactory.FORMAT_yyyy_MM_dd.format(this);
+            return PDateFactory.F_FORMAT_yyyy_MM_dd.format(this);
         }
     }
 
     public String get_yyyy_MM_dd() {
         if (this.getTime() == 0) {
-            return PDateFactory.FORMATTER_yyyy_MM_dd.format(new Date());
+            return PDateFactory.F_FORMAT_yyyy_MM_dd.format(new Date());
         } else {
-            return PDateFactory.FORMATTER_yyyy_MM_dd.format(this);
+            return PDateFactory.F_FORMAT_yyyy_MM_dd.format(this);
         }
     }
 

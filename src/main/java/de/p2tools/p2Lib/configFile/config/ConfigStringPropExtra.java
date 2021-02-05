@@ -54,7 +54,11 @@ public class ConfigStringPropExtra extends ConfigExtra {
 
     @Override
     public void setActValue(String act) {
-        actValue.setValue(act);
+        try {
+            actValue.setValue(act);
+        } catch (Exception ex) {
+            System.out.println(act);
+        }
     }
 
     @Override

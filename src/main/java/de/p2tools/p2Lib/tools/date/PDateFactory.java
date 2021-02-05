@@ -22,33 +22,34 @@ import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class PDateFactory {
-    public static final FastDateFormat FORMAT_HH_mm_ss = FastDateFormat.getInstance("HH:mm:ss");
-    public static final FastDateFormat FORMAT_dd_MM_yyyy = FastDateFormat.getInstance("dd.MM.yyyy");
-    public static final FastDateFormat FORMAT_yyyy = FastDateFormat.getInstance("yyyy");
-    public static final FastDateFormat FORMAT_yyyy_MM_dd = FastDateFormat.getInstance("yyyy.MM.dd");
-    public static final FastDateFormat FORMAT_dd_MM_yyyyKomma__HH_mm = FastDateFormat.getInstance("dd.MM.yyyy, HH:mm");
-    public static final FastDateFormat FORMAT_dd_MM_yyyyKomma__HH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyy, HH:mm:ss");
-    public static final FastDateFormat FORMAT_dd_MM_yyyy_HH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss");
-    public static final FastDateFormat FORMATTER_dd_MM_yyyy = FastDateFormat.getInstance("dd.MM.yyyy");
-    public static final FastDateFormat FORMATTER_ddMMyyyyHHmmss = FastDateFormat.getInstance("dd.MM.yyyyHH:mm:ss");
+    public static final FastDateFormat F_FORMAT_HH_mm_ss = FastDateFormat.getInstance("HH:mm:ss");
+    public static final FastDateFormat F_FORMAT_dd_MM_yyyy = FastDateFormat.getInstance("dd.MM.yyyy");
+    public static final FastDateFormat F_FORMAT_dd_MM_yyyyHH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyyHH:mm:ss");
+    public static final FastDateFormat F_FORMAT_dd_MM_yyyy_HH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss");
+    public static final FastDateFormat F_FORMAT_dd_MM_yyyyKomma__HH_mm = FastDateFormat.getInstance("dd.MM.yyyy, HH:mm");
+    public static final FastDateFormat F_FORMAT_dd_MM_yyyyKomma__HH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyy, HH:mm:ss");
+    public static final FastDateFormat F_FORMAT_yyyy = FastDateFormat.getInstance("yyyy");
+    public static final FastDateFormat F_FORMAT_yyyy_MM_dd = FastDateFormat.getInstance("yyyy.MM.dd");
+    public static final FastDateFormat F_FORMAT_yyyyMMdd = FastDateFormat.getInstance("yyyyMMdd");
 
-    public static final FastDateFormat FORMATTER_ddMMyyyy = FastDateFormat.getInstance("dd.MM.yyyy");
-    public static final FastDateFormat FORMATTER_yyyyMMdd = FastDateFormat.getInstance("yyyyMMdd");
-    public static final FastDateFormat FORMATTER_yyyy_MM_dd = FastDateFormat.getInstance("yyyy.MM.dd");
-    public static final FastDateFormat FORMATTER_HHmmss = FastDateFormat.getInstance("HH:mm:ss");
+    public static final DateTimeFormatter DT_FORMATTER_d_M_yyyy = DateTimeFormatter.ofPattern("d.M.yyyy");
+    public static final DateTimeFormatter DT_FORMATTER_d_MM_yyyy = DateTimeFormatter.ofPattern("d.MM.yyyy");
+    public static final DateTimeFormatter DT_FORMATTER_dd_M_yyyy = DateTimeFormatter.ofPattern("dd.M.yyyy");
+    public static final DateTimeFormatter DT_FORMATTER_dd_MM_yyyy = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
 
     public static String getTodayStr() {
-        return new PDate().getDateTime(FORMAT_dd_MM_yyyy);
+        return new PDate().getDateTime(F_FORMAT_dd_MM_yyyy);
     }
 
     public static String getTodayInverseStr() {
-        return new PDate().getDateTime(FORMAT_yyyy_MM_dd);
+        return new PDate().getDateTime(F_FORMAT_yyyy_MM_dd);
     }
 
     public static PDate getToday() {
@@ -75,7 +76,7 @@ public class PDateFactory {
     public static int getYearIntFromString(String year) {
         int ret;
         try {
-            final long y = FORMAT_yyyy.parse(year).getTime();
+            final long y = F_FORMAT_yyyy.parse(year).getTime();
             ret = Integer.parseInt(year);
         } catch (Exception ex) {
             ret = 0;
@@ -121,4 +122,30 @@ public class PDateFactory {
 
         return list;
     }
+
+    public static LocalDate getPLocalDate(String strDate) {
+        if (strDate == null || strDate.isEmpty()) {
+            return null;
+        }
+
+        try {
+            return LocalDate.parse(strDate, DT_FORMATTER_dd_MM_yyyy);
+        } catch (final Exception ex) {
+        }
+        try {
+            return LocalDate.parse(strDate, DT_FORMATTER_d_MM_yyyy);
+        } catch (final Exception ex) {
+        }
+        try {
+            return LocalDate.parse(strDate, DT_FORMATTER_dd_M_yyyy);
+        } catch (final Exception ex) {
+        }
+        try {
+            return LocalDate.parse(strDate, DT_FORMATTER_d_M_yyyy);
+        } catch (final Exception ex) {
+        }
+
+        return null;
+    }
+
 }

@@ -62,8 +62,8 @@ public class PDateProperty extends SimpleObjectProperty<PDate> {
 
     public void setPDateToday() {
         try {
-            final String strToday = new PDate().getDateTime(PDateFactory.FORMAT_dd_MM_yyyy);
-            final long lToday = PDateFactory.FORMAT_dd_MM_yyyy.parse(strToday).getTime();
+            final String strToday = new PDate().getDateTime(PDateFactory.F_FORMAT_dd_MM_yyyy);
+            final long lToday = PDateFactory.F_FORMAT_dd_MM_yyyy.parse(strToday).getTime();
             this.setValue(new PDate(lToday));
         } catch (final Exception ex) {
             this.setValue(new PDate(0));
@@ -88,15 +88,15 @@ public class PDateProperty extends SimpleObjectProperty<PDate> {
         if (this.getValue().getTime() == 0) {
             return "";
         } else {
-            return PDateFactory.FORMAT_dd_MM_yyyy.format(this.getValue());
+            return PDateFactory.F_FORMAT_dd_MM_yyyy.format(this.getValue());
         }
     }
 
     public String toStringR() {
         if (this.getValue().getTime() == 0) {
-            return PDateFactory.FORMAT_yyyy_MM_dd.format(new Date());
+            return PDateFactory.F_FORMAT_yyyy_MM_dd.format(new Date());
         } else {
-            return PDateFactory.FORMAT_yyyy_MM_dd.format(this.getValue());
+            return PDateFactory.F_FORMAT_yyyy_MM_dd.format(this.getValue());
         }
     }
 

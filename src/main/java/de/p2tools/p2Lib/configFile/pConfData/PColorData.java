@@ -145,6 +145,10 @@ public class PColorData {
         return "#" + PColorFactory.getColorToHex(dark ? getBrighterColor(color.getValue()) : getDarkerColor(color.getValue()));
     }
 
+    public String getActColorToWeb() {
+        return "#" + PColorFactory.getColorToHex(dark ? colorDark.getValue() : color.getValue());
+    }
+
     public String getColorToWeb() {
         return "#" + PColorFactory.getColorToHex(color.getValue());
     }
@@ -159,10 +163,10 @@ public class PColorData {
 
     private void changeMyColor(Color newColor) {
         // build the css for the color
-        cssFontBold = ("-fx-font-weight: bold; -fx-text-fill: " + getColorToWeb() + ";").intern();
-        cssFont = ("-fx-text-fill: " + getColorToWeb() + ";").intern();
-        cssBackground = ("-fx-control-inner-background: " + getColorToWeb() + ";").intern();
-        cssBackgroundSel = ("-fx-control-inner-background: " + getColorToWeb() + ";" +
+        cssFontBold = ("-fx-font-weight: bold; -fx-text-fill: " + getActColorToWeb() + ";").intern();
+        cssFont = ("-fx-text-fill: " + getActColorToWeb() + ";").intern();
+        cssBackground = ("-fx-control-inner-background: " + getActColorToWeb() + ";").intern();
+        cssBackgroundSel = ("-fx-control-inner-background: " + getActColorToWeb() + ";" +
                 "-fx-selection-bar: " + getDarkerColorToWeb() + ";" +
                 " -fx-selection-bar-non-focused: " + getDarkerColorToWeb() + ";").intern();
     }

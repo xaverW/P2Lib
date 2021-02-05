@@ -34,6 +34,11 @@ public class PLocalDate implements Comparable<PLocalDate> {
         setPLocalDate(LocalDate.now());
     }
 
+    public PLocalDate(int days) {
+        setPLocalDate(LocalDate.now());
+        setPLocalDateNextDay(days);
+    }
+
     public PLocalDate(String date) {
         setPLocalDate(date);
     }
@@ -47,8 +52,16 @@ public class PLocalDate implements Comparable<PLocalDate> {
         localDate = date;
     }
 
+    public void setPLocalDate(PLocalDate date) {
+        localDate = date.getLocalDate();
+    }
+
     public void setPLocalDate(String strDate) {
-        localDate = getPLocalDate(strDate);
+        localDate = PDateFactory.getPLocalDate(strDate);
+    }
+
+    public void setPLocalDate(PDate date) {
+        localDate = PDateFactory.getPLocalDate(date.toString());
     }
 
     public void setPLocalDateNow() {
@@ -80,25 +93,11 @@ public class PLocalDate implements Comparable<PLocalDate> {
         return new PLocalDate(LocalDate.of(localDate.getYear(), localDate.getMonth(), localDate.getDayOfMonth()));
     }
 
-    public static LocalDate getPLocalDate(String strDate) {
-        if (strDate == null || strDate.isEmpty()) {
-            return null;
-        }
-
+    public PDate getPDate() {
         try {
-            return LocalDate.parse(strDate, FORMAT_dd_MM_yyyy);
-        } catch (final Exception ex) {
-        }
-        try {
-            return LocalDate.parse(strDate, FORMAT_d_MM_yyyy);
-        } catch (final Exception ex) {
-        }
-        try {
-            return LocalDate.parse(strDate, FORMAT_dd_M_yyyy);
-        } catch (final Exception ex) {
-        }
-        try {
-            return LocalDate.parse(strDate, FORMAT_d_M_yyyy);
+            PDate pd = new PDate();
+            pd.setPDate(getDateTime(FORMAT_dd_MM_yyyy));
+            return pd;
         } catch (final Exception ex) {
         }
 
@@ -124,6 +123,10 @@ public class PLocalDate implements Comparable<PLocalDate> {
 
     public void setPLocalDateNextDay() {
         localDate = localDate.plusDays(1);
+    }
+
+    public void setPLocalDateNextDay(int days) {
+        localDate = localDate.plusDays(days);
     }
 
     @Override
