@@ -130,6 +130,17 @@ public class PDialogExtra extends PDialog {
     }
 
     public void addOkCancelButtons(Button btnOk, Button btnCancel) {
+        if (btnCancel != null) {
+            ButtonBar.setButtonData(btnCancel, ButtonBar.ButtonData.CANCEL_CLOSE);
+            buttonBar.getButtons().addAll(btnCancel);
+        }
+        if (btnOk != null) {
+            ButtonBar.setButtonData(btnOk, ButtonBar.ButtonData.OK_DONE);
+            buttonBar.getButtons().addAll(btnOk);
+        }
+    }
+
+    public void addOkCancelApplyButtons(Button btnOk, Button btnCancel, Button btnApplay) {
         if (btnOk != null) {
             ButtonBar.setButtonData(btnOk, ButtonBar.ButtonData.OK_DONE);
             buttonBar.getButtons().addAll(btnOk);
@@ -137,6 +148,10 @@ public class PDialogExtra extends PDialog {
         if (btnCancel != null) {
             ButtonBar.setButtonData(btnCancel, ButtonBar.ButtonData.CANCEL_CLOSE);
             buttonBar.getButtons().addAll(btnCancel);
+        }
+        if (btnApplay != null) {
+            ButtonBar.setButtonData(btnApplay, ButtonBar.ButtonData.APPLY);
+            buttonBar.getButtons().addAll(btnApplay);
         }
     }
 
