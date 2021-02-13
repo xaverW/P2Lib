@@ -162,6 +162,14 @@
 .alignCenterRight {
   -fx-alignment: center-right;
 }
+.alignCenterRightPadding_10 {
+  -fx-alignment: center-right;
+  -fx-padding: 0 10 0 0;
+}
+.alignCenterRightPadding_25 {
+  -fx-alignment: center-right;
+  -fx-padding: 0 25 0 0;
+}
 .alignCenterLeft {
   -fx-alignment: center-left;
 }
