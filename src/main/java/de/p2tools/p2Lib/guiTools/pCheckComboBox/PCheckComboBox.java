@@ -37,6 +37,7 @@ public class PCheckComboBox extends HBox {
     private final SplitMenuButton menuButton = new SplitMenuButton();
     private final ObservableList<String> items = FXCollections.observableArrayList();
     private final ArrayList<CheckBox> arrayList = new ArrayList<>();
+    private String emptyText = "";
 
     public PCheckComboBox() {
         init();
@@ -58,12 +59,15 @@ public class PCheckComboBox extends HBox {
         menuButton.setTooltip(value);
     }
 
+    public final void setEmptyText(String value) {
+        this.emptyText = value;
+    }
+
     private void add(String item, String toolTip, BooleanProperty property) {
         CheckBox cb = new CheckBox("Item ");
         cb.selectedProperty().bindBidirectional(property);
         cb.setText(item);
         cb.setTooltip(new Tooltip(toolTip));
-//        cb.prefWidthProperty().bind(menuButton.widthProperty());
         addListener(cb);
 
         CustomMenuItem cmi = new CustomMenuItem(cb);
@@ -79,14 +83,14 @@ public class PCheckComboBox extends HBox {
     private void setTitle() {
         ArrayList<String> list = new ArrayList<>();
         arrayList.stream().filter(ch -> ch.isSelected()).forEach(ch -> list.add(ch.getText()));
-        menuButton.setText(PStringUtils.appendList(list, ", "));
+        if (list.isEmpty()) {
+            menuButton.setText(emptyText);
+        } else {
+            menuButton.setText(PStringUtils.appendList(list, ", "));
+        }
     }
 
     private void init() {
-//        this.setAlignment(Pos.CENTER_LEFT);
-//        this.setSpacing(10);
-//        this.setPadding(new Insets(2));
-
         HBox.setHgrow(menuButton, Priority.ALWAYS);
         menuButton.setMaxWidth(Double.MAX_VALUE);
         this.getChildren().addAll(menuButton);
@@ -106,8 +110,5 @@ public class PCheckComboBox extends HBox {
                 }
             }
         });
-
-//        getStyleClass().add("pCheckComboBox");
     }
-
 }
