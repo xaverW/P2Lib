@@ -230,7 +230,18 @@ public class POpen {
 
     }
 
-    enum TEXT {FILM, DIR, URL}
+    public static void openExternProgram(Stage stage, StringProperty prog, ImageView getProgIcon) {
+        if (prog != null && !prog.getValueSafe().isEmpty()) {
+            try {
+                final String program = prog.getValueSafe();
+                Runtime.getRuntime().exec(program);
+            } catch (final Exception ex) {
+                Platform.runLater(() -> afterPlay(stage, TEXT.EXTERN, prog, "", getProgIcon));
+            }
+        }
+    }
+
+    enum TEXT {FILM, DIR, URL, EXTERN}
 
     private static void afterPlay(Stage stage, TEXT t, StringProperty stringProperty, String fileUrl, ImageView getProgIcon) {
         if (stringProperty == null) {
@@ -259,8 +270,12 @@ public class POpen {
                 header = "Browser auswählen";
                 cont = "Der Browser \"" + stringProperty.getValueSafe() + "\" zum Anzeigen der URL wird nicht gefunden.";
                 break;
+            case EXTERN:
+                title = "Kein Programm";
+                header = "Externes Programm auswählen";
+                cont = "Das externe Programm \"" + stringProperty.getValueSafe() + "\" wird nicht gefunden.";
+                break;
         }
-
 
         try {
             program = PDialogFileChosser.showFileChooser(stage, title, header,
@@ -286,7 +301,6 @@ public class POpen {
             stringProperty.set("");
             new PAlert().showErrorAlert("Fehler beim öffnen des Programms", "Kann das Programm nicht öffnen!");
         }
-
     }
 
     private static void afterPlay(TEXT t) {
@@ -305,6 +319,10 @@ public class POpen {
             case URL:
                 header = "Kein Browser";
                 cont = "Der Browser zum Anzeigen der URL wird nicht gefunden.";
+                break;
+            case EXTERN:
+                header = "Kein externes Programm";
+                cont = "Das externe Programm das gestartet werden soll, wird nicht gefunden";
                 break;
         }
 
