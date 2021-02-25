@@ -19,7 +19,6 @@ package de.p2tools.p2Lib.configFile;
 
 import de.p2tools.p2Lib.tools.log.PLog;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
@@ -27,16 +26,14 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import java.util.zip.ZipOutputStream;
 
-public class ReadWriteConfigFile {
-    public static final int MAX_COPY_BACKUPFILE = 5; // Maximum number of backup files to be stored.
+public class ReadConfigFile {
 
     private final ArrayList<ConfigFile> cFileList;
-    private int maxCopyBackupfile = MAX_COPY_BACKUPFILE;
+    private int maxCopyBackupfile = WriteConfigFile.MAX_COPY_BACKUPFILE;
 
 
-    public ReadWriteConfigFile() {
+    public ReadConfigFile() {
         this.cFileList = new ArrayList<>();
     }
 
@@ -129,14 +126,18 @@ public class ReadWriteConfigFile {
 
 
     public boolean readConfigFile() {
-        return readConfigFile("", "");
+        return readConfigFile(true, "", "");
+    }
+
+    public boolean readConfigFile(boolean loadBackup) {
+        return readConfigFile(loadBackup, "", "");
     }
 
     public boolean readConfigFile(String backupHeader, String backupText) {
         boolean ret = true;
 
         for (ConfigFile cf : cFileList) {
-            if (!readFile(cf, backupHeader, backupText)) {
+            if (!readFile(true, cf, backupHeader, backupText)) {
                 ret = false;
             }
         }
@@ -144,11 +145,27 @@ public class ReadWriteConfigFile {
         return ret;
     }
 
-    private boolean readFile(ConfigFile cf, String backupHeader, String backupText) {
+    public boolean readConfigFile(boolean loadBackup, String backupHeader, String backupText) {
+        boolean ret = true;
+
+        for (ConfigFile cf : cFileList) {
+            if (!readFile(loadBackup, cf, backupHeader, backupText)) {
+                ret = false;
+            }
+        }
+
+        return ret;
+    }
+
+    private boolean readFile(boolean loadBackup, ConfigFile cf, String backupHeader, String backupText) {
         // todo-> kann zu unterschiedlichen Versionsständen kommen!
         if (new LoadConfig(cf.getConfigFile(), cf.getpDataList(), cf.getpData()).readConfiguration()) {
             PLog.sysLog("Config geladen: " + cf.getConfigFile().toString());
             return true;
+        }
+
+        if (!loadBackup) {
+            return false;
         }
 
         ArrayList<Path> pathList = new BackupConfigFile(maxCopyBackupfile, cf.getConfigFile()).
@@ -167,54 +184,4 @@ public class ReadWriteConfigFile {
 
         return false;
     }
-
-    /**
-     * write config zip-file, all configs in one zip-file, named by configFileZip
-     *
-     * @return
-     */
-    public boolean writeConfigFileZip(Path configFileZip) {
-        boolean ret = true;
-        new BackupConfigFile(maxCopyBackupfile, configFileZip).configCopy();
-
-        try (FileOutputStream fout = new FileOutputStream(configFileZip.toFile());
-             ZipOutputStream zipOut = new ZipOutputStream(fout)) {
-
-            for (ConfigFile cf : cFileList) {
-                ZipEntry zipEntry = new ZipEntry(cf.getConfigFile().getFileName().toString());
-                zipOut.putNextEntry(zipEntry);
-
-                SaveConfig saveConfig = new SaveConfig(cf.getXmlStart(), configFileZip, cf.getpDataList(), cf.getpData());
-                if (!saveConfig.write(zipOut)) {
-                    ret = false;
-                }
-            }
-
-        } catch (Exception ex) {
-            ret = false;
-        }
-
-        return ret;
-    }
-
-    /**
-     * write configs direct to the file, named in the config
-     *
-     * @return
-     */
-    public boolean writeConfigFile() {
-        boolean ret = true;
-
-        for (ConfigFile cf : cFileList) {
-
-            new BackupConfigFile(maxCopyBackupfile, cf.getConfigFile()).configCopy();
-            SaveConfig saveConfig = new SaveConfig(cf.getXmlStart(), cf.getConfigFile(), cf.getpDataList(), cf.getpData());
-            if (!saveConfig.write()) {
-                ret = false;
-            }
-        }
-
-        return ret;
-    }
-
 }

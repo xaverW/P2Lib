@@ -84,7 +84,7 @@ class LoadConfig implements AutoCloseable {
 
         } catch (final Exception ex) {
             ret = false;
-            PLog.errorLog(732160795, ex);
+            PLog.errorLog(963258967, ex);
         }
 
         return ret;
@@ -101,12 +101,11 @@ class LoadConfig implements AutoCloseable {
         boolean ret = false;
         try (InputStream is = Files.newInputStream(xmlFilePath);
              InputStreamReader in = new InputStreamReader(is, StandardCharsets.UTF_8)) {
-
             ret = read(in);
 
         } catch (final Exception ex) {
             ret = false;
-            PLog.errorLog(732160795, ex);
+            PLog.errorLog(454102598, ex);
         }
 
         return ret;
@@ -140,7 +139,7 @@ class LoadConfig implements AutoCloseable {
 
         } catch (final Exception ex) {
             ret = false;
-            PLog.errorLog(732160795, ex);
+            PLog.errorLog(915263478, ex);
         } finally {
             try {
                 if (parser != null) {
