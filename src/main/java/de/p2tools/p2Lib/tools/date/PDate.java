@@ -189,6 +189,14 @@ public class PDate extends Date {
         }
     }
 
+    public String get_dd_MM_yyyy() {
+        if (this.getTime() == 0) {
+            return PDateFactory.F_FORMAT_dd_MM_yyyy.format(new Date());
+        } else {
+            return PDateFactory.F_FORMAT_dd_MM_yyyy.format(this);
+        }
+    }
+
     /**
      * Liefert den Betrag! der Zeitdifferenz zu jetzt.
      *

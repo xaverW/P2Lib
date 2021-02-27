@@ -23,6 +23,7 @@ import de.p2tools.p2Lib.configFile.config.ConfigPDataList;
 import de.p2tools.p2Lib.configFile.configList.ConfigList;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
+import de.p2tools.p2Lib.configFile.pData.PDataListMeta;
 import de.p2tools.p2Lib.configFile.pData.PDataMap;
 import de.p2tools.p2Lib.tools.log.PLog;
 
@@ -76,10 +77,8 @@ class LoadConfig implements AutoCloseable {
      */
     boolean readConfiguration(InputStream inputStream) {
         boolean ret;
-
         try {
             InputStreamReader in = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-
             ret = read(in);
 
         } catch (final Exception ex) {
@@ -178,6 +177,9 @@ class LoadConfig implements AutoCloseable {
         if (o instanceof PData) {
             return getPData(parser, (PData) o);
 
+        } else if (o instanceof PDataListMeta) { //Reihenfolge!!
+            return getPDataListMeta(parser, (PDataListMeta) o);
+
         } else if (o instanceof PDataList) {
             return getPDataList(parser, (PDataList) o);
 
@@ -224,6 +226,51 @@ class LoadConfig implements AutoCloseable {
                 }
 
                 String s = parser.getLocalName();
+                if (!pData.getTag().equals(s)) {
+                    continue;
+                }
+
+                if (getConf(parser, pData)) {
+                    ret = true;
+                    pDataList.addNewItem(pData);
+                    pData = pDataList.getNewItem();
+                }
+
+            }
+        } catch (final Exception ex) {
+            ret = false;
+            PLog.errorLog(975102305, ex);
+        }
+
+        return ret;
+    }
+
+    private boolean getPDataListMeta(XMLStreamReader parser, PDataListMeta pDataList) {
+        boolean ret = false;
+        final String configsListTagName = pDataList.getTag();
+//        System.out.println("getPDataList - Tag: " + configsListTagName);
+
+        try {
+            PData meta = pDataList.getMeta();
+            PData pData = pDataList.getNewItem();
+            while (parser.hasNext()) {
+                final int event = parser.next();
+
+                if (event == XMLStreamConstants.END_ELEMENT && parser.getLocalName().equals(configsListTagName)) {
+                    break;
+                }
+
+                if (event != XMLStreamConstants.START_ELEMENT) {
+                    continue;
+                }
+
+                String s = parser.getLocalName();
+                if (s.equals(PDataListMeta.META_KEY)) {
+                    if (getConf(parser, meta)) {
+                        ret = true;
+                    }
+                }
+
                 if (!pData.getTag().equals(s)) {
                     continue;
                 }
