@@ -50,8 +50,8 @@ public class LinuxJavaFx {
      * and to enable app specific functionality.
      */
     public static void setupX11WindowManagerClassName(String progName) {
-        // WARNING: An illegal reflective access operation has occurred
-        // todo braucht gnome das noch???
+        //WARNING: An illegal reflective access operation has occurred
+        //todo braucht gnome das noch???
         try {
             final Toolkit xToolkit = Toolkit.getDefaultToolkit();
             final java.lang.reflect.Field awtAppClassNameField = xToolkit.getClass().getDeclaredField(X11_AWT_APP_CLASS_NAME);

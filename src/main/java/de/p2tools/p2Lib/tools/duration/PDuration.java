@@ -37,7 +37,7 @@ public class PDuration {
     private static PCounter getCounterEntry(String counterName) {
         PCounter pCounter = counterMap.get(counterName);
         if (pCounter == null) {
-            // start a new counter with name: "counterName"
+            //start a new counter with name: "counterName"
             pCounter = new PCounter(counterName);
             counterMap.put(counterName, pCounter);
         }
@@ -47,7 +47,7 @@ public class PDuration {
     public static synchronized void counterStart(String counterName) {
         PCounter pCounter = getCounterEntry(counterName);
 
-        // restart a previous used or start a new counter
+        //restart a previous used or start a new counter
         pCounter.startCounter();
     }
 
@@ -118,7 +118,7 @@ public class PDuration {
         List<PCounter> PCounterList = new ArrayList<>(counterMap.values());
 
 
-        // die Namen auf gleiche länge bringen
+        //die Namen auf gleiche länge bringen
         for (final PCounter PCounter : PCounterList) {
             if (PCounter.counterName.length() > max) {
                 max = PCounter.counterName.length();
@@ -133,7 +133,7 @@ public class PDuration {
         }
 
 
-        // die Counter ausgeben
+        //die Counter ausgeben
         Collections.sort(PCounterList);
         for (final PCounter pCounter : PCounterList) {
             stringList.add(pCounter.counterName

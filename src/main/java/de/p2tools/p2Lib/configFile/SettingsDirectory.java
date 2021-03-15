@@ -56,12 +56,12 @@ public class SettingsDirectory {
                 baseDirectoryPath = Paths.get(System.getProperty("user.home"), stdDir);
 
             } else {
-                // x-systeme
+                //x-systeme
                 baseDirectoryPath = Paths.get(System.getProperty("user.home"), "." + stdDir);
             }
 
         } else {
-            // use the path, getting from the user
+            //use the path, getting from the user
             baseDirectoryPath = Paths.get(configDir);
         }
 

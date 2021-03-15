@@ -121,62 +121,62 @@ public class POpen {
 
     }
 
-//    public static void playStoredStation(String file) {
-//        playStoredStation(P2LibConst.primaryStage, file, null, null);
-//    }
-//
-//    public static void playStoredStation(Stage primaryStage, String file) {
-//        playStoredStation(primaryStage, file, null, null);
-//    }
-//
-//    public static void playStoredStation(String file, StringProperty prog, ImageView getProgIcon) {
-//        playStoredStation(P2LibConst.primaryStage, file, prog, getProgIcon);
-//    }
-//
-//    public static void playStoredStation(Stage stage, String file, StringProperty prog, ImageView getProgIcon) {
-//
-//        File filmFile;
-//        if (file.isEmpty()) {
-//            return;
-//        }
-//        filmFile = new File(file);
-//
-//        if (!filmFile.exists()) {
-//            new PDialogFileChosser().showErrorAlert("Fehler", "Kein Film", "Film existiert noch nicht!");
-//            return;
-//        }
-//
-//        if (prog != null && !prog.getValueSafe().isEmpty()) {
-//            // dann mit dem vorgegebenen Player starten
-//            try {
-//                final String program = prog.getValueSafe();
-//                final String[] cmd = {program, filmFile.getAbsolutePath()};
-//                Runtime.getRuntime().exec(cmd);
-//            } catch (final Exception ex) {
-//                Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file, getProgIcon));
-//            }
-//
-//
-//        } else {
-//            // den Systemeigenen Player starten
-//            Thread th = new Thread(() -> {
-//                try {
-//                    if (Desktop.isDesktopSupported()) {
-//                        final Desktop d = Desktop.getDesktop();
-//                        if (d.isSupported(Desktop.Action.OPEN)) {
-//                            d.open(filmFile);
-//                        }
-//                    }
-//                } catch (Exception ex) {
-//                    Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file, getProgIcon));
-//                }
-//            });
-//            th.setName("playStoredFilm");
-//            th.start();
-//
-//        }
-//
-//    }
+    public static void playStoredFilm(String file) {
+        playStoredFilm(P2LibConst.primaryStage, file, null, null);
+    }
+
+    public static void playStoredFilm(Stage primaryStage, String file) {
+        playStoredFilm(primaryStage, file, null, null);
+    }
+
+    public static void playStoredFilm(String file, StringProperty prog, ImageView getProgIcon) {
+        playStoredFilm(P2LibConst.primaryStage, file, prog, getProgIcon);
+    }
+
+    public static void playStoredFilm(Stage stage, String file, StringProperty prog, ImageView getProgIcon) {
+
+        File filmFile;
+        if (file.isEmpty()) {
+            return;
+        }
+        filmFile = new File(file);
+
+        if (!filmFile.exists()) {
+            new PDialogFileChosser().showErrorAlert("Fehler", "Kein Film", "Film existiert noch nicht!");
+            return;
+        }
+
+        if (prog != null && !prog.getValueSafe().isEmpty()) {
+            // dann mit dem vorgegebenen Player starten
+            try {
+                final String program = prog.getValueSafe();
+                final String[] cmd = {program, filmFile.getAbsolutePath()};
+                Runtime.getRuntime().exec(cmd);
+            } catch (final Exception ex) {
+                Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file, getProgIcon));
+            }
+
+
+        } else {
+            // den Systemeigenen Player starten
+            Thread th = new Thread(() -> {
+                try {
+                    if (Desktop.isDesktopSupported()) {
+                        final Desktop d = Desktop.getDesktop();
+                        if (d.isSupported(Desktop.Action.OPEN)) {
+                            d.open(filmFile);
+                        }
+                    }
+                } catch (Exception ex) {
+                    Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file, getProgIcon));
+                }
+            });
+            th.setName("playStoredFilm");
+            th.start();
+
+        }
+
+    }
 
     public static void openURL(String url) {
         openURL(P2LibConst.primaryStage, url);

@@ -79,9 +79,7 @@ public class ConfigStringPropExtra extends ConfigExtra {
             final TextField txt = new TextField();
             txt.textProperty().bindBidirectional(getProperty());
             control = txt;
-
         }
-
         return control;
     }
 }

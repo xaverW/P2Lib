@@ -85,7 +85,7 @@ public class ProgInfoDialog extends PDialogExtra {
 
         int row = 0;
 
-        // Java
+        //Java
         Text text = new Text("Java Informationen");
         text.setFont(Font.font(null, FontWeight.BOLD, 15));
         gridPane.add(text, 0, row, 3, 1);
@@ -99,7 +99,7 @@ public class ProgInfoDialog extends PDialogExtra {
         gridPane.add(new Label(strVmType), 1, row, 2, 1);
 
 
-        // Memory
+        //Memory
         gridPane.add(new Label(" "), 0, ++row);
         text = new Text("Speicherverbrauch des Programms");
         text.setFont(Font.font(null, FontWeight.BOLD, 15));
@@ -114,7 +114,7 @@ public class ProgInfoDialog extends PDialogExtra {
         gridPane.add(lblMemInfo, 2, row);
 
 
-        // Laufzeiten
+        //Laufzeiten
         gridPane.add(new Label(" "), 0, ++row);
         text = new Text("Laufzeiten des Programms");
         text.setFont(Font.font(null, FontWeight.BOLD, 15));

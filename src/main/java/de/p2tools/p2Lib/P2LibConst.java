@@ -34,11 +34,11 @@ public class P2LibConst {
     public static String logfile_0 = "P2Tools_0.log";
     public static String logdir = "Log";
     public static String styleFile = "";
-    
+
     public static int MIN_BUTTON_WIDTH = 100;
 
-    public static boolean debug = false; // Debugmodus
-    public static boolean duration = false; // Duration ausgeben
+    public static boolean debug = false; //Debugmodus
+    public static boolean duration = false; //Duration ausgeben
 
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
     public static final String LINE_SEPARATORx2 = LINE_SEPARATOR + LINE_SEPARATOR;
