@@ -22,7 +22,6 @@ import de.p2tools.p2Lib.tools.PStringUtils;
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.Tooltip;
@@ -36,7 +35,7 @@ import java.util.Optional;
 public class PCheckComboBox extends HBox {
     private final SplitMenuButton menuButton = new SplitMenuButton();
     private final ObservableList<String> items = FXCollections.observableArrayList();
-    private final ArrayList<CheckBox> arrayList = new ArrayList<>();
+    private final ArrayList<PCheckBox> arrayList = new ArrayList<>();
     private String emptyText = "";
 
     public PCheckComboBox() {
@@ -51,7 +50,19 @@ public class PCheckComboBox extends HBox {
         }
 
         items.add(item);
-        add(item, toolTip, property);
+        add(item, "", toolTip, property);
+        setTitle();
+    }
+
+    public void addItem(String item, String shortText, String toolTip, BooleanProperty property) {
+        Optional<String> otp = items.stream().filter(p -> p.equals(item)).findAny();
+        if (otp.isPresent()) {
+            PException.throwPException(912032014, "Item exists already");
+            return;
+        }
+
+        items.add(item);
+        add(item, shortText, toolTip, property);
         setTitle();
     }
 
@@ -63,10 +74,11 @@ public class PCheckComboBox extends HBox {
         this.emptyText = value;
     }
 
-    private void add(String item, String toolTip, BooleanProperty property) {
-        CheckBox cb = new CheckBox("Item ");
+    private void add(String item, String shortText, String toolTip, BooleanProperty property) {
+        PCheckBox cb = new PCheckBox("Item ");
         cb.selectedProperty().bindBidirectional(property);
         cb.setText(item);
+        cb.setShortText(shortText);
         cb.setTooltip(new Tooltip(toolTip));
         addListener(cb);
 
@@ -75,14 +87,14 @@ public class PCheckComboBox extends HBox {
         menuButton.getItems().add(cmi);
     }
 
-    private void addListener(CheckBox checkBox) {
+    private void addListener(PCheckBox checkBox) {
         arrayList.add(checkBox);
         checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> setTitle());
     }
 
     private void setTitle() {
         ArrayList<String> list = new ArrayList<>();
-        arrayList.stream().filter(ch -> ch.isSelected()).forEach(ch -> list.add(ch.getText()));
+        arrayList.stream().filter(ch -> ch.isSelected()).forEach(ch -> list.add(ch.getResText()));
         if (list.isEmpty()) {
             menuButton.setText(emptyText);
         } else {
