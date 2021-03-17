@@ -23,17 +23,21 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
+import java.util.Optional;
+
 public class PHyperlink extends Hyperlink {
     private String url;
     private final StringProperty prog;
     private ImageView imageView = null;
     private final Stage stage;
+    private boolean changeAble = false;
 
     public PHyperlink(Stage stage, String url, StringProperty prog, ImageView imageView) {
         super(url);
@@ -76,6 +80,10 @@ public class PHyperlink extends Hyperlink {
 //        init();
     }
 
+    public void setChangeable() {
+        changeAble = true;
+    }
+
     private void init() {
         setStyle("-fx-font-size: 15px;");
         setOnAction(a -> {
@@ -91,24 +99,42 @@ public class PHyperlink extends Hyperlink {
         });
         setOnMousePressed(m -> {
             if (m.getButton().equals(MouseButton.SECONDARY)) {
-                setContextMenu(getMenu(url));
+                setContextMenu(getMenu());
             }
         });
 
     }
 
-    private ContextMenu getMenu(String url) {
+    private ContextMenu getMenu() {
         final ContextMenu contextMenu = new ContextMenu();
 
-        MenuItem resetTable = new MenuItem("URL kopieren");
-        resetTable.setOnAction(a -> {
+        MenuItem copyUrl = new MenuItem("URL kopieren");
+        copyUrl.setOnAction(a -> {
             final Clipboard clipboard = Clipboard.getSystemClipboard();
             final ClipboardContent content = new ClipboardContent();
             content.putString(url);
             clipboard.setContent(content);
         });
-        contextMenu.getItems().addAll(resetTable);
+        contextMenu.getItems().addAll(copyUrl);
+
+        if (changeAble) {
+            MenuItem changeUrl = new MenuItem("URL ändern");
+            changeUrl.setOnAction(a -> {
+                TextInputDialog dialog = new TextInputDialog(url);
+                dialog.setTitle("URL ändern");
+                dialog.setHeaderText("Eine neue URL angeben");
+                dialog.setContentText("URL:");
+                dialog.initOwner(stage);
+
+                Optional<String> result = dialog.showAndWait();
+                result.ifPresent(newUrl -> {
+                    url = newUrl;
+                    this.setText(url);
+                });
+            });
+            contextMenu.getItems().addAll(changeUrl);
+        }
+
         return contextMenu;
     }
-
 }
