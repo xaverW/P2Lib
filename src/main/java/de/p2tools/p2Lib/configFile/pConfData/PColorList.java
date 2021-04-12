@@ -75,7 +75,7 @@ public class PColorList {
     static ArrayList<Config> getConfigsArr() {
         final LinkedList<String[]> list = new LinkedList<>();
         for (PColorData c : HASHMAP.values()) {
-            list.add(new String[]{c.getKey(), c.getColorToWeb(), c.getColorDarkToWeb()});
+            list.add(new String[]{c.getKey(), c.getColorLightToWeb(), c.getColorDarkToWeb()});
         }
         sortList(list, 0);
 
@@ -107,7 +107,6 @@ public class PColorList {
         @Override
         public void setActValue(String act) {
             super.setActValue(act);
-
             for (PColorData c : HASHMAP.values()) {
                 if (c.getKey().equals(getKey())) {
                     c.setColorFromHex(getActValueString());

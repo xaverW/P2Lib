@@ -37,17 +37,18 @@ public class PColorData {
 
     private final String key;
     private final String text;
-    private final Color resetColor;
+    private final Color resetColorLight;
     private final Color resetColorDark;
-    private final ObjectProperty<Color> color = new SimpleObjectProperty<>(this, "color", Color.WHITE);
-    private final ObjectProperty<Color> colorDark = new SimpleObjectProperty<>(this, "colorDark", Color.WHITE);
+    private ObjectProperty<Color> colorLight = new SimpleObjectProperty<>(this, "color", Color.WHITE);
+    private ObjectProperty<Color> colorDark = new SimpleObjectProperty<>(this, "color", Color.WHITE);
 
     public PColorData(String key, Color color, String text) {
         //todo
         this.key = key;
-        this.resetColor = color;
-        this.resetColorDark = colorDark.get();
-        this.color.set(color);
+        this.resetColorLight = color;
+        this.resetColorDark = color;
+        this.colorLight.set(color);
+        this.colorDark.set(color);
         this.text = text;
         setColorTheme(dark);
     }
@@ -55,9 +56,9 @@ public class PColorData {
     public PColorData(String key, Color color, Color colorDark, String text) {
         //todo
         this.key = key;
-        this.resetColor = color;
+        this.resetColorLight = color;
         this.resetColorDark = colorDark;
-        this.color.set(color);
+        this.colorLight.set(color);
         this.colorDark.set(colorDark);
         this.text = text;
         setColorTheme(dark);
@@ -65,14 +66,14 @@ public class PColorData {
 
     public void setColorTheme(boolean dark) {
         this.dark = dark;
-        changeMyColor(dark ? colorDark.get() : color.get());
+        changeMyColor();
     }
 
     public Color getColor() {
         if (dark) {
-            return colorDark.get();
+            return colorDark.getValue();
         } else {
-            return color.get();
+            return colorLight.getValue();
         }
     }
 
@@ -80,19 +81,27 @@ public class PColorData {
         return colorDark.get();
     }
 
+    public Color getResetColorLight() {
+        return colorLight.get();
+    }
+
     public void setColor(Color newColor) {
         //sichern
         if (dark) {
             colorDark.set(newColor);
         } else {
-            color.set(newColor);
+            colorLight.set(newColor);
         }
         //Farbe setzen
-        changeMyColor(newColor);
+        changeMyColor();
     }
 
     public ObjectProperty<Color> colorProperty() {
-        return color;
+        if (dark) {
+            return colorDark;
+        } else {
+            return colorLight;
+        }
     }
 
     public String getKey() {
@@ -104,27 +113,33 @@ public class PColorData {
     }
 
     public Color getResetColor() {
-        return (dark ? resetColorDark : resetColor);
+        return (dark ? resetColorDark : resetColorLight);
     }
 
     public void resetColor() {
         // set reset color
-        setColor(dark ? resetColorDark : resetColor);
+        if (dark) {
+            colorDark.set(resetColorDark);
+        } else {
+            colorLight.set(resetColorLight);
+        }
+        //Farbe setzen
+        changeMyColor();
     }
 
     public void setColorFromHex(String hex) {
         if (hex.contains(SEPARATOR)) {
             String[] arr = hex.split(SEPARATOR);
-            color.set(Color.web(arr[0]));
+            colorLight.set(Color.web(arr[0]));
             colorDark.set(Color.web(arr[1]));
         } else {
             setColor(Color.web(hex));
         }
     }
+
     // ============================================
     // sind die CSS Farben
     // ============================================
-
     public String getCssBackground() {
         return cssBackground;
     }
@@ -141,34 +156,28 @@ public class PColorData {
         return cssFontBold;
     }
 
-    public String getDarkerColorToWeb() {
-        return "#" + PColorFactory.getColorToHex(dark ? getBrighterColor(color.getValue()) : getDarkerColor(color.getValue()));
+    public String getColorSelectedToWeb() {
+        return "#" + PColorFactory.getColorToHex(dark ? colorDark.getValue() : colorLight.getValue());
     }
 
-    public String getActColorToWeb() {
-        return "#" + PColorFactory.getColorToHex(dark ? colorDark.getValue() : color.getValue());
+    private String getColorLightToHex() {
+        return PColorFactory.getColorToHex(colorLight.getValue());
     }
 
-    public String getColorToWeb() {
-        return "#" + PColorFactory.getColorToHex(color.getValue());
+    private String getColorDarkToHex() {
+        return PColorFactory.getColorToHex(colorDark.getValue());
+    }
+
+    public String getColorLightToWeb() {
+        return "#" + PColorFactory.getColorToHex(colorLight.getValue());
     }
 
     public String getColorDarkToWeb() {
         return "#" + PColorFactory.getColorToHex(colorDark.getValue());
     }
 
-    private String getColorToHex() {
-        return PColorFactory.getColorToHex(color.getValue());
-    }
-
-    private void changeMyColor(Color newColor) {
-        // build the css for the color
-        cssFontBold = ("-fx-font-weight: bold; -fx-text-fill: " + getActColorToWeb() + ";").intern();
-        cssFont = ("-fx-text-fill: " + getActColorToWeb() + ";").intern();
-        cssBackground = ("-fx-control-inner-background: " + getActColorToWeb() + ";").intern();
-        cssBackgroundSel = ("-fx-control-inner-background: " + getActColorToWeb() + ";" +
-                "-fx-selection-bar: " + getDarkerColorToWeb() + ";" +
-                " -fx-selection-bar-non-focused: " + getDarkerColorToWeb() + ";").intern();
+    public String getColorDarkerToWeb() {
+        return "#" + PColorFactory.getColorToHex(dark ? getBrighterColor(colorLight.getValue()) : getDarkerColor(colorLight.getValue()));
     }
 
     private Color getDarkerColor(Color color) {
@@ -225,4 +234,13 @@ public class PColorData {
         return c;
     }
 
+    private void changeMyColor() {
+        // build the css for the color
+        cssFontBold = ("-fx-font-weight: bold; -fx-text-fill: " + getColorSelectedToWeb() + ";").intern();
+        cssFont = ("-fx-text-fill: " + getColorSelectedToWeb() + ";").intern();
+        cssBackground = ("-fx-control-inner-background: " + getColorSelectedToWeb() + ";").intern();
+        cssBackgroundSel = ("-fx-control-inner-background: " + getColorSelectedToWeb() + ";" +
+                "-fx-selection-bar: " + getColorDarkerToWeb() + ";" +
+                " -fx-selection-bar-non-focused: " + getColorDarkerToWeb() + ";").intern();
+    }
 }
