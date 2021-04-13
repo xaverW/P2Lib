@@ -28,40 +28,37 @@ public class PColorData {
     private final double DIV_DARK = 0.6;
     public static final String SEPARATOR = "X";
 
+    private final String key;
+    private final String text;
     private String cssFontBold = "";
     private String cssFont = "";
     private String cssBackground = "";
     private String cssBackgroundSel = "";
 
     private boolean dark = false;
-
-    private final String key;
-    private final String text;
     private final Color resetColorLight;
     private final Color resetColorDark;
     private ObjectProperty<Color> colorLight = new SimpleObjectProperty<>(this, "color", Color.WHITE);
     private ObjectProperty<Color> colorDark = new SimpleObjectProperty<>(this, "color", Color.WHITE);
 
     public PColorData(String key, Color color, String text) {
-        //todo
         this.key = key;
         this.resetColorLight = color;
         this.resetColorDark = color;
         this.colorLight.set(color);
         this.colorDark.set(color);
         this.text = text;
-        setColorTheme(dark);
+        changeMyColor();
     }
 
     public PColorData(String key, Color color, Color colorDark, String text) {
-        //todo
         this.key = key;
         this.resetColorLight = color;
         this.resetColorDark = colorDark;
         this.colorLight.set(color);
         this.colorDark.set(colorDark);
         this.text = text;
-        setColorTheme(dark);
+        changeMyColor();
     }
 
     public void setColorTheme(boolean dark) {
@@ -77,25 +74,6 @@ public class PColorData {
         }
     }
 
-    public Color getResetColorDark() {
-        return colorDark.get();
-    }
-
-    public Color getResetColorLight() {
-        return colorLight.get();
-    }
-
-    public void setColor(Color newColor) {
-        //sichern
-        if (dark) {
-            colorDark.set(newColor);
-        } else {
-            colorLight.set(newColor);
-        }
-        //Farbe setzen
-        changeMyColor();
-    }
-
     public ObjectProperty<Color> colorProperty() {
         if (dark) {
             return colorDark;
@@ -104,27 +82,42 @@ public class PColorData {
         }
     }
 
-    public String getKey() {
-        return key;
+    public Color getResetColorDark() {
+        return resetColorDark;
     }
 
-    public String getText() {
-        return text;
+    public Color getResetColorLight() {
+        return resetColorLight;
     }
 
     public Color getResetColor() {
         return (dark ? resetColorDark : resetColorLight);
     }
 
+    public void setColor(Color newColor) {
+        if (dark) {
+            colorDark.set(newColor);
+        } else {
+            colorLight.set(newColor);
+        }
+        changeMyColor();
+    }
+
     public void resetColor() {
-        // set reset color
         if (dark) {
             colorDark.set(resetColorDark);
         } else {
             colorLight.set(resetColorLight);
         }
-        //Farbe setzen
         changeMyColor();
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public String getText() {
+        return text;
     }
 
     public void setColorFromHex(String hex) {
@@ -137,9 +130,9 @@ public class PColorData {
         }
     }
 
-    // ============================================
+    //==========================================================
     // sind die CSS Farben
-    // ============================================
+    //==========================================================
     public String getCssBackground() {
         return cssBackground;
     }
@@ -156,16 +149,19 @@ public class PColorData {
         return cssFontBold;
     }
 
-    public String getColorSelectedToWeb() {
-        return "#" + PColorFactory.getColorToHex(dark ? colorDark.getValue() : colorLight.getValue());
-    }
-
+    //==========================================================
+    //CSS erstellen
+    //==========================================================
     private String getColorLightToHex() {
         return PColorFactory.getColorToHex(colorLight.getValue());
     }
 
     private String getColorDarkToHex() {
         return PColorFactory.getColorToHex(colorDark.getValue());
+    }
+
+    public String getColorSelectedToWeb() {
+        return "#" + PColorFactory.getColorToHex(dark ? colorDark.getValue() : colorLight.getValue());
     }
 
     public String getColorLightToWeb() {
