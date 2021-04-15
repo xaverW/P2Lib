@@ -32,6 +32,20 @@ public class PGuiSize {
         }
     }
 
+    public static void getSizeWindow(StringProperty property, Stage stage) {
+        if (stage != null &&
+                stage.getScene() != null && stage.getScene().getWindow() != null &&
+                property != null) {
+
+            property.set((int) stage.getScene().getWindow().getWidth() + ":"
+                    + (int) stage.getScene().getWindow().getHeight()
+                    + ':'
+                    + (int) stage.getX()
+                    + ':'
+                    + (int) stage.getY());
+        }
+    }
+
     public static int getWidth(StringProperty property) {
         int width = 0;
         final String[] arr = property.getValue().split(":");
