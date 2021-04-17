@@ -31,6 +31,38 @@ import java.util.List;
 
 public class PTableFactory {
 
+    public static void setNextStation(TableView tableView) {
+        final int selectedTableRow = tableView.getSelectionModel().getSelectedIndex();
+        if (selectedTableRow < 0) {
+            tableView.getSelectionModel().clearAndSelect(0);
+            tableView.scrollTo(0);
+
+        } else if (selectedTableRow >= 0 && selectedTableRow < tableView.getItems().size() - 1) {
+            tableView.getSelectionModel().clearAndSelect(selectedTableRow + 1);
+            tableView.scrollTo(selectedTableRow + 1);
+
+        } else if (selectedTableRow == tableView.getItems().size() - 1) {
+            tableView.getSelectionModel().clearAndSelect(1);
+            tableView.scrollTo(1);
+        }
+    }
+
+    public static void setPreviousStation(TableView tableView) {
+        final int selectedTableRow = tableView.getSelectionModel().getSelectedIndex();
+        if (selectedTableRow < 0) {
+            tableView.getSelectionModel().clearAndSelect(0);
+            tableView.scrollTo(0);
+
+        } else if (selectedTableRow == 0) {
+            tableView.getSelectionModel().clearAndSelect(tableView.getItems().size() - 1);
+            tableView.scrollTo(tableView.getItems().size() - 1);
+
+        } else if (selectedTableRow <= tableView.getItems().size() - 1) {
+            tableView.getSelectionModel().clearAndSelect(selectedTableRow - 1);
+            tableView.scrollTo(selectedTableRow - 1);
+        }
+    }
+
     public static void invertSelection_(TableView tableView) {
         for (int i = 0; i < tableView.getItems().size(); ++i) {
             if (tableView.getSelectionModel().isSelected(i)) {
