@@ -42,8 +42,8 @@ public class PTableFactory {
             tableView.scrollTo(selectedTableRow + 1);
 
         } else if (selectedTableRow == tableView.getItems().size() - 1) {
-            tableView.getSelectionModel().clearAndSelect(1);
-            tableView.scrollTo(1);
+            tableView.getSelectionModel().clearAndSelect(0);
+            tableView.scrollTo(0);
         }
     }
 
