@@ -24,12 +24,55 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
+import javafx.scene.control.skin.TableViewSkin;
+import javafx.scene.control.skin.VirtualFlow;
 
 import java.text.NumberFormat;
 import java.util.HashSet;
 import java.util.List;
 
 public class PTableFactory {
+
+    public static void scrollVisibleRange(TableView table) {
+        TableViewSkin<?> skin = (TableViewSkin) table.getSkin();
+        if (skin == null) {
+            return;
+        }
+
+        int[] range = getVisibleRange(table);
+        int count = range[1] - range[0];
+        int n = range[0] + count;
+        if (count >= 0 && n < table.getItems().size()) {
+            table.getSelectionModel().clearAndSelect(n);
+            table.scrollTo(n);
+        }
+    }
+
+    public static int[] getVisibleRange(TableView table) {
+        TableViewSkin<?> skin = (TableViewSkin) table.getSkin();
+        if (skin == null) {
+            return new int[]{0, 0};
+        }
+        VirtualFlow<?> flow = (VirtualFlow) skin.getChildren().get(1);
+        int indexFirst;
+        int indexLast;
+        if (flow != null && flow.getFirstVisibleCell() != null
+                && flow.getLastVisibleCell() != null) {
+            indexFirst = flow.getFirstVisibleCell().getIndex();
+            if (indexFirst >= table.getItems().size())
+                indexFirst = table.getItems().size() - 1;
+
+            indexLast = flow.getLastVisibleCell().getIndex();
+            if (indexLast >= table.getItems().size())
+                indexLast = table.getItems().size() - 1;
+
+        } else {
+            indexFirst = 0;
+            indexLast = 0;
+        }
+
+        return new int[]{indexFirst, indexLast};
+    }
 
     public static void selectNextRow(TableView tableView) {
         final int selectedTableRow = tableView.getSelectionModel().getSelectedIndex();
