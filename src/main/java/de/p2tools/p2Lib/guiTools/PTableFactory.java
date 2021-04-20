@@ -31,7 +31,7 @@ import java.util.List;
 
 public class PTableFactory {
 
-    public static void setNextStation(TableView tableView) {
+    public static void selectNextRow(TableView tableView) {
         final int selectedTableRow = tableView.getSelectionModel().getSelectedIndex();
         if (selectedTableRow < 0) {
             tableView.getSelectionModel().clearAndSelect(0);
@@ -47,7 +47,7 @@ public class PTableFactory {
         }
     }
 
-    public static void setPreviousStation(TableView tableView) {
+    public static void selectPreviousRow(TableView tableView) {
         final int selectedTableRow = tableView.getSelectionModel().getSelectedIndex();
         if (selectedTableRow < 0) {
             tableView.getSelectionModel().clearAndSelect(0);
