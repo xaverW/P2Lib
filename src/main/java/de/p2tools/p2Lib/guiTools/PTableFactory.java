@@ -26,6 +26,9 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
 import javafx.scene.control.skin.TableViewSkin;
 import javafx.scene.control.skin.VirtualFlow;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 
 import java.text.NumberFormat;
 import java.util.HashSet;
@@ -33,7 +36,53 @@ import java.util.List;
 
 public class PTableFactory {
 
-    public static void scrollVisibleRange(TableView table) {
+    public static final KeyCombination SPACE = new KeyCodeCombination(KeyCode.SPACE);
+    public static final KeyCombination SPACE_SHIFT = new KeyCodeCombination(KeyCode.SPACE, KeyCombination.SHIFT_DOWN);
+
+    public static void scrollVisibleRangeUp(TableView table) {
+        if (table.getItems().size() == 0) {
+            //leere Tabelle :)
+            return;
+        }
+
+        if (table.getSelectionModel().getSelectedIndex() == 0) {
+            //dann ist die erste Zeile markiert
+            final int i = table.getItems().size() - 1;
+            table.getSelectionModel().clearAndSelect(i);
+            table.scrollTo(i);
+            return;
+        }
+
+        TableViewSkin<?> skin = (TableViewSkin) table.getSkin();
+        if (skin == null) {
+            return;
+        }
+
+        int[] range = getVisibleRange(table);
+        int count = range[1] - range[0];
+        int n = range[0] + 2 - count;
+        if (n < 0) {
+            n = 0;
+        }
+        if (count >= 0 && n < table.getItems().size()) {
+            table.getSelectionModel().clearAndSelect(n);
+            table.scrollTo(n);
+        }
+    }
+
+    public static void scrollVisibleRangeDown(TableView table) {
+        if (table.getItems().size() == 0) {
+            //leere Tabelle :)
+            return;
+        }
+
+        if (table.getSelectionModel().getSelectedIndex() == table.getItems().size() - 1) {
+            //dann ist die letzte Zeile markiert
+            table.getSelectionModel().clearAndSelect(0);
+            table.scrollTo(0);
+            return;
+        }
+
         TableViewSkin<?> skin = (TableViewSkin) table.getSkin();
         if (skin == null) {
             return;
@@ -53,6 +102,7 @@ public class PTableFactory {
         if (skin == null) {
             return new int[]{0, 0};
         }
+
         VirtualFlow<?> flow = (VirtualFlow) skin.getChildren().get(1);
         int indexFirst;
         int indexLast;
