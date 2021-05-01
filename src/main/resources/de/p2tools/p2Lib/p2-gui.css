@@ -184,6 +184,31 @@
     -fx-border-color: #939a9f;
 }
 
+/* farblich abgesetzter Bereich in vielen Panes/Dialogen mit dem close-button*/
+.close-pane {
+    -fx-padding: 3;
+    -fx-background-color: -style-extra-pane-color;
+}
+.close-button  {
+    -fx-background-radius: 18;
+    -fx-min-width: 18;
+    -fx-min-height: 18;
+    -fx-max-width: 18;
+    -fx-max-height: 18;
+
+    -fx-border-radius: 20;
+    -fx-border-width: 1;
+    -fx-border-color: #7e7e7e;
+
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-image: url("/de/p2tools/p2Lib/button-close.png");
+}
+.close-button:hover {
+    -fx-effect: innershadow(gaussian, #646464, 15, 0, 0, 0);
+}
+
+
 
 /* ========================================================================== */
 /* sind javafx gui Elemente */
