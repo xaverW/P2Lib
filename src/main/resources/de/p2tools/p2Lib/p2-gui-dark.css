@@ -63,7 +63,7 @@
     -fx-background-color: #b7bccf;
     -fx-text-fill: black;
 }
-.radio-button:selected .radio .dot {
+.podder-button:selected .podder .dot {
     -fx-background-color: #0b99c9;
     -fx-background-insets: 0;
 }
