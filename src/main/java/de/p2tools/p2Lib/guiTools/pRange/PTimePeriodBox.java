@@ -272,7 +272,7 @@ public class PTimePeriodBox extends VBox {
             final String text = vluePrefix + STR_ALLES;
             menuButton.setText(text);
         } else {
-            final String text = vluePrefix + "von " + timeL + " bis " + timeH;
+            final String text = vluePrefix + "von " + timeL + " bis " + timeH + " Uhr";
             menuButton.setText(text);
         }
     }

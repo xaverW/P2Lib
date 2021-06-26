@@ -17,6 +17,7 @@
 
 package de.p2tools.p2Lib.guiTools;
 
+import javafx.geometry.HPos;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -33,6 +34,18 @@ public class PColumnConstraints {
     public static ColumnConstraints getCcPrefSize() {
         final ColumnConstraints cc = new ColumnConstraints();
         cc.setMinWidth(Region.USE_PREF_SIZE);
+        return cc;
+    }
+
+    /**
+     * sets the minimunsize
+     *
+     * @return
+     */
+    public static ColumnConstraints getCcPrefSizeCenter() {
+        final ColumnConstraints cc = new ColumnConstraints();
+        cc.setMinWidth(Region.USE_PREF_SIZE);
+        cc.setHalignment(HPos.CENTER);
         return cc;
     }
 
@@ -64,6 +77,20 @@ public class PColumnConstraints {
         cc.setFillWidth(true);
         cc.setMinWidth(Region.USE_COMPUTED_SIZE);
         cc.setHgrow(Priority.ALWAYS);
+        return cc;
+    }
+
+    /**
+     * sets the minimunsize and hgrow
+     *
+     * @return
+     */
+    public static ColumnConstraints getCcComputedSizeAndHgrowRight() {
+        final ColumnConstraints cc = new ColumnConstraints();
+        cc.setFillWidth(true);
+        cc.setMinWidth(Region.USE_COMPUTED_SIZE);
+        cc.setHgrow(Priority.ALWAYS);
+        cc.setHalignment(HPos.RIGHT);
         return cc;
     }
 
