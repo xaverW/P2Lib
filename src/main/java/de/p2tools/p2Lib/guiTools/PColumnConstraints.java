@@ -49,6 +49,18 @@ public class PColumnConstraints {
         return cc;
     }
 
+    /**
+     * sets the minimunsize
+     *
+     * @return
+     */
+    public static ColumnConstraints getCcPrefSizeRight() {
+        final ColumnConstraints cc = new ColumnConstraints();
+        cc.setMinWidth(Region.USE_PREF_SIZE);
+        cc.setHalignment(HPos.RIGHT);
+        return cc;
+    }
+
     public static ColumnConstraints getCcPrefMaxSize(int maxWidth) {
         final ColumnConstraints cc = new ColumnConstraints();
         cc.setMinWidth(Region.USE_PREF_SIZE);
