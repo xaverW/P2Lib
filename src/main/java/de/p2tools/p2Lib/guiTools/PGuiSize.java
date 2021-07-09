@@ -80,7 +80,6 @@ public class PGuiSize {
         int posX, posY;
         posX = 0;
         posY = 0;
-        boolean ret = true;
         final String[] arr = property.getValue().split(":");
         if (arr.length != 4) {
             // dann ists eh noch leer
@@ -93,16 +92,11 @@ public class PGuiSize {
                 posY = Integer.parseInt(arr[3]);
             }
         } catch (final Exception ex) {
-            ret = false;
-            posX = 0;
-            posY = 0;
-        }
-        if (posX > 0 && posY > 0) {
-            stage.setX(posX);
-            stage.setY(posY);
+            return false;
         }
 
-        return ret;
+        stage.setX(posX);
+        stage.setY(posY);
+        return true;
     }
-
 }
