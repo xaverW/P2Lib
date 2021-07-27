@@ -29,10 +29,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class FoundFactory {
-    public final static String SEARCH_URL = "http://p2.localhost:8080";
-    public final static String SEARCH_URL_DOWNLOAD = "http://p2.localhost:8080/download/";
-
-
+    
     public static boolean isNewFound(String old, String newValue) {
         if (newValue.compareTo(old) <= 0) {
             //dann war schon mal da

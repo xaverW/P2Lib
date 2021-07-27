@@ -20,7 +20,7 @@ package de.p2tools.p2Lib.checkForActInfos;
 public class FoundFile {
     private String fileUrl = "";
     private String fileName = "";
-    private String fileVersion = "";
+    private String fileDate = "";
     private String fileText = "";
 
     public String getFileUrl() {
@@ -39,12 +39,12 @@ public class FoundFile {
         this.fileName = fileName;
     }
 
-    public String getFileVersion() {
-        return fileVersion;
+    public String getFileDate() {
+        return fileDate;
     }
 
-    public void setFileVersion(String fileVersion) {
-        this.fileVersion = fileVersion;
+    public void setFileDate(String fileDate) {
+        this.fileDate = fileDate;
     }
 
     public String getFileText() {

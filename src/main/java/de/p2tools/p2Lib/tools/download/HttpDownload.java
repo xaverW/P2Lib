@@ -35,6 +35,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.CountDownLatch;
 
 public class HttpDownload extends Thread {
 
@@ -198,10 +199,13 @@ public class HttpDownload extends Thread {
         int len;
         long date1 = 0;
         long date2 = 0;
-
+        CountDownLatch countDownLatch = new CountDownLatch(1);
         Platform.runLater(() -> {
+            //wenn der Download zu schnell ist, kommt der Dialog erst danach und beendet sich nicht mehr :)
             downloadProgressDialog = new DownloadProgressDialog(stage, destName, getText());
+            countDownLatch.countDown();
         });
+        countDownLatch.await();
 
         while ((len = inputStream.read(buffer)) != -1) {
             date1 = new Date().getTime();

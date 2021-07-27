@@ -157,12 +157,24 @@ public class InfoAlertsTabFactory {
     }
 
     public static Tab addTabBeta(FoundSearchData foundSearchData, boolean beta) {
+        if (!foundSearchData.searchBetaProperty().getValue()) {
+            //Beta oder Daily: danach soll nicht gesucht werden
+            return null;
+        }
+
+        if (!beta && !foundSearchData.searchDailyProperty().getValue()) {
+            //Daily: danach soll nicht gesucht werden
+            return null;
+        }
+
         if (beta) {
             if (!foundSearchData.isFoundNewBeta() || foundSearchData.getFoundFileListBeta().isEmpty()) {
+                //Beta: nichts gefunden oder Liste leer
                 return null;
             }
         } else {
             if (!foundSearchData.isFoundNewDaily() || foundSearchData.getFoundFileListDaily().isEmpty()) {
+                //Daily: nichts gefunden oder Liste leer
                 return null;
             }
         }
@@ -191,7 +203,7 @@ public class InfoAlertsTabFactory {
 
         textArea.setText(beta ? foundSearchData.getNewBetaText() : foundSearchData.getNewDailyText());
 
-        final Label txtVersion = new Label(beta ? foundSearchData.getNewBetaNo() : foundSearchData.getNewDailyNo());
+        final Label txtVersion = new Label(beta ? foundSearchData.getNewBetaDate() : foundSearchData.getNewDailyDate());
         final Hyperlink hyperlinkUrl = new PHyperlink(foundSearchData.getUrlWebsite());
         final Hyperlink hyperlinkDownUrl = new PHyperlink(foundSearchData.getUrlDownload());
         final Label lblVersion = new Label("Version:");
