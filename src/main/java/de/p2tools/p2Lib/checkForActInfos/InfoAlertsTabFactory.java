@@ -168,13 +168,15 @@ public class InfoAlertsTabFactory {
         }
 
         if (beta) {
+            //beta
             if (!foundSearchData.isFoundNewBeta() || foundSearchData.getFoundFileListBeta().isEmpty()) {
-                //Beta: nichts gefunden oder Liste leer
+                //beta: nichts gefunden oder Liste leer
                 return null;
             }
         } else {
+            //daily
             if (!foundSearchData.isFoundNewDaily() || foundSearchData.getFoundFileListDaily().isEmpty()) {
-                //Daily: nichts gefunden oder Liste leer
+                //daily: nichts gefunden oder Liste leer
                 return null;
             }
         }

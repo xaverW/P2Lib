@@ -29,14 +29,14 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class FoundFactory {
-    
+
     public static boolean isNewFound(String old, String newValue) {
         if (newValue.compareTo(old) <= 0) {
             //dann war schon mal da
-            PLog.sysLog("neues Found: " + newValue + P2LibConst.LINE_SEPARATOR + "  -> wurde schon mal angezeigt");
+            PLog.sysLog("isNewFound: " + newValue + P2LibConst.LINE_SEPARATOR + "  -> wurde schon mal angezeigt");
             return false;
         } else {
-            PLog.sysLog("neues Found: " + newValue + P2LibConst.LINE_SEPARATOR + newValue);
+            PLog.sysLog("isNewFound: " + newValue + P2LibConst.LINE_SEPARATOR + newValue);
             return true;
         }
     }

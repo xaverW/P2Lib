@@ -97,7 +97,13 @@ public class FoundAllFiles {
             foundFile.setFileDate(fileName.
                     substring(fileName.indexOf("__") + "__".length(), fileName.lastIndexOf(".")));
 
-            if (FoundFactory.isNewFound(foundSearchData.getLastInfoDate(), foundFile.getFileDate())) {
+            if (foundSearchData.isShowAllways() ||
+                    (!foundSearchData.isShowAllways() &&
+                            FoundFactory.isNewFound(foundSearchData.getLastInfoDate(), foundFile.getFileDate()))) {
+                //Infos sind vorhanden
+                //-> die noch nicht angezeigt wurde ODER
+                //-> soll immer angezeigt werden, alle!
+
                 foundSearchData.setFoundNewInfo(true);
                 foundSearchData.setNewInfoDate(foundFile.getFileDate());
                 foundFile.setFileText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
@@ -145,8 +151,13 @@ public class FoundAllFiles {
                 //Infofile
                 foundSearchData.setNewVersionText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
 
-            } else if (FoundFactory.isNewFound(foundSearchData.getLastActDate(), foundFile.getFileDate())) {
+            } else if ((foundSearchData.isShowAllways() &&
+                    FoundFactory.isNewFound(foundSearchData.getProgBuildDate(), foundFile.getFileDate())) ||
+                    (!foundSearchData.isShowAllways() &&
+                            FoundFactory.isNewFound(foundSearchData.getLastActDate(), foundFile.getFileDate()))) {
                 //ist eine neue Version
+                //-> die noch nicht angezeigt wurde ODER
+                //-> soll immer angezeigt werden
                 foundSearchData.setNewVersionNo(newVersionNo);
                 foundSearchData.setFoundNewVersion(true);
                 foundSearchData.setNewVersionDate(foundFile.getFileDate());
@@ -188,21 +199,39 @@ public class FoundAllFiles {
 
             } else {
                 //Programmdatei
-                if (beta && FoundFactory.isNewFound(foundSearchData.getLastBetaDate(), foundFile.getFileDate())) {
-                    //ist eine neue BETA Version
-                    foundSearchData.setFoundNewBeta(true);
-                    foundSearchData.setNewBetaDate(foundFile.getFileDate());
-                    foundSearchData.getFoundFileListBeta().add(foundFile);
-                    System.out.println("\n" + "addBeta: \n" + foundFile.getFileUrl() + "\n" +
-                            fileName + "\n" + foundFile.getFileDate());
+                if (beta) {
+                    //beta
+                    if ((foundSearchData.isShowAllways() &&
+                            FoundFactory.isNewFound(foundSearchData.getProgBuildDate(), foundFile.getFileDate())) ||
+                            (!foundSearchData.isShowAllways() &&
+                                    FoundFactory.isNewFound(foundSearchData.getLastBetaDate(), foundFile.getFileDate()))) {
+                        //ist eine neue Version
+                        //-> die noch nicht angezeigt wurde ODER
+                        //-> soll immer angezeigt werden
 
-                } else if (!beta && FoundFactory.isNewFound(foundSearchData.getLastDailyDate(), foundFile.getFileDate())) {
-                    //ist eine neue DAILY Version
-                    foundSearchData.setFoundNewDaily(true);
-                    foundSearchData.setNewDailyDate(foundFile.getFileDate());
-                    foundSearchData.getFoundFileListDaily().add(foundFile);
-                    System.out.println("\n" + "addDaily: \n" + foundFile.getFileUrl() + "\n" +
-                            fileName + "\n" + foundFile.getFileDate());
+                        foundSearchData.setFoundNewBeta(true);
+                        foundSearchData.setNewBetaDate(foundFile.getFileDate());
+                        foundSearchData.getFoundFileListBeta().add(foundFile);
+                        System.out.println("\n" + "addBeta: \n" + foundFile.getFileUrl() + "\n" +
+                                fileName + "\n" + foundFile.getFileDate());
+                    }
+
+                } else {
+                    //daily
+                    if ((foundSearchData.isShowAllways() &&
+                            FoundFactory.isNewFound(foundSearchData.getProgBuildDate(), foundFile.getFileDate())) ||
+                            (!foundSearchData.isShowAllways() &&
+                                    FoundFactory.isNewFound(foundSearchData.getLastDailyDate(), foundFile.getFileDate()))) {
+                        //ist eine neue Version
+                        //-> die noch nicht angezeigt wurde ODER
+                        //-> soll immer angezeigt werden
+
+                        foundSearchData.setFoundNewDaily(true);
+                        foundSearchData.setNewDailyDate(foundFile.getFileDate());
+                        foundSearchData.getFoundFileListDaily().add(foundFile);
+                        System.out.println("\n" + "addDaily: \n" + foundFile.getFileUrl() + "\n" +
+                                fileName + "\n" + foundFile.getFileDate());
+                    }
                 }
             }
         }

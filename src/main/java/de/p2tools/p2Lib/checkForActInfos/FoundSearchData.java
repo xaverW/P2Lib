@@ -112,6 +112,14 @@ public class FoundSearchData {
             //das ist die aktuelle Programmversion die läuft
             this.lastActDate.setValue(this.progBuildDate);
         }
+        if (this.lastBetaDate.getValue().isEmpty()) {
+            //das ist die aktuelle Programmversion die läuft
+            this.lastBetaDate.setValue(this.progBuildDate);
+        }
+        if (this.lastDailyDate.getValue().isEmpty()) {
+            //das ist die aktuelle Programmversion die läuft
+            this.lastDailyDate.setValue(this.progBuildDate);
+        }
         this.showAllways = showAllways;
     }
 
