@@ -34,9 +34,13 @@ public class FoundAll {
                 foundSearchData.isFoundNewBeta() && !foundSearchData.getFoundFileListBeta().isEmpty() ||
                 foundSearchData.isFoundNewDaily() && !foundSearchData.getFoundFileListDaily().isEmpty()) {
 
+            System.out.println("---> Plattform");
             Platform.runLater(() -> {
+
+                System.out.println("---> InfoAlert");
                 InfoAlert infoAlert = new InfoAlert(foundSearchData);
                 infoAlert.showInfoAlert("");
+                System.out.println("---> show");
 
                 if (foundSearchData.isFoundNewVersion() && !foundSearchData.searchActAgainProperty().getValue()) {
                     //dann die angezeigte neue Version merken
