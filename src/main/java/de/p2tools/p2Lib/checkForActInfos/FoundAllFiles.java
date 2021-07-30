@@ -38,9 +38,21 @@ public class FoundAllFiles {
             foundSearchData.setFoundNewVersion(false);
             foundSearchData.setFoundNewBeta(false);
             foundSearchData.setFoundNewDaily(false);
-            if (foundSearchData.getLastActDate().isEmpty()) {
+
+            if (foundSearchData.getLastActDate().isEmpty() ||
+                    FoundFactory.isNewFound(foundSearchData.getLastActDate(), foundSearchData.getProgBuildDate())) {
                 //das ist es mind. :)
                 foundSearchData.setLastActDate(foundSearchData.getProgBuildDate());
+            }
+            if (foundSearchData.getLastBetaDate().isEmpty() ||
+                    FoundFactory.isNewFound(foundSearchData.getLastBetaDate(), foundSearchData.getProgBuildDate())) {
+                //das ist es mind. :)
+                foundSearchData.setLastBetaDate(foundSearchData.getProgBuildDate());
+            }
+            if (foundSearchData.getLastDailyDate().isEmpty() ||
+                    FoundFactory.isNewFound(foundSearchData.getLastDailyDate(), foundSearchData.getProgBuildDate())) {
+                //das ist es mind. :)
+                foundSearchData.setLastDailyDate(foundSearchData.getProgBuildDate());
             }
 
             String strLine;
