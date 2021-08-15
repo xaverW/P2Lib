@@ -22,7 +22,6 @@ import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -225,7 +224,8 @@ public class PDialogFxml {
         }
 
         if (conf == null || !PGuiSize.setPos(conf, stage)) {
-            setPrimaryStage();
+//            setPrimaryStage();
+            stage.centerOnScreen();
         }
 
         if (modal) {
@@ -235,27 +235,27 @@ public class PDialogFxml {
         }
     }
 
-    private void setPrimaryStage() {
-        // vor Primär zentrieren
-        if (primaryStage != null) {
-            ChangeListener<Number> widthListener = (observable, oldValue, newValue) -> {
-                double stageWidth = newValue.doubleValue();
-                stage.setX(primaryStage.getX() + primaryStage.getWidth() / 2 - stageWidth / 2);
-            };
-            ChangeListener<Number> heightListener = (observable, oldValue, newValue) -> {
-                double stageHeight = newValue.doubleValue();
-                stage.setY(primaryStage.getY() + primaryStage.getHeight() / 2 - stageHeight / 2);
-            };
-
-            stage.widthProperty().addListener(widthListener);
-            stage.heightProperty().addListener(heightListener);
-
-            stage.setOnShown(e -> {
-                stage.widthProperty().removeListener(widthListener);
-                stage.heightProperty().removeListener(heightListener);
-            });
-        }
-    }
+//    private void setPrimaryStage() {
+//        // vor Primär zentrieren
+//        if (primaryStage != null) {
+//            ChangeListener<Number> widthListener = (observable, oldValue, newValue) -> {
+//                double stageWidth = newValue.doubleValue();
+//                stage.setX(primaryStage.getX() + primaryStage.getWidth() / 2 - stageWidth / 2);
+//            };
+//            ChangeListener<Number> heightListener = (observable, oldValue, newValue) -> {
+//                double stageHeight = newValue.doubleValue();
+//                stage.setY(primaryStage.getY() + primaryStage.getHeight() / 2 - stageHeight / 2);
+//            };
+//
+//            stage.widthProperty().addListener(widthListener);
+//            stage.heightProperty().addListener(heightListener);
+//
+//            stage.setOnShown(e -> {
+//                stage.widthProperty().removeListener(widthListener);
+//                stage.heightProperty().removeListener(heightListener);
+//            });
+//        }
+//    }
 
     public Stage getStage() {
         return stage;

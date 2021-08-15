@@ -16,6 +16,8 @@
 
 package de.p2tools.p2Lib.guiTools;
 
+import de.p2tools.p2Lib.tools.log.PLog;
+import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
 
@@ -23,6 +25,7 @@ public class PGuiSize {
 
     public static void getSizeScene(StringProperty property, Stage stage) {
         if (stage != null && stage.getScene() != null && property != null) {
+            System.out.println(stage.getX() + " - " + stage.getY());
             property.set((int) stage.getScene().getWidth() + ":"
                     + (int) stage.getScene().getHeight()
                     + ':'
@@ -95,8 +98,35 @@ public class PGuiSize {
             return false;
         }
 
-        stage.setX(posX);
-        stage.setY(posY);
+        if (posX < 0 || posY < 0) {
+            // dann wäre es außerhalb des Desktops
+            PLog.sysLog("setPos - x<0||y<0 - x/y: " + posX + " / " + posY);
+            stage.centerOnScreen();
+        } else {
+            stage.setX(posX);
+            stage.setY(posY);
+        }
         return true;
+    }
+
+    public static void showSave(Stage stage) {
+        System.out.println("\nshowSave(Stage stage)");
+        Platform.runLater(() -> {
+            if (!stage.isShowing()) {
+                System.out.println("   show");
+                stage.show();
+            }
+
+            final double posX, posY;
+            posX = stage.getX();
+            posY = stage.getY();
+            if (posX < 0 || posY < 0) {
+                // dann wäre es außerhalb des Desktops
+                System.out.println("   showSave (x/y): " + posX + " - " + posY);
+                stage.centerOnScreen();
+            }
+
+            stage.toFront();
+        });
     }
 }

@@ -153,7 +153,8 @@ public class PDialog {
 
         if (setOnlySize || sizeConfiguration == null || !PGuiSize.setPos(sizeConfiguration, stage)) {
             if (ownerForCenteringDialog == null) {
-                PDialogFactory.setInCenterOfScreen(stage);
+                stage.centerOnScreen();
+//                PDialogFactory.setInCenterOfScreen(stage);
             } else {
                 PDialogFactory.setInFrontOfPrimaryStage(ownerForCenteringDialog, stage);
             }

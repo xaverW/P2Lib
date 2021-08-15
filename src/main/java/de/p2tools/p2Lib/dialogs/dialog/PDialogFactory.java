@@ -28,6 +28,7 @@ public class PDialogFactory {
 
     public static void setInCenterOfScreen(Stage stage) {
         // im Monitor zentrieren
+        //todo: testen stage.centerOnScreen();
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
         if (screenBounds != null) {
