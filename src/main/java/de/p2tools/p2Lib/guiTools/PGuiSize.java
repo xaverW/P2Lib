@@ -98,35 +98,36 @@ public class PGuiSize {
             return false;
         }
 
-        if (posX < 0 || posY < 0) {
-            // dann wäre es außerhalb des Desktops
-            PLog.sysLog("setPos - x<0||y<0 - x/y: " + posX + " / " + posY);
-            stage.centerOnScreen();
-        } else {
-            stage.setX(posX);
-            stage.setY(posY);
-        }
+        setPosSave(posX, posY, stage);
         return true;
     }
 
     public static void showSave(Stage stage) {
         System.out.println("\nshowSave(Stage stage)");
         Platform.runLater(() -> {
+            //die Reihenfolge ist bei Win!! wichtig, klappt sonst nicht beim allerersten Mal
+            setPosSave(stage);
             if (!stage.isShowing()) {
                 System.out.println("   show");
                 stage.show();
             }
-
-            final double posX, posY;
-            posX = stage.getX();
-            posY = stage.getY();
-            if (posX < 0 || posY < 0) {
-                // dann wäre es außerhalb des Desktops
-                System.out.println("   showSave (x/y): " + posX + " - " + posY);
-                stage.centerOnScreen();
-            }
-
-            stage.toFront();
+            stage.toFront();//damit eingeklappte GUIs wieder erscheinen / klappt leider nur bei Linux
         });
+    }
+
+    private static void setPosSave(Stage stage) {
+        setPosSave(stage.getX(), stage.getY(), stage);
+    }
+
+    private static void setPosSave(double posX, double posY, Stage stage) {
+        if (posX < 0 || posY < 0) {
+            // dann wäre es außerhalb des Desktops
+            PLog.sysLog("setPosSave and center (x/y): " + posX + " / " + posY);
+            stage.centerOnScreen();
+        } else {
+            stage.setX(posX);
+            stage.setY(posY);
+        }
+        stage.toFront();
     }
 }
