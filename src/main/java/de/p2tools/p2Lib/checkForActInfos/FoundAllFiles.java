@@ -23,6 +23,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 public class FoundAllFiles {
 
@@ -39,21 +40,27 @@ public class FoundAllFiles {
             foundSearchData.setFoundNewBeta(false);
             foundSearchData.setFoundNewDaily(false);
 
+            ArrayList<String> log = new ArrayList<>();
+            log.add("=====================================");
+            log.add("nach neuen Programmversionen suchen");
+            log.add("Aktuelle Version: " + foundSearchData.getLastActDate());
             if (foundSearchData.getLastActDate().isEmpty() ||
-                    FoundFactory.isNewFound(foundSearchData.getLastActDate(), foundSearchData.getProgBuildDate())) {
-                //das ist es mind. :)
+                    FoundFactory.isNewFound(foundSearchData.getLastActDate(), foundSearchData.getProgBuildDate(), log)) {
                 foundSearchData.setLastActDate(foundSearchData.getProgBuildDate());
             }
+
+            log.add("Beta-Version: " + foundSearchData.getLastBetaDate());
             if (foundSearchData.getLastBetaDate().isEmpty() ||
-                    FoundFactory.isNewFound(foundSearchData.getLastBetaDate(), foundSearchData.getProgBuildDate())) {
-                //das ist es mind. :)
+                    FoundFactory.isNewFound(foundSearchData.getLastBetaDate(), foundSearchData.getProgBuildDate(), log)) {
                 foundSearchData.setLastBetaDate(foundSearchData.getProgBuildDate());
             }
+
+            log.add("Daily: " + foundSearchData.getLastDailyDate());
             if (foundSearchData.getLastDailyDate().isEmpty() ||
-                    FoundFactory.isNewFound(foundSearchData.getLastDailyDate(), foundSearchData.getProgBuildDate())) {
-                //das ist es mind. :)
+                    FoundFactory.isNewFound(foundSearchData.getLastDailyDate(), foundSearchData.getProgBuildDate(), log)) {
                 foundSearchData.setLastDailyDate(foundSearchData.getProgBuildDate());
             }
+            PLog.sysLog(log);
 
             String strLine;
             while ((strLine = br.readLine()) != null) {

@@ -27,16 +27,28 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 public class FoundFactory {
 
+
     public static boolean isNewFound(String old, String newValue) {
+        return isNewFound(old, newValue, null);
+    }
+
+    public static boolean isNewFound(String old, String newValue, ArrayList<String> log) {
         if (newValue.compareTo(old) <= 0) {
-            //dann war schon mal da
-            PLog.sysLog("isNewFound: " + newValue + P2LibConst.LINE_SEPARATOR + "  -> wurde schon mal angezeigt");
+            //dann war schon mal da oder gibt nix
+            if (log != null) {
+                log.add("  isNewFound: " + newValue);
+                log.add("  -> gibt nichts oder schon mal angezeigt");
+            }
             return false;
+
         } else {
-            PLog.sysLog("isNewFound: " + newValue + P2LibConst.LINE_SEPARATOR + newValue);
+            if (log != null) {
+                log.add("  isNewFound: " + newValue);
+            }
             return true;
         }
     }
