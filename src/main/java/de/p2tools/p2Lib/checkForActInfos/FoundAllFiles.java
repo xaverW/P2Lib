@@ -42,7 +42,7 @@ public class FoundAllFiles {
 
             ArrayList<String> log = new ArrayList<>();
             log.add("=====================================");
-            log.add("nach neuen Programmversionen suchen");
+            log.add("Programmversionen auf aktuelles build-date heben");
             log.add("Aktuelle Version: " + foundSearchData.getLastActDate());
             if (foundSearchData.getLastActDate().isEmpty() ||
                     FoundFactory.isNewFound(foundSearchData.getLastActDate(), foundSearchData.getProgBuildDate(), log)) {
