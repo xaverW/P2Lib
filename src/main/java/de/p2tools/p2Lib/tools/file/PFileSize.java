@@ -101,9 +101,25 @@ public class PFileSize implements Comparable<PFileSize> {
         if (!(obj instanceof PFileSize)) {
             return false;
         }
-        
+
         final PFileSize other = (PFileSize) obj;
         return other.sizeL == sizeL;
+    }
+
+    public long getSizeL() {
+        return sizeL;
+    }
+
+    public void setSizeL(long sizeL) {
+        this.sizeL = sizeL;
+    }
+
+    public String getSizeStr() {
+        return sizeStr;
+    }
+
+    public void setSizeStr(String sizeStr) {
+        this.sizeStr = sizeStr;
     }
 
     @Override
