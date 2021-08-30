@@ -33,11 +33,11 @@ public class PProgressBar extends StackPane {
 
     public PProgressBar() {
         this.getChildren().setAll(progressBar, text);
-        this.setPadding(new Insets(4));
+        this.setPadding(new Insets(10));
         this.setAlignment(progressBar, Pos.CENTER);
         this.setAlignment(text, Pos.CENTER);
         setProgress();
-        progressBar.setStyle("-fx-accent: #ddeeff; ");
+        progressBar.getStyleClass().add("pProgressBar");
 
         progressBar.setMinWidth(100);
         progressBar.setMaxWidth(Double.MAX_VALUE);
@@ -51,16 +51,10 @@ public class PProgressBar extends StackPane {
     }
 
     private void setProgress() {
-//        if (progress == 0) {
-//            text.setText("");
-//            progressBar.setVisible(false);
-//        } else {
-//            progressBar.setVisible(true);
         text.setText(progressText);
         progressBar.setProgress(progress);
-//        }
 
-        progressBar.setMinHeight(text.getBoundsInLocal().getHeight() + 10);
+        progressBar.setMinHeight(text.getBoundsInLocal().getHeight() + 5);
         progressBar.setMinWidth(text.getBoundsInLocal().getWidth() + 25);
     }
 }

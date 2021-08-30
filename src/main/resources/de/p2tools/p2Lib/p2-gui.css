@@ -362,3 +362,13 @@
     -fx-background-color: #b2bde1, linear-gradient(from 0% 83% to 0% -37% , repeat, #808080, #b5b5b5 61% );
 }
 
+.pProgressBar .bar {
+    -fx-border-insets: 2 2 3 2;
+    -fx-border-radius: 5;
+    -fx-border-color: #0085be;
+
+    -fx-background-insets: 2 2 3 2;
+    -fx-background-radius: 5;
+    -fx-background-color: #5d5e8c,
+        linear-gradient(to bottom, #0085be 10%, white 100% );
+}
