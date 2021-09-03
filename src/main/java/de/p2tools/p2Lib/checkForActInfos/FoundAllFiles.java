@@ -88,7 +88,7 @@ public class FoundAllFiles {
                     //<p><a href="/download/daily/P2Radio-2__2021.07.11.zip">P2Radio-2__2021.07.11.zip</a></p>
                     addBeta(false, foundSearchData, strLine);
                 }
-                System.out.println(strLine.trim());
+//                System.out.println(strLine.trim());
             }
         } catch (final IOException ex) {
             PLog.errorLog(885692213, ex);

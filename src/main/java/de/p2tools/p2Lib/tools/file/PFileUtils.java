@@ -62,6 +62,20 @@ public class PFileUtils {
         return count;
     }
 
+    public static String getParentPath(String path) {
+        try {
+            File f = new File(path);
+            f = f.getParentFile();
+            return f.getAbsolutePath();
+        } catch (Exception ex) {
+            PLog.errorLog(310245789, ex, path);
+            new PAlert().showErrorAlert("Elternverzeichnis", "Das Elternverzeichnis von:" + P2LibConst.LINE_SEPARATOR +
+                    path + P2LibConst.LINE_SEPARATORx2 +
+                    "kann nicht gefunden werden.");
+        }
+        return "";
+    }
+
     public static String addsPath(String path1, String path2) {
 //        final String ret = concatPaths(path1, path2);
         String ret = "";

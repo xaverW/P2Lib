@@ -17,29 +17,28 @@
 
 package de.p2tools.p2Lib.checkForUpdates;
 
-import de.p2tools.p2Lib.configFile.pData.PData;
-import de.p2tools.p2Lib.tools.date.PLocalDate;
-import de.p2tools.p2Lib.tools.date.PLocalDateTime;
 import de.p2tools.p2Lib.tools.file.PFileUtils;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class AutoUpdate {
-    private void AutoUpdate(){
+    public static final DateTimeFormatter FORMAT_dd_MM_yyyy_HH_mm_ss = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
+
+    private void AutoUpdate() {
     }
 
-    public static boolean update(String configDir, String progDirUrl){
+    public static boolean update(String configDir, String progDirUrl) {
         boolean ret = false;
-        String tmpDir =PFileUtils.addsPath( configDir,
-                "update_"+ new PLocalDate().getDateTime(PLocalDateTime.FORMAT_dd_MM_yyyy_HH_mm_ss));
+        String tmpDir = PFileUtils.addsPath(configDir,
+                "update_" + LocalDate.now().format(FORMAT_dd_MM_yyyy_HH_mm_ss));
         Path tmpPath = Path.of(tmpDir);
-        if (tmpPath.toFile().exists()){
+        if (tmpPath.toFile().exists()) {
             return false;
         }
 
-        if (PFileUtils.fileIsDirectoryExist(progDirUrl)){
+        if (PFileUtils.fileIsDirectoryExist(progDirUrl)) {
             // Dann ist ein lokaler Pfad
         }
 

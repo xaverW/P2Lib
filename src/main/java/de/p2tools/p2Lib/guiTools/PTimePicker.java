@@ -17,45 +17,43 @@
 
 package de.p2tools.p2Lib.guiTools;
 
-import de.p2tools.p2Lib.tools.date.PLocalTime;
+import de.p2tools.p2Lib.tools.date.PLocalTimeFactory;
 import javafx.scene.control.ComboBox;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PTimePicker extends ComboBox<PLocalTime> {
-    private PLocalTime pLocalTime;
+public class PTimePicker extends ComboBox<LocalTime> {
     private int addMinutes = 15;
 
     public PTimePicker() {
-        LocalTime l = LocalTime.now();
-        pLocalTime = new PLocalTime(LocalTime.of(l.getHour(), l.getMinute()));
-        init();
+        LocalTime l = LocalTime.now().plusMinutes(addMinutes);
+        LocalTime pLocalTime = LocalTime.of(l.getHour(), l.getMinute());
+        init(pLocalTime);
     }
 
     public PTimePicker(int addMinutes) {
         this.addMinutes = addMinutes;
         LocalTime l = LocalTime.now();
-        pLocalTime = new PLocalTime(LocalTime.of(l.getHour(), l.getMinute()));
-        init();
+        LocalTime pLocalTime = LocalTime.of(l.getHour(), l.getMinute());
+        init(pLocalTime);
     }
 
-    public PTimePicker(PLocalTime pLocalTime, int addMinutes) {
-        this.pLocalTime = pLocalTime;
+    public PTimePicker(LocalTime pLocalTime, int addMinutes) {
         this.addMinutes = addMinutes;
-        init();
+        init(pLocalTime);
     }
 
-    private void init() {
-        PLocalTime pl = new PLocalTime(LocalTime.ofSecondOfDay(0));
-        List<PLocalTime> list = new ArrayList<>();
-        PLocalTime plSelect = pl;
+    private void init(LocalTime pLocalTime) {
+        LocalTime pl = LocalTime.ofSecondOfDay(0);
+        List<LocalTime> list = new ArrayList<>();
+        LocalTime plSelect = pl;
 
         list.add(pl);
         for (int h = 0; h < 24; ++h) {
             for (int m = 0; m < 60; m += addMinutes) {
-                pl = new PLocalTime(LocalTime.of(h, m));
+                pl = LocalTime.of(h, m);
                 list.add(pl);
                 if (pl.compareTo(pLocalTime) <= 0) {
                     plSelect = pl;
@@ -64,59 +62,34 @@ public class PTimePicker extends ComboBox<PLocalTime> {
         }
         this.getItems().addAll(list);
         this.getSelectionModel().select(plSelect);
-        pLocalTime.setPLocalTime(plSelect.getLocalTime());
-
-        this.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue != null && !oldValue.isEmpty() &&
-                    newValue != null && !oldValue.equals(newValue)) {
-                //System.out.println(oldValue + " - " + newValue);
-                pLocalTime.setPLocalTime(newValue);
-            }
-        });
     }
 
     public void removeTime() {
-        this.pLocalTime = null;
         this.setValue(null);
     }
 
-    public void setTime(PLocalTime localTime) {
-        this.pLocalTime = localTime;
-//        this.setValue(this.pLocalTime);
-        this.getSelectionModel().select(this.pLocalTime);
+    public void setTime(LocalTime localTime) {
+        this.getSelectionModel().select(localTime);
     }
 
     public void setTime(String stringDate) {
         if (stringDate == null || stringDate.isEmpty()) {
             this.setValue(null);
-            this.pLocalTime.clearPLocalTime();
         } else {
-            pLocalTime.setPLocalTime(stringDate);
-//            this.setValue(pLocalTime);
+            LocalTime pLocalTime = PLocalTimeFactory.getPLocalTime(stringDate);
             this.getSelectionModel().select(pLocalTime);
         }
     }
 
-    public PLocalTime getpLocalTime() {
-        return pLocalTime;
+    public LocalTime getLocalTime() {
+        return getValue();
     }
 
     public void clearTime() {
-        if (this.pLocalTime != null) {
-            this.pLocalTime.clearPLocalTime();
-        }
         this.setValue(null);
     }
 
     public String getTime() {
-        String ret = "";
-
-        PLocalTime date = getValue();
-        if (date != null) {
-            ret = getTime();
-        }
-
-        return ret;
+        return PLocalTimeFactory.getLocalTimeStr(getValue());
     }
-
 }

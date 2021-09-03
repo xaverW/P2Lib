@@ -57,5 +57,9 @@ public class PProgressBar extends StackPane {
         progressBar.setMinHeight(text.getBoundsInLocal().getHeight() + 5);
         progressBar.setMinWidth(text.getBoundsInLocal().getWidth() + 25);
     }
+
+    public ProgressBar getProgressBar() {
+        return progressBar;
+    }
 }
 
