@@ -32,11 +32,11 @@ import javafx.stage.Stage;
 public class PDialogExtra extends PDialog {
 
     private final VBox vBoxCompleteDialog = new VBox(); // ist der gesamte Dialog
-    private final ScrollPane scrollPane = new ScrollPane();
-    private final HBox hBoxOverAll = new HBox(10); // ist der Bereich über dem Inhalt und dem Scrollpanel
     private final HBox hBoxTitle = new HBox(10); // ist der Bereich über dem Inhalt mit dem Titel
+    private final HBox hBoxOverAll = new HBox(10); // ist der Bereich über dem Inhalt und dem Scrollpanel
+    private final ScrollPane scrollPane = new ScrollPane();
+    private final VBox vBoxCont = new VBox(10); // ist der Inhalt des Dialogs und in der Scrollpane
     private final HBox hBoxOverButtons = new HBox(10); // ist der Bereich über den Buttons aber außerhalb des Rahmens
-    private final VBox vBoxCont = new VBox(10); // ist der Inhalt des Dialogs
     private final HBox hBoxLeft = new HBox(10); // ist vor der ButtonBar
     private final HBox hBoxRight = new HBox(10); // ist nach der ButtonBar
     private final ButtonBar buttonBar = new ButtonBar();
@@ -203,7 +203,6 @@ public class PDialogExtra extends PDialog {
         scrollPane.setFitToWidth(true);
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
         scrollPane.setContent(vBoxCont);
-
     }
 
     private void initNone() {
