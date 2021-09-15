@@ -17,14 +17,24 @@
 
 package de.p2tools.p2Lib.guiTools.pToolTip;
 
+import de.p2tools.p2Lib.guiTools.PHyperlink;
+
 public class PToolTip {
     private final String text;
     private final String image;
+    private final PHyperlink hyperlinkWeb;
     private boolean wasShown = false;
 
     public PToolTip(String text, String image) {
         this.text = text;
         this.image = image;
+        this.hyperlinkWeb = null;
+    }
+
+    public PToolTip(String text, String image, PHyperlink pHyperlink) {
+        this.text = text;
+        this.image = image;
+        this.hyperlinkWeb = pHyperlink;
     }
 
     public String getText() {
@@ -33,6 +43,10 @@ public class PToolTip {
 
     public String getImage() {
         return image;
+    }
+
+    public PHyperlink getHyperlinkWeb() {
+        return hyperlinkWeb;
     }
 
     public boolean isWasShown() {

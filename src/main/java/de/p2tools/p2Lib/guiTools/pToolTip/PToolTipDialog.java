@@ -21,6 +21,7 @@ import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.PButton;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.CheckBox;
@@ -45,6 +46,7 @@ public class PToolTipDialog extends PDialogExtra {
     private int actToolTip = 0;
     ImageView iv = new ImageView();
     Label lblText = new Label();
+    HBox hBoxHyper = new HBox();
     StringProperty shownProp;
     BooleanProperty dontShow;
 
@@ -72,6 +74,9 @@ public class PToolTipDialog extends PDialogExtra {
         VBox vBoxR = new VBox(0);
         vBoxL.getChildren().add(iv);
         vBoxR.getChildren().add(lblText);
+
+        hBoxHyper.setPadding(new Insets(0));
+        vBoxR.getChildren().add(hBoxHyper);
 
         HBox hBox = new HBox(20);
         HBox.setHgrow(vBoxR, Priority.ALWAYS);
@@ -137,6 +142,11 @@ public class PToolTipDialog extends PDialogExtra {
         Image im = new Image(pToolTipList.get(actToolTip).getImage(), 400, 400, true, true);
         iv.setImage(im);
         lblText.setText(pToolTipList.get(actToolTip).getText());
+        hBoxHyper.getChildren().clear();
+        if (pToolTipList.get(actToolTip).getHyperlinkWeb() != null) {
+            hBoxHyper.getChildren().add(pToolTipList.get(actToolTip).getHyperlinkWeb());
+        }
+
         super.getStage().setTitle("ToolTip: " + (actToolTip + 1));
         shownProp.setValue(PToolTipFactory.getToolTipShownString(pToolTipList));
     }
