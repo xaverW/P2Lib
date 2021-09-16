@@ -17,24 +17,27 @@
 
 package de.p2tools.p2Lib.guiTools.pToolTip;
 
-import de.p2tools.p2Lib.guiTools.PHyperlink;
+import javafx.beans.property.StringProperty;
 
 public class PToolTip {
     private final String text;
     private final String image;
-    private final PHyperlink hyperlinkWeb;
+    private final String hyperlinkWeb;
+    private final StringProperty openUrl;
     private boolean wasShown = false;
 
     public PToolTip(String text, String image) {
         this.text = text;
         this.image = image;
         this.hyperlinkWeb = null;
+        this.openUrl = null;
     }
 
-    public PToolTip(String text, String image, PHyperlink pHyperlink) {
+    public PToolTip(String text, String image, String pHyperlink, StringProperty openUrl) {
         this.text = text;
         this.image = image;
         this.hyperlinkWeb = pHyperlink;
+        this.openUrl = openUrl;
     }
 
     public String getText() {
@@ -45,8 +48,16 @@ public class PToolTip {
         return image;
     }
 
-    public PHyperlink getHyperlinkWeb() {
+    public String getHyperlinkWeb() {
         return hyperlinkWeb;
+    }
+
+    public String getOpenUrl() {
+        return openUrl.get();
+    }
+
+    public StringProperty openUrlProperty() {
+        return openUrl;
     }
 
     public boolean isWasShown() {

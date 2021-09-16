@@ -19,6 +19,7 @@ package de.p2tools.p2Lib.guiTools.pToolTip;
 
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.PButton;
+import de.p2tools.p2Lib.guiTools.PHyperlink;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
@@ -47,6 +48,7 @@ public class PToolTipDialog extends PDialogExtra {
     ImageView iv = new ImageView();
     Label lblText = new Label();
     HBox hBoxHyper = new HBox();
+
     StringProperty shownProp;
     BooleanProperty dontShow;
 
@@ -142,9 +144,18 @@ public class PToolTipDialog extends PDialogExtra {
         Image im = new Image(pToolTipList.get(actToolTip).getImage(), 400, 400, true, true);
         iv.setImage(im);
         lblText.setText(pToolTipList.get(actToolTip).getText());
+
         hBoxHyper.getChildren().clear();
         if (pToolTipList.get(actToolTip).getHyperlinkWeb() != null) {
-            hBoxHyper.getChildren().add(pToolTipList.get(actToolTip).getHyperlinkWeb());
+            PHyperlink hyperlinkWeb;
+            if (pToolTipList.get(actToolTip).openUrlProperty() != null) {
+                hyperlinkWeb = new PHyperlink(pToolTipList.get(actToolTip).getHyperlinkWeb(),
+                        pToolTipList.get(actToolTip).openUrlProperty());
+            } else {
+                hyperlinkWeb = new PHyperlink(pToolTipList.get(actToolTip).getHyperlinkWeb());
+            }
+
+            hBoxHyper.getChildren().add(hyperlinkWeb);
         }
 
         super.getStage().setTitle("ToolTip: " + (actToolTip + 1));

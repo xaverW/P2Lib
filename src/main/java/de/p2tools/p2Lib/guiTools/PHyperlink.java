@@ -35,7 +35,7 @@ import java.util.Optional;
 public class PHyperlink extends Hyperlink {
     private String url;
     private final StringProperty prog;
-    private ImageView imageView = null;
+    private final ImageView imageView;
     private final Stage stage;
     private boolean changeAble = false;
 
@@ -57,6 +57,15 @@ public class PHyperlink extends Hyperlink {
         init();
     }
 
+    public PHyperlink(String url, StringProperty prog) {
+        super(url);
+        stage = P2LibConst.primaryStage;
+        this.url = url;
+        this.prog = prog;
+        this.imageView = null;
+        init();
+    }
+
     public PHyperlink(String url, ImageView imageView) {
         super(url);
         stage = P2LibConst.primaryStage;
@@ -71,13 +80,13 @@ public class PHyperlink extends Hyperlink {
         stage = P2LibConst.primaryStage;
         this.url = url;
         this.prog = null;
+        this.imageView = null;
         init();
     }
 
     public void setUrl(String url) {
         this.url = url;
         super.setText(url);
-//        init();
     }
 
     public void setChangeable() {
@@ -88,11 +97,7 @@ public class PHyperlink extends Hyperlink {
         setStyle("-fx-font-size: 15px;");
         setOnAction(a -> {
             try {
-                if (prog != null) {
-                    POpen.openURL(stage, url, prog, imageView);
-                } else {
-                    POpen.openURL(stage, url);
-                }
+                POpen.openURL(stage, url, prog, imageView);
             } catch (Exception e) {
                 PLog.errorLog(974125469, e);
             }
