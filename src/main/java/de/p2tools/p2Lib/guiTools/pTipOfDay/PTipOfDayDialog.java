@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2Lib.guiTools.pToolTip;
+package de.p2tools.p2Lib.guiTools.pTipOfDay;
 
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.PButton;
@@ -41,10 +41,10 @@ public class PTipOfDayDialog extends PDialogExtra {
     public static final Image ICON_BUTTON_NEXT = new Image(PTipOfDayDialog.class.getResourceAsStream("button-next.png"));
     public static final Image ICON_BUTTON_PREV = new Image(PTipOfDayDialog.class.getResourceAsStream("button-prev.png"));
 
-    private final List<PTipOfDay> pToolTipList;
+    private final List<PTipOfDay> pTipList;
     private Button btnOk, btnPrev, btnNext;
     private CheckBox chkShow = new CheckBox("Tips anzeigen");
-    private int actToolTip = 0;
+    private int actTipOfDay = 0;
     ImageView iv = new ImageView();
     Label lblText = new Label();
     HBox hBoxHyper = new HBox();
@@ -52,9 +52,9 @@ public class PTipOfDayDialog extends PDialogExtra {
     StringProperty shownProp;
     BooleanProperty showTip;
 
-    public PTipOfDayDialog(Stage stage, List<PTipOfDay> pToolTipList, StringProperty shownProp, BooleanProperty showTip) {
+    public PTipOfDayDialog(Stage stage, List<PTipOfDay> pTipList, StringProperty shownProp, BooleanProperty showTip) {
         super(stage, null, "Tip des Tages", true, true, DECO.NONE);
-        this.pToolTipList = pToolTipList;
+        this.pTipList = pTipList;
         this.shownProp = shownProp;
         this.showTip = showTip;
 
@@ -63,14 +63,14 @@ public class PTipOfDayDialog extends PDialogExtra {
 
     @Override
     public void make() {
-        PTipOfDayFactory.setToolTipsFromShownString(pToolTipList, shownProp.getValueSafe());
+        PTipOfDayFactory.setToolTipsFromShownString(pTipList, shownProp.getValueSafe());
         initTop();
         initButton();
     }
 
     private void initTop() {
         iv.setSmooth(true);
-        setFirstToolTip();
+        setFirstTip();
 
         VBox vBoxL = new VBox(0);
         VBox vBoxR = new VBox(0);
@@ -122,54 +122,54 @@ public class PTipOfDayDialog extends PDialogExtra {
     private void selectActToolTip(boolean next) {
         if (next) {
             //next
-            if (actToolTip < pToolTipList.size() - 1) {
-                ++actToolTip;
+            if (actTipOfDay < pTipList.size() - 1) {
+                ++actTipOfDay;
             } else {
-                actToolTip = 0;
+                actTipOfDay = 0;
             }
 
         } else {
             //!next
-            if ((actToolTip > 0)) {
-                --actToolTip;
+            if ((actTipOfDay > 0)) {
+                --actTipOfDay;
             } else {
-                actToolTip = pToolTipList.size() - 1;
+                actTipOfDay = pTipList.size() - 1;
             }
         }
-        setToolTip();
+        setTipOfDay();
     }
 
-    private void setToolTip() {
-        pToolTipList.get(actToolTip).setWasShown(true);
-        Image im = new Image(pToolTipList.get(actToolTip).getImage(), 400, 400, true, true);
+    private void setTipOfDay() {
+        pTipList.get(actTipOfDay).setWasShown(true);
+        Image im = new Image(pTipList.get(actTipOfDay).getImage(), 400, 400, true, true);
         iv.setImage(im);
-        lblText.setText(pToolTipList.get(actToolTip).getText());
+        lblText.setText(pTipList.get(actTipOfDay).getText());
 
         hBoxHyper.getChildren().clear();
-        if (pToolTipList.get(actToolTip).getHyperlinkWeb() != null) {
+        if (pTipList.get(actTipOfDay).getHyperlinkWeb() != null) {
             PHyperlink hyperlinkWeb;
-            if (pToolTipList.get(actToolTip).openUrlProperty() != null) {
-                hyperlinkWeb = new PHyperlink(pToolTipList.get(actToolTip).getHyperlinkWeb(),
-                        pToolTipList.get(actToolTip).openUrlProperty());
+            if (pTipList.get(actTipOfDay).openUrlProperty() != null) {
+                hyperlinkWeb = new PHyperlink(pTipList.get(actTipOfDay).getHyperlinkWeb(),
+                        pTipList.get(actTipOfDay).openUrlProperty());
             } else {
-                hyperlinkWeb = new PHyperlink(pToolTipList.get(actToolTip).getHyperlinkWeb());
+                hyperlinkWeb = new PHyperlink(pTipList.get(actTipOfDay).getHyperlinkWeb());
             }
 
             hBoxHyper.getChildren().add(hyperlinkWeb);
         }
 
-        super.getStage().setTitle("Tip des Tages: " + (actToolTip + 1));
-        shownProp.setValue(PTipOfDayFactory.getToolTipShownString(pToolTipList));
+        super.getStage().setTitle("Tip des Tages: " + (actTipOfDay + 1));
+        shownProp.setValue(PTipOfDayFactory.getToolTipShownString(pTipList));
     }
 
-    private void setFirstToolTip() {
+    private void setFirstTip() {
         //ersten noch nicht angezeigten suchen, wenn alle schon gesehen, wieder am Anfang beginnen
-        for (int i = 0; i < pToolTipList.size(); ++i) {
-            if (!pToolTipList.get(i).isWasShown()) {
-                actToolTip = i;
+        for (int i = 0; i < pTipList.size(); ++i) {
+            if (!pTipList.get(i).isWasShown()) {
+                actTipOfDay = i;
                 break;
             }
         }
-        setToolTip();
+        setTipOfDay();
     }
 }

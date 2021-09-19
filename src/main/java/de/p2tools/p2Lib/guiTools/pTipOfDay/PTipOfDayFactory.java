@@ -15,21 +15,21 @@
  */
 
 
-package de.p2tools.p2Lib.guiTools.pToolTip;
+package de.p2tools.p2Lib.guiTools.pTipOfDay;
 
 import java.util.List;
 
 public class PTipOfDayFactory {
-    public static final String TOOL_TIP_WAS_SHOWN = "S";
-    public static final String TOOL_TIP_WAS_NOT_SHOWN = "N";
+    public static final String TIP_OF_DAY_WAS_SHOWN = "S";
+    public static final String TIP_OF_DAY_WAS_NOT_SHOWN = "N";
 
     public static String getToolTipShownString(List<PTipOfDay> list) {
         String shown = "";
         for (int i = 0; i < list.size(); ++i) {
             if (list.get(i).isWasShown()) {
-                shown += PTipOfDayFactory.TOOL_TIP_WAS_SHOWN;
+                shown += PTipOfDayFactory.TIP_OF_DAY_WAS_SHOWN;
             } else {
-                shown += PTipOfDayFactory.TOOL_TIP_WAS_NOT_SHOWN;
+                shown += PTipOfDayFactory.TIP_OF_DAY_WAS_NOT_SHOWN;
             }
         }
         return shown;
@@ -46,7 +46,7 @@ public class PTipOfDayFactory {
         }
 
         for (int i = 0; i < shown.length(); ++i) {
-            if (shown.startsWith(PTipOfDayFactory.TOOL_TIP_WAS_NOT_SHOWN, i)) {
+            if (shown.startsWith(PTipOfDayFactory.TIP_OF_DAY_WAS_NOT_SHOWN, i)) {
                 return true;
             }
         }
@@ -56,11 +56,11 @@ public class PTipOfDayFactory {
 
     public static void setToolTipsFromShownString(List<PTipOfDay> list, String shown) {
         while (shown.length() < list.size()) {
-            shown += PTipOfDayFactory.TOOL_TIP_WAS_NOT_SHOWN;
+            shown += PTipOfDayFactory.TIP_OF_DAY_WAS_NOT_SHOWN;
         }
 
         for (int i = 0; i < list.size(); ++i) {
-            if (shown.startsWith(PTipOfDayFactory.TOOL_TIP_WAS_SHOWN, i)) {
+            if (shown.startsWith(PTipOfDayFactory.TIP_OF_DAY_WAS_SHOWN, i)) {
                 list.get(i).setWasShown(true);
             } else {
                 list.get(i).setWasShown(false);

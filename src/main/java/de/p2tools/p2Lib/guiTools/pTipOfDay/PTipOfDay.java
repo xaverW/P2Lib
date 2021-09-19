@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2Lib.guiTools.pToolTip;
+package de.p2tools.p2Lib.guiTools.pTipOfDay;
 
 import javafx.beans.property.StringProperty;
 
