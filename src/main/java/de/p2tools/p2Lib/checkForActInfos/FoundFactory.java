@@ -40,14 +40,14 @@ public class FoundFactory {
         if (newValue.compareTo(old) <= 0) {
             //dann war schon mal da oder gibt nix
             if (log != null) {
-                log.add("  isNewFound: " + newValue);
+                log.add("  old: " + old + "  isNewFound: " + newValue);
                 log.add("  -> gibt nichts oder schon mal angezeigt");
             }
             return false;
 
         } else {
             if (log != null) {
-                log.add("  isNewFound: " + newValue);
+                log.add("  old: " + old + "  isNewFound: " + newValue);
             }
             return true;
         }

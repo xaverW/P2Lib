@@ -27,10 +27,13 @@ public class FoundAll {
     public static void foundAll(FoundSearchData foundSearchData) {
         FoundAllFiles.found(foundSearchData);
         if (foundSearchData.isShowAllways() ||
+
                 foundSearchData.isFoundNewInfo() && !foundSearchData.getFoundFileListInfo().isEmpty() ||
                 foundSearchData.isFoundNewVersion() && !foundSearchData.getFoundFileListAct().isEmpty() ||
-                foundSearchData.isFoundNewBeta() && !foundSearchData.getFoundFileListBeta().isEmpty() ||
-                foundSearchData.isFoundNewDaily() && !foundSearchData.getFoundFileListDaily().isEmpty()) {
+
+                //searchAct ist immer an, sonst wird das gar nicht aufgerufen aber BETA/DALY nicht
+                foundSearchData.isSearchBeta() && foundSearchData.isFoundNewBeta() && !foundSearchData.getFoundFileListBeta().isEmpty() ||
+                foundSearchData.isSearchBeta() && foundSearchData.isSearchDaily() && foundSearchData.isFoundNewDaily() && !foundSearchData.getFoundFileListDaily().isEmpty()) {
 
             Platform.runLater(() -> {
                 runInfoAlert(foundSearchData);
