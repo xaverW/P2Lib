@@ -36,34 +36,34 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
-public class PToolTipDialog extends PDialogExtra {
+public class PTipOfDayDialog extends PDialogExtra {
 
-    public static final Image ICON_BUTTON_NEXT = new Image(PToolTipDialog.class.getResourceAsStream("button-next.png"));
-    public static final Image ICON_BUTTON_PREV = new Image(PToolTipDialog.class.getResourceAsStream("button-prev.png"));
+    public static final Image ICON_BUTTON_NEXT = new Image(PTipOfDayDialog.class.getResourceAsStream("button-next.png"));
+    public static final Image ICON_BUTTON_PREV = new Image(PTipOfDayDialog.class.getResourceAsStream("button-prev.png"));
 
-    private final List<PToolTip> pToolTipList;
+    private final List<PTipOfDay> pToolTipList;
     private Button btnOk, btnPrev, btnNext;
-    private CheckBox chkDontShow = new CheckBox("keine ToolTips anzeigen");
+    private CheckBox chkShow = new CheckBox("Tips anzeigen");
     private int actToolTip = 0;
     ImageView iv = new ImageView();
     Label lblText = new Label();
     HBox hBoxHyper = new HBox();
 
     StringProperty shownProp;
-    BooleanProperty dontShow;
+    BooleanProperty showTip;
 
-    public PToolTipDialog(Stage stage, List<PToolTip> pToolTipList, StringProperty shownProp, BooleanProperty dontShow) {
-        super(stage, null, "Tool-Tip", true, true, DECO.NONE);
+    public PTipOfDayDialog(Stage stage, List<PTipOfDay> pToolTipList, StringProperty shownProp, BooleanProperty showTip) {
+        super(stage, null, "Tip des Tages", true, true, DECO.NONE);
         this.pToolTipList = pToolTipList;
         this.shownProp = shownProp;
-        this.dontShow = dontShow;
+        this.showTip = showTip;
 
         init(true);
     }
 
     @Override
     public void make() {
-        PToolTipFactory.setToolTipsFromShownString(pToolTipList, shownProp.getValueSafe());
+        PTipOfDayFactory.setToolTipsFromShownString(pToolTipList, shownProp.getValueSafe());
         initTop();
         initButton();
     }
@@ -89,7 +89,7 @@ public class PToolTipDialog extends PDialogExtra {
     }
 
     private void initButton() {
-        chkDontShow.selectedProperty().bindBidirectional(dontShow);
+        chkShow.selectedProperty().bindBidirectional(showTip);
 
         btnOk = new Button("_Ok");
         btnOk.setOnAction(a -> {
@@ -116,7 +116,7 @@ public class PToolTipDialog extends PDialogExtra {
         addAnyButton(btnPrev);
         getButtonBar().setButtonOrder("BX+CO");
 
-        getHBoxOverButtons().getChildren().add(chkDontShow);
+        getHBoxOverButtons().getChildren().add(chkShow);
     }
 
     private void selectActToolTip(boolean next) {
@@ -158,8 +158,8 @@ public class PToolTipDialog extends PDialogExtra {
             hBoxHyper.getChildren().add(hyperlinkWeb);
         }
 
-        super.getStage().setTitle("ToolTip: " + (actToolTip + 1));
-        shownProp.setValue(PToolTipFactory.getToolTipShownString(pToolTipList));
+        super.getStage().setTitle("Tip des Tages: " + (actToolTip + 1));
+        shownProp.setValue(PTipOfDayFactory.getToolTipShownString(pToolTipList));
     }
 
     private void setFirstToolTip() {

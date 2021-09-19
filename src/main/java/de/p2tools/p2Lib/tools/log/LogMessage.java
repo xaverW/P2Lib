@@ -17,6 +17,7 @@
 
 package de.p2tools.p2Lib.tools.log;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.tools.PStringUtils;
 import de.p2tools.p2Lib.tools.ProgramTools;
 import de.p2tools.p2Lib.tools.duration.PDuration;
@@ -67,6 +68,9 @@ public class LogMessage {
         String compile = ProgramTools.getCompileDate();
         if (!compile.isEmpty()) {
             list.add("Compiled: " + compile);
+        }
+        if (P2LibConst.debug) {
+            list.add("-->  DEBUG  <--");
         }
 
         list.add("");
