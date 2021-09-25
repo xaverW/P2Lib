@@ -123,7 +123,7 @@ public class PDateFactory {
         return list;
     }
 
-    public static LocalDate getPLocalDate(String strDate) {
+    public static LocalDate getLocalDate(String strDate) {
         if (strDate == null || strDate.isEmpty()) {
             return null;
         }

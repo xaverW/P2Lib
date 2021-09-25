@@ -57,11 +57,11 @@ public class PLocalDate implements Comparable<PLocalDate> {
     }
 
     public void setPLocalDate(String strDate) {
-        localDate = PDateFactory.getPLocalDate(strDate);
+        localDate = PDateFactory.getLocalDate(strDate);
     }
 
     public void setPLocalDate(PDate date) {
-        localDate = PDateFactory.getPLocalDate(date.toString());
+        localDate = PDateFactory.getLocalDate(date.toString());
     }
 
     public void setPLocalDateNow() {
