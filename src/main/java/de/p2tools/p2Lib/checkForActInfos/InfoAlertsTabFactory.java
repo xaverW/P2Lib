@@ -19,6 +19,7 @@ package de.p2tools.p2Lib.checkForActInfos;
 
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
+import de.p2tools.p2Lib.tools.date.PDateFactory;
 import de.p2tools.p2Lib.tools.download.DownloadFactory;
 import de.p2tools.p2Lib.tools.net.PUrlTools;
 import javafx.geometry.Insets;
@@ -101,13 +102,17 @@ public class InfoAlertsTabFactory {
             textArea.setText("Sie benutzen die aktuellste Version.");
         }
 
-        final Label lblVersion = new Label("Version:");
-        final Label lblWeb = new Label("Webseite:");
+        final Label lblVersion = new Label(foundSearchData.isFoundNewVersion() ? "Neueste Version:" : "aktuelle Version:");
+        final Label lblWeb = new Label("MTPlayer Webseite:");
         final Label lblDown = new Label("Download-Website:");
 
         final Label lblRel = new Label(foundSearchData.isFoundNewVersion() ? "Änderungen:" : "");
         final Label txtVersion = new Label(foundSearchData.isFoundNewVersion() ?
-                foundSearchData.getNewVersionNo() : foundSearchData.getProgVersion());
+                foundSearchData.getNewVersionNo() +
+                        " vom " + PDateFactory.getDate_yMd(foundSearchData.getNewVersionDate()) + "]" :
+                foundSearchData.getProgVersion() +
+                        "   [Build: " + foundSearchData.getProgBuildNo()
+                        + " vom " + PDateFactory.getDate_yMd(foundSearchData.getProgBuildDate()) + "]");
 
         final Hyperlink hyperlinkUrl = new PHyperlink(foundSearchData.getUrlWebsite());
         final Hyperlink hyperlinkDownUrl = new PHyperlink(foundSearchData.getUrlDownload());
@@ -205,11 +210,22 @@ public class InfoAlertsTabFactory {
 
         textArea.setText(beta ? foundSearchData.getNewBetaText() : foundSearchData.getNewDailyText());
 
-        final Label txtVersion = new Label(beta ? foundSearchData.getNewBetaDate() : foundSearchData.getNewDailyDate());
+
+        final Label txtVersion = new Label();
+        if (beta) {
+            txtVersion.setText(foundSearchData.getNewBetaVersion() +
+                    "   [Build: " + foundSearchData.getNewBetaBuildNo()
+                    + " vom " + PDateFactory.getDate_yMd(foundSearchData.getNewBetaDate()) + "]");
+        } else {
+            txtVersion.setText(foundSearchData.getNewDailyVersion() +
+                    "   [Build: " + foundSearchData.getNewDailyBuild()
+                    + " vom " + PDateFactory.getDate_yMd(foundSearchData.getNewDailyDate()) + "]");
+        }
+
         final Hyperlink hyperlinkUrl = new PHyperlink(foundSearchData.getUrlWebsite());
         final Hyperlink hyperlinkDownUrl = new PHyperlink(foundSearchData.getUrlDownload());
-        final Label lblVersion = new Label("Version:");
-        final Label lblWeb = new Label("Webseite:");
+        final Label lblVersion = new Label("Neueste Version:");
+        final Label lblWeb = new Label("MTPlayer Webseite:");
         final Label lblDown = new Label("Download-Website:");
         final Label lblRel = new Label("Änderungen:");
 
@@ -260,7 +276,7 @@ public class InfoAlertsTabFactory {
             gridPane.add(button, 1, ++row);
             if (!done) {
                 done = true;
-                gridPane.add(new Label("Download:"), 0, row);
+                gridPane.add(new Label("Update laden:"), 0, row);
             }
         }
         return row;

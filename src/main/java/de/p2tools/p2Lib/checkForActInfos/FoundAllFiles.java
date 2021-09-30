@@ -120,6 +120,7 @@ public class FoundAllFiles {
             if (foundSearchData.isShowAllways() ||
                     (!foundSearchData.isShowAllways() &&
                             FoundFactory.isNewFound(foundSearchData.getLastInfoDate(), foundFile.getFileDate()))) {
+
                 //Infos sind vorhanden
                 //-> die noch nicht angezeigt wurde ODER
                 //-> soll immer angezeigt werden, alle!
@@ -128,8 +129,6 @@ public class FoundAllFiles {
                 foundSearchData.setNewInfoDate(foundFile.getFileDate());
                 foundFile.setFileText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
                 foundSearchData.getFoundFileListInfo().add(foundFile);
-                System.out.println("\n" + "addInfo: \n" + foundFile.getFileUrl() + "\n" +
-                        fileName + "\n" + foundFile.getFileDate());
             }
         }
     }
@@ -154,10 +153,9 @@ public class FoundAllFiles {
             foundFile.setFileName(fileName);
 
             //Version ermitteln
-            String newVersionNo = "";
             if (fileName.contains("-") && fileName.contains("__")) {
-                newVersionNo = fileName.substring(fileName.indexOf("-") + "-".length(),
-                        fileName.indexOf("__"));
+                foundFile.setFileVersion(fileName.substring(fileName.indexOf("-") + "-".length(),
+                        fileName.indexOf("__")));
             }
 
             if (fileName.contains("__")) {
@@ -175,22 +173,21 @@ public class FoundAllFiles {
                     FoundFactory.isNewFound(foundSearchData.getProgBuildDate(), foundFile.getFileDate())) ||
                     (!foundSearchData.isShowAllways() &&
                             FoundFactory.isNewFound(foundSearchData.getLastActDate(), foundFile.getFileDate()))) {
+
                 //ist eine neue Version
                 //-> die noch nicht angezeigt wurde ODER
                 //-> soll immer angezeigt werden
-                foundSearchData.setNewVersionNo(newVersionNo);
+
+                foundSearchData.setNewVersionNo(foundFile.getFileVersion());
                 foundSearchData.setFoundNewVersion(true);
                 foundSearchData.setNewVersionDate(foundFile.getFileDate());
                 foundSearchData.getFoundFileListAct().add(foundFile);
-                System.out.println("\n" + "addAct: \n" + foundFile.getFileUrl() + "\n" +
-                        fileName + "\n" + foundFile.getFileDate());
             }
         }
     }
 
     private static void addBeta(boolean beta, FoundSearchData foundSearchData, String strLine) {
-        //<p><a href="/download/p2radio/beta/P2Radio-2__2021.07.10.zip">P2Radio-2__2021.07.10.zip</a></p>
-        //<p><a href="/download/p2radio/beta/P2Radio-2__Linux+Java__2021.07.10.zip">P2Radio-2__Linux+Java__2021.07.10.zip</a></p>
+        // <p><a href="/download/mtplayer/daily/MTPlayer-10-208__2021.09.28.zip">MTPlayer-10-208__2021.09.28.zip</a></p>
         int idx1 = strLine.indexOf("href=\"");
         int idx2 = strLine.indexOf("\">");
 
@@ -204,10 +201,15 @@ public class FoundAllFiles {
             FoundFile foundFile = new FoundFile();
             foundFile.setFileUrl(foundSearchData.getSearchUrl() + strLine.substring(idx1, idx2));
 
+            //MTPlayer-10-208__2021.09.28.zip
             String fileName = strLine.substring(idx3, idx4);
             foundFile.setFileName(fileName);
-            foundFile.setFileDate(fileName.
-                    substring(fileName.lastIndexOf("__") + "__".length(), fileName.lastIndexOf(".")));
+            foundFile.setFileVersion(fileName.
+                    substring(fileName.indexOf("-") + "-".length(), fileName.lastIndexOf("-")));
+            foundFile.setFileBuildNo(fileName.
+                    substring(fileName.lastIndexOf("-") + "-".length(), fileName.lastIndexOf("__")));
+            foundFile.setFileDate(fileName.substring(fileName.lastIndexOf("__") + "__".length(),
+                    fileName.lastIndexOf(".")));
 
             if (fileName.endsWith(".txt")) {
                 //Infofile
@@ -230,10 +232,10 @@ public class FoundAllFiles {
                         //-> soll immer angezeigt werden
 
                         foundSearchData.setFoundNewBeta(true);
+                        foundSearchData.setNewBetaVersion(foundFile.getFileVersion());
+                        foundSearchData.setNewBetaBuildNo(foundFile.getFileBuildNo());
                         foundSearchData.setNewBetaDate(foundFile.getFileDate());
                         foundSearchData.getFoundFileListBeta().add(foundFile);
-                        System.out.println("\n" + "addBeta: \n" + foundFile.getFileUrl() + "\n" +
-                                fileName + "\n" + foundFile.getFileDate());
                     }
 
                 } else {
@@ -247,10 +249,10 @@ public class FoundAllFiles {
                         //-> soll immer angezeigt werden
 
                         foundSearchData.setFoundNewDaily(true);
+                        foundSearchData.setNewDailyVersion(foundFile.getFileVersion());
+                        foundSearchData.setNewDailyBuild(foundFile.getFileBuildNo());
                         foundSearchData.setNewDailyDate(foundFile.getFileDate());
                         foundSearchData.getFoundFileListDaily().add(foundFile);
-                        System.out.println("\n" + "addDaily: \n" + foundFile.getFileUrl() + "\n" +
-                                fileName + "\n" + foundFile.getFileDate());
                     }
                 }
             }

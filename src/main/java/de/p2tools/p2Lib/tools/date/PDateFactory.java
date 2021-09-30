@@ -42,6 +42,7 @@ public class PDateFactory {
     public static final DateTimeFormatter DT_FORMATTER_d_MM_yyyy = DateTimeFormatter.ofPattern("d.MM.yyyy");
     public static final DateTimeFormatter DT_FORMATTER_dd_M_yyyy = DateTimeFormatter.ofPattern("dd.M.yyyy");
     public static final DateTimeFormatter DT_FORMATTER_dd_MM_yyyy = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    public static final DateTimeFormatter DT_FORMATTER_yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy.MM.dd");
 
 
     public static String getTodayStr() {
@@ -148,4 +149,15 @@ public class PDateFactory {
         return null;
     }
 
+    public static String getDate_yMd(String d) {
+        try {
+            LocalDate pLocalDate = LocalDate.parse(d, PDateFactory.DT_FORMATTER_yyyy_MM_dd);
+            if (pLocalDate != null) {
+                return pLocalDate.format(PDateFactory.DT_FORMATTER_dd_MM_yyyy);
+            }
+        } catch (final Exception ex) {
+        }
+
+        return d;
+    }
 }

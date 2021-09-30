@@ -20,6 +20,8 @@ package de.p2tools.p2Lib.checkForActInfos;
 public class FoundFile {
     private String fileUrl = "";
     private String fileName = "";
+    private String fileVersion = "";
+    private String fileBuildNo = "";
     private String fileDate = "";
     private String fileText = "";
 
@@ -33,6 +35,22 @@ public class FoundFile {
 
     public String getFileName() {
         return this.fileName;
+    }
+
+    public String getFileVersion() {
+        return fileVersion;
+    }
+
+    public void setFileVersion(String fileVersion) {
+        this.fileVersion = fileVersion;
+    }
+
+    public String getFileBuildNo() {
+        return fileBuildNo;
+    }
+
+    public void setFileBuildNo(String fileBuildNo) {
+        this.fileBuildNo = fileBuildNo;
     }
 
     public void setFileName(String fileName) {

@@ -57,15 +57,20 @@ public class FoundSearchData {
     private String newVersionNo = "";
 
     private String newBetaText = "";
+    private String newBetaVersion = "";
+    private String newBetaBuildNo = "";
     private String newBetaDate = "";
 
     private String newDailyText = "";
+    private String newDailyVersion = "";
+    private String newDailyBuild = "";
     private String newDailyDate = "";
 
     private String urlWebsite;
     private String urlDownload;
     private String progName;
     private String progVersion;//aktuelle Programmversion
+    private String progBuildNo;
     private String progBuildDate;
     private boolean showAllways;
 
@@ -85,6 +90,7 @@ public class FoundSearchData {
                            String urlDownload,
                            String progName,
                            String progVersion,
+                           String progBuildNo,
                            String progBuildDate,
                            boolean showAllways
     ) {
@@ -107,6 +113,7 @@ public class FoundSearchData {
         this.urlDownload = urlDownload;
         this.progName = progName;
         this.progVersion = progVersion;
+        this.progBuildNo = progBuildNo;
         this.progBuildDate = progBuildDate;
         if (this.lastActDate.getValue().isEmpty()) {
             //das ist die aktuelle Programmversion die läuft
@@ -371,6 +378,22 @@ public class FoundSearchData {
         this.newBetaText = newBetaText;
     }
 
+    public String getNewBetaVersion() {
+        return newBetaVersion;
+    }
+
+    public void setNewBetaVersion(String newBetaVersion) {
+        this.newBetaVersion = newBetaVersion;
+    }
+
+    public String getNewBetaBuildNo() {
+        return newBetaBuildNo;
+    }
+
+    public void setNewBetaBuildNo(String newBetaBuildNo) {
+        this.newBetaBuildNo = newBetaBuildNo;
+    }
+
     public String getNewBetaDate() {
         return newBetaDate;
     }
@@ -385,6 +408,22 @@ public class FoundSearchData {
 
     public void setNewDailyText(String newDailyText) {
         this.newDailyText = newDailyText;
+    }
+
+    public String getNewDailyVersion() {
+        return newDailyVersion;
+    }
+
+    public void setNewDailyVersion(String newDailyVersion) {
+        this.newDailyVersion = newDailyVersion;
+    }
+
+    public String getNewDailyBuild() {
+        return newDailyBuild;
+    }
+
+    public void setNewDailyBuild(String newDailyBuild) {
+        this.newDailyBuild = newDailyBuild;
     }
 
     public String getNewDailyDate() {
@@ -425,6 +464,14 @@ public class FoundSearchData {
 
     public void setProgVersion(String progVersion) {
         this.progVersion = progVersion;
+    }
+
+    public String getProgBuildNo() {
+        return progBuildNo;
+    }
+
+    public void setProgBuildNo(String progBuildNo) {
+        this.progBuildNo = progBuildNo;
     }
 
     public String getProgBuildDate() {
