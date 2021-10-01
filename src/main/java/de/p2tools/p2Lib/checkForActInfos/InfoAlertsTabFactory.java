@@ -24,11 +24,9 @@ import de.p2tools.p2Lib.tools.download.DownloadFactory;
 import de.p2tools.p2Lib.tools.net.PUrlTools;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class InfoAlertsTabFactory {
@@ -102,26 +100,56 @@ public class InfoAlertsTabFactory {
             textArea.setText("Sie benutzen die aktuellste Version.");
         }
 
-        final Label lblVersion = new Label(foundSearchData.isFoundNewVersion() ? "Neueste Version:" : "aktuelle Version:");
+        final Label lblActVersion = new Label("Aktuelle Version:");
+        final Label lblVersion = new Label("Neueste Version:");
         final Label lblWeb = new Label("MTPlayer Webseite:");
         final Label lblDown = new Label("Download-Website:");
 
         final Label lblRel = new Label(foundSearchData.isFoundNewVersion() ? "Änderungen:" : "");
-        final Label txtVersion = new Label(foundSearchData.isFoundNewVersion() ?
-                foundSearchData.getNewVersionNo() +
-                        " vom " + PDateFactory.getDate_yMd(foundSearchData.getNewVersionDate()) + "]" :
-                foundSearchData.getProgVersion() +
-                        "   [Build: " + foundSearchData.getProgBuildNo()
-                        + " vom " + PDateFactory.getDate_yMd(foundSearchData.getProgBuildDate()) + "]");
+        final Label txtActVersion = new Label(foundSearchData.getProgVersion() +
+                "  vom: " + PDateFactory.getDate_yMd(foundSearchData.getProgBuildDate()));
+
+        final Label txtVersion = new Label(foundSearchData.getNewVersionNo() +
+                "  vom: " + PDateFactory.getDate_yMd(foundSearchData.getNewVersionDate()));
 
         final Hyperlink hyperlinkUrl = new PHyperlink(foundSearchData.getUrlWebsite());
         final Hyperlink hyperlinkDownUrl = new PHyperlink(foundSearchData.getUrlDownload());
 
         int row = 0;
+        lblActVersion.setPadding(new Insets(VERSION_PADDING_T, 0, VERSION_PADDING_B, 0));
+        txtActVersion.setPadding(new Insets(VERSION_PADDING_T, 0, VERSION_PADDING_B, 0));
         lblVersion.setPadding(new Insets(VERSION_PADDING_T, 0, VERSION_PADDING_B, 0));
         txtVersion.setPadding(new Insets(VERSION_PADDING_T, 0, VERSION_PADDING_B, 0));
-        gridPane.add(lblVersion, 0, row);
-        gridPane.add(txtVersion, 1, row);
+
+        final HBox pane1 = new HBox();
+        pane1.getStyleClass().add("update-grid-cell");
+        pane1.getChildren().add(lblActVersion);
+        pane1.setAlignment(Pos.CENTER_LEFT);
+
+
+        final HBox pane2 = new HBox();
+        pane2.getStyleClass().add("update-grid-cell");
+        pane2.getChildren().add(txtActVersion);
+        pane2.setAlignment(Pos.CENTER_LEFT);
+
+        final HBox pane3 = new HBox();
+        pane3.getStyleClass().add("update-grid-cell");
+        pane3.getChildren().add(lblVersion);
+        pane3.setAlignment(Pos.CENTER_LEFT);
+
+        final HBox pane4 = new HBox();
+        pane4.getStyleClass().add("update-grid-cell");
+        pane4.getChildren().add(txtVersion);
+        pane4.setAlignment(Pos.CENTER_LEFT);
+
+
+        gridPane.add(pane1, 0, row);
+        gridPane.add(pane2, 1, row);
+
+        if (foundSearchData.isFoundNewVersion()) {
+            gridPane.add(pane3, 0, ++row);
+            gridPane.add(pane4, 1, row);
+        }
 
         gridPane.add(lblWeb, 0, ++row);
         gridPane.add(hyperlinkUrl, 1, row);
@@ -211,29 +239,60 @@ public class InfoAlertsTabFactory {
         textArea.setText(beta ? foundSearchData.getNewBetaText() : foundSearchData.getNewDailyText());
 
 
+        final Label txtActVersion = new Label(foundSearchData.getProgVersion() +
+                "   [Build: " + foundSearchData.getProgBuildNo() +
+                "  vom: " + PDateFactory.getDate_yMd(foundSearchData.getProgBuildDate()) + "]");
+
         final Label txtVersion = new Label();
         if (beta) {
             txtVersion.setText(foundSearchData.getNewBetaVersion() +
                     "   [Build: " + foundSearchData.getNewBetaBuildNo()
-                    + " vom " + PDateFactory.getDate_yMd(foundSearchData.getNewBetaDate()) + "]");
+                    + "  vom: " + PDateFactory.getDate_yMd(foundSearchData.getNewBetaDate()) + "]");
         } else {
             txtVersion.setText(foundSearchData.getNewDailyVersion() +
                     "   [Build: " + foundSearchData.getNewDailyBuild()
-                    + " vom " + PDateFactory.getDate_yMd(foundSearchData.getNewDailyDate()) + "]");
+                    + "  vom: " + PDateFactory.getDate_yMd(foundSearchData.getNewDailyDate()) + "]");
         }
 
         final Hyperlink hyperlinkUrl = new PHyperlink(foundSearchData.getUrlWebsite());
         final Hyperlink hyperlinkDownUrl = new PHyperlink(foundSearchData.getUrlDownload());
+        final Label lblActVersion = new Label("Aktuelle Version:");
         final Label lblVersion = new Label("Neueste Version:");
         final Label lblWeb = new Label("MTPlayer Webseite:");
         final Label lblDown = new Label("Download-Website:");
         final Label lblRel = new Label("Änderungen:");
 
+        final HBox pane1 = new HBox();
+        pane1.getStyleClass().add("update-grid-cell");
+        pane1.getChildren().add(lblActVersion);
+        pane1.setAlignment(Pos.CENTER_LEFT);
+
+        final HBox pane2 = new HBox();
+        pane2.getStyleClass().add("update-grid-cell");
+        pane2.getChildren().add(txtActVersion);
+        pane2.setAlignment(Pos.CENTER_LEFT);
+
+        final HBox pane3 = new HBox();
+        pane3.getStyleClass().add("update-grid-cell");
+        pane3.getChildren().add(lblVersion);
+        pane3.setAlignment(Pos.CENTER_LEFT);
+
+        final HBox pane4 = new HBox();
+        pane4.getStyleClass().add("update-grid-cell");
+        pane4.getChildren().add(txtVersion);
+        pane4.setAlignment(Pos.CENTER_LEFT);
+
         int row = 0;
+        lblActVersion.setPadding(new Insets(VERSION_PADDING_T, 0, VERSION_PADDING_B, 0));
+        txtActVersion.setPadding(new Insets(VERSION_PADDING_T, 0, VERSION_PADDING_B, 0));
         lblVersion.setPadding(new Insets(VERSION_PADDING_T, 0, VERSION_PADDING_B, 0));
         txtVersion.setPadding(new Insets(VERSION_PADDING_T, 0, VERSION_PADDING_B, 0));
-        gridPane.add(lblVersion, 0, row);
-        gridPane.add(txtVersion, 1, row);
+
+        gridPane.add(pane1, 0, row);
+        gridPane.add(pane2, 1, row);
+
+        gridPane.add(pane3, 0, ++row);
+        gridPane.add(pane4, 1, row);
 
         gridPane.add(lblWeb, 0, ++row);
         gridPane.add(hyperlinkUrl, 1, row);
@@ -251,6 +310,11 @@ public class InfoAlertsTabFactory {
 
         gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
                 PColumnConstraints.getCcComputedSizeAndHgrow());
+
+        RowConstraints rowConstraints = new RowConstraints();
+        rowConstraints.setValignment(VPos.CENTER);
+        gridPane.getRowConstraints().add(rowConstraints);
+
 
         VBox vBox = new VBox(10);
         vBox.getChildren().add(gridPane);

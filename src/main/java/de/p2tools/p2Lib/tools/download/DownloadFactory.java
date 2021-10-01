@@ -41,6 +41,13 @@ public class DownloadFactory {
 
 //            DownloadProgressDialog downloadProgressDialog = new DownloadProgressDialog(stage, downloadDialogController.getDestName());
             Thread download = new HttpDownload(stage, url, downloadDialogController.getDestPath(), downloadDialogController.getDestName());
+
+            try {
+                //verhindert das Aufpoppen des startenden Dialogs etwas
+                Thread.sleep(500);
+            } catch (Exception ignore) {
+            }
+
             download.start();
 
         } else {
