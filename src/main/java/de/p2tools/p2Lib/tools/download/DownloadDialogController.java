@@ -37,34 +37,40 @@ import javafx.stage.Stage;
 
 public class DownloadDialogController extends PDialogExtra {
 
-    private VBox vBoxCont;
+    private final VBox vBoxCont;
 
-    private Button btnOk = new Button("_Ok");
-    private Button btnCancel = new Button("_Abbrechen");
+    private final Button btnOk = new Button("_Ok");
+    private final Button btnCancel = new Button("_Abbrechen");
 
-    private GridPane gridPane = new GridPane();
-    private TextField txtDestPath = new TextField();
-    private TextField txtName = new TextField();
+    private final GridPane gridPane = new GridPane();
+    private final TextField txtDestPath = new TextField();
+    private final TextField txtName = new TextField();
 
-    private StringProperty filePath = new SimpleStringProperty();
-    private StringProperty fileName = new SimpleStringProperty();
-    private String url;
-    private String urlFile;
-    private String orgFileName;
+    private final StringProperty filePath = new SimpleStringProperty();
+    private final StringProperty fileName = new SimpleStringProperty();
+    private final String url;
+    private final String urlFile;
+    private final String orgFileName;
+    StringProperty path;
     private boolean nameChanged = false;
 
     private boolean ok = false;
     private final Stage stage;
 
-    DownloadDialogController(Stage stage, String url, String orgFileName) {
+    DownloadDialogController(final Stage stage, final String url, final StringProperty path, final String orgFileName) {
         super(stage, null, "Download", true, false, DECO.SMALL);
 
         this.stage = stage;
         this.url = url;
         this.urlFile = PUrlTools.getFileName(url);
         this.orgFileName = orgFileName.isEmpty() ? urlFile : orgFileName;
+        this.path = path;
 
-        this.filePath.set(PFileUtils.getHomePath());
+        if (path == null || path.getValueSafe().isEmpty()) {
+            this.filePath.set(PFileUtils.getHomePath());
+        } else {
+            this.filePath.set(path.getValue());
+        }
         this.fileName.setValue(getFileName(filePath.getValueSafe(), this.orgFileName));
 
         vBoxCont = getvBoxCont();
@@ -85,15 +91,15 @@ public class DownloadDialogController extends PDialogExtra {
         gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
                 PColumnConstraints.getCcComputedSizeAndHgrow());
 
-        Label lblDest = new Label("Speicherziel:");
+        final Label lblDest = new Label("Speicherziel:");
         lblDest.setStyle("-fx-font-weight: bold;");
-        Label lblSrc = new Label("Download:");
+        final Label lblSrc = new Label("Download:");
         lblSrc.setStyle("-fx-font-weight: bold;");
 
-        Label lblDestPath = new Label("Pfad:");
-        Label lblName = new Label("Dateiname:");
-        Label lblUrlFile = new Label("Datei:");
-        Label lblUrl = new Label("URL:");
+        final Label lblDestPath = new Label("Pfad:");
+        final Label lblName = new Label("Dateiname:");
+        final Label lblUrlFile = new Label("Datei:");
+        final Label lblUrl = new Label("URL:");
 
         txtDestPath.textProperty().bindBidirectional(filePath);
         txtName.textProperty().bindBidirectional(fileName);
@@ -105,7 +111,7 @@ public class DownloadDialogController extends PDialogExtra {
         btnDest.setTooltip(new Tooltip("Einen Ordner zum Speichern der Datei auswählen"));
         btnDest.setOnAction(event -> {
             PDirFileChooser.DirChooser(stage, txtDestPath);
-            boolean nc = nameChanged;
+            final boolean nc = nameChanged;
             this.fileName.setValue(getFileName(filePath.getValueSafe(), fileName.getValueSafe()));
             nameChanged = nc;
         });
@@ -136,10 +142,13 @@ public class DownloadDialogController extends PDialogExtra {
     }
 
     private void quit() {
+        if (path != null) {
+            path.setValue(txtDestPath.getText());
+        }
         close();
     }
 
-    private String getFileName(String dir, String name) {
+    private String getFileName(final String dir, final String name) {
         if (nameChanged) {
             return name;
         }
@@ -147,8 +156,8 @@ public class DownloadDialogController extends PDialogExtra {
         String newName = orgFileName;
         String file = PFileUtils.addsPath(dir, orgFileName);
 
-        String noSuff = PFileUtils.removeFileNameSuffix(orgFileName);
-        String suff = PFileUtils.getFileNameSuffix(orgFileName);
+        final String noSuff = PFileUtils.removeFileNameSuffix(orgFileName);
+        final String suff = PFileUtils.getFileNameSuffix(orgFileName);
         if (noSuff.isEmpty() || suff.isEmpty()) {
             return name;
         }
@@ -165,12 +174,12 @@ public class DownloadDialogController extends PDialogExtra {
     private boolean checkDest() {
         boolean ret = false;
 
-        String destDir = txtDestPath.getText();
-        String destName = txtName.getText();
-        String file = PFileUtils.addsPath(destDir, destName);
+        final String destDir = txtDestPath.getText();
+        final String destName = txtName.getText();
+        final String file = PFileUtils.addsPath(destDir, destName);
         if (PFileUtils.fileExist(file)) {
             ret = false;
-            PAlert.BUTTON button = PAlert.showAlert_yes_no("Hinweis", "Datei speichern",
+            final PAlert.BUTTON button = PAlert.showAlert_yes_no("Hinweis", "Datei speichern",
                     "Die Zieldatei exisiert bereits:" + P2LibConst.LINE_SEPARATORx2 +
                             destName + P2LibConst.LINE_SEPARATORx2 +
                             "Soll die Datei überschrieben werden?");

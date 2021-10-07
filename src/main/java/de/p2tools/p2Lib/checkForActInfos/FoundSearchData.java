@@ -28,21 +28,21 @@ public class FoundSearchData {
     public String searchUrl;
     public String searchUrlDownload;
 
-    private BooleanProperty searchAct;//Act/Info sollen gesucht werden
-    private BooleanProperty searchBeta;//auch beta soll gesucht werden
-    private BooleanProperty searchDaily;//und Daily auch noch
+    private final BooleanProperty searchAct;//Act/Info sollen gesucht werden
+    private final BooleanProperty searchBeta;//auch beta soll gesucht werden
+    private final BooleanProperty searchDaily;//und Daily auch noch
 
-    private BooleanProperty searchActAgain = new SimpleBooleanProperty(false);//gefundenes Act soll nochmal angezeigt werden
+    private final BooleanProperty searchActAgain = new SimpleBooleanProperty(false);//gefundenes Act soll nochmal angezeigt werden
 
-    private StringProperty lastInfoDate;//letzte angezeigte Info
-    private StringProperty lastActDate;//letztes angezeigtes Act
-    private StringProperty lastBetaDate;//letzte angezeigte Beta
-    private StringProperty lastDailyDate;//letzte angezeigtes Daily
+    private final StringProperty lastInfoDate;//letzte angezeigte Info
+    private final StringProperty lastActDate;//letztes angezeigtes Act
+    private final StringProperty lastBetaDate;//letzte angezeigte Beta
+    private final StringProperty lastDailyDate;//letzte angezeigtes Daily
 
-    private BooleanProperty foundNewInfo = new SimpleBooleanProperty(false);//neue Info wurde gefunden
-    private BooleanProperty foundNewVersion = new SimpleBooleanProperty(false);//neues Act wurde gefunden
-    private BooleanProperty foundNewBeta = new SimpleBooleanProperty(false);//neues Beta wurde gefunden
-    private BooleanProperty foundNewDaily = new SimpleBooleanProperty(false);//neues Daily wurde gefunden
+    private final BooleanProperty foundNewInfo = new SimpleBooleanProperty(false);//neue Info wurde gefunden
+    private final BooleanProperty foundNewVersion = new SimpleBooleanProperty(false);//neues Act wurde gefunden
+    private final BooleanProperty foundNewBeta = new SimpleBooleanProperty(false);//neues Beta wurde gefunden
+    private final BooleanProperty foundNewDaily = new SimpleBooleanProperty(false);//neues Daily wurde gefunden
 
     private FoundFileList foundFileListInfo = new FoundFileList();//Liste der gefundenen neuen Infos
     private FoundFileList foundFileListAct = new FoundFileList();//Liste der gefundenen neuen Acts
@@ -72,27 +72,31 @@ public class FoundSearchData {
     private String progVersion;//aktuelle Programmversion
     private String progBuildNo;
     private String progBuildDate;
+
+    private final StringProperty downloadDir;
+
     private boolean showAllways;
 
-    public FoundSearchData(Stage stage,
-                           String searchUrl,
-                           String searchUrlDownload,
+    public FoundSearchData(final Stage stage,
+                           final String searchUrl,
+                           final String searchUrlDownload,
 
-                           BooleanProperty searchAct,
-                           BooleanProperty searchBeta, BooleanProperty searchDaily,
+                           final BooleanProperty searchAct,
+                           final BooleanProperty searchBeta, final BooleanProperty searchDaily,
 
-                           StringProperty lastInfoDate,
-                           StringProperty lastActDate,
-                           StringProperty lastBetaDate,
-                           StringProperty lastDailyDate,
+                           final StringProperty lastInfoDate,
+                           final StringProperty lastActDate,
+                           final StringProperty lastBetaDate,
+                           final StringProperty lastDailyDate,
 
-                           String urlWebsite,
-                           String urlDownload,
-                           String progName,
-                           String progVersion,
-                           String progBuildNo,
-                           String progBuildDate,
-                           boolean showAllways
+                           final String urlWebsite,
+                           final String urlDownload,
+                           final String progName,
+                           final String progVersion,
+                           final String progBuildNo,
+                           final String progBuildDate,
+                           final StringProperty downloadDir,
+                           final boolean showAllways
     ) {
 
         this.stage = stage;
@@ -115,6 +119,7 @@ public class FoundSearchData {
         this.progVersion = progVersion;
         this.progBuildNo = progBuildNo;
         this.progBuildDate = progBuildDate;
+        this.downloadDir = downloadDir;
         if (this.lastActDate.getValue().isEmpty()) {
             //das ist die aktuelle Programmversion die läuft
             this.lastActDate.setValue(this.progBuildDate);
@@ -134,7 +139,7 @@ public class FoundSearchData {
         return stage;
     }
 
-    public void setStage(Stage stage) {
+    public void setStage(final Stage stage) {
         this.stage = stage;
     }
 
@@ -142,7 +147,7 @@ public class FoundSearchData {
         return searchUrl;
     }
 
-    public void setSearchUrl(String searchUrl) {
+    public void setSearchUrl(final String searchUrl) {
         this.searchUrl = searchUrl;
     }
 
@@ -150,7 +155,7 @@ public class FoundSearchData {
         return searchUrlDownload;
     }
 
-    public void setSearchUrlDownload(String searchUrlDownload) {
+    public void setSearchUrlDownload(final String searchUrlDownload) {
         this.searchUrlDownload = searchUrlDownload;
     }
 
@@ -162,7 +167,7 @@ public class FoundSearchData {
         return searchAct;
     }
 
-    public void setSearchAct(boolean searchAct) {
+    public void setSearchAct(final boolean searchAct) {
         this.searchAct.set(searchAct);
     }
 
@@ -174,7 +179,7 @@ public class FoundSearchData {
         return searchBeta;
     }
 
-    public void setSearchBeta(boolean searchBeta) {
+    public void setSearchBeta(final boolean searchBeta) {
         this.searchBeta.set(searchBeta);
     }
 
@@ -186,7 +191,7 @@ public class FoundSearchData {
         return searchDaily;
     }
 
-    public void setSearchDaily(boolean searchDaily) {
+    public void setSearchDaily(final boolean searchDaily) {
         this.searchDaily.set(searchDaily);
     }
 
@@ -198,7 +203,7 @@ public class FoundSearchData {
         return searchActAgain;
     }
 
-    public void setSearchActAgain(boolean searchActAgain) {
+    public void setSearchActAgain(final boolean searchActAgain) {
         this.searchActAgain.set(searchActAgain);
     }
 
@@ -210,7 +215,7 @@ public class FoundSearchData {
         return lastInfoDate;
     }
 
-    public void setLastInfoDate(String lastInfoDate) {
+    public void setLastInfoDate(final String lastInfoDate) {
         this.lastInfoDate.set(lastInfoDate);
     }
 
@@ -222,7 +227,7 @@ public class FoundSearchData {
         return lastActDate;
     }
 
-    public void setLastActDate(String lastActDate) {
+    public void setLastActDate(final String lastActDate) {
         this.lastActDate.set(lastActDate);
     }
 
@@ -234,7 +239,7 @@ public class FoundSearchData {
         return lastBetaDate;
     }
 
-    public void setLastBetaDate(String lastBetaDate) {
+    public void setLastBetaDate(final String lastBetaDate) {
         this.lastBetaDate.set(lastBetaDate);
     }
 
@@ -246,7 +251,7 @@ public class FoundSearchData {
         return lastDailyDate;
     }
 
-    public void setLastDailyDate(String lastDailyDate) {
+    public void setLastDailyDate(final String lastDailyDate) {
         this.lastDailyDate.set(lastDailyDate);
     }
 
@@ -258,7 +263,7 @@ public class FoundSearchData {
         return foundNewInfo;
     }
 
-    public void setFoundNewInfo(boolean foundNewInfo) {
+    public void setFoundNewInfo(final boolean foundNewInfo) {
         this.foundNewInfo.set(foundNewInfo);
     }
 
@@ -270,7 +275,7 @@ public class FoundSearchData {
         return foundNewVersion;
     }
 
-    public void setFoundNewVersion(boolean foundNewVersion) {
+    public void setFoundNewVersion(final boolean foundNewVersion) {
         this.foundNewVersion.set(foundNewVersion);
     }
 
@@ -282,7 +287,7 @@ public class FoundSearchData {
         return foundNewBeta;
     }
 
-    public void setFoundNewBeta(boolean foundNewBeta) {
+    public void setFoundNewBeta(final boolean foundNewBeta) {
         this.foundNewBeta.set(foundNewBeta);
     }
 
@@ -294,7 +299,7 @@ public class FoundSearchData {
         return foundNewDaily;
     }
 
-    public void setFoundNewDaily(boolean foundNewDaily) {
+    public void setFoundNewDaily(final boolean foundNewDaily) {
         this.foundNewDaily.set(foundNewDaily);
     }
 
@@ -302,7 +307,7 @@ public class FoundSearchData {
         return foundFileListInfo;
     }
 
-    public void setFoundFileListInfo(FoundFileList foundFileListInfo) {
+    public void setFoundFileListInfo(final FoundFileList foundFileListInfo) {
         this.foundFileListInfo = foundFileListInfo;
     }
 
@@ -310,7 +315,7 @@ public class FoundSearchData {
         return foundFileListAct;
     }
 
-    public void setFoundFileListAct(FoundFileList foundFileListAct) {
+    public void setFoundFileListAct(final FoundFileList foundFileListAct) {
         this.foundFileListAct = foundFileListAct;
     }
 
@@ -318,7 +323,7 @@ public class FoundSearchData {
         return foundFileListBeta;
     }
 
-    public void setFoundFileListBeta(FoundFileList foundFileListBeta) {
+    public void setFoundFileListBeta(final FoundFileList foundFileListBeta) {
         this.foundFileListBeta = foundFileListBeta;
     }
 
@@ -326,7 +331,7 @@ public class FoundSearchData {
         return foundFileListDaily;
     }
 
-    public void setFoundFileListDaily(FoundFileList foundFileListDaily) {
+    public void setFoundFileListDaily(final FoundFileList foundFileListDaily) {
         this.foundFileListDaily = foundFileListDaily;
     }
 
@@ -334,7 +339,7 @@ public class FoundSearchData {
         return newInfoText;
     }
 
-    public void setNewInfoText(String newInfoText) {
+    public void setNewInfoText(final String newInfoText) {
         this.newInfoText = newInfoText;
     }
 
@@ -342,7 +347,7 @@ public class FoundSearchData {
         return newInfoDate;
     }
 
-    public void setNewInfoDate(String newInfoDate) {
+    public void setNewInfoDate(final String newInfoDate) {
         this.newInfoDate = newInfoDate;
     }
 
@@ -350,7 +355,7 @@ public class FoundSearchData {
         return newVersionText;
     }
 
-    public void setNewVersionText(String newVersionText) {
+    public void setNewVersionText(final String newVersionText) {
         this.newVersionText = newVersionText;
     }
 
@@ -358,7 +363,7 @@ public class FoundSearchData {
         return newVersionDate;
     }
 
-    public void setNewVersionDate(String newVersionDate) {
+    public void setNewVersionDate(final String newVersionDate) {
         this.newVersionDate = newVersionDate;
     }
 
@@ -366,7 +371,7 @@ public class FoundSearchData {
         return newVersionNo;
     }
 
-    public void setNewVersionNo(String newVersionNo) {
+    public void setNewVersionNo(final String newVersionNo) {
         this.newVersionNo = newVersionNo;
     }
 
@@ -374,7 +379,7 @@ public class FoundSearchData {
         return newBetaText;
     }
 
-    public void setNewBetaText(String newBetaText) {
+    public void setNewBetaText(final String newBetaText) {
         this.newBetaText = newBetaText;
     }
 
@@ -382,7 +387,7 @@ public class FoundSearchData {
         return newBetaVersion;
     }
 
-    public void setNewBetaVersion(String newBetaVersion) {
+    public void setNewBetaVersion(final String newBetaVersion) {
         this.newBetaVersion = newBetaVersion;
     }
 
@@ -390,7 +395,7 @@ public class FoundSearchData {
         return newBetaBuildNo;
     }
 
-    public void setNewBetaBuildNo(String newBetaBuildNo) {
+    public void setNewBetaBuildNo(final String newBetaBuildNo) {
         this.newBetaBuildNo = newBetaBuildNo;
     }
 
@@ -398,7 +403,7 @@ public class FoundSearchData {
         return newBetaDate;
     }
 
-    public void setNewBetaDate(String newBetaDate) {
+    public void setNewBetaDate(final String newBetaDate) {
         this.newBetaDate = newBetaDate;
     }
 
@@ -406,7 +411,7 @@ public class FoundSearchData {
         return newDailyText;
     }
 
-    public void setNewDailyText(String newDailyText) {
+    public void setNewDailyText(final String newDailyText) {
         this.newDailyText = newDailyText;
     }
 
@@ -414,7 +419,7 @@ public class FoundSearchData {
         return newDailyVersion;
     }
 
-    public void setNewDailyVersion(String newDailyVersion) {
+    public void setNewDailyVersion(final String newDailyVersion) {
         this.newDailyVersion = newDailyVersion;
     }
 
@@ -422,7 +427,7 @@ public class FoundSearchData {
         return newDailyBuild;
     }
 
-    public void setNewDailyBuild(String newDailyBuild) {
+    public void setNewDailyBuild(final String newDailyBuild) {
         this.newDailyBuild = newDailyBuild;
     }
 
@@ -430,7 +435,7 @@ public class FoundSearchData {
         return newDailyDate;
     }
 
-    public void setNewDailyDate(String newDailyDate) {
+    public void setNewDailyDate(final String newDailyDate) {
         this.newDailyDate = newDailyDate;
     }
 
@@ -438,7 +443,7 @@ public class FoundSearchData {
         return urlWebsite;
     }
 
-    public void setUrlWebsite(String urlWebsite) {
+    public void setUrlWebsite(final String urlWebsite) {
         this.urlWebsite = urlWebsite;
     }
 
@@ -446,7 +451,7 @@ public class FoundSearchData {
         return urlDownload;
     }
 
-    public void setUrlDownload(String urlDownload) {
+    public void setUrlDownload(final String urlDownload) {
         this.urlDownload = urlDownload;
     }
 
@@ -454,7 +459,7 @@ public class FoundSearchData {
         return progName;
     }
 
-    public void setProgName(String progName) {
+    public void setProgName(final String progName) {
         this.progName = progName;
     }
 
@@ -462,7 +467,7 @@ public class FoundSearchData {
         return progVersion;
     }
 
-    public void setProgVersion(String progVersion) {
+    public void setProgVersion(final String progVersion) {
         this.progVersion = progVersion;
     }
 
@@ -470,7 +475,7 @@ public class FoundSearchData {
         return progBuildNo;
     }
 
-    public void setProgBuildNo(String progBuildNo) {
+    public void setProgBuildNo(final String progBuildNo) {
         this.progBuildNo = progBuildNo;
     }
 
@@ -478,15 +483,27 @@ public class FoundSearchData {
         return progBuildDate;
     }
 
-    public void setProgBuildDate(String progBuildDate) {
+    public void setProgBuildDate(final String progBuildDate) {
         this.progBuildDate = progBuildDate;
+    }
+
+    public String getDownloadDir() {
+        return downloadDir.get();
+    }
+
+    public StringProperty downloadDirProperty() {
+        return downloadDir;
+    }
+
+    public void setDownloadDir(final String downloadDir) {
+        this.downloadDir.set(downloadDir);
     }
 
     public boolean isShowAllways() {
         return showAllways;
     }
 
-    public void setShowAllways(boolean showAllways) {
+    public void setShowAllways(final boolean showAllways) {
         this.showAllways = showAllways;
     }
 }

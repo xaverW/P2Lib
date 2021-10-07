@@ -33,7 +33,7 @@ public class InfoAlertsTabFactory {
     private static final int VERSION_PADDING_T = 5;
     private static final int VERSION_PADDING_B = 10;
 
-    public static Tab addTabInfo(FoundSearchData foundSearchData) {
+    public static Tab addTabInfo(final FoundSearchData foundSearchData) {
         if (!foundSearchData.isFoundNewInfo() || foundSearchData.getFoundFileListInfo().isEmpty()) {
             return null;
         }
@@ -41,19 +41,19 @@ public class InfoAlertsTabFactory {
         return makeTabInfos(foundSearchData.getFoundFileListInfo());
     }
 
-    private static Tab makeTabInfos(FoundFileList foundFileList) {
+    private static Tab makeTabInfos(final FoundFileList foundFileList) {
         final Tab tabInfos = new Tab("Programminfos");
         tabInfos.setClosable(false);
 
-        ScrollPane scrollPane = new ScrollPane();
+        final ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         scrollPane.setPadding(new Insets(10));
 
-        VBox vBox = new VBox(10);
+        final VBox vBox = new VBox(10);
         for (int i = foundFileList.size() - 1; i >= 0; --i) {
-            FoundFile foundFile = foundFileList.get(i);
-            TextArea textArea = new TextArea(foundFile.getFileText());
+            final FoundFile foundFile = foundFileList.get(i);
+            final TextArea textArea = new TextArea(foundFile.getFileText());
             textArea.setWrapText(true);
             textArea.setEditable(false);
             vBox.getChildren().add(textArea);
@@ -65,28 +65,28 @@ public class InfoAlertsTabFactory {
         return tabInfos;
     }
 
-    public static Tab addTabVersion(FoundSearchData foundSearchData) {
+    public static Tab addTabVersion(final FoundSearchData foundSearchData) {
         //der wird immer angezeigt
         return makeTabVersion(foundSearchData.getStage(), foundSearchData);
     }
 
-    private static Tab makeTabVersion(Stage stage, FoundSearchData foundSearchData) {
+    private static Tab makeTabVersion(final Stage stage, final FoundSearchData foundSearchData) {
         final Tab tabVersion = new Tab("neue Version");
         if (!foundSearchData.isFoundNewVersion()) {
             tabVersion.setText("aktuelle Version");
         }
         tabVersion.setClosable(false);
 
-        ScrollPane scrollPane = new ScrollPane();
+        final ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         scrollPane.setPadding(new Insets(10));
 
-        GridPane gridPane = new GridPane();
+        final GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
-        TextArea textArea = new TextArea();
+        final TextArea textArea = new TextArea();
         textArea.setPrefRowCount(6);
         textArea.setWrapText(true);
         textArea.setEditable(false);
@@ -157,7 +157,7 @@ public class InfoAlertsTabFactory {
         gridPane.add(lblDown, 0, ++row);
         gridPane.add(hyperlinkDownUrl, 1, row);
 
-        row = getButton(stage, foundSearchData.getFoundFileListAct(), gridPane, row);
+        row = getButton(foundSearchData, foundSearchData.getFoundFileListAct(), gridPane, row);
 
         gridPane.add(new Label(" "), 0, ++row);
         gridPane.add(lblRel, 0, ++row);
@@ -166,20 +166,20 @@ public class InfoAlertsTabFactory {
         gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
                 PColumnConstraints.getCcComputedSizeAndHgrow());
 
-        VBox vBox = new VBox(10);
+        final VBox vBox = new VBox(10);
         vBox.getChildren().add(gridPane);
         VBox.setVgrow(gridPane, Priority.ALWAYS);
 
-        HBox hBox = new HBox(10);
+        final HBox hBox = new HBox(10);
         hBox.setAlignment(Pos.CENTER_RIGHT);
         if (foundSearchData.isFoundNewVersion()) {
-            CheckBox chkShowUpdateAgain = new CheckBox("dieses Update nochmal anzeigen");
+            final CheckBox chkShowUpdateAgain = new CheckBox("dieses Update nochmal anzeigen");
             chkShowUpdateAgain.selectedProperty().bindBidirectional(foundSearchData.searchActAgainProperty());
-            HBox hB = new HBox();
+            final HBox hB = new HBox();
             HBox.setHgrow(hB, Priority.ALWAYS);
             hBox.getChildren().addAll(chkShowUpdateAgain, hB);
         }
-        CheckBox chkSearchUpdate = new CheckBox("beim Programmstart nach Updates suchen");
+        final CheckBox chkSearchUpdate = new CheckBox("beim Programmstart nach Updates suchen");
         chkSearchUpdate.selectedProperty().bindBidirectional(foundSearchData.searchActProperty());
         hBox.getChildren().add(chkSearchUpdate);
 
@@ -189,7 +189,7 @@ public class InfoAlertsTabFactory {
         return tabVersion;
     }
 
-    public static Tab addTabBeta(FoundSearchData foundSearchData, boolean beta) {
+    public static Tab addTabBeta(final FoundSearchData foundSearchData, final boolean beta) {
         if (!foundSearchData.searchBetaProperty().getValue()) {
             //Beta oder Daily: danach soll nicht gesucht werden
             return null;
@@ -214,23 +214,23 @@ public class InfoAlertsTabFactory {
             }
         }
 
-        return makeTabBeta(foundSearchData.getStage(), foundSearchData, beta);
+        return makeTabBeta(foundSearchData, beta);
     }
 
-    private static Tab makeTabBeta(Stage stage, FoundSearchData foundSearchData, boolean beta) {
+    private static Tab makeTabBeta(final FoundSearchData foundSearchData, final boolean beta) {
         final Tab tabVersion = new Tab(beta ? "neue Beta" : "neues Daily");
         tabVersion.setClosable(false);
 
-        ScrollPane scrollPane = new ScrollPane();
+        final ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         scrollPane.setPadding(new Insets(10));
 
-        GridPane gridPane = new GridPane();
+        final GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
-        TextArea textArea = new TextArea();
+        final TextArea textArea = new TextArea();
         textArea.setPrefRowCount(6);
         textArea.setWrapText(true);
         textArea.setEditable(false);
@@ -300,7 +300,7 @@ public class InfoAlertsTabFactory {
         gridPane.add(lblDown, 0, ++row);
         gridPane.add(hyperlinkDownUrl, 1, row);
 
-        row = getButton(stage,
+        row = getButton(foundSearchData,
                 beta ? foundSearchData.getFoundFileListBeta() : foundSearchData.getFoundFileListDaily(),
                 gridPane, row);
 
@@ -311,12 +311,12 @@ public class InfoAlertsTabFactory {
         gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
                 PColumnConstraints.getCcComputedSizeAndHgrow());
 
-        RowConstraints rowConstraints = new RowConstraints();
+        final RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setValignment(VPos.CENTER);
         gridPane.getRowConstraints().add(rowConstraints);
 
 
-        VBox vBox = new VBox(10);
+        final VBox vBox = new VBox(10);
         vBox.getChildren().add(gridPane);
         VBox.setVgrow(gridPane, Priority.ALWAYS);
 
@@ -325,17 +325,18 @@ public class InfoAlertsTabFactory {
         return tabVersion;
     }
 
-    private static int getButton(Stage stage, FoundFileList foundFileList, GridPane gridPane, int row) {
+    private static int getButton(final FoundSearchData foundSearchData, final FoundFileList foundFileList, final GridPane gridPane, int row) {
         boolean done = false;
-        for (FoundFile foundFile : foundFileList) {
+        for (final FoundFile foundFile : foundFileList) {
 
-            Button button = new Button();
+            final Button button = new Button();
             button.setMaxWidth(Double.MAX_VALUE);
-            String text = PUrlTools.getFileName(foundFile.getFileUrl());
+            final String text = PUrlTools.getFileName(foundFile.getFileUrl());
             button.setText(text);
             button.setTooltip(new Tooltip(foundFile.getFileUrl()));
             button.setOnAction(a -> {
-                DownloadFactory.downloadFile(stage, foundFile.getFileUrl());
+                DownloadFactory.downloadFile(foundSearchData.getStage(), foundFile.getFileUrl(),
+                        foundSearchData.downloadDirProperty(), "");
             });
             gridPane.add(button, 1, ++row);
             if (!done) {

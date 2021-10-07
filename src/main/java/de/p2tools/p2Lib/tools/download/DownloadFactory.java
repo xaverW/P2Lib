@@ -18,6 +18,7 @@
 package de.p2tools.p2Lib.tools.download;
 
 import de.p2tools.p2Lib.tools.log.PLog;
+import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
 
 import java.net.HttpURLConnection;
@@ -27,25 +28,25 @@ public class DownloadFactory {
     private DownloadFactory() {
     }
 
-    public static boolean downloadFile(Stage stage, String url) {
-        return downloadFile(stage, url, "");
+    public static boolean downloadFile(final Stage stage, final String url) {
+        return downloadFile(stage, url, null, "");
     }
 
-    public static boolean downloadFile(Stage stage, String url, String fileName) {
+    public static boolean downloadFile(final Stage stage, final String url, final StringProperty path, final String fileName) {
         boolean ret = false; // true if started
-        DownloadDialogController downloadDialogController = new DownloadDialogController(stage, url, fileName);
+        final DownloadDialogController downloadDialogController = new DownloadDialogController(stage, url, path, fileName);
 
         if (downloadDialogController.getOk()) {
             ret = true;
             PLog.sysLog("Download wird gestartet");
 
 //            DownloadProgressDialog downloadProgressDialog = new DownloadProgressDialog(stage, downloadDialogController.getDestName());
-            Thread download = new HttpDownload(stage, url, downloadDialogController.getDestPath(), downloadDialogController.getDestName());
+            final Thread download = new HttpDownload(stage, url, downloadDialogController.getDestPath(), downloadDialogController.getDestName());
 
             try {
                 //verhindert das Aufpoppen des startenden Dialogs etwas
                 Thread.sleep(500);
-            } catch (Exception ignore) {
+            } catch (final Exception ignore) {
             }
 
             download.start();
@@ -57,8 +58,8 @@ public class DownloadFactory {
         return ret;
     }
 
-    private boolean download(String url, String destFile) {
-        boolean ret = false;
+    private boolean download(final String url, final String destFile) {
+        final boolean ret = false;
 
         return ret;
     }
@@ -71,7 +72,7 @@ public class DownloadFactory {
      * @param CONNECTIION_TIMEOUT_SECOND_FILESIZE
      * @return Length in bytes or -1 on error.
      */
-    public static long getContentLength(final URL url, String userAgent, int CONNECTIION_TIMEOUT_SECOND_FILESIZE) {
+    public static long getContentLength(final URL url, final String userAgent, final int CONNECTIION_TIMEOUT_SECOND_FILESIZE) {
         long ret = -1;
         HttpURLConnection connection = null;
         try {
