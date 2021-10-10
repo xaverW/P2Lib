@@ -202,12 +202,20 @@ public class FoundAllFiles {
             foundFile.setFileUrl(foundSearchData.getSearchUrl() + strLine.substring(idx1, idx2));
 
             //MTPlayer-10-208__2021.09.28.zip
+            //MTPlayer-11-1__Linux+Java__2021.10.09.zip
             String fileName = strLine.substring(idx3, idx4);
             foundFile.setFileName(fileName);
+
             foundFile.setFileVersion(fileName.
                     substring(fileName.indexOf("-") + "-".length(), fileName.lastIndexOf("-")));
-            foundFile.setFileBuildNo(fileName.
-                    substring(fileName.lastIndexOf("-") + "-".length(), fileName.lastIndexOf("__")));
+
+            String buildNo = fileName.
+                    substring(fileName.lastIndexOf("-") + "-".length(), fileName.lastIndexOf("__"));
+            if (buildNo.contains("__")) {
+                buildNo = buildNo.substring(0, buildNo.lastIndexOf("__"));
+            }
+            foundFile.setFileBuildNo(buildNo);
+
             foundFile.setFileDate(fileName.substring(fileName.lastIndexOf("__") + "__".length(),
                     fileName.lastIndexOf(".")));
 
