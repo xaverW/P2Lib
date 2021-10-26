@@ -26,6 +26,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class PDateFactory {
     public static final FastDateFormat F_FORMAT_HH_mm_ss = FastDateFormat.getInstance("HH:mm:ss");
@@ -43,6 +44,7 @@ public class PDateFactory {
     public static final DateTimeFormatter DT_FORMATTER_dd_M_yyyy = DateTimeFormatter.ofPattern("dd.M.yyyy");
     public static final DateTimeFormatter DT_FORMATTER_dd_MM_yyyy = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     public static final DateTimeFormatter DT_FORMATTER_yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+    public static final DateTimeFormatter DT_FORMATTER_EEE_MMM_dd_ = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
 
 
     public static String getTodayStr() {
@@ -143,6 +145,11 @@ public class PDateFactory {
         }
         try {
             return LocalDate.parse(strDate, DT_FORMATTER_d_M_yyyy);
+        } catch (final Exception ex) {
+        }
+
+        try {
+            return LocalDate.parse(strDate, DT_FORMATTER_EEE_MMM_dd_);
         } catch (final Exception ex) {
         }
 
