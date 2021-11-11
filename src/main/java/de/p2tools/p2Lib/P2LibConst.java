@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class P2LibConst {
+    public static final String URL_WEBSITE_DONATE = "https://www.p2tools.de/donate.html";
     public static Stage primaryStage = null;
     public static String progName = "P2Tools";
     public static List<String> cssFileList = new ArrayList();
