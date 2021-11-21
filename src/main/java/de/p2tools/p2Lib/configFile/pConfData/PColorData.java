@@ -103,6 +103,16 @@ public class PColorData {
         changeMyColor();
     }
 
+    public void setColorLight(Color newColor) {
+        colorLight.set(newColor);
+        changeMyColor();
+    }
+
+    public void setColorDark(Color newColor) {
+        colorDark.set(newColor);
+        changeMyColor();
+    }
+
     public void resetColor() {
         if (dark) {
             colorDark.set(resetColorDark);
@@ -128,6 +138,7 @@ public class PColorData {
         } else {
             setColor(Color.web(hex));
         }
+        changeMyColor();
     }
 
     //==========================================================
