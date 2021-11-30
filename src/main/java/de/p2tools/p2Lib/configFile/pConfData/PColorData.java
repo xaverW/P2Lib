@@ -184,7 +184,7 @@ public class PColorData {
     }
 
     public String getColorDarkerToWeb() {
-        return "#" + PColorFactory.getColorToHex(dark ? getBrighterColor(colorLight.getValue()) : getDarkerColor(colorLight.getValue()));
+        return "#" + PColorFactory.getColorToHex(dark ? getBrighterColor(colorDark.getValue()) : getDarkerColor(colorLight.getValue()));
     }
 
     private Color getDarkerColor(Color color) {
@@ -239,6 +239,25 @@ public class PColorData {
         }
         c = new Color(red, green, blue, color.getOpacity());
         return c;
+
+//        double red = color.getRed();
+//        double green = color.getGreen();
+//        double blue = color.getBlue();
+//
+//        red = red * 1.05;
+//        green = green * 1.05;
+//        blue = blue * 1.05;
+//        if (red > 1) {
+//            red = 1;
+//        }
+//        if (green > 1) {
+//            green = 1;
+//        }
+//        if (blue > 1) {
+//            blue = 1;
+//        }
+//        Color c = new Color(red, green, blue, color.getOpacity());
+//        return c;
     }
 
     private void changeMyColor() {
