@@ -33,7 +33,7 @@ public class PColorData {
     private String cssFontBold = "";
     private String cssFont = "";
     private String cssBackground = "";
-    private String cssBackgroundSel = "";
+    private String cssBackgroundAndSel = "";
 
     private boolean dark = false;
     private final Color resetColorLight;
@@ -148,8 +148,8 @@ public class PColorData {
         return cssBackground;
     }
 
-    public String getCssBackgroundSel() {
-        return cssBackgroundSel;
+    public String getCssBackgroundAndSel() {
+        return cssBackgroundAndSel;
     }
 
     public String getCssFont() {
@@ -265,7 +265,7 @@ public class PColorData {
         cssFontBold = ("-fx-font-weight: bold; -fx-text-fill: " + getColorSelectedToWeb() + ";").intern();
         cssFont = ("-fx-text-fill: " + getColorSelectedToWeb() + ";").intern();
         cssBackground = ("-fx-control-inner-background: " + getColorSelectedToWeb() + ";").intern();
-        cssBackgroundSel = ("-fx-control-inner-background: " + getColorSelectedToWeb() + ";" +
+        cssBackgroundAndSel = ("-fx-control-inner-background: " + getColorSelectedToWeb() + ";" +
                 "-fx-selection-bar: " + getColorDarkerToWeb() + ";" +
                 " -fx-selection-bar-non-focused: " + getColorDarkerToWeb() + ";").intern();
     }
