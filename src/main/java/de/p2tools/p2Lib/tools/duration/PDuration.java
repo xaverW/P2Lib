@@ -34,25 +34,14 @@ public class PDuration {
     private static final String DURATION = "DURATION";
     private static final String PING = "PING";
 
-    private static PCounter getCounterEntry(String counterName) {
-        PCounter pCounter = counterMap.get(counterName);
-        if (pCounter == null) {
-            //start a new counter with name: "counterName"
-            pCounter = new PCounter(counterName);
-            counterMap.put(counterName, pCounter);
-        }
-        return pCounter;
-    }
-
     public static synchronized void counterStart(String counterName) {
-        PCounter pCounter = getCounterEntry(counterName);
-
+        PCounter pCounter = getCounterEntry(getName(counterName));
         //restart a previous used or start a new counter
         pCounter.startCounter();
     }
 
     public static synchronized List<String> counterStop(String counterName) {
-        PCounter pCounter = getCounterEntry(counterName);
+        PCounter pCounter = getCounterEntry(getName(counterName));
 
         pCounter.count++;
         Duration duration = Duration.between(pCounter.startTime, Instant.now());
@@ -65,6 +54,31 @@ public class PDuration {
 
         onlyPing(getClassName(), DURATION, counterName, txt, pCounter.pingTextList);
         return txt;
+    }
+
+    private static PCounter getCounterEntry(String counterName) {
+        PCounter pCounter = counterMap.get(counterName);
+        if (pCounter == null) {
+            //start a new counter with name: "counterName"
+            pCounter = new PCounter(counterName);
+            counterMap.put(counterName, pCounter);
+        }
+        return pCounter;
+    }
+
+    private static String getName(String counterName) {
+        return getCallerClass() + "." + counterName;
+    }
+
+    private static String getCallerClass() {
+        String s = "";
+        try {
+            StackTraceElement[] stElements = Thread.currentThread().getStackTrace();
+            String rawFQN = stElements[4].toString().split("\\(")[0];
+            s = Class.forName(rawFQN.substring(0, rawFQN.lastIndexOf('.'))).getSimpleName();
+        } catch (ClassNotFoundException ex) {
+        }
+        return s;
     }
 
     public static synchronized void counterStopAndLog(String counterName) {
