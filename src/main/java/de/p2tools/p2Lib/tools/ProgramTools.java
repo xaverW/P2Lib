@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 
 public class ProgramTools {
 
-    private static final String VERSION = "version";
+    private static final String VERSION = "version"; //ist der Name des Propertyfile: version.properties
 
     public enum OperatingSystemType {
 
