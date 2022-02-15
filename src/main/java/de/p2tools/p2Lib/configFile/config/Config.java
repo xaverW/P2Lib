@@ -66,6 +66,10 @@ public abstract class Config {
         actValue = act;
     }
 
+    public void setActValue(Object act) {
+        actValue = act;
+    }
+
     public Object getActValue() {
         return actValue;
     }

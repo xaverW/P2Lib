@@ -203,27 +203,6 @@ public abstract class AboutDialog extends PDialogExtra {
             gridPane.add(text, c + 1, row);
         }
 
-//        text = new Text("Senderliste:");
-//        text.setFont(new Font(15));
-//        text.setFill(GRAY);
-//        gridPane.add(text, c, ++row);
-//
-//        text = new Text(ProgInfos.getStationFileJsonString());
-//        text.setFont(new Font(15));
-//        text.setFill(GRAY);
-//        gridPane.add(text, c + 1, row);
-//
-//        text = new Text("Einstellungen:");
-//        text.setFont(new Font(15));
-//        text.setFill(GRAY);
-//        gridPane.add(text, c, ++row);
-//
-//        final Path xmlFilePath = ProgInfos.getSettingsFile();
-//        text = new Text(xmlFilePath.toAbsolutePath().toString());
-//        text.setFont(new Font(15));
-//        text.setFill(GRAY);
-//        gridPane.add(text, c + 1, row);
-
         // Java
         text = new Text(P2LibConst.LINE_SEPARATOR + "Java Informationen");
         text.setFont(Font.font(null, FontWeight.BOLD, 15));

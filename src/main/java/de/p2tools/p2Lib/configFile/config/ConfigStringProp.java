@@ -55,6 +55,16 @@ public class ConfigStringProp extends Config {
     }
 
     @Override
+    public void setActValue(Object act) {
+        try {
+            actValue.setValue(act.toString());
+        } catch (Exception ex) {
+            System.out.println(act);
+        }
+    }
+
+
+    @Override
     public StringProperty getProperty() {
         return actValue;
     }
