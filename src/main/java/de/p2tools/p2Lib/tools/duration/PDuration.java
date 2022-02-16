@@ -48,9 +48,10 @@ public class PDuration {
         pCounter.duration = pCounter.duration.plus(duration);
 
         List<String> txt = new ArrayList<>();
-        txt.add("Anzahl: " + pCounter.count +
-                "  Dauer: " + roundDuration(duration) +
-                "  Gesamtdauer: " + roundDuration(pCounter.duration));
+        txt.add("       Anzahl:   " + pCounter.count);
+        txt.add("        Dauer:   " + roundDuration(duration));
+        txt.add("            Ø:   " + roundDuration(pCounter.getAverage()));
+        txt.add("  Gesamtdauer:   " + roundDuration(pCounter.duration));
 
         onlyPing(getClassName(), DURATION, counterName, txt, pCounter.pingTextList);
         return txt;
@@ -81,13 +82,14 @@ public class PDuration {
         return s;
     }
 
-    public static synchronized void counterStopAndLog(String counterName) {
-        List<String> txt = counterStop(counterName);
-        txt.add(0, counterName);
-        txt.add(0, "==============================================================");
-        txt.add("==============================================================");
-        PLog.sysLog(txt.toArray(new String[txt.size()]));
-    }
+//    public static synchronized void counterStopAndLog(String counterName) {
+//        // stimmt "getCallerClass" nicht!!!!!!!!!!!!!
+//        List<String> txt = counterStop(counterName);
+//        txt.add(0, counterName);
+//        txt.add(0, "==============================================================");
+//        txt.add("==============================================================");
+//        PLog.sysLog(txt.toArray(new String[txt.size()]));
+//    }
 
     public synchronized static void onlyPing(String text) {
         onlyPing(getClassName(), PING, text, null, null);
@@ -99,7 +101,7 @@ public class PDuration {
         ArrayList<String> list = new ArrayList<>();
         list.add(PLog.LILNE3);
         list.add(kind + " " + sum++ + ":  " + text + "  [" + roundDuration(Duration.between(onlyPingTime, now)) + "]");
-        list.add("  Klasse:  " + className);
+        list.add("Klasse:  " + className);
 
         if (pingText != null && !pingText.isEmpty()) {
             pingText.stream().forEach(s -> list.add(s));
