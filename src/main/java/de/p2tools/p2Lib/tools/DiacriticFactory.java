@@ -17,6 +17,8 @@
 
 package de.p2tools.p2Lib.tools;
 
+import de.p2tools.p2Lib.tools.log.PLog;
+
 import java.text.Normalizer;
 import java.util.regex.Pattern;
 
@@ -29,30 +31,64 @@ public class DiacriticFactory {
 
     public static String flattenDiacritic(String string) {
         try {
-            if (!string.contains("ä") && !string.contains("ö") && !string.contains("ü") &&
-                    !string.contains("Ä") && !string.contains("Ö") && !string.contains("Ü")) {
-                return strip(string);
+//            if (string.equals(strip(string))) {
+//                //8,83s
+//                return string;
+//            }
 
-            } else {
-                String to = "";
-                for (char c : string.toCharArray()) {
-                    String s = c + "";
-                    if (s.equals("ä") || s.equals("ö") || s.equals("ü") ||
-                            s.equals("Ä") || s.equals("Ö") || s.equals("Ü")) {
-                        to += s;
-                    } else {
-                        to += strip(s);
-                    }
-                }
-                return to;
+            String to = strip(string);
+            if (string.equals(to)) {
+                //13,56 ohne 16,10
+                //7,17 ohne 7,53
+                //6,55s ohne 7,03
+                return string;
             }
+
+            char[] s = string.toCharArray();
+            char[] t = to.toCharArray();
+
+            for (int i = 0; i < s.length; ++i) {
+                String st = s[i] + "";
+
+//                if (string.substring(i, i + 1).equals("ä") || string.substring(i, i + 1).equals("ö") ||
+//                        string.substring(i, i + 1).equals("ü") || string.substring(i, i + 1).equals("Ä") ||
+//                        string.substring(i, i + 1).equals("Ö") || string.substring(i, i + 1).equals("Ü")) {
+//                    //13,56s
+//                    t[i] = s[i];
+//                }
+
+//                if (st.equals("ä") || st.equals("ö") || st.equals("ü") ||
+//                        st.equals("Ä") || st.equals("Ö") || st.equals("Ü")) {
+//                    //7,17s
+//                    if (i == 0) {
+//                        to = st + to.substring(i + 1);
+//                    } else if (i == to.length() - 1) {
+//                        to = to.substring(0, i) + st;
+//                    } else {
+//                        to = to.substring(0, i) + st + to.substring(i + 1);
+//                    }
+//                }
+
+                if (st.equals("ä") || st.equals("ö") || st.equals("ü") ||
+                        st.equals("Ä") || st.equals("Ö") || st.equals("Ü")) {
+                    //6,55s
+                    t[i] = s[i];
+                }
+            }
+
+//            return to;
+            return String.valueOf(t);
+
         } catch (Exception ex) {
+            PLog.errorLog(987451254, ex);
         }
         return string;
     }
 
     private static String strip(String str) {
-        str = Normalizer.normalize(str, Normalizer.Form.NFD);
+//        return StringUtils.stripAccents(str); //7,9s
+
+        str = Normalizer.normalize(str, Normalizer.Form.NFD); //6,5s
         str = DIACRITICS_AND_FRIENDS.matcher(str).replaceAll("");
         return str;
     }
