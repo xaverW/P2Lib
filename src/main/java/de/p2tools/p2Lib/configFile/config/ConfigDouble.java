@@ -17,44 +17,40 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
+public abstract class ConfigDouble extends Config {
 
-public class ConfigLongExtra extends ConfigExtra {
+    private Double actValue;
 
-    private long actValue;
-
-    public ConfigLongExtra(String key, String name, long actValue) {
-        super(key, name);
+    public ConfigDouble(String key, double actValue) {
+        super(key);
         this.actValue = actValue;
     }
 
+
+    public ConfigDouble(String key, double actValue, boolean intern) {
+        super(key, null, intern);
+        this.actValue = actValue;
+    }
+
+    public abstract void setUsedValue(Double value);
+
     @Override
-    public Long getActValue() {
+    public Double getActValue() {
         return actValue;
     }
 
     @Override
     public String getActValueString() {
-        return String.valueOf(getActValue());
-    }
-
-    public void setActValue(long act) {
-        actValue = act;
+        return String.valueOf(actValue);
     }
 
     @Override
     public void setActValue(String act) {
         try {
-            actValue = Long.parseLong(act);
+            actValue = Double.parseDouble(act);
         } catch (Exception ex) {
-            actValue = 0;
+            actValue = 0.0;
         }
-    }
-
-    @Override
-    public Control getControl() {
-        Label control = new Label(actValue + "");
-        return control;
+        setUsedValue(actValue);
     }
 }

@@ -17,34 +17,39 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-public abstract class ConfigLong extends Config {
+import de.p2tools.p2Lib.guiTools.PFileSize;
 
-    private Long actValue;
+public class ConfigPFileSize extends ConfigExtra {
 
-    public ConfigLong(String key, Long actValue) {
-        super(key);
+    private PFileSize actValue;
+
+    public ConfigPFileSize(String key, String name, PFileSize actValue) {
+        super(key, name);
         this.actValue = actValue;
     }
 
-    public abstract void setUsedValue(Long value);
-
     @Override
-    public Long getActValue() {
+    public PFileSize getActValue() {
         return actValue;
     }
 
     @Override
     public String getActValueString() {
-        return String.valueOf(actValue);
+        //return getActValue().toString();
+        final String ret = getActValue() == null ? "" : getActValue().toString();
+        return ret;
+    }
+
+    public void setActValue(PFileSize act) {
+        actValue = act;
     }
 
     @Override
     public void setActValue(String act) {
         try {
-            actValue = Long.parseLong(act);
+            actValue.setFileSize(act);
         } catch (Exception ex) {
-            actValue = 0L;
+            actValue.setFileSize(0);
         }
-        setUsedValue(actValue);
     }
 }

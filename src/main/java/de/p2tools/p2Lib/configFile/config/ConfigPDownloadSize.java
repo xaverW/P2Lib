@@ -17,49 +17,38 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
+import de.p2tools.p2Lib.guiTools.PDownloadSize;
 
-public class ConfigIntExtra extends ConfigExtra {
+public class ConfigPDownloadSize extends ConfigExtra {
 
-    private int actValue;
+    private PDownloadSize actValue;
 
-    public ConfigIntExtra(String key, String name, int actValue) {
+    public ConfigPDownloadSize(String key, String name, PDownloadSize actValue) {
         super(key, name);
         this.actValue = actValue;
     }
 
     @Override
-    public Integer getActValue() {
+    public PDownloadSize getActValue() {
         return actValue;
     }
 
     @Override
     public String getActValueString() {
-        return String.valueOf(getActValue());
+        final String ret = getActValue() == null ? "" : getActValue().toString();
+        return ret;
     }
 
-    public void setActValue(int act) {
+    public void setActValue(PDownloadSize act) {
         actValue = act;
     }
 
     @Override
     public void setActValue(String act) {
         try {
-            actValue = Integer.parseInt(act);
+            actValue.setFileSize(act);
         } catch (Exception ex) {
-            actValue = 0;
+            actValue.setFileSize(0);
         }
-    }
-
-//    @Override
-//    public IntegerProperty getProperty() {
-//        return actValue;
-//    }
-
-    @Override
-    public Control getControl() {
-        Label control = new Label(actValue + "");
-        return control;
     }
 }

@@ -19,7 +19,7 @@ package de.p2tools.p2Lib.configFile.config;
 
 public abstract class ConfigInt extends Config {
 
-    private int actValue;
+    private Integer actValue;
 
     public ConfigInt(String key, int actValue) {
         super(key);
@@ -32,6 +32,7 @@ public abstract class ConfigInt extends Config {
         this.actValue = actValue;
     }
 
+    public abstract void setUsedValue(Integer value);
 
     @Override
     public Integer getActValue() {
@@ -44,5 +45,12 @@ public abstract class ConfigInt extends Config {
     }
 
     @Override
-    public abstract void setActValue(String act);
+    public void setActValue(String act) {
+        try {
+            actValue = Integer.parseInt(act);
+        } catch (Exception ex) {
+            actValue = 0;
+        }
+        setUsedValue(actValue);
+    }
 }
