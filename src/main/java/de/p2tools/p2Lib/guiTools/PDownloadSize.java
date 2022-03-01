@@ -19,7 +19,7 @@ package de.p2tools.p2Lib.guiTools;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.beans.property.ObjectPropertyBase;
 
-public class PDownloadSize extends ObjectPropertyBase<String> implements Comparable<PDownloadSize> {
+public class PDownloadSize extends ObjectPropertyBase<Long> implements Comparable<PDownloadSize> {
 
     private long actFileSize = -1;
     private long fileSize = 0;
@@ -37,18 +37,18 @@ public class PDownloadSize extends ObjectPropertyBase<String> implements Compara
     }
 
     @Override
-    public void setValue(String v) {
+    public void setValue(Long v) {
         super.setValue(v);
     }
 
     @Override
-    public String getValue() {
+    public Long getValue() {
         return super.getValue();
     }
 
     @Override
-    public final String get() {
-        return getSizeString();
+    public final Long get() {
+        return actFileSize;
     }
 
     @Override
