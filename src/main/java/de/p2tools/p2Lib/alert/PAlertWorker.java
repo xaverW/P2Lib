@@ -17,6 +17,9 @@
 
 package de.p2tools.p2Lib.alert;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import javafx.scene.text.TextFlow;
@@ -63,6 +66,77 @@ public class PAlertWorker {
         return ret;
     }
 
+    //=======================
+    // yes no
+    static PAlert.BUTTON alert_yes_no_remember(Stage stage, String title, String header, String content, BooleanProperty remember) {
+        final Alert alert = getAlert(stage, Alert.AlertType.CONFIRMATION, title, header);
+        alert.setContentText(content);
+
+        ButtonType btnYes = new ButtonType("Ja", ButtonBar.ButtonData.YES);
+        ButtonType btnNo = new ButtonType("Nein", ButtonBar.ButtonData.NO);
+
+        alert.getButtonTypes().setAll(btnYes, btnNo);
+        ((Button) alert.getDialogPane().lookupButton(btnYes)).setDefaultButton(true);
+        ((Button) alert.getDialogPane().lookupButton(btnNo)).setDefaultButton(false);
+
+        PAlert.BUTTON ret = PAlert.BUTTON.NO;
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == btnYes) {
+            ret = PAlert.BUTTON.YES;
+        } else if (result.get() == btnNo) {
+            ret = PAlert.BUTTON.NO;
+        }
+        return ret;
+    }
+
+    public static PAlert.BUTTON alert_yes_no_remember(Stage stage, String title, String header,
+                                                      String content, BooleanProperty remember, String optOutMsg) {
+        final Alert alert = getAlert(stage, Alert.AlertType.CONFIRMATION, title, header);
+
+        // Need to force the alert to layout in order to grab the graphic,
+        // as we are replacing the dialog pane with a custom pane
+        alert.getDialogPane().applyCss();
+        Node graphic = alert.getDialogPane().getGraphic();
+        // Create a new dialog pane that has a checkbox instead of the hide/show details button
+        // Use the supplied callback for the action of the checkbox
+        alert.setDialogPane(new DialogPane() {
+            @Override
+            protected Node createDetailsButton() {
+                CheckBox chkOptOut = new CheckBox();
+                chkOptOut.setText(optOutMsg);
+                chkOptOut.selectedProperty().bindBidirectional(remember);
+                return chkOptOut;
+            }
+        });
+
+        // Fool the dialog into thinking there is some expandable content
+        // a Group won't take up any space if it has no children
+        alert.getDialogPane().setExpandableContent(new Group());
+        alert.getDialogPane().setExpanded(true);
+
+        // Reset the dialog graphic using the default style
+        alert.getDialogPane().setGraphic(graphic);
+
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.getDialogPane().setContentText(content);
+
+        ButtonType btnYes = new ButtonType("Ja", ButtonBar.ButtonData.YES);
+        ButtonType btnNo = new ButtonType("Nein", ButtonBar.ButtonData.NO);
+
+        alert.getButtonTypes().setAll(btnYes, btnNo);
+        ((Button) alert.getDialogPane().lookupButton(btnYes)).setDefaultButton(true);
+        ((Button) alert.getDialogPane().lookupButton(btnNo)).setDefaultButton(false);
+
+        PAlert.BUTTON ret = PAlert.BUTTON.NO;
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == btnYes) {
+            ret = PAlert.BUTTON.YES;
+        } else if (result.get() == btnNo) {
+            ret = PAlert.BUTTON.NO;
+        }
+        return ret;
+    }
 
     //=======================
     // yes no Cancel
