@@ -18,9 +18,8 @@
 package de.p2tools.p2Lib.configFile.config;
 
 import de.p2tools.p2Lib.tools.date.PDate;
-import de.p2tools.p2Lib.tools.date.PDateProperty;
 
-public class ConfigPDate extends ConfigExtra {
+public abstract class ConfigPDate extends ConfigExtra {
 
     private PDate actValue;
 
