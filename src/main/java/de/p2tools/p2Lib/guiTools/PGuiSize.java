@@ -25,7 +25,6 @@ public class PGuiSize {
 
     public static void getSizeScene(StringProperty property, Stage stage) {
         if (stage != null && stage.getScene() != null && property != null) {
-//            System.out.println(stage.getX() + " - " + stage.getY());
             property.set((int) stage.getScene().getWidth() + ":"
                     + (int) stage.getScene().getHeight()
                     + ':'
@@ -98,28 +97,26 @@ public class PGuiSize {
             return false;
         }
 
-        setPosSave(posX, posY, stage);
+        setSavePosition(posX, posY, stage);
         return true;
     }
 
     public static void showSave(Stage stage) {
-        System.out.println("\nshowSave(Stage stage)");
         Platform.runLater(() -> {
             //die Reihenfolge ist bei Win!! wichtig, klappt sonst nicht beim allerersten Mal
-            setPosSave(stage);
+            setSavePosition(stage);
             if (!stage.isShowing()) {
-                System.out.println("   show");
                 stage.show();
             }
             stage.toFront();//damit eingeklappte GUIs wieder erscheinen / klappt leider nur bei Linux
         });
     }
 
-    private static void setPosSave(Stage stage) {
-        setPosSave(stage.getX(), stage.getY(), stage);
+    private static void setSavePosition(Stage stage) {
+        setSavePosition(stage.getX(), stage.getY(), stage);
     }
 
-    private static void setPosSave(double posX, double posY, Stage stage) {
+    private static void setSavePosition(double posX, double posY, Stage stage) {
         if (posX < 0 || posY < 0) {
             // dann wäre es außerhalb des Desktops
             PLog.sysLog("setPosSave and center (x/y): " + posX + " / " + posY);
