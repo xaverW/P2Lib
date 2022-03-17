@@ -26,10 +26,15 @@ import javafx.util.Callback;
 
 public class PSeparatorComboBox<T> extends ComboBox<T> {
     public static final String SEPARATOR = "=====<>=====";
+    public static final String SEPARATOR_OLD = "-----======-----";
 
     public PSeparatorComboBox() {
         super();
         setup();
+    }
+
+    public static boolean isSeparator(String str) {
+        return str.equals(SEPARATOR) || str.equals(SEPARATOR_OLD);
     }
 
     private void setup() {
@@ -37,7 +42,7 @@ public class PSeparatorComboBox<T> extends ComboBox<T> {
 
             @Override
             public void select(T item) {
-                if (item.toString().equals(SEPARATOR)) {
+                if (PSeparatorComboBox.isSeparator(item.toString())) {
                     return;
                 }
                 super.select(item);
@@ -49,7 +54,7 @@ public class PSeparatorComboBox<T> extends ComboBox<T> {
                 if (itemCount == 0 || index < 0 || index >= itemCount) return;
 
                 T item = getItems().get(index);
-                if (item.toString().equals(SEPARATOR)) {
+                if (PSeparatorComboBox.isSeparator(item.toString())) {
                     return;
                 }
                 super.select(index);
@@ -75,7 +80,7 @@ public class PSeparatorComboBox<T> extends ComboBox<T> {
                         super.updateItem(item, empty);
                         if (item != null) {
                             setText(item.toString());
-                            if (item.toString().equals(SEPARATOR)) {
+                            if (PSeparatorComboBox.isSeparator(item.toString())) {
                                 setTextFill(Color.LIGHTGRAY);
                                 setDisable(true);
                             } else {
