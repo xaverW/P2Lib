@@ -25,7 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 public class PSeparatorComboBox<T> extends ComboBox<T> {
-    public static final String SEPARATOR = "-----======-----";
+    public static final String SEPARATOR = "=====<>=====";
 
     public PSeparatorComboBox() {
         super();
