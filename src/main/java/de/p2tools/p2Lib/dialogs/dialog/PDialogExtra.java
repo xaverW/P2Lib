@@ -34,7 +34,7 @@ import javafx.stage.Stage;
 public class PDialogExtra extends PDialog {
 
     private final VBox vBoxCompleteDialog = new VBox(); // ist der gesamte Dialog
-    private final PMaskerPane maskerPane = new PMaskerPane();
+    private PMaskerPane maskerPane = null;
     private final HBox hBoxTitle = new HBox(10); // ist der Bereich über dem Inhalt mit dem Titel
     private final HBox hBoxOverAll = new HBox(10); // ist der Bereich über dem Inhalt und dem Scrollpanel
     private final ScrollPane scrollPane = new ScrollPane();
@@ -84,6 +84,7 @@ public class PDialogExtra extends PDialog {
         super(ownerForCenteringDialog, conf, title, modal, setOnlySize);
         this.deco = deco;
         this.masker = masker;
+        maskerPane = new PMaskerPane();
         initDialog();
     }
 
