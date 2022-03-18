@@ -17,6 +17,7 @@
 package de.p2tools.p2Lib.dialogs.dialog;
 
 import de.p2tools.p2Lib.P2LibConst;
+import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -26,12 +27,14 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class PDialogExtra extends PDialog {
 
     private final VBox vBoxCompleteDialog = new VBox(); // ist der gesamte Dialog
+    private final PMaskerPane maskerPane = new PMaskerPane();
     private final HBox hBoxTitle = new HBox(10); // ist der Bereich über dem Inhalt mit dem Titel
     private final HBox hBoxOverAll = new HBox(10); // ist der Bereich über dem Inhalt und dem Scrollpanel
     private final ScrollPane scrollPane = new ScrollPane();
@@ -40,6 +43,7 @@ public class PDialogExtra extends PDialog {
     private final HBox hBoxLeft = new HBox(10); // ist vor der ButtonBar
     private final HBox hBoxRight = new HBox(10); // ist nach der ButtonBar
     private final ButtonBar buttonBar = new ButtonBar();
+    private boolean masker = false;
     private DECO deco = DECO.BORDER;
 
     public enum DECO {
@@ -75,6 +79,15 @@ public class PDialogExtra extends PDialog {
         initDialog();
     }
 
+    public PDialogExtra(Stage ownerForCenteringDialog, StringProperty conf,
+                        String title, boolean modal, boolean setOnlySize, DECO deco, boolean masker) {
+        super(ownerForCenteringDialog, conf, title, modal, setOnlySize);
+        this.deco = deco;
+        this.masker = masker;
+        initDialog();
+    }
+
+    @Override
     public void init(boolean show) {
         super.init(show);
     }
@@ -168,6 +181,13 @@ public class PDialogExtra extends PDialog {
         }
     }
 
+    public void setMaskerVisible(boolean visible) {
+        if (masker) {
+            //ist nur dann, enthalten
+            maskerPane.setMaskerVisible(visible, false, false);
+        }
+    }
+
     private void initDialog() {
         initBefore();
 
@@ -186,7 +206,18 @@ public class PDialogExtra extends PDialog {
     }
 
     private void initBefore() {
-        super.setPane(vBoxCompleteDialog);
+        if (masker) {
+            StackPane.setAlignment(maskerPane, Pos.CENTER);
+            maskerPane.setPadding(new Insets(4, 1, 1, 1));
+
+            final StackPane stackPane = new StackPane(); // ist der gesamte Dialog
+            super.setPane(stackPane);
+            stackPane.getChildren().addAll(vBoxCompleteDialog, maskerPane);
+
+        } else {
+            super.setPane(vBoxCompleteDialog);
+        }
+
         vBoxCompleteDialog.setSpacing(10);
         vBoxCompleteDialog.setPadding(new Insets(10));
 
