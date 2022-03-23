@@ -57,7 +57,6 @@ public class PTipOfDayDialog extends PDialogExtra {
         this.pTipList = pTipList;
         this.shownProp = shownProp;
         this.showTip = showTip;
-
         init(true);
     }
 

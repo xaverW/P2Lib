@@ -17,30 +17,15 @@
 package de.p2tools.p2Lib.guiTools;
 
 import de.p2tools.p2Lib.tools.log.PLog;
-import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
 
 public class PGuiSize {
 
-    public static void getSizeScene(StringProperty property, Stage stage) {
-        if (stage != null && stage.getScene() != null && property != null) {
-            property.set((int) stage.getScene().getWidth() + ":"
-                    + (int) stage.getScene().getHeight()
-                    + ':'
-                    + (int) stage.getX()
-                    + ':'
-                    + (int) stage.getY());
-        }
-    }
-
-    public static void getSizeWindow(StringProperty property, Stage stage) {
-        if (stage != null &&
-                stage.getScene() != null && stage.getScene().getWindow() != null &&
-                property != null) {
-
-            property.set((int) stage.getScene().getWindow().getWidth() + ":"
-                    + (int) stage.getScene().getWindow().getHeight()
+    public static void getSizeStage(StringProperty property, Stage stage) {
+        if (stage != null && property != null) {
+            property.set((int) stage.getWidth() + ":"
+                    + (int) stage.getHeight()
                     + ':'
                     + (int) stage.getX()
                     + ':'
@@ -101,21 +86,6 @@ public class PGuiSize {
         return true;
     }
 
-    public static void showSave(Stage stage) {
-        Platform.runLater(() -> {
-            //die Reihenfolge ist bei Win!! wichtig, klappt sonst nicht beim allerersten Mal
-            setSavePosition(stage);
-            if (!stage.isShowing()) {
-                stage.show();
-            }
-            stage.toFront();//damit eingeklappte GUIs wieder erscheinen / klappt leider nur bei Linux
-        });
-    }
-
-    private static void setSavePosition(Stage stage) {
-        setSavePosition(stage.getX(), stage.getY(), stage);
-    }
-
     private static void setSavePosition(double posX, double posY, Stage stage) {
         if (posX < 0 || posY < 0) {
             // dann wäre es außerhalb des Desktops
@@ -125,6 +95,5 @@ public class PGuiSize {
             stage.setX(posX);
             stage.setY(posY);
         }
-        stage.toFront();
     }
 }

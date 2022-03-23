@@ -23,6 +23,7 @@ import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.icon.GetIcon;
 import de.p2tools.p2Lib.tools.PException;
 import de.p2tools.p2Lib.tools.log.PLog;
+import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -99,6 +100,28 @@ public class PDialog {
                 showDialog();
             }
 
+            if (sizeConfiguration != null) {
+                Platform.runLater(() -> {
+                    //sonst wirds beim Erstellen schon überschrieben!!
+                    stage.widthProperty().addListener((u, o, n) -> {
+                                PGuiSize.getSizeStage(sizeConfiguration, stage);
+                            }
+                    );
+                    stage.heightProperty().addListener((u, o, n) -> {
+                                PGuiSize.getSizeStage(sizeConfiguration, stage);
+                            }
+                    );
+                    stage.xProperty().addListener((u, o, n) -> {
+                                PGuiSize.getSizeStage(sizeConfiguration, stage);
+                            }
+                    );
+                    stage.yProperty().addListener((u, o, n) -> {
+                                PGuiSize.getSizeStage(sizeConfiguration, stage);
+                            }
+                    );
+                });
+            }
+
         } catch (final Exception exc) {
             PLog.errorLog(152030145, exc);
         }
@@ -137,34 +160,12 @@ public class PDialog {
         //bei wiederkehrenden Dialogen: die pos/size merken
         stageWidth = stage.getWidth();
         stageHeight = stage.getHeight();
-
-        if (sizeConfiguration != null) {
-            PGuiSize.getSizeScene(sizeConfiguration, stage);
-        }
         stage.close();
     }
 
     public void showDialog() {
-        if (stageHeight > 0 && stageWidth > 0) {
-            //bei wiederkehrenden Dialogen die pos/size setzen
-            stage.setHeight(stageHeight);
-            stage.setWidth(stageWidth);
-        }
-
-        if (setOnlySize || sizeConfiguration == null || !PGuiSize.setPos(sizeConfiguration, stage)) {
-            if (ownerForCenteringDialog == null) {
-                stage.centerOnScreen();
-//                PDialogFactory.setInCenterOfScreen(stage);
-            } else {
-                PDialogFactory.setInFrontOfPrimaryStage(ownerForCenteringDialog, stage);
-            }
-        }
-
-        if (modal) {
-            stage.showAndWait();
-        } else {
-            stage.show();
-        }
+        PDialogFactory.showDialog(stage, sizeConfiguration, stageHeight, stageWidth,
+                ownerForCenteringDialog, modal);
     }
 
     public Stage getStage() {
@@ -177,5 +178,4 @@ public class PDialog {
 
     protected void make() {
     }
-
 }

@@ -56,11 +56,6 @@ public class PDialogExtra extends PDialog {
         initDialog();
     }
 
-    public PDialogExtra(Stage ownerForCenteringDialog, String title) {
-        super(ownerForCenteringDialog, null, title, true, true);
-        initDialog();
-    }
-
     public PDialogExtra(Stage ownerForCenteringDialog, StringProperty conf, String title) {
         super(ownerForCenteringDialog, conf, title, true, true);
         initDialog();
@@ -238,7 +233,6 @@ public class PDialogExtra extends PDialog {
     }
 
     private void initNone() {
-//        getHBoxTitle().getChildren().add(new Label("Test"));
         vBoxCont.setPadding(new Insets(15));
         vBoxCompleteDialog.getChildren().addAll(hBoxOverAll, hBoxTitle, scrollPane);
     }
