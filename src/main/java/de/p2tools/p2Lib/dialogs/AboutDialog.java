@@ -56,8 +56,8 @@ public abstract class AboutDialog extends PDialogExtra {
 
     public AboutDialog(Stage stage, String progName, String URL_WEBSITE, String URL_WEBSITE_HELP,
                        String path, StringProperty urlOpenProg,
-                       boolean dark, String[] listName, String[] listValue) {
-        super(stage, null, "Über das Programm", true, false, DECO.SMALL);
+                       boolean dark, String[] listName, String[] listValue, boolean masker) {
+        super(stage, null, "Über das Programm", true, false, DECO.SMALL, masker);
 
         this.progName = progName;
         this.URL_WEBSITE = URL_WEBSITE;
@@ -81,7 +81,7 @@ public abstract class AboutDialog extends PDialogExtra {
 
         addOkButton(btnOk);
         getHboxLeft().getChildren().add(btnCheck);
-        init(true);
+        init(false);
     }
 
 
