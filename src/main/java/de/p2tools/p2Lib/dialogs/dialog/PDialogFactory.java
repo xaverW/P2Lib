@@ -71,6 +71,33 @@ public class PDialogFactory {
         }
     }
 
+    public static void setSizePos(Stage stage, StringProperty sizeConfiguration, double stageHeight, double stageWidth,
+                                  Stage ownerForCenteringDialog) {
+        //Größe setzen
+        if (stageHeight > 0 && stageWidth > 0) {
+            //die gemerkte Größe wieder setzen
+            stage.setHeight(stageHeight);
+            stage.setWidth(stageWidth);
+        } else if (sizeConfiguration != null && !sizeConfiguration.getValueSafe().isEmpty()) {
+            //gespeicherte Größe setzen
+            int w = PGuiSize.getWidth(sizeConfiguration);
+            int h = PGuiSize.getHeight(sizeConfiguration);
+            if (w > 0 && h > 0) {
+                stage.setWidth(w);
+                stage.setHeight(h);
+            }
+        }
+
+        //Pos setzen
+        if (sizeConfiguration == null || !PGuiSize.setPos(sizeConfiguration, stage)) {
+            if (ownerForCenteringDialog == null) {
+                stage.centerOnScreen();
+            } else {
+                setInFrontOfPrimaryStage(ownerForCenteringDialog, stage);
+            }
+        }
+    }
+
     public static void setInCenterOfScreen(Stage stage) {
         // im Monitor zentrieren
         //todo: testen stage.centerOnScreen();

@@ -103,27 +103,21 @@ public class PDialog {
             if (sizeConfiguration != null) {
                 Platform.runLater(() -> {
                     //sonst wirds beim Erstellen schon überschrieben!!
-                    stage.widthProperty().addListener((u, o, n) -> {
-                                PGuiSize.getSizeStage(sizeConfiguration, stage);
-                            }
-                    );
-                    stage.heightProperty().addListener((u, o, n) -> {
-                                PGuiSize.getSizeStage(sizeConfiguration, stage);
-                            }
-                    );
-                    stage.xProperty().addListener((u, o, n) -> {
-                                PGuiSize.getSizeStage(sizeConfiguration, stage);
-                            }
-                    );
-                    stage.yProperty().addListener((u, o, n) -> {
-                                PGuiSize.getSizeStage(sizeConfiguration, stage);
-                            }
-                    );
+                    stage.widthProperty().addListener((u, o, n) -> setSize());
+                    stage.heightProperty().addListener((u, o, n) -> setSize());
+                    stage.xProperty().addListener((u, o, n) -> setSize());
+                    stage.yProperty().addListener((u, o, n) -> setSize());
                 });
             }
 
         } catch (final Exception exc) {
             PLog.errorLog(152030145, exc);
+        }
+    }
+
+    private void setSize() {
+        if (stage.isShowing()) {
+            PGuiSize.getSizeStage(sizeConfiguration, stage);
         }
     }
 
@@ -166,6 +160,11 @@ public class PDialog {
     public void showDialog() {
         PDialogFactory.showDialog(stage, sizeConfiguration, stageHeight, stageWidth,
                 ownerForCenteringDialog, modal);
+    }
+
+    public void setSizePos() {
+        PDialogFactory.setSizePos(stage, sizeConfiguration, stageHeight, stageWidth,
+                ownerForCenteringDialog);
     }
 
     public Stage getStage() {

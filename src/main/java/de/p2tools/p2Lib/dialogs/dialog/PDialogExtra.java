@@ -18,6 +18,7 @@ package de.p2tools.p2Lib.dialogs.dialog;
 
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.guiTools.pMask.PMaskerPane;
+import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -31,7 +32,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class PDialogExtra extends PDialog {
+    private static ArrayList<PDialog> dialogList = new ArrayList<>();
 
     private final VBox vBoxCompleteDialog = new VBox(); // ist der gesamte Dialog
     private PMaskerPane maskerPane = null;
@@ -48,6 +52,11 @@ public class PDialogExtra extends PDialog {
 
     public enum DECO {
         NONE, BORDER, SMALL
+    }
+
+    public PDialogExtra() {
+        super(P2LibConst.primaryStage, null, "", true, true);
+        initDialog();
     }
 
     public PDialogExtra(StringProperty conf, String title) {
@@ -83,9 +92,63 @@ public class PDialogExtra extends PDialog {
         initDialog();
     }
 
+    private static synchronized void addDialog(PDialog pDialog) {
+        boolean found = false;
+        for (PDialog dialog : dialogList) {
+            if (dialog.equals(pDialog)) {
+                found = true;
+            }
+        }
+        if (!found) {
+            dialogList.add(pDialog);
+        }
+    }
+
+    private static synchronized void removeDialog(PDialog pDialog) {
+        dialogList.remove(pDialog);
+    }
+
+    public static void closeAllDialog() {
+        dialogList.stream().forEach(pDialog -> {
+            Platform.runLater(() -> {
+                pDialog.hide();
+            });
+        });
+    }
+
+    public static void showAllDialog() {
+        dialogList.stream().forEach(pDialog -> {
+            Platform.runLater(() -> {
+                pDialog.showDialog();
+            });
+        });
+    }
+
+    @Override
+    public void hide() {
+        // close/hide are the same
+        super.close();
+    }
+
+    @Override
+    public void close() {
+        //bei wiederkehrenden Dialogen: die pos/size merken
+        removeDialog(this);
+        super.close();
+    }
+
     @Override
     public void init(boolean show) {
+        if (show) {
+            addDialog(this);
+        }
         super.init(show);
+    }
+
+    @Override
+    public void showDialog() {
+        addDialog(this);
+        super.showDialog();
     }
 
     public VBox getVBoxCompleteDialog() {
