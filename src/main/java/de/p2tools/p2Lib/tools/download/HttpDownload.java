@@ -38,6 +38,7 @@ import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 
 public class HttpDownload extends Thread {
+    public static int downloadRunning = 0;
 
     private long downloaded = 0;
     private String responseCode;
@@ -67,9 +68,6 @@ public class HttpDownload extends Thread {
         this.destDir = destDir;
         this.destName = destName;
         this.destDirFile = PFileUtils.addsPath(destDir, destName);
-//        this.downloadProgressDialog = downloadProgressDialog;
-//        this.downloadProgressDialog = new DownloadProgressDialog(stage, destName);
-
         setName("DOWNLOAD FILE THREAD: " + destName);
     }
 
@@ -80,6 +78,7 @@ public class HttpDownload extends Thread {
     @Override
     public synchronized void run() {
         PLog.sysLog("Download von: " + url + P2LibConst.LINE_SEPARATOR + "nach: " + destDirFile);
+        ++downloadRunning;
 
         try {
             Files.createDirectories(Paths.get(destDir));
@@ -103,7 +102,6 @@ public class HttpDownload extends Thread {
 
             try (InputStream inputStream = conn.getInputStream();
                  FileOutputStream fileOutputStream = new FileOutputStream(new File(destDirFile), (downloaded != 0))) {
-
                 downloadContent(inputStream, fileOutputStream);
 
             } catch (final Exception ex) {
@@ -147,6 +145,7 @@ public class HttpDownload extends Thread {
                     "Der Download ist abgeschlossen" + P2LibConst.LINE_SEPARATOR +
                             "und war erfolgreich.", PNotification.STATE.SUCCESS);
         }
+        --downloadRunning;
     }
 
     private HttpURLConnection startDownload(HttpURLConnection conn) {

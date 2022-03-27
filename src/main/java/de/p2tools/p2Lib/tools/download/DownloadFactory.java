@@ -25,6 +25,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class DownloadFactory {
+   
     private DownloadFactory() {
     }
 
@@ -40,26 +41,17 @@ public class DownloadFactory {
             ret = true;
             PLog.sysLog("Download wird gestartet");
 
-//            DownloadProgressDialog downloadProgressDialog = new DownloadProgressDialog(stage, downloadDialogController.getDestName());
             final Thread download = new HttpDownload(stage, url, downloadDialogController.getDestPath(), downloadDialogController.getDestName());
-
             try {
                 //verhindert das Aufpoppen des startenden Dialogs etwas
                 Thread.sleep(500);
             } catch (final Exception ignore) {
             }
-
             download.start();
 
         } else {
             PLog.sysLog("Download wird nicht gestartet");
         }
-
-        return ret;
-    }
-
-    private boolean download(final String url, final String destFile) {
-        final boolean ret = false;
 
         return ret;
     }
