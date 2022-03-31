@@ -25,13 +25,12 @@ import java.util.EventListener;
 
 public class Listener implements EventListener {
 
+    private static final ArrayList<Listener> listeners = new ArrayList<>();
     static int count = 0;
-
-    public static final int EREIGNIS_TIMER = count++;
+    public static final int EVENT_TIMER = count++;
 
     public int[] event = {-1};
     public String eventClass = "";
-    private static final ArrayList<Listener> listeners = new ArrayList<>();
 
     public Listener(int event, String eventClass) {
         this.event = new int[]{event};
@@ -43,38 +42,40 @@ public class Listener implements EventListener {
         this.eventClass = eventClass;
     }
 
-    public void ping() {
-    }
-
     public static synchronized void addListener(Listener listener) {
+        PLog.sysLog("Anz. Listener: " + listeners.size());
         listeners.add(listener);
     }
 
-    public static synchronized void notify(int eventNotify, String eventClass) {
+    public static synchronized void removeListener(Listener listener) {
+        listeners.remove(listener);
+    }
 
+    public static synchronized void notify(int eventNotify, String eventClass) {
         listeners.stream().forEach(listener -> {
             for (final int event : listener.event) {
-
+                // um einen Kreislauf zu verhindern
                 if (event == eventNotify && !listener.eventClass.equals(eventClass)) {
-                    // um einen Kreislauf zu verhindern
-                    try {
-                        listener.pingen();
-                    } catch (final Exception ex) {
-                        PLog.errorLog(512021043, ex);
-                    }
+                    listener.pingen();
                 }
-
             }
         });
+    }
 
+    public void pingFx() {
+        // das passiert im application thread
+    }
+
+    public void ping() {
+        // das ist asynchron zum application thread
     }
 
     private void pingen() {
         try {
-            Platform.runLater(() -> ping());
+            ping();
+            Platform.runLater(() -> pingFx());
         } catch (final Exception ex) {
-            PLog.errorLog(915421458, ex);
+            PLog.errorLog(945120973, ex);
         }
     }
-
 }

@@ -36,16 +36,14 @@ import java.nio.file.Path;
 
 
 public class PDialog {
-    private Scene scene = null;
-    private Stage stage = null;
-    private Pane pane;
-
     private final StringProperty sizeConfiguration;
     private final boolean modal;
     private final boolean setOnlySize; // dann wird nur die Größe nicht aber die Position gesetzt
     private final String title;
     private final Stage ownerForCenteringDialog;
-
+    private Scene scene = null;
+    private Stage stage = null;
+    private Pane pane;
     private double stageWidth = 0;
     private double stageHeight = 0;
 
@@ -96,10 +94,6 @@ public class PDialog {
                 scene.getWindow().sizeToScene();
             }
 
-            if (show) {
-                showDialog();
-            }
-
             if (sizeConfiguration != null) {
                 Platform.runLater(() -> {
                     //sonst wirds beim Erstellen schon überschrieben!!
@@ -109,6 +103,11 @@ public class PDialog {
                     stage.yProperty().addListener((u, o, n) -> setSize());
                 });
             }
+
+            if (show) {
+                showDialog();
+            }
+
 
         } catch (final Exception exc) {
             PLog.errorLog(152030145, exc);
@@ -159,7 +158,7 @@ public class PDialog {
 
     public void showDialog() {
         PDialogFactory.showDialog(stage, sizeConfiguration, stageHeight, stageWidth,
-                ownerForCenteringDialog, modal);
+                ownerForCenteringDialog, modal, setOnlySize);
     }
 
     public void setSizePos() {

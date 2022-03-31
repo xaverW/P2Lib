@@ -30,11 +30,11 @@ public class PDialogFactory {
 
     public static void showDialog(Stage stage, StringProperty sizeConfiguration) {
         showDialog(stage, sizeConfiguration, 0, 0,
-                null, false);
+                null, false, false);
     }
 
     public static void showDialog(Stage stage, StringProperty sizeConfiguration, double stageHeight, double stageWidth,
-                                  Stage ownerForCenteringDialog, boolean modal) {
+                                  Stage ownerForCenteringDialog, boolean modal, boolean onlySize) {
 
         //Größe setzen
         if (stageHeight > 0 && stageWidth > 0) {
@@ -52,7 +52,7 @@ public class PDialogFactory {
         }
 
         //Pos setzen
-        if (sizeConfiguration == null || !PGuiSize.setPos(sizeConfiguration, stage)) {
+        if (onlySize || sizeConfiguration == null || !PGuiSize.setPos(sizeConfiguration, stage)) {
             if (ownerForCenteringDialog == null) {
                 stage.centerOnScreen();
             } else {
