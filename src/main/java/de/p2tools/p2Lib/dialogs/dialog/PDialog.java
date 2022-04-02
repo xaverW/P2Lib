@@ -19,11 +19,9 @@ package de.p2tools.p2Lib.dialogs.dialog;
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.P2LibInit;
 import de.p2tools.p2Lib.configFile.IoReadWriteStyle;
-import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.icon.GetIcon;
 import de.p2tools.p2Lib.tools.PException;
 import de.p2tools.p2Lib.tools.log.PLog;
-import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -63,7 +61,8 @@ public class PDialog {
 
     void init(boolean show) {
         try {
-            createNewScene(pane);
+//            createNewScene(pane);
+            scene = new Scene(pane);
             if (scene == null) {
                 PException.throwPException(912012458, "no scene");
             }
@@ -89,34 +88,13 @@ public class PDialog {
             GetIcon.addWindowP2Icon(stage);
             make();
 
-            if (setOnlySize || sizeConfiguration == null || sizeConfiguration.get().isEmpty()) {
-                // auch für Dialoge die beim ersten Start keine Größenvorgabe haben
-                scene.getWindow().sizeToScene();
-            }
-
-            if (sizeConfiguration != null) {
-                Platform.runLater(() -> {
-                    //sonst wirds beim Erstellen schon überschrieben!!
-                    stage.widthProperty().addListener((u, o, n) -> setSize());
-                    stage.heightProperty().addListener((u, o, n) -> setSize());
-                    stage.xProperty().addListener((u, o, n) -> setSize());
-                    stage.yProperty().addListener((u, o, n) -> setSize());
-                });
-            }
-
+            PDialogFactory.addSizeListener(stage, sizeConfiguration);
             if (show) {
                 showDialog();
             }
 
-
         } catch (final Exception exc) {
             PLog.errorLog(152030145, exc);
-        }
-    }
-
-    private void setSize() {
-        if (stage.isShowing()) {
-            PGuiSize.getSizeStage(sizeConfiguration, stage);
         }
     }
 
@@ -130,17 +108,12 @@ public class PDialog {
     }
 
     private void createNewScene(Pane pane) {
-        if (sizeConfiguration == null) {
+        if (sizeConfiguration != null) {
+            //dann wird die Größe noch gesetzt
             this.scene = new Scene(pane);
         } else {
-            int w = PGuiSize.getWidth(sizeConfiguration);
-            int h = PGuiSize.getHeight(sizeConfiguration);
-            if (w > 0 && h > 0) {
-                this.scene = new Scene(pane, w, h);
-            } else {
-                // für Win, damit die Dialoge nicht über den Bildschirm raus ragen
-                this.scene = new Scene(pane, 800, 700);
-            }
+            // für Win, damit die Dialoge nicht über den Bildschirm raus ragen
+            this.scene = new Scene(pane, 800, 700);
         }
     }
 
@@ -161,10 +134,10 @@ public class PDialog {
                 ownerForCenteringDialog, modal, setOnlySize);
     }
 
-    public void setSizePos() {
-        PDialogFactory.setSizePos(stage, sizeConfiguration, stageHeight, stageWidth,
-                ownerForCenteringDialog);
-    }
+//    public void setSizePos() {
+//        PDialogFactory.setSizePos(stage, sizeConfiguration, stageHeight, stageWidth,
+//                ownerForCenteringDialog);
+//    }
 
     public Stage getStage() {
         return stage;

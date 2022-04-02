@@ -20,12 +20,35 @@ package de.p2tools.p2Lib.dialogs.dialog;
 import de.p2tools.p2Lib.guiTools.PGuiSize;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.geometry.Rectangle2D;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class PDialogFactory {
     private PDialogFactory() {
+    }
+
+    public static void addSizeListener(Stage stage, StringProperty sizeConfiguration) {
+        if (sizeConfiguration != null) {
+            stage.widthProperty().addListener((v, o, n) -> {
+                if (stage.isShowing()) {
+                    PGuiSize.getSizeStage(sizeConfiguration, stage);
+                }
+            });
+            stage.heightProperty().addListener((v, o, n) -> {
+                if (stage.isShowing()) {
+                    PGuiSize.getSizeStage(sizeConfiguration, stage);
+                }
+            });
+            stage.xProperty().addListener((v, o, n) -> {
+                if (stage.isShowing()) {
+                    PGuiSize.getSizeStage(sizeConfiguration, stage);
+                }
+            });
+            stage.yProperty().addListener((v, o, n) -> {
+                if (stage.isShowing()) {
+                    PGuiSize.getSizeStage(sizeConfiguration, stage);
+                }
+            });
+        }
     }
 
     public static void showDialog(Stage stage, StringProperty sizeConfiguration) {
@@ -49,6 +72,9 @@ public class PDialogFactory {
                 stage.setWidth(w);
                 stage.setHeight(h);
             }
+        } else {
+            //dann einpassen
+            stage.sizeToScene();
         }
 
         //Pos setzen
@@ -71,57 +97,57 @@ public class PDialogFactory {
         }
     }
 
-    public static void setSizePos(Stage stage, StringProperty sizeConfiguration, double stageHeight, double stageWidth,
-                                  Stage ownerForCenteringDialog) {
-        //Größe setzen
-        if (stageHeight > 0 && stageWidth > 0) {
-            //die gemerkte Größe wieder setzen
-            stage.setHeight(stageHeight);
-            stage.setWidth(stageWidth);
-        } else if (sizeConfiguration != null && !sizeConfiguration.getValueSafe().isEmpty()) {
-            //gespeicherte Größe setzen
-            int w = PGuiSize.getWidth(sizeConfiguration);
-            int h = PGuiSize.getHeight(sizeConfiguration);
-            if (w > 0 && h > 0) {
-                stage.setWidth(w);
-                stage.setHeight(h);
-            }
-        }
+//    public static void setSizePos(Stage stage, StringProperty sizeConfiguration, double stageHeight, double stageWidth,
+//                                  Stage ownerForCenteringDialog) {
+//        //Größe setzen
+//        if (stageHeight > 0 && stageWidth > 0) {
+//            //die gemerkte Größe wieder setzen
+//            stage.setHeight(stageHeight);
+//            stage.setWidth(stageWidth);
+//        } else if (sizeConfiguration != null && !sizeConfiguration.getValueSafe().isEmpty()) {
+//            //gespeicherte Größe setzen
+//            int w = PGuiSize.getWidth(sizeConfiguration);
+//            int h = PGuiSize.getHeight(sizeConfiguration);
+//            if (w > 0 && h > 0) {
+//                stage.setWidth(w);
+//                stage.setHeight(h);
+//            }
+//        }
+//
+//        //Pos setzen
+//        if (sizeConfiguration == null || !PGuiSize.setPos(sizeConfiguration, stage)) {
+//            if (ownerForCenteringDialog == null) {
+//                stage.centerOnScreen();
+//            } else {
+//                setInFrontOfPrimaryStage(ownerForCenteringDialog, stage);
+//            }
+//        }
+//    }
 
-        //Pos setzen
-        if (sizeConfiguration == null || !PGuiSize.setPos(sizeConfiguration, stage)) {
-            if (ownerForCenteringDialog == null) {
-                stage.centerOnScreen();
-            } else {
-                setInFrontOfPrimaryStage(ownerForCenteringDialog, stage);
-            }
-        }
-    }
-
-    public static void setInCenterOfScreen(Stage stage) {
-        // im Monitor zentrieren
-        //todo: testen stage.centerOnScreen();
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-
-        if (screenBounds != null) {
-            ChangeListener<Number> widthListener = (observable, oldValue, newValue) -> {
-                double stageWidth = newValue.doubleValue();
-                stage.setX(screenBounds.getWidth() / 2 - stageWidth / 2);
-            };
-            ChangeListener<Number> heightListener = (observable, oldValue, newValue) -> {
-                double stageHeight = newValue.doubleValue();
-                stage.setY(screenBounds.getHeight() / 2 - stageHeight / 2);
-            };
-
-            stage.widthProperty().addListener(widthListener);
-            stage.heightProperty().addListener(heightListener);
-
-            stage.setOnShown(e -> {
-                stage.widthProperty().removeListener(widthListener);
-                stage.heightProperty().removeListener(heightListener);
-            });
-        }
-    }
+//    public static void setInCenterOfScreen(Stage stage) {
+//        // im Monitor zentrieren
+//        //todo: testen stage.centerOnScreen();
+//        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+//
+//        if (screenBounds != null) {
+//            ChangeListener<Number> widthListener = (observable, oldValue, newValue) -> {
+//                double stageWidth = newValue.doubleValue();
+//                stage.setX(screenBounds.getWidth() / 2 - stageWidth / 2);
+//            };
+//            ChangeListener<Number> heightListener = (observable, oldValue, newValue) -> {
+//                double stageHeight = newValue.doubleValue();
+//                stage.setY(screenBounds.getHeight() / 2 - stageHeight / 2);
+//            };
+//
+//            stage.widthProperty().addListener(widthListener);
+//            stage.heightProperty().addListener(heightListener);
+//
+//            stage.setOnShown(e -> {
+//                stage.widthProperty().removeListener(widthListener);
+//                stage.heightProperty().removeListener(heightListener);
+//            });
+//        }
+//    }
 
     public static void setInFrontOfPrimaryStage(Stage ownerForCenteringDialog, Stage stage) {
         // vor Primärfenster des Programms zentrieren
