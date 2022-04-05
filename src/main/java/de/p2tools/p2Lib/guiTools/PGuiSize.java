@@ -18,6 +18,7 @@ package de.p2tools.p2Lib.guiTools;
 
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.beans.property.StringProperty;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class PGuiSize {
@@ -33,14 +34,14 @@ public class PGuiSize {
         }
     }
 
-    public static void getSizeScene(StringProperty property, Stage stage) {
-        if (stage != null && property != null) {
-            property.set((int) stage.getScene().getWidth() + ":"
-                    + (int) stage.getScene().getHeight()
+    public static void getSizeScene(StringProperty property, Stage stage, Scene scene) {
+        if (scene != null && property != null) {
+            property.set((int) scene.getWidth() + ":"
+                    + (int) scene.getHeight()
                     + ':'
-                    + (int) stage.getScene().getX()
+                    + (int) stage.getX()
                     + ':'
-                    + (int) stage.getScene().getY());
+                    + (int) stage.getY());
         }
     }
 

@@ -152,6 +152,7 @@ public class PDialogFactory {
     public static void setInFrontOfPrimaryStage(Stage ownerForCenteringDialog, Stage stage) {
         // vor Primärfenster des Programms zentrieren
         if (ownerForCenteringDialog == null) {
+            stage.centerOnScreen();
             return;
         }
 
