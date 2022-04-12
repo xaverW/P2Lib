@@ -126,6 +126,7 @@ public class PHyperlink extends Hyperlink {
             MenuItem changeUrl = new MenuItem("URL ändern");
             changeUrl.setOnAction(a -> {
                 TextInputDialog dialog = new TextInputDialog(url);
+                dialog.setResizable(true);
                 dialog.setTitle("URL ändern");
                 dialog.setHeaderText("Eine neue URL angeben");
                 dialog.setContentText("URL:");

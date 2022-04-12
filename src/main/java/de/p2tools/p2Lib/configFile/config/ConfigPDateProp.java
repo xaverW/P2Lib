@@ -40,7 +40,6 @@ public class ConfigPDateProp extends ConfigExtra {
 
     @Override
     public String getActValueString() {
-        //        return getActValue().toString();
         final String ret = getActValue() == null ? "" : getActValue().toString();
         return ret;
     }

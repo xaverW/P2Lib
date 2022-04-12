@@ -173,7 +173,6 @@ class LoadConfig implements AutoCloseable {
     }
 
     private boolean getConf(XMLStreamReader parser, Object o) {
-//        System.out.println("getConf: " + o.getClass());
         if (o instanceof PData) {
             return getPData(parser, (PData) o);
 
@@ -248,7 +247,6 @@ class LoadConfig implements AutoCloseable {
     private boolean getPDataListMeta(XMLStreamReader parser, PDataListMeta pDataList) {
         boolean ret = false;
         final String configsListTagName = pDataList.getTag();
-//        System.out.println("getPDataList - Tag: " + configsListTagName);
 
         try {
             PData meta = pDataList.getMeta();
@@ -378,7 +376,6 @@ class LoadConfig implements AutoCloseable {
                     continue;
                 }
 
-//                final String localName = parser.getLocalName();
                 final String n = parser.getElementText();
                 config.setActValue(n);
 

@@ -31,10 +31,10 @@ import javafx.util.StringConverter;
 
 public class PRangeBox extends VBox {
 
-    private final int MIN_DIST = 5; // min einstellbarer Wert und Tick im Slider
+    private final int MIN_DIST = 5; //min einstellbarer Wert und Tick im Slider
 
     private final int MIN_VALUE;
-    private final int MAX_VALUE; // Max MIN_DIST
+    private final int MAX_VALUE; //Max MIN_DIST
 
     private final IntegerProperty minValue = new SimpleIntegerProperty();
     private final IntegerProperty maxValue = new SimpleIntegerProperty();
@@ -176,17 +176,14 @@ public class PRangeBox extends VBox {
         cmi1.setHideOnClick(false);
         cmi2.setHideOnClick(false);
         menuButton.getItems().addAll(cmi1, cmi2);
-
-//        menuButton.getStyleClass().add("pRangeButton");
-//        getStyleClass().add("pRangeBox");
     }
 
     private void initSlider() {
-        // slider MIN
+        //slider MIN
         sliderMin.setMin(MIN_VALUE);
         sliderMin.setMax(MAX_VALUE - 1);
         initSlider(sliderMin, minValue);
-        // kein direktes binding wegen: valueChangingProperty, nur melden wenn "steht"
+        //kein direktes binding wegen: valueChangingProperty, nur melden wenn "steht"
         sliderMin.setValue(minValue.getValue() / MIN_DIST);
 
         minValue.addListener(l -> {
@@ -207,19 +204,19 @@ public class PRangeBox extends VBox {
         });
 
 
-        // todo gibt Probleme wenn nur geklickt wird
+        //todo gibt Probleme wenn nur geklickt wird
 //        sliderMin.valueProperty().addListener((observable, oldValue, newValue) -> {
 //            setPropValue(minValue, (int) sliderMin.getValue());
 //            repairMaxValue();
 //        });
 
 
-        // slider MAX
+        //slider MAX
         sliderMax.setMin(MIN_VALUE + 1);
         sliderMax.setMax(MAX_VALUE);
 
         initSlider(sliderMax, maxValue);
-        // kein direktes binding wegen: valueChangingProperty, nur melden wenn "steht"
+        //kein direktes binding wegen: valueChangingProperty, nur melden wenn "steht"
         sliderMax.setValue(maxValue.getValue() / MIN_DIST);
 
         maxValue.addListener(l -> {
@@ -248,9 +245,9 @@ public class PRangeBox extends VBox {
 
     private void initSlider(Slider slider, IntegerProperty ip) {
         slider.setShowTickLabels(true);
-        slider.setMinorTickCount(1); // TickUnit / TickCount+1
-        slider.setMajorTickUnit(50 / MIN_DIST); // 4h
-        slider.setBlockIncrement(1); // MIN_DIST
+        slider.setMinorTickCount(1); //TickUnit / TickCount+1
+        slider.setMajorTickUnit(50 / MIN_DIST); //4h
+        slider.setBlockIncrement(1); //MIN_DIST
         slider.setSnapToTicks(false);
         slider.setShowTickLabels(true);
 

@@ -29,27 +29,11 @@ public class PDatePicker extends DatePicker {
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
     public PDatePicker() {
-//        init();
     }
 
     public PDatePicker(PLocalDate pLocalDate) {
         super.setValue(pLocalDate.getLocalDate());
-//        init();
     }
-
-//    private void init() {
-//        setPLocalDatePickerConverter();
-//        this.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-//            if (oldValue != null && newValue != null && !oldValue.equals(newValue)) {
-//                if (newValue == null || newValue.isEmpty()) {
-//                    setValue(null);
-//                } else {
-//                    final PLocalDate pLocalDate = new PLocalDate(newValue);
-//                    setValue(pLocalDate.getLocalDate());
-//                }
-//            }
-//        });
-//    }
 
     public void setDate(PLocalDate pLocalDate) {
         this.setValue(pLocalDate.getLocalDate());
@@ -81,32 +65,4 @@ public class PDatePicker extends DatePicker {
 
         return ret;
     }
-
-//    private void setPLocalDatePickerConverter() {
-//        setPromptText(pattern.toLowerCase());
-//        StringConverter converter = new StringConverter<LocalDate>() {
-//            @Override
-//            public String toString(LocalDate date) {
-//                if (getValue() == null) {
-//                    return "";
-//                }
-//
-//                if (date == null) {
-//                    return "";
-//                }
-//
-//                return getValue().toString();
-//            }
-//
-//            @Override
-//            public LocalDate fromString(String string) {
-//                if (string != null && !string.isEmpty()) {
-//                    return LocalDate.parse(string, dateFormatter);
-//                } else {
-//                    return null;
-//                }
-//            }
-//        };
-//        setConverter(converter);
-//    }
 }

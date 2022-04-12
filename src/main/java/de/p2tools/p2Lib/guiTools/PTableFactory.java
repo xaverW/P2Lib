@@ -183,7 +183,7 @@ public class PTableFactory {
         }
 
         if (sel >= 0) {
-            // damits auch gemeldet wird
+            //damits auch gemeldet wird
             tableView.getSelectionModel().select(sel);
         }
 
@@ -237,7 +237,7 @@ public class PTableFactory {
                         setText(currencyFormat.format(d / 100));
                     }
                 } else {
-                    setText(currencyFormat.format(value)); // todo
+                    setText(currencyFormat.format(value)); //todo
                 }
             }
         }

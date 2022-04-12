@@ -29,8 +29,8 @@ import java.util.Optional;
 
 public class PAlertWorker {
 
-    // =======================
-    // Ok Cancel
+    //=======================
+    //Ok Cancel
     static boolean alertOkCancel(Stage stage, String title, String header, String content) {
         final Alert alert = getAlert(stage, Alert.AlertType.CONFIRMATION, title, header);
         alert.setContentText(content);
@@ -43,7 +43,7 @@ public class PAlertWorker {
     }
 
     //=======================
-    // yes no
+    //yes no
     static PAlert.BUTTON alert_yes_no(Stage stage, String title, String header, String content) {
         final Alert alert = getAlert(stage, Alert.AlertType.CONFIRMATION, title, header);
         alert.setContentText(content);
@@ -67,7 +67,7 @@ public class PAlertWorker {
     }
 
     //=======================
-    // yes no
+    //yes no
     static PAlert.BUTTON alert_yes_no_remember(Stage stage, String title, String header, String content, BooleanProperty remember) {
         final Alert alert = getAlert(stage, Alert.AlertType.CONFIRMATION, title, header);
         alert.setContentText(content);
@@ -93,12 +93,12 @@ public class PAlertWorker {
                                                       String content, BooleanProperty remember, String optOutMsg) {
         final Alert alert = getAlert(stage, Alert.AlertType.CONFIRMATION, title, header);
 
-        // Need to force the alert to layout in order to grab the graphic,
-        // as we are replacing the dialog pane with a custom pane
+        //Need to force the alert to layout in order to grab the graphic,
+        //as we are replacing the dialog pane with a custom pane
         alert.getDialogPane().applyCss();
         Node graphic = alert.getDialogPane().getGraphic();
-        // Create a new dialog pane that has a checkbox instead of the hide/show details button
-        // Use the supplied callback for the action of the checkbox
+        //Create a new dialog pane that has a checkbox instead of the hide/show details button
+        //Use the supplied callback for the action of the checkbox
         alert.setDialogPane(new DialogPane() {
             @Override
             protected Node createDetailsButton() {
@@ -109,12 +109,12 @@ public class PAlertWorker {
             }
         });
 
-        // Fool the dialog into thinking there is some expandable content
-        // a Group won't take up any space if it has no children
+        //Fool the dialog into thinking there is some expandable content
+        //a Group won't take up any space if it has no children
         alert.getDialogPane().setExpandableContent(new Group());
         alert.getDialogPane().setExpanded(true);
 
-        // Reset the dialog graphic using the default style
+        //Reset the dialog graphic using the default style
         alert.getDialogPane().setGraphic(graphic);
 
         alert.setTitle(title);
@@ -139,7 +139,7 @@ public class PAlertWorker {
     }
 
     //=======================
-    // yes no Cancel
+    //yes no Cancel
     static PAlert.BUTTON alert_yes_no_cancel(Stage stage, String title, String header, String content, boolean noBtn) {
         final Alert alert = getAlert(stage, Alert.AlertType.CONFIRMATION, title, header);
         alert.setContentText(content);
