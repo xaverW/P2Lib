@@ -75,7 +75,6 @@ public class PDatePropertyPicker extends DatePicker {
                 if (pLocalDate != null) {
                     pLocalDate.clearPDate();
                 }
-//                boundPLocalDateProperty.getValue().clearPDate();
             }
 
         } else {

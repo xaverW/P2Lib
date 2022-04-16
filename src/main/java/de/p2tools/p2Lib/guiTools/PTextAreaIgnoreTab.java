@@ -49,7 +49,6 @@ public class PTextAreaIgnoreTab extends TextArea {
 
             Parent parent = textArea.getParent();
             if (parent != null) {
-//                System.out.println(event.getCharacter() + " - " + event.getCode());
                 switch (event.getCode()) {
                     case ENTER:
                         if (!enter) {

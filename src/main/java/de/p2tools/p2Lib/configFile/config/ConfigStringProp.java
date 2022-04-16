@@ -17,6 +17,7 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
+import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.beans.property.StringProperty;
 
 public class ConfigStringProp extends Config {
@@ -59,7 +60,7 @@ public class ConfigStringProp extends Config {
         try {
             actValue.setValue(act.toString());
         } catch (Exception ex) {
-            System.out.println(act);
+            PLog.errorLog(101020254, ex);
         }
     }
 

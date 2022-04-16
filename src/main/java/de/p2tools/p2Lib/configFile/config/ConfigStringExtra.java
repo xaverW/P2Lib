@@ -17,6 +17,7 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
+import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 
@@ -49,7 +50,7 @@ public class ConfigStringExtra extends ConfigExtra {
         try {
             actValue[no] = act;
         } catch (Exception ex) {
-            System.out.println(act);
+            PLog.errorLog(956230142, ex);
         }
     }
 

@@ -209,8 +209,6 @@ class LoadConfig implements AutoCloseable {
     private boolean getPDataList(XMLStreamReader parser, PDataList pDataList) {
         boolean ret = false;
         final String configsListTagName = pDataList.getTag();
-//        System.out.println("getPDataList - Tag: " + configsListTagName);
-
         try {
             PData pData = pDataList.getNewItem();
             while (parser.hasNext()) {

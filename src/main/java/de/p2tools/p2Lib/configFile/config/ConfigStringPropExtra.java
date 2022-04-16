@@ -18,6 +18,7 @@
 package de.p2tools.p2Lib.configFile.config;
 
 import de.p2tools.p2Lib.guiTools.PTextFieldRegEx;
+import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
@@ -57,7 +58,7 @@ public class ConfigStringPropExtra extends ConfigExtra {
         try {
             actValue.setValue(act);
         } catch (Exception ex) {
-            System.out.println(act);
+            PLog.errorLog(102540698, act);
         }
     }
 
@@ -66,7 +67,7 @@ public class ConfigStringPropExtra extends ConfigExtra {
         try {
             actValue.setValue(act.toString());
         } catch (Exception ex) {
-            System.out.println(act);
+            PLog.errorLog(907894213, ex);
         }
     }
 
