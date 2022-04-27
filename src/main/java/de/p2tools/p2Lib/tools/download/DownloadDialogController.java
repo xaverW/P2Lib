@@ -17,6 +17,7 @@
 package de.p2tools.p2Lib.tools.download;
 
 import de.p2tools.p2Lib.P2LibConst;
+import de.p2tools.p2Lib.ProgIcons;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.dialogs.PDirFileChooser;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
@@ -30,7 +31,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -107,7 +107,7 @@ public class DownloadDialogController extends PDialogExtra {
             nameChanged = true;
         });
         final Button btnDest = new Button();
-        btnDest.setGraphic(new ImageView(P2LibConst.IMAGE_FILE_OPEN));
+        btnDest.setGraphic(ProgIcons.Icons.IMAGE_FILE_OPEN.getImageView());
         btnDest.setTooltip(new Tooltip("Einen Ordner zum Speichern der Datei auswählen"));
         btnDest.setOnAction(event -> {
             PDirFileChooser.DirChooser(stage, txtDestPath);

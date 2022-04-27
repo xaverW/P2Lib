@@ -17,7 +17,7 @@
 
 package de.p2tools.p2Lib.tools.download;
 
-import de.p2tools.p2Lib.P2LibConst;
+import de.p2tools.p2Lib.ProgIcons;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PProgressBar;
@@ -26,7 +26,6 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -78,7 +77,7 @@ public class DownloadProgressDialog extends PDialogExtra {
         gridPane.add(progressBar, 1, 0);
         gridPane.add(btnCancel, 2, 0);
 
-        btnCancel.setGraphic(new ImageView(P2LibConst.IMAGE_STOP));
+        btnCancel.setGraphic(ProgIcons.Icons.IMAGE_STOP.getImageView());
         btnCancel.setTooltip(new Tooltip("Den Download abbrechen"));
         btnCancel.setOnAction(event -> {
             isCanceled = true;

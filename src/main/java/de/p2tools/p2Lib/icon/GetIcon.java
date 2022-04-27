@@ -16,14 +16,19 @@
 
 package de.p2tools.p2Lib.icon;
 
+import de.p2tools.p2Lib.P2LibConst;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class GetIcon {
 
+    public static String P2_ICON_PATH = "/de/p2tools/p2Lib/icons/";
+//    public static String PROG_ICON_PATH = "";
+
+
     public static void addWindowP2Icon(Stage stage) {
         final String P2_ICON_32 = "P2_32.png";
-        final String P2_ICON_PATH = "/de/p2tools/p2Lib/icon/";
 
         final int ICON_WIDTH = 58;
         final int ICON_HEIGHT = 58;
@@ -31,9 +36,41 @@ public class GetIcon {
         stage.getIcons().add(icon);
     }
 
+    public static ImageView getImageView(String strIcon) {
+        return new ImageView(getImage(strIcon, P2_ICON_PATH, 0, 0));
+    }
+
+    public static ImageView getImageView(String strIcon, int w, int h) {
+        return new ImageView(getImage(strIcon, P2_ICON_PATH, w, h));
+    }
+
+    public static ImageView getImageView(String strIcon, String path, int w, int h) {
+        return new ImageView(getImage(strIcon, path, w, h));
+    }
+
+    public static Image getImage(String strIcon) {
+        return getImage(strIcon, P2_ICON_PATH, 0, 0);
+    }
+
+    public static Image getImage(String strIcon, int w, int h) {
+        return getImage(strIcon, P2_ICON_PATH, w, h);
+    }
+
+    public static Image getImage(String strIcon, String path) {
+        return getImage(strIcon, path, 0, 0);
+    }
+
     public static Image getImage(String strIcon, String path, int w, int h) {
-        return new Image(GetIcon.class.getResource(path + strIcon).toExternalForm(),
+        return getStdImage(strIcon, path, w, h);
+    }
+
+    private static Image getStdImage(String strIcon, String path, int w, int h) {
+        return new Image(P2LibConst.class.getResource(path + strIcon).toExternalForm(),
                 w, h, false, true);
     }
 
+//    private static Image getStdImage(String strIcon, String path, int w, int h) {
+//        return new Image(P2LibConst.class.getResourceAsStream(path + strIcon),
+//                w, h, false, true);
+//    }
 }
