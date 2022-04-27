@@ -24,8 +24,6 @@ import javafx.stage.Stage;
 public class GetIcon {
 
     public static String P2_ICON_PATH = "/de/p2tools/p2Lib/icons/";
-//    public static String PROG_ICON_PATH = "";
-
 
     public static void addWindowP2Icon(Stage stage) {
         final String P2_ICON_32 = "P2_32.png";
