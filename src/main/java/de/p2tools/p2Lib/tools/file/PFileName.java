@@ -28,6 +28,8 @@ import java.util.Date;
 
 public class PFileName {
     private static final String STR = "__";
+    private static final FastDateFormat FORMATTER_PRE_ddMMyyyyHHmmss = FastDateFormat.getInstance("yyyyMMdd_HHmmss" + STR);
+    private static final FastDateFormat FORMATTER_PRE_ddMMyyyy = FastDateFormat.getInstance("yyyyMMdd" + STR);
     private static final FastDateFormat FORMATTER_ddMMyyyyHHmmss = FastDateFormat.getInstance(STR + "yyyyMMdd_HHmmss");
     private static final FastDateFormat FORMATTER_ddMMyyyy = FastDateFormat.getInstance(STR + "yyyyMMdd");
 
@@ -58,60 +60,63 @@ public class PFileName {
     }
 
     public static String getNextFileNameWithDate(String name, String suffix) {
-        return getNextFileNameWithDate("", name, suffix);
+        if (name.isEmpty()) {
+            String dotSuffix = suffix.startsWith(".") ? suffix : "." + suffix;
+            name = System.getProperty("user.home");
+            name = PFileUtils.addsPath(name, "Infos" + dotSuffix);
+        }
 
+        String onlyName = FilenameUtils.getName(name);
+        String onlyPath = FilenameUtils.getFullPath(name);
+        return getNextFileNameWithDate(onlyPath, onlyName, suffix);
     }
 
-    public static String getNextFileNameWithDate(String path, String name, String suffix) {
-        if (name == null || suffix == null) {
+    public static String getNextFileNameWithDate(String onlyPath, String onlyFileName, String suffix) {
+        if (onlyPath == null || onlyFileName == null || suffix == null) {
             return "";
         }
 
-
         String dotSuffix = suffix.startsWith(".") ? suffix : "." + suffix;
-        if (!path.isEmpty()) {
-            // erst mal versuchen mit gleichem Namen und nächstem Counter
-            final String retName = checkFirstWithNewNumber(path, name, dotSuffix);
-            if (!retName.isEmpty()) {
-                return retName;
-            }
-            name = removeCounter(name);
-        }
+        String filenameNoSuffix = cleanName(onlyFileName, dotSuffix);
+        String ret;
 
-
-        String ret = name;
+        final String date1_pre = FORMATTER_PRE_ddMMyyyy.format(new Date());
+        final String date2_pre = FORMATTER_PRE_ddMMyyyyHHmmss.format(new Date());
         final String date1 = FORMATTER_ddMMyyyy.format(new Date());
         final String date2 = FORMATTER_ddMMyyyyHHmmss.format(new Date());
-        final String containDate1 = getDateString(name, dotSuffix, FORMATTER_ddMMyyyy);
-        final String containDate2 = getDateString(name, dotSuffix, FORMATTER_ddMMyyyyHHmmss);
 
-        if (!name.endsWith(dotSuffix)) {
-            // dann Name
-            name = FilenameUtils.removeExtension(name); // evt. altes Suff entfernen
-            ret = name;
+        final String containDatePre1 = getDateString(filenameNoSuffix, FORMATTER_PRE_ddMMyyyy);
+        final String containDatePre2 = getDateString(filenameNoSuffix, FORMATTER_PRE_ddMMyyyyHHmmss);
+        final String containDate1 = getDateString(filenameNoSuffix, FORMATTER_ddMMyyyy);
+        final String containDate2 = getDateString(filenameNoSuffix, FORMATTER_ddMMyyyyHHmmss);
+
+        if (!onlyFileName.endsWith(dotSuffix)) {
+            //dann erst mal damit
+            ret = PFileUtils.addsPath(onlyPath, filenameNoSuffix + dotSuffix);
+            return ret;
+        }
+
+        if (!containDatePre1.isEmpty()) {
+            ret = filenameNoSuffix.replace(containDatePre1, "");
+            ret = ret + date1;
 
         } else if (!containDate1.isEmpty()) {
-            // dann Name + Datum2
-            ret = cleanName(name, dotSuffix);
-            ret = ret.replace(containDate1, date2);
+            ret = filenameNoSuffix.replace(containDate1, "");
+            ret = date2_pre + ret;
+
+        } else if (!containDatePre2.isEmpty()) {
+            ret = filenameNoSuffix.replace(containDatePre2, "");
+            ret = ret + date2;
 
         } else if (!containDate2.isEmpty()) {
-            // dann Name
-            ret = cleanName(name, dotSuffix);
-            ret = ret.replace(containDate2, "");
+            ret = filenameNoSuffix.replace(containDate2, "");
 
-        } else if (name.endsWith(dotSuffix)) {
-            // dann Name + Datum1
-            ret = cleanName(name, dotSuffix);
-            ret = ret + date1;
-        }
-
-        if (!path.isEmpty()) {
-            ret = getNextFileNameWithNo(path, ret, dotSuffix);
         } else {
-            ret = ret + dotSuffix;
+            ret = date1_pre + filenameNoSuffix;
         }
 
+        ret = ret + dotSuffix;
+        ret = PFileUtils.addsPath(onlyPath, ret);
         return ret;
     }
 
@@ -120,43 +125,39 @@ public class PFileName {
         return name.replaceAll(STR + "[0-9]{1,5}\\.", ".");
     }
 
-    private static String checkFirstWithNewNumber(String path, String name, String dotSuffix) {
-
-        if (!name.isEmpty() && name.endsWith(dotSuffix)) {
-            Path p = Paths.get(path, name);
-            if (Files.exists(p)) {
-                final String n = FilenameUtils.removeExtension(removeCounter(name));
-                return getNextFileNameWithNo(path, n, dotSuffix);
-            }
-        }
-
-        return "";
-    }
-
     private static String cleanName(String name, String suffix) {
         // alle "suffix" am Ende entfernen
-
-        while (!name.equals(suffix) && name.endsWith(suffix)) {
-            name = name.substring(0, name.lastIndexOf(suffix));
-        }
-
-        return name;
+        return FilenameUtils.removeExtension(name);
     }
 
-    private static String getDateString(String name, String suffix, FastDateFormat format) {
+    private static String getDateString(String name, FastDateFormat format) {
         // Datumstring aus "name" extrahieren
         String ret = "";
         Date d = null;
 
-        if (name.contains(STR) && name.endsWith(suffix)) {
-            try {
-                ret = name.substring(name.lastIndexOf(STR)).replaceAll(suffix, "");
-                d = new Date(format.parse(ret).getTime());
-            } catch (Exception ignore) {
-                d = null;
-            }
+        //gar nicht enthalten
+        if (!name.contains(STR)) {
+            return "";
         }
 
+        //am Ende
+        try {
+            ret = name.substring(name.lastIndexOf(STR));
+            d = new Date(format.parse(ret).getTime());
+        } catch (Exception ignore) {
+            d = null;
+        }
+        if (d != null && format.getPattern().length() == ret.length()) {
+            return ret;
+        }
+
+        //dann vielleicht am Anfang
+        try {
+            ret = name.substring(0, name.indexOf(STR) + STR.length());
+            d = new Date(format.parse(ret).getTime());
+        } catch (Exception ignore) {
+            d = null;
+        }
         if (d != null && format.getPattern().length() == ret.length()) {
             return ret;
         }

@@ -22,8 +22,31 @@
     -lblSelectedLines-color-2: derive(-fx-base, -10%);
 
     -text-color-blue: #002fbe;
+
+  /*TabButton Sender/Favoriten/History*/
+    -grad-1: linear-gradient(from 0% 0% to 100% 100%, #4e95ff, #2f5b99);
+    -grad-2: linear-gradient(from 0% 0% to 50% 50%, #334ca1, #18234c);
+    -grad-3: radial-gradient(focus-angle 45deg, focus-distance 20%, center 90% 75%, radius 30%, reflect, #478ce7, #3a72bf 75%, #3e77c8 75%);
+    -grad-4: radial-gradient(focus-angle 45deg, focus-distance 20%, center 90% 75%, radius 40%, reflect, #305d9c, #203e68 75%, #1e3c64 75%);
 }
 
+/* Button Sender/Favoriten/History */
+.btnTabEasy, .btnTabEasy-sel{
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-background-radius: 30 30 0 0;
+    -fx-text-fill: black;
+    -fx-padding: 10 60 10 60;
+    -fx-text-fill: white;
+    -fx-background-color: -grad-3;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0.2 , 3 , 3 );
+}
+.btnTabEasy-sel{
+    -fx-background-color: -grad-4;
+}
+.btnTabEasy:hover, .btnTabEasy-sel:hover{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0.2 , 1 , 1 );
+}
 
 
 /* Button "Filme", "Downloads", "Abos" */
@@ -63,6 +86,7 @@
     -fx-background-insets: -1.6,1,1;
 }
 
+
 .pane-border {
     -fx-border-width: 1;
     -fx-border-color: -style-tab-border-color-1;
@@ -71,6 +95,7 @@
     -fx-border-width: 1;
     -fx-border-color: #d6d6d6;
  }
+
 
 /* Startdialog beim aller ersten Start */
 .btnStartDialog{
@@ -114,6 +139,7 @@
     -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
     -fx-background-insets: -1.4,1,1;
 }
+
 
 /* Menü-Button */
 .btnFunction{
@@ -184,6 +210,7 @@
     -fx-border-color: #939a9f;
 }
 
+
 /* farblich abgesetzter Bereich in vielen Panes/Dialogen mit dem close-button*/
 .close-pane {
     -fx-padding: 3;
@@ -202,7 +229,7 @@
 
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
-    -fx-background-image: url("/de/p2tools/p2Lib/button-close.png");
+    -fx-background-image: url("/de/p2tools/p2Lib/icons/button-close.png");
 }
 .close-button:hover {
     -fx-effect: innershadow(gaussian, #646464, 15, 0, 0, 0);
