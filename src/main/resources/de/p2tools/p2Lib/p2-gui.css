@@ -24,10 +24,10 @@
     -text-color-blue: #002fbe;
 
   /*TabButton Sender/Favoriten/History*/
-    -grad-1: linear-gradient(from 0% 0% to 100% 100%, #4e95ff, #2f5b99);
-    -grad-2: linear-gradient(from 0% 0% to 50% 50%, #334ca1, #18234c);
-    -grad-3: radial-gradient(focus-angle 45deg, focus-distance 20%, center 90% 75%, radius 30%, reflect, #478ce7, #3a72bf 75%, #3e77c8 75%);
-    -grad-4: radial-gradient(focus-angle 45deg, focus-distance 20%, center 90% 75%, radius 40%, reflect, #305d9c, #203e68 75%, #1e3c64 75%);
+    /*-grad-1: linear-gradient(from 0% 0% to 100% 100%, #4e95ff, #2f5b99);*/
+    /*-grad-2: linear-gradient(from 0% 0% to 50% 50%, #334ca1, #18234c);*/
+    -grad-notSel: radial-gradient(focus-angle 45deg, focus-distance 20%, center 90% 75%, radius 30%, reflect, #305d9c, #203e68 75%, #1e3c64 75%);
+    -grad-sel: radial-gradient(focus-angle 45deg, focus-distance 20%, center 90% 75%, radius 30%, reflect, #4e9bff, #4181d6 75%, #407cd0 75%);
 }
 
 /* Button Sender/Favoriten/History */
@@ -38,11 +38,11 @@
     -fx-text-fill: black;
     -fx-padding: 10 60 10 60;
     -fx-text-fill: white;
-    -fx-background-color: -grad-3;
+    -fx-background-color: -grad-notSel;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0.2 , 3 , 3 );
 }
 .btnTabEasy-sel{
-    -fx-background-color: -grad-4;
+    -fx-background-color: -grad-sel;
 }
 .btnTabEasy:hover, .btnTabEasy-sel:hover{
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0.2 , 1 , 1 );
