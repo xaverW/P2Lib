@@ -16,6 +16,7 @@
 
 package de.p2tools.p2Lib.guiTools;
 
+import de.p2tools.p2Lib.dialogs.dialog.PDialogFactory;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Scene;
@@ -73,6 +74,36 @@ public class PGuiSize {
         }
 
         return height;
+    }
+
+    public static void setSizePos(Stage stage, StringProperty sizeConfiguration) {
+        setSizePos(stage, sizeConfiguration, null, false);
+    }
+
+    public static void setSizePos(Stage stage, StringProperty sizeConfiguration,
+                                  Stage ownerForCenteringDialog, boolean onlySize) {
+        //Größe, Pos setzen
+        if (sizeConfiguration != null && !sizeConfiguration.getValueSafe().isEmpty()) {
+            //gespeicherte Größe setzen
+            int w = PGuiSize.getWidth(sizeConfiguration);
+            int h = PGuiSize.getHeight(sizeConfiguration);
+            if (w > 0 && h > 0) {
+                stage.setWidth(w);
+                stage.setHeight(h);
+            }
+        } else {
+            //dann einpassen
+            stage.sizeToScene();
+        }
+
+        //Pos setzen
+        if (onlySize || sizeConfiguration == null || !PGuiSize.setPos(sizeConfiguration, stage)) {
+            if (ownerForCenteringDialog == null) {
+                stage.centerOnScreen();
+            } else {
+                PDialogFactory.setInFrontOfPrimaryStage(ownerForCenteringDialog, stage);
+            }
+        }
     }
 
     public static boolean setPos(StringProperty property, Stage stage) {
