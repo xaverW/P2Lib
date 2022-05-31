@@ -250,7 +250,7 @@ public abstract class AboutDialog extends PDialogExtra {
     }
 
     private Image getImage() {
-        final String path = "/de/p2tools/p2Lib/icon/P2.png";
+        final String path = "/de/p2tools/p2Lib/icons/P2.png";
         return new Image(path, 128, 128, false, true);
     }
 }
