@@ -48,14 +48,14 @@ public abstract class AboutDialog extends PDialogExtra {
     private final String progName;
     private final String URL_WEBSITE;
     private final String URL_WEBSITE_HELP;
-    private final ImageView imageView;
+    private final ImageView imageView; //ist nur für Fehlermeldungen
     private final StringProperty urlOpenProg;
     private final String[] listName;
     private final String[] listValue;
 
 
     public AboutDialog(Stage stage, String progName, String URL_WEBSITE, String URL_WEBSITE_HELP,
-                       String path, StringProperty urlOpenProg,
+                       String imgPath, StringProperty urlOpenProg,
                        boolean dark, String[] listName, String[] listValue, boolean masker) {
         super(stage, null, "Über das Programm", true, false, DECO.SMALL, masker);
 
@@ -67,7 +67,7 @@ public abstract class AboutDialog extends PDialogExtra {
         ImageView imageView = new ImageView();
         imageView.setSmooth(true);
         imageView.setCache(true);
-        imageView.setImage(new Image(path, 128, 128, false, true));
+        imageView.setImage(new Image(imgPath, 128, 128, false, true));
         this.imageView = imageView;
 
         if (dark) {

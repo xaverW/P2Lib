@@ -39,13 +39,18 @@
     -fx-padding: 10 60 10 60;
     -fx-text-fill: white;
     -fx-background-color: -grad-notSel;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0.2 , 3 , 3 );
+    -fx-effect: dropshadow(three-pass-box, #464f5f, 10, 0.2 , 2 , 2 );
 }
+.btnTabEasy:hover{
+    -fx-effect: dropshadow(three-pass-box, #464f5f, 10, 0.2 , 3 , 3);
+}
+
 .btnTabEasy-sel{
     -fx-background-color: -grad-sel;
+    -fx-effect: dropshadow(three-pass-box, #3b4250, 10, 0.2 , 4 , 4 );
 }
-.btnTabEasy:hover, .btnTabEasy-sel:hover{
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0.2 , 1 , 1 );
+.btnTabEasy-sel:hover{
+    -fx-effect: dropshadow(three-pass-box, #3b4250, 10, 0.2 , 5 , 5 );
 }
 
 
