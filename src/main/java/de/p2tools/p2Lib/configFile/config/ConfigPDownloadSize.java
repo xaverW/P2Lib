@@ -21,16 +21,16 @@ import de.p2tools.p2Lib.guiTools.PDownloadSize;
 
 public class ConfigPDownloadSize extends ConfigExtra {
 
-    private PDownloadSize actValue;
+    private PDownloadSize pDownloadSize;
 
-    public ConfigPDownloadSize(String key, String name, PDownloadSize actValue) {
+    public ConfigPDownloadSize(String key, String name, PDownloadSize pDownloadSize) {
         super(key, name);
-        this.actValue = actValue;
+        this.pDownloadSize = pDownloadSize;
     }
 
     @Override
     public PDownloadSize getActValue() {
-        return actValue;
+        return pDownloadSize;
     }
 
     @Override
@@ -40,15 +40,15 @@ public class ConfigPDownloadSize extends ConfigExtra {
     }
 
     public void setActValue(PDownloadSize act) {
-        actValue = act;
+        pDownloadSize = act;
     }
 
     @Override
     public void setActValue(String act) {
         try {
-            actValue.setFileSize(act);
+            pDownloadSize.setFileSize(act);
         } catch (Exception ex) {
-            actValue.setFileSize(0);
+            pDownloadSize.setFileSize(0);
         }
     }
 }

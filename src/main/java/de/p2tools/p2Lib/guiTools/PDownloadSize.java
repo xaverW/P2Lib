@@ -22,34 +22,33 @@ import javafx.beans.property.ObjectPropertyBase;
 public class PDownloadSize extends ObjectPropertyBase<Long> implements Comparable<PDownloadSize> {
 
     private long actFileSize = -1;
-    private long fileSize = 0;
 
     public PDownloadSize() {
     }
 
     public PDownloadSize(long fileSize) {
-        this.fileSize = fileSize;
+        setValue(fileSize);
     }
 
     public PDownloadSize(long fileSize, long actFileSize) {
-        this.fileSize = fileSize;
+        setValue(fileSize);
         this.actFileSize = actFileSize;
     }
 
-    @Override
-    public void setValue(Long v) {
-        super.setValue(v);
-    }
-
-    @Override
-    public Long getValue() {
-        return super.getValue();
-    }
-
-    @Override
-    public final Long get() {
-        return actFileSize;
-    }
+//    @Override
+//    public void setValue(Long v) {
+//        super.setValue(v);
+//    }
+//
+//    @Override
+//    public Long getValue() {
+//        return super.getValue();
+//    }
+//
+//    @Override
+//    public final Long get() {
+//        return super.get();
+//    }
 
     @Override
     public Object getBean() {
@@ -63,12 +62,12 @@ public class PDownloadSize extends ObjectPropertyBase<Long> implements Comparabl
 
     @Override
     public int compareTo(PDownloadSize pDownloadSize) {
-        return (Long.compare(fileSize, pDownloadSize.fileSize));
+        return (Long.compare(getValue(), pDownloadSize.getValue()));
     }
 
     @Override
     public String toString() {
-        return fileSize + "";
+        return getValue() + "";
     }
 
     //======================================================
@@ -80,42 +79,43 @@ public class PDownloadSize extends ObjectPropertyBase<Long> implements Comparabl
     public void setFileSize(String size) {
         if (size.isEmpty()) {
             actFileSize = -1;
-            fileSize = 0;
+            setValue(0L);
 
         } else {
             try {
-                fileSize = Long.valueOf(size);
+                setValue(Long.valueOf(size));
             } catch (final Exception ex) {
                 PLog.errorLog(978745320, ex, "String: " + size);
-                fileSize = 0;
+                actFileSize = -1;
+                setValue(0L);
             }
         }
         fireValueChangedEvent();
     }
 
     public void setFileSize(long l) {
-        fileSize = l;
+        setValue(l);
         fireValueChangedEvent();
     }
 
     public Long getFileSize() {
-        return fileSize;
+        return getValue();
     }
 
     public void setActFileSize(long l) {
         actFileSize = l;
-        if (fileSize < actFileSize) {
+        if (getValue() < actFileSize) {
             //kann bei m3u8-URL passieren
-            fileSize = 0;
+            setValue(l);
         }
         fireValueChangedEvent();
     }
 
     public void addActFileSize(long l) {
         actFileSize += l;
-        if (fileSize < actFileSize) {
+        if (getValue() < actFileSize) {
             //kann bei m3u8-URL passieren
-            fileSize = 0;
+            setValue(actFileSize);
         }
         fireValueChangedEvent();
     }
@@ -125,22 +125,37 @@ public class PDownloadSize extends ObjectPropertyBase<Long> implements Comparabl
     }
 
     public String getHumanReadAbleFileSize() {
-        return PSizeTools.humanReadableByteCount(fileSize, true);
+        return PSizeTools.humanReadableByteCount(getValue(), true);
+    }
+
+    public String getActSizeString() {
+        String sizeStr;
+        if (actFileSize <= 0) {
+            if (getValue() > 0) {
+                sizeStr = PSizeTools.getSize(getValue());
+            } else {
+                sizeStr = "";
+            }
+
+        } else if (getValue() > 0) {
+            sizeStr = PSizeTools.getSize(actFileSize) + " von " + PSizeTools.getSize(getValue());
+
+        } else {
+            sizeStr = PSizeTools.getSize(actFileSize);
+        }
+
+        return sizeStr;
     }
 
     public String getSizeString() {
         String sizeStr;
-        if (actFileSize <= 0) {
-            if (fileSize > 0) {
-                sizeStr = PSizeTools.getSize(fileSize);
-            } else {
-                sizeStr = "";
-            }
-        } else if (fileSize > 0) {
-            sizeStr = PSizeTools.getSize(actFileSize) + " von " + PSizeTools.getSize(fileSize);
+        if (getValue() > 0) {
+            sizeStr = PSizeTools.getSize(getValue());
+
         } else {
-            sizeStr = PSizeTools.getSize(actFileSize);
+            sizeStr = "";
         }
+
         return sizeStr;
     }
 }
