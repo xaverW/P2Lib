@@ -167,4 +167,14 @@ public class PDateFactory {
 
         return d;
     }
+
+    /**
+     * Liefert den Betrag! der Zeitdifferenz zu jetzt.
+     *
+     * @return Differenz in Sekunden.
+     */
+    public static int diffInSeconds(Date date) {
+        final int ret = (int) (1L * (date.getTime() - new Date().getTime()) / 1000L);
+        return Math.abs(ret);
+    }
 }
