@@ -20,6 +20,7 @@ package de.p2tools.p2Lib.guiTools;
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.beans.property.StringProperty;
+import javafx.geometry.Insets;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.MenuItem;
@@ -94,6 +95,7 @@ public class PHyperlink extends Hyperlink {
     }
 
     private void init() {
+        setPadding(new Insets(0));
         setStyle("-fx-font-size: 15px;");
         setOnAction(a -> {
             try {
