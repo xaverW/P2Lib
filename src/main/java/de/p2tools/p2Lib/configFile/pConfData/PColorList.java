@@ -25,6 +25,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -63,13 +64,12 @@ public class PColorList {
     }
 
     public static ObservableList<PColorData> getColorList() {
-        ObservableList<PColorData> pColorData = FXCollections.observableArrayList();
-
+        ObservableList<PColorData> list = FXCollections.observableArrayList();
         for (PColorData c : HASHMAP.values()) {
-            pColorData.add(c);
+            list.add(c);
         }
-
-        return pColorData;
+        Collections.sort(list);
+        return list;
     }
 
     static ArrayList<Config> getConfigsArr() {

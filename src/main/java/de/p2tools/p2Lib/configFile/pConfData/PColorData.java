@@ -22,7 +22,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Color;
 
-public class PColorData {
+public class PColorData implements Comparable<PColorData> {
 
     private final double DIV = 0.4;
     private final double DIV_DARK = 0.6;
@@ -59,6 +59,14 @@ public class PColorData {
         this.colorDark.set(colorDark);
         this.text = text;
         changeMyColor();
+    }
+
+    @Override
+    public int compareTo(PColorData data) {
+        if (data == null) {
+            return -1;
+        }
+        return this.getKey().compareTo(data.getKey());
     }
 
     public void setColorTheme(boolean dark) {
