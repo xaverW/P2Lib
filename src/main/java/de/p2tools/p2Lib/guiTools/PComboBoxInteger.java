@@ -111,7 +111,7 @@ public class PComboBoxInteger extends ComboBox<String> {
         }
 
         reduceList();
-        Collections.sort(itemsList); // todo?? immer das zueltzt verwendete vorne???
+        Collections.sort(itemsList); // todo?? immer das zuletzt verwendete vorne???
         this.setItems(itemsList);
 
         getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
