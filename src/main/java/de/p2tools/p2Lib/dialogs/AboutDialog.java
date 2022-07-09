@@ -90,12 +90,12 @@ public abstract class AboutDialog extends PDialogExtra {
         makeGrid();
     }
 
-    public void runCheckButtonk() {
+    public void runCheckButton() {
     }
 
     private void makeGrid() {
         btnOk.setOnAction(a -> close());
-        btnCheck.setOnAction(a -> runCheckButtonk());
+        btnCheck.setOnAction(a -> runCheckButton());
 
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
