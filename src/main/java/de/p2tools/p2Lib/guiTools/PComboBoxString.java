@@ -127,9 +127,6 @@ public class PComboBoxString extends ComboBox<String> {
         Collections.sort(itemsList, new GermanStringSorter());
 
         this.setItems(itemsList);
-//        if (!start.isEmpty()) {
-//            selectElement(start);
-//        }
 
         getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && !itemsList.contains(newValue)) {
@@ -166,7 +163,6 @@ public class PComboBoxString extends ComboBox<String> {
         if (!start.isEmpty() && getSelValue().isEmpty()) {
             selectElement(start);
         }
-
     }
 
 
