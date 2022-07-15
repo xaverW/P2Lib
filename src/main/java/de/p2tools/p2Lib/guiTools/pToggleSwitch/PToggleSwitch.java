@@ -68,6 +68,7 @@ public class PToggleSwitch extends HBox {
     }
 
     public void setLabelRight(Label lblOn, Label lblOff, Label lblIndeterminate) {
+        //da wird der extern zugeführte Label gesetzt
         this.lblOn = lblOn;
         this.lblOff = lblOff;
         this.lblIndeterminate = lblIndeterminate;
@@ -77,6 +78,7 @@ public class PToggleSwitch extends HBox {
     }
 
     public void setLabelRight(Label lblRight, String strOn, String strOff, String strIndeterminate) {
+        //da wird der extern zugeführte Label gesetzt
         this.lblRight = lblRight;
         this.strOn = strOn;
         this.strOff = strOff;
@@ -160,7 +162,20 @@ public class PToggleSwitch extends HBox {
 
     private void init() {
         this.setAlignment(Pos.CENTER_LEFT);
+
         this.setSpacing(15);
+        //wenn mal gebraucht
+//        if (!lblLeft.getText().isEmpty()) {
+//            this.setSpacing(15);
+//        }
+//        lblLeft.textProperty().addListener((v, o, n) -> {
+//            if (lblLeft.getText().isEmpty()) {
+//                this.setSpacing(0);
+//            } else {
+//                this.setSpacing(15);
+//
+//            }
+//        });
 //        lblLeft.disableProperty().bindBidirectional(indeterminateProperty()); // ist vielleicht klarer??
 
         if (tglInFront) {
