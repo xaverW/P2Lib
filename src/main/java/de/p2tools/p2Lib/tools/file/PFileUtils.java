@@ -77,6 +77,10 @@ public class PFileUtils {
     }
 
     public static String addsPath(String path1, String path2) {
+        //todo
+        //!!!!! bei Win/Linux kommen unterschiedliche Strings raus!!!
+        // \de\p2tools\fileRunner\icon\P2.png
+        // /de/p2tools/fileRunner/icon/P2.png
 //        final String ret = concatPaths(path1, path2);
         String ret = "";
         try {

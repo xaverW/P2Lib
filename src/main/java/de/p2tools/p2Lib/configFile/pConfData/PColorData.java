@@ -19,44 +19,44 @@ package de.p2tools.p2Lib.configFile.pConfData;
 
 import de.p2tools.p2Lib.tools.PColorFactory;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Color;
 
-public class PColorData implements Comparable<PColorData> {
+public class PColorData extends PColorDataProps {
 
     private final double DIV = 0.4;
     private final double DIV_DARK = 0.6;
     public static final String SEPARATOR = "X";
 
-    private final String key;
-    private final String text;
+    private String text = "";
     private String cssFontBold = "";
     private String cssFont = "";
     private String cssBackground = "";
     private String cssBackgroundAndSel = "";
 
     private boolean dark = false;
-    private final Color resetColorLight;
-    private final Color resetColorDark;
-    private ObjectProperty<Color> colorLight = new SimpleObjectProperty<>(this, "color", Color.WHITE);
-    private ObjectProperty<Color> colorDark = new SimpleObjectProperty<>(this, "color", Color.WHITE);
+    private Color resetColorLight;
+    private Color resetColorDark;
+
+    public PColorData() {
+        changeMyColor();
+    }
 
     public PColorData(String key, Color color, String text) {
-        this.key = key;
+        setKey(key);
+        super.setColorLight(color);
+        super.setColorDark(color);
         this.resetColorLight = color;
         this.resetColorDark = color;
-        this.colorLight.set(color);
-        this.colorDark.set(color);
         this.text = text;
         changeMyColor();
     }
 
     public PColorData(String key, Color color, Color colorDark, String text) {
-        this.key = key;
+        setKey(key);
+        super.setColorLight(color);
+        super.setColorDark(color);
         this.resetColorLight = color;
         this.resetColorDark = colorDark;
-        this.colorLight.set(color);
-        this.colorDark.set(colorDark);
         this.text = text;
         changeMyColor();
     }
@@ -76,17 +76,17 @@ public class PColorData implements Comparable<PColorData> {
 
     public Color getColor() {
         if (dark) {
-            return colorDark.getValue();
+            return getColorDark();
         } else {
-            return colorLight.getValue();
+            return getColorLight();
         }
     }
 
     public ObjectProperty<Color> colorProperty() {
         if (dark) {
-            return colorDark;
+            return colorDarkProperty();
         } else {
-            return colorLight;
+            return colorLightProperty();
         }
     }
 
@@ -104,60 +104,56 @@ public class PColorData implements Comparable<PColorData> {
 
     public void setColor(Color newColor) {
         if (dark) {
-            colorDark.set(newColor);
+            super.setColorDark(newColor);
         } else {
-            colorLight.set(newColor);
+            super.setColorLight(newColor);
         }
         changeMyColor();
     }
 
     public void setColorLight(Color newColor) {
-        colorLight.set(newColor);
+        super.setColorLight(newColor);
         changeMyColor();
     }
 
     public void setColorDark(Color newColor) {
-        colorDark.set(newColor);
+        super.setColorDark(newColor);
         changeMyColor();
     }
 
     public void resetColor() {
         if (dark) {
-            colorDark.set(resetColorDark);
+            super.setColorDark(resetColorDark);
         } else {
-            colorLight.set(resetColorLight);
+            super.setColorLight(resetColorLight);
         }
         changeMyColor();
-    }
-
-    public String getKey() {
-        return key;
     }
 
     public String getText() {
         return text;
     }
 
-    public void setColorFromHex(String hex) {
-        if (hex.contains(SEPARATOR)) {
-            String[] arr = hex.split(SEPARATOR);
-            colorLight.set(Color.web(arr[0]));
-            colorDark.set(Color.web(arr[1]));
-        } else {
-            setColor(Color.web(hex));
-        }
-        changeMyColor();
-    }
+//    public void setColorFromHex(String hex) {
+//        if (hex.contains(SEPARATOR)) {
+//            String[] arr = hex.split(SEPARATOR);
+//            super.setColorLight(Color.web(arr[0]));
+//            super.setColorDark(Color.web(arr[1]));
+//            if (arr.length > 2) {
+//                setUse(Boolean.parseBoolean(arr[2]));
+//            }
+//
+//        } else {
+//            setColor(Color.web(hex));
+//        }
+//        changeMyColor();
+//    }
 
     //==========================================================
     // sind die CSS Farben
     //==========================================================
     public String getCssBackground() {
         return cssBackground;
-    }
-
-    public String getCssBackgroundAndSel() {
-        return cssBackgroundAndSel;
     }
 
     public String getCssFont() {
@@ -168,31 +164,35 @@ public class PColorData implements Comparable<PColorData> {
         return cssFontBold;
     }
 
+    public String getCssBackgroundAndSel() {
+        return cssBackgroundAndSel;
+    }
+
     //==========================================================
     //CSS erstellen
     //==========================================================
-    private String getColorLightToHex() {
-        return PColorFactory.getColorToHex(colorLight.getValue());
-    }
-
-    private String getColorDarkToHex() {
-        return PColorFactory.getColorToHex(colorDark.getValue());
-    }
+//    private String getColorLightToHex() {
+//        return PColorFactory.getColorToHex(getColorLight());
+//    }
+//
+//    private String getColorDarkToHex() {
+//        return PColorFactory.getColorToHex(getColorDark());
+//    }
 
     public String getColorSelectedToWeb() {
-        return "#" + PColorFactory.getColorToHex(dark ? colorDark.getValue() : colorLight.getValue());
+        return "#" + PColorFactory.getColorToHex(dark ? getColorDark() : getColorLight());
     }
 
     public String getColorLightToWeb() {
-        return "#" + PColorFactory.getColorToHex(colorLight.getValue());
+        return "#" + PColorFactory.getColorToHex(getColorLight());
     }
 
     public String getColorDarkToWeb() {
-        return "#" + PColorFactory.getColorToHex(colorDark.getValue());
+        return "#" + PColorFactory.getColorToHex(getColorDark());
     }
 
     public String getColorDarkerToWeb() {
-        return "#" + PColorFactory.getColorToHex(dark ? getBrighterColor(colorDark.getValue()) : getDarkerColor(colorLight.getValue()));
+        return "#" + PColorFactory.getColorToHex(dark ? getBrighterColor(getColorDark()) : getDarkerColor(getColorLight()));
     }
 
     private Color getDarkerColor(Color color) {
@@ -247,25 +247,6 @@ public class PColorData implements Comparable<PColorData> {
         }
         c = new Color(red, green, blue, color.getOpacity());
         return c;
-
-//        double red = color.getRed();
-//        double green = color.getGreen();
-//        double blue = color.getBlue();
-//
-//        red = red * 1.05;
-//        green = green * 1.05;
-//        blue = blue * 1.05;
-//        if (red > 1) {
-//            red = 1;
-//        }
-//        if (green > 1) {
-//            green = 1;
-//        }
-//        if (blue > 1) {
-//            blue = 1;
-//        }
-//        Color c = new Color(red, green, blue, color.getOpacity());
-//        return c;
     }
 
     private void changeMyColor() {
