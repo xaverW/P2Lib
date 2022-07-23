@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2Lib.icon;
+package de.p2tools.p2Lib.icons;
 
 import de.p2tools.p2Lib.P2LibConst;
 import javafx.scene.image.Image;

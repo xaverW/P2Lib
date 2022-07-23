@@ -15,7 +15,7 @@ package de.p2tools.p2Lib;/*
  */
 
 
-import de.p2tools.p2Lib.icon.GetIcon;
+import de.p2tools.p2Lib.icons.GetIcon;
 import javafx.scene.image.ImageView;
 
 public class ProgIcons {

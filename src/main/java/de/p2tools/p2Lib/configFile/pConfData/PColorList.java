@@ -74,8 +74,15 @@ public class PColorList extends SimpleListProperty<PColorData> implements PDataL
         return getInst().get(key);
     }
 
-    public static synchronized PColorData addNewKey(String key, Color color, Color colorBlack, String text) {
-        PColorData c = new PColorData(key, color, colorBlack, text);
+    public static synchronized PColorData addNewKey(String key, Color color, Color colorDark, String text) {
+        PColorData c = new PColorData(key, color, colorDark, true, text);
+        getInst().add(c);
+        return c;
+    }
+
+    public static synchronized PColorData addNewKey(String key, Color color, Color colorDark,
+                                                    boolean use, String text) {
+        PColorData c = new PColorData(key, color, colorDark, use, text);
         getInst().add(c);
         return c;
     }

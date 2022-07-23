@@ -41,22 +41,13 @@ public class PColorData extends PColorDataProps {
         changeMyColor();
     }
 
-    public PColorData(String key, Color color, String text) {
+    public PColorData(String key, Color color, Color colorDark, boolean use, String text) {
         setKey(key);
         super.setColorLight(color);
-        super.setColorDark(color);
-        this.resetColorLight = color;
-        this.resetColorDark = color;
-        this.text = text;
-        changeMyColor();
-    }
-
-    public PColorData(String key, Color color, Color colorDark, String text) {
-        setKey(key);
-        super.setColorLight(color);
-        super.setColorDark(color);
+        super.setColorDark(colorDark);
         this.resetColorLight = color;
         this.resetColorDark = colorDark;
+        this.setUse(use);
         this.text = text;
         changeMyColor();
     }

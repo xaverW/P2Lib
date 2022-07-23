@@ -19,7 +19,7 @@ package de.p2tools.p2Lib.dialogs.dialog;
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.P2LibInit;
 import de.p2tools.p2Lib.configFile.IoReadWriteStyle;
-import de.p2tools.p2Lib.icon.GetIcon;
+import de.p2tools.p2Lib.icons.GetIcon;
 import de.p2tools.p2Lib.tools.PException;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.beans.property.StringProperty;
