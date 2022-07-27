@@ -18,20 +18,25 @@
 package de.p2tools.p2Lib.tools.events;
 
 public class Event {
-    private int event = 0;
+    private int eventNo = 0;
     private String text = "";
 
-    public Event(int event, String text) {
-        this.event = event;
+    public Event(int eventNo) {
+        this.eventNo = eventNo;
+        this.text = "";
+    }
+
+    public Event(int eventNo, String text) {
+        this.eventNo = eventNo;
         this.text = text;
     }
 
-    public int getEvent() {
-        return event;
+    public int getEventNo() {
+        return eventNo;
     }
 
-    public void setEvent(int event) {
-        this.event = event;
+    public void setEventNo(int eventNo) {
+        this.eventNo = eventNo;
     }
 
     public String getText() {

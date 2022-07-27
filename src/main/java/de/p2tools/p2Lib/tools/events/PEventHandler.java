@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class PEventHandler {
 
-    private ArrayList<PListener> listeners = new ArrayList<>();
+    private final ArrayList<PListener> listeners = new ArrayList<>();
 
     public PEventHandler() {
     }
@@ -30,15 +30,13 @@ public class PEventHandler {
         listeners.add(listener);
     }
 
-    public void notifyEvent(RunEvent runEvent) {
-        listeners.stream()
-                .filter(pListener -> pListener.getEvent().getEvent() == runEvent.getEvent().getEvent())
-                .forEach(pListener -> pListener.notify(runEvent));
+    public void removeListener(PListener listener) {
+        listeners.remove(listener);
     }
 
-    public void notifyGuiEvent(RunEvent runEvent) {
+    public <T extends Event> void notifyListener(T event) {
         listeners.stream()
-                .filter(pListener -> pListener.getEvent().getEvent() == runEvent.getEvent().getEvent())
-                .forEach(pListener -> pListener.notifyGui(runEvent));
+                .filter(pListener -> pListener.getEventNo() == event.getEventNo())
+                .forEach(pListener -> pListener.notify(event));
     }
 }

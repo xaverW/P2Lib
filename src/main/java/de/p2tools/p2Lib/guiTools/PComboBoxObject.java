@@ -101,37 +101,6 @@ public class PComboBoxObject<E> extends ComboBox<E> {
         }
 
         this.setItems(itemsList);
-
-//        getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue != null && !itemsList.contains(newValue)) {
-//                // itemsList.add(newValue);
-//                // oder
-//                itemsList.add(1, newValue);
-//                setValue(newValue);
-//            }
-//        });
-//
-//        getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-////            if (newValue != null && !itemsList.contains(newValue)) {
-////                itemsList.add(0, newValue); todo da landen sonst alle Tippser in der Liste ??
-////                setValue(newValue);
-////            }
-//            check();
-//        });
-//
-//        getEditor().setOnMousePressed(m -> {
-//            if (m.getButton().equals(MouseButton.SECONDARY)) {
-//                getEditor().setContextMenu(getMenu());
-//            }
-//        });
-
-//        itemsList.addListener((ListChangeListener<E>) c -> {
-//                    if (itemsList.size() == 1) {
-//                        getSelectionModel().selectFirst(); // ist: ""
-//                    }
-//                }
-//        );
-
         bind();
     }
 

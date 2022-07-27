@@ -61,7 +61,6 @@ public class PDialog {
 
     void init(boolean show) {
         try {
-//            createNewScene(pane);
             scene = new Scene(pane);
             if (scene == null) {
                 PException.throwPException(912012458, "no scene");
@@ -133,11 +132,6 @@ public class PDialog {
         PDialogFactory.showDialog(stage, sizeConfiguration, stageHeight, stageWidth,
                 ownerForCenteringDialog, modal, setOnlySize);
     }
-
-//    public void setSizePos() {
-//        PDialogFactory.setSizePos(stage, sizeConfiguration, stageHeight, stageWidth,
-//                ownerForCenteringDialog);
-//    }
 
     public Stage getStage() {
         return stage;

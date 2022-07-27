@@ -37,13 +37,6 @@ public abstract class ConfigPDate extends ConfigExtra {
         return actValue;
     }
 
-    @Override
-    public String getActValueString() {
-        //        return getActValue().toString();
-        final String ret = getActValue() == null ? "" : getActValue().toString();
-        return ret;
-    }
-
     public void setActValue(PDate act) {
         actValue = act;
     }
@@ -55,5 +48,11 @@ public abstract class ConfigPDate extends ConfigExtra {
         } catch (Exception ex) {
             actValue = new PDate();
         }
+    }
+
+    @Override
+    public String getActValueString() {
+        final String ret = getActValue() == null ? "" : getActValue().toString();
+        return ret;
     }
 }

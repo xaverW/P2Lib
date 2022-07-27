@@ -19,31 +19,31 @@ package de.p2tools.p2Lib.tools.events;
 
 import javafx.application.Platform;
 
-import java.util.EventListener;
+public class PListener {
+    private final int eventNo;
 
-public class PListener implements EventListener {
-
-    private final Event event;
-
-    public PListener(Event event) {
-        this.event = event;
+    public PListener(int eventNo) {
+        this.eventNo = eventNo;
     }
 
-    public Event getEvent() {
-        return event;
+    public int getEventNo() {
+        return eventNo;
     }
 
-    public synchronized void notify(RunEvent runEvent) {
-        ping(runEvent);
-    }
-
-    public synchronized void notifyGui(RunEvent runEvent) {
-        Platform.runLater(() -> ping(runEvent));
+    public synchronized <T extends Event> void notify(T event) {
+        ping(event);
+        Platform.runLater(() -> pingGui(event));
     }
 
     /**
-     * @param runEvent
+     * @param event
      */
-    public void ping(RunEvent runEvent) {
+    public <T extends Event> void ping(T event) {
+    }
+
+    /**
+     * @param event
+     */
+    public <T extends Event> void pingGui(T event) {
     }
 }

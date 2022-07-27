@@ -48,21 +48,18 @@ public class ConfigLocalTimeExtra extends ConfigExtra {
     }
 
     @Override
-    public String getActValueString() {
-        return pLocalTime.toString();
-    }
-
-    @Override
     public void setActValue(String act) {
         pLocalTime = PLocalTimeFactory.getPLocalTime(act);
     }
 
     @Override
+    public String getActValueString() {
+        return pLocalTime.toString();
+    }
+
+    @Override
     public Control getControl() {
         PTimePicker control = new PTimePicker();
-//        control.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
-//                pLocalTime.setPLocalTime(newValue.getLocalTime()));
-
         return control;
     }
 }

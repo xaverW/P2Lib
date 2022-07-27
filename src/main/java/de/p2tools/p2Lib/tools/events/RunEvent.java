@@ -17,41 +17,34 @@
 
 package de.p2tools.p2Lib.tools.events;
 
-import java.util.EventObject;
-
-public class RunEvent extends EventObject {
+public class RunEvent extends Event {
     // meldet eine Änderung
-    private Event event;
     private int progress;
     private int max;
-    private String text;
+    private String text2 = "";
+    private boolean error = false;
 
-    public RunEvent(Event event, Object source, int progress, int max, String text) {
-        super(source);
-        this.event = event;
+    public RunEvent(int eventNo, int progress, int max, String text, String text2, boolean error) {
+        super(eventNo, text);
+        setEventNo(eventNo);
         this.progress = progress;
         this.max = max;
-        this.text = text;
+        this.text2 = text2;
+        this.error = error;
     }
 
-    public RunEvent(Event event, Object source) {
-        super(source);
-        this.event = event;
+    public RunEvent(int eventNo, int progress, int max, String text) {
+        super(eventNo, text);
+        setEventNo(eventNo);
+        this.progress = progress;
+        this.max = max;
+    }
+
+    public RunEvent(int eventNo) {
+        super(eventNo, "");
+        setEventNo(eventNo);
         this.progress = 0;
         this.max = 0;
-        this.text = "";
-    }
-
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
-    public String getText() {
-        return text;
     }
 
     public int getProgress() {
@@ -65,4 +58,15 @@ public class RunEvent extends EventObject {
     public boolean nixLos() {
         return max == 0;
     }
+
+    public String getText2() {
+        return text2;
+    }
+
+
+    public boolean isError() {
+        return error;
+    }
+
+
 }
