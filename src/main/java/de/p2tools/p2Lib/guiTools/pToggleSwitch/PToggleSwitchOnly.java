@@ -18,6 +18,7 @@
 package de.p2tools.p2Lib.guiTools.pToggleSwitch;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
@@ -74,6 +75,7 @@ public class PToggleSwitchOnly extends HBox {
     }
 
     private void init() {
+        this.setAlignment(Pos.CENTER);
         this.getChildren().addAll(checkBox);
         getStyleClass().add("pToggleSwitch");
     }

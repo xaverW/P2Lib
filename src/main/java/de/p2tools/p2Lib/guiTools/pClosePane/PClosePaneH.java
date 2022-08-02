@@ -32,7 +32,10 @@ public class PClosePaneH extends HBox {
     public PClosePaneH(BooleanProperty booleanProperty, boolean scroll) {
         Button button = new Button();
         button.getStyleClass().add("close-button");
-        button.setOnAction(a -> booleanProperty.setValue(false));
+        button.setOnAction(a -> {
+            booleanProperty.setValue(false);
+        });
+
 
         VBox vBox = new VBox();
         vBox.getStyleClass().add("close-pane");

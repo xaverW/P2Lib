@@ -25,16 +25,42 @@ import javafx.scene.paint.Color;
 
 public class PColorList extends SimpleListProperty<PColorData> implements PDataList<PColorData> {
 
+    public static final String TAG = "PColorList";
     private static PColorList instance;
 
-    public static final String TAG = "PColorList";
+    public PColorList() {
+        super(FXCollections.observableArrayList());
+    }
 
     public synchronized static final PColorList getInst() {
         return instance == null ? instance = new PColorList() : instance;
     }
 
-    public PColorList() {
-        super(FXCollections.observableArrayList());
+    public static void resetAllColor() {
+        getInst().stream().forEach(c -> c.resetColor());
+    }
+
+    public static PColorData get(String key) {
+        return getInst().get(key);
+    }
+
+    public static synchronized PColorData addNewKey(String key, Color color, String text) {
+        PColorData c = new PColorData(key, color, color, true, text);
+        getInst().add(c);
+        return c;
+    }
+
+    public static synchronized PColorData addNewKey(String key, Color color, Color colorDark, String text) {
+        PColorData c = new PColorData(key, color, colorDark, true, text);
+        getInst().add(c);
+        return c;
+    }
+
+    public static synchronized PColorData addNewKey(String key, Color color, Color colorDark,
+                                                    boolean use, String text) {
+        PColorData c = new PColorData(key, color, colorDark, use, text);
+        getInst().add(c);
+        return c;
     }
 
     @Override
@@ -64,26 +90,5 @@ public class PColorList extends SimpleListProperty<PColorData> implements PDataL
                 }
             });
         }
-    }
-
-    public static void resetAllColor() {
-        getInst().stream().forEach(c -> c.resetColor());
-    }
-
-    public static PColorData get(String key) {
-        return getInst().get(key);
-    }
-
-    public static synchronized PColorData addNewKey(String key, Color color, Color colorDark, String text) {
-        PColorData c = new PColorData(key, color, colorDark, true, text);
-        getInst().add(c);
-        return c;
-    }
-
-    public static synchronized PColorData addNewKey(String key, Color color, Color colorDark,
-                                                    boolean use, String text) {
-        PColorData c = new PColorData(key, color, colorDark, use, text);
-        getInst().add(c);
-        return c;
     }
 }
