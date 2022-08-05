@@ -135,14 +135,7 @@ public class POpen {
 
     public static void playStoredFilm(Stage stage, String file, StringProperty prog, ImageView getProgIcon) {
 
-        File filmFile;
         if (file.isEmpty()) {
-            return;
-        }
-        filmFile = new File(file);
-
-        if (!filmFile.exists()) {
-            new PDialogFileChosser().showErrorAlert("Fehler", "Kein Film", "Film existiert noch nicht!");
             return;
         }
 
@@ -150,7 +143,7 @@ public class POpen {
             // dann mit dem vorgegebenen Player starten
             try {
                 final String program = prog.getValueSafe();
-                final String[] cmd = {program, filmFile.getAbsolutePath()};
+                final String[] cmd = {program, file};
                 Runtime.getRuntime().exec(cmd);
             } catch (final Exception ex) {
                 Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file, getProgIcon));
@@ -164,7 +157,7 @@ public class POpen {
                     if (Desktop.isDesktopSupported()) {
                         final Desktop d = Desktop.getDesktop();
                         if (d.isSupported(Desktop.Action.OPEN)) {
-                            d.open(filmFile);
+                            d.open(new File(file));
                         }
                     }
                 } catch (Exception ex) {
@@ -240,8 +233,6 @@ public class POpen {
             }
         }
     }
-
-    enum TEXT {FILM, DIR, URL, EXTERN}
 
     private static void afterPlay(Stage stage, TEXT t, StringProperty stringProperty, String fileUrl, ImageView getProgIcon) {
         if (stringProperty == null) {
@@ -328,4 +319,6 @@ public class POpen {
 
         PAlert.showErrorAlert(header, cont);
     }
+
+    enum TEXT {FILM, DIR, URL, EXTERN}
 }

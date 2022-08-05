@@ -200,7 +200,7 @@ public class PFileUtils {
             }
 
             if (dest.toString().isEmpty()) {
-                new PAlert().showErrorAlert("Datei kopieren", "Es wurde keine Zeildatei angegeben.");
+                new PAlert().showErrorAlert("Datei kopieren", "Es wurde keine Zieldatei angegeben.");
                 return false;
             }
 

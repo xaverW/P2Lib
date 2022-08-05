@@ -23,6 +23,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.skin.TableViewSkin;
 import javafx.scene.control.skin.VirtualFlow;
@@ -38,6 +39,15 @@ public class PTableFactory {
 
     public static final KeyCombination SPACE = new KeyCodeCombination(KeyCode.SPACE);
     public static final KeyCombination SPACE_SHIFT = new KeyCodeCombination(KeyCode.SPACE, KeyCombination.SHIFT_DOWN);
+
+    public static void refreshTable(TableView table) {
+        for (int i = 0; i < table.getColumns().size(); i++) {
+            if (((TableColumn) (table.getColumns().get(i))).isVisible()) {
+                ((TableColumn) (table.getColumns().get(i))).setVisible(false);
+                ((TableColumn) (table.getColumns().get(i))).setVisible(true);
+            }
+        }
+    }
 
     public static void scrollVisibleRangeUp(TableView table) {
         if (table.getItems().size() == 0) {
