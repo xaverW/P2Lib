@@ -134,7 +134,6 @@ public class POpen {
     }
 
     public static void playStoredFilm(Stage stage, String file, StringProperty prog, ImageView getProgIcon) {
-
         if (file.isEmpty()) {
             return;
         }
@@ -166,9 +165,7 @@ public class POpen {
             });
             th.setName("playStoredFilm");
             th.start();
-
         }
-
     }
 
     public static void openURL(String url) {

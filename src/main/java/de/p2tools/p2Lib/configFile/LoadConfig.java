@@ -40,9 +40,8 @@ import java.util.ArrayList;
 
 class LoadConfig implements AutoCloseable {
 
-    private XMLInputFactory inFactory;
     private final Path xmlFilePath;
-
+    private XMLInputFactory inFactory;
     private ArrayList<PDataList> pDataListArr = null;
     private ArrayList<PData> pDataArr = null;
 
@@ -343,15 +342,11 @@ class LoadConfig implements AutoCloseable {
 
                 final String localName = parser.getLocalName();
                 for (Config config : configs) {
-
-//                    String key = config.getKey();
                     if (config.getKey().equals(localName)) {
                         getConf(parser, config);
                         break;
                     }
-
                 }
-
             }
             ret = true;
 
