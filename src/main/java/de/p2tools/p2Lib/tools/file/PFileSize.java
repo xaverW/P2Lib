@@ -65,6 +65,33 @@ public class PFileSize implements Comparable<PFileSize> {
         }
     }
 
+    public static long convertFromStr(String size) {
+        if (size.isEmpty()) {
+            return 0;
+        }
+        size = size.replace(",", ".");
+        try {
+            if (size.endsWith(" B")) {
+                size = size.replace(" B", "");
+                return Double.valueOf(size).longValue();
+            }
+            if (size.endsWith(" kB")) {
+                size = size.replace(" kB", "");
+                return Double.valueOf(Double.valueOf(size) * KBYTE).longValue();
+            }
+            if (size.endsWith(" MB")) {
+                size = size.replace(" MB", "");
+                return Double.valueOf(Double.valueOf(size) * MBYTE).longValue();
+            }
+            if (size.endsWith(" GB")) {
+                size = size.replace(" GB", "");
+                return Double.valueOf(Double.valueOf(size) * GBYTE).longValue();
+            }
+        } catch (Exception ex) {
+        }
+        return 0;
+    }
+
     private void convertToStr() {
         sizeStr = convertToStr(sizeL);
     }
