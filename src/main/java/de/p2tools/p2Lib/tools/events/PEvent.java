@@ -17,16 +17,16 @@
 
 package de.p2tools.p2Lib.tools.events;
 
-public class Event {
+public class PEvent {
     private int eventNo = 0;
     private String text = "";
 
-    public Event(int eventNo) {
+    public PEvent(int eventNo) {
         this.eventNo = eventNo;
         this.text = "";
     }
 
-    public Event(int eventNo, String text) {
+    public PEvent(int eventNo, String text) {
         this.eventNo = eventNo;
         this.text = text;
     }

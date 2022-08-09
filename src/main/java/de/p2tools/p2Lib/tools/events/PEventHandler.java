@@ -34,7 +34,7 @@ public class PEventHandler {
         listeners.remove(listener);
     }
 
-    public <T extends Event> void notifyListener(T event) {
+    public <T extends PEvent> void notifyListener(T event) {
         listeners.stream()
                 .filter(pListener -> pListener.getEventNo() == event.getEventNo())
                 .forEach(pListener -> pListener.notify(event));

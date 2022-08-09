@@ -17,14 +17,14 @@
 
 package de.p2tools.p2Lib.tools.events;
 
-public class RunEvent extends Event {
+public class RunPEvent extends PEvent {
     // meldet eine Änderung
     private int progress;
     private int max;
     private String text2 = "";
     private boolean error = false;
 
-    public RunEvent(int eventNo, int progress, int max, String text, String text2, boolean error) {
+    public RunPEvent(int eventNo, int progress, int max, String text, String text2, boolean error) {
         super(eventNo, text);
         setEventNo(eventNo);
         this.progress = progress;
@@ -33,14 +33,14 @@ public class RunEvent extends Event {
         this.error = error;
     }
 
-    public RunEvent(int eventNo, int progress, int max, String text) {
+    public RunPEvent(int eventNo, int progress, int max, String text) {
         super(eventNo, text);
         setEventNo(eventNo);
         this.progress = progress;
         this.max = max;
     }
 
-    public RunEvent(int eventNo) {
+    public RunPEvent(int eventNo) {
         super(eventNo, "");
         setEventNo(eventNo);
         this.progress = 0;

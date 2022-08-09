@@ -30,7 +30,7 @@ public class PListener {
         return eventNo;
     }
 
-    public synchronized <T extends Event> void notify(T event) {
+    public synchronized <T extends PEvent> void notify(T event) {
         ping(event);
         Platform.runLater(() -> pingGui(event));
     }
@@ -38,12 +38,12 @@ public class PListener {
     /**
      * @param event
      */
-    public <T extends Event> void ping(T event) {
+    public <T extends PEvent> void ping(T event) {
     }
 
     /**
      * @param event
      */
-    public <T extends Event> void pingGui(T event) {
+    public <T extends PEvent> void pingGui(T event) {
     }
 }
