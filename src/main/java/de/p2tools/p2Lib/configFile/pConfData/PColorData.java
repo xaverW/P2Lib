@@ -28,6 +28,7 @@ public class PColorData extends PColorDataProps {
     public static final String SEPARATOR = "X";
 
     private String text = "";
+    private int mark = 0;
     private String cssFontBold = "";
     private String cssFont = "";
     private String cssBackground = "";
@@ -136,7 +137,15 @@ public class PColorData extends PColorDataProps {
         return text;
     }
 
-//    public void setColorFromHex(String hex) {
+    public int getMark() {
+        return mark;
+    }
+
+    public void setMark(int mark) {
+        this.mark = mark;
+    }
+
+    //    public void setColorFromHex(String hex) {
 //        if (hex.contains(SEPARATOR)) {
 //            String[] arr = hex.split(SEPARATOR);
 //            super.setColorLight(Color.web(arr[0]));
