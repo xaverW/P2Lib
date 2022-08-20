@@ -323,7 +323,13 @@ public class PDirFileChooser {
             try {
                 ret = selectedDir.getAbsolutePath();
                 if (!cbPath.getItems().contains(ret)) {
-                    cbPath.getItems().add(ret);
+                    if (cbPath.getItems().size() > 0 && cbPath.getItems().get(0).equals("")) {
+                        //weil Platz 1 wahrscheinlich "" ist
+                        cbPath.getItems().add(1, ret);
+                    } else {
+                        //dann an den ersten Platz
+                        cbPath.getItems().add(0, ret);
+                    }
                 }
                 cbPath.getSelectionModel().select(ret);
 
