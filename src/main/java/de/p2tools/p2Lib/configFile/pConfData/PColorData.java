@@ -265,8 +265,13 @@ public class PColorData extends PColorDataProps {
         cssFontBold = ("-fx-font-weight: bold; -fx-text-fill: " + getColorSelectedToWeb() + ";").intern();
         cssFont = ("-fx-text-fill: " + getColorSelectedToWeb() + ";").intern();
         cssBackground = ("-fx-control-inner-background: " + getColorSelectedToWeb() + ";").intern();
-        cssBackgroundAndSel = ("-fx-control-inner-background: " + getColorSelectedToWeb() + ";" +
-                "-fx-selection-bar: " + getColorDarkerToWeb() + ";" +
+
+//        setStyle("-fx-selection-bar: red; -fx-selection-bar-non-focused: green;");
+        cssBackgroundAndSel = ("-fx-selection-bar: " + getColorSelectedToWeb() + ";" +
                 " -fx-selection-bar-non-focused: " + getColorDarkerToWeb() + ";").intern();
+
+//        cssBackgroundAndSel = ("-fx-control-inner-background: " + getColorSelectedToWeb() + ";" +
+//                "-fx-selection-bar: " + getColorDarkerToWeb() + ";" +
+//                " -fx-selection-bar-non-focused: " + getColorDarkerToWeb() + ";").intern();
     }
 }
