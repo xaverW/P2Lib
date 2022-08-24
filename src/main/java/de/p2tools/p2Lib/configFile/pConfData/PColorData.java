@@ -268,7 +268,7 @@ public class PColorData extends PColorDataProps {
 
 //        setStyle("-fx-selection-bar: red; -fx-selection-bar-non-focused: green;");
         cssBackgroundAndSel = ("-fx-selection-bar: " + getColorSelectedToWeb() + ";" +
-                " -fx-selection-bar-non-focused: " + getColorDarkerToWeb() + ";").intern();
+                " -fx-selection-bar-non-focused: " + getColorSelectedToWeb() + ";").intern();
 
 //        cssBackgroundAndSel = ("-fx-control-inner-background: " + getColorSelectedToWeb() + ";" +
 //                "-fx-selection-bar: " + getColorDarkerToWeb() + ";" +
