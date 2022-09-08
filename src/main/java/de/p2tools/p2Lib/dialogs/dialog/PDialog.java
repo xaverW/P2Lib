@@ -44,6 +44,7 @@ public class PDialog {
     private Pane pane;
     private double stageWidth = 0;
     private double stageHeight = 0;
+    private static String iconPath = "";
 
     PDialog(Stage ownerForCenteringDialog, StringProperty sizeConfiguration,
             String title, boolean modal, boolean setOnlySize) {
@@ -53,6 +54,25 @@ public class PDialog {
         this.modal = modal;
         this.title = title;
         this.setOnlySize = setOnlySize;
+    }
+
+    PDialog(Stage ownerForCenteringDialog, StringProperty sizeConfiguration,
+            String title, boolean modal, boolean setOnlySize, String iconPath) {
+
+        this.ownerForCenteringDialog = ownerForCenteringDialog;
+        this.sizeConfiguration = sizeConfiguration;
+        this.modal = modal;
+        this.title = title;
+        this.setOnlySize = setOnlySize;
+        this.iconPath = iconPath;
+    }
+
+    public static String getIconPath() {
+        return iconPath;
+    }
+
+    public static void setIconPath(String iconPath) {
+        PDialog.iconPath = iconPath;
     }
 
     void setPane(Pane pane) {
@@ -84,7 +104,7 @@ public class PDialog {
                 }
             });
 
-            GetIcon.addWindowP2Icon(stage);
+            setIcon();
             make();
 
             PDialogFactory.addSizeListener(stage, sizeConfiguration);
@@ -95,6 +115,10 @@ public class PDialog {
         } catch (final Exception exc) {
             PLog.errorLog(152030145, exc);
         }
+    }
+
+    public void setIcon() {
+        GetIcon.addWindowP2Icon(stage, iconPath);
     }
 
     public void updateCss() {
