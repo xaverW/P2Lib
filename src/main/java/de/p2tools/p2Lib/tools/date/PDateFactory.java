@@ -38,6 +38,7 @@ public class PDateFactory {
     public static final FastDateFormat F_FORMAT_yyyy = FastDateFormat.getInstance("yyyy");
     public static final FastDateFormat F_FORMAT_yyyy_MM_dd = FastDateFormat.getInstance("yyyy.MM.dd");
     public static final FastDateFormat F_FORMAT_yyyyMMdd = FastDateFormat.getInstance("yyyyMMdd");
+    public static final FastDateFormat F_FORMAT_ddMMyyyy = FastDateFormat.getInstance("ddMMyyyy");
 
     public static final DateTimeFormatter DT_FORMATTER_d_M_yyyy = DateTimeFormatter.ofPattern("d.M.yyyy");
     public static final DateTimeFormatter DT_FORMATTER_d_MM_yyyy = DateTimeFormatter.ofPattern("d.MM.yyyy");

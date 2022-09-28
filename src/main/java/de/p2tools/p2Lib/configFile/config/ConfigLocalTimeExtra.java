@@ -38,8 +38,9 @@ public class ConfigLocalTimeExtra extends ConfigExtra {
         this.pLocalTime = localTime;
     }
 
-    public LocalTime getPDate() {
-        return pLocalTime;
+    @Override
+    public void setActValue(String act) {
+        pLocalTime = PLocalTimeFactory.getPLocalTime(act);
     }
 
     @Override
@@ -48,13 +49,12 @@ public class ConfigLocalTimeExtra extends ConfigExtra {
     }
 
     @Override
-    public void setActValue(String act) {
-        pLocalTime = PLocalTimeFactory.getPLocalTime(act);
-    }
-
-    @Override
     public String getActValueString() {
         return pLocalTime.toString();
+    }
+
+    public LocalTime getPDate() {
+        return pLocalTime;
     }
 
     @Override

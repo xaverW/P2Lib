@@ -44,13 +44,12 @@ public class ConfigStringPropExtra extends ConfigExtra {
     }
 
     @Override
-    public String getActValue() {
-        return actValue.getValue();
-    }
-
-    @Override
-    public String getActValueString() {
-        return getActValue();
+    public void setActValue(Object act) {
+        try {
+            actValue.setValue(act.toString());
+        } catch (Exception ex) {
+            PLog.errorLog(907894213, ex);
+        }
     }
 
     @Override
@@ -63,12 +62,13 @@ public class ConfigStringPropExtra extends ConfigExtra {
     }
 
     @Override
-    public void setActValue(Object act) {
-        try {
-            actValue.setValue(act.toString());
-        } catch (Exception ex) {
-            PLog.errorLog(907894213, ex);
-        }
+    public String getActValue() {
+        return actValue.getValue();
+    }
+
+    @Override
+    public String getActValueString() {
+        return getActValue();
     }
 
     @Override

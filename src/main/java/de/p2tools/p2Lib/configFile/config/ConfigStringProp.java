@@ -41,13 +41,12 @@ public class ConfigStringProp extends Config {
     }
 
     @Override
-    public String getActValue() {
-        return actValue.getValue();
-    }
-
-    @Override
-    public String getActValueString() {
-        return getActValue();
+    public void setActValue(Object act) {
+        try {
+            actValue.setValue(act.toString());
+        } catch (Exception ex) {
+            PLog.errorLog(101020254, ex);
+        }
     }
 
     @Override
@@ -56,12 +55,13 @@ public class ConfigStringProp extends Config {
     }
 
     @Override
-    public void setActValue(Object act) {
-        try {
-            actValue.setValue(act.toString());
-        } catch (Exception ex) {
-            PLog.errorLog(101020254, ex);
-        }
+    public String getActValue() {
+        return actValue.getValue();
+    }
+
+    @Override
+    public String getActValueString() {
+        return getActValue();
     }
 
 

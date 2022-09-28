@@ -22,35 +22,35 @@ import javafx.scene.paint.Color;
 
 public class ConfigColor extends Config {
 
-    private Color pLocalcolorate;
+    private Color color;
 
     public ConfigColor(String key, String actValue) {
         super(key);
-        pLocalcolorate = Color.web(actValue);
-    }
-
-    public ConfigColor(String key, String actValue, boolean intern) {
-        super(key, null, intern);
-        pLocalcolorate = Color.web(actValue);
+        color = Color.web(actValue);
     }
 
     public ConfigColor(String key, Color color) {
         super(key);
-        pLocalcolorate = color;
+        this.color = color;
     }
 
-    @Override
-    public Color getActValue() {
-        return pLocalcolorate;
-    }
-
-    @Override
-    public String getActValueString() {
-        return PColorFactory.getColorToWeb(pLocalcolorate);
+    public ConfigColor(String key, String actValue, boolean intern) {
+        super(key, null, intern);
+        color = Color.web(actValue);
     }
 
     @Override
     public void setActValue(String act) {
-        pLocalcolorate = Color.web(act);
+        color = Color.web(act);
+    }
+
+    @Override
+    public Color getActValue() {
+        return color;
+    }
+
+    @Override
+    public String getActValueString() {
+        return PColorFactory.getColorToWeb(color);
     }
 }

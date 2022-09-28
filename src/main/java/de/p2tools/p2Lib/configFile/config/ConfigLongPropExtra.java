@@ -31,13 +31,8 @@ public class ConfigLongPropExtra extends ConfigExtra {
     }
 
     @Override
-    public Long getActValue() {
-        return actValue.getValue();
-    }
-
-    @Override
-    public String getActValueString() {
-        return String.valueOf(getActValue());
+    public void setActValue(Object act) {
+        actValue.setValue((Long) act);
     }
 
     public void setActValue(long act) {
@@ -51,6 +46,16 @@ public class ConfigLongPropExtra extends ConfigExtra {
         } catch (Exception ex) {
             actValue.setValue(0);
         }
+    }
+
+    @Override
+    public Long getActValue() {
+        return actValue.getValue();
+    }
+
+    @Override
+    public String getActValueString() {
+        return String.valueOf(getActValue());
     }
 
     @Override

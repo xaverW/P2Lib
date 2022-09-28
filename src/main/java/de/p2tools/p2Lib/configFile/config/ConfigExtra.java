@@ -17,8 +17,6 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import javafx.beans.value.ObservableValue;
-
 /**
  * this is the class for one configuration
  * for example: the configsData for a USER(name,age,size)
@@ -28,51 +26,28 @@ import javafx.beans.value.ObservableValue;
 
 public abstract class ConfigExtra extends Config {
 
-    final String key;
-    Object actValue;
     String name;
     String regEx = ""; // damit kann eine Usereingebe als *falsch* markiert werden z.B. PLT muss 5 Zahlen haben
 
     public ConfigExtra() {
-        this.key = "";
+        super();
         this.name = "";
-        actValue = null;
     }
 
     public ConfigExtra(String key, String name) {
-        this.key = key;
+        super(key);
         this.name = name;
-        actValue = null;
+    }
+
+    public ConfigExtra(String key, String name, Object actValue) {
+        super(key, actValue);
+        this.name = name;
     }
 
     public ConfigExtra(String key, String name, String regEx, Object actValue) {
-        this.key = key;
+        super(key, actValue);
         this.name = name;
         this.regEx = regEx;
-        this.actValue = actValue;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setActValue(String act) {
-        actValue = act;
-    }
-
-    public Object getActValue() {
-        return actValue;
-    }
-
-    public String getActValueString() {
-        return actValue.toString();
-    }
-
-    public ObservableValue getProperty() {
-        return null;
-    }
-
-    public void resetValue() {
     }
 
     public void setRegEx(String regEx) {
@@ -83,16 +58,13 @@ public abstract class ConfigExtra extends Config {
         return regEx;
     }
 
-    public String getName() {
-        return name;
-    }
-
-
     public void setName(String name) {
         this.name = name;
     }
 
-
+    public String getName() {
+        return name;
+    }
 }
 
 

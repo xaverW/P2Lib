@@ -32,6 +32,14 @@ public abstract class ConfigString extends Config {
     }
 
     @Override
+    public void setActValue(Object act) {
+        actValue = (String) act;
+    }
+
+    @Override
+    public abstract void setActValue(String act);
+
+    @Override
     public String getActValue() {
         return actValue;
     }
@@ -40,7 +48,4 @@ public abstract class ConfigString extends Config {
     public String getActValueString() {
         return actValue;
     }
-
-    @Override
-    public abstract void setActValue(String act);
 }

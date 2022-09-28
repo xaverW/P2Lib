@@ -41,6 +41,11 @@ public class ConfigLocalDateExtra extends ConfigExtra {
     }
 
     @Override
+    public void setActValue(String act) {
+        pLocalDate.setPLocalDate(act);
+    }
+
+    @Override
     public String getActValue() {
         return pLocalDate.toString();
     }
@@ -48,11 +53,6 @@ public class ConfigLocalDateExtra extends ConfigExtra {
     @Override
     public String getActValueString() {
         return pLocalDate.toString();
-    }
-
-    @Override
-    public void setActValue(String act) {
-        pLocalDate.setPLocalDate(act);
     }
 
     @Override

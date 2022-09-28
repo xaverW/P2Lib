@@ -26,6 +26,11 @@ public class ConfigComment extends Config {
     }
 
     @Override
+    public void setActValue(String act) {
+        set(act);
+    }
+
+    @Override
     public String getActValue() {
         return actValue;
     }
@@ -33,11 +38,6 @@ public class ConfigComment extends Config {
     @Override
     public String getActValueString() {
         return actValue;
-    }
-
-    @Override
-    public void setActValue(String act) {
-        set(act);
     }
 
     private void set(String act) {

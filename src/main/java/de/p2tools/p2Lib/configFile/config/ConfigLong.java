@@ -29,13 +29,12 @@ public abstract class ConfigLong extends Config {
     public abstract void setUsedValue(Long value);
 
     @Override
-    public Long getActValue() {
-        return actValue;
+    public void setActValue(Object act) {
+        actValue = (Long) act;
     }
 
-    @Override
-    public String getActValueString() {
-        return String.valueOf(actValue);
+    public void setActValue(long act) {
+        actValue = act;
     }
 
     @Override
@@ -46,5 +45,15 @@ public abstract class ConfigLong extends Config {
             actValue = 0L;
         }
         setUsedValue(actValue);
+    }
+
+    @Override
+    public Long getActValue() {
+        return actValue;
+    }
+
+    @Override
+    public String getActValueString() {
+        return String.valueOf(actValue);
     }
 }

@@ -30,15 +30,13 @@ public class ConfigDoublePropExtra extends ConfigExtra {
         this.actValue = actValue;
     }
 
-
     @Override
-    public Double getActValue() {
-        return actValue.getValue();
+    public void setActValue(Object act) {
+        actValue.setValue((Double) act);
     }
 
-    @Override
-    public String getActValueString() {
-        return String.valueOf(getActValue());
+    public void setActValue(double act) {
+        actValue.setValue(act);
     }
 
     @Override
@@ -48,6 +46,16 @@ public class ConfigDoublePropExtra extends ConfigExtra {
         } catch (Exception ex) {
             actValue.setValue(0.0);
         }
+    }
+
+    @Override
+    public Double getActValue() {
+        return actValue.getValue();
+    }
+
+    @Override
+    public String getActValueString() {
+        return String.valueOf(getActValue());
     }
 
     @Override

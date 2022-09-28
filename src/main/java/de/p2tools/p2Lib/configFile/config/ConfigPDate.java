@@ -33,8 +33,8 @@ public abstract class ConfigPDate extends ConfigExtra {
     }
 
     @Override
-    public PDate getActValue() {
-        return actValue;
+    public void setActValue(Object act) {
+        actValue = (PDate) act;
     }
 
     public void setActValue(PDate act) {
@@ -48,6 +48,11 @@ public abstract class ConfigPDate extends ConfigExtra {
         } catch (Exception ex) {
             actValue = new PDate();
         }
+    }
+
+    @Override
+    public PDate getActValue() {
+        return actValue;
     }
 
     @Override

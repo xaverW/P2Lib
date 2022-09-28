@@ -36,13 +36,8 @@ public class ConfigStringExtra extends ConfigExtra {
     }
 
     @Override
-    public String getActValue() {
-        return actValue[no];
-    }
-
-    @Override
-    public String getActValueString() {
-        return getActValue();
+    public void setActValue(Object act) {
+        actValue[no] = ((String[]) act)[no];
     }
 
     @Override
@@ -52,6 +47,16 @@ public class ConfigStringExtra extends ConfigExtra {
         } catch (Exception ex) {
             PLog.errorLog(956230142, ex);
         }
+    }
+
+    @Override
+    public String getActValue() {
+        return actValue[no];
+    }
+
+    @Override
+    public String getActValueString() {
+        return getActValue();
     }
 
     @Override

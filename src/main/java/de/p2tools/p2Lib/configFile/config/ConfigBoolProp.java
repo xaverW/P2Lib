@@ -35,13 +35,12 @@ public class ConfigBoolProp extends Config {
 
 
     @Override
-    public Boolean getActValue() {
-        return actValue.getValue();
+    public void setActValue(Object act) {
+        actValue.setValue((Boolean) act);
     }
 
-    @Override
-    public String getActValueString() {
-        return String.valueOf(getActValue());
+    public void setActValue(boolean act) {
+        actValue.setValue(act);
     }
 
     @Override
@@ -53,8 +52,17 @@ public class ConfigBoolProp extends Config {
     }
 
     @Override
+    public Boolean getActValue() {
+        return actValue.getValue();
+    }
+
+    @Override
+    public String getActValueString() {
+        return String.valueOf(getActValue());
+    }
+
+    @Override
     public BooleanProperty getProperty() {
         return actValue;
     }
-
 }

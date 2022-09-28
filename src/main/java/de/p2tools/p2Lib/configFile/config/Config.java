@@ -51,15 +51,10 @@ public abstract class Config {
     public Config(String key, Object actValue, boolean intern) {
         if (intern) {
             this.key = key.intern();
-            this.actValue = actValue;
         } else {
             this.key = key;
-            this.actValue = actValue;
         }
-    }
-
-    public String getKey() {
-        return key;
+        this.actValue = actValue;
     }
 
     public void setActValue(String act) {
@@ -78,11 +73,15 @@ public abstract class Config {
         return actValue == null ? "" : actValue.toString();
     }
 
+    public void resetValue() {
+    }
+
     public ObservableValue getProperty() {
         return null;
     }
 
-    public void resetValue() {
+    public String getKey() {
+        return key;
     }
 
     public void setRegEx(String regEx) {
@@ -92,16 +91,14 @@ public abstract class Config {
         return "";
     }
 
-    public String getName() {
-        return "";
+    public void setName(String name) {
     }
 
-    public void setName(String name) {
+    public String getName() {
+        return "";
     }
 
     public Control getControl() {
         return null;
     }
 }
-
-

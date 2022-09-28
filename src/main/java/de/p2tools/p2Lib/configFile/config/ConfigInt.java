@@ -26,22 +26,13 @@ public abstract class ConfigInt extends Config {
         this.actValue = actValue;
     }
 
-
     public ConfigInt(String key, int actValue, boolean intern) {
         super(key, null, intern);
         this.actValue = actValue;
     }
 
-    public abstract void setUsedValue(Integer value);
-
-    @Override
-    public Integer getActValue() {
-        return actValue;
-    }
-
-    @Override
-    public String getActValueString() {
-        return String.valueOf(actValue);
+    public void setActValue(int act) {
+        actValue = act;
     }
 
     @Override
@@ -53,4 +44,16 @@ public abstract class ConfigInt extends Config {
         }
         setUsedValue(actValue);
     }
+
+    @Override
+    public Integer getActValue() {
+        return actValue;
+    }
+
+    @Override
+    public String getActValueString() {
+        return String.valueOf(actValue);
+    }
+
+    public abstract void setUsedValue(Integer value);
 }

@@ -29,19 +29,9 @@ public class ConfigPDateProp extends ConfigExtra {
         this.actValue = actValue;
     }
 
-    public PDate getPDate() {
-        return actValue.getValue();
-    }
-
     @Override
-    public PDate getActValue() {
-        return actValue.getValue();
-    }
-
-    @Override
-    public String getActValueString() {
-        final String ret = getActValue() == null ? "" : getActValue().toString();
-        return ret;
+    public void setActValue(Object act) {
+        actValue.setValue((PDate) act);
     }
 
     public void setActValue(PDate act) {
@@ -55,6 +45,17 @@ public class ConfigPDateProp extends ConfigExtra {
         } catch (Exception ex) {
             actValue.setValue(new PDate());
         }
+    }
+
+    @Override
+    public PDate getActValue() {
+        return actValue.getValue();
+    }
+
+    @Override
+    public String getActValueString() {
+        final String ret = getActValue() == null ? "" : getActValue().toString();
+        return ret;
     }
 
     @Override

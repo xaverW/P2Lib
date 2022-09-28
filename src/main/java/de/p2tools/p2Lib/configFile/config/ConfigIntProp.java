@@ -34,15 +34,9 @@ public class ConfigIntProp extends Config {
         this.actValue = actValue;
     }
 
-
     @Override
-    public Integer getActValue() {
-        return actValue.getValue();
-    }
-
-    @Override
-    public String getActValueString() {
-        return String.valueOf(getActValue());
+    public void setActValue(Object act) {
+        actValue.setValue((Integer) act);
     }
 
     public void setActValue(int act) {
@@ -56,6 +50,16 @@ public class ConfigIntProp extends Config {
         } catch (Exception ex) {
             actValue.setValue(0);
         }
+    }
+
+    @Override
+    public Integer getActValue() {
+        return actValue.getValue();
+    }
+
+    @Override
+    public String getActValueString() {
+        return String.valueOf(getActValue());
     }
 
     @Override

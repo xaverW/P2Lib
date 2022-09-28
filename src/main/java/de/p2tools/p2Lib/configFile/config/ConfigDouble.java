@@ -35,16 +35,6 @@ public abstract class ConfigDouble extends Config {
     public abstract void setUsedValue(Double value);
 
     @Override
-    public Double getActValue() {
-        return actValue;
-    }
-
-    @Override
-    public String getActValueString() {
-        return String.valueOf(actValue);
-    }
-
-    @Override
     public void setActValue(String act) {
         try {
             actValue = Double.parseDouble(act);
@@ -52,5 +42,15 @@ public abstract class ConfigDouble extends Config {
             actValue = 0.0;
         }
         setUsedValue(actValue);
+    }
+
+    @Override
+    public Double getActValue() {
+        return actValue;
+    }
+
+    @Override
+    public String getActValueString() {
+        return String.valueOf(actValue);
     }
 }

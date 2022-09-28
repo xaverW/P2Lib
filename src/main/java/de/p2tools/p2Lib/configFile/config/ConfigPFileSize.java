@@ -29,15 +29,8 @@ public class ConfigPFileSize extends ConfigExtra {
     }
 
     @Override
-    public PFileSize getActValue() {
-        return actValue;
-    }
-
-    @Override
-    public String getActValueString() {
-        //return getActValue().toString();
-        final String ret = getActValue() == null ? "" : getActValue().toString();
-        return ret;
+    public void setActValue(Object act) {
+        actValue = (PFileSize) act;
     }
 
     public void setActValue(PFileSize act) {
@@ -51,5 +44,16 @@ public class ConfigPFileSize extends ConfigExtra {
         } catch (Exception ex) {
             actValue.setFileSize(0);
         }
+    }
+
+    @Override
+    public PFileSize getActValue() {
+        return actValue;
+    }
+
+    @Override
+    public String getActValueString() {
+        final String ret = getActValue() == null ? "" : getActValue().toString();
+        return ret;
     }
 }

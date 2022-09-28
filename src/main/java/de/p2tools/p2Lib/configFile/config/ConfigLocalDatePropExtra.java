@@ -36,15 +36,8 @@ public class ConfigLocalDatePropExtra extends ConfigExtra {
     }
 
     @Override
-    public PLocalDate getActValue() {
-        return actValue.getValue();
-    }
-
-    @Override
-    public String getActValueString() {
-        //        return getActValue().toString();
-        final String ret = getActValue() == null ? "" : getActValue().toString();
-        return ret;
+    public void setActValue(Object act) {
+        actValue.setValue((PLocalDate) act);
     }
 
     public void setActValue(PLocalDate act) {
@@ -58,6 +51,18 @@ public class ConfigLocalDatePropExtra extends ConfigExtra {
         } catch (Exception ex) {
             actValue.setValue(new PLocalDate());
         }
+    }
+
+    @Override
+    public PLocalDate getActValue() {
+        return actValue.getValue();
+    }
+
+    @Override
+    public String getActValueString() {
+        //        return getActValue().toString();
+        final String ret = getActValue() == null ? "" : getActValue().toString();
+        return ret;
     }
 
     @Override

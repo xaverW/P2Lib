@@ -31,13 +31,8 @@ public class ConfigColorProp extends Config {
     }
 
     @Override
-    public Color getActValue() {
-        return actValue.getValue();
-    }
-
-    @Override
-    public String getActValueString() {
-        return PColorFactory.getColorToWeb(actValue.getValue());
+    public void setActValue(Object act) {
+        actValue.setValue((Color) act);
     }
 
     @Override
@@ -46,6 +41,16 @@ public class ConfigColorProp extends Config {
             actValue.setValue(Color.web(act));
         } catch (Exception ex) {
         }
+    }
+
+    @Override
+    public Color getActValue() {
+        return actValue.getValue();
+    }
+
+    @Override
+    public String getActValueString() {
+        return PColorFactory.getColorToWeb(actValue.getValue());
     }
 
     @Override

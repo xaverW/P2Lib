@@ -28,24 +28,17 @@ public class ConfigLongProp extends Config {
         this.actValue = actValue;
     }
 
-
     public ConfigLongProp(String key, LongProperty actValue, boolean intern) {
         super(key, null, intern);
         this.actValue = actValue;
     }
 
-
     @Override
-    public Long getActValue() {
-        return actValue.getValue();
+    public void setActValue(Object act) {
+        actValue.setValue((Long) act);
     }
 
-    @Override
-    public String getActValueString() {
-        return String.valueOf(getActValue());
-    }
-
-    public void setActValue(long act) {
+    public void setActValue(Long act) {
         actValue.setValue(act);
     }
 
@@ -56,6 +49,16 @@ public class ConfigLongProp extends Config {
         } catch (Exception ex) {
             actValue.setValue(0);
         }
+    }
+
+    @Override
+    public Long getActValue() {
+        return actValue.getValue();
+    }
+
+    @Override
+    public String getActValueString() {
+        return String.valueOf(getActValue());
     }
 
     @Override

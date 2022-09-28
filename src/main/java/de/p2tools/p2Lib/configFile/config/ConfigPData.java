@@ -32,8 +32,8 @@ public class ConfigPData extends Config {
         this.actValue = pData;
     }
 
+    @Override
     public PData getActValue() {
         return actValue;
     }
-
 }
