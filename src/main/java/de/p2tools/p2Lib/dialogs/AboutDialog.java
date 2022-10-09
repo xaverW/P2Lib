@@ -21,7 +21,7 @@ import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
-import de.p2tools.p2Lib.tools.ProgramTools;
+import de.p2tools.p2Lib.tools.ProgramToolsFactory;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -124,12 +124,12 @@ public abstract class AboutDialog extends PDialogExtra {
         GridPane.setValignment(text1, VPos.TOP);
         GridPane.setHalignment(text1, HPos.CENTER);
 
-        Text text2 = new Text(P2LibConst.LINE_SEPARATOR + "Version: " + ProgramTools.getProgVersion());
+        Text text2 = new Text(P2LibConst.LINE_SEPARATOR + "Version: " + ProgramToolsFactory.getProgVersion());
         text2.setFont(new Font(18));
         gridPane.add(text2, 1, ++row);
         GridPane.setHalignment(text2, HPos.CENTER);
 
-        Text text3 = new Text("[ Build: " + ProgramTools.getBuild() + " vom " + ProgramTools.getCompileDate() + " ]");
+        Text text3 = new Text("[ Build: " + ProgramToolsFactory.getBuild() + " vom " + ProgramToolsFactory.getCompileDate() + " ]");
         text3.setFont(new Font(15));
         text3.setFill(GRAY);
         gridPane.add(text3, 1, ++row);

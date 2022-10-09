@@ -19,7 +19,7 @@ package de.p2tools.p2Lib.tools.log;
 
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.tools.PStringUtils;
-import de.p2tools.p2Lib.tools.ProgramTools;
+import de.p2tools.p2Lib.tools.ProgramToolsFactory;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 
 import java.time.Duration;
@@ -64,8 +64,8 @@ public class LogMessage {
         list.add("");
 
         // Programmversion
-        list.add(progName + ProgramTools.getProgVersionString());
-        String compile = ProgramTools.getCompileDate();
+        list.add(progName + ProgramToolsFactory.getProgVersionString());
+        String compile = ProgramToolsFactory.getCompileDate();
         if (!compile.isEmpty()) {
             list.add("Compiled: " + compile);
         }
@@ -88,7 +88,7 @@ public class LogMessage {
 
         // Javaversion
         list.add("Java");
-        final String[] java = ProgramTools.getJavaVersion();
+        final String[] java = ProgramToolsFactory.getJavaVersion();
         for (String ja : java) {
             list.add(ja);
         }

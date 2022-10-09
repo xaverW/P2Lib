@@ -20,7 +20,7 @@ package de.p2tools.p2Lib.dialogs;
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
-import de.p2tools.p2Lib.tools.ProgramTools;
+import de.p2tools.p2Lib.tools.ProgramToolsFactory;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.animation.Animation;
@@ -139,7 +139,7 @@ public class ProgInfoDialog extends PDialogExtra {
 
     private void getMem() {
         final long maxMem;
-        if (ProgramTools.getOs() == ProgramTools.OperatingSystemType.LINUX) {
+        if (ProgramToolsFactory.getOs() == ProgramToolsFactory.OperatingSystemType.LINUX) {
             maxMem = rt.totalMemory();
         } else {
             maxMem = rt.maxMemory();

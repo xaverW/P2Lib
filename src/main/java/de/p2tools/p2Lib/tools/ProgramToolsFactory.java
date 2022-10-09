@@ -22,7 +22,7 @@ import org.apache.commons.lang3.SystemUtils;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class ProgramTools {
+public class ProgramToolsFactory {
 
     private static final String VERSION = "version"; //ist der Name des Propertyfile: version.properties
 
