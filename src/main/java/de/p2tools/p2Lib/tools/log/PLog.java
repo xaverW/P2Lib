@@ -30,35 +30,19 @@ public class PLog {
     public static final String LILNE2 = "============================================================";
     public static final String LILNE3 = "------------------------------------------------------------";
     public static final String LILNE_EMPTY = "  ";
-
-    static final long TO_MEGABYTE = 1000L * 1000L;
     public static final Instant START_TIME = Instant.now();
-
+    static final long TO_MEGABYTE = 1000L * 1000L;
     static final LinkedList<Error> errorList = new LinkedList<>();
     static boolean progress = false;
-
-    static class Error {
-        String callClass = "";
-        int errorNr = 0;
-        int count = 0;
-        boolean ex = false;
-
-        public Error(int errorNr, String callClass, boolean ex) {
-            this.errorNr = errorNr;
-            this.callClass = callClass;
-            this.ex = ex;
-            this.count = 1;
-        }
-    }
-
-    /*
-    Fehlermeldungen
-     */
 
     public static synchronized void errorLog(int errorNumber, Exception ex) {
         PLogger.LogSevere(addErrNr(errorNumber, ""), ex);
         error(errorNumber, ex, new String[]{});
     }
+
+    /*
+    Fehlermeldungen
+     */
 
     public static synchronized void errorLog(int errorNumber, Exception ex, String text) {
         PLogger.LogSevere(addErrNr(errorNumber, text), ex);
@@ -206,7 +190,6 @@ public class PLog {
         return errNr + "  " + txt;
     }
 
-
     private static void error(int errorNumber, Exception ex, String[] texte) {
         final Throwable t = new Throwable();
         final StackTraceElement methodCaller = t.getStackTrace()[2];
@@ -242,15 +225,29 @@ public class PLog {
     public static synchronized void progress(String text) {
         progress = true;
         if (!text.isEmpty()) {
-            PLog.sysLog(text + '\r');
+            System.out.print(text + '\r');
         }
     }
 
     private static void resetProgress() {
         // Leerzeile um die Progresszeile zu löschen
         if (progress) {
-            PLog.sysLog("                                                                                                             \r");
+            System.out.print("                                                                                                             \r");
             progress = false;
+        }
+    }
+
+    static class Error {
+        String callClass = "";
+        int errorNr = 0;
+        int count = 0;
+        boolean ex = false;
+
+        public Error(int errorNr, String callClass, boolean ex) {
+            this.errorNr = errorNr;
+            this.callClass = callClass;
+            this.ex = ex;
+            this.count = 1;
         }
     }
 
