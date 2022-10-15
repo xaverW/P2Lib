@@ -242,14 +242,14 @@ public class PLog {
     public static synchronized void progress(String text) {
         progress = true;
         if (!text.isEmpty()) {
-            System.out.print(text + '\r');
+            PLog.sysLog(text + '\r');
         }
     }
 
     private static void resetProgress() {
         // Leerzeile um die Progresszeile zu löschen
         if (progress) {
-            System.out.print("                                                                                                             \r");
+            PLog.sysLog("                                                                                                             \r");
             progress = false;
         }
     }

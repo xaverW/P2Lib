@@ -23,16 +23,21 @@ import javafx.scene.paint.Color;
 
 public class PColorData extends PColorDataProps {
 
+    public static double ODD_DIV = 0.16;
+
     private final double DIV = 0.4;
     private final double DIV_DARK = 0.6;
-    public static final String SEPARATOR = "X";
-
     private String text = "";
     private int mark = 0;
-    private String cssFontBold = "";
     private String cssFont = "";
+    private String cssFontBold = "";
     private String cssBackground = "";
     private String cssBackgroundAndSel = "";
+
+    private String cssFont_ODD = "";
+    private String cssFontBold_ODD = "";
+    private String cssBackground_ODD = "";
+    private String cssBackgroundAndSel_ODD = "";
 
     private boolean dark = false;
     private Color resetColorLight;
@@ -85,6 +90,15 @@ public class PColorData extends PColorDataProps {
         }
     }
 
+    public void setColor(Color newColor) {
+        if (dark) {
+            super.setColorDark(newColor);
+        } else {
+            super.setColorLight(newColor);
+        }
+        changeMyColor();
+    }
+
     public ObjectProperty<Color> colorProperty() {
         if (dark) {
             return colorDarkProperty();
@@ -103,15 +117,6 @@ public class PColorData extends PColorDataProps {
 
     public Color getResetColor() {
         return (dark ? resetColorDark : resetColorLight);
-    }
-
-    public void setColor(Color newColor) {
-        if (dark) {
-            super.setColorDark(newColor);
-        } else {
-            super.setColorLight(newColor);
-        }
-        changeMyColor();
     }
 
     public void setColorLight(Color newColor) {
@@ -145,28 +150,9 @@ public class PColorData extends PColorDataProps {
         this.mark = mark;
     }
 
-    //    public void setColorFromHex(String hex) {
-//        if (hex.contains(SEPARATOR)) {
-//            String[] arr = hex.split(SEPARATOR);
-//            super.setColorLight(Color.web(arr[0]));
-//            super.setColorDark(Color.web(arr[1]));
-//            if (arr.length > 2) {
-//                setUse(Boolean.parseBoolean(arr[2]));
-//            }
-//
-//        } else {
-//            setColor(Color.web(hex));
-//        }
-//        changeMyColor();
-//    }
-
     //==========================================================
     // sind die CSS Farben
     //==========================================================
-    public String getCssBackground() {
-        return cssBackground;
-    }
-
     public String getCssFont() {
         return cssFont;
     }
@@ -175,23 +161,61 @@ public class PColorData extends PColorDataProps {
         return cssFontBold;
     }
 
+    public String getCssBackground() {
+        return cssBackground;
+    }
+
     public String getCssBackgroundAndSel() {
         return cssBackgroundAndSel;
     }
 
+    public String getCssFont_ODD() {
+        return cssFont_ODD;
+    }
+
+    public String getCssFontBold_ODD() {
+        return cssFontBold_ODD;
+    }
+
+    public String getCssBackground_ODD() {
+        return cssBackground_ODD;
+    }
+
+    public String getCssBackgroundAndSel_ODD() {
+        return cssBackgroundAndSel_ODD;
+    }
+
+    public String getCssFont(boolean odd) {
+        return odd ? cssFont_ODD : cssFont;
+    }
+
+    public String getCssFontBold(boolean odd) {
+        return odd ? cssFontBold_ODD : cssFontBold;
+    }
+
+    public String getCssBackground(boolean odd) {
+        return odd ? cssBackground_ODD : cssBackground;
+    }
+
+    public String getCssBackgroundAndSel(boolean odd) {
+        return odd ? cssBackgroundAndSel_ODD : cssBackgroundAndSel;
+    }
+
+
     //==========================================================
     //CSS erstellen
     //==========================================================
-//    private String getColorLightToHex() {
-//        return PColorFactory.getColorToHex(getColorLight());
-//    }
-//
-//    private String getColorDarkToHex() {
-//        return PColorFactory.getColorToHex(getColorDark());
-//    }
 
     public String getColorSelectedToWeb() {
         return "#" + PColorFactory.getColorToHex(dark ? getColorDark() : getColorLight());
+    }
+
+    public String getColorSelectedToWeb(boolean odd) {
+        if (odd) {
+            return "#" + PColorFactory.getColorToHex(getColorOdd(dark ? getColorDark() : getColorLight()));
+        } else {
+            return "#" + PColorFactory.getColorToHex(dark ? getColorDark() : getColorLight());
+        }
     }
 
     public String getColorLightToWeb() {
@@ -262,16 +286,39 @@ public class PColorData extends PColorDataProps {
 
     private void changeMyColor() {
         // build the css for the color
-        cssFontBold = ("-fx-font-weight: bold; -fx-text-fill: " + getColorSelectedToWeb() + ";").intern();
         cssFont = ("-fx-text-fill: " + getColorSelectedToWeb() + ";").intern();
+        cssFontBold = ("-fx-font-weight: bold; -fx-text-fill: " + getColorSelectedToWeb() + ";").intern();
         cssBackground = ("-fx-control-inner-background: " + getColorSelectedToWeb() + ";").intern();
-
-//        setStyle("-fx-selection-bar: red; -fx-selection-bar-non-focused: green;");
         cssBackgroundAndSel = ("-fx-selection-bar: " + getColorSelectedToWeb() + ";" +
                 " -fx-selection-bar-non-focused: " + getColorSelectedToWeb() + ";").intern();
 
-//        cssBackgroundAndSel = ("-fx-control-inner-background: " + getColorSelectedToWeb() + ";" +
-//                "-fx-selection-bar: " + getColorDarkerToWeb() + ";" +
-//                " -fx-selection-bar-non-focused: " + getColorDarkerToWeb() + ";").intern();
+        cssFont_ODD = ("-fx-text-fill: " + getColorSelectedToWeb(true) + ";").intern();
+        cssFontBold_ODD = ("-fx-font-weight: bold; -fx-text-fill: " + getColorSelectedToWeb(true) + ";").intern();
+        cssBackground_ODD = ("-fx-control-inner-background: " + getColorSelectedToWeb(true) + ";").intern();
+        cssBackgroundAndSel_ODD = ("-fx-selection-bar: " + getColorSelectedToWeb(true) + ";" +
+                " -fx-selection-bar-non-focused: " + getColorSelectedToWeb(true) + ";").intern();
+    }
+
+    private Color getColorOdd(Color c) {
+        double ODD_1_DIV = 1 - ODD_DIV;
+        if (c.getRed() < ODD_1_DIV && c.getGreen() < ODD_1_DIV && c.getBlue() < ODD_1_DIV) {
+            return new Color(c.getRed() + ODD_DIV,
+                    c.getGreen() + ODD_DIV,
+                    c.getBlue() + ODD_DIV,
+                    c.getOpacity());
+
+        } else if (c.getRed() > ODD_DIV && c.getGreen() > ODD_DIV && c.getBlue() > ODD_DIV) {
+            return new Color(c.getRed() - ODD_DIV,
+                    c.getGreen() - ODD_DIV,
+                    c.getBlue() - ODD_DIV,
+                    c.getOpacity());
+
+        } else {
+            //MIST!
+            return new Color(c.getRed() < ODD_1_DIV ? c.getRed() + ODD_DIV : 1.0,
+                    c.getGreen() < ODD_1_DIV ? c.getGreen() + ODD_DIV : 1.0,
+                    c.getBlue() < ODD_1_DIV ? c.getBlue() + ODD_DIV : 1.0,
+                    c.getOpacity());
+        }
     }
 }

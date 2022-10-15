@@ -30,9 +30,6 @@ public class GetIcon {
 
     public static void addWindowP2Icon(Stage stage) {
         final String P2_ICON_32 = "P2_32.png";
-
-        System.out.println("--");
-
         final int ICON_WIDTH = 58;
         final int ICON_HEIGHT = 58;
         Image icon = GetIcon.getImage(P2_ICON_32, P2_ICON_PATH, ICON_WIDTH, ICON_HEIGHT);
