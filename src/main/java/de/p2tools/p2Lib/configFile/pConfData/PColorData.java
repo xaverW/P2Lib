@@ -23,7 +23,8 @@ import javafx.scene.paint.Color;
 
 public class PColorData extends PColorDataProps {
 
-    public static double ODD_DIV = 0.16;
+    private static final int ODD_DIVIDER = 250;
+    public static int ODD_DIV = 15;
 
     private final double DIV = 0.4;
     private final double DIV_DARK = 0.6;
@@ -300,24 +301,25 @@ public class PColorData extends PColorDataProps {
     }
 
     private Color getColorOdd(Color c) {
-        double ODD_1_DIV = 1 - ODD_DIV;
+        double odd = 1.0 * ODD_DIV / ODD_DIVIDER;
+        double ODD_1_DIV = 1 - odd;
         if (c.getRed() < ODD_1_DIV && c.getGreen() < ODD_1_DIV && c.getBlue() < ODD_1_DIV) {
-            return new Color(c.getRed() + ODD_DIV,
-                    c.getGreen() + ODD_DIV,
-                    c.getBlue() + ODD_DIV,
+            return new Color(c.getRed() + odd,
+                    c.getGreen() + odd,
+                    c.getBlue() + odd,
                     c.getOpacity());
 
-        } else if (c.getRed() > ODD_DIV && c.getGreen() > ODD_DIV && c.getBlue() > ODD_DIV) {
-            return new Color(c.getRed() - ODD_DIV,
-                    c.getGreen() - ODD_DIV,
-                    c.getBlue() - ODD_DIV,
+        } else if (c.getRed() > odd && c.getGreen() > odd && c.getBlue() > odd) {
+            return new Color(c.getRed() - odd,
+                    c.getGreen() - odd,
+                    c.getBlue() - odd,
                     c.getOpacity());
 
         } else {
             //MIST!
-            return new Color(c.getRed() < ODD_1_DIV ? c.getRed() + ODD_DIV : 1.0,
-                    c.getGreen() < ODD_1_DIV ? c.getGreen() + ODD_DIV : 1.0,
-                    c.getBlue() < ODD_1_DIV ? c.getBlue() + ODD_DIV : 1.0,
+            return new Color(c.getRed() < ODD_1_DIV ? c.getRed() + odd : 1.0,
+                    c.getGreen() < ODD_1_DIV ? c.getGreen() + odd : 1.0,
+                    c.getBlue() < ODD_1_DIV ? c.getBlue() + odd : 1.0,
                     c.getOpacity());
         }
     }

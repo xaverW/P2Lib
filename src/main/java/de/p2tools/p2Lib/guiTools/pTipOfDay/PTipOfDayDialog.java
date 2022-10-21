@@ -42,21 +42,30 @@ public class PTipOfDayDialog extends PDialogExtra {
     public static final Image ICON_BUTTON_PREV = new Image(PTipOfDayDialog.class.getResourceAsStream("button-prev.png"));
 
     private final List<PTipOfDay> pTipList;
+    private ImageView iv = new ImageView();
+    private Label lblText = new Label();
+    private HBox hBoxHyper = new HBox();
+    private StringProperty shownProp;
+    private BooleanProperty showTip;
+    private int imageSize = 0;
     private Button btnOk, btnPrev, btnNext;
     private CheckBox chkShow = new CheckBox("Tips anzeigen");
     private int actTipOfDay = 0;
-    ImageView iv = new ImageView();
-    Label lblText = new Label();
-    HBox hBoxHyper = new HBox();
-
-    StringProperty shownProp;
-    BooleanProperty showTip;
 
     public PTipOfDayDialog(Stage stage, List<PTipOfDay> pTipList, StringProperty shownProp, BooleanProperty showTip) {
         super(stage, null, "Tip des Tages", true, true, DECO.NONE);
         this.pTipList = pTipList;
         this.shownProp = shownProp;
         this.showTip = showTip;
+        init(true);
+    }
+
+    public PTipOfDayDialog(Stage stage, List<PTipOfDay> pTipList, StringProperty shownProp, BooleanProperty showTip, int imageSize) {
+        super(stage, null, "Tip des Tages", true, true, DECO.NONE);
+        this.pTipList = pTipList;
+        this.shownProp = shownProp;
+        this.showTip = showTip;
+        this.imageSize = imageSize;
         init(true);
     }
 
@@ -140,7 +149,12 @@ public class PTipOfDayDialog extends PDialogExtra {
 
     private void setTipOfDay() {
         pTipList.get(actTipOfDay).setWasShown(true);
-        Image im = new Image(pTipList.get(actTipOfDay).getImage(), 400, 400, true, true);
+        Image im;
+        if (imageSize > 0) {
+            im = new Image(pTipList.get(actTipOfDay).getImage(), imageSize, imageSize, true, true);
+        } else {
+            im = new Image(pTipList.get(actTipOfDay).getImage(), 400, 400, true, true);
+        }
         iv.setImage(im);
         lblText.setText(pTipList.get(actTipOfDay).getText());
 
