@@ -63,7 +63,7 @@ public class IoReadWriteStyle {
         if (Files.exists(filePath)) {
             try {
                 // das geht alles :)
-//                File f = new File("/home/emil/daten/software/java-fx-11/MTPlayer/MTPlayer/p2Style.css");
+//                File f = new File("/home/emil/daten/software/java-fx-11/MTInfo/MTInfo/p2Style.css");
 //                scene.getStylesheets().add("file:///" + f.getAbsolutePath());
 //                scene.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 //                String uri = f.toURI().toString();

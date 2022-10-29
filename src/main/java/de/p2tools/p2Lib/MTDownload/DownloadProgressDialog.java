@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2Lib.tools.download;
+package de.p2tools.p2Lib.MTDownload;
 
 import de.p2tools.p2Lib.ProgIcons;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;
@@ -60,11 +60,6 @@ public class DownloadProgressDialog extends PDialogExtra {
         progressBar.setMinWidth(100);
         progressBar.setMaxWidth(Double.MAX_VALUE);
         progressBar.setProgress(0, startText);
-
-//        HBox hBox = new HBox(10);
-//        hBox.setAlignment(Pos.CENTER);
-//        hBox.getChildren().addAll(lblName, progressBar, btnCancel);
-//        vBoxCont.getChildren().addAll(hBox);
 
         gridPane.setMaxWidth(Double.MAX_VALUE);
         gridPane.setPadding(new Insets(0));

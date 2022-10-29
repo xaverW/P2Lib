@@ -138,16 +138,58 @@ public class POpen {
             return;
         }
 
+        File filmFile;
+        filmFile = new File(file);
+        if (!filmFile.exists()) {
+            new PDialogFileChosser().showErrorAlert("Fehler", "Kein Film", "Film existiert noch nicht!");
+            return;
+        }
+
         if (prog != null && !prog.getValueSafe().isEmpty()) {
             // dann mit dem vorgegebenen Player starten
             try {
                 final String program = prog.getValueSafe();
-                final String[] cmd = {program, file};
+                final String[] cmd = {program, filmFile.getAbsolutePath()};
                 Runtime.getRuntime().exec(cmd);
             } catch (final Exception ex) {
                 Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file, getProgIcon));
             }
 
+        } else {
+            // den Systemeigenen Player starten
+            Thread th = new Thread(() -> {
+                try {
+                    if (Desktop.isDesktopSupported()) {
+                        final Desktop d = Desktop.getDesktop();
+                        if (d.isSupported(Desktop.Action.OPEN)) {
+                            d.open(new File(file));
+                        }
+                    }
+                } catch (Exception ex) {
+                    Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file, getProgIcon));
+                }
+            });
+            th.setName("playStoredFilm");
+            th.start();
+        }
+    }
+
+    public static void playStoredFilm(String[] arrProgCallArray, StringProperty prog, String file, ImageView getProgIcon) {
+        playStoredFilm(P2LibConst.primaryStage, arrProgCallArray, prog, file, getProgIcon);
+    }
+
+    private static void playStoredFilm(Stage stage, String[] arrProgCallArray, StringProperty prog, String file, ImageView getProgIcon) {
+        if (file.isEmpty()) {
+            return;
+        }
+
+        if (arrProgCallArray.length != 0) {
+            // dann mit dem vorgegebenen Player starten
+            try {
+                Runtime.getRuntime().exec(arrProgCallArray);
+            } catch (final Exception ex) {
+                Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file, getProgIcon));
+            }
 
         } else {
             // den Systemeigenen Player starten

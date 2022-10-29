@@ -65,7 +65,7 @@ public class FoundAllFiles {
 
             String strLine;
             while ((strLine = br.readLine()) != null) {
-                //<p><a href="/download/mtplayer/beta/MTPlayer-9-208__2021.02.16.zip">MTPlayer-9-208__2021.02.16.zip</a></p>
+                //<p><a href="/download/mtinfo/beta/MTInfo-9-208__2021.02.16.zip">MTInfo-9-208__2021.02.16.zip</a></p>
                 if (!strLine.contains("<a href=\"/download/")) {
                     continue; //nur Downloads
                 }
@@ -74,7 +74,7 @@ public class FoundAllFiles {
                 }
 
                 if (strLine.contains("info")) {
-                    //<p><a href="/download/info/MTPlayer__2021.07.18.txt">MTPlayer__2021.07.18.txt</a>,</p>
+                    //<p><a href="/download/info/MTInfo__2021.07.18.txt">MTInfo__2021.07.18.txt</a>,</p>
                     addInfo(foundSearchData, strLine);
 
                 } else if (strLine.contains("act")) {
@@ -82,7 +82,7 @@ public class FoundAllFiles {
                     addAct(foundSearchData, strLine);
 
                 } else if (strLine.contains("beta")) {
-                    //<p><a href="/download/beta/MTPlayer-10__2021.07.13.zip">MTPlayer-10__2021.07.13.zip</a>,</p>
+                    //<p><a href="/download/beta/MTInfo-10__2021.07.13.zip">MTInfo-10__2021.07.13.zip</a>,</p>
                     addBeta(true, foundSearchData, strLine);
 
                 } else if (strLine.contains("daily")) {
@@ -186,7 +186,7 @@ public class FoundAllFiles {
     }
 
     private static void addBeta(boolean beta, FoundSearchData foundSearchData, String strLine) {
-        // <p><a href="/download/mtplayer/daily/MTPlayer-10-208__2021.09.28.zip">MTPlayer-10-208__2021.09.28.zip</a></p>
+        // <p><a href="/download/mtinfo/daily/MTInfo-10-208__2021.09.28.zip">MTInfo-10-208__2021.09.28.zip</a></p>
         int idx1 = strLine.indexOf("href=\"");
         int idx2 = strLine.indexOf("\">");
 
@@ -200,8 +200,8 @@ public class FoundAllFiles {
             FoundFile foundFile = new FoundFile();
             foundFile.setFileUrl(foundSearchData.getSearchUrl() + strLine.substring(idx1, idx2));
 
-            //MTPlayer-10-208__2021.09.28.zip
-            //MTPlayer-11-1__Linux+Java__2021.10.09.zip
+            //MTInfo-10-208__2021.09.28.zip
+            //MTInfo-11-1__Linux+Java__2021.10.09.zip
             String fileName = strLine.substring(idx3, idx4);
             foundFile.setFileName(fileName);
 

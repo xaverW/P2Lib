@@ -17,10 +17,10 @@
 
 package de.p2tools.p2Lib.checkForActInfos;
 
+import de.p2tools.p2Lib.MTDownload.DownloadFactory;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
 import de.p2tools.p2Lib.tools.date.PDateFactory;
-import de.p2tools.p2Lib.tools.download.DownloadFactory;
 import de.p2tools.p2Lib.tools.net.PUrlTools;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -102,7 +102,7 @@ public class InfoAlertsTabFactory {
 
         final Label lblActVersion = new Label("Aktuelle Version:");
         final Label lblVersion = new Label("Neueste Version:");
-        final Label lblWeb = new Label("MTPlayer Webseite:");
+        final Label lblWeb = new Label("MTInfo Webseite:");
         final Label lblDown = new Label("Download-Website:");
 
         final Label lblRel = new Label(foundSearchData.isFoundNewVersion() ? "Änderungen:" : "");
@@ -258,7 +258,7 @@ public class InfoAlertsTabFactory {
         final Hyperlink hyperlinkDownUrl = new PHyperlink(foundSearchData.getUrlDownload());
         final Label lblActVersion = new Label("Aktuelle Version:");
         final Label lblVersion = new Label("Neueste Version:");
-        final Label lblWeb = new Label("MTPlayer Webseite:");
+        final Label lblWeb = new Label("MTInfo Webseite:");
         final Label lblDown = new Label("Download-Website:");
         final Label lblRel = new Label("Änderungen:");
 

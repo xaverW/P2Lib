@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2Lib.tools.download;
+package de.p2tools.p2Lib.MTDownload;
 
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.ProgIcons;
@@ -51,13 +51,12 @@ public class DownloadDialogController extends PDialogExtra {
     private final String url;
     private final String urlFile;
     private final String orgFileName;
+    private final Stage stage;
     StringProperty path;
     private boolean nameChanged = false;
-
     private boolean ok = false;
-    private final Stage stage;
 
-    DownloadDialogController(final Stage stage, final String url, final StringProperty path, final String orgFileName) {
+    public DownloadDialogController(final Stage stage, final String url, final StringProperty path, final String orgFileName) {
         super(stage, null, "Download", true, false, DECO.SMALL);
 
         this.stage = stage;

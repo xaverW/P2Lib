@@ -62,12 +62,9 @@ public class LinuxJavaFx {
         }
     }
 
-
 //    WARNING: An illegal reflective access operation has occurred
-//    WARNING: Illegal reflective access by de.p2tools.p2Lib.guiTools.LinuxJavaFx (file:/home/emil/daten/software/javaFx/MTPlayer/MTPlayer/dist/MTPlayer.jar) to field sun.awt.X11.XToolkit.awtAppClassName
+//    WARNING: Illegal reflective access by de.p2tools.p2Lib.guiTools.LinuxJavaFx (file:/home/emil/daten/software/javaFx/MTInfo/MTInfo/dist/MTInfo.jar) to field sun.awt.X11.XToolkit.awtAppClassName
 //    WARNING: Please consider reporting this to the maintainers of de.p2tools.p2Lib.guiTools.LinuxJavaFx
 //    WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
 //    WARNING: All illegal access operations will be denied in a future release
-
-
 }

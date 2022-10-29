@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2Lib.tools.download;
+package de.p2tools.p2Lib.MTDownload;
 
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.alert.PAlert;
@@ -38,26 +38,20 @@ import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 
 public class HttpDownload extends Thread {
+    public static final int DEFAULT_BUFFER_SIZE = 4 * 1024; // default byte buffer size
     public static int downloadRunning = 0;
-
+    private final int DOWNLOAD_MAX_RESTART_HTTP = 4;
+    private final Stage stage;
     private long downloaded = 0;
     private String responseCode;
     private String exMessage;
-
     private String url;
     private String destDir;
     private String destName;
     private String destDirFile;
     private String userAgent = "";
-    private static final int TIMEOUT = 10_000;
     private long fileSize = 0;
     private boolean error = false;
-
-    public static final int DEFAULT_BUFFER_SIZE = 4 * 1024; // default byte buffer size
-    private static final int CONNECTIION_TIMEOUT_SECOND_FILESIZE = 5; // seconds timeout for reading the filesize
-    private final int CONECTION_TIMEOUT_SECOND_DOWNLOAD = 250; // 250 Sekunden, wie bei Firefox
-    private final int DOWNLOAD_MAX_RESTART_HTTP = 4;
-    private final Stage stage;
     private DownloadProgressDialog downloadProgressDialog = null;
 
 
@@ -153,8 +147,10 @@ public class HttpDownload extends Thread {
 
         try {
             final URL url_ = new URL(url);
-            fileSize = DownloadFactory.getContentLength(url_, userAgent, CONNECTIION_TIMEOUT_SECOND_FILESIZE);
+            fileSize = DownloadFactory.getContentLength(url_, userAgent, false);
             conn = (HttpURLConnection) url_.openConnection();
+            // 250 Sekunden, wie bei Firefox
+            int CONECTION_TIMEOUT_SECOND_DOWNLOAD = 250;
             conn.setConnectTimeout(1000 * CONECTION_TIMEOUT_SECOND_DOWNLOAD);
             conn.setReadTimeout(1000 * CONECTION_TIMEOUT_SECOND_DOWNLOAD);
 
@@ -295,5 +291,4 @@ public class HttpDownload extends Thread {
             PLog.errorLog(316704568, "Fehler beim löschen" + file.getAbsolutePath());
         }
     }
-
 }
