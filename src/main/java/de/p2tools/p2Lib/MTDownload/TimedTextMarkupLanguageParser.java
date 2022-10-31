@@ -37,7 +37,7 @@ import java.util.*;
 
 /**
  * Converter for TTML XML subtitle files into SubRip Text format.
- * Tested with MTPlayer downloaded subtitles and TTML format version 1.0.
+ * Tested with MTViewer downloaded subtitles and TTML format version 1.0.
  */
 public class TimedTextMarkupLanguageParser {
 
