@@ -25,6 +25,7 @@ public class DownloadSize extends ObjectPropertyBase<Long> implements Comparable
     private long actFileSize = -1;
 
     public DownloadSize() {
+        setValue(0L);
     }
 
     public DownloadSize(long fileSize) {
