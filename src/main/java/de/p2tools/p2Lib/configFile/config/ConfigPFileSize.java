@@ -17,41 +17,43 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
+import de.p2tools.p2Lib.tools.file.PFileSize;
+
 public class ConfigPFileSize extends ConfigExtra {
 
-//    private PFileSize actValue;
-//
-//    public ConfigPFileSize(String key, String name, PFileSize actValue) {
-//        super(key, name);
-//        this.actValue = actValue;
-//    }
-//
-//    @Override
-//    public void setActValue(Object act) {
-//        actValue = (PFileSize) act;
-//    }
-//
-//    public void setActValue(PFileSize act) {
-//        actValue = act;
-//    }
-//
-//    @Override
-//    public void setActValue(String act) {
-//        try {
-//            actValue.setFileSize(act);
-//        } catch (Exception ex) {
-//            actValue.setFileSize(0);
-//        }
-//    }
-//
-//    @Override
-//    public PFileSize getActValue() {
-//        return actValue;
-//    }
-//
-//    @Override
-//    public String getActValueString() {
-//        final String ret = getActValue() == null ? "" : getActValue().toString();
-//        return ret;
-//    }
+    private PFileSize actValue;
+
+    public ConfigPFileSize(String key, String name, PFileSize actValue) {
+        super(key, name);
+        this.actValue = actValue;
+    }
+
+    @Override
+    public void setActValue(Object act) {
+        actValue = (PFileSize) act;
+    }
+
+    public void setActValue(PFileSize act) {
+        actValue = act;
+    }
+
+    @Override
+    public void setActValue(String act) {
+        try {
+            actValue.setSizeStr(act);
+        } catch (Exception ex) {
+            actValue.setSizeL(0);
+        }
+    }
+
+    @Override
+    public PFileSize getActValue() {
+        return actValue;
+    }
+
+    @Override
+    public String getActValueString() {
+        final String ret = getActValue() == null ? "" : getActValue().toString();
+        return ret;
+    }
 }

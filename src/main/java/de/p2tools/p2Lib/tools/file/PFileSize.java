@@ -21,13 +21,12 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 public class PFileSize implements Comparable<PFileSize> {
-    private long sizeL = 0;
-    private String sizeStr = "";
-
     private static final long GBYTE = 1000L * 1000L * 1000L;
     private static final long MBYTE = 1000L * 1000L;
     private static final long KBYTE = 1000L;
     private static final NumberFormat formatter = new DecimalFormat("#0.00");
+    private long sizeL = 0;
+    private String sizeStr = "";
 
     public PFileSize(long sizeL) {
         this.sizeL = sizeL;
@@ -41,6 +40,11 @@ public class PFileSize implements Comparable<PFileSize> {
             sizeL = 0;
         }
         convertToStr();
+    }
+
+    public PFileSize(long l, String s) {
+        this.sizeL = l;
+        this.sizeStr = s;
     }
 
     public static String convertToStr(long sizeL) {
@@ -97,10 +101,6 @@ public class PFileSize implements Comparable<PFileSize> {
     }
 
 
-    public String toString() {
-        return sizeStr;
-    }
-
     public boolean equals(final Object obj) {
         if (obj == this) {
             return true;
@@ -132,6 +132,11 @@ public class PFileSize implements Comparable<PFileSize> {
 
     public void setSizeStr(String sizeStr) {
         this.sizeStr = sizeStr;
+    }
+
+    @Override
+    public String toString() {
+        return sizeStr;
     }
 
     @Override

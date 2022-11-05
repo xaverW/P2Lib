@@ -17,41 +17,44 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
+
+import de.p2tools.p2Lib.MTDownload.DownloadSize;
+
 public class ConfigPDownloadSize extends ConfigExtra {
 
-//    private PDownloadSize actValue;
-//
-//    public ConfigPDownloadSize(String key, String name, PDownloadSize pDownloadSize) {
-//        super(key, name);
-//        this.actValue = pDownloadSize;
-//    }
-//
-//    @Override
-//    public void setActValue(Object act) {
-//        actValue = (PDownloadSize) act;
-//    }
-//
-//    public void setActValue(PDownloadSize act) {
-//        actValue = act;
-//    }
-//
-//    @Override
-//    public void setActValue(String act) {
-//        try {
-//            actValue.setFileSize(act);
-//        } catch (Exception ex) {
-//            actValue.setFileSize(0);
-//        }
-//    }
-//
-//    @Override
-//    public PDownloadSize getActValue() {
-//        return actValue;
-//    }
-//
-//    @Override
-//    public String getActValueString() {
-//        final String ret = getActValue() == null ? "" : getActValue().toString();
-//        return ret;
-//    }
+    private DownloadSize actValue;
+
+    public ConfigPDownloadSize(String key, String name, DownloadSize downloadSize) {
+        super(key, name);
+        this.actValue = downloadSize;
+    }
+
+    @Override
+    public DownloadSize getActValue() {
+        return actValue;
+    }
+
+    @Override
+    public void setActValue(Object act) {
+        actValue = (DownloadSize) act;
+    }
+
+    public void setActValue(DownloadSize act) {
+        actValue = act;
+    }
+
+    @Override
+    public void setActValue(String act) {
+        try {
+            actValue.setFileSize(act);
+        } catch (Exception ex) {
+            actValue.setFileSize(0);
+        }
+    }
+
+    @Override
+    public String getActValueString() {
+        final String ret = getActValue() == null ? "" : getActValue().toString();
+        return ret;
+    }
 }
