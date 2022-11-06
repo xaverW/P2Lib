@@ -45,13 +45,12 @@ public class PDirFileChooser {
         }
 
         final FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(initDir);
+        if (initDir.exists()) {
+            fileChooser.setInitialDirectory(initDir);
+        }
         if (!initFileStr.isEmpty()) {
             fileChooser.setInitialFileName(initFileStr);
         }
-//        fileChooser.getExtensionFilters().addAll(
-//                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
-//                new FileChooser.ExtensionFilter("All Files", "*.*"));
 
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
@@ -76,8 +75,9 @@ public class PDirFileChooser {
         }
 
         final FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(initDir);
-
+        if (initDir.exists()) {
+            fileChooser.setInitialDirectory(initDir);
+        }
         if (!initFileStr.isEmpty()) {
             fileChooser.setInitialFileName(initFileStr);
         }
@@ -110,7 +110,9 @@ public class PDirFileChooser {
         }
 
         final FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(initFile);
+        if (initFile.exists()) {
+            fileChooser.setInitialDirectory(initFile);
+        }
         fileChooser.setInitialFileName(fileName);
 
         File selectedFile = fileChooser.showSaveDialog(stage);
@@ -137,8 +139,9 @@ public class PDirFileChooser {
             }
         }
 
-        fileChooser.setInitialDirectory(initFile);
-
+        if (initFile.exists()) {
+            fileChooser.setInitialDirectory(initFile);
+        }
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
             txtFile.setText(selectedFile.getAbsolutePath());
@@ -189,7 +192,9 @@ public class PDirFileChooser {
             }
         }
 
-        fileChooser.setInitialDirectory(initDir);
+        if (initDir.exists()) {
+            fileChooser.setInitialDirectory(initDir);
+        }
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
             try {
@@ -239,7 +244,9 @@ public class PDirFileChooser {
             initFileName = path.getFileName().toString();
         }
 
-        fileChooser.setInitialDirectory(initDir);
+        if (initDir.exists()) {
+            fileChooser.setInitialDirectory(initDir);
+        }
         fileChooser.setInitialFileName(initFileName.isEmpty() ? initFile : initFileName);
 
         File selectedFile = fileChooser.showSaveDialog(stage);
@@ -269,7 +276,9 @@ public class PDirFileChooser {
                 initFile = new File(txtPath);
             }
         }
-        directoryChooser.setInitialDirectory(initFile);
+        if (initFile.exists()) {
+            directoryChooser.setInitialDirectory(initFile);
+        }
         File selectedFile = directoryChooser.showDialog(stage);
         if (selectedFile != null) {
             return selectedFile.getAbsolutePath();
@@ -288,7 +297,9 @@ public class PDirFileChooser {
                 initFile = new File(txtPath.getText());
             }
         }
-        directoryChooser.setInitialDirectory(initFile);
+        if (initFile.exists()) {
+            directoryChooser.setInitialDirectory(initFile);
+        }
         File selectedFile = directoryChooser.showDialog(stage);
         if (selectedFile != null) {
             ret = selectedFile.getAbsolutePath();
@@ -317,7 +328,9 @@ public class PDirFileChooser {
         }
 
         // und jetzt Dir auswählen und Combo damit vorbelegen
-        directoryChooser.setInitialDirectory(initFile);
+        if (initFile.exists()) {
+            directoryChooser.setInitialDirectory(initFile);
+        }
         File selectedDir = directoryChooser.showDialog(stage);
         if (selectedDir != null) {
             try {
