@@ -38,7 +38,6 @@ public class PDialogExtra extends PDialog {
     private static ArrayList<PDialog> dialogList = new ArrayList<>();
 
     private final VBox vBoxCompleteDialog = new VBox(); // ist der gesamte Dialog
-    private PMaskerPane maskerPane = null;
     private final HBox hBoxTitle = new HBox(10); // ist der Bereich über dem Inhalt mit dem Titel
     private final HBox hBoxOverAll = new HBox(10); // ist der Bereich über dem Inhalt und dem Scrollpanel
     private final ScrollPane scrollPane = new ScrollPane();
@@ -47,12 +46,9 @@ public class PDialogExtra extends PDialog {
     private final HBox hBoxLeft = new HBox(10); // ist vor der ButtonBar
     private final HBox hBoxRight = new HBox(10); // ist nach der ButtonBar
     private final ButtonBar buttonBar = new ButtonBar();
+    private PMaskerPane maskerPane = null;
     private boolean masker = false;
     private DECO deco = DECO.BORDER;
-
-    public enum DECO {
-        NONE, BORDER, SMALL
-    }
 
     public PDialogExtra() {
         super(P2LibConst.primaryStage, null, "", true, true);
@@ -247,6 +243,17 @@ public class PDialogExtra extends PDialog {
         }
     }
 
+    public void setMaskerVisible(boolean visible, boolean button) {
+        if (masker) {
+            //ist nur dann, enthalten
+            maskerPane.setMaskerVisible(visible, button, button);
+        }
+    }
+
+    public PMaskerPane getMaskerPane() {
+        return maskerPane;
+    }
+
     private void initDialog() {
         initBefore();
 
@@ -334,5 +341,9 @@ public class PDialogExtra extends PDialog {
         HBox.setHgrow(buttonBar, Priority.ALWAYS);
         hButton.getChildren().addAll(hBoxLeft, buttonBar, hBoxRight);
         vBox.getChildren().addAll(hBoxOverButtons, hButton);
+    }
+
+    public enum DECO {
+        NONE, BORDER, SMALL
     }
 }
