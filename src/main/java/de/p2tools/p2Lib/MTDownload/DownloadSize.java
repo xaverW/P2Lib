@@ -20,21 +20,14 @@ import de.p2tools.p2Lib.guiTools.PSizeTools;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.beans.property.ObjectPropertyBase;
 
-public class DownloadSize extends ObjectPropertyBase<Long> implements Comparable<DownloadSize> {
+public class DownloadSize extends ObjectPropertyBase<String> implements Comparable<DownloadSize> {
 
+    private long fileSize = 0;
     private long actFileSize = -1;
 
     public DownloadSize() {
-        setValue(0L);
-    }
-
-    public DownloadSize(long fileSize) {
-        setValue(fileSize);
-    }
-
-    public DownloadSize(long fileSize, long actFileSize) {
-        setValue(fileSize);
-        this.actFileSize = actFileSize;
+        fileSize = 0L;
+        makeSizeString();
     }
 
     @Override
@@ -49,56 +42,58 @@ public class DownloadSize extends ObjectPropertyBase<Long> implements Comparable
 
     @Override
     public int compareTo(DownloadSize downloadSize) {
-        return (Long.compare(getValue(), downloadSize.getValue()));
-    }
-
-    @Override
-    public String toString() {
-        return getValue() + "";
+        return (Long.compare(fileSize, downloadSize.getFileSize()));
     }
 
     //======================================================
     public void reset() {
         actFileSize = -1;
+        makeSizeString();
         fireValueChangedEvent();
     }
 
     public Long getFileSize() {
-        return getValue();
-    }
-
-    public void setFileSize(String size) {
-        if (size.isEmpty()) {
-            actFileSize = -1;
-            setValue(0L);
-
-        } else {
-            try {
-                setValue(Long.valueOf(size));
-            } catch (final Exception ex) {
-                PLog.errorLog(978745320, ex, "String: " + size);
-                actFileSize = -1;
-                setValue(0L);
-            }
-        }
-        fireValueChangedEvent();
+        return fileSize;
     }
 
     public void setFileSize(long l) {
-        setValue(l);
+        fileSize = l;
         if (l == 0) {
             actFileSize = -1;
         }
+        makeSizeString();
         fireValueChangedEvent();
     }
 
-    public void addActFileSize(long l) {
-        actFileSize += l;
-        if (getValue() < actFileSize) {
-            //kann bei m3u8-URL passieren
-            setValue(actFileSize);
+    public void setFileSize(String size) {
+        // im Film ist die Größe in "MB" !!
+        if (size.isEmpty()) {
+            actFileSize = -1;
+            fileSize = 0L;
+
+        } else {
+            try {
+                fileSize = (Long.valueOf(size) * 1000 * 1000);
+            } catch (final Exception ex) {
+                PLog.errorLog(978745320, ex, "String: " + size);
+                actFileSize = -1;
+                fileSize = 0L;
+            }
         }
+        makeSizeString();
         fireValueChangedEvent();
+    }
+
+    public String getFileSizeString() {
+        String sizeStr;
+        if (fileSize > 0) {
+            sizeStr = PSizeTools.getSize(fileSize);
+
+        } else {
+            sizeStr = "";
+        }
+
+        return sizeStr;
     }
 
     public long getActFileSize() {
@@ -107,45 +102,40 @@ public class DownloadSize extends ObjectPropertyBase<Long> implements Comparable
 
     public void setActFileSize(long l) {
         actFileSize = l;
-        if (getValue() < actFileSize) {
+        if (fileSize < actFileSize) {
             //kann bei m3u8-URL passieren
-            setValue(l);
+            fileSize = l;
         }
+        makeSizeString();
         fireValueChangedEvent();
     }
 
-    public String getHumanReadAbleFileSize() {
-        return PSizeTools.humanReadableByteCount(getValue(), true);
+    public void addActFileSize(long l) {
+        actFileSize += l;
+        if (fileSize < actFileSize) {
+            //kann bei m3u8-URL passieren
+            fileSize = actFileSize;
+        }
+        makeSizeString();
+        fireValueChangedEvent();
     }
 
-    public String getActSizeString() {
+    private void makeSizeString() {
         String sizeStr;
         if (actFileSize <= 0) {
-            if (getValue() > 0) {
-                sizeStr = PSizeTools.getSize(getValue());
+            if (fileSize > 0) {
+                sizeStr = PSizeTools.getSize(fileSize);
             } else {
                 sizeStr = "";
             }
 
-        } else if (getValue() > 0) {
-            sizeStr = PSizeTools.getSize(actFileSize) + " von " + PSizeTools.getSize(getValue());
+        } else if (fileSize > 0) {
+            sizeStr = PSizeTools.getSize(actFileSize) + " von " + PSizeTools.getSize(fileSize);
 
         } else {
             sizeStr = PSizeTools.getSize(actFileSize);
         }
 
-        return sizeStr;
-    }
-
-    public String getSizeString() {
-        String sizeStr;
-        if (getValue() > 0) {
-            sizeStr = PSizeTools.getSize(getValue());
-
-        } else {
-            sizeStr = "";
-        }
-
-        return sizeStr;
+        super.setValue(sizeStr);
     }
 }
