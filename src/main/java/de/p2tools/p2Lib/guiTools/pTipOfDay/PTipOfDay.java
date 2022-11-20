@@ -23,21 +23,21 @@ public class PTipOfDay {
     private final String text;
     private final String image;
     private final String hyperlinkWeb;
-    private final StringProperty openUrl;
+    private final StringProperty openUrlWithProg;
     private boolean wasShown = false;
 
     public PTipOfDay(String text, String image) {
         this.text = text;
         this.image = image;
         this.hyperlinkWeb = null;
-        this.openUrl = null;
+        this.openUrlWithProg = null;
     }
 
-    public PTipOfDay(String text, String image, String pHyperlink, StringProperty openUrl) {
+    public PTipOfDay(String text, String image, String pHyperlink, StringProperty openUrlWithProg) {
         this.text = text;
         this.image = image;
         this.hyperlinkWeb = pHyperlink;
-        this.openUrl = openUrl;
+        this.openUrlWithProg = openUrlWithProg;
     }
 
     public String getText() {
@@ -52,12 +52,12 @@ public class PTipOfDay {
         return hyperlinkWeb;
     }
 
-    public String getOpenUrl() {
-        return openUrl.get();
+    public String getOpenUrlWithProg() {
+        return openUrlWithProg.get();
     }
 
-    public StringProperty openUrlProperty() {
-        return openUrl;
+    public StringProperty openUrlWithProgProperty() {
+        return openUrlWithProg;
     }
 
     public boolean isWasShown() {

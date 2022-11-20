@@ -161,9 +161,9 @@ public class PTipOfDayDialog extends PDialogExtra {
         hBoxHyper.getChildren().clear();
         if (pTipList.get(actTipOfDay).getHyperlinkWeb() != null) {
             PHyperlink hyperlinkWeb;
-            if (pTipList.get(actTipOfDay).openUrlProperty() != null) {
+            if (pTipList.get(actTipOfDay).openUrlWithProgProperty() != null) {
                 hyperlinkWeb = new PHyperlink(pTipList.get(actTipOfDay).getHyperlinkWeb(),
-                        pTipList.get(actTipOfDay).openUrlProperty());
+                        pTipList.get(actTipOfDay).openUrlWithProgProperty());
             } else {
                 hyperlinkWeb = new PHyperlink(pTipList.get(actTipOfDay).getHyperlinkWeb());
             }
