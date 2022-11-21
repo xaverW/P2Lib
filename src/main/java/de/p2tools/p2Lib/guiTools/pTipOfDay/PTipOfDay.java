@@ -17,9 +17,11 @@
 
 package de.p2tools.p2Lib.guiTools.pTipOfDay;
 
+import de.p2tools.p2Lib.P2LibConst;
 import javafx.beans.property.StringProperty;
 
 public class PTipOfDay {
+    public static final String START = "                                                     " + P2LibConst.LINE_SEPARATOR;
     private final String text;
     private final String image;
     private final String hyperlinkWeb;
@@ -38,6 +40,22 @@ public class PTipOfDay {
         this.image = image;
         this.hyperlinkWeb = pHyperlink;
         this.openUrlWithProg = openUrlWithProg;
+    }
+
+    public static PTipOfDay getTipWebsite(StringProperty progOpenUrl) {
+        final String URL_WEBSITE = "https://www.p2tools.de";
+        String text = START;
+        text = START;
+        text += "Weiter Tips und Infos\n" +
+                "finden sich auch auf der\n" +
+                "Website. Dort gibt es\n" +
+                "auch eine Anleitung zum\n" +
+                "Programm.\n\n" +
+                "Fragen zum Programm und\n" +
+                "Ideen gerne auch per Mail.\n\n";
+
+        String image = "/de/p2tools/p2Lib/toolTips/Website.png";
+        return new PTipOfDay(text, image, URL_WEBSITE, progOpenUrl);
     }
 
     public String getText() {
