@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2Lib.MTDownload;
+package de.p2tools.p2Lib.mtDownload;
 
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.alert.PAlert;
@@ -147,7 +147,7 @@ public class HttpDownload extends Thread {
 
         try {
             final URL url_ = new URL(url);
-            fileSize = DownloadFactory.getContentLength(url_, userAgent, false);
+            fileSize = DownloadFactory.getContentLength(url_, false);
             conn = (HttpURLConnection) url_.openConnection();
             // 250 Sekunden, wie bei Firefox
             int CONECTION_TIMEOUT_SECOND_DOWNLOAD = 250;

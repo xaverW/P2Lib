@@ -15,8 +15,9 @@
  */
 
 
-package de.p2tools.p2Lib.MTDownload;
+package de.p2tools.p2Lib.mtDownload;
 
+import de.p2tools.p2Lib.mtFilm.tools.LoadFactoryConst;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
@@ -91,12 +92,12 @@ public class DownloadFactory {
         return conn;
     }
 
-    public static String getContentLengthMB(String url, String userAgent) {
+    public static String getContentLengthMB(String url) {
         // liefert die Dateigröße einer URL in MB!!
         // Anzeige der Größe in MiB und deshalb: Faktor 1000
         String sizeStr = "";
         try {
-            long l = getContentLength(new URL(url), userAgent, false);
+            long l = getContentLength(new URL(url), false);
             if (l > 1_000_000) {
                 // größer als 1MiB sonst kann ich mirs sparen
                 sizeStr = String.valueOf(l / 1_000_000);
@@ -115,18 +116,18 @@ public class DownloadFactory {
      * @param url {@link URL} to the specified content.
      * @return Length in bytes or -1 on error.
      */
-    public static long getContentLength(final URL url, String userAgent) {
-        return getContentLength(url, userAgent, true);
+    public static long getContentLength(final URL url) {
+        return getContentLength(url, true);
     }
 
-    public static long getContentLength(final URL url, String userAgent, boolean playlist) {
+    public static long getContentLength(final URL url, boolean playlist) {
         final int TIMEOUT_LENGTH = 5000;
         long ret = -1;
         HttpURLConnection connection = null;
 
         try {
             connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestProperty("User-Agent", userAgent);
+            connection.setRequestProperty("User-Agent", LoadFactoryConst.userAgent);
             connection.setReadTimeout(TIMEOUT_LENGTH);
             connection.setConnectTimeout(TIMEOUT_LENGTH);
             if (connection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST) {

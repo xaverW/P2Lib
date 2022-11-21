@@ -18,7 +18,7 @@
 package de.p2tools.p2Lib.configFile.config;
 
 
-import de.p2tools.p2Lib.MTDownload.DownloadSize;
+import de.p2tools.p2Lib.mtDownload.DownloadSize;
 
 public class ConfigPDownloadSize extends ConfigExtra {
 

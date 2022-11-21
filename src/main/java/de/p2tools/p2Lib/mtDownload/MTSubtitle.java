@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2Lib.MTDownload;
+package de.p2tools.p2Lib.mtDownload;
 
 import de.p2tools.p2Lib.tools.log.PLog;
 import de.p2tools.p2Lib.tools.net.PUrlTools;

@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2Lib.MTDownload;
+package de.p2tools.p2Lib.mtDownload;
 
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.ProgIcons;

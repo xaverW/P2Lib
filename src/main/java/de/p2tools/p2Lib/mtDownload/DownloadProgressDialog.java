@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2Lib.MTDownload;
+package de.p2tools.p2Lib.mtDownload;
 
 import de.p2tools.p2Lib.ProgIcons;
 import de.p2tools.p2Lib.dialogs.dialog.PDialogExtra;

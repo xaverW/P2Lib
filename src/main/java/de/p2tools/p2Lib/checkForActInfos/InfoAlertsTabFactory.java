@@ -17,7 +17,7 @@
 
 package de.p2tools.p2Lib.checkForActInfos;
 
-import de.p2tools.p2Lib.MTDownload.DownloadFactory;
+import de.p2tools.p2Lib.mtDownload.DownloadFactory;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
 import de.p2tools.p2Lib.tools.date.PDateFactory;

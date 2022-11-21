@@ -16,7 +16,7 @@
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.p2tools.p2Lib.MTDownload;
+package de.p2tools.p2Lib.mtDownload;
 
 import de.p2tools.p2Lib.tools.log.PLog;
 import org.w3c.dom.Document;
