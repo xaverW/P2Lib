@@ -21,6 +21,7 @@ import de.p2tools.p2Lib.mtDownload.DownloadFactory;
 import de.p2tools.p2Lib.tools.DiacriticFactory;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
+import javafx.beans.property.SimpleListProperty;
 
 import java.text.NumberFormat;
 import java.util.HashMap;
@@ -45,7 +46,7 @@ public class FilmFactory {
         }
     }
 
-    public static void cleanFaultyCharacterFilmlist(Filmlist filmlist) {
+    public static void cleanFaultyCharacterFilmlist(SimpleListProperty<? extends FilmData> filmlist) {
         // damit werden Unicode-Zeichen korrigiert
         // gibt da einen Java-Bug
         // https://github.com/javafxports/openjdk-jfx/issues/287
@@ -70,7 +71,6 @@ public class FilmFactory {
             Character key = entry.getKey();
             Integer value = entry.getValue();
             PLog.sysLog("Key: " + (int) key + "  Key: " + key + "  Anz: " + value);
-
         }
 
         PDuration.counterStop("cleanFaultyCharacter");
@@ -158,14 +158,14 @@ public class FilmFactory {
 //        arr[i2] = s;
 //    }
 
-    public static void setDiacritic(Filmlist filmlist, boolean remove) {
+    public static void setDiacritic(SimpleListProperty<? extends FilmData> filmlist, boolean remove) {
         if (remove) {
             //dann sollen die Diacritic *nicht* angezeigt werden
             genDiacriticAndSet(filmlist);
         }
     }
 
-    private static void genDiacriticAndSet(Filmlist filmlist) {
+    private static void genDiacriticAndSet(SimpleListProperty<? extends FilmData> filmlist) {
         PDuration.counterStart("FilmlistFactory.genDiacriticAndSet");
         filmlist.stream().forEach(film -> {
             FilmFactory.generateDiacritic(film);

@@ -34,16 +34,17 @@ import java.util.function.Predicate;
 @SuppressWarnings("serial")
 public class Filmlist extends SimpleListProperty<FilmData> {
 
-    private static final String DATE_TIME_FORMAT = "dd.MM.yyyy, HH:mm";
-    private static final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);
-    private static final SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
+    public static final String DATE_TIME_FORMAT = "dd.MM.yyyy, HH:mm";
+    public static final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);
+    public static final SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
+
     public int nr = 1;
     public String[] metaData = new String[]{"", "", "", "", ""};
     public String[] sender = {""};
     int count = 0;
     int countDouble = 0;
-    private FilteredList<FilmData> filteredList = null;
-    private SortedList<FilmData> sortedList = null;
+    FilteredList<FilmData> filteredList = null;
+    SortedList<FilmData> sortedList = null;
 
     {
         sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
@@ -139,9 +140,9 @@ public class Filmlist extends SimpleListProperty<FilmData> {
     public synchronized void updateList(Filmlist addList,
                                         boolean index /* Vergleich über Index, sonst nur URL */,
                                         boolean replace) {
-        // in eine vorhandene Liste soll eine andere Filmliste einsortiert werden
-        // es werden nur Filme die noch nicht vorhanden sind, einsortiert
-        // "ersetzen": true: dann werden gleiche (index/URL) in der Liste durch neue ersetzt
+// in eine vorhandene Liste soll eine andere Filmliste einsortiert werden
+// es werden nur Filme die noch nicht vorhanden sind, einsortiert
+// "ersetzen": true: dann werden gleiche (index/URL) in der Liste durch neue ersetzt
         final HashSet<String> hash = new HashSet<>(addList.size() + 1, 0.75F);
 
         if (replace) {
@@ -192,9 +193,9 @@ public class Filmlist extends SimpleListProperty<FilmData> {
     }
 
     public synchronized int markFilms() {
-        // läuft direkt nach dem Laden der Filmliste!
-        // doppelte Filme (URL), Geo, InFuture markieren
-        // viele Filme sind bei mehreren Sendern vorhanden
+// läuft direkt nach dem Laden der Filmliste!
+// doppelte Filme (URL), Geo, InFuture markieren
+// viele Filme sind bei mehreren Sendern vorhanden
 
         final HashSet<String> urlHashSet = new HashSet<>(size(), 0.75F);
 
@@ -285,7 +286,7 @@ public class Filmlist extends SimpleListProperty<FilmData> {
     public int getAge() {
         int ret = 0;
         final Date now = new Date(System.currentTimeMillis());
-        final Date filmDate = getAgeAsDate();
+        final Date filmDate = getAgeAsDate(metaData);
         if (filmDate != null) {
             ret = Math.round((now.getTime() - filmDate.getTime()) / (1000));
             if (ret < 0) {
@@ -300,7 +301,7 @@ public class Filmlist extends SimpleListProperty<FilmData> {
      *
      * @return Age as a {@link java.util.Date} object.
      */
-    public Date getAgeAsDate() {
+    public static Date getAgeAsDate(String[] metaData) {
         if (!metaData[FilmlistXml.FILMLIST_DATE_GMT_NR].isEmpty()) {
             final String date = metaData[FilmlistXml.FILMLIST_DATE_GMT_NR];
             return getDate(date, sdfUtc);
@@ -311,7 +312,7 @@ public class Filmlist extends SimpleListProperty<FilmData> {
         }
     }
 
-    private Date getDate(String date, SimpleDateFormat df) {
+    private static Date getDate(String date, SimpleDateFormat df) {
         if (date.isEmpty()) {
             // dann ist die Filmliste noch nicht geladen
             return null;
@@ -353,7 +354,7 @@ public class Filmlist extends SimpleListProperty<FilmData> {
             final String dateMaxDiff_str =
                     new SimpleDateFormat("yyyy.MM.dd__").format(new Date()) + LoadFactoryConst.TIME_MAX_AGE_FOR_DIFF + ":00:00";
             final Date dateMaxDiff = new SimpleDateFormat("yyyy.MM.dd__HH:mm:ss").parse(dateMaxDiff_str);
-            final Date dateFilmlist = getAgeAsDate();
+            final Date dateFilmlist = getAgeAsDate(metaData);
             if (dateFilmlist != null) {
                 return dateFilmlist.getTime() < dateMaxDiff.getTime();
             }

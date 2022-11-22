@@ -37,19 +37,14 @@ public class FilmDataXml extends Data<FilmDataXml> {
     public static final int FILM_GEO = 13;
     public static final int FILM_URL = 14;
     public static final int FILM_WEBSITE = 15;
-    public static final int FILM_URL_SUBTITLE = 16;
-    //    public static final int FILM_URL_RTMP = 17;
-    public static final int FILM_URL_SMALL = 17;
-    //    public static final int FILM_URL_RTMP_SMALL = 19;
-    public static final int FILM_URL_HD = 18;
-    //    public static final int FILM_URL_RTMP_HD = 21;
-    public static final int FILM_URL_HISTORY = 19;
-    public static final int FILM_NEW = 20;
-    public static final int FILM_DATE_LONG = 21;
-    //    public static final int FILM_THEME2 = 25;
-//    public static final int FILM_TITLE2 = 26;
-//    public static final int FILM_DESCRIPTION2 = 27;
-    public static final int MAX_ELEM = 22;
+    public static final int FILM_ABO_NAME = 16;
+    public static final int FILM_URL_SUBTITLE = 17;
+    public static final int FILM_URL_SMALL = 18;
+    public static final int FILM_URL_HD = 19;
+    public static final int FILM_URL_HISTORY = 20;
+    public static final int FILM_NEW = 21;
+    public static final int FILM_DATE_LONG = 22;
+    public static final int MAX_ELEM = 23;
     //
     public static final String TAG = "Filme";
     public static final String[] COLUMN_NAMES = {"Nr",
@@ -68,24 +63,19 @@ public class FilmDataXml extends Data<FilmDataXml> {
             "Geo",
             "Url",
             "Website",
+            "Abo",
             "Url Untertitel",
-//            "Url RTMP",
             "Url Klein",
-//            "Url RTMP Klein",
             "Url HD",
-//            "Url RTMP HD",
             "Url History",
             "neu",
             "DatumL",
-
-//            "Thema2",
-//            "Titel2",
-//            "Beschreibung2"
     };
 
     static final FastDateFormat sdf_date_time = FastDateFormat.getInstance("dd.MM.yyyyHH:mm:ss");
     static final FastDateFormat sdf_date = FastDateFormat.getInstance("dd.MM.yyyy");
     public final String[] arr = new String[]{
+            "",
             "",
             "",
             "",

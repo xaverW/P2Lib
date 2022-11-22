@@ -26,7 +26,8 @@ public class FilmDataProps extends FilmDataXml {
     public int no;
     public FilmDate filmDate = new FilmDate(0);
     public int filmTime = 0; // Zeit -> Minuten ab 0:00 Uhr
-    FilmSize filmSize = new FilmSize(); // Dateigröße in MByte
+    public FilmSize filmSize = new FilmSize(); // Dateigröße in MByte
+
     private int durationMinute = 0; //
     private boolean live = false; // Film ist Livestream
     private boolean small = false; // Film hat "small"-URL
@@ -39,8 +40,10 @@ public class FilmDataProps extends FilmDataXml {
     // todo?? die Property brauchts nicht alle aber dann müssen die checkboxen in der Tabelle
     // ersetzt werden
     private boolean newFilm = false;
-    //    private boolean shown = false;
+    private boolean shown = false;
     private boolean actHist = false;
+    private boolean bookmark = false;
+    private boolean blackBlocked = false;
 
     public int getDurationMinute() {
         return durationMinute;
@@ -188,6 +191,10 @@ public class FilmDataProps extends FilmDataXml {
         return arr[FILM_WEBSITE];
     }
 
+    public String getAboName() {
+        return arr[FILM_ABO_NAME];
+    }
+
     public String getUrlSubtitle() {
         return arr[FILM_URL_SUBTITLE];
     }
@@ -221,5 +228,37 @@ public class FilmDataProps extends FilmDataXml {
     public String getFilmDateLong() {
         // beschleunigt etwas das Laden der Filmliste
         return arr[FILM_DATE_LONG];
+    }
+
+    public void setGeoBlocked(boolean geoBlocked) {
+        this.geoBlocked = geoBlocked;
+    }
+
+    public boolean isShown() {
+        return shown;
+    }
+
+    public void setShown(boolean shown) {
+        this.shown = shown;
+    }
+
+    public boolean isActHist() {
+        return actHist;
+    }
+
+    public boolean isBookmark() {
+        return bookmark;
+    }
+
+    public void setBookmark(boolean bookmark) {
+        this.bookmark = bookmark;
+    }
+
+    public boolean isBlackBlocked() {
+        return blackBlocked;
+    }
+
+    public void setBlackBlocked(boolean blackBlocked) {
+        this.blackBlocked = blackBlocked;
     }
 }
