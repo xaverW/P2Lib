@@ -19,24 +19,16 @@ package de.p2tools.p2Lib.mtFilm.film;
 import de.p2tools.p2Lib.mtFilm.tools.LoadFactoryConst;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PDebugLog;
-import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import org.apache.commons.lang3.time.FastDateFormat;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.function.Predicate;
 
 @SuppressWarnings("serial")
 public class Filmlist extends SimpleListProperty<FilmData> {
-
-    public static final String DATE_TIME_FORMAT = "dd.MM.yyyy, HH:mm";
-    public static final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);
-    public static final SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
 
     public int nr = 1;
     public String[] metaData = new String[]{"", "", "", "", ""};
@@ -46,10 +38,6 @@ public class Filmlist extends SimpleListProperty<FilmData> {
     FilteredList<FilmData> filteredList = null;
     SortedList<FilmData> sortedList = null;
 
-    {
-        sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
-    }
-
     public Filmlist() {
         super(FXCollections.observableArrayList());
     }
@@ -57,32 +45,7 @@ public class Filmlist extends SimpleListProperty<FilmData> {
     public static synchronized String genDate(String[] metaData) {
         // Tag, Zeit in lokaler Zeit wann die Filmliste erstellt wurde
         // in der Form "dd.MM.yyyy, HH:mm"
-        String ret;
-        String date;
-
-        if (metaData[FilmlistXml.FILMLIST_DATE_GMT_NR].isEmpty()) {
-            // noch eine alte Filmliste
-            return metaData[FilmlistXml.FILMLIST_DATE_NR];
-
-        } else {
-            date = metaData[FilmlistXml.FILMLIST_DATE_GMT_NR];
-            //sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
-            Date filmDate = null;
-            try {
-                filmDate = sdfUtc.parse(date);
-            } catch (final ParseException ignored) {
-            }
-
-            if (filmDate == null) {
-                ret = metaData[FilmlistXml.FILMLIST_DATE_GMT_NR];
-
-            } else {
-                final FastDateFormat formatter = FastDateFormat.getInstance(DATE_TIME_FORMAT);
-                ret = formatter.format(filmDate);
-            }
-        }
-
-        return ret;
+        return FilmlistFactory.genDate(metaData);
     }
 
     public void clearFilteredList() {
@@ -140,51 +103,11 @@ public class Filmlist extends SimpleListProperty<FilmData> {
     public synchronized void updateList(Filmlist addList,
                                         boolean index /* Vergleich über Index, sonst nur URL */,
                                         boolean replace) {
-// in eine vorhandene Liste soll eine andere Filmliste einsortiert werden
-// es werden nur Filme die noch nicht vorhanden sind, einsortiert
-// "ersetzen": true: dann werden gleiche (index/URL) in der Liste durch neue ersetzt
-        final HashSet<String> hash = new HashSet<>(addList.size() + 1, 0.75F);
+        // in eine vorhandene Liste soll eine andere Filmliste einsortiert werden
+        // es werden nur Filme die noch nicht vorhanden sind, einsortiert
+        // "ersetzen": true: dann werden gleiche (index/URL) in der Liste durch neue ersetzt
 
-        if (replace) {
-            addList.forEach((FilmData f) -> addHash(f, hash, index));
-
-            final Iterator<FilmData> it = iterator();
-            while (it.hasNext()) {
-                final FilmData f = it.next();
-                if (f.arr[FilmDataXml.FILM_CHANNEL].equals(LoadFactoryConst.KIKA)) {
-                    // beim KIKA ändern sich die URLs laufend
-                    if (hash.contains(f.arr[FilmDataXml.FILM_THEME] + f.arr[FilmDataXml.FILM_TITLE])) {
-                        it.remove();
-                    }
-                } else if (index) {
-                    if (hash.contains(f.getIndex())) {
-                        it.remove();
-                    }
-                } else if (hash.contains(f.getUrlForHash())) {
-                    it.remove();
-                }
-            }
-
-            addList.forEach(this::addInit);
-        } else {
-            // ==============================================
-            forEach(f -> addHash(f, hash, index));
-
-            for (final FilmData f : addList) {
-                if (f.arr[FilmDataXml.FILM_CHANNEL].equals(LoadFactoryConst.KIKA)) {
-                    if (!hash.contains(f.arr[FilmDataXml.FILM_THEME] + f.arr[FilmDataXml.FILM_TITLE])) {
-                        addInit(f);
-                    }
-                } else if (index) {
-                    if (!hash.contains(f.getIndex())) {
-                        addInit(f);
-                    }
-                } else if (!hash.contains(f.getUrlForHash())) {
-                    addInit(f);
-                }
-            }
-        }
-        hash.clear();
+        FilmlistFactory.updateList(this, addList, index, replace);
     }
 
     public synchronized void markGeoBlocked() {
@@ -193,40 +116,11 @@ public class Filmlist extends SimpleListProperty<FilmData> {
     }
 
     public synchronized int markFilms() {
-// läuft direkt nach dem Laden der Filmliste!
-// doppelte Filme (URL), Geo, InFuture markieren
-// viele Filme sind bei mehreren Sendern vorhanden
+        // läuft direkt nach dem Laden der Filmliste!
+        // doppelte Filme (URL), Geo, InFuture markieren
+        // viele Filme sind bei mehreren Sendern vorhanden
 
-        final HashSet<String> urlHashSet = new HashSet<>(size(), 0.75F);
-
-        // todo exception parallel?? Unterschied ~10ms (bei Gesamt: 110ms)
-        PDuration.counterStart("Filme markieren");
-        try {
-            countDouble = 0;
-            this.stream().forEach((FilmData f) -> {
-
-                f.setGeoBlocked();
-                f.setInFuture();
-
-                if (!urlHashSet.add(f.getUrl())) {
-                    ++countDouble;
-                    f.setDoubleUrl(true);
-                }
-
-            });
-
-        } catch (Exception ex) {
-            PLog.errorLog(951024789, ex);
-        }
-        PDuration.counterStop("Filme markieren");
-
-        urlHashSet.clear();
-        return countDouble;
-    }
-
-    private boolean addInit(FilmData film) {
-//        film.init(); todo
-        return add(film);
+        return FilmlistFactory.markFilms(this);
     }
 
     @Override
@@ -284,16 +178,7 @@ public class Filmlist extends SimpleListProperty<FilmData> {
      * @return Age in seconds.
      */
     public int getAge() {
-        int ret = 0;
-        final Date now = new Date(System.currentTimeMillis());
-        final Date filmDate = getAgeAsDate(metaData);
-        if (filmDate != null) {
-            ret = Math.round((now.getTime() - filmDate.getTime()) / (1000));
-            if (ret < 0) {
-                ret = 0;
-            }
-        }
-        return ret;
+        return FilmlistFactory.getAge(metaData);
     }
 
     /**
@@ -302,29 +187,7 @@ public class Filmlist extends SimpleListProperty<FilmData> {
      * @return Age as a {@link java.util.Date} object.
      */
     public static Date getAgeAsDate(String[] metaData) {
-        if (!metaData[FilmlistXml.FILMLIST_DATE_GMT_NR].isEmpty()) {
-            final String date = metaData[FilmlistXml.FILMLIST_DATE_GMT_NR];
-            return getDate(date, sdfUtc);
-
-        } else {
-            final String date = metaData[FilmlistXml.FILMLIST_DATE_NR];
-            return getDate(date, sdf);
-        }
-    }
-
-    private static Date getDate(String date, SimpleDateFormat df) {
-        if (date.isEmpty()) {
-            // dann ist die Filmliste noch nicht geladen
-            return null;
-        }
-
-        Date filmDate = null;
-        try {
-            filmDate = df.parse(date);
-        } catch (final Exception ignored) {
-        }
-
-        return filmDate;
+        return FilmlistFactory.getAgeAsDate(metaData);
     }
 
     /**
@@ -333,12 +196,7 @@ public class Filmlist extends SimpleListProperty<FilmData> {
      * @return true if too old or if the list is empty.
      */
     public synchronized boolean isTooOld() {
-        if (LoadFactoryConst.debug) {
-            // im Debugmodus nie automatisch laden
-            return false;
-        }
-
-        return (isEmpty()) || (isOlderThan(LoadFactoryConst.ALTER_FILMLISTE_SEKUNDEN_FUER_AUTOUPDATE));
+        return FilmlistFactory.isTooOld(this, metaData);
     }
 
     /**
@@ -347,20 +205,7 @@ public class Filmlist extends SimpleListProperty<FilmData> {
      * @return true if empty or too old.
      */
     public synchronized boolean isTooOldForDiff() {
-        if (isEmpty()) {
-            return true;
-        }
-        try {
-            final String dateMaxDiff_str =
-                    new SimpleDateFormat("yyyy.MM.dd__").format(new Date()) + LoadFactoryConst.TIME_MAX_AGE_FOR_DIFF + ":00:00";
-            final Date dateMaxDiff = new SimpleDateFormat("yyyy.MM.dd__HH:mm:ss").parse(dateMaxDiff_str);
-            final Date dateFilmlist = getAgeAsDate(metaData);
-            if (dateFilmlist != null) {
-                return dateFilmlist.getTime() < dateMaxDiff.getTime();
-            }
-        } catch (final Exception ignored) {
-        }
-        return true;
+        return FilmlistFactory.isTooOldForDiff(this, metaData);
     }
 
     /**
@@ -370,11 +215,7 @@ public class Filmlist extends SimpleListProperty<FilmData> {
      * @return true if older.
      */
     public boolean isOlderThan(int second) {
-        final int ret = getAge();
-        if (ret != 0) {
-            PLog.addSysLog("Die Filmliste ist " + ret / 60 + " Minuten alt");
-        }
-        return ret > second;
+        return FilmlistFactory.isOlderThan(metaData, second);
     }
 
     public synchronized long countNewFilms() {
