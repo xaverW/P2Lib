@@ -59,7 +59,7 @@ public class FilmData extends FilmDataProps implements PData {
     }
 
     public void init() {
-        setLive(arr[FILM_THEME].equals(FilmTools.THEME_LIVE));
+        setLive(arr[FILM_THEME].equals(FilmFactory.THEME_LIVE));
         setHd(!arr[FILM_URL_HD].isEmpty());
         setSmall(!arr[FILM_URL_SMALL].isEmpty());
         setUt(!arr[FILM_URL_SUBTITLE].isEmpty());
@@ -110,7 +110,7 @@ public class FilmData extends FilmDataProps implements PData {
 
     public String getUrlForResolution(String resolution) {
         if (resolution.equals(RESOLUTION_SMALL)) {
-            return getUrlNormalKlein();
+            return getUrlNormalSmal();
         }
         if (resolution.equals(RESOLUTION_HD)) {
             return getUrlNormalHd();
@@ -261,7 +261,7 @@ public class FilmData extends FilmDataProps implements PData {
     }
 
 
-    private String getUrlNormalKlein() {
+    private String getUrlNormalSmal() {
         // liefert die kleine normale URL
         if (!arr[FILM_URL_SMALL].isEmpty()) {
             try {

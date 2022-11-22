@@ -18,8 +18,8 @@ package de.p2tools.p2Lib.mtFilm.loadFilmlist;
 
 
 import de.p2tools.p2Lib.mtFilm.film.FilmData;
+import de.p2tools.p2Lib.mtFilm.film.FilmFactory;
 import de.p2tools.p2Lib.mtFilm.film.Filmlist;
-import de.p2tools.p2Lib.mtFilm.film.FilmlistFactory;
 import de.p2tools.p2Lib.mtFilm.readWriteFilmlist.ReadFilmlist;
 import de.p2tools.p2Lib.mtFilm.readWriteFilmlist.WriteFilmlistJson;
 import de.p2tools.p2Lib.mtFilm.tools.LoadFactoryConst;
@@ -264,10 +264,10 @@ public class LoadFilmlist {
         findAndMarkNewFilms(logList, filmListNew);
 
         logList.add("Unicode-Zeichen korrigieren");
-        FilmlistFactory.cleanFaultyCharacterFilmlist(filmListNew);
+        FilmFactory.cleanFaultyCharacterFilmlist(filmListNew);
 
         logList.add("Diacritics setzen/ändern, Diacritics suchen");
-        FilmlistFactory.setDiacritic(filmListNew, LoadFactoryConst.removeDiacritic);
+        FilmFactory.setDiacritic(filmListNew, LoadFactoryConst.removeDiacritic);
 
         logList.add("");
         logList.add("Filme schreiben (" + filmListNew.size() + " Filme) :");
