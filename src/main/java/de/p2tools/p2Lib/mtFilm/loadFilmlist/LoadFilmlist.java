@@ -25,7 +25,6 @@ import de.p2tools.p2Lib.mtFilm.readWriteFilmlist.WriteFilmlistJson;
 import de.p2tools.p2Lib.mtFilm.tools.LoadFactoryConst;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -268,7 +267,7 @@ public class LoadFilmlist {
         FilmlistFactory.cleanFaultyCharacterFilmlist(filmListNew);
 
         logList.add("Diacritics setzen/ändern, Diacritics suchen");
-        FilmlistFactory.setDiacritic(filmListNew, false);
+        FilmlistFactory.setDiacritic(filmListNew, LoadFactoryConst.removeDiacritic);
 
         logList.add("");
         logList.add("Filme schreiben (" + filmListNew.size() + " Filme) :");

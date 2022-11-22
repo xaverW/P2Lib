@@ -62,25 +62,11 @@ public class FilmlistFactory {
         PDuration.counterStop("cleanFaultyCharacter");
     }
 
-    public static void setDiacritic(Filmlist filmlist, boolean inAThread) {
-//        if (ProgConfig.SYSTEM_REMOVE_DIACRITICS.getValue()) {
-//            //dann sollen die Diacritic *nicht* angezeigt werden
-//
-//            if (inAThread) {
-//                ProgData.getInstance().maskerPane.setMaskerVisible(true, false);
-//                ProgData.getInstance().maskerPane.setMaskerText("");
-//                Thread th = new Thread(() -> {
-//                    genDiacriticAndSet(filmlist);
-//                    Listener.notify(Listener.EVENT_DIACRITIC_CHANGED, ConfigDialogController.class.getSimpleName());
-//                    ProgData.getInstance().maskerPane.setMaskerVisible(false);
-//                });
-//                th.setName("generateDiacritic");
-//                th.start();
-//
-//            } else {
-//                genDiacriticAndSet(filmlist);
-//            }
-//        }
+    public static void setDiacritic(Filmlist filmlist, boolean remove) {
+        if (remove) {
+            //dann sollen die Diacritic *nicht* angezeigt werden
+            genDiacriticAndSet(filmlist);
+        }
     }
 
     private static void genDiacriticAndSet(Filmlist filmlist) {

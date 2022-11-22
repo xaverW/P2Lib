@@ -71,6 +71,7 @@ public class LoadFactoryConst {
     public static int DOWNLOAD_MAX_BANDWIDTH_KBYTE = 0;
     public static int SYSTEM_LOAD_FILMLIST_MAX_DAYS = 0;
     public static int SYSTEM_LOAD_FILMLIST_MIN_DURATION = 0;
+    public static boolean removeDiacritic = false;
 
     public static Filmlist filmlist;
     public static String userAgent = "";
