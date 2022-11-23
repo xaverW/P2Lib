@@ -277,7 +277,7 @@ public class LoadFilmlist {
         logList.add("");
     }
 
-    private void fillHash(List<String> logList, Filmlist filmlist) {
+    private void fillHash(List<String> logList, Filmlist<FilmData> filmlist) {
         logList.add(PLog.LILNE3);
         logList.add("Hash füllen, Größe vorher: " + hashSet.size());
 
@@ -286,7 +286,7 @@ public class LoadFilmlist {
         logList.add(PLog.LILNE3);
     }
 
-    private void findAndMarkNewFilms(List<String> logList, Filmlist filmlist) {
+    private void findAndMarkNewFilms(List<String> logList, Filmlist<FilmData> filmlist) {
         filmlist.stream() //genauso schnell wie "parallel": ~90ms
                 .peek(film -> film.setNewFilm(false))
                 .filter(film -> !hashSet.contains(film.getUrlHistory()))

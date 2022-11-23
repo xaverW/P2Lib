@@ -31,7 +31,7 @@ import java.io.OutputStream;
 
 public class WriteFilmlistJson {
 
-    public void write(String file, Filmlist filmlist) {
+    public void write(String file, Filmlist<FilmData> filmlist) {
         String sender = "", theme = "";
 
         try (FileOutputStream fos = new FileOutputStream(file);

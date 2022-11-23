@@ -28,15 +28,19 @@ import java.util.*;
 import java.util.function.Predicate;
 
 @SuppressWarnings("serial")
-public class Filmlist extends SimpleListProperty<FilmData> {
+public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
+
+//    public class PSeparatorComboBox<T> extends ComboBox<T> {
+    //    public interface ListProperty<T>
+//            extends Provider<List<T>>, HasMultipleValues<T>
 
     public int nr = 1;
     public String[] metaData = new String[]{"", "", "", "", ""};
     public String[] sender = {""};
     int count = 0;
     int countDouble = 0;
-    FilteredList<FilmData> filteredList = null;
-    SortedList<FilmData> sortedList = null;
+    FilteredList<T> filteredList = null;
+    SortedList<T> sortedList = null;
 
     public Filmlist() {
         super(FXCollections.observableArrayList());
@@ -54,19 +58,19 @@ public class Filmlist extends SimpleListProperty<FilmData> {
         sortedList.clear();
     }
 
-    public SortedList<FilmData> getSortedList() {
+    public SortedList<? extends FilmData> getSortedList() {
         initFilterdList();
         return sortedList;
     }
 
-    public FilteredList<FilmData> getFilteredList() {
+    public FilteredList<? extends FilmData> getFilteredList() {
         initFilterdList();
         return filteredList;
     }
 
     private void initFilterdList() {
         if (sortedList == null || filteredList == null) {
-            filteredList = new FilteredList<FilmData>(this, p -> true);
+            filteredList = new FilteredList<T>(this, p -> true);
             sortedList = new SortedList<>(filteredList);
         }
     }
@@ -82,7 +86,7 @@ public class Filmlist extends SimpleListProperty<FilmData> {
         return metaData[FilmlistXml.FILMLIST_ID_NR];
     }
 
-    public synchronized boolean importFilmOnlyWithNr(FilmData film) {
+    public synchronized boolean importFilmOnlyWithNr(T film) {
         // hier nur beim Laden aus einer fertigen Filmliste mit der GUI
         // die Filme sind schon sortiert, nur die Nummer muss noch ergänzt werden
         film.no = nr++;
@@ -142,8 +146,8 @@ public class Filmlist extends SimpleListProperty<FilmData> {
         System.arraycopy(filmlist.metaData, 0, metaData, 0, FilmlistXml.MAX_ELEM);
     }
 
-    public synchronized FilmData getFilmByUrl(final String url) {
-        final Optional<FilmData> opt =
+    public synchronized T getFilmByUrl(final String url) {
+        final Optional<T> opt =
                 parallelStream().filter(f -> f.arr[FilmDataXml.FILM_URL].equalsIgnoreCase(url)).findAny();
         return opt.orElse(null);
     }
