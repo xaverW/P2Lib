@@ -25,6 +25,8 @@ import de.p2tools.p2Lib.mtFilm.readWriteFilmlist.WriteFilmlistJson;
 import de.p2tools.p2Lib.mtFilm.tools.LoadFactoryConst;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -40,6 +42,7 @@ public class LoadFilmlist {
     private final Filmlist filmListNew;
     private final ImportNewFilmlistFromServer importNewFilmlisteFromServer;
     private final NotifyProgress notifyProgress = new NotifyProgress();
+    private BooleanProperty propLoadFilmlist = new SimpleBooleanProperty(false);
 
     public LoadFilmlist() {
         filmListDiff = new Filmlist();
@@ -51,6 +54,10 @@ public class LoadFilmlist {
 
     public void addListenerLoadFilmlist(ListenerLoadFilmlist listener) {
         notifyProgress.listeners.add(ListenerLoadFilmlist.class, listener);
+    }
+
+    public void removeListenerLoadFilmlist(ListenerLoadFilmlist listener) {
+        notifyProgress.listeners.remove(ListenerLoadFilmlist.class, listener);
     }
 
     public void setStart(ListenerFilmlistLoadEvent event) {
@@ -85,20 +92,35 @@ public class LoadFilmlist {
      * Filmliste beim Programmstart laden
      */
     public void loadFilmlistProgStart(boolean firstProgramStart, String filmListFile, boolean loadOnStartUp) {
+        setPropLoadFilmlist(true);
         new Thread(() -> {
             final List<String> logList = new ArrayList<>();
             loadFilmlistStart(logList, firstProgramStart, filmListFile, loadOnStartUp);
             PLog.addSysLog(logList);
+            setPropLoadFilmlist(false);
         }).start();
     }
 
     public void loadNewFilmlist(boolean alwaysLoadNew, String filmListFile) {
+        setPropLoadFilmlist(true);
         new Thread(() -> {
             final List<String> logList = new ArrayList<>();
             loadNewFilmlistFromServer(logList, alwaysLoadNew, filmListFile);
             PLog.addSysLog(logList);
-
+            setPropLoadFilmlist(false);
         }).start();
+    }
+
+    public boolean getPropLoadFilmlist() {
+        return propLoadFilmlist.get();
+    }
+
+    public BooleanProperty propLoadFilmlistProperty() {
+        return propLoadFilmlist;
+    }
+
+    public void setPropLoadFilmlist(boolean propLoadFilmlist) {
+        this.propLoadFilmlist.set(propLoadFilmlist);
     }
 
     /**
