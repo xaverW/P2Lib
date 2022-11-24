@@ -30,10 +30,6 @@ import java.util.function.Predicate;
 @SuppressWarnings("serial")
 public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
 
-//    public class PSeparatorComboBox<T> extends ComboBox<T> {
-    //    public interface ListProperty<T>
-//            extends Provider<List<T>>, HasMultipleValues<T>
-
     public int nr = 1;
     public String[] metaData = new String[]{"", "", "", "", ""};
     public String[] sender = {""};
@@ -44,6 +40,10 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
 
     public Filmlist() {
         super(FXCollections.observableArrayList());
+    }
+
+    public <T extends FilmData> FilmData getNewElement() {
+        return new FilmData();
     }
 
     public static synchronized String genDate(String[] metaData) {
@@ -110,7 +110,6 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
         // in eine vorhandene Liste soll eine andere Filmliste einsortiert werden
         // es werden nur Filme die noch nicht vorhanden sind, einsortiert
         // "ersetzen": true: dann werden gleiche (index/URL) in der Liste durch neue ersetzt
-
         FilmlistFactory.updateList(this, addList, index, replace);
     }
 
@@ -123,7 +122,6 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
         // läuft direkt nach dem Laden der Filmliste!
         // doppelte Filme (URL), Geo, InFuture markieren
         // viele Filme sind bei mehreren Sendern vorhanden
-
         return FilmlistFactory.markFilms(this);
     }
 
@@ -161,7 +159,6 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
     public synchronized FilmData getFilmByUrl_small_high_hd(String url) {
         // Problem wegen gleicher URLs
         // wird versucht, einen Film mit einer kleinen/Hoher/HD-URL zu finden
-
         return parallelStream().filter(f ->
 
                 f.arr[FilmDataXml.FILM_URL].equals(url) ||
@@ -169,7 +166,6 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
                         f.getUrlForResolution(FilmData.RESOLUTION_SMALL).equals(url)
 
         ).findFirst().orElse(null);
-
     }
 
     public synchronized String genDate() {

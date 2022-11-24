@@ -45,19 +45,27 @@ public class LoadFilmlist {
     private BooleanProperty propLoadFilmlist = new SimpleBooleanProperty(false);
 
     public LoadFilmlist() {
-        filmListDiff = new Filmlist();
-        filmListNew = new Filmlist();
+        this.filmListDiff = new Filmlist();
+        this.filmListNew = new Filmlist();
         hashSet = new HashSet<>();
+        importNewFilmlisteFromServer = new ImportNewFilmlistFromServer();
+    }
 
+    public LoadFilmlist(Filmlist filmlistNew, Filmlist filmlistDiff) {
+        this.filmListDiff = filmlistDiff;
+        this.filmListNew = filmlistNew;
+        hashSet = new HashSet<>();
         importNewFilmlisteFromServer = new ImportNewFilmlistFromServer();
     }
 
     public void addListenerLoadFilmlist(ListenerLoadFilmlist listener) {
         notifyProgress.listeners.add(ListenerLoadFilmlist.class, listener);
+        System.out.println("======>" + notifyProgress.listeners.getListenerCount());
     }
 
     public void removeListenerLoadFilmlist(ListenerLoadFilmlist listener) {
         notifyProgress.listeners.remove(ListenerLoadFilmlist.class, listener);
+        System.out.println("======>" + notifyProgress.listeners.getListenerCount());
     }
 
     public void setStart(ListenerFilmlistLoadEvent event) {

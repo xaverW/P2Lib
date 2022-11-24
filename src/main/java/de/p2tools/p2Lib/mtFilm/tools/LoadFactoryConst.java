@@ -74,11 +74,8 @@ public class LoadFactoryConst {
     public static boolean removeDiacritic = false;
 
     public static Filmlist filmlist;
+
     public static String userAgent = "";
     public static LoadFilmlist loadFilmlist;
     public static Stage primaryStage = null;
-
-    private LoadFactoryConst() {
-        /*loadFilmlist = new LoadFilmlist();*/
-    }
 }

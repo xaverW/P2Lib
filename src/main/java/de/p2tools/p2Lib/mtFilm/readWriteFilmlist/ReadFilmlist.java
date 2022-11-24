@@ -263,9 +263,8 @@ public class ReadFilmlist {
             }
 
             if (jp.isExpectedStartArrayToken()) {
-                final FilmData film = new FilmData();
+                final FilmData film = filmlist.getNewElement();
                 addValue(film, jp);
-
                 ++countAll;
                 countFilm(filmsPerChannelFoundCompleteList, film);
 
