@@ -264,6 +264,9 @@ public class PDialogExtra extends PDialog {
             case SMALL:
                 initBorderSmall();
                 break;
+            case NOTHING:
+                initNothing();
+                break;
             case NONE:
             default:
                 initNone();
@@ -307,6 +310,11 @@ public class PDialogExtra extends PDialog {
         vBoxCompleteDialog.getChildren().addAll(hBoxOverAll, hBoxTitle, scrollPane);
     }
 
+    private void initNothing() {
+        vBoxCont.setPadding(new Insets(0));
+        vBoxCompleteDialog.getChildren().addAll(hBoxOverAll, hBoxTitle, scrollPane);
+    }
+
     private void initBorder() {
         VBox vBoxStyledBorder = new VBox();
         vBoxStyledBorder.getStyleClass().add("dialog-border");
@@ -344,6 +352,6 @@ public class PDialogExtra extends PDialog {
     }
 
     public enum DECO {
-        NONE, BORDER, SMALL
+        NOTHING, NONE, BORDER, SMALL
     }
 }
