@@ -45,6 +45,11 @@ public class DownloadSize extends ObjectPropertyBase<String> implements Comparab
         return (Long.compare(fileSize, downloadSize.getFileSize()));
     }
 
+    @Override
+    public String toString() {
+        return super.getValue();
+    }
+
     //======================================================
     public void reset() {
         actFileSize = -1;
