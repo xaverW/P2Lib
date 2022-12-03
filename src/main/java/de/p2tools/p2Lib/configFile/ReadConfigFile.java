@@ -30,19 +30,19 @@ import java.util.zip.ZipFile;
 public class ReadConfigFile {
 
     private final ArrayList<ConfigFile> cFileList;
-    private int maxCopyBackupfile = WriteConfigFile.MAX_COPY_BACKUPFILE;
+    private int maxCopyBackupFile = WriteConfigFile.MAX_COPY_BACKUPFILE;
 
 
     public ReadConfigFile() {
         this.cFileList = new ArrayList<>();
     }
 
-    public int getMaxCopyBackupfile() {
-        return maxCopyBackupfile;
+    public int getMaxCopyBackupFile() {
+        return maxCopyBackupFile;
     }
 
-    public void setMaxCopyBackupfile(int maxCopyBackupfile) {
-        this.maxCopyBackupfile = maxCopyBackupfile;
+    public void setMaxCopyBackupFile(int maxCopyBackupFile) {
+        this.maxCopyBackupFile = maxCopyBackupFile;
     }
 
     public void addConfigFile(ConfigFile configFile) {
@@ -73,8 +73,7 @@ public class ReadConfigFile {
             return true;
         }
 
-
-        ArrayList<Path> pathList = new BackupConfigFile(maxCopyBackupfile, configFileZip).loadBackup(backupHeader, backupText);
+        ArrayList<Path> pathList = new BackupConfigFile(maxCopyBackupFile, configFileZip).loadBackup(backupHeader, backupText);
         if (pathList == null) {
             // dann gibts keine Backups
             return false;
@@ -115,7 +114,6 @@ public class ReadConfigFile {
                     break;
                 }
             }
-
         } catch (IOException ex) {
             PLog.errorLog(821354180, ex, "readConfigFileZip");
             ret = false;
@@ -135,25 +133,21 @@ public class ReadConfigFile {
 
     public boolean readConfigFile(String backupHeader, String backupText) {
         boolean ret = true;
-
         for (ConfigFile cf : cFileList) {
             if (!readFile(true, cf, backupHeader, backupText)) {
                 ret = false;
             }
         }
-
         return ret;
     }
 
     public boolean readConfigFile(boolean loadBackup, String backupHeader, String backupText) {
         boolean ret = true;
-
         for (ConfigFile cf : cFileList) {
             if (!readFile(loadBackup, cf, backupHeader, backupText)) {
                 ret = false;
             }
         }
-
         return ret;
     }
 
@@ -168,7 +162,7 @@ public class ReadConfigFile {
             return false;
         }
 
-        ArrayList<Path> pathList = new BackupConfigFile(maxCopyBackupfile, cf.getConfigFile()).
+        ArrayList<Path> pathList = new BackupConfigFile(maxCopyBackupFile, cf.getConfigFile()).
                 loadBackup(backupHeader, backupText);
         if (pathList == null) {
             // dann gibts keine Backups
@@ -181,7 +175,6 @@ public class ReadConfigFile {
                 return true;
             }
         }
-
         return false;
     }
 }
