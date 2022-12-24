@@ -44,6 +44,10 @@ public class PDate extends Date {
         setPDate(date, time);
     }
 
+    public void setPDate(PDate pDate) {
+        this.setTime(pDate.getTime());
+    }
+
     public void setPDate(String strDate) {
         setPDate(strDate, "");
     }

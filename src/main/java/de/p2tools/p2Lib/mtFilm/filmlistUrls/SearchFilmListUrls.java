@@ -41,8 +41,8 @@ public class SearchFilmListUrls {
 
     private static boolean updateFilmlistUrls = false; // beim nächsten Abruf einer URL wird vorher neu geladen
     private final int UPDATE_LIST_MAX = 10; // die Downloadliste für die Filmlisten nur jeden xx Programmstart aktualisieren
-    private FilmlistUrlList filmlistUrlList_akt = new FilmlistUrlList(); // urls der kompletten Liste
-    private FilmlistUrlList filmlistUrlList_diff = new FilmlistUrlList(); // urls der diff-Liste
+    private final FilmlistUrlList filmlistUrlList_akt = new FilmlistUrlList(); // urls der kompletten Liste
+    private final FilmlistUrlList filmlistUrlList_diff = new FilmlistUrlList(); // urls der diff-Liste
 
     public synchronized static void setUpdateFilmlistUrls() {
         updateFilmlistUrls = true;
@@ -64,7 +64,7 @@ public class SearchFilmListUrls {
         // passende URL zum Laden der Filmliste suchen
         updateFilmlistDownloadUrls(userAgent);
 
-        String retUrl = (filmlistUrlList_akt.getRand(alreadyTried)); //eine Zufällige Adresse wählen
+        String retUrl = (filmlistUrlList_akt.getRand(alreadyTried)); //eine zufällige Adresse wählen
         if (alreadyTried != null) {
             alreadyTried.add(retUrl);
         }

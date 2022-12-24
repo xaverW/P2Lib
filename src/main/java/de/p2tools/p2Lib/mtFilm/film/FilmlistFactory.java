@@ -32,13 +32,7 @@ import java.util.SimpleTimeZone;
 @SuppressWarnings("serial")
 public class FilmlistFactory {
     public static final String DATE_TIME_FORMAT = "dd.MM.yyyy, HH:mm";
-    public static final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);
-    public static final SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
     private static int countDouble = 0;
-
-    {
-        sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
-    }
 
     private FilmlistFactory() {
     }
@@ -48,7 +42,7 @@ public class FilmlistFactory {
         // in der Form "dd.MM.yyyy, HH:mm"
         String ret;
         String date;
-        //todo
+        final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);
         sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
 
         if (metaData[FilmlistXml.FILMLIST_DATE_GMT_NR].isEmpty()) {
@@ -203,6 +197,10 @@ public class FilmlistFactory {
      * @return Age as a {@link Date} object.
      */
     public static Date getAgeAsDate(String[] metaData) {
+        final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);
+        final SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
+        sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
+
         if (!metaData[FilmlistXml.FILMLIST_DATE_GMT_NR].isEmpty()) {
             final String date = metaData[FilmlistXml.FILMLIST_DATE_GMT_NR];
             return getDate(date, sdfUtc);

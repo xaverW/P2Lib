@@ -96,8 +96,8 @@ public class FoundAllFiles {
     }
 
     private static void addInfo(FoundSearchData foundSearchData, String strLine) {
-        //<p><a href="/download/p2radio/info/P2Radio__2021.07.20.txt">P2Radio__2021.07.20.txt</a></p>
-        //<p><a href="/download/p2radio/info/P2Radio__2021.07.20_1.txt">P2Radio__2021.07.20_1.txt</a></p>
+        //<p><a href="/download/p2info/info/P2Radio__2021.07.20.txt">P2Radio__2021.07.20.txt</a></p>
+        //<p><a href="/download/p2info/info/P2Radio__2021.07.20_1.txt">P2Radio__2021.07.20_1.txt</a></p>
         int idx1 = strLine.indexOf("href=\"");
         int idx2 = strLine.indexOf("\">");
 
@@ -133,8 +133,8 @@ public class FoundAllFiles {
     }
 
     private static void addAct(FoundSearchData foundSearchData, String strLine) {
-        //<p><a href="/download/p2radio/act/P2Radio-3__2021.07.14.zip">P2Radio-3__2021.07.14.zip</a></p>
-        //<p><a href="/download/p2radio/act/P2Radio-3__Linux+Java__2021.07.14.zip">P2Radio-3__Linux+Java__2021.07.14.zip</a></p>
+        //<p><a href="/download/p2info/act/P2Radio-3__2021.07.14.zip">P2Radio-3__2021.07.14.zip</a></p>
+        //<p><a href="/download/p2info/act/P2Radio-3__Linux+Java__2021.07.14.zip">P2Radio-3__Linux+Java__2021.07.14.zip</a></p>
         int idx1 = strLine.indexOf("href=\"");
         int idx2 = strLine.indexOf("\">");
 
