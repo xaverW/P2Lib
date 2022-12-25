@@ -22,7 +22,7 @@ package de.p2tools.p2Lib.configFile.pData;
  * for example a list of "Persons" with the *DATA* fields:
  * NAME, SIZE, ...
  * <p>
- * Das verwendete PDate muss das dann enthalten:
+ * Das verwendete PDate muss das dann zurückliefern:
  * public String getTag() {
  * return PDataListMeta.META_KEY;
  * }
