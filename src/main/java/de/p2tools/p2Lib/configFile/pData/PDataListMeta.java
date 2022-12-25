@@ -21,12 +21,17 @@ package de.p2tools.p2Lib.configFile.pData;
  * this is a list of the "same" configurationdata
  * for example a list of "Persons" with the *DATA* fields:
  * NAME, SIZE, ...
+ * <p>
+ * Das verwendete PDate muss das dann enthalten:
+ * public String getTag() {
+ * return PDataListMeta.META_KEY;
+ * }
  *
  * @param <E>
  */
 public interface PDataListMeta<E extends PData> extends PDataList<E> {
 
-    public static String META_KEY = "META";
+    String META_KEY = "META";
     PData meta = null;
 
     PData getMeta();
