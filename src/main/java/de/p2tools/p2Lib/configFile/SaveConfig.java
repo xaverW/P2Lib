@@ -42,14 +42,13 @@ import java.util.ArrayList;
 
 class SaveConfig {
 
-    //private OutputStream outputStream = null;
-    private OutputStreamWriter outputStreamWriter = null;
-    private XMLStreamWriter xmlStreamWriter = null;
-    private Path xmlFilePath;
-
     private final String xmlStart;
     private final ArrayList<PDataList> pDataList;
     private final ArrayList<PData> pData;
+    private final Path xmlFilePath;
+    //private OutputStream outputStream = null;
+    private OutputStreamWriter outputStreamWriter = null;
+    private XMLStreamWriter xmlStreamWriter = null;
 
     SaveConfig(String xmlStart, Path filePath, ArrayList<PDataList> pDataList, ArrayList<PData> pData) {
         xmlFilePath = filePath;
@@ -185,8 +184,10 @@ class SaveConfig {
 
 
     private void writePDataList(PDataList pDataList, int tab) throws XMLStreamException {
+        String[] arr = pDataList.getTag().split(ConfigFile.TAGGER);
+        String xmlName = arr[0];
+        //String xmlName = pDataList.getTag();
 
-        String xmlName = pDataList.getTag();
         xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); //neue Zeile
 
         writeTab(tab++);
@@ -203,8 +204,10 @@ class SaveConfig {
     }
 
     private void writePDataListMeta(PDataListMeta pDataList, int tab) throws XMLStreamException {
+        String[] arr = pDataList.getTag().split(ConfigFile.TAGGER);
+        String xmlName = arr[0];
+        //String xmlName = pDataList.getTag();
 
-        String xmlName = pDataList.getTag();
         xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); //neue Zeile
 
         writeTab(tab++);

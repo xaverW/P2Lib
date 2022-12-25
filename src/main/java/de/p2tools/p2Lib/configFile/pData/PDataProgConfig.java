@@ -19,6 +19,8 @@ package de.p2tools.p2Lib.configFile.pData;
 
 import de.p2tools.p2Lib.configFile.config.*;
 import de.p2tools.p2Lib.configFile.configList.ConfigStringList;
+import de.p2tools.p2Lib.tools.date.PDate;
+import de.p2tools.p2Lib.tools.date.PDateProperty;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,21 +38,6 @@ public class PDataProgConfig extends PDataSample<PDataProgConfig> {
     public String TAG = "ProgConfig";
     private ArrayList<Config> arrayList;
 
-    @Override
-    public String getTag() {
-        return TAG;
-    }
-
-    @Override
-    public String getComment() {
-        return "Programmeinstellungen";
-    }
-
-    @Override
-    public Config[] getConfigsArr() {
-        return arrayList.toArray(new Config[]{});
-    }
-
     public PDataProgConfig() {
     }
 
@@ -59,20 +46,6 @@ public class PDataProgConfig extends PDataSample<PDataProgConfig> {
         this.TAG = TAG;
     }
 
-    public void init(ArrayList<Config> arrayList, String TAG) {
-        this.arrayList = arrayList;
-        this.TAG = TAG;
-    }
-
-    public void init(String TAG) {
-        this.TAG = TAG;
-    }
-
-    public void init(ArrayList<Config> arrayList) {
-        this.arrayList = arrayList;
-    }
-
-
     public static synchronized void addComment(ArrayList<Config> arrayList, String comment) {
         if (!comment.isEmpty()) {
             ConfigComment c = new ConfigComment(comment);
@@ -80,6 +53,9 @@ public class PDataProgConfig extends PDataSample<PDataProgConfig> {
         }
     }
 
+    //========================================================================================================
+    //Daten
+    //========================================================================================================
     public static synchronized StringProperty addStrPropC(String comment, ArrayList<Config> arrayList, String key) {
         addComment(arrayList, comment);
         return addStrProp(arrayList, key);
@@ -152,6 +128,16 @@ public class PDataProgConfig extends PDataSample<PDataProgConfig> {
         return property;
     }
 
+    public static synchronized PDateProperty addPDateProp(ArrayList<Config> arrayList, String key, PDate pDate) {
+        PDateProperty property = new PDateProperty(pDate);
+        ConfigPDateProp c = new ConfigPDateProp(key, key, property);
+        arrayList.add(c);
+        return property;
+    }
+
+    //========================================================================================================
+    //Listen
+    //========================================================================================================
     public static synchronized ObservableList<String> addListPropC(String comment, ArrayList<Config> arrayList, String key) {
         addComment(arrayList, comment);
         return addListProp(arrayList, key);
@@ -164,6 +150,9 @@ public class PDataProgConfig extends PDataSample<PDataProgConfig> {
         return list;
     }
 
+    //========================================================================================================
+    //ObjectProperty
+    //========================================================================================================
     public static synchronized ObjectProperty<String> addObjStrPropC(String comment, ArrayList<Config> arrayList, String key) {
         addComment(arrayList, comment);
         return addObjStrProp(arrayList, key);
@@ -222,5 +211,33 @@ public class PDataProgConfig extends PDataSample<PDataProgConfig> {
         });
 
         return objP;
+    }
+
+    @Override
+    public String getTag() {
+        return TAG;
+    }
+
+    @Override
+    public String getComment() {
+        return "Programmeinstellungen";
+    }
+
+    @Override
+    public Config[] getConfigsArr() {
+        return arrayList.toArray(new Config[]{});
+    }
+
+    public void init(ArrayList<Config> arrayList, String TAG) {
+        this.arrayList = arrayList;
+        this.TAG = TAG;
+    }
+
+    public void init(String TAG) {
+        this.TAG = TAG;
+    }
+
+    public void init(ArrayList<Config> arrayList) {
+        this.arrayList = arrayList;
     }
 }

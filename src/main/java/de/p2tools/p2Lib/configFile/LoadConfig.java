@@ -41,7 +41,7 @@ import java.util.ArrayList;
 class LoadConfig implements AutoCloseable {
 
     private final Path xmlFilePath;
-    private XMLInputFactory inFactory;
+    private final XMLInputFactory inFactory;
     private ArrayList<PDataList> pDataListArr = null;
     private ArrayList<PData> pDataArr = null;
 
@@ -153,7 +153,17 @@ class LoadConfig implements AutoCloseable {
     private boolean get(XMLStreamReader parser, String xmlElem) {
         if (pDataListArr != null) {
             for (PDataList pDataList : pDataListArr) {
-                if (pDataList.getTag().equals(xmlElem)) {
+
+                String[] arr = pDataList.getTag().split(ConfigFile.TAGGER);
+                boolean tagged = false;
+                for (String s : arr) {
+                    if (s.equals(xmlElem)) {
+                        tagged = true;
+                        break;
+                    }
+                }
+                //if (pDataList.getTag().equals(xmlElem)) {
+                if (tagged) {
                     getConf(parser, pDataList);
                     return true;
                 }
@@ -207,13 +217,24 @@ class LoadConfig implements AutoCloseable {
 
     private boolean getPDataList(XMLStreamReader parser, PDataList pDataList) {
         boolean ret = false;
-        final String configsListTagName = pDataList.getTag();
+
+        //final String configsListTagName = pDataList.getTag();
+        String[] arr = pDataList.getTag().split(ConfigFile.TAGGER);
+
         try {
             PData pData = pDataList.getNewItem();
             while (parser.hasNext()) {
                 final int event = parser.next();
 
-                if (event == XMLStreamConstants.END_ELEMENT && parser.getLocalName().equals(configsListTagName)) {
+                boolean tagged = false;
+                for (String s : arr) {
+                    if (event == XMLStreamConstants.END_ELEMENT && parser.getLocalName().equals(s)) {
+                        tagged = true;
+                        break;
+                    }
+                }
+                //if (event == XMLStreamConstants.END_ELEMENT && parser.getLocalName().equals(configsListTagName)) {
+                if (tagged) {
                     break;
                 }
 
@@ -243,7 +264,9 @@ class LoadConfig implements AutoCloseable {
 
     private boolean getPDataListMeta(XMLStreamReader parser, PDataListMeta pDataList) {
         boolean ret = false;
-        final String configsListTagName = pDataList.getTag();
+
+        //final String configsListTagName = pDataList.getTag();
+        String[] arr = pDataList.getTag().split(ConfigFile.TAGGER);
 
         try {
             PData meta = pDataList.getMeta();
@@ -251,7 +274,15 @@ class LoadConfig implements AutoCloseable {
             while (parser.hasNext()) {
                 final int event = parser.next();
 
-                if (event == XMLStreamConstants.END_ELEMENT && parser.getLocalName().equals(configsListTagName)) {
+                boolean tagged = false;
+                for (String s : arr) {
+                    if (event == XMLStreamConstants.END_ELEMENT && parser.getLocalName().equals(s)) {
+                        tagged = true;
+                        break;
+                    }
+                }
+                //if (event == XMLStreamConstants.END_ELEMENT && parser.getLocalName().equals(configsListTagName)) {
+                if (tagged) {
                     break;
                 }
 
