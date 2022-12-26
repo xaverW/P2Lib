@@ -24,7 +24,6 @@ import de.p2tools.p2Lib.configFile.config.ConfigPDataList;
 import de.p2tools.p2Lib.configFile.configList.ConfigList;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
-import de.p2tools.p2Lib.configFile.pData.PDataListMeta;
 import de.p2tools.p2Lib.configFile.pData.PDataMap;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.collections.ObservableList;
@@ -137,9 +136,6 @@ class SaveConfig {
         if (o instanceof PData) {
             writePData((PData) o, tab);
 
-        } else if (o instanceof PDataListMeta) { //Reihenfolge!!
-            writePDataListMeta((PDataListMeta) o, tab);
-
         } else if (o instanceof PDataList) {
             writePDataList((PDataList) o, tab);
 
@@ -194,29 +190,6 @@ class SaveConfig {
         xmlStreamWriter.writeStartElement(xmlName);
         xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); //neue Zeile
 
-        for (Object configsData : pDataList) {
-            write(configsData, tab);
-        }
-
-        writeTab(--tab);
-        xmlStreamWriter.writeEndElement();
-        xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); //neue Zeile
-    }
-
-    private void writePDataListMeta(PDataListMeta pDataList, int tab) throws XMLStreamException {
-        String[] arr = pDataList.getTag().split(ConfigFile.TAGGER);
-        String xmlName = arr[0];
-        //String xmlName = pDataList.getTag();
-
-        xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); //neue Zeile
-
-        writeTab(tab++);
-        xmlStreamWriter.writeStartElement(xmlName);
-        xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); //neue Zeile
-
-        if (pDataList.getMeta() != null) {
-            write(pDataList.getMeta(), tab);
-        }
         for (Object configsData : pDataList) {
             write(configsData, tab);
         }
