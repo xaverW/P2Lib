@@ -1,5 +1,5 @@
 /*
- * MTInfo Copyright (C) 2017 W. Xaver W.Xaver[at]googlemail.com
+ * Copyright (C) 2017 W. Xaver W.Xaver[at]googlemail.com
  * https://www.p2tools.de
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
@@ -43,6 +43,68 @@ public final class SystemInfo {
     private static boolean _isSolaris = false;
     private static boolean _isBSD = false;
     private static JavaVersion _currentVersion;
+
+    static {
+        String os = getProperty("os.name", "Windows XP");
+        _isWindows = os.indexOf("Windows") != -1;
+
+        try {
+            String osVersion = getProperty("os.version", "5.0");
+            Float version = Float.valueOf(osVersion);
+            _isClassicWindows = (double) version.floatValue() <= 4.0D;
+        } catch (NumberFormatException var3) {
+            _isClassicWindows = false;
+        }
+
+        if (os.indexOf("Windows XP") != -1 || os.indexOf("Windows NT") != -1 || os.indexOf("Windows 2000") != -1) {
+            _isWindowsNTor2000 = true;
+        }
+
+        if (os.indexOf("Windows XP") != -1) {
+            _isWindowsXP = true;
+        }
+
+        if (os.indexOf("Windows Vista") != -1) {
+            _isWindowsVista = true;
+        }
+
+        if (os.indexOf("Windows 7") != -1) {
+            _isWindows7 = true;
+        }
+
+        if (os.indexOf("Windows 8") != -1) {
+            _isWindows8 = true;
+        }
+
+        if (os.indexOf("Windows 2003") != -1) {
+            _isWindows2003 = true;
+            _isWindowsXP = true;
+        }
+
+        if (os.indexOf("Windows 95") != -1) {
+            _isWindows95 = true;
+        }
+
+        if (os.indexOf("Windows 98") != -1) {
+            _isWindows98 = true;
+        }
+
+        if (_isWindows) {
+            _supportsTray = true;
+        }
+
+        _isSolaris = os.indexOf("Solaris") != -1 || os.indexOf("SunOS") != -1;
+        _isBSD = os.endsWith("BSD");
+        _isLinux = os.indexOf("Linux") != -1;
+        if (os.startsWith("Mac OS")) {
+            if (os.endsWith("X")) {
+                _isMacOSX = true;
+            } else {
+                _isMacClassic = true;
+            }
+        }
+
+    }
 
     private SystemInfo() {
     }
@@ -258,7 +320,6 @@ public final class SystemInfo {
                         }
                     }
                 } catch (Exception var4) {
-                    ;
                 }
             }
 
@@ -266,71 +327,17 @@ public final class SystemInfo {
         }
     }
 
-    static {
-        String os = getProperty("os.name", "Windows XP");
-        _isWindows = os.indexOf("Windows") != -1;
-
+    public static String getProperty(String key, String defaultValue) {
         try {
-            String osVersion = getProperty("os.version", "5.0");
-            Float version = Float.valueOf(osVersion);
-            _isClassicWindows = (double) version.floatValue() <= 4.0D;
-        } catch (NumberFormatException var3) {
-            _isClassicWindows = false;
+            return System.getProperty(key, defaultValue);
+        } catch (AccessControlException var3) {
+            return defaultValue;
         }
-
-        if (os.indexOf("Windows XP") != -1 || os.indexOf("Windows NT") != -1 || os.indexOf("Windows 2000") != -1) {
-            _isWindowsNTor2000 = true;
-        }
-
-        if (os.indexOf("Windows XP") != -1) {
-            _isWindowsXP = true;
-        }
-
-        if (os.indexOf("Windows Vista") != -1) {
-            _isWindowsVista = true;
-        }
-
-        if (os.indexOf("Windows 7") != -1) {
-            _isWindows7 = true;
-        }
-
-        if (os.indexOf("Windows 8") != -1) {
-            _isWindows8 = true;
-        }
-
-        if (os.indexOf("Windows 2003") != -1) {
-            _isWindows2003 = true;
-            _isWindowsXP = true;
-        }
-
-        if (os.indexOf("Windows 95") != -1) {
-            _isWindows95 = true;
-        }
-
-        if (os.indexOf("Windows 98") != -1) {
-            _isWindows98 = true;
-        }
-
-        if (_isWindows) {
-            _supportsTray = true;
-        }
-
-        _isSolaris = os.indexOf("Solaris") != -1 || os.indexOf("SunOS") != -1;
-        _isBSD = os.endsWith("BSD");
-        _isLinux = os.indexOf("Linux") != -1;
-        if (os.startsWith("Mac OS")) {
-            if (os.endsWith("X")) {
-                _isMacOSX = true;
-            } else {
-                _isMacClassic = true;
-            }
-        }
-
     }
 
     public static class JavaVersion {
-        private static Pattern SUN_JAVA_VERSION = Pattern.compile("(\\d+\\.\\d+)(\\.(\\d+))?(_([^-]+))?(.*)");
-        private static Pattern SUN_JAVA_VERSION_SIMPLE = Pattern.compile("(\\d+\\.\\d+)(\\.(\\d+))?(.*)");
+        private static final Pattern SUN_JAVA_VERSION = Pattern.compile("(\\d+\\.\\d+)(\\.(\\d+))?(_([^-]+))?(.*)");
+        private static final Pattern SUN_JAVA_VERSION_SIMPLE = Pattern.compile("(\\d+\\.\\d+)(\\.(\\d+))?(.*)");
         private double _majorVersion;
         private int _minorVersion;
         private int _buildNumber;
@@ -412,14 +419,6 @@ public final class SystemInfo {
 
         public String getPatch() {
             return this._patch;
-        }
-    }
-
-    public static String getProperty(String key, String defaultValue) {
-        try {
-            return System.getProperty(key, defaultValue);
-        } catch (AccessControlException var3) {
-            return defaultValue;
         }
     }
 }

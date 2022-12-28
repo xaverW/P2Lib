@@ -17,9 +17,9 @@
 
 package de.p2tools.p2Lib.checkForActInfos;
 
-import de.p2tools.p2Lib.mtDownload.DownloadFactory;
 import de.p2tools.p2Lib.guiTools.PColumnConstraints;
 import de.p2tools.p2Lib.guiTools.PHyperlink;
+import de.p2tools.p2Lib.mtDownload.DownloadFactory;
 import de.p2tools.p2Lib.tools.date.PDateFactory;
 import de.p2tools.p2Lib.tools.net.PUrlTools;
 import javafx.geometry.Insets;
@@ -97,13 +97,13 @@ public class InfoAlertsTabFactory {
             textArea.setText(foundSearchData.getNewVersionText());
         } else {
             //keine neue Version
-            textArea.setText("Sie benutzen die aktuellste Version.");
+            textArea.setText("Sie benutzen die aktuelle Version.");
         }
 
         final Label lblActVersion = new Label("Aktuelle Version:");
         final Label lblVersion = new Label("Neueste Version:");
-        final Label lblWeb = new Label("MTInfo Webseite:");
-        final Label lblDown = new Label("Download-Website:");
+        final Label lblWeb = new Label("Webseite:");
+        final Label lblDown = new Label("Download:");
 
         final Label lblRel = new Label(foundSearchData.isFoundNewVersion() ? "Änderungen:" : "");
         final Label txtActVersion = new Label(foundSearchData.getProgVersion() +
@@ -258,8 +258,8 @@ public class InfoAlertsTabFactory {
         final Hyperlink hyperlinkDownUrl = new PHyperlink(foundSearchData.getUrlDownload());
         final Label lblActVersion = new Label("Aktuelle Version:");
         final Label lblVersion = new Label("Neueste Version:");
-        final Label lblWeb = new Label("MTInfo Webseite:");
-        final Label lblDown = new Label("Download-Website:");
+        final Label lblWeb = new Label("Webseite:");
+        final Label lblDown = new Label("Download:");
         final Label lblRel = new Label("Änderungen:");
 
         final HBox pane1 = new HBox();

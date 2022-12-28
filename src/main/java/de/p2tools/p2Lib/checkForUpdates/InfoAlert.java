@@ -47,11 +47,11 @@ public class InfoAlert {
     private final CheckBox chkSearchUpdateBeta = new CheckBox("nach Programmupdates suchen");
     private final boolean newVersion, newVersionBeta;
     private final Stage stage;
-    private boolean newInfos = false;
     BooleanProperty searchForUpdate = null;
     BooleanProperty searchForUpdateBeta = null;
     BooleanProperty showUpdateAgain = null;
     BooleanProperty showUpdateBetaAgain = null;
+    private boolean newInfos = false;
 
 
     public InfoAlert(Stage stage,
@@ -132,10 +132,7 @@ public class InfoAlert {
         }
 
         final Optional<ButtonType> bt = alert.showAndWait();
-        if (bt.isPresent() && bt.get() == ButtonType.OK) {
-            return true;
-        }
-        return false;
+        return bt.isPresent() && bt.get() == ButtonType.OK;
     }
 
     private Tab addTabVersion() {
@@ -152,7 +149,7 @@ public class InfoAlert {
         if (newVersion) {
             progUpdateData.setShowText(progUpdateData.getProgReleaseNotes());
         } else {
-            progUpdateData.setShowText(P2LibConst.LINE_SEPARATOR + "Sie benutzen die aktuellste Version.");
+            progUpdateData.setShowText(P2LibConst.LINE_SEPARATOR + "Sie benutzen die aktuelle Version.");
         }
 
         InfoAlertFactory.makeTab(stage, progUpdateData, tabVersion, showUpdateAgain, searchForUpdate,
