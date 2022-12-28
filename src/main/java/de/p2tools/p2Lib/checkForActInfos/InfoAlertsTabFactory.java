@@ -101,7 +101,7 @@ public class InfoAlertsTabFactory {
         }
 
         final Label lblActVersion = new Label("Aktuelle Version:");
-        final Label lblVersion = new Label("Neueste Version:");
+        final Label lblVersion = new Label("Neue Version:");
         final Label lblWeb = new Label("Webseite:");
         final Label lblDown = new Label("Download:");
 
@@ -257,7 +257,7 @@ public class InfoAlertsTabFactory {
         final Hyperlink hyperlinkUrl = new PHyperlink(foundSearchData.getUrlWebsite());
         final Hyperlink hyperlinkDownUrl = new PHyperlink(foundSearchData.getUrlDownload());
         final Label lblActVersion = new Label("Aktuelle Version:");
-        final Label lblVersion = new Label("Neueste Version:");
+        final Label lblVersion = new Label("Neue Version:");
         final Label lblWeb = new Label("Webseite:");
         final Label lblDown = new Label("Download:");
         final Label lblRel = new Label("Änderungen:");
