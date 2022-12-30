@@ -29,7 +29,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class IoReadWriteStyle {
-    public static String STYLE_START = "/* Programmweites style sheet */\n" +
+    public static String STYLE_START = "/* Programm weites style sheet */\n" +
             "\n";
     public static String STYLE =
             ".root {\n" +

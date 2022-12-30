@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class PColorDataProps extends PDataSample<PColorData> {
 
-    public static final String TAG = "ColorData";
+    public static final String TAG = "colorData";
 
     private StringProperty key = new SimpleStringProperty("");
     private BooleanProperty use = new SimpleBooleanProperty(true);

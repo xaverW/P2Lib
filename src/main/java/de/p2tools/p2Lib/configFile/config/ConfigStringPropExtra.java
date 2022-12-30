@@ -25,7 +25,15 @@ import javafx.scene.control.TextField;
 
 public class ConfigStringPropExtra extends ConfigExtra {
 
-    private StringProperty actValue;
+    private final StringProperty actValue;
+
+    public ConfigStringPropExtra(String key, StringProperty actValue) {
+        super(key, key);
+        this.actValue = actValue;
+        if (actValue.getValue() == null) {
+            actValue.setValue("");
+        }
+    }
 
     public ConfigStringPropExtra(String key, String name, StringProperty actValue) {
         super(key, name);
@@ -44,6 +52,11 @@ public class ConfigStringPropExtra extends ConfigExtra {
     }
 
     @Override
+    public String getActValue() {
+        return actValue.getValue();
+    }
+
+    @Override
     public void setActValue(Object act) {
         try {
             actValue.setValue(act.toString());
@@ -59,11 +72,6 @@ public class ConfigStringPropExtra extends ConfigExtra {
         } catch (Exception ex) {
             PLog.errorLog(102540698, act);
         }
-    }
-
-    @Override
-    public String getActValue() {
-        return actValue.getValue();
     }
 
     @Override

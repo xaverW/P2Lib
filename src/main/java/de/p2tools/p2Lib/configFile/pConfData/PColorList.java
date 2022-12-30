@@ -25,7 +25,7 @@ import javafx.scene.paint.Color;
 
 public class PColorList extends SimpleListProperty<PColorData> implements PDataList<PColorData> {
 
-    public static final String TAG = "PColorList";
+    public static final String TAG = "pColorList";
     private static PColorList instance;
 
     public PColorList() {

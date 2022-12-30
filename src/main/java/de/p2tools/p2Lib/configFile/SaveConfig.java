@@ -162,8 +162,8 @@ class SaveConfig {
     }
 
     private void writePData(PData pData, int tab) throws XMLStreamException {
-
-        String xmlName = pData.getTag();
+        String xmlName = pData.getTag().split(PData.TAGGER)[0];
+//        String xmlName = pData.getTag();
 
         writeTab(tab++);
         xmlStreamWriter.writeStartElement(xmlName);
@@ -180,8 +180,7 @@ class SaveConfig {
 
 
     private void writePDataList(PDataList pDataList, int tab) throws XMLStreamException {
-        String[] arr = pDataList.getTag().split(ConfigFile.TAGGER);
-        String xmlName = arr[0];
+        String xmlName = pDataList.getTag().split(PData.TAGGER)[0];
         //String xmlName = pDataList.getTag();
 
         xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); //neue Zeile
@@ -200,8 +199,9 @@ class SaveConfig {
     }
 
     private void writePDataMap(PDataMap pDataList, int tab) throws XMLStreamException {
+        String xmlName = pDataList.getTag().split(PData.TAGGER)[0];
+//        String xmlName = pDataList.getTag();
 
-        String xmlName = pDataList.getTag();
         xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); //neue Zeile
 
         writeTab(tab++);

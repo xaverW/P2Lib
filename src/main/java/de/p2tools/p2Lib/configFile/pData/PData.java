@@ -29,6 +29,8 @@ import de.p2tools.p2Lib.configFile.config.Config;
 
 public interface PData {
 
+    String TAGGER = ":";
+
     String getTag();
 
     String getComment();

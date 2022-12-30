@@ -35,7 +35,7 @@ import java.util.ArrayList;
  */
 public class PDataProgConfig extends PDataSample<PDataProgConfig> {
 
-    public String TAG = "ProgConfig";
+    public String TAG = "progConfig";
     private ArrayList<Config> arrayList;
 
     public PDataProgConfig() {

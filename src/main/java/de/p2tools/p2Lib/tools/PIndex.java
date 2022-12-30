@@ -23,7 +23,10 @@ public class PIndex {
 
     private static long counter = new Date().getTime();
 
-    public synchronized static String getIndex(String prefix) {
+    private PIndex() {
+    }
+    
+    public static synchronized String getIndex(String prefix) {
         final String idx;
         if (prefix == null || prefix.isEmpty()) {
             idx = getIndex() + "";
@@ -33,12 +36,12 @@ public class PIndex {
         return idx;
     }
 
-    public synchronized static long getIndex() {
+    public static synchronized long getIndex() {
         ++counter;
         return counter;
     }
 
-    public synchronized static String getIndexStr() {
+    public static synchronized String getIndexStr() {
         return getIndex() + "";
     }
 }
