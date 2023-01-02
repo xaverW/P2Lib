@@ -17,6 +17,9 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
+import javafx.scene.control.Control;
+import javafx.scene.control.TextField;
+
 /**
  * this is the class for one configuration
  * for example: the configsData for a USER(name,age,size)
@@ -27,11 +30,16 @@ package de.p2tools.p2Lib.configFile.config;
 public abstract class ConfigExtra extends Config {
 
     String name;
-    String regEx = ""; // damit kann eine Usereingebe als *falsch* markiert werden z.B. PLT muss 5 Zahlen haben
+    String regEx = ""; // damit kann eine Eingabe als *falsch* markiert werden z.B. PLT muss 5 Zahlen haben
 
     public ConfigExtra() {
         super();
         this.name = "";
+    }
+
+    public ConfigExtra(String key) {
+        super(key);
+        this.name = key;
     }
 
     public ConfigExtra(String key, String name) {
@@ -39,13 +47,8 @@ public abstract class ConfigExtra extends Config {
         this.name = name;
     }
 
-    public ConfigExtra(String key, String name, Object actValue) {
-        super(key, actValue);
-        this.name = name;
-    }
-
-    public ConfigExtra(String key, String name, String regEx, Object actValue) {
-        super(key, actValue);
+    public ConfigExtra(String key, String name, String regEx) {
+        super(key);
         this.name = name;
         this.regEx = regEx;
     }
@@ -65,6 +68,9 @@ public abstract class ConfigExtra extends Config {
     public String getName() {
         return name;
     }
+
+    public Control getControl() {
+        TextField control = new TextField(getProperty().getValue().toString());
+        return control;
+    }
 }
-
-

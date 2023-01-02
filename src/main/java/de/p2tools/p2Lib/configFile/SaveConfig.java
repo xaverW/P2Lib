@@ -18,13 +18,12 @@ package de.p2tools.p2Lib.configFile;
 
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.ConfigComment;
-import de.p2tools.p2Lib.configFile.config.ConfigPData;
-import de.p2tools.p2Lib.configFile.config.ConfigPDataList;
+import de.p2tools.p2Lib.configFile.config.Config_comment;
+import de.p2tools.p2Lib.configFile.config.Config_pData;
+import de.p2tools.p2Lib.configFile.config.Config_pDataList;
 import de.p2tools.p2Lib.configFile.configList.ConfigList;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
-import de.p2tools.p2Lib.configFile.pData.PDataMap;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.collections.ObservableList;
 
@@ -133,26 +132,28 @@ class SaveConfig {
 
 
     private void write(Object o, int tab) throws XMLStreamException {
+
+        //Standard-Daten
         if (o instanceof PData) {
             writePData((PData) o, tab);
 
         } else if (o instanceof PDataList) {
             writePDataList((PDataList) o, tab);
 
-        } else if (o instanceof PDataMap) {
-            writePDataMap((PDataMap) o, tab);
+            //spezielle Configs
+        } else if (o instanceof Config_pDataList) {
+            writeConfigPDataList((Config_pDataList) o, tab);
 
-        } else if (o instanceof ConfigPDataList) {
-            writeConfigPDataList((ConfigPDataList) o, tab);
+        } else if (o instanceof Config_pData) {
+            writeConfigPData((Config_pData) o, tab);
 
-        } else if (o instanceof ConfigPData) {
-            writeConfigPData((ConfigPData) o, tab);
+            //sind dann die configs zum Speichern der Daten
+            //ab hier wird dann geschrieben
+        } else if (o instanceof Config_comment) {
+            writeComment((Config) o, tab);
 
         } else if (o instanceof ConfigList) {
             writeConfigList((ConfigList) o, tab);
-
-        } else if (o instanceof ConfigComment) {
-            writeComment((Config) o, tab);
 
         } else if (o instanceof Config) {
             writeConfig((Config) o, tab);
@@ -162,8 +163,8 @@ class SaveConfig {
     }
 
     private void writePData(PData pData, int tab) throws XMLStreamException {
+        //String xmlName = pData.getTag();
         String xmlName = pData.getTag().split(PData.TAGGER)[0];
-//        String xmlName = pData.getTag();
 
         writeTab(tab++);
         xmlStreamWriter.writeStartElement(xmlName);
@@ -198,31 +199,12 @@ class SaveConfig {
         xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); //neue Zeile
     }
 
-    private void writePDataMap(PDataMap pDataList, int tab) throws XMLStreamException {
-        String xmlName = pDataList.getTag().split(PData.TAGGER)[0];
-//        String xmlName = pDataList.getTag();
-
-        xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); //neue Zeile
-
-        writeTab(tab++);
-        xmlStreamWriter.writeStartElement(xmlName);
-        xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); //neue Zeile
-
-        for (Object configsData : pDataList.values()) {
-            write(configsData, tab);
-        }
-
-        writeTab(--tab);
-        xmlStreamWriter.writeEndElement();
-        xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); //neue Zeile
-    }
-
-    private void writeConfigPDataList(ConfigPDataList configPDataList, int tab) throws XMLStreamException {
+    private void writeConfigPDataList(Config_pDataList configPDataList, int tab) throws XMLStreamException {
         PDataList<? extends PData> list = configPDataList.getActValue();
         writePDataList(list, tab);
     }
 
-    private void writeConfigPData(ConfigPData configPData, int tab) throws XMLStreamException {
+    private void writeConfigPData(Config_pData configPData, int tab) throws XMLStreamException {
         PData pData = configPData.getActValue();
         writePData(pData, tab);
     }

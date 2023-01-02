@@ -30,58 +30,59 @@ import javafx.scene.control.Control;
 public abstract class Config {
 
     final String key;
-    Object actValue;
+//    Object actValue;
 
 
     public Config() {
         this.key = "";
-        actValue = null;
+//        actValue = null;
     }
 
     public Config(String key) {
         this.key = key;
-        actValue = null;
+//        actValue = null;
     }
 
-    public Config(String key, Object actValue) {
-        this.key = key;
-        this.actValue = actValue;
-    }
+//    public Config(String key, Object actValue) {
+//        this.key = key;
+////        this.actValue = actValue;
+//    }
 
-    public Config(String key, Object actValue, boolean intern) {
+    public Config(String key, boolean intern) {
         if (intern) {
             this.key = key.intern();
         } else {
             this.key = key;
         }
-        this.actValue = actValue;
+//        this.actValue = actValue;
     }
 
     public void setActValue(String act) {
-        actValue = act;
+//        actValue = act;
     }
 
     public void setActValue(Object act) {
-        actValue = act;
+//        actValue = act;
     }
 
     public Object getActValue() {
-        return actValue;
+        return null;
     }
 
     public String getActValueString() {
-        return actValue == null ? "" : actValue.toString();
+        return "";
     }
 
+    public String getKey() {
+        return key;
+    }
+
+    //für die erweiterten
     public void resetValue() {
     }
 
     public ObservableValue getProperty() {
         return null;
-    }
-
-    public String getKey() {
-        return key;
     }
 
     public void setRegEx(String regEx) {
@@ -95,7 +96,7 @@ public abstract class Config {
     }
 
     public String getName() {
-        return "";
+        return key;
     }
 
     public Control getControl() {
