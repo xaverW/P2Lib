@@ -19,7 +19,7 @@ package de.p2tools.p2Lib.tools.date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class PLocalDateTime {
+public class PLDateTimeFactory {
     public static final DateTimeFormatter FORMAT_HH_mm_ss = DateTimeFormatter.ofPattern("HH:mm:ss");
     public static final DateTimeFormatter FORMAT_dd_MM_yyyy = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     public static final DateTimeFormatter FORMAT_yyyy = DateTimeFormatter.ofPattern("yyyy");
@@ -27,74 +27,63 @@ public class PLocalDateTime {
     public static final DateTimeFormatter FORMAT_dd_MM_yyyyKomma__HH_mm = DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm");
     public static final DateTimeFormatter FORMAT_dd_MM_yyyyKomma__HH_mm_ss = DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm:ss");
     public static final DateTimeFormatter FORMAT_dd_MM_yyyy_HH_mm_ss = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
+    public static final DateTimeFormatter FORMAT_yyyy_MM_dd_HH_mm_ss = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
 
-    private LocalDateTime localDateTime;
-
-    public PLocalDateTime() {
-        localDateTime = LocalDateTime.now();
+    private PLDateTimeFactory() {
     }
 
-    public PLocalDateTime(String date) {
-        setPDate(date);
-    }
-
-    public PLocalDateTime(String date, String time) {
-        setPDate(date, time);
-    }
-
-    public void setPDate(String strDate) {
-        setPDate(strDate, "");
-    }
-
-    public void setPDate(String strDate, String strTime) {
+    public static LocalDateTime setDate(String strDate, String strTime) {
+        LocalDateTime localDateTime;
         if (strDate.isEmpty()) {
             localDateTime = LocalDateTime.now();
-            return;
+            return localDateTime;
         }
 
         try {
             if (strTime.isEmpty()) {
                 localDateTime = LocalDateTime.parse(strDate, FORMAT_dd_MM_yyyy);
             } else {
-                localDateTime = LocalDateTime.parse(strDate + strTime, FORMAT_dd_MM_yyyyKomma__HH_mm);
+                localDateTime = LocalDateTime.parse(strDate + strTime, FORMAT_dd_MM_yyyy_HH_mm_ss);
             }
-            return;
+            return localDateTime;
         } catch (final Exception ex) {
         }
 
         localDateTime = LocalDateTime.MIN;
+        return localDateTime;
     }
 
-    public void clearPDate() {
+    public static LocalDateTime setDate(String strDateTime) {
+        LocalDateTime localDateTime;
+        if (strDateTime.isEmpty()) {
+            localDateTime = LocalDateTime.now();
+            return localDateTime;
+        }
+
+        try {
+            localDateTime = LocalDateTime.parse(strDateTime, FORMAT_dd_MM_yyyy_HH_mm_ss);
+            return localDateTime;
+
+        } catch (final Exception ex) {
+        }
+
         localDateTime = LocalDateTime.MIN;
+        return localDateTime;
     }
 
-    public boolean isEmpty() {
-        return localDateTime.isEqual(LocalDateTime.MIN);
-    }
-
-    public void setPDateNow() {
-        localDateTime = LocalDateTime.MIN;
-    }
-
-    public String getDateTime(DateTimeFormatter format) {
-        return localDateTime.format(format);
-    }
-
-    @Override
-    public String toString() {
+    public static String toString(LocalDateTime localDateTime) {
         if (localDateTime.isEqual(LocalDateTime.MIN)) {
             return "";
         } else {
-            return localDateTime.format(FORMAT_dd_MM_yyyy);
+            return localDateTime.format(FORMAT_dd_MM_yyyy_HH_mm_ss);
         }
     }
 
-    public String toStringR() {
+    public static String toStringR(LocalDateTime localDateTime) {
         if (localDateTime.isEqual(LocalDateTime.MIN)) {
             return "";
         } else {
-            return localDateTime.format(FORMAT_yyyy_MM_dd);
+            return localDateTime.format(FORMAT_yyyy_MM_dd_HH_mm_ss);
         }
     }
 

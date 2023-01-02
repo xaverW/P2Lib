@@ -18,25 +18,24 @@
 package de.p2tools.p2Lib.guiTools;
 
 import de.p2tools.p2Lib.tools.date.PDateFactory;
-import de.p2tools.p2Lib.tools.date.PLocalDate;
 import javafx.scene.control.DatePicker;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class PDatePicker extends DatePicker {
+public class PLDatePicker extends DatePicker {
     private final String pattern = "dd.MM.yyyy";
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
-    public PDatePicker() {
+    public PLDatePicker() {
     }
 
-    public PDatePicker(PLocalDate pLocalDate) {
-        super.setValue(pLocalDate.getLocalDate());
+    public PLDatePicker(LocalDate localDate) {
+        super.setValue(localDate);
     }
 
-    public void setDate(PLocalDate pLocalDate) {
-        this.setValue(pLocalDate.getLocalDate());
+    public void setDate(LocalDate pLocalDate) {
+        this.setValue(pLocalDate);
     }
 
     public void setDate(String stringDate) {
@@ -47,8 +46,8 @@ public class PDatePicker extends DatePicker {
         }
     }
 
-    public PLocalDate getpLocalDate() {
-        return new PLocalDate(this.getValue());
+    public LocalDate getpLocalDate() {
+        return this.getValue();
     }
 
     public void clearDate() {

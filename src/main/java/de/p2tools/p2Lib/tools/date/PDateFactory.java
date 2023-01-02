@@ -17,28 +17,19 @@
 
 package de.p2tools.p2Lib.tools.date;
 
-import de.p2tools.p2Lib.tools.log.PLog;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 public class PDateFactory {
-    public static final FastDateFormat F_FORMAT_HH_mm_ss = FastDateFormat.getInstance("HH:mm:ss");
+
     public static final FastDateFormat F_FORMAT_dd_MM_yyyy = FastDateFormat.getInstance("dd.MM.yyyy");
-    public static final FastDateFormat F_FORMAT_dd_MM_yyyyHH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyyHH:mm:ss");
-    public static final FastDateFormat F_FORMAT_dd_MM_yyyy_HH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss");
-    public static final FastDateFormat F_FORMAT_dd_MM_yyyyKomma__HH_mm = FastDateFormat.getInstance("dd.MM.yyyy, HH:mm");
-    public static final FastDateFormat F_FORMAT_dd_MM_yyyyKomma__HH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyy, HH:mm:ss");
     public static final FastDateFormat F_FORMAT_yyyy = FastDateFormat.getInstance("yyyy");
     public static final FastDateFormat F_FORMAT_yyyy_MM_dd = FastDateFormat.getInstance("yyyy.MM.dd");
-    public static final FastDateFormat F_FORMAT_yyyyMMdd = FastDateFormat.getInstance("yyyyMMdd");
-    public static final FastDateFormat F_FORMAT_ddMMyyyy = FastDateFormat.getInstance("ddMMyyyy");
 
     public static final DateTimeFormatter DT_FORMATTER_d_M_yyyy = DateTimeFormatter.ofPattern("d.M.yyyy");
     public static final DateTimeFormatter DT_FORMATTER_d_MM_yyyy = DateTimeFormatter.ofPattern("d.MM.yyyy");
@@ -63,69 +54,68 @@ public class PDateFactory {
     }
 
     public static PDate getYesterday() {
-        PLocalDate pDate = new PLocalDate();
-        pDate.setPLocalDateYesterday();
+        LocalDate pDate = LocalDate.now().minusDays(1);
         ZoneId defaultZoneId = ZoneId.systemDefault();
-        return new PDate(Date.from(pDate.getLocalDate().atStartOfDay(defaultZoneId).toInstant()));
+        return new PDate(Date.from(pDate.atStartOfDay(defaultZoneId).toInstant()));
     }
 
     public static String getAktYearStr() {
         return LocalDate.now().getYear() + "";
     }
 
-    public static int getAktYearInt() {
+    public static int getActYearInt() {
         return LocalDate.now().getYear();
     }
 
-    public static int getYearIntFromString(String year) {
-        int ret;
-        try {
-            final long y = F_FORMAT_yyyy.parse(year).getTime();
-            ret = Integer.parseInt(year);
-        } catch (Exception ex) {
-            ret = 0;
-            PLog.errorLog(621212154, "Jahr: " + year);
-        }
+//    public static int getYearIntFromString(String year) {
+//        int ret;
+//        try {
+//            final long y = F_FORMAT_yyyy.parse(year).getTime();
+//            ret = Integer.parseInt(year);
+//        } catch (Exception ex) {
+//            ret = 0;
+//            PLog.errorLog(621212154, "Jahr: " + year);
+//        }
+//
+//        return ret;
+//    }
 
-        return ret;
-    }
-
-    public static List<String> getYearListSince(String year) {
-        List<String> list = new ArrayList<>();
-        int aktYear = getAktYearInt();
-        int startCheckYear = getYearIntFromString(year);
-
-        if (startCheckYear <= 0 ||
-                aktYear < startCheckYear) {
-            return list;
-        }
-
-        while (startCheckYear <= aktYear) {
-            list.add(startCheckYear + "");
-            ++startCheckYear;
-        }
-
-        return list;
-    }
-
-    public static List<Integer> getYearListSince(int year) {
-        List<Integer> list = new ArrayList<>();
-
-        int aktYear = getAktYearInt();
-        int startCheckYear = getYearIntFromString(year + "");
-
-        if (startCheckYear <= 0 ||
-                aktYear < startCheckYear) {
-            return list;
-        }
-
-        while (startCheckYear <= aktYear) {
-            list.add(startCheckYear);
-            ++startCheckYear;
-        }
-
-        return list;
-    }
+//    public static List<String> getYearListSince(String year) {
+//        List<String> list = new ArrayList<>();
+//        int aktYear = getActYearInt();
+//        int startCheckYear = getYearIntFromString(year);
+//
+//        if (startCheckYear <= 0 ||
+//                aktYear < startCheckYear) {
+//            return list;
+//        }
+//
+//        while (startCheckYear <= aktYear) {
+//            list.add(startCheckYear + "");
+//            ++startCheckYear;
+//        }
+//
+//        return list;
+//    }
+//
+//    public static List<Integer> getYearListSince(int year) {
+//        List<Integer> list = new ArrayList<>();
+//
+//        int aktYear = getActYearInt();
+//        int startCheckYear = getYearIntFromString(year + "");
+//
+//        if (startCheckYear <= 0 ||
+//                aktYear < startCheckYear) {
+//            return list;
+//        }
+//
+//        while (startCheckYear <= aktYear) {
+//            list.add(startCheckYear);
+//            ++startCheckYear;
+//        }
+//
+//        return list;
+//    }
 
     public static LocalDate getLocalDate(String strDate) {
         if (strDate == null || strDate.isEmpty()) {
@@ -157,17 +147,17 @@ public class PDateFactory {
         return null;
     }
 
-    public static String getDate_yMd(String d) {
-        try {
-            LocalDate pLocalDate = LocalDate.parse(d, PDateFactory.DT_FORMATTER_yyyy_MM_dd);
-            if (pLocalDate != null) {
-                return pLocalDate.format(PDateFactory.DT_FORMATTER_dd_MM_yyyy);
-            }
-        } catch (final Exception ex) {
-        }
-
-        return d;
-    }
+//    public static String getDate_yMd(String d) {
+//        try {
+//            LocalDate pLocalDate = LocalDate.parse(d, DT_FORMATTER_yyyy_MM_dd);
+//            if (pLocalDate != null) {
+//                return pLocalDate.format(DT_FORMATTER_dd_MM_yyyy);
+//            }
+//        } catch (final Exception ex) {
+//        }
+//
+//        return d;
+//    }
 
     /**
      * Liefert den Betrag! der Zeitdifferenz zu jetzt.

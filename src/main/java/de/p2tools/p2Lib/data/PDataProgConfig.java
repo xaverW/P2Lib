@@ -22,11 +22,13 @@ import de.p2tools.p2Lib.configFile.configList.ConfigStringList;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import de.p2tools.p2Lib.tools.date.PDate;
 import de.p2tools.p2Lib.tools.date.PDateProperty;
+import de.p2tools.p2Lib.tools.date.PLDateTimeProperty;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.StringConverter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -132,6 +134,13 @@ public class PDataProgConfig extends PDataSample<PDataProgConfig> {
     public static synchronized PDateProperty addPDateProp(ArrayList<Config> arrayList, String key, PDate pDate) {
         PDateProperty property = new PDateProperty(pDate);
         ConfigExtra_pDateProp c = new ConfigExtra_pDateProp(key, key, property);
+        arrayList.add(c);
+        return property;
+    }
+
+    public static synchronized PLDateTimeProperty addPLocalDateTimeProp(ArrayList<Config> arrayList, String key, LocalDateTime localDateTime) {
+        PLDateTimeProperty property = new PLDateTimeProperty(localDateTime);
+        ConfigExtra_lDateTimeProp c = new ConfigExtra_lDateTimeProp(key, key, property);
         arrayList.add(c);
         return property;
     }

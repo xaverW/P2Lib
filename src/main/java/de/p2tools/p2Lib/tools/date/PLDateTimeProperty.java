@@ -16,34 +16,22 @@
 
 package de.p2tools.p2Lib.tools.date;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import javafx.beans.property.SimpleObjectProperty;
 
-public class PLocalTimeFactory {
+import java.time.LocalDateTime;
 
-    public static final DateTimeFormatter FORMAT_HH_mm = DateTimeFormatter.ofPattern("HH:mm");
+public class PLDateTimeProperty extends SimpleObjectProperty<LocalDateTime> {
 
-    private PLocalTimeFactory() {
+    public PLDateTimeProperty() {
+        setValue(LocalDateTime.now());
     }
 
-    public static LocalTime getPLocalTime(String strTime) {
-        if (strTime == null || strTime.isEmpty()) {
-            return null;
-        }
-
-        try {
-            return LocalTime.parse(strTime, FORMAT_HH_mm);
-        } catch (final Exception ex) {
-        }
-
-        return null;
+    public PLDateTimeProperty(LocalDateTime pDate) {
+        setValue(pDate);
     }
 
-    public static String getLocalTimeStr(LocalTime localTime) {
-        if (localTime == null) {
-            return "";
-        } else {
-            return localTime.format(FORMAT_HH_mm);
-        }
+    public PLDateTimeProperty(String date) {
+        setValue(PLDateTimeFactory.setDate(date, ""));
     }
+
 }

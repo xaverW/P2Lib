@@ -20,45 +20,40 @@ import javafx.beans.property.SimpleObjectProperty;
 
 import java.time.LocalDate;
 
-public class PLocalDateProperty extends SimpleObjectProperty<PLocalDate> {
+public class PLDateProperty extends SimpleObjectProperty<LocalDate> {
 
-    public PLocalDateProperty() {
+    public PLDateProperty() {
         clearPLocalDate();
     }
 
-    public PLocalDateProperty(PLocalDate pDate) {
-        setValue(pDate);
+    public PLDateProperty(LocalDate localDate) {
+        setValue(localDate);
     }
 
-    public PLocalDateProperty(String date) {
+    public PLDateProperty(String date) {
         setPLocalDate(date);
     }
 
     public void setPLocalDate(LocalDate localDate) {
-        PLocalDate pLocalDate = new PLocalDate();
-        pLocalDate.setPLocalDate(localDate);
-        setValue(pLocalDate);
+        setValue(localDate);
     }
 
     public void setPLocalDate(String strDate) {
-        PLocalDate pLocalDate = new PLocalDate();
-        pLocalDate.setPLocalDate(strDate);
-        setValue(pLocalDate);
+        setValue(PLDateFactory.getLocalDate(strDate));
     }
 
     public void clearPLocalDate() {
-        PLocalDate pLocalDate = new PLocalDate();
-        pLocalDate.clearPDate();
+        LocalDate pLocalDate = LocalDate.MIN;
         this.setValue(pLocalDate);
         return;
     }
 
     @Override
     public String toString() {
-        return this.getValue().toString();
+        return PLDateFactory.toString(getValue());
     }
 
     public String toStringR() {
-        return this.getValue().toStringR();
+        return PLDateFactory.toStringR(getValue());
     }
 }

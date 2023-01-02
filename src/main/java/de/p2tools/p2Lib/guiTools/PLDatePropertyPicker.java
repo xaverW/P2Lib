@@ -18,29 +18,27 @@
 package de.p2tools.p2Lib.guiTools;
 
 import de.p2tools.p2Lib.tools.PException;
-import de.p2tools.p2Lib.tools.date.PLocalDate;
-import de.p2tools.p2Lib.tools.date.PLocalDateProperty;
+import de.p2tools.p2Lib.tools.date.PLDateFactory;
+import de.p2tools.p2Lib.tools.date.PLDateProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.DatePicker;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class PDatePropertyPicker extends DatePicker {
-    private PLocalDateProperty boundPLocalDateProperty = null;
-    private ChangeListener<PLocalDate> changeListener = null;
-
-    int countListener = 0;
+public class PLDatePropertyPicker extends DatePicker {
+    private PLDateProperty boundPLocalDateProperty = null;
+    private ChangeListener<LocalDate> changeListener = null;
 
     private static final String pattern = "dd.MM.yyyy";
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
-    public PDatePropertyPicker() {
+    public PLDatePropertyPicker() {
         genChangeListener();
         init();
     }
 
-    public PDatePropertyPicker(PLocalDateProperty pDateProperty) {
+    public PLDatePropertyPicker(PLDateProperty pDateProperty) {
         if (pDateProperty == null) {
             PException.throwPException(978450201, this.getClass().toString());
         }
@@ -60,9 +58,11 @@ public class PDatePropertyPicker extends DatePicker {
 
     private void genChangeListener() {
         this.changeListener = (observable, oldValue, newValue) -> {
-            if (newValue != null && newValue.getLocalDate() != null && this.getValue() == null ||
-                    newValue != null && newValue.getLocalDate() != null && this.getValue() != null
-                            && !this.getValue().equals(newValue.getLocalDate())) {
+            if (newValue == null) {
+                return;
+            }
+            if (this.getValue() == null ||
+                    this.getValue() != null && !this.getValue().equals(newValue)) {
                 setDate(newValue);
             }
         };
@@ -71,9 +71,9 @@ public class PDatePropertyPicker extends DatePicker {
     private void setDate() {
         if (this.getValue() == null) {
             if (boundPLocalDateProperty != null) {
-                final PLocalDate pLocalDate = boundPLocalDateProperty.getValue();
-                if (pLocalDate != null) {
-                    pLocalDate.clearPDate();
+                final LocalDate localDate = boundPLocalDateProperty.getValue();
+                if (localDate != null) {
+                    PLDateFactory.clearPDate(localDate);
                 }
             }
 
@@ -84,13 +84,8 @@ public class PDatePropertyPicker extends DatePicker {
         }
     }
 
-    public void setDate(PLocalDate pDate) {
-        if (pDate == null || pDate.getLocalDate() == null) {
-            setValue(null);
-        } else {
-            final PLocalDate pLocalDate = new PLocalDate(pDate.getLocalDate());
-            setValue(pLocalDate.getLocalDate());
-        }
+    public void setDate(LocalDate localDate) {
+        setValue(localDate);
         setDate();
     }
 
@@ -98,13 +93,12 @@ public class PDatePropertyPicker extends DatePicker {
         if (stringDate == null || stringDate.isEmpty()) {
             setValue(null);
         } else {
-            final PLocalDate pLocalDate = new PLocalDate(stringDate);
-            setValue(pLocalDate.getLocalDate());
+            setValue(PLDateFactory.getLocalDate(stringDate));
         }
         setDate();
     }
 
-    public void bindPDateProperty(PLocalDateProperty pDateProperty) {
+    public void bindPDateProperty(PLDateProperty pDateProperty) {
         if (pDateProperty == null) {
             PException.throwPException(978450201, this.getClass().toString());
         }
@@ -116,7 +110,7 @@ public class PDatePropertyPicker extends DatePicker {
         //todo
         this.boundPLocalDateProperty = pDateProperty;
         this.boundPLocalDateProperty.addListener(changeListener);
-        this.setValue(boundPLocalDateProperty.get().getLocalDate());
+        this.setValue(boundPLocalDateProperty.get());
         this.setDisable(boundPLocalDateProperty == null);
     }
 

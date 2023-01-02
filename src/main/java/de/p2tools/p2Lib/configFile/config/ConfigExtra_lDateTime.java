@@ -17,53 +17,53 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import de.p2tools.p2Lib.guiTools.PDatePicker;
-import de.p2tools.p2Lib.tools.date.PLocalDate;
+import de.p2tools.p2Lib.guiTools.PLDatePicker;
+import de.p2tools.p2Lib.tools.date.PLDateTimeFactory;
 import javafx.scene.control.Control;
 
-public class ConfigExtra_pLocalDate extends ConfigExtra {
+import java.time.LocalDateTime;
 
-    private PLocalDate pLocalDate;
+public class ConfigExtra_lDateTime extends ConfigExtra {
 
-    public ConfigExtra_pLocalDate(String key, String actValue) {
+    private LocalDateTime actValue;
+
+    public ConfigExtra_lDateTime(String key, String actValue) {
         super(key);
-        pLocalDate = new PLocalDate();
-        pLocalDate.setPLocalDate(actValue);
+        this.actValue = PLDateTimeFactory.setDate(actValue, "");
     }
 
-    public ConfigExtra_pLocalDate(String key, String name, String actValue) {
+    public ConfigExtra_lDateTime(String key, String name, String actValue) {
         super(key, name);
-        pLocalDate = new PLocalDate();
-        pLocalDate.setPLocalDate(actValue);
+        this.actValue = PLDateTimeFactory.setDate(actValue, "");
     }
 
-    public ConfigExtra_pLocalDate(String key, String name, PLocalDate pLocalDate) {
+    public ConfigExtra_lDateTime(String key, String name, LocalDateTime localDateTime) {
         super(key, name);
-        this.pLocalDate = pLocalDate;
-    }
-
-    public PLocalDate getPDate() {
-        return pLocalDate;
+        this.actValue = localDateTime;
     }
 
     @Override
-    public void setActValue(String act) {
-        pLocalDate.setPLocalDate(act);
+    public void setActValue(Object act) {
+        this.actValue = (LocalDateTime) act;
+    }
+
+    public void setActValue(LocalDateTime act) {
+        this.actValue = act;
     }
 
     @Override
-    public String getActValue() {
-        return pLocalDate.toString();
+    public LocalDateTime getActValue() {
+        return actValue;
     }
 
     @Override
     public String getActValueString() {
-        return pLocalDate.toString();
+        return PLDateTimeFactory.toString(actValue);
     }
 
     @Override
     public Control getControl() {
-        PDatePicker control = new PDatePicker(getPDate());
+        PLDatePicker control = new PLDatePicker(actValue.toLocalDate());
         return control;
     }
 }

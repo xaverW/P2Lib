@@ -24,7 +24,9 @@ import java.util.Date;
 
 public class PDateProperty extends SimpleObjectProperty<PDate> {
 
-
+    public static final FastDateFormat F_FORMAT_dd_MM_yyyy = FastDateFormat.getInstance("dd.MM.yyyy");
+    public static final FastDateFormat F_FORMAT_yyyy_MM_dd = FastDateFormat.getInstance("yyyy.MM.dd");
+    
     public PDateProperty() {
         setValue(new PDate());
     }
@@ -62,8 +64,8 @@ public class PDateProperty extends SimpleObjectProperty<PDate> {
 
     public void setPDateToday() {
         try {
-            final String strToday = new PDate().getDateTime(PDateFactory.F_FORMAT_dd_MM_yyyy);
-            final long lToday = PDateFactory.F_FORMAT_dd_MM_yyyy.parse(strToday).getTime();
+            final String strToday = new PDate().getDateTime(F_FORMAT_dd_MM_yyyy);
+            final long lToday = F_FORMAT_dd_MM_yyyy.parse(strToday).getTime();
             this.setValue(new PDate(lToday));
         } catch (final Exception ex) {
             this.setValue(new PDate(0));
@@ -83,23 +85,6 @@ public class PDateProperty extends SimpleObjectProperty<PDate> {
         }
     }
 
-    @Override
-    public String toString() {
-        if (this.getValue().getTime() == 0) {
-            return "";
-        } else {
-            return PDateFactory.F_FORMAT_dd_MM_yyyy.format(this.getValue());
-        }
-    }
-
-    public String toStringR() {
-        if (this.getValue().getTime() == 0) {
-            return PDateFactory.F_FORMAT_yyyy_MM_dd.format(new Date());
-        } else {
-            return PDateFactory.F_FORMAT_yyyy_MM_dd.format(this.getValue());
-        }
-    }
-
     /**
      * Liefert den Betrag! der Zeitdifferenz zu jetzt.
      *
@@ -116,5 +101,22 @@ public class PDateProperty extends SimpleObjectProperty<PDate> {
      */
     public long diffInMinutes() {
         return (diffInSeconds() / 60);
+    }
+
+    @Override
+    public String toString() {
+        if (this.getValue().getTime() == 0) {
+            return "";
+        } else {
+            return F_FORMAT_dd_MM_yyyy.format(this.getValue());
+        }
+    }
+
+    public String toStringR() {
+        if (this.getValue().getTime() == 0) {
+            return F_FORMAT_yyyy_MM_dd.format(new Date());
+        } else {
+            return F_FORMAT_yyyy_MM_dd.format(this.getValue());
+        }
     }
 }

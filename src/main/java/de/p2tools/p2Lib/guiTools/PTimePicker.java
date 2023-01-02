@@ -17,7 +17,7 @@
 
 package de.p2tools.p2Lib.guiTools;
 
-import de.p2tools.p2Lib.tools.date.PLocalTimeFactory;
+import de.p2tools.p2Lib.tools.date.PLTimeFactory;
 import javafx.scene.control.ComboBox;
 
 import java.time.LocalTime;
@@ -76,7 +76,7 @@ public class PTimePicker extends ComboBox<LocalTime> {
         if (stringDate == null || stringDate.isEmpty()) {
             this.setValue(null);
         } else {
-            LocalTime pLocalTime = PLocalTimeFactory.getPLocalTime(stringDate);
+            LocalTime pLocalTime = PLTimeFactory.getPLocalTime(stringDate);
             this.getSelectionModel().select(pLocalTime);
         }
     }
@@ -90,6 +90,6 @@ public class PTimePicker extends ComboBox<LocalTime> {
     }
 
     public String getTime() {
-        return PLocalTimeFactory.getLocalTimeStr(getValue());
+        return PLTimeFactory.getLocalTimeStr(getValue());
     }
 }

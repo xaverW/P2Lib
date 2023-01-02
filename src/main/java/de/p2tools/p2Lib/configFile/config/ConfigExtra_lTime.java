@@ -18,35 +18,35 @@
 package de.p2tools.p2Lib.configFile.config;
 
 import de.p2tools.p2Lib.guiTools.PTimePicker;
-import de.p2tools.p2Lib.tools.date.PLocalTimeFactory;
+import de.p2tools.p2Lib.tools.date.PLTimeFactory;
 import javafx.scene.control.Control;
 
 import java.time.LocalTime;
 
-public class ConfigExtra_localTime extends ConfigExtra {
+public class ConfigExtra_lTime extends ConfigExtra {
 
     private LocalTime localTime;
 
-    public ConfigExtra_localTime(String key, String actValue) {
+    public ConfigExtra_lTime(String key, String actValue) {
         super(key);
         localTime = LocalTime.now();
-        localTime = PLocalTimeFactory.getPLocalTime(actValue);
+        localTime = PLTimeFactory.getPLocalTime(actValue);
     }
 
-    public ConfigExtra_localTime(String key, String name, String actValue) {
+    public ConfigExtra_lTime(String key, String name, String actValue) {
         super(key, name);
         localTime = LocalTime.now();
-        localTime = PLocalTimeFactory.getPLocalTime(actValue);
+        localTime = PLTimeFactory.getPLocalTime(actValue);
     }
 
-    public ConfigExtra_localTime(String key, String name, LocalTime localTime) {
+    public ConfigExtra_lTime(String key, String name, LocalTime localTime) {
         super(key, name);
         this.localTime = localTime;
     }
 
     @Override
     public void setActValue(String act) {
-        localTime = PLocalTimeFactory.getPLocalTime(act);
+        localTime = PLTimeFactory.getPLocalTime(act);
     }
 
     @Override

@@ -17,42 +17,46 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import de.p2tools.p2Lib.tools.date.PLocalDate;
+import de.p2tools.p2Lib.tools.date.PLDateTimeFactory;
 
-public class Config_pLocalDate extends Config {
+import java.time.LocalDateTime;
 
-    private PLocalDate pLocalDate;
+public class Config_lDateTime extends Config {
 
-    public Config_pLocalDate(String key, String actValue) {
+    private LocalDateTime actValue;
+
+    public Config_lDateTime(String key, String actValue) {
         super(key);
-        pLocalDate = new PLocalDate();
-        pLocalDate.setPLocalDate(actValue);
+        this.actValue = PLDateTimeFactory.setDate(actValue);
     }
 
-    public Config_pLocalDate(String key, String actValue, boolean intern) {
+    public Config_lDateTime(String key, String actValue, boolean intern) {
         super(key, intern);
-        pLocalDate = new PLocalDate();
-        pLocalDate.setPLocalDate(actValue);
+        this.actValue = PLDateTimeFactory.setDate(actValue);
     }
 
-    public Config_pLocalDate(String key, PLocalDate actPDate) {
+    public Config_lDateTime(String key, LocalDateTime pLocalDateTime) {
         super(key);
-        this.pLocalDate = actPDate;
+        this.actValue = pLocalDateTime;
+    }
+
+    @Override
+    public void setActValue(Object act) {
+        actValue = (LocalDateTime) act;
     }
 
     @Override
     public void setActValue(String act) {
-        pLocalDate.setPLocalDate(act);
+        this.actValue = PLDateTimeFactory.setDate(act);
     }
 
     @Override
-    public String getActValue() {
-        return pLocalDate.toString();
+    public LocalDateTime getActValue() {
+        return actValue;
     }
 
     @Override
     public String getActValueString() {
-        return pLocalDate.toString();
+        return actValue.toString();
     }
-
 }

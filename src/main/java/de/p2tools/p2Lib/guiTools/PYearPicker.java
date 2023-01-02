@@ -17,7 +17,7 @@
 
 package de.p2tools.p2Lib.guiTools;
 
-import de.p2tools.p2Lib.tools.date.PDateFactory;
+import de.p2tools.p2Lib.tools.date.PLDateFactory;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.Spinner;
@@ -29,7 +29,7 @@ public class PYearPicker extends Spinner<Integer> {
     private ObjectProperty<Integer> objInt = null;
 
     public PYearPicker() {
-        init(PDateFactory.getAktYearInt());
+        init(PLDateFactory.getActYearInt());
     }
 
     public PYearPicker(int year, IntegerProperty integerProperty) {

@@ -17,50 +17,45 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import de.p2tools.p2Lib.guiTools.PDatePicker;
-import de.p2tools.p2Lib.tools.date.PLocalDate;
-import de.p2tools.p2Lib.tools.date.PLocalDateProperty;
-import javafx.scene.control.Control;
+import de.p2tools.p2Lib.tools.date.PLTimeProperty;
 
-public class ConfigExtra_pLocalDateProp extends ConfigExtra {
+import java.time.LocalTime;
 
-    private PLocalDateProperty actValue;
+public class ConfigExtra_lTimeProp extends ConfigExtra {
 
-    public ConfigExtra_pLocalDateProp(String key, PLocalDateProperty actValue) {
+    private PLTimeProperty actValue;
+
+    public ConfigExtra_lTimeProp(String key, PLTimeProperty actValue) {
         super(key);
         this.actValue = actValue;
     }
 
-    public ConfigExtra_pLocalDateProp(String key, String name, PLocalDateProperty actValue) {
+    public ConfigExtra_lTimeProp(String key, String name, PLTimeProperty actValue) {
         super(key, name);
         this.actValue = actValue;
     }
 
-    public PLocalDate getPDate() {
-        return actValue.getValue();
-    }
-
     @Override
     public void setActValue(Object act) {
-        actValue.setValue((PLocalDate) act);
+        actValue.setValue((LocalTime) act);
     }
 
-    public void setActValue(PLocalDate act) {
+    public void setActValue(LocalTime act) {
         actValue.setValue(act);
     }
 
-    @Override
-    public void setActValue(String act) {
-        try {
-            actValue.setValue(new PLocalDate(act));
-        } catch (Exception ex) {
-            actValue.setValue(new PLocalDate());
-        }
-    }
+//    @Override
+//    public void setActValue(String act) {
+//        try {
+//            actValue.setValue(  new PLocalDate(act));
+//        } catch (Exception ex) {
+//            actValue.setValue(new PLocalDate());
+//        }
+//    }
 
     @Override
-    public PLocalDate getActValue() {
-        return actValue.getValue();
+    public PLTimeProperty getActValue() {
+        return actValue;
     }
 
     @Override
@@ -71,13 +66,13 @@ public class ConfigExtra_pLocalDateProp extends ConfigExtra {
     }
 
     @Override
-    public PLocalDateProperty getProperty() {
+    public PLTimeProperty getProperty() {
         return actValue;
     }
 
-    @Override
-    public Control getControl() {
-        PDatePicker control = new PDatePicker(getPDate());
-        return control;
-    }
+//    @Override
+//    public Control getControl() {
+//        PLDatePicker control = new PLDatePicker(getPDate());
+//        return control;
+//    }
 }
