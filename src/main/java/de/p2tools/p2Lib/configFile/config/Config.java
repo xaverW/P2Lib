@@ -19,6 +19,7 @@ package de.p2tools.p2Lib.configFile.config;
 
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Control;
+import javafx.scene.control.TextField;
 
 /**
  * this is the class for one configuration
@@ -30,23 +31,23 @@ import javafx.scene.control.Control;
 public abstract class Config {
 
     final String key;
-//    Object actValue;
-
+    String name;
+    String regEx = ""; // damit kann eine Eingabe als *falsch* markiert werden z.B. PLT muss 5 Zahlen haben
 
     public Config() {
         this.key = "";
-//        actValue = null;
+        this.name = "";
     }
 
     public Config(String key) {
         this.key = key;
-//        actValue = null;
+        this.name = key;
     }
 
-//    public Config(String key, Object actValue) {
-//        this.key = key;
-////        this.actValue = actValue;
-//    }
+    public Config(String key, String name) {
+        this.key = key;
+        this.name = name;
+    }
 
     public Config(String key, boolean intern) {
         if (intern) {
@@ -54,15 +55,18 @@ public abstract class Config {
         } else {
             this.key = key;
         }
-//        this.actValue = actValue;
+    }
+
+    public Config(String key, String name, String regEx) {
+        this.key = key;
+        this.name = name;
+        this.regEx = regEx;
     }
 
     public void setActValue(String act) {
-//        actValue = act;
     }
 
     public void setActValue(Object act) {
-//        actValue = act;
     }
 
     public Object getActValue() {
@@ -77,7 +81,6 @@ public abstract class Config {
         return key;
     }
 
-    //für die erweiterten
     public void resetValue() {
     }
 
@@ -86,20 +89,23 @@ public abstract class Config {
     }
 
     public void setRegEx(String regEx) {
+        this.regEx = regEx;
     }
 
     public String getRegEx() {
-        return "";
+        return regEx;
     }
 
     public void setName(String name) {
+        this.name = name;
     }
 
     public String getName() {
-        return key;
+        return name;
     }
 
     public Control getControl() {
-        return null;
+        TextField control = new TextField(getProperty().getValue().toString());
+        return control;
     }
 }

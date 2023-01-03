@@ -17,49 +17,54 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
+import de.p2tools.p2Lib.tools.date.PDate;
+import de.p2tools.p2Lib.tools.date.PDateFactory;
+import de.p2tools.p2Lib.tools.date.PDateProperty;
 
-import de.p2tools.p2Lib.mtDownload.DownloadSize;
+public class Config_pDateProp extends Config {
 
-public class ConfigExtra_pDownloadSizeProp extends ConfigExtra {
+    private PDateProperty actValue;
 
-    private DownloadSize actValue;
-
-    public ConfigExtra_pDownloadSizeProp(String key, DownloadSize downloadSize) {
+    public Config_pDateProp(String key, PDateProperty actValue) {
         super(key);
-        this.actValue = downloadSize;
+        this.actValue = actValue;
     }
 
-    public ConfigExtra_pDownloadSizeProp(String key, String name, DownloadSize downloadSize) {
+    public Config_pDateProp(String key, String name, PDateProperty actValue) {
         super(key, name);
-        this.actValue = downloadSize;
+        this.actValue = actValue;
     }
 
     @Override
     public void setActValue(Object act) {
-        actValue.setFileSize(((DownloadSize) act).getFileSize());
+        actValue.setValue((PDate) act);
     }
 
-    public void setActValue(DownloadSize act) {
-        actValue.setFileSize(act.getFileSize());
+    public void setActValue(PDate act) {
+        actValue.setValue(act);
     }
 
     @Override
     public void setActValue(String act) {
         try {
-            actValue.setFileSize(act);
+            actValue.setValue(new PDate(act));
         } catch (Exception ex) {
-            actValue.setFileSize(0);
+            actValue.setValue(new PDate());
         }
     }
 
     @Override
-    public DownloadSize getActValue() {
-        return actValue;
+    public PDate getActValue() {
+        return actValue.getValue();
     }
 
     @Override
     public String getActValueString() {
-        final String ret = getActValue() == null ? "" : getActValue().toString();
-        return ret;
+        return getActValue() == null ? "" : PDateFactory.toString(getActValue());
+    }
+
+    @Override
+    public PDateProperty getProperty() {
+        return actValue;
     }
 }

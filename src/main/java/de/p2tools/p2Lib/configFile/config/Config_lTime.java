@@ -17,57 +17,60 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import de.p2tools.p2Lib.guiTools.PLDatePicker;
-import de.p2tools.p2Lib.tools.date.PLDateFactory;
+import de.p2tools.p2Lib.guiTools.PTimePicker;
+import de.p2tools.p2Lib.tools.date.PLTimeFactory;
 import javafx.scene.control.Control;
 
-import java.time.LocalDate;
+import java.time.LocalTime;
 
-public abstract class ConfigExtra_lDate extends ConfigExtra {
+public abstract class Config_lTime extends Config {
 
-    private LocalDate actValue;
+    private LocalTime actValue;
 
-    public ConfigExtra_lDate(String key, String actValue) {
+    public Config_lTime(String key, String actValue) {
         super(key);
-        this.actValue = PLDateFactory.fromString(actValue);
+        this.actValue = LocalTime.now();
+        this.actValue = PLTimeFactory.getPLocalTime(actValue);
     }
 
-    public ConfigExtra_lDate(String key, String name, String actValue) {
+    public Config_lTime(String key, String name, String actValue) {
         super(key, name);
-        this.actValue = PLDateFactory.fromString(actValue);
+        this.actValue = LocalTime.now();
+        this.actValue = PLTimeFactory.getPLocalTime(actValue);
     }
 
-    public ConfigExtra_lDate(String key, String name, LocalDate actValue) {
+    public Config_lTime(String key, String name, LocalTime localTime) {
         super(key, name);
-        this.actValue = actValue;
+        this.actValue = localTime;
     }
 
     @Override
     public void setActValue(Object act) {
-        actValue = ((LocalDate) act);
+        this.actValue = (LocalTime) act;
         setUsedValue(actValue);
     }
 
-    public void setActValue(LocalDate act) {
-        actValue = act;
-        setUsedValue(act);
+    @Override
+    public void setActValue(String act) {
+        this.actValue = PLTimeFactory.getPLocalTime(act);
+        setUsedValue(actValue);
     }
 
     @Override
-    public LocalDate getActValue() {
-        return actValue;
+    public LocalTime getActValue() {
+        return this.actValue;
     }
 
     @Override
     public String getActValueString() {
-        return actValue.toString();
+        return PLTimeFactory.toString(actValue);
     }
 
     @Override
     public Control getControl() {
-        PLDatePicker control = new PLDatePicker(actValue);
+        PTimePicker control = new PTimePicker();
         return control;
     }
 
-    public abstract void setUsedValue(LocalDate act);
+    public abstract void setUsedValue(LocalTime act);
 }

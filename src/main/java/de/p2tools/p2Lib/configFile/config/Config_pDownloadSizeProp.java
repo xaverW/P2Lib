@@ -20,7 +20,7 @@ package de.p2tools.p2Lib.configFile.config;
 
 import de.p2tools.p2Lib.mtDownload.DownloadSize;
 
-public class Config_pDownloadSizeProp extends ConfigExtra {
+public class Config_pDownloadSizeProp extends Config {
 
     private DownloadSize actValue;
 

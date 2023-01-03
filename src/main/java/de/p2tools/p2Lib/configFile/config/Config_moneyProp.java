@@ -17,44 +17,51 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import de.p2tools.p2Lib.guiTools.PTextFieldInteger;
-import javafx.beans.property.IntegerProperty;
+import de.p2tools.p2Lib.guiTools.PTextFieldMoney;
+import javafx.beans.property.LongProperty;
 import javafx.scene.control.Control;
 
-public class ConfigExtra_intProp extends ConfigExtra {
+public class Config_moneyProp extends Config {
 
-    private IntegerProperty actValue;
+    private LongProperty actValue;
+    private boolean onlyLabel = false;
 
-    public ConfigExtra_intProp(String key, IntegerProperty actValue) {
+    public Config_moneyProp(String key, LongProperty actValue) {
         super(key);
         this.actValue = actValue;
     }
 
-    public ConfigExtra_intProp(String key, String name, IntegerProperty actValue) {
+    public Config_moneyProp(String key, String name, LongProperty actValue) {
         super(key, name);
         this.actValue = actValue;
     }
 
-    @Override
-    public void setActValue(Object act) {
-        actValue.setValue((Integer) act);
+    public Config_moneyProp(String key, String name, LongProperty actValue, boolean onlyLabel) {
+        super(key, name);
+        this.actValue = actValue;
+        this.onlyLabel = onlyLabel;
     }
 
-    public void setActValue(int act) {
+    @Override
+    public void setActValue(Object act) {
+        actValue.setValue((Long) act);
+    }
+
+    public void setActValue(long act) {
         actValue.setValue(act);
     }
 
     @Override
     public void setActValue(String act) {
         try {
-            actValue.setValue(Integer.parseInt(act));
+            actValue.setValue(Long.parseLong(act));
         } catch (Exception ex) {
             actValue.setValue(0);
         }
     }
 
     @Override
-    public Integer getActValue() {
+    public Long getActValue() {
         return actValue.getValue();
     }
 
@@ -64,13 +71,13 @@ public class ConfigExtra_intProp extends ConfigExtra {
     }
 
     @Override
-    public IntegerProperty getProperty() {
+    public LongProperty getProperty() {
         return actValue;
     }
 
     @Override
     public Control getControl() {
-        PTextFieldInteger control = new PTextFieldInteger(getProperty());
+        PTextFieldMoney control = new PTextFieldMoney(getProperty(), onlyLabel);
         return control;
     }
 }

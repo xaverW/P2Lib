@@ -17,7 +17,9 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
+import de.p2tools.p2Lib.guiTools.PLDatePicker;
 import de.p2tools.p2Lib.tools.date.PLDateTimeFactory;
+import javafx.scene.control.Control;
 
 import java.time.LocalDateTime;
 
@@ -27,28 +29,28 @@ public abstract class Config_lDateTime extends Config {
 
     public Config_lDateTime(String key, String actValue) {
         super(key);
-        this.actValue = PLDateTimeFactory.setDate(actValue);
+        this.actValue = PLDateTimeFactory.setDate(actValue, "");
     }
 
-    public Config_lDateTime(String key, String actValue, boolean intern) {
-        super(key, intern);
-        this.actValue = PLDateTimeFactory.setDate(actValue);
+    public Config_lDateTime(String key, String name, String actValue) {
+        super(key, name);
+        this.actValue = PLDateTimeFactory.setDate(actValue, "");
     }
 
-    public Config_lDateTime(String key, LocalDateTime pLocalDateTime) {
-        super(key);
-        this.actValue = pLocalDateTime;
+    public Config_lDateTime(String key, String name, LocalDateTime localDateTime) {
+        super(key, name);
+        this.actValue = localDateTime;
     }
 
     @Override
     public void setActValue(Object act) {
-        actValue = (LocalDateTime) act;
+        this.actValue = (LocalDateTime) act;
         setUsedValue(actValue);
     }
 
-    @Override
-    public void setActValue(String act) {
-        this.actValue = PLDateTimeFactory.setDate(act);
+    public void setActValue(LocalDateTime act) {
+        this.actValue = act;
+        setUsedValue(actValue);
     }
 
     @Override
@@ -58,8 +60,14 @@ public abstract class Config_lDateTime extends Config {
 
     @Override
     public String getActValueString() {
-        return actValue.toString();
+        return PLDateTimeFactory.toString(actValue);
     }
 
-    public abstract void setUsedValue(LocalDateTime value);
+    @Override
+    public Control getControl() {
+        PLDatePicker control = new PLDatePicker(actValue.toLocalDate());
+        return control;
+    }
+
+    public abstract void setUsedValue(LocalDateTime act);
 }

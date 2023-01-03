@@ -24,16 +24,16 @@ import javafx.scene.control.Control;
 
 import java.time.LocalDate;
 
-public class ConfigExtra_lDateProp extends ConfigExtra {
+public class Config_lDateProp extends Config {
 
     private PLDateProperty actValue;
 
-    public ConfigExtra_lDateProp(String key, PLDateProperty actValue) {
+    public Config_lDateProp(String key, PLDateProperty actValue) {
         super(key);
         this.actValue = actValue;
     }
 
-    public ConfigExtra_lDateProp(String key, String name, PLDateProperty actValue) {
+    public Config_lDateProp(String key, String name, PLDateProperty actValue) {
         super(key, name);
         this.actValue = actValue;
     }

@@ -26,7 +26,6 @@ public abstract class Config_long extends Config {
         this.actValue = actValue;
     }
 
-
     @Override
     public void setActValue(Object act) {
         actValue = (Long) act;

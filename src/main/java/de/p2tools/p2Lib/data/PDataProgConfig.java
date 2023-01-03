@@ -163,28 +163,28 @@ public class PDataProgConfig extends PDataSample<PDataProgConfig> {
 
     public static synchronized PDateProperty addPDateProp(String key, PDate pDate) {
         PDateProperty property = new PDateProperty(pDate);
-        ConfigExtra_pDateProp c = new ConfigExtra_pDateProp(key, key, property);
+        Config_pDateProp c = new Config_pDateProp(key, key, property);
         arrayList.add(c);
         return property;
     }
 
     public static synchronized PLDateProperty addPLocalDateProp(String key, LocalDate localDate) {
         PLDateProperty property = new PLDateProperty(localDate);
-        ConfigExtra_lDateProp c = new ConfigExtra_lDateProp(key, key, property);
+        Config_lDateProp c = new Config_lDateProp(key, key, property);
         arrayList.add(c);
         return property;
     }
 
     public static synchronized PLDateTimeProperty addPLocalDateTimeProp(String key, LocalDateTime localDateTime) {
         PLDateTimeProperty property = new PLDateTimeProperty(localDateTime);
-        ConfigExtra_lDateTimeProp c = new ConfigExtra_lDateTimeProp(key, key, property);
+        Config_lDateTimeProp c = new Config_lDateTimeProp(key, key, property);
         arrayList.add(c);
         return property;
     }
 
     public static synchronized PLTimeProperty addPLocalTimeProp(String key, LocalTime localTime) {
         PLTimeProperty property = new PLTimeProperty(localTime);
-        ConfigExtra_lTimeProp c = new ConfigExtra_lTimeProp(key, key, property);
+        Config_lTimeProp c = new Config_lTimeProp(key, key, property);
         arrayList.add(c);
         return property;
     }

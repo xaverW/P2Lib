@@ -17,67 +17,64 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import de.p2tools.p2Lib.guiTools.PTextFieldMoney;
-import javafx.beans.property.LongProperty;
+import de.p2tools.p2Lib.guiTools.PLDatePicker;
+import de.p2tools.p2Lib.tools.date.PLDateTimeFactory;
+import de.p2tools.p2Lib.tools.date.PLDateTimeProperty;
 import javafx.scene.control.Control;
 
-public class ConfigExtra_moneyProp extends ConfigExtra {
+import java.time.LocalDateTime;
 
-    private LongProperty actValue;
-    private boolean onlyLabel = false;
+public class Config_lDateTimeProp extends Config {
 
-    public ConfigExtra_moneyProp(String key, LongProperty actValue) {
+    private PLDateTimeProperty actValue;
+
+    public Config_lDateTimeProp(String key, PLDateTimeProperty actValue) {
         super(key);
         this.actValue = actValue;
     }
 
-    public ConfigExtra_moneyProp(String key, String name, LongProperty actValue) {
+    public Config_lDateTimeProp(String key, String name, PLDateTimeProperty actValue) {
         super(key, name);
         this.actValue = actValue;
-    }
-
-    public ConfigExtra_moneyProp(String key, String name, LongProperty actValue, boolean onlyLabel) {
-        super(key, name);
-        this.actValue = actValue;
-        this.onlyLabel = onlyLabel;
     }
 
     @Override
     public void setActValue(Object act) {
-        actValue.setValue((Long) act);
+        actValue.setValue((LocalDateTime) act);
     }
 
-    public void setActValue(long act) {
+    public void setActValue(LocalDateTime act) {
         actValue.setValue(act);
     }
 
     @Override
     public void setActValue(String act) {
         try {
-            actValue.setValue(Long.parseLong(act));
+            actValue.setValue(PLDateTimeFactory.setDate(act));
         } catch (Exception ex) {
-            actValue.setValue(0);
+            actValue.setValue(LocalDateTime.now());
         }
     }
 
     @Override
-    public Long getActValue() {
-        return actValue.getValue();
+    public LocalDateTime getActValue() {
+        return actValue.get();
     }
 
     @Override
     public String getActValueString() {
-        return String.valueOf(getActValue());
+        final String ret = actValue.get() == null ? "" : actValue.get().format(PLDateTimeFactory.FORMAT_dd_MM_yyyy_HH_mm_ss);
+        return ret;
     }
 
     @Override
-    public LongProperty getProperty() {
+    public PLDateTimeProperty getProperty() {
         return actValue;
     }
 
     @Override
     public Control getControl() {
-        PTextFieldMoney control = new PTextFieldMoney(getProperty(), onlyLabel);
+        PLDatePicker control = new PLDatePicker(actValue.getValue().toLocalDate());
         return control;
     }
 }

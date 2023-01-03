@@ -28,6 +28,11 @@ public abstract class Config_pFileSize extends Config {
         this.actValue = actValue;
     }
 
+    public Config_pFileSize(String key, String name, PFileSize actValue) {
+        super(key, name);
+        this.actValue = actValue;
+    }
+
     @Override
     public void setActValue(Object act) {
         actValue = (PFileSize) act;
@@ -60,5 +65,5 @@ public abstract class Config_pFileSize extends Config {
         return ret;
     }
 
-    public abstract void setUsedValue(PFileSize value);
+    public abstract void setUsedValue(PFileSize act);
 }

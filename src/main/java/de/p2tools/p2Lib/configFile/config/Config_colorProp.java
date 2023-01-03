@@ -17,64 +17,49 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import de.p2tools.p2Lib.guiTools.PLDatePicker;
-import de.p2tools.p2Lib.tools.date.PLDateTimeFactory;
-import de.p2tools.p2Lib.tools.date.PLDateTimeProperty;
-import javafx.scene.control.Control;
+import de.p2tools.p2Lib.tools.PColorFactory;
+import javafx.beans.property.ObjectProperty;
+import javafx.scene.paint.Color;
 
-import java.time.LocalDateTime;
+public class Config_colorProp extends Config {
 
-public class ConfigExtra_lDateTimeProp extends ConfigExtra {
+    private ObjectProperty<Color> actValue;
 
-    private PLDateTimeProperty actValue;
-
-    public ConfigExtra_lDateTimeProp(String key, PLDateTimeProperty actValue) {
+    public Config_colorProp(String key, ObjectProperty<Color> actValue) {
         super(key);
         this.actValue = actValue;
     }
 
-    public ConfigExtra_lDateTimeProp(String key, String name, PLDateTimeProperty actValue) {
+    public Config_colorProp(String key, String name, ObjectProperty<Color> actValue) {
         super(key, name);
         this.actValue = actValue;
     }
 
     @Override
     public void setActValue(Object act) {
-        actValue.setValue((LocalDateTime) act);
-    }
-
-    public void setActValue(LocalDateTime act) {
-        actValue.setValue(act);
+        actValue.setValue((Color) act);
     }
 
     @Override
     public void setActValue(String act) {
         try {
-            actValue.setValue(PLDateTimeFactory.setDate(act));
+            actValue.setValue(Color.web(act));
         } catch (Exception ex) {
-            actValue.setValue(LocalDateTime.now());
         }
     }
 
     @Override
-    public LocalDateTime getActValue() {
-        return actValue.get();
+    public Color getActValue() {
+        return actValue.getValue();
     }
 
     @Override
     public String getActValueString() {
-        final String ret = actValue.get() == null ? "" : actValue.get().format(PLDateTimeFactory.FORMAT_dd_MM_yyyy_HH_mm_ss);
-        return ret;
+        return PColorFactory.getColorToWeb(actValue.getValue());
     }
 
     @Override
-    public PLDateTimeProperty getProperty() {
+    public ObjectProperty getProperty() {
         return actValue;
-    }
-
-    @Override
-    public Control getControl() {
-        PLDatePicker control = new PLDatePicker(actValue.getValue().toLocalDate());
-        return control;
     }
 }

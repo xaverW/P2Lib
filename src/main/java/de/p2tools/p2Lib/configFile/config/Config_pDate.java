@@ -28,16 +28,14 @@ public abstract class Config_pDate extends Config {
         this.actValue = actValue;
     }
 
-    public Config_pDate(String key, String actValue) {
-        super(key);
-        this.actValue = new PDate();
-        this.actValue.setPDate(actValue);
+    public Config_pDate(String key, String name, PDate actValue) {
+        super(key, name);
+        this.actValue = actValue;
     }
 
-    public Config_pDate(String key, String actValue, boolean intern) {
-        super(key, intern);
-        this.actValue = new PDate();
-        this.actValue.setPDate(actValue);
+    @Override
+    public PDate getActValue() {
+        return actValue;
     }
 
     @Override
@@ -59,11 +57,6 @@ public abstract class Config_pDate extends Config {
             actValue = new PDate();
         }
         setUsedValue(actValue);
-    }
-
-    @Override
-    public PDate getActValue() {
-        return actValue;
     }
 
     @Override

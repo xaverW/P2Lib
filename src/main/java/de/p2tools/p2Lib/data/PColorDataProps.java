@@ -18,9 +18,9 @@
 package de.p2tools.p2Lib.data;
 
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.ConfigExtra_boolProp;
-import de.p2tools.p2Lib.configFile.config.ConfigExtra_colorProp;
-import de.p2tools.p2Lib.configFile.config.ConfigExtra_stringProp;
+import de.p2tools.p2Lib.configFile.config.Config_boolProp;
+import de.p2tools.p2Lib.configFile.config.Config_colorProp;
+import de.p2tools.p2Lib.configFile.config.Config_stringProp;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import javafx.beans.property.*;
 import javafx.scene.paint.Color;
@@ -42,10 +42,10 @@ public class PColorDataProps extends PDataSample<PColorData> {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigExtra_stringProp("key", "key", key));
-        list.add(new ConfigExtra_boolProp("use", "use", use));
-        list.add(new ConfigExtra_colorProp("colorLight", "colorLight", colorLight));
-        list.add(new ConfigExtra_colorProp("colorDark", "colorDark", colorDark));
+        list.add(new Config_stringProp("key", "key", key));
+        list.add(new Config_boolProp("use", "use", use));
+        list.add(new Config_colorProp("colorLight", "colorLight", colorLight));
+        list.add(new Config_colorProp("colorDark", "colorDark", colorDark));
 
         return list.toArray(new Config[]{});
     }

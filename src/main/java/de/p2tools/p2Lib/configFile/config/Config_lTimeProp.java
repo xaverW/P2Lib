@@ -17,60 +17,63 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import de.p2tools.p2Lib.guiTools.PTextFieldDouble;
-import javafx.beans.property.DoubleProperty;
-import javafx.scene.control.Control;
+import de.p2tools.p2Lib.tools.date.PLTimeFactory;
+import de.p2tools.p2Lib.tools.date.PLTimeProperty;
 
-public class ConfigExtra_doubleProp extends ConfigExtra {
+import java.time.LocalTime;
 
-    private DoubleProperty actValue;
+public class Config_lTimeProp extends Config {
 
-    public ConfigExtra_doubleProp(String key, DoubleProperty actValue) {
+    private PLTimeProperty actValue;
+
+    public Config_lTimeProp(String key, PLTimeProperty actValue) {
         super(key);
         this.actValue = actValue;
     }
 
-    public ConfigExtra_doubleProp(String key, String name, DoubleProperty actValue) {
+    public Config_lTimeProp(String key, String name, PLTimeProperty actValue) {
         super(key, name);
         this.actValue = actValue;
     }
 
     @Override
     public void setActValue(Object act) {
-        actValue.setValue((Double) act);
+        actValue.setValue((LocalTime) act);
     }
 
-    public void setActValue(double act) {
+    public void setActValue(LocalTime act) {
         actValue.setValue(act);
     }
 
     @Override
     public void setActValue(String act) {
         try {
-            actValue.setValue(Double.parseDouble(act));
+            actValue.setValue(PLTimeFactory.getPLocalTime(act));
         } catch (Exception ex) {
-            actValue.setValue(0.0);
+            actValue.setValue(LocalTime.now());
         }
     }
 
     @Override
-    public Double getActValue() {
+    public LocalTime getActValue() {
         return actValue.getValue();
     }
 
     @Override
     public String getActValueString() {
-        return String.valueOf(getActValue());
+        //        return getActValue().toString();
+        final String ret = actValue.getValue() == null ? "" : PLTimeFactory.toString(actValue.getValue());
+        return ret;
     }
 
     @Override
-    public DoubleProperty getProperty() {
+    public PLTimeProperty getProperty() {
         return actValue;
     }
 
-    @Override
-    public Control getControl() {
-        PTextFieldDouble control = new PTextFieldDouble(getProperty());
-        return control;
-    }
+//    @Override
+//    public Control getControl() {
+//        PLDatePicker control = new PLDatePicker(getPDate());
+//        return control;
+//    }
 }

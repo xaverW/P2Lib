@@ -17,8 +17,8 @@
 package de.p2tools.p2Lib.mtFilm.filmlistUrls;
 
 import de.p2tools.p2Lib.configFile.config.Config;
-import de.p2tools.p2Lib.configFile.config.ConfigExtra_intProp;
-import de.p2tools.p2Lib.configFile.config.ConfigExtra_stringProp;
+import de.p2tools.p2Lib.configFile.config.Config_intProp;
+import de.p2tools.p2Lib.configFile.config.Config_stringProp;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.beans.property.IntegerProperty;
@@ -88,10 +88,10 @@ public class FilmlistUrlData extends PDataSample<FilmlistUrlData> {
     @Override
     public Config[] getConfigsArr() {
         ArrayList<Config> list = new ArrayList<>();
-        list.add(new ConfigExtra_intProp("no", no));
-        list.add(new ConfigExtra_stringProp("url", url));
-        list.add(new ConfigExtra_stringProp("prio", prio));
-        list.add(new ConfigExtra_stringProp("type", type));
+        list.add(new Config_intProp("no", no));
+        list.add(new Config_stringProp("url", url));
+        list.add(new Config_stringProp("prio", prio));
+        list.add(new Config_stringProp("type", type));
 
         return list.toArray(new Config[]{});
     }
