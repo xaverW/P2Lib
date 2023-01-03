@@ -29,12 +29,12 @@ public abstract class ConfigExtra_lDate extends ConfigExtra {
 
     public ConfigExtra_lDate(String key, String actValue) {
         super(key);
-        this.actValue = PLDateFactory.getLocalDate(actValue);
+        this.actValue = PLDateFactory.fromString(actValue);
     }
 
     public ConfigExtra_lDate(String key, String name, String actValue) {
         super(key, name);
-        this.actValue = PLDateFactory.getLocalDate(actValue);
+        this.actValue = PLDateFactory.fromString(actValue);
     }
 
     public ConfigExtra_lDate(String key, String name, LocalDate actValue) {

@@ -17,50 +17,49 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import de.p2tools.p2Lib.tools.date.PLDateFactory;
 
-import java.time.LocalDate;
+import de.p2tools.p2Lib.mtDownload.DownloadSize;
 
-public abstract class Config_lDate extends Config {
+public class ConfigExtra_pDownloadSizeProp extends ConfigExtra {
 
-    private LocalDate actValue;
+    private DownloadSize actValue;
 
-    public Config_lDate(String key, String actValue) {
+    public ConfigExtra_pDownloadSizeProp(String key, DownloadSize downloadSize) {
         super(key);
-        this.actValue = PLDateFactory.fromString(actValue);
+        this.actValue = downloadSize;
     }
 
-    public Config_lDate(String key, String actValue, boolean intern) {
-        super(key, intern);
-        this.actValue = PLDateFactory.fromString(actValue);
-    }
-
-    public Config_lDate(String key, LocalDate actPDate) {
-        super(key);
-        this.actValue = actPDate;
+    public ConfigExtra_pDownloadSizeProp(String key, String name, DownloadSize downloadSize) {
+        super(key, name);
+        this.actValue = downloadSize;
     }
 
     @Override
     public void setActValue(Object act) {
-        actValue = (LocalDate) act;
-        setUsedValue(actValue);
+        actValue.setFileSize(((DownloadSize) act).getFileSize());
+    }
+
+    public void setActValue(DownloadSize act) {
+        actValue.setFileSize(act.getFileSize());
     }
 
     @Override
     public void setActValue(String act) {
-        this.actValue = PLDateFactory.fromString(act);
-        setUsedValue(actValue);
+        try {
+            actValue.setFileSize(act);
+        } catch (Exception ex) {
+            actValue.setFileSize(0);
+        }
     }
 
     @Override
-    public LocalDate getActValue() {
+    public DownloadSize getActValue() {
         return actValue;
     }
 
     @Override
     public String getActValueString() {
-        return PLDateFactory.toString(actValue);
+        final String ret = getActValue() == null ? "" : getActValue().toString();
+        return ret;
     }
-
-    public abstract void setUsedValue(LocalDate act);
 }

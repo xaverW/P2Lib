@@ -130,7 +130,7 @@ public class PDate extends Date {
         }
 
         try {
-            return PLDateFactory.getLocalDate(strDate);
+            return PLDateFactory.fromString(strDate);
         } catch (final Exception ex) {
         }
         return null;

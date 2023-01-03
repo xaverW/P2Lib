@@ -20,15 +20,15 @@ package de.p2tools.p2Lib.data;
 import de.p2tools.p2Lib.configFile.config.*;
 import de.p2tools.p2Lib.configFile.configList.ConfigStringList;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
-import de.p2tools.p2Lib.tools.date.PDate;
-import de.p2tools.p2Lib.tools.date.PDateProperty;
-import de.p2tools.p2Lib.tools.date.PLDateTimeProperty;
+import de.p2tools.p2Lib.tools.date.*;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.StringConverter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
@@ -39,17 +39,19 @@ import java.util.ArrayList;
 public class PDataProgConfig extends PDataSample<PDataProgConfig> {
 
     public String TAG = "progConfig";
-    private ArrayList<Config> arrayList;
+    private static final ArrayList<Config> arrayList = new ArrayList<>();
 
     public PDataProgConfig() {
     }
 
-    public PDataProgConfig(ArrayList<Config> arrayList, String TAG) {
-        this.arrayList = arrayList;
+    public PDataProgConfig(String TAG) {
         this.TAG = TAG;
     }
 
-    public static synchronized void addComment(ArrayList<Config> arrayList, String comment) {
+    //========================================================================================================
+    //Kommentar
+    //========================================================================================================
+    public static synchronized void addComment(String comment) {
         if (!comment.isEmpty()) {
             Config_comment c = new Config_comment(comment);
             arrayList.add(c);
@@ -59,88 +61,130 @@ public class PDataProgConfig extends PDataSample<PDataProgConfig> {
     //========================================================================================================
     //Daten
     //========================================================================================================
-    public static synchronized StringProperty addStrPropC(String comment, ArrayList<Config> arrayList, String key) {
-        addComment(arrayList, comment);
-        return addStrProp(arrayList, key);
-    }
-
-    public static synchronized StringProperty addStrProp(ArrayList<Config> arrayList, String key) {
+    public static synchronized StringProperty addStrProp(String key) {
         StringProperty property = new SimpleStringProperty("");
         Config_stringProp c = new Config_stringProp(key, property);
         arrayList.add(c);
         return property;
     }
 
-    public static synchronized StringProperty addStrPropC(String comment, ArrayList<Config> arrayList, String key, String init) {
-        addComment(arrayList, comment);
-        return addStrProp(arrayList, key, init);
-    }
-
-    public static synchronized StringProperty addStrProp(ArrayList<Config> arrayList, String key, String init) {
+    public static synchronized StringProperty addStrProp(String key, String init) {
         StringProperty property = new SimpleStringProperty(init);
         Config_stringProp c = new Config_stringProp(key, property);
         arrayList.add(c);
         return property;
     }
 
-    public static synchronized IntegerProperty addIntPropC(String comment, ArrayList<Config> arrayList, String key, int init) {
-        addComment(arrayList, comment);
-        return addIntProp(arrayList, key, init);
+    public static synchronized StringProperty addStrPropC(String comment, String key) {
+        addComment(comment);
+        return addStrProp(key);
     }
 
-    public static synchronized IntegerProperty addIntProp(ArrayList<Config> arrayList, String key, int init) {
+    public static synchronized StringProperty addStrPropC(String comment, String key, String init) {
+        addComment(comment);
+        return addStrProp(key, init);
+    }
+
+    public static synchronized IntegerProperty addIntProp(String key) {
+        IntegerProperty property = new SimpleIntegerProperty(0);
+        Config_intProp c = new Config_intProp(key, property);
+        arrayList.add(c);
+        return property;
+    }
+
+    public static synchronized IntegerProperty addIntProp(String key, int init) {
         IntegerProperty property = new SimpleIntegerProperty(init);
         Config_intProp c = new Config_intProp(key, property);
         arrayList.add(c);
         return property;
     }
 
-    public static synchronized LongProperty addLongPropC(String comment, ArrayList<Config> arrayList, String key, long init) {
-        addComment(arrayList, comment);
-        return addLongProp(arrayList, key, init);
+    public static synchronized IntegerProperty addIntPropC(String comment, String key, int init) {
+        addComment(comment);
+        return addIntProp(key, init);
     }
 
-    public static synchronized LongProperty addLongProp(ArrayList<Config> arrayList, String key, long init) {
+    public static synchronized LongProperty addLongProp(String key) {
+        LongProperty property = new SimpleLongProperty(0);
+        Config_longProp c = new Config_longProp(key, property);
+        arrayList.add(c);
+        return property;
+    }
+
+    public static synchronized LongProperty addLongProp(String key, long init) {
         LongProperty property = new SimpleLongProperty(init);
         Config_longProp c = new Config_longProp(key, property);
         arrayList.add(c);
         return property;
     }
 
-    public static synchronized DoubleProperty addDoublePropC(String comment, ArrayList<Config> arrayList, String key, double init) {
-        addComment(arrayList, comment);
-        return addDoubleProp(arrayList, key, init);
+    public static synchronized LongProperty addLongPropC(String comment, String key, long init) {
+        addComment(comment);
+        return addLongProp(key, init);
     }
 
-    public static synchronized DoubleProperty addDoubleProp(ArrayList<Config> arrayList, String key, double init) {
+    public static synchronized DoubleProperty addDoubleProp(String key) {
+        DoubleProperty property = new SimpleDoubleProperty(0.0);
+        Config_doubleProp c = new Config_doubleProp(key, property);
+        arrayList.add(c);
+        return property;
+    }
+
+    public static synchronized DoubleProperty addDoubleProp(String key, double init) {
         DoubleProperty property = new SimpleDoubleProperty(init);
         Config_doubleProp c = new Config_doubleProp(key, property);
         arrayList.add(c);
         return property;
     }
 
-    public static synchronized BooleanProperty addBoolPropC(String comment, ArrayList<Config> arrayList, String key, boolean init) {
-        addComment(arrayList, comment);
-        return addBoolProp(arrayList, key, init);
+    public static synchronized DoubleProperty addDoublePropC(String comment, String key, double init) {
+        addComment(comment);
+        return addDoubleProp(key, init);
     }
 
-    public static synchronized BooleanProperty addBoolProp(ArrayList<Config> arrayList, String key, boolean init) {
+    public static synchronized BooleanProperty addBoolProp(String key) {
+        BooleanProperty property = new SimpleBooleanProperty(false);
+        Config_boolProp c = new Config_boolProp(key, property);
+        arrayList.add(c);
+        return property;
+    }
+
+    public static synchronized BooleanProperty addBoolProp(String key, boolean init) {
         BooleanProperty property = new SimpleBooleanProperty(init);
         Config_boolProp c = new Config_boolProp(key, property);
         arrayList.add(c);
         return property;
     }
 
-    public static synchronized PDateProperty addPDateProp(ArrayList<Config> arrayList, String key, PDate pDate) {
+    public static synchronized BooleanProperty addBoolPropC(String comment, String key, boolean init) {
+        addComment(comment);
+        return addBoolProp(key, init);
+    }
+
+    public static synchronized PDateProperty addPDateProp(String key, PDate pDate) {
         PDateProperty property = new PDateProperty(pDate);
         ConfigExtra_pDateProp c = new ConfigExtra_pDateProp(key, key, property);
         arrayList.add(c);
         return property;
     }
 
-    public static synchronized PLDateTimeProperty addPLocalDateTimeProp(ArrayList<Config> arrayList, String key, LocalDateTime localDateTime) {
+    public static synchronized PLDateProperty addPLocalDateProp(String key, LocalDate localDate) {
+        PLDateProperty property = new PLDateProperty(localDate);
+        ConfigExtra_lDateProp c = new ConfigExtra_lDateProp(key, key, property);
+        arrayList.add(c);
+        return property;
+    }
+
+    public static synchronized PLDateTimeProperty addPLocalDateTimeProp(String key, LocalDateTime localDateTime) {
         PLDateTimeProperty property = new PLDateTimeProperty(localDateTime);
         ConfigExtra_lDateTimeProp c = new ConfigExtra_lDateTimeProp(key, key, property);
+        arrayList.add(c);
+        return property;
+    }
+
+    public static synchronized PLTimeProperty addPLocalTimeProp(String key, LocalTime localTime) {
+        PLTimeProperty property = new PLTimeProperty(localTime);
+        ConfigExtra_lTimeProp c = new ConfigExtra_lTimeProp(key, key, property);
         arrayList.add(c);
         return property;
     }
@@ -148,12 +192,12 @@ public class PDataProgConfig extends PDataSample<PDataProgConfig> {
     //========================================================================================================
     //Listen
     //========================================================================================================
-    public static synchronized ObservableList<String> addListPropC(String comment, ArrayList<Config> arrayList, String key) {
-        addComment(arrayList, comment);
-        return addListProp(arrayList, key);
+    public static synchronized ObservableList<String> addListPropC(String comment, String key) {
+        addComment(comment);
+        return addListProp(key);
     }
 
-    public static synchronized ObservableList<String> addListProp(ArrayList<Config> arrayList, String key) {
+    public static synchronized ObservableList<String> addListProp(String key) {
         ObservableList<String> list = FXCollections.observableArrayList();
         ConfigStringList c = new ConfigStringList(key, list);
         arrayList.add(c);
@@ -163,12 +207,12 @@ public class PDataProgConfig extends PDataSample<PDataProgConfig> {
     //========================================================================================================
     //ObjectProperty
     //========================================================================================================
-    public static synchronized ObjectProperty<String> addObjStrPropC(String comment, ArrayList<Config> arrayList, String key) {
-        addComment(arrayList, comment);
-        return addObjStrProp(arrayList, key);
+    public static synchronized ObjectProperty<String> addObjStrPropC(String comment, String key) {
+        addComment(comment);
+        return addObjStrProp(key);
     }
 
-    public static synchronized ObjectProperty<String> addObjStrProp(ArrayList<Config> arrayList, String key) {
+    public static synchronized ObjectProperty<String> addObjStrProp(String key) {
         StringProperty property = new SimpleStringProperty("");
         Config_stringProp c = new Config_stringProp(key, property);
         arrayList.add(c);
@@ -189,12 +233,12 @@ public class PDataProgConfig extends PDataSample<PDataProgConfig> {
         return objP;
     }
 
-    public static synchronized ObjectProperty<Integer> addObjIntPropC(String comment, ArrayList<Config> arrayList, String key) {
-        addComment(arrayList, comment);
-        return addObjIntProp(arrayList, key);
+    public static synchronized ObjectProperty<Integer> addObjIntPropC(String comment, String key) {
+        addComment(comment);
+        return addObjIntProp(key);
     }
 
-    public static synchronized ObjectProperty<Integer> addObjIntProp(ArrayList<Config> arrayList, String key) {
+    public static synchronized ObjectProperty<Integer> addObjIntProp(String key) {
         StringProperty property = new SimpleStringProperty("");
         Config_stringProp c = new Config_stringProp(key, property);
         arrayList.add(c);
@@ -238,16 +282,7 @@ public class PDataProgConfig extends PDataSample<PDataProgConfig> {
         return arrayList.toArray(new Config[]{});
     }
 
-    public void init(ArrayList<Config> arrayList, String TAG) {
-        this.arrayList = arrayList;
-        this.TAG = TAG;
-    }
-
     public void init(String TAG) {
         this.TAG = TAG;
-    }
-
-    public void init(ArrayList<Config> arrayList) {
-        this.arrayList = arrayList;
     }
 }

@@ -25,13 +25,19 @@ public class P2Factory {
     private P2Factory() {
     }
 
+    //___ = []
+    //__ = :
+    //_ = .
+
     public static final FastDateFormat F_FORMAT_dd_MM_yyyy = FastDateFormat.getInstance("dd.MM.yyyy");
     public static final FastDateFormat F_FORMAT_yyyy_MM_dd = FastDateFormat.getInstance("yyyy.MM.dd");
-    public static final FastDateFormat F_FORMAT_dd_MM_yyyy__HH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyy HH.mm.ss");
-    public static final FastDateFormat F_FORMAT_yyyy_MM_dd__HH_mm_ss = FastDateFormat.getInstance("yyyy.MM.dd HH.mm.ss");
+    public static final FastDateFormat F_FORMAT_HH__mm__ss = FastDateFormat.getInstance("HH:mm:ss");
+    public static final FastDateFormat F_FORMAT_dd_MM_yyyy___HH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyy HH.mm.ss");
+    public static final FastDateFormat F_FORMAT_yyyy_MM_dd___HH_mm_ss = FastDateFormat.getInstance("yyyy.MM.dd HH.mm.ss");
 
     public static final DateTimeFormatter DT_FORMATTER_dd_MM_yyyy = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     public static final DateTimeFormatter DT_FORMATTER_yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-    public static final DateTimeFormatter DT_FORMATTER_dd_MM_yyyy__HH_mm_ss = DateTimeFormatter.ofPattern("dd.MM.yyyy HH.mm.ss");
-    public static final DateTimeFormatter DT_FORMATTER_yyyy_MM_dd__HH_mm_ss = DateTimeFormatter.ofPattern("yyyy.MM.dd HH.mm.ss");
+    public static final DateTimeFormatter DT_FORMATTER_dd_MM_yyyy___HH_mm_ss = DateTimeFormatter.ofPattern("dd.MM.yyyy HH.mm.ss");
+    public static final DateTimeFormatter DT_FORMATTER_yyyy_MM_dd___HH_mm_ss = DateTimeFormatter.ofPattern("yyyy.MM.dd HH.mm.ss");
+    public static final DateTimeFormatter DT_FORMATTER_yyyy = DateTimeFormatter.ofPattern("yyyy");
 }

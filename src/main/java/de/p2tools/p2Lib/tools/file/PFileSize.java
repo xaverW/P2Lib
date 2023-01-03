@@ -42,12 +42,8 @@ public class PFileSize implements Comparable<PFileSize> {
         convertToStr();
     }
 
-    public PFileSize(long l, String s) {
-        this.sizeL = l;
-        this.sizeStr = s;
-    }
-
     public static String convertToStr(long sizeL) {
+
         if (sizeL <= 0) {
             return "";
         }
@@ -69,7 +65,7 @@ public class PFileSize implements Comparable<PFileSize> {
         }
     }
 
-    public static long convertFromStr(String size) {
+    public static long convertToLong(String size) {
         if (size.isEmpty()) {
             return 0;
         }
@@ -90,14 +86,21 @@ public class PFileSize implements Comparable<PFileSize> {
             if (size.endsWith(" GB")) {
                 size = size.replace(" GB", "");
                 return Double.valueOf(Double.valueOf(size) * GBYTE).longValue();
+            } else {
+                return Double.valueOf(size).longValue();
             }
         } catch (Exception ex) {
+
         }
         return 0;
     }
 
     private void convertToStr() {
         sizeStr = convertToStr(sizeL);
+    }
+
+    private void convertToLong() {
+        sizeL = convertToLong(sizeStr);
     }
 
 
@@ -119,6 +122,7 @@ public class PFileSize implements Comparable<PFileSize> {
 
     public void setSizeL(long sizeL) {
         this.sizeL = sizeL;
+        convertToStr();
     }
 
     public void addSizeL(long sizeL) {
@@ -132,6 +136,7 @@ public class PFileSize implements Comparable<PFileSize> {
 
     public void setSizeStr(String sizeStr) {
         this.sizeStr = sizeStr;
+        convertToLong();
     }
 
     @Override

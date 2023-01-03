@@ -50,7 +50,7 @@ public class ConfigExtra_lDateProp extends ConfigExtra {
     @Override
     public void setActValue(String act) {
         try {
-            actValue.setValue(PLDateFactory.getLocalDate(act));
+            actValue.setValue(PLDateFactory.fromString(act));
         } catch (Exception ex) {
             actValue.setValue(LocalDate.now());
         }

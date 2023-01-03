@@ -39,7 +39,7 @@ public class PLDateProperty extends SimpleObjectProperty<LocalDate> {
     }
 
     public void setPLocalDate(String strDate) {
-        setValue(PLDateFactory.getLocalDate(strDate));
+        setValue(PLDateFactory.fromString(strDate));
     }
 
     public void clearPLocalDate() {

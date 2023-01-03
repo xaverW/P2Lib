@@ -93,7 +93,7 @@ public class PLDatePropertyPicker extends DatePicker {
         if (stringDate == null || stringDate.isEmpty()) {
             setValue(null);
         } else {
-            setValue(PLDateFactory.getLocalDate(stringDate));
+            setValue(PLDateFactory.fromString(stringDate));
         }
         setDate();
     }

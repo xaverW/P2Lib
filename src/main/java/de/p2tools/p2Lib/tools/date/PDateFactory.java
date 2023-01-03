@@ -174,7 +174,7 @@ public class PDateFactory {
         if (pDate == null) {
             return "";
         } else {
-            return pDate.getDateTime(P2Factory.F_FORMAT_dd_MM_yyyy__HH_mm_ss);
+            return pDate.getDateTime(P2Factory.F_FORMAT_dd_MM_yyyy___HH_mm_ss);
         }
     }
 
@@ -182,7 +182,7 @@ public class PDateFactory {
         if (pDate == null) {
             return "";
         } else {
-            return pDate.getDateTime(P2Factory.F_FORMAT_yyyy_MM_dd__HH_mm_ss);
+            return pDate.getDateTime(P2Factory.F_FORMAT_yyyy_MM_dd___HH_mm_ss);
         }
     }
 
