@@ -25,13 +25,17 @@ public abstract class Config_double extends Config {
         super(key);
         this.actValue = actValue;
     }
-    
+
     public Config_double(String key, double actValue, boolean intern) {
         super(key, intern);
         this.actValue = actValue;
     }
 
-    public abstract void setUsedValue(Double value);
+    @Override
+    public void setActValue(Object act) {
+        actValue = (Double) act;
+        setUsedValue(actValue);
+    }
 
     @Override
     public void setActValue(String act) {
@@ -52,4 +56,6 @@ public abstract class Config_double extends Config {
     public String getActValueString() {
         return String.valueOf(actValue);
     }
+
+    public abstract void setUsedValue(Double value);
 }

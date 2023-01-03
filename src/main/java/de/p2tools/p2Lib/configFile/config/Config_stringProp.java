@@ -17,7 +17,6 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
-import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.beans.property.StringProperty;
 
 public class Config_stringProp extends Config {
@@ -42,11 +41,7 @@ public class Config_stringProp extends Config {
 
     @Override
     public void setActValue(Object act) {
-        try {
-            actValue.setValue(act.toString());
-        } catch (Exception ex) {
-            PLog.errorLog(101020254, ex);
-        }
+        actValue.setValue((String) act);
     }
 
     @Override

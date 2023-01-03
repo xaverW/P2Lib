@@ -34,11 +34,15 @@ public abstract class Config_string extends Config {
     @Override
     public void setActValue(Object act) {
         actValue = (String) act;
+        setUsedValue(actValue);
     }
 
     @Override
-    public abstract void setActValue(String act);
-
+    public void setActValue(String act) {
+        actValue = act;
+        setUsedValue(actValue);
+    }
+    
     @Override
     public String getActValue() {
         return actValue;
@@ -48,4 +52,6 @@ public abstract class Config_string extends Config {
     public String getActValueString() {
         return actValue;
     }
+
+    public abstract void setUsedValue(String act);
 }

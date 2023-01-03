@@ -21,7 +21,7 @@ import de.p2tools.p2Lib.tools.date.PLDateTimeFactory;
 
 import java.time.LocalDateTime;
 
-public class Config_lDateTime extends Config {
+public abstract class Config_lDateTime extends Config {
 
     private LocalDateTime actValue;
 
@@ -43,6 +43,7 @@ public class Config_lDateTime extends Config {
     @Override
     public void setActValue(Object act) {
         actValue = (LocalDateTime) act;
+        setUsedValue(actValue);
     }
 
     @Override
@@ -59,4 +60,6 @@ public class Config_lDateTime extends Config {
     public String getActValueString() {
         return actValue.toString();
     }
+
+    public abstract void setUsedValue(LocalDateTime value);
 }

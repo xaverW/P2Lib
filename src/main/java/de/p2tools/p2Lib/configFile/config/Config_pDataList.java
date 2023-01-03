@@ -27,7 +27,12 @@ import de.p2tools.p2Lib.configFile.pData.PDataList;
  */
 public class Config_pDataList extends Config {
 
-    private PDataList<? extends PData> actValue;
+    private PDataList actValue;
+
+    public Config_pDataList(String key, PDataList<? extends PData> pDataList) {
+        super(key);
+        this.actValue = pDataList;
+    }
 
     public Config_pDataList(PDataList<? extends PData> pDataList) {
         super(pDataList.getTag());
@@ -35,7 +40,16 @@ public class Config_pDataList extends Config {
     }
 
     @Override
-    public PDataList<? extends PData> getActValue() {
+    public void setActValue(Object act) {
+        actValue.addAll((PDataList) act);
+    }
+
+    public void setActValue(PDataList act) {
+        actValue.addAll(act);
+    }
+
+    @Override
+    public PDataList getActValue() {
         return actValue;
     }
 

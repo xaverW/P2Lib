@@ -40,11 +40,11 @@ public class ConfigExtra_lDateProp extends ConfigExtra {
 
     @Override
     public void setActValue(Object act) {
-        actValue = ((PLDateProperty) act);
+        actValue.setValue(((LocalDate) act));
     }
 
-    public void setActValue(PLDateProperty act) {
-        actValue = act;
+    public void setActValue(LocalDate act) {
+        actValue.setValue(act);
     }
 
     @Override

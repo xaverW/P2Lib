@@ -26,15 +26,16 @@ public abstract class Config_long extends Config {
         this.actValue = actValue;
     }
 
-    public abstract void setUsedValue(Long value);
 
     @Override
     public void setActValue(Object act) {
         actValue = (Long) act;
+        setUsedValue(actValue);
     }
 
     public void setActValue(long act) {
         actValue = act;
+        setUsedValue(actValue);
     }
 
     @Override
@@ -56,4 +57,6 @@ public abstract class Config_long extends Config {
     public String getActValueString() {
         return String.valueOf(actValue);
     }
+
+    public abstract void setUsedValue(Long value);
 }

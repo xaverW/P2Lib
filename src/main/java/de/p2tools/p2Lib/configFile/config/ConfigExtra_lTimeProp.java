@@ -17,6 +17,7 @@
 
 package de.p2tools.p2Lib.configFile.config;
 
+import de.p2tools.p2Lib.tools.date.PLTimeFactory;
 import de.p2tools.p2Lib.tools.date.PLTimeProperty;
 
 import java.time.LocalTime;
@@ -44,14 +45,14 @@ public class ConfigExtra_lTimeProp extends ConfigExtra {
         actValue.setValue(act);
     }
 
-//    @Override
-//    public void setActValue(String act) {
-//        try {
-//            actValue.setValue(  new PLocalDate(act));
-//        } catch (Exception ex) {
-//            actValue.setValue(new PLocalDate());
-//        }
-//    }
+    @Override
+    public void setActValue(String act) {
+        try {
+            actValue.setValue(PLTimeFactory.getPLocalTime(act));
+        } catch (Exception ex) {
+            actValue.setValue(LocalTime.now());
+        }
+    }
 
     @Override
     public PLTimeProperty getActValue() {

@@ -18,8 +18,11 @@
 package de.p2tools.p2Lib.configFile.config;
 
 import de.p2tools.p2Lib.guiTools.PLDatePicker;
+import de.p2tools.p2Lib.tools.date.PLDateTimeFactory;
 import de.p2tools.p2Lib.tools.date.PLDateTimeProperty;
 import javafx.scene.control.Control;
+
+import java.time.LocalDateTime;
 
 public class ConfigExtra_lDateTimeProp extends ConfigExtra {
 
@@ -37,21 +40,21 @@ public class ConfigExtra_lDateTimeProp extends ConfigExtra {
 
     @Override
     public void setActValue(Object act) {
-        actValue = (PLDateTimeProperty) act;
+        actValue.setValue((LocalDateTime) act);
     }
 
-    public void setActValue(PLDateTimeProperty act) {
-        actValue = act;
+    public void setActValue(LocalDateTime act) {
+        actValue.setValue(act);
     }
 
-//    @Override
-//    public void setActValue(String act) {
-//        try {
-//            actValue.setValue(new PLocalDate(act));
-//        } catch (Exception ex) {
-//            actValue.setValue(new PLocalDate());
-//        }
-//    }
+    @Override
+    public void setActValue(String act) {
+        try {
+            actValue.setValue(PLDateTimeFactory.setDate(act));
+        } catch (Exception ex) {
+            actValue.setValue(LocalDateTime.now());
+        }
+    }
 
     @Override
     public PLDateTimeProperty getActValue() {

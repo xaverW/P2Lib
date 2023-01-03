@@ -31,8 +31,15 @@ public abstract class Config_bool extends Config {
         this.actValue = actValue;
     }
 
+    @Override
+    public void setActValue(Object act) {
+        actValue = (Boolean) act;
+        setUsedValue(actValue);
+    }
+
     public void setActValue(boolean act) {
         actValue = act;
+        setUsedValue(actValue);
     }
 
     @Override

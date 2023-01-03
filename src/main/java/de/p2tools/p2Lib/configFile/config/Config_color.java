@@ -20,37 +20,45 @@ package de.p2tools.p2Lib.configFile.config;
 import de.p2tools.p2Lib.tools.PColorFactory;
 import javafx.scene.paint.Color;
 
-public class Config_color extends Config {
+public abstract class Config_color extends Config {
 
-    private Color color;
+    private Color actValue;
 
     public Config_color(String key, String actValue) {
         super(key);
-        color = Color.web(actValue);
+        this.actValue = Color.web(actValue);
     }
 
-    public Config_color(String key, Color color) {
+    public Config_color(String key, Color actValue) {
         super(key);
-        this.color = color;
+        this.actValue = actValue;
     }
 
     public Config_color(String key, String actValue, boolean intern) {
         super(key, intern);
-        color = Color.web(actValue);
+        this.actValue = Color.web(actValue);
+    }
+
+    @Override
+    public void setActValue(Object act) {
+        actValue = (Color) act;
+        setUsedValue(actValue);
     }
 
     @Override
     public void setActValue(String act) {
-        color = Color.web(act);
+        actValue = Color.web(act);
     }
 
     @Override
     public Color getActValue() {
-        return color;
+        return actValue;
     }
 
     @Override
     public String getActValueString() {
-        return PColorFactory.getColorToWeb(color);
+        return PColorFactory.getColorToWeb(actValue);
     }
+
+    public abstract void setUsedValue(Color value);
 }

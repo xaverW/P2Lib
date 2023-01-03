@@ -23,17 +23,30 @@ import de.p2tools.p2Lib.configFile.pData.PData;
  * its a pseudo CONFIG, it contains a CONFIGDATA, also
  * a array of config
  */
-public class Config_pData extends Config {
+public abstract class Config_pData extends Config {
 
-    private final PData actValue;
+    private PData actValue;
 
-    public Config_pData(PData pData) {
-        super(pData.getTag());
+    public Config_pData(String key, PData pData) {
+        super(key);
         this.actValue = pData;
+    }
+
+    @Override
+    public void setActValue(Object act) {
+        actValue = (PData) act;
+        setUsedValue(actValue);
+    }
+
+    public void setActValue(PData act) {
+        actValue = act;
+        setUsedValue(actValue);
     }
 
     @Override
     public PData getActValue() {
         return actValue;
     }
+
+    public abstract void setUsedValue(PData value);
 }

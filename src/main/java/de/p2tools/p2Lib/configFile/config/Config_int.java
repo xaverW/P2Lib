@@ -31,8 +31,15 @@ public abstract class Config_int extends Config {
         this.actValue = actValue;
     }
 
+    @Override
+    public void setActValue(Object act) {
+        actValue = (Integer) act;
+        setUsedValue(actValue);
+    }
+
     public void setActValue(int act) {
         actValue = act;
+        setUsedValue(actValue);
     }
 
     @Override
