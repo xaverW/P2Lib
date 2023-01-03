@@ -55,14 +55,14 @@ public class ConfigExtra_lTimeProp extends ConfigExtra {
     }
 
     @Override
-    public PLTimeProperty getActValue() {
-        return actValue;
+    public LocalTime getActValue() {
+        return actValue.getValue();
     }
 
     @Override
     public String getActValueString() {
         //        return getActValue().toString();
-        final String ret = getActValue() == null ? "" : getActValue().toString();
+        final String ret = actValue.getValue() == null ? "" : PLTimeFactory.toString(actValue.getValue());
         return ret;
     }
 

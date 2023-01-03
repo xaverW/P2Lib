@@ -57,14 +57,13 @@ public class ConfigExtra_lDateTimeProp extends ConfigExtra {
     }
 
     @Override
-    public PLDateTimeProperty getActValue() {
-        return actValue;
+    public LocalDateTime getActValue() {
+        return actValue.get();
     }
 
     @Override
     public String getActValueString() {
-        //        return getActValue().toString();
-        final String ret = getActValue() == null ? "" : getActValue().toString();
+        final String ret = actValue.get() == null ? "" : actValue.get().format(PLDateTimeFactory.FORMAT_dd_MM_yyyy_HH_mm_ss);
         return ret;
     }
 

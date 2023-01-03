@@ -17,6 +17,7 @@
 
 package de.p2tools.p2Lib.tools.date;
 
+import de.p2tools.p2Lib.P2Factory;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.time.LocalDate;
@@ -168,4 +169,22 @@ public class PDateFactory {
         final int ret = (int) (1L * (date.getTime() - new Date().getTime()) / 1000L);
         return Math.abs(ret);
     }
+
+    public static String toString(PDate pDate) {
+        if (pDate == null) {
+            return "";
+        } else {
+            return pDate.getDateTime(P2Factory.F_FORMAT_dd_MM_yyyy__HH_mm_ss);
+        }
+    }
+
+    public static String toStringR(PDate pDate) {
+        if (pDate == null) {
+            return "";
+        } else {
+            return pDate.getDateTime(P2Factory.F_FORMAT_yyyy_MM_dd__HH_mm_ss);
+        }
+    }
+
+
 }

@@ -90,6 +90,6 @@ public class PTimePicker extends ComboBox<LocalTime> {
     }
 
     public String getTime() {
-        return PLTimeFactory.getLocalTimeStr(getValue());
+        return PLTimeFactory.toString(getValue());
     }
 }

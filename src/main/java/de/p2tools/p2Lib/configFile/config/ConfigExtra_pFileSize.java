@@ -19,7 +19,7 @@ package de.p2tools.p2Lib.configFile.config;
 
 import de.p2tools.p2Lib.tools.file.PFileSize;
 
-public class ConfigExtra_pFileSize extends ConfigExtra {
+public abstract class ConfigExtra_pFileSize extends ConfigExtra {
 
     private PFileSize actValue;
 
@@ -36,10 +36,12 @@ public class ConfigExtra_pFileSize extends ConfigExtra {
     @Override
     public void setActValue(Object act) {
         actValue = (PFileSize) act;
+        setUsedValue(actValue);
     }
 
     public void setActValue(PFileSize act) {
         actValue = act;
+        setUsedValue(actValue);
     }
 
     @Override
@@ -49,6 +51,7 @@ public class ConfigExtra_pFileSize extends ConfigExtra {
         } catch (Exception ex) {
             actValue.setSizeL(0);
         }
+        setUsedValue(actValue);
     }
 
     @Override
@@ -61,4 +64,6 @@ public class ConfigExtra_pFileSize extends ConfigExtra {
         final String ret = getActValue() == null ? "" : getActValue().toString();
         return ret;
     }
+
+    public abstract void setUsedValue(PFileSize act);
 }

@@ -39,7 +39,7 @@ public class PLTimeFactory {
         return null;
     }
 
-    public static String getLocalTimeStr(LocalTime localTime) {
+    public static String toString(LocalTime localTime) {
         if (localTime == null) {
             return "";
         } else {

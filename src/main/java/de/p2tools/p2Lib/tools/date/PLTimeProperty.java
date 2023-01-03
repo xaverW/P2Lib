@@ -59,6 +59,6 @@ public class PLTimeProperty extends SimpleObjectProperty<LocalTime> {
     }
 
     public String toStringR() {
-        return PLTimeFactory.getLocalTimeStr(this.getValue());
+        return PLTimeFactory.toString(this.getValue());
     }
 }

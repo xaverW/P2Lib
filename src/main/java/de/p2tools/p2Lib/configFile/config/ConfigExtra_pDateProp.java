@@ -18,6 +18,7 @@
 package de.p2tools.p2Lib.configFile.config;
 
 import de.p2tools.p2Lib.tools.date.PDate;
+import de.p2tools.p2Lib.tools.date.PDateFactory;
 import de.p2tools.p2Lib.tools.date.PDateProperty;
 
 public class ConfigExtra_pDateProp extends ConfigExtra {
@@ -59,8 +60,7 @@ public class ConfigExtra_pDateProp extends ConfigExtra {
 
     @Override
     public String getActValueString() {
-        final String ret = getActValue() == null ? "" : getActValue().toString();
-        return ret;
+        return getActValue() == null ? "" : PDateFactory.toString(getActValue());
     }
 
     @Override

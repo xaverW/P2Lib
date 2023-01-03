@@ -23,44 +23,47 @@ import javafx.scene.control.Control;
 
 import java.time.LocalTime;
 
-public class ConfigExtra_lTime extends ConfigExtra {
+public abstract class ConfigExtra_lTime extends ConfigExtra {
 
-    private LocalTime localTime;
+    private LocalTime actValue;
 
     public ConfigExtra_lTime(String key, String actValue) {
         super(key);
-        localTime = LocalTime.now();
-        localTime = PLTimeFactory.getPLocalTime(actValue);
+        this.actValue = LocalTime.now();
+        this.actValue = PLTimeFactory.getPLocalTime(actValue);
     }
 
     public ConfigExtra_lTime(String key, String name, String actValue) {
         super(key, name);
-        localTime = LocalTime.now();
-        localTime = PLTimeFactory.getPLocalTime(actValue);
+        this.actValue = LocalTime.now();
+        this.actValue = PLTimeFactory.getPLocalTime(actValue);
     }
 
     public ConfigExtra_lTime(String key, String name, LocalTime localTime) {
         super(key, name);
-        this.localTime = localTime;
+        this.actValue = localTime;
+    }
+
+    @Override
+    public void setActValue(Object act) {
+        this.actValue = (LocalTime) act;
+        setUsedValue(actValue);
     }
 
     @Override
     public void setActValue(String act) {
-        localTime = PLTimeFactory.getPLocalTime(act);
+        this.actValue = PLTimeFactory.getPLocalTime(act);
+        setUsedValue(actValue);
     }
 
     @Override
-    public String getActValue() {
-        return localTime.toString();
+    public LocalTime getActValue() {
+        return this.actValue;
     }
 
     @Override
     public String getActValueString() {
-        return localTime.toString();
-    }
-
-    public LocalTime getPDate() {
-        return localTime;
+        return PLTimeFactory.toString(actValue);
     }
 
     @Override
@@ -68,4 +71,6 @@ public class ConfigExtra_lTime extends ConfigExtra {
         PTimePicker control = new PTimePicker();
         return control;
     }
+
+    public abstract void setUsedValue(LocalTime act);
 }

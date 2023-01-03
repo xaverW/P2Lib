@@ -23,7 +23,7 @@ import javafx.scene.control.Control;
 
 import java.time.LocalDateTime;
 
-public class ConfigExtra_lDateTime extends ConfigExtra {
+public abstract class ConfigExtra_lDateTime extends ConfigExtra {
 
     private LocalDateTime actValue;
 
@@ -45,10 +45,12 @@ public class ConfigExtra_lDateTime extends ConfigExtra {
     @Override
     public void setActValue(Object act) {
         this.actValue = (LocalDateTime) act;
+        setUsedValue(actValue);
     }
 
     public void setActValue(LocalDateTime act) {
         this.actValue = act;
+        setUsedValue(actValue);
     }
 
     @Override
@@ -66,4 +68,6 @@ public class ConfigExtra_lDateTime extends ConfigExtra {
         PLDatePicker control = new PLDatePicker(actValue.toLocalDate());
         return control;
     }
+
+    public abstract void setUsedValue(LocalDateTime act);
 }

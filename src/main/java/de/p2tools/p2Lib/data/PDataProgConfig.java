@@ -138,12 +138,6 @@ public class PDataProgConfig extends PDataSample<PDataProgConfig> {
         return property;
     }
 
-    public static synchronized LocalDateTime addPLocalDateTime(ArrayList<Config> arrayList, String key, LocalDateTime localDateTime) {
-        ConfigExtra_lDateTime c = new ConfigExtra_lDateTime(key, key, localDateTime);
-        arrayList.add(c);
-        return localDateTime;
-    }
-
     public static synchronized PLDateTimeProperty addPLocalDateTimeProp(ArrayList<Config> arrayList, String key, LocalDateTime localDateTime) {
         PLDateTimeProperty property = new PLDateTimeProperty(localDateTime);
         ConfigExtra_lDateTimeProp c = new ConfigExtra_lDateTimeProp(key, key, property);

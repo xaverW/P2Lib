@@ -20,7 +20,7 @@ package de.p2tools.p2Lib.configFile.config;
 
 import de.p2tools.p2Lib.mtDownload.DownloadSize;
 
-public class ConfigExtra_pDownloadSize extends ConfigExtra {
+public abstract class ConfigExtra_pDownloadSize extends ConfigExtra {
 
     private DownloadSize actValue;
 
@@ -35,17 +35,14 @@ public class ConfigExtra_pDownloadSize extends ConfigExtra {
     }
 
     @Override
-    public DownloadSize getActValue() {
-        return actValue;
-    }
-
-    @Override
     public void setActValue(Object act) {
         actValue = (DownloadSize) act;
+        setUsedValue(actValue);
     }
 
     public void setActValue(DownloadSize act) {
         actValue = act;
+        setUsedValue(actValue);
     }
 
     @Override
@@ -55,6 +52,12 @@ public class ConfigExtra_pDownloadSize extends ConfigExtra {
         } catch (Exception ex) {
             actValue.setFileSize(0);
         }
+        setUsedValue(actValue);
+    }
+
+    @Override
+    public DownloadSize getActValue() {
+        return actValue;
     }
 
     @Override
@@ -62,4 +65,6 @@ public class ConfigExtra_pDownloadSize extends ConfigExtra {
         final String ret = getActValue() == null ? "" : getActValue().toString();
         return ret;
     }
+
+    public abstract void setUsedValue(DownloadSize act);
 }

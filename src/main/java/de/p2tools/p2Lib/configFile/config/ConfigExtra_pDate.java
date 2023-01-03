@@ -19,7 +19,7 @@ package de.p2tools.p2Lib.configFile.config;
 
 import de.p2tools.p2Lib.tools.date.PDate;
 
-public class ConfigExtra_pDate extends ConfigExtra {
+public abstract class ConfigExtra_pDate extends ConfigExtra {
 
     private PDate actValue;
 
@@ -41,10 +41,12 @@ public class ConfigExtra_pDate extends ConfigExtra {
     @Override
     public void setActValue(Object act) {
         actValue = (PDate) act;
+        setUsedValue(actValue);
     }
 
     public void setActValue(PDate act) {
         actValue = act;
+        setUsedValue(actValue);
     }
 
     @Override
@@ -54,6 +56,7 @@ public class ConfigExtra_pDate extends ConfigExtra {
         } catch (Exception ex) {
             actValue = new PDate();
         }
+        setUsedValue(actValue);
     }
 
     @Override
@@ -61,4 +64,6 @@ public class ConfigExtra_pDate extends ConfigExtra {
         final String ret = getActValue() == null ? "" : getActValue().toString();
         return ret;
     }
+
+    public abstract void setUsedValue(PDate act);
 }
