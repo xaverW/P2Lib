@@ -16,7 +16,6 @@
 
 package de.p2tools.p2Lib.tools.date;
 
-import de.p2tools.p2Lib.P2Factory;
 import de.p2tools.p2Lib.tools.log.PLog;
 
 import java.time.LocalDate;
@@ -26,49 +25,7 @@ import java.util.List;
 
 public class PLDateFactory {
 
-//    public static final DateTimeFormatter FORMAT_dd_MM_yyyy = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-//    public static final DateTimeFormatter FORMAT_yyyy = DateTimeFormatter.ofPattern("yyyy");
-//    public static final DateTimeFormatter FORMAT_yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-//    public static final FastDateFormat F_FORMAT_dd_MM_yyyy = FastDateFormat.getInstance("dd.MM.yyyy");
-//    public static final FastDateFormat F_FORMAT_yyyy = FastDateFormat.getInstance("yyyy");
-//    public static final FastDateFormat F_FORMAT_yyyy_MM_dd = FastDateFormat.getInstance("yyyy.MM.dd");
-//
-//    public static final DateTimeFormatter DT_FORMATTER_d_M_yyyy = DateTimeFormatter.ofPattern("d.M.yyyy");
-//    public static final DateTimeFormatter DT_FORMATTER_d_MM_yyyy = DateTimeFormatter.ofPattern("d.MM.yyyy");
-//    public static final DateTimeFormatter DT_FORMATTER_dd_M_yyyy = DateTimeFormatter.ofPattern("dd.M.yyyy");
-//    public static final DateTimeFormatter DT_FORMATTER_dd_MM_yyyy = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-//    public static final DateTimeFormatter DT_FORMATTER_yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-//    public static final DateTimeFormatter DT_FORMATTER_EEE_MMM_dd_ = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
-
     private PLDateFactory() {
-    }
-
-    //===================
-//    public void setPLocalDate(LocalDate date) {
-//        localDate = date;
-//    }
-
-//    public void setPLocalDate(PLocalDate date) {
-//        localDate = date.getLocalDate();
-//    }
-
-
-    //
-//    public void setPLocalDate(LocalDate localDate, PDate date) {
-//        localDate = getLocalDate(date.toString());
-//    }
-
-    public static void setPLocalDateNow(LocalDate localDate) {
-        localDate = LocalDate.now();
-    }
-
-    //====================
-    public static boolean isEmpty(LocalDate localDate) {
-        return localDate == null;
-    }
-
-    public static void clearPDate(LocalDate localDate) {
-        localDate = null;
     }
 
     public static String getDateTime(LocalDate localDate, DateTimeFormatter format) {
@@ -126,9 +83,9 @@ public class PLDateFactory {
 
     public static String getDate_yMd(String d) {
         try {
-            LocalDate localDate = LocalDate.parse(d, P2Factory.DT_FORMATTER_yyyy_MM_dd);
+            LocalDate localDate = LocalDate.parse(d, DateFactory.DT_FORMATTER_yyyy_MM_dd);
             if (localDate != null) {
-                return localDate.format(P2Factory.DT_FORMATTER_dd_MM_yyyy);
+                return localDate.format(DateFactory.DT_FORMATTER_dd_MM_yyyy);
             }
         } catch (final Exception ex) {
         }
@@ -151,7 +108,7 @@ public class PLDateFactory {
     public static PDate getPDate(LocalDate localDate) {
         try {
             PDate pd = new PDate();
-            pd.setPDate(getDateTime(localDate, P2Factory.DT_FORMATTER_dd_MM_yyyy));
+            pd.setPDate(getDateTime(localDate, DateFactory.DT_FORMATTER_dd_MM_yyyy));
             return pd;
         } catch (final Exception ex) {
         }
@@ -163,17 +120,12 @@ public class PLDateFactory {
         if (localDate == null) {
             return "";
         } else {
-            return localDate.format(P2Factory.DT_FORMATTER_yyyy);
+            return localDate.format(DateFactory.DT_FORMATTER_yyyy);
         }
     }
 
     public static int getActYearInt() {
         return LocalDate.now().getYear();
-    }
-
-    public static void setPLocalDateYesterday(LocalDate localDate) {
-        setPLocalDateNow(localDate);
-        localDate = localDate.minusDays(1);
     }
 
     public static void setPLocalDateBeforeDay(LocalDate localDate) {
@@ -189,26 +141,46 @@ public class PLDateFactory {
     }
 
     public static LocalDate fromString(String strDate) {
-        return LocalDate.parse(strDate, P2Factory.DT_FORMATTER_dd_MM_yyyy);
+        try {
+            if (strDate.isEmpty()) {
+                return LocalDate.MIN;
+            } else {
+                return LocalDate.parse(strDate, DateFactory.DT_FORMATTER_dd_MM_yyyy);
+            }
+        } catch (Exception ex) {
+            return LocalDate.MIN;
+        }
     }
 
     public static LocalDate fromStringR(String strDate) {
-        return LocalDate.parse(strDate, P2Factory.DT_FORMATTER_yyyy_MM_dd);
+        try {
+            if (strDate.isEmpty()) {
+                return LocalDate.MIN;
+            } else {
+                return LocalDate.parse(strDate, DateFactory.DT_FORMATTER_yyyy_MM_dd);
+            }
+        } catch (Exception ex) {
+            return LocalDate.MIN;
+        }
     }
 
     public static String toString(LocalDate localDate) {
         if (localDate == null) {
             return "";
+        } else if (localDate.isEqual(LocalDate.MIN)) {
+            return "";
         } else {
-            return localDate.format(P2Factory.DT_FORMATTER_dd_MM_yyyy);
+            return localDate.format(DateFactory.DT_FORMATTER_dd_MM_yyyy);
         }
     }
 
     public static String toStringR(LocalDate localDate) {
         if (localDate == null) {
             return "";
+        } else if (localDate.isEqual(LocalDate.MIN)) {
+            return "";
         } else {
-            return localDate.format(P2Factory.DT_FORMATTER_yyyy_MM_dd);
+            return localDate.format(DateFactory.DT_FORMATTER_yyyy_MM_dd);
         }
     }
 }

@@ -24,14 +24,22 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class PLDatePicker extends DatePicker {
-    private final String pattern = "dd.MM.yyyy";
-    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     public PLDatePicker() {
     }
 
     public PLDatePicker(LocalDate localDate) {
         super.setValue(localDate);
+    }
+
+    public String getDate() {
+        String ret = "";
+        LocalDate date = getValue();
+        if (date != null) {
+            ret = dateFormatter.format(date);
+        }
+        return ret;
     }
 
     public void setDate(LocalDate pLocalDate) {
@@ -44,24 +52,5 @@ public class PLDatePicker extends DatePicker {
         } else {
             this.setValue(PDateFactory.getLocalDate(stringDate));
         }
-    }
-
-    public LocalDate getpLocalDate() {
-        return this.getValue();
-    }
-
-    public void clearDate() {
-        this.setValue(null);
-    }
-
-    public String getDate() {
-        String ret = "";
-
-        LocalDate date = getValue();
-        if (date != null) {
-            ret = dateFormatter.format(date);
-        }
-
-        return ret;
     }
 }

@@ -43,6 +43,11 @@ public abstract class Config_lDate extends Config {
     }
 
     @Override
+    public LocalDate getActValue() {
+        return actValue;
+    }
+
+    @Override
     public void setActValue(Object act) {
         actValue = ((LocalDate) act);
         setUsedValue(actValue);
@@ -54,13 +59,8 @@ public abstract class Config_lDate extends Config {
     }
 
     @Override
-    public LocalDate getActValue() {
-        return actValue;
-    }
-
-    @Override
     public String getActValueString() {
-        return actValue.toString();
+        return PLDateFactory.toString(actValue);
     }
 
     @Override

@@ -27,11 +27,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class PLDatePropertyPicker extends DatePicker {
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     private PLDateProperty boundPLocalDateProperty = null;
     private ChangeListener<LocalDate> changeListener = null;
-
-    private static final String pattern = "dd.MM.yyyy";
-    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
     public PLDatePropertyPicker() {
         genChangeListener();
@@ -71,10 +69,7 @@ public class PLDatePropertyPicker extends DatePicker {
     private void setDate() {
         if (this.getValue() == null) {
             if (boundPLocalDateProperty != null) {
-                final LocalDate localDate = boundPLocalDateProperty.getValue();
-                if (localDate != null) {
-                    PLDateFactory.clearPDate(localDate);
-                }
+                boundPLocalDateProperty.setPLocalDate(LocalDate.MIN);
             }
 
         } else {
@@ -82,20 +77,6 @@ public class PLDatePropertyPicker extends DatePicker {
                 boundPLocalDateProperty.setPLocalDate(this.getValue());
             }
         }
-    }
-
-    public void setDate(LocalDate localDate) {
-        setValue(localDate);
-        setDate();
-    }
-
-    public void setDate(String stringDate) {
-        if (stringDate == null || stringDate.isEmpty()) {
-            setValue(null);
-        } else {
-            setValue(PLDateFactory.fromString(stringDate));
-        }
-        setDate();
     }
 
     public void bindPDateProperty(PLDateProperty pDateProperty) {
@@ -133,5 +114,19 @@ public class PLDatePropertyPicker extends DatePicker {
         }
 
         return ret;
+    }
+
+    public void setDate(LocalDate localDate) {
+        setValue(localDate);
+        setDate();
+    }
+
+    public void setDate(String stringDate) {
+        if (stringDate == null || stringDate.isEmpty()) {
+            setValue(null);
+        } else {
+            setValue(PLDateFactory.fromString(stringDate));
+        }
+        setDate();
     }
 }

@@ -26,7 +26,7 @@ import java.time.LocalDate;
 
 public class Config_lDateProp extends Config {
 
-    private PLDateProperty actValue;
+    private final PLDateProperty actValue;
 
     public Config_lDateProp(String key, PLDateProperty actValue) {
         super(key);
@@ -36,6 +36,11 @@ public class Config_lDateProp extends Config {
     public Config_lDateProp(String key, String name, PLDateProperty actValue) {
         super(key, name);
         this.actValue = actValue;
+    }
+
+    @Override
+    public PLDateProperty getActValue() {
+        return actValue;
     }
 
     @Override
@@ -57,14 +62,8 @@ public class Config_lDateProp extends Config {
     }
 
     @Override
-    public PLDateProperty getActValue() {
-        return actValue;
-    }
-
-    @Override
     public String getActValueString() {
-        final String ret = getActValue() == null ? "" : PLDateFactory.toString(actValue.getValue());
-        return ret;
+        return PLDateFactory.toString(actValue.getValue());
     }
 
     @Override
