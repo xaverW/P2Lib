@@ -17,34 +17,22 @@
 
 package de.p2tools.p2Lib.tools.date;
 
-import org.apache.commons.lang3.time.FastDateFormat;
+import de.p2tools.p2Lib.tools.log.PLog;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 
 public class PDateFactory {
 
-    public static final FastDateFormat F_FORMAT_dd_MM_yyyy = FastDateFormat.getInstance("dd.MM.yyyy");
-    public static final FastDateFormat F_FORMAT_yyyy = FastDateFormat.getInstance("yyyy");
-    public static final FastDateFormat F_FORMAT_yyyy_MM_dd = FastDateFormat.getInstance("yyyy.MM.dd");
-
-    public static final DateTimeFormatter DT_FORMATTER_d_M_yyyy = DateTimeFormatter.ofPattern("d.M.yyyy");
-    public static final DateTimeFormatter DT_FORMATTER_d_MM_yyyy = DateTimeFormatter.ofPattern("d.MM.yyyy");
-    public static final DateTimeFormatter DT_FORMATTER_dd_M_yyyy = DateTimeFormatter.ofPattern("dd.M.yyyy");
-    public static final DateTimeFormatter DT_FORMATTER_dd_MM_yyyy = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    public static final DateTimeFormatter DT_FORMATTER_yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-    public static final DateTimeFormatter DT_FORMATTER_EEE_MMM_dd_ = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
-
-
     public static String getTodayStr() {
-        return new PDate().getDateTime(F_FORMAT_dd_MM_yyyy);
+        return new PDate().getDateTime(DateFactory.F_FORMAT_dd_MM_yyyy);
     }
 
     public static String getTodayInverseStr() {
-        return new PDate().getDateTime(F_FORMAT_yyyy_MM_dd);
+        return new PDate().getDateTime(DateFactory.F_FORMAT_yyyy_MM_dd);
     }
 
     public static PDate getToday() {
@@ -67,55 +55,55 @@ public class PDateFactory {
         return LocalDate.now().getYear();
     }
 
-//    public static int getYearIntFromString(String year) {
-//        int ret;
-//        try {
-//            final long y = F_FORMAT_yyyy.parse(year).getTime();
-//            ret = Integer.parseInt(year);
-//        } catch (Exception ex) {
-//            ret = 0;
-//            PLog.errorLog(621212154, "Jahr: " + year);
-//        }
-//
-//        return ret;
-//    }
+    public static int getYearIntFromString(String year) {
+        int ret;
+        try {
+            final long y = DateFactory.F_FORMAT_yyyy.parse(year).getTime();
+            ret = Integer.parseInt(year);
+        } catch (Exception ex) {
+            ret = 0;
+            PLog.errorLog(621212154, "Jahr: " + year);
+        }
 
-//    public static List<String> getYearListSince(String year) {
-//        List<String> list = new ArrayList<>();
-//        int aktYear = getActYearInt();
-//        int startCheckYear = getYearIntFromString(year);
-//
-//        if (startCheckYear <= 0 ||
-//                aktYear < startCheckYear) {
-//            return list;
-//        }
-//
-//        while (startCheckYear <= aktYear) {
-//            list.add(startCheckYear + "");
-//            ++startCheckYear;
-//        }
-//
-//        return list;
-//    }
-//
-//    public static List<Integer> getYearListSince(int year) {
-//        List<Integer> list = new ArrayList<>();
-//
-//        int aktYear = getActYearInt();
-//        int startCheckYear = getYearIntFromString(year + "");
-//
-//        if (startCheckYear <= 0 ||
-//                aktYear < startCheckYear) {
-//            return list;
-//        }
-//
-//        while (startCheckYear <= aktYear) {
-//            list.add(startCheckYear);
-//            ++startCheckYear;
-//        }
-//
-//        return list;
-//    }
+        return ret;
+    }
+
+    public static List<String> getYearListSince(String year) {
+        List<String> list = new ArrayList<>();
+        int aktYear = getActYearInt();
+        int startCheckYear = getYearIntFromString(year);
+
+        if (startCheckYear <= 0 ||
+                aktYear < startCheckYear) {
+            return list;
+        }
+
+        while (startCheckYear <= aktYear) {
+            list.add(startCheckYear + "");
+            ++startCheckYear;
+        }
+
+        return list;
+    }
+
+    public static List<Integer> getYearListSince(int year) {
+        List<Integer> list = new ArrayList<>();
+
+        int aktYear = getActYearInt();
+        int startCheckYear = getYearIntFromString(year + "");
+
+        if (startCheckYear <= 0 ||
+                aktYear < startCheckYear) {
+            return list;
+        }
+
+        while (startCheckYear <= aktYear) {
+            list.add(startCheckYear);
+            ++startCheckYear;
+        }
+
+        return list;
+    }
 
     public static LocalDate getLocalDate(String strDate) {
         if (strDate == null || strDate.isEmpty()) {
@@ -123,24 +111,24 @@ public class PDateFactory {
         }
 
         try {
-            return LocalDate.parse(strDate, DT_FORMATTER_dd_MM_yyyy);
+            return LocalDate.parse(strDate, DateFactory.DT_FORMATTER_dd_MM_yyyy);
         } catch (final Exception ex) {
         }
         try {
-            return LocalDate.parse(strDate, DT_FORMATTER_d_MM_yyyy);
+            return LocalDate.parse(strDate, DateFactory.DT_FORMATTER_d_MM_yyyy);
         } catch (final Exception ex) {
         }
         try {
-            return LocalDate.parse(strDate, DT_FORMATTER_dd_M_yyyy);
+            return LocalDate.parse(strDate, DateFactory.DT_FORMATTER_dd_M_yyyy);
         } catch (final Exception ex) {
         }
         try {
-            return LocalDate.parse(strDate, DT_FORMATTER_d_M_yyyy);
+            return LocalDate.parse(strDate, DateFactory.DT_FORMATTER_d_M_yyyy);
         } catch (final Exception ex) {
         }
 
         try {
-            return LocalDate.parse(strDate, DT_FORMATTER_EEE_MMM_dd_);
+            return LocalDate.parse(strDate, DateFactory.DT_FORMATTER_EEE_MMM_dd_);
         } catch (final Exception ex) {
         }
 

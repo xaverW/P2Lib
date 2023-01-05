@@ -33,7 +33,7 @@ public class PLDatePicker extends DatePicker {
         super.setValue(localDate);
     }
 
-    public String getDate() {
+    public String getDateStr() {
         String ret = "";
         LocalDate date = getValue();
         if (date != null) {
@@ -42,13 +42,21 @@ public class PLDatePicker extends DatePicker {
         return ret;
     }
 
+    public LocalDate getDateLDate() {
+        return getValue();
+    }
+
+    public void clearDate() {
+        this.setValue(LocalDate.MIN);
+    }
+
     public void setDate(LocalDate pLocalDate) {
         this.setValue(pLocalDate);
     }
 
     public void setDate(String stringDate) {
         if (stringDate == null || stringDate.isEmpty()) {
-            this.setValue(null);
+            this.setValue(LocalDate.MIN);
         } else {
             this.setValue(PDateFactory.getLocalDate(stringDate));
         }

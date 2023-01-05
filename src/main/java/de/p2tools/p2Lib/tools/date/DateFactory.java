@@ -20,6 +20,7 @@ package de.p2tools.p2Lib.tools.date;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class DateFactory {
 
@@ -29,16 +30,27 @@ public class DateFactory {
 
     public static final FastDateFormat F_FORMAT_dd_MM_yyyy = FastDateFormat.getInstance("dd.MM.yyyy");
     public static final FastDateFormat F_FORMAT_yyyy_MM_dd = FastDateFormat.getInstance("yyyy.MM.dd");
+    public static final FastDateFormat F_FORMAT_yyyyMMdd = FastDateFormat.getInstance("yyyyMMdd");
+    public static final FastDateFormat F_FORMAT_HHmmss = FastDateFormat.getInstance("HHmmss");
     public static final FastDateFormat F_FORMAT_HH__mm__ss = FastDateFormat.getInstance("HH:mm:ss");
+    public static final FastDateFormat F_FORMAT_HHmm_ss = FastDateFormat.getInstance("HH:mm:ss");
     public static final FastDateFormat F_FORMAT_dd_MM_yyyy___HH__mm__ss = FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss");
     public static final FastDateFormat F_FORMAT_yyyy_MM_dd___HH__mm__ss = FastDateFormat.getInstance("yyyy.MM.dd HH:mm:ss");
+    public static final FastDateFormat F_FORMAT_dd_MM_yyyyHH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyyHH:mm:ss");
+    public static final FastDateFormat F_FORMAT_dd_MM_yyyyKomma___HH_mm = FastDateFormat.getInstance("dd.MM.yyyy, HH:mm");
+    public static final FastDateFormat F_FORMAT_dd_MM_yyyyKomma___HH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyy, HH:mm:ss");
+    public static final FastDateFormat F_FORMAT_yyyy = FastDateFormat.getInstance("yyyy");
 
+    public static final DateTimeFormatter DT_FORMATTER_d_M_yyyy = DateTimeFormatter.ofPattern("d.M.yyyy");
+    public static final DateTimeFormatter DT_FORMATTER_dd_M_yyyy = DateTimeFormatter.ofPattern("dd.M.yyyy");
+    public static final DateTimeFormatter DT_FORMATTER_d_MM_yyyy = DateTimeFormatter.ofPattern("d.MM.yyyy");
     public static final DateTimeFormatter DT_FORMATTER_dd_MM_yyyy = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     public static final DateTimeFormatter DT_FORMATTER_yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy.MM.dd");
     public static final DateTimeFormatter DT_FORMATTER_HH__mm__ss = DateTimeFormatter.ofPattern("HH:mm:ss");
     public static final DateTimeFormatter DT_FORMATTER_yyyy = DateTimeFormatter.ofPattern("yyyy");
     public static final DateTimeFormatter DT_FORMATTER_dd_MM_yyyy___HH__mm__ss = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
     public static final DateTimeFormatter DT_FORMATTER_yyyy_MM_dd___HH__mm__ss = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+    public static final DateTimeFormatter DT_FORMATTER_EEE_MMM_dd_ = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
 
     private DateFactory() {
     }
