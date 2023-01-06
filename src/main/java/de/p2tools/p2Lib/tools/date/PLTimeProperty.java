@@ -35,30 +35,22 @@ public class PLTimeProperty extends SimpleObjectProperty<LocalTime> {
     }
 
     public void setPLocalTime(LocalTime localDate) {
-//        LocalTime pLocalDate = new LocalTime();
-//        pLocalDate.setPLocalTime(localDate);
         setValue(localDate);
     }
 
     public void setPLocalTime(String strDate) {
-        LocalTime pLocalDate = PLTimeFactory.getPLocalTime(strDate);
-//        pLocalDate.setPLocalTime(strDate);
+        LocalTime pLocalDate = PLTimeFactory.fromString(strDate);
         setValue(pLocalDate);
     }
 
     public void clearPLocalTime() {
         LocalTime pLocalTime = LocalTime.now();
-//        pLocalTime.clearPLocalTime();
         this.setValue(pLocalTime);
         return;
     }
 
     @Override
     public String toString() {
-        return this.getValue().toString();
-    }
-
-    public String toStringR() {
         return PLTimeFactory.toString(this.getValue());
     }
 }

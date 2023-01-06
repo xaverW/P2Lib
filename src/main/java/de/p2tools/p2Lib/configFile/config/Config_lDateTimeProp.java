@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
 
 public class Config_lDateTimeProp extends Config {
 
-    private PLDateTimeProperty actValue;
+    private final PLDateTimeProperty actValue;
 
     public Config_lDateTimeProp(String key, PLDateTimeProperty actValue) {
         super(key);
@@ -36,6 +36,11 @@ public class Config_lDateTimeProp extends Config {
     public Config_lDateTimeProp(String key, String name, PLDateTimeProperty actValue) {
         super(key, name);
         this.actValue = actValue;
+    }
+
+    @Override
+    public LocalDateTime getActValue() {
+        return actValue.get();
     }
 
     @Override
@@ -49,22 +54,12 @@ public class Config_lDateTimeProp extends Config {
 
     @Override
     public void setActValue(String act) {
-        try {
-            actValue.setValue(PLDateTimeFactory.setDate(act));
-        } catch (Exception ex) {
-            actValue.setValue(LocalDateTime.now());
-        }
-    }
-
-    @Override
-    public LocalDateTime getActValue() {
-        return actValue.get();
+        actValue.setValue(PLDateTimeFactory.fromString(act));
     }
 
     @Override
     public String getActValueString() {
-        final String ret = actValue.get() == null ? "" : actValue.get().format(PLDateTimeFactory.FORMAT_dd_MM_yyyy_HH_mm_ss);
-        return ret;
+        return PLDateTimeFactory.toString(actValue.getValue());
     }
 
     @Override

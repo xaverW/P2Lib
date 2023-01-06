@@ -54,11 +54,7 @@ public class Config_lDateProp extends Config {
 
     @Override
     public void setActValue(String act) {
-        try {
-            actValue.setValue(PLDateFactory.fromString(act));
-        } catch (Exception ex) {
-            actValue.setValue(LocalDate.now());
-        }
+        actValue.setValue(PLDateFactory.fromString(act));
     }
 
     @Override

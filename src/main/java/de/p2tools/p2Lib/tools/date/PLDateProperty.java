@@ -52,8 +52,4 @@ public class PLDateProperty extends SimpleObjectProperty<LocalDate> {
     public String toString() {
         return PLDateFactory.toString(getValue());
     }
-
-    public String toStringR() {
-        return PLDateFactory.toStringR(getValue());
-    }
 }

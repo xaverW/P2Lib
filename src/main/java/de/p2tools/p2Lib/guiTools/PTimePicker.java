@@ -68,19 +68,6 @@ public class PTimePicker extends ComboBox<LocalTime> {
         this.setValue(null);
     }
 
-    public void setTime(LocalTime localTime) {
-        this.getSelectionModel().select(localTime);
-    }
-
-    public void setTime(String stringDate) {
-        if (stringDate == null || stringDate.isEmpty()) {
-            this.setValue(null);
-        } else {
-            LocalTime pLocalTime = PLTimeFactory.getPLocalTime(stringDate);
-            this.getSelectionModel().select(pLocalTime);
-        }
-    }
-
     public LocalTime getLocalTime() {
         return getValue();
     }
@@ -91,5 +78,18 @@ public class PTimePicker extends ComboBox<LocalTime> {
 
     public String getTime() {
         return PLTimeFactory.toString(getValue());
+    }
+
+    public void setTime(LocalTime localTime) {
+        this.getSelectionModel().select(localTime);
+    }
+
+    public void setTime(String stringDate) {
+        if (stringDate == null || stringDate.isEmpty()) {
+            this.setValue(null);
+        } else {
+            LocalTime pLocalTime = PLTimeFactory.fromString(stringDate);
+            this.getSelectionModel().select(pLocalTime);
+        }
     }
 }

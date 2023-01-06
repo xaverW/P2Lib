@@ -20,13 +20,8 @@ import de.p2tools.p2Lib.tools.log.PLog;
 import javafx.beans.property.SimpleObjectProperty;
 import org.apache.commons.lang3.time.FastDateFormat;
 
-import java.util.Date;
-
 public class PDateProperty extends SimpleObjectProperty<PDate> {
 
-    public static final FastDateFormat F_FORMAT_dd_MM_yyyy = FastDateFormat.getInstance("dd.MM.yyyy");
-    public static final FastDateFormat F_FORMAT_yyyy_MM_dd = FastDateFormat.getInstance("yyyy.MM.dd");
-    
     public PDateProperty() {
         setValue(new PDate());
     }
@@ -64,8 +59,8 @@ public class PDateProperty extends SimpleObjectProperty<PDate> {
 
     public void setPDateToday() {
         try {
-            final String strToday = new PDate().getDateTime(F_FORMAT_dd_MM_yyyy);
-            final long lToday = F_FORMAT_dd_MM_yyyy.parse(strToday).getTime();
+            final String strToday = new PDate().getDateTime(DateFactory.F_FORMAT_dd_MM_yyyy);
+            final long lToday = DateFactory.F_FORMAT_dd_MM_yyyy.parse(strToday).getTime();
             this.setValue(new PDate(lToday));
         } catch (final Exception ex) {
             this.setValue(new PDate(0));
@@ -105,18 +100,6 @@ public class PDateProperty extends SimpleObjectProperty<PDate> {
 
     @Override
     public String toString() {
-        if (this.getValue().getTime() == 0) {
-            return "";
-        } else {
-            return F_FORMAT_dd_MM_yyyy.format(this.getValue());
-        }
-    }
-
-    public String toStringR() {
-        if (this.getValue().getTime() == 0) {
-            return F_FORMAT_yyyy_MM_dd.format(new Date());
-        } else {
-            return F_FORMAT_yyyy_MM_dd.format(this.getValue());
-        }
+        return PDateFactory.toString(getValue());
     }
 }

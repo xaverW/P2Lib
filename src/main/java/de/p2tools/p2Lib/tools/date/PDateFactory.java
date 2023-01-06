@@ -161,7 +161,7 @@ public class PDateFactory {
         if (pDate == null) {
             return "";
         } else {
-            return pDate.getDateTime(DateFactory.F_FORMAT_dd_MM_yyyy___HH__mm__ss);
+            return pDate.getDateTime(DateFactory.F_FORMAT_dd_MM_yyyy);
         }
     }
 
@@ -169,7 +169,7 @@ public class PDateFactory {
         if (pDate == null) {
             return "";
         } else {
-            return pDate.getDateTime(DateFactory.F_FORMAT_yyyy_MM_dd___HH__mm__ss);
+            return pDate.getDateTime(DateFactory.F_FORMAT_yyyy_MM_dd);
         }
     }
 

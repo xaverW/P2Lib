@@ -40,19 +40,24 @@ public abstract class Config_color extends Config {
     }
 
     @Override
+    public Color getActValue() {
+        return actValue;
+    }
+
+    @Override
     public void setActValue(Object act) {
         actValue = (Color) act;
+        setUsedValue(actValue);
+    }
+
+    public void setActValue(Color act) {
+        actValue = act;
         setUsedValue(actValue);
     }
 
     @Override
     public void setActValue(String act) {
         actValue = Color.web(act);
-    }
-
-    @Override
-    public Color getActValue() {
-        return actValue;
     }
 
     @Override

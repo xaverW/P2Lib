@@ -24,7 +24,7 @@ import java.time.LocalTime;
 
 public class Config_lTimeProp extends Config {
 
-    private PLTimeProperty actValue;
+    private final PLTimeProperty actValue;
 
     public Config_lTimeProp(String key, PLTimeProperty actValue) {
         super(key);
@@ -34,6 +34,11 @@ public class Config_lTimeProp extends Config {
     public Config_lTimeProp(String key, String name, PLTimeProperty actValue) {
         super(key, name);
         this.actValue = actValue;
+    }
+
+    @Override
+    public LocalTime getActValue() {
+        return actValue.getValue();
     }
 
     @Override
@@ -47,23 +52,12 @@ public class Config_lTimeProp extends Config {
 
     @Override
     public void setActValue(String act) {
-        try {
-            actValue.setValue(PLTimeFactory.getPLocalTime(act));
-        } catch (Exception ex) {
-            actValue.setValue(LocalTime.now());
-        }
-    }
-
-    @Override
-    public LocalTime getActValue() {
-        return actValue.getValue();
+        PLTimeFactory.fromString(act);
     }
 
     @Override
     public String getActValueString() {
-        //        return getActValue().toString();
-        final String ret = actValue.getValue() == null ? "" : PLTimeFactory.toString(actValue.getValue());
-        return ret;
+        return PLTimeFactory.toString(actValue.getValue());
     }
 
     @Override

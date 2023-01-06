@@ -30,13 +30,13 @@ public abstract class Config_lTime extends Config {
     public Config_lTime(String key, String actValue) {
         super(key);
         this.actValue = LocalTime.now();
-        this.actValue = PLTimeFactory.getPLocalTime(actValue);
+        this.actValue = PLTimeFactory.fromString(actValue);
     }
 
     public Config_lTime(String key, String name, String actValue) {
         super(key, name);
         this.actValue = LocalTime.now();
-        this.actValue = PLTimeFactory.getPLocalTime(actValue);
+        this.actValue = PLTimeFactory.fromString(actValue);
     }
 
     public Config_lTime(String key, String name, LocalTime localTime) {
@@ -45,20 +45,25 @@ public abstract class Config_lTime extends Config {
     }
 
     @Override
+    public LocalTime getActValue() {
+        return this.actValue;
+    }
+
+    @Override
     public void setActValue(Object act) {
         this.actValue = (LocalTime) act;
         setUsedValue(actValue);
     }
 
-    @Override
-    public void setActValue(String act) {
-        this.actValue = PLTimeFactory.getPLocalTime(act);
+    public void setActValue(LocalTime act) {
+        this.actValue = act;
         setUsedValue(actValue);
     }
 
     @Override
-    public LocalTime getActValue() {
-        return this.actValue;
+    public void setActValue(String act) {
+        this.actValue = PLTimeFactory.fromString(act);
+        setUsedValue(actValue);
     }
 
     @Override

@@ -17,33 +17,53 @@
 package de.p2tools.p2Lib.tools.date;
 
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 public class PLTimeFactory {
-
-    public static final DateTimeFormatter FORMAT_HH_mm = DateTimeFormatter.ofPattern("HH:mm");
 
     private PLTimeFactory() {
     }
 
-    public static LocalTime getPLocalTime(String strTime) {
-        if (strTime == null || strTime.isEmpty()) {
-            return null;
-        }
-
+    public static LocalTime fromString_HM(String strDate) {
         try {
-            return LocalTime.parse(strTime, FORMAT_HH_mm);
-        } catch (final Exception ex) {
+            if (strDate.isEmpty()) {
+                return LocalTime.MIN;
+            } else {
+                return LocalTime.parse(strDate, DateFactory.DT_FORMATTER_HH__mm);
+            }
+        } catch (Exception ex) {
+            return LocalTime.MIN;
         }
+    }
 
-        return null;
+    public static String toString_HM(LocalTime localTime) {
+        if (localTime == null) {
+            return "";
+        } else if (localTime.compareTo(LocalTime.MIN) == 0) {
+            return "";
+        } else {
+            return localTime.format(DateFactory.DT_FORMATTER_HH__mm);
+        }
+    }
+
+    public static LocalTime fromString(String strDate) {
+        try {
+            if (strDate.isEmpty()) {
+                return LocalTime.MIN;
+            } else {
+                return LocalTime.parse(strDate, DateFactory.DT_FORMATTER_HH__mm__ss);
+            }
+        } catch (Exception ex) {
+            return LocalTime.MIN;
+        }
     }
 
     public static String toString(LocalTime localTime) {
         if (localTime == null) {
             return "";
+        } else if (localTime.compareTo(LocalTime.MIN) == 0) {
+            return "";
         } else {
-            return localTime.format(FORMAT_HH_mm);
+            return localTime.format(DateFactory.DT_FORMATTER_HH__mm__ss);
         }
     }
 }

@@ -32,8 +32,18 @@ public abstract class Config_double extends Config {
     }
 
     @Override
+    public Double getActValue() {
+        return actValue;
+    }
+
+    @Override
     public void setActValue(Object act) {
         actValue = (Double) act;
+        setUsedValue(actValue);
+    }
+
+    public void setActValue(Double act) {
+        actValue = act;
         setUsedValue(actValue);
     }
 
@@ -45,11 +55,6 @@ public abstract class Config_double extends Config {
             actValue = 0.0;
         }
         setUsedValue(actValue);
-    }
-
-    @Override
-    public Double getActValue() {
-        return actValue;
     }
 
     @Override

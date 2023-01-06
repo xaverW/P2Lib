@@ -34,4 +34,8 @@ public class PLDateTimeProperty extends SimpleObjectProperty<LocalDateTime> {
         setValue(PLDateTimeFactory.setDate(date, ""));
     }
 
+    @Override
+    public String toString() {
+        return PLDateTimeFactory.toString(this.getValue());
+    }
 }

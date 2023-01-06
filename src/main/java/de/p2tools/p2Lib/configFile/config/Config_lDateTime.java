@@ -43,6 +43,11 @@ public abstract class Config_lDateTime extends Config {
     }
 
     @Override
+    public LocalDateTime getActValue() {
+        return actValue;
+    }
+
+    @Override
     public void setActValue(Object act) {
         this.actValue = (LocalDateTime) act;
         setUsedValue(actValue);
@@ -53,9 +58,9 @@ public abstract class Config_lDateTime extends Config {
         setUsedValue(actValue);
     }
 
-    @Override
-    public LocalDateTime getActValue() {
-        return actValue;
+    public void setActValue(String act) {
+        actValue = PLDateTimeFactory.fromString(act);
+        setUsedValue(actValue);
     }
 
     @Override

@@ -24,13 +24,6 @@ import java.util.Date;
 
 public class PDate extends Date {
 
-    public static final FastDateFormat FORMAT_dd_MM_yyyy = FastDateFormat.getInstance("dd.MM.yyyy");
-    public static final FastDateFormat F_FORMAT_dd_MM_yyyy = FastDateFormat.getInstance("dd.MM.yyyy");
-    public static final FastDateFormat F_FORMAT_dd_MM_yyyyKomma__HH_mm = FastDateFormat.getInstance("dd.MM.yyyy, HH:mm");
-    public static final FastDateFormat F_FORMAT_dd_MM_yyyyKomma__HH_mm_ss = FastDateFormat.getInstance("dd.MM.yyyy, HH:mm:ss");
-    public static final FastDateFormat F_FORMAT_yyyy_MM_dd = FastDateFormat.getInstance("yyyy.MM.dd");
-
-
     public PDate() {
         super();
     }
@@ -101,9 +94,9 @@ public class PDate extends Date {
 
         try {
             if (strTime.isEmpty()) {
-                setTime(FORMAT_dd_MM_yyyy.parse(strDate).getTime());
+                setTime(DateFactory.F_FORMAT_dd_MM_yyyy.parse(strDate).getTime());
             } else {
-                setTime(F_FORMAT_dd_MM_yyyyKomma__HH_mm.parse(strDate + strTime).getTime());
+                setTime(DateFactory.F_FORMAT_dd_MM_yyyyKomma___HH_mm.parse(strDate + strTime).getTime());
             }
             return;
         } catch (final Exception ex) {
@@ -111,9 +104,9 @@ public class PDate extends Date {
 
         try {
             if (strTime.isEmpty()) {
-                setTime(F_FORMAT_dd_MM_yyyy.parse(strDate).getTime());
+                setTime(DateFactory.F_FORMAT_dd_MM_yyyy.parse(strDate).getTime());
             } else {
-                setTime(F_FORMAT_dd_MM_yyyyKomma__HH_mm_ss.parse(strDate + strTime).getTime());
+                setTime(DateFactory.F_FORMAT_dd_MM_yyyyKomma___HH_mm_ss.parse(strDate + strTime).getTime());
             }
             return;
         } catch (final Exception ex) {
@@ -146,8 +139,8 @@ public class PDate extends Date {
 
     public void setPDateToday() {
         try {
-            final String strToday = new PDate().getDateTime(F_FORMAT_dd_MM_yyyy);
-            final long lToday = F_FORMAT_dd_MM_yyyy.parse(strToday).getTime();
+            final String strToday = new PDate().getDateTime(DateFactory.F_FORMAT_dd_MM_yyyy);
+            final long lToday = DateFactory.F_FORMAT_dd_MM_yyyy.parse(strToday).getTime();
             setTime(lToday);
         } catch (final Exception ex) {
             setTime(0);
@@ -172,36 +165,19 @@ public class PDate extends Date {
         }
     }
 
-    @Override
-    public String toString() {
-        if (this.getTime() == 0) {
-            return "";
-        } else {
-            return F_FORMAT_dd_MM_yyyy.format(this);
-        }
-    }
-
-    public String toStringR() {
-        if (this.getTime() == 0) {
-            return F_FORMAT_yyyy_MM_dd.format(new Date());
-        } else {
-            return F_FORMAT_yyyy_MM_dd.format(this);
-        }
-    }
-
     public String get_yyyy_MM_dd() {
         if (this.getTime() == 0) {
-            return F_FORMAT_yyyy_MM_dd.format(new Date());
+            return DateFactory.F_FORMAT_yyyy_MM_dd.format(new Date());
         } else {
-            return F_FORMAT_yyyy_MM_dd.format(this);
+            return DateFactory.F_FORMAT_yyyy_MM_dd.format(this);
         }
     }
 
     public String get_dd_MM_yyyy() {
         if (this.getTime() == 0) {
-            return F_FORMAT_dd_MM_yyyy.format(new Date());
+            return DateFactory.F_FORMAT_dd_MM_yyyy.format(new Date());
         } else {
-            return F_FORMAT_dd_MM_yyyy.format(this);
+            return DateFactory.F_FORMAT_dd_MM_yyyy.format(this);
         }
     }
 
@@ -222,5 +198,14 @@ public class PDate extends Date {
      */
     public int diffInMinutes() {
         return (diffInSeconds() / 60);
+    }
+
+    @Override
+    public String toString() {
+        return PDateFactory.toString(this);
+    }
+
+    public String toStringR() {
+        return PDateFactory.toStringR(this);
     }
 }

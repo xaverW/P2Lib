@@ -63,14 +63,14 @@ public abstract class Config {
         this.regEx = regEx;
     }
 
-    public void setActValue(String act) {
+    public Object getActValue() {
+        return null;
     }
 
     public void setActValue(Object act) {
     }
 
-    public Object getActValue() {
-        return null;
+    public void setActValue(String act) {
     }
 
     public String getActValueString() {
@@ -88,20 +88,20 @@ public abstract class Config {
         return null;
     }
 
-    public void setRegEx(String regEx) {
-        this.regEx = regEx;
-    }
-
     public String getRegEx() {
         return regEx;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRegEx(String regEx) {
+        this.regEx = regEx;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Control getControl() {

@@ -55,7 +55,12 @@ public abstract class Config_lDate extends Config {
 
     public void setActValue(LocalDate act) {
         actValue = act;
-        setUsedValue(act);
+        setUsedValue(actValue);
+    }
+
+    public void setActValue(String act) {
+        actValue = PLDateFactory.fromString(act);
+        setUsedValue(actValue);
     }
 
     @Override

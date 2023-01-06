@@ -130,9 +130,9 @@ public class PFileSize implements Comparable<PFileSize> {
         convertToStr();
     }
 
-//    public String getSizeStr() {
-//        return sizeStr;
-//    }
+    public String getSizeStr() {
+        return sizeStr;
+    }
 
     public void setSizeStr(String sizeStr) {
         this.sizeStr = sizeStr;

@@ -47,10 +47,12 @@ public class DateFactory {
     public static final DateTimeFormatter DT_FORMATTER_dd_MM_yyyy = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     public static final DateTimeFormatter DT_FORMATTER_yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy.MM.dd");
     public static final DateTimeFormatter DT_FORMATTER_HH__mm__ss = DateTimeFormatter.ofPattern("HH:mm:ss");
+    public static final DateTimeFormatter DT_FORMATTER_HH__mm = DateTimeFormatter.ofPattern("HH:mm");
     public static final DateTimeFormatter DT_FORMATTER_yyyy = DateTimeFormatter.ofPattern("yyyy");
     public static final DateTimeFormatter DT_FORMATTER_dd_MM_yyyy___HH__mm__ss = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
     public static final DateTimeFormatter DT_FORMATTER_yyyy_MM_dd___HH__mm__ss = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
     public static final DateTimeFormatter DT_FORMATTER_EEE_MMM_dd_ = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+
 
     private DateFactory() {
     }
