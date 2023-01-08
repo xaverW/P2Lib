@@ -27,9 +27,9 @@ import javafx.scene.layout.Priority;
 public class PFilterTextField extends HBox {
 
 
+    private final TextField textField = new TextField();
+    private final Button btnClear = new Button("X");
     private StringProperty textProperty;
-    private TextField textField = new TextField();
-    private Button btnClear = new Button("X");
 
     public PFilterTextField() {
         super();
@@ -72,7 +72,7 @@ public class PFilterTextField extends HBox {
 
     private void initHBox() {
         getStyleClass().add("PFilterTextField");
-//        final String CSS_FILE = "de/p2tools/p2Lib/p2Lib.css";
+//        final String CSS_FILE = "de/p2tools/p2Lib/p2Css.css";
 //        getStylesheets().add(CSS_FILE);
 
         textField.setMaxWidth(Double.MAX_VALUE);

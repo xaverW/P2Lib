@@ -37,6 +37,7 @@ public class P2LibInit {
     }
 
     public static void setStyleFile(String styleFile) {
+        //z.B. für die Anpassung der Schriftgröße
         P2LibConst.styleFile = styleFile;
     }
 
@@ -52,10 +53,11 @@ public class P2LibInit {
 
     public static void addP2LibCssToScene(Scene scene) {
         List<String> list = new ArrayList<>();
-        list.add("de/p2tools/p2Lib/p2Lib.css");
-        list.add("de/p2tools/p2Lib/pMaskerPane.css");
-        list.add("de/p2tools/p2Lib/pToggleSwitch.css");
-        list.add("de/p2tools/p2Lib/notifier.css");
+        list.add("de/p2tools/p2Lib/p2Css.css");
+        list.add("de/p2tools/p2Lib/p2Css_button.css");
+        list.add("de/p2tools/p2Lib/p2Css_maskerPane.css");
+        list.add("de/p2tools/p2Lib/p2Css_toggleSwitch.css");
+        list.add("de/p2tools/p2Lib/p2Css_notifier.css");
         for (String s : P2LibConst.cssFileList) {
             list.add(s);
         }

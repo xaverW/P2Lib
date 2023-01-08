@@ -97,6 +97,39 @@ public class Notification {
         private static double spacingY = 5;
         private static Pos popupLocation = Pos.TOP_RIGHT;
         private static Stage stageRef = null;
+        private final ObjectProperty<EventHandler<NotificationEvent>> onNotificationPressed = new ObjectPropertyBase<EventHandler<NotificationEvent>>() {
+            @Override
+            public Object getBean() {
+                return this;
+            }
+
+            @Override
+            public String getName() {
+                return "onNotificationPressed";
+            }
+        };
+        private final ObjectProperty<EventHandler<NotificationEvent>> onShowNotification = new ObjectPropertyBase<EventHandler<NotificationEvent>>() {
+            @Override
+            public Object getBean() {
+                return this;
+            }
+
+            @Override
+            public String getName() {
+                return "onShowNotification";
+            }
+        };
+        private final ObjectProperty<EventHandler<NotificationEvent>> onHideNotification = new ObjectPropertyBase<EventHandler<NotificationEvent>>() {
+            @Override
+            public Object getBean() {
+                return this;
+            }
+
+            @Override
+            public String getName() {
+                return "onHideNotification";
+            }
+        };
         private Duration popupLifetime;
         private Duration popupAnimationTime;
         private Scene scene = null;
@@ -104,35 +137,13 @@ public class Notification {
         private ObservableList<Popup> popups;
 
 
+        // ******************** Methods *******************************************
+
         // ******************** Constructor ***************************************
         Notifier() {
             init();
             initGraphics();
         }
-
-
-        // ******************** Initialization ************************************
-        private void init() {
-            popupLifetime = Duration.millis(5000);
-            popupAnimationTime = Duration.millis(500);
-            popups = FXCollections.observableArrayList();
-        }
-
-        private void initGraphics() {
-            if (pStage == null) {
-                PException.throwPException(912036478, "Notification: stage not set");
-            }
-            if (scene == null) {
-                scene = pStage.getScene();
-            }
-//            if (styleSheet.isEmpty()) {
-//                final String CSS_FILE = "de/p2tools/p2Lib/notifier.css";
-//                setStyleSheet(CSS_FILE);
-//            }
-        }
-
-
-        // ******************** Methods *******************************************
 
         /**
          * @param STAGE_REF      The Notification will be positioned relative to the given Stage.<br>
@@ -197,6 +208,26 @@ public class Notification {
             Notifier.spacingY = SPACING_Y;
         }
 
+        // ******************** Initialization ************************************
+        private void init() {
+            popupLifetime = Duration.millis(5000);
+            popupAnimationTime = Duration.millis(500);
+            popups = FXCollections.observableArrayList();
+        }
+
+        private void initGraphics() {
+            if (pStage == null) {
+                PException.throwPException(912036478, "Notification: stage not set");
+            }
+            if (scene == null) {
+                scene = pStage.getScene();
+            }
+//            if (styleSheet.isEmpty()) {
+//                final String CSS_FILE = "de/p2tools/p2Lib/p2Css_notifier.css";
+//                setStyleSheet(CSS_FILE);
+//            }
+        }
+
         public void stop() {
             popups.clear();
 //            stage.close(); // ist jetzt die rootStage
@@ -242,7 +273,6 @@ public class Notification {
         public void setPopupAnimationTime(final Duration POPUP_ANIMATION_TIME) {
             popupAnimationTime = Duration.millis(clamp(0, 1000, POPUP_ANIMATION_TIME.toMillis()));
         }
-
 
         public void setStyleSheet(final String STYLE_SHEET) {
             styleSheet = STYLE_SHEET;
@@ -370,7 +400,6 @@ public class Notification {
             );
         }
 
-
         /**
          * Creates and shows a popup with the data from the given Notification object
          *
@@ -482,80 +511,42 @@ public class Notification {
             }
         }
 
-
         // ******************** Event handling ********************************
         public final ObjectProperty<EventHandler<NotificationEvent>> onNotificationPressedProperty() {
             return onNotificationPressed;
-        }
-
-        public final void setOnNotificationPressed(EventHandler<NotificationEvent> value) {
-            onNotificationPressedProperty().set(value);
         }
 
         public final EventHandler<NotificationEvent> getOnNotificationPressed() {
             return onNotificationPressedProperty().get();
         }
 
-        private ObjectProperty<EventHandler<NotificationEvent>> onNotificationPressed = new ObjectPropertyBase<EventHandler<NotificationEvent>>() {
-            @Override
-            public Object getBean() {
-                return this;
-            }
-
-            @Override
-            public String getName() {
-                return "onNotificationPressed";
-            }
-        };
+        public final void setOnNotificationPressed(EventHandler<NotificationEvent> value) {
+            onNotificationPressedProperty().set(value);
+        }
 
         public final ObjectProperty<EventHandler<NotificationEvent>> onShowNotificationProperty() {
             return onShowNotification;
-        }
-
-        public final void setOnShowNotification(EventHandler<NotificationEvent> value) {
-            onShowNotificationProperty().set(value);
         }
 
         public final EventHandler<NotificationEvent> getOnShowNotification() {
             return onShowNotificationProperty().get();
         }
 
-        private ObjectProperty<EventHandler<NotificationEvent>> onShowNotification = new ObjectPropertyBase<EventHandler<NotificationEvent>>() {
-            @Override
-            public Object getBean() {
-                return this;
-            }
-
-            @Override
-            public String getName() {
-                return "onShowNotification";
-            }
-        };
+        public final void setOnShowNotification(EventHandler<NotificationEvent> value) {
+            onShowNotificationProperty().set(value);
+        }
 
         public final ObjectProperty<EventHandler<NotificationEvent>> onHideNotificationProperty() {
             return onHideNotification;
-        }
-
-        public final void setOnHideNotification(EventHandler<NotificationEvent> value) {
-            onHideNotificationProperty().set(value);
         }
 
         public final EventHandler<NotificationEvent> getOnHideNotification() {
             return onHideNotificationProperty().get();
         }
 
-        private ObjectProperty<EventHandler<NotificationEvent>> onHideNotification = new ObjectPropertyBase<EventHandler<NotificationEvent>>() {
-            @Override
-            public Object getBean() {
-                return this;
-            }
-
-            @Override
-            public String getName() {
-                return "onHideNotification";
-            }
-        };
-
+        public final void setOnHideNotification(EventHandler<NotificationEvent> value) {
+            onHideNotificationProperty().set(value);
+        }
 
         public void fireNotificationEvent(final NotificationEvent EVENT) {
             final EventType TYPE = EVENT.getEventType();

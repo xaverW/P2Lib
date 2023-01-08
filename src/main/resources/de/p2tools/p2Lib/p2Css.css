@@ -1,0 +1,187 @@
+/*
+ * P2tools Copyright (C) 2018 W. Xaver W.Xaver[at]googlemail.com
+ * https://www.p2tools.de/
+ *
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation, either version 3 of the
+ * License, or any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
+ */
+
+.root{
+    -p2-color-blue1: #4682B4;
+    -p2-color-blue2: #1d364b;
+    -text-color-blue: #002fbe;
+
+    -tab-button-1: #d6d6d6;
+    -tab-button-2: #e6e6e6;
+    -tab-button-3: rgba(230,230,230,0);
+
+    -filter-lin-grad-1: linear-gradient(from 50% 17% to 50% 114% , repeat, #E6E6E6, #CBD8EB 100% );
+    -lin-grad-1: linear-gradient(from 0% 0% to 100% 100%, -tab-button-1 50%, white 100%);
+    -rad-grad-1: radial-gradient(center 50% -40%, radius 200%, -tab-button-2 45%, -tab-button-3 50%);
+    -lin-grad-btn-func-1: linear-gradient(from 0% 0% to 100% 100%, -tab-button-1 40%, white 90%);
+    -rad-grad-btn-func-1: radial-gradient(center 80% -70%, radius 200%, -tab-button-2 35%, -tab-button-3 40%);
+
+    -style-tab-border-color-1: #4169E1; /*royalblue*/
+    -style-tab-border-color-2: #4a77ff;
+
+    -style-extra-pane-color: derive(-fx-base,-5%);
+
+    -lblSelectedLines-color-1: derive(-fx-base, -40%);
+    -lblSelectedLines-color-2: derive(-fx-base, -10%);
+
+    /*TabButton Sender/Favoriten/History*/
+    -grad-notSel: radial-gradient(focus-angle 45deg, focus-distance 20%, center 90% 75%, radius 30%, reflect, #305d9c, #203e68 75%, #1e3c64 75%);
+    -grad-sel: radial-gradient(focus-angle 45deg, focus-distance 20%, center 90% 75%, radius 30%, reflect, #4e9bff, #4181d6 75%, #407cd0 75%);
+}
+
+/* ========================================================================== */
+ /* sind javafx gui Elemente */
+ /* ========================================================================== */
+
+ /* sind alle Context-Menüs */
+ .context-menu {
+     -fx-border-radius: 5px;
+     -fx-background-radius: 5px;
+     -fx-border-color: #939a9f;
+ }
+ .menu-item  {
+     -fx-background-radius: 5px;
+ }
+ .titled-pane > .title {
+     -fx-font-weight: bold;
+ }
+ .titled-pane:collapsed > .title {
+     -fx-font-weight: normal;
+ }
+ .combo-box-base{
+     -fx-border-radius: 5;
+     -fx-background-radius: 5;
+ }
+ .combo-box .arrow-button{
+     -fx-border-radius: 0 5 5 0;
+     -fx-background-radius: 0 5 5 0;
+ }
+ .combo-box > .list-cell{
+     -fx-border-radius: 5 0 0 5;
+     -fx-background-radius: 5 0 0 5;
+ }
+ .combo-box .text-input{
+     -fx-border-radius: 5 0 0 5;
+     -fx-background-radius: 5 0 0 5;
+ }
+
+ /* damit leere Tabellenzeilen nicht angezeigt werden */
+ .table-row-cell:empty {
+     -fx-background-color: transparent;
+ }
+ .table-row-cell:empty .table-cell {
+     -fx-border-width: 0px;
+ }
+ /* damit leere Treetable-Zeilen nicht angezeigt werden */
+ .tree-table-row-cell:empty {
+     -fx-border-width: 0;
+     -fx-background-color: transparent;
+ }
+ .tree-table-row-cell:empty .tree-table-cell {
+     -fx-border-width: 0px;
+ }
+
+ /* Treetable Zeilenrahmen anzeigen */
+ .tree-table-row-cell {
+     -fx-border-width: 0 0 1 0;
+     -fx-border-color: -fx-table-cell-border-color;
+ }
+
+ /* tabs of the tabpane*/
+ .tab .tab-label {
+     -fx-text-alignment: center;
+     -fx-alignment: center ;
+ }
+ .tab-pane {
+     -fx-border-width: 1;
+     -fx-border-color: -text-color-blue;
+  }
+ .tab-pane > .tab-header-area > .headers-region > .tab {
+     -fx-padding: 0 10 0 10;
+
+     -fx-border-width: 1, 2;
+     -fx-border-radius: 8 8 0 0, 6 6 0 0;
+     -fx-border-insets: 0 3 0 0, 3 6 3 3;
+     -fx-border-color: -style-tab-border-color-1, transparent;
+
+     -fx-background-radius: 0, 10 10 0 0, 6 6 0 0;
+     -fx-background-insets: 0, 0 3 0 0, 2 5 2 2;
+     -fx-background-color:
+              transparent,
+              -lin-grad-1,
+              -rad-grad-1;
+     -fx-text-fill: black;
+  }
+ .tab-pane > .tab-header-area > .headers-region > .tab:selected {
+     -fx-border-width: 3, 2;
+     -fx-border-color: -style-tab-border-color-1, transparent;
+  }
+ .tab-pane > .tab-header-area > .headers-region > .tab:hover {
+     -fx-border-width: 2, 1, 2;/* 3 Rahmen, damit die "Gesamtbreite" gleich bleibt */
+     -fx-border-color: -style-tab-border-color-1, -style-tab-border-color-2, transparent;
+  }
+ .tab-pane > .tab-header-area > .headers-region > .tab:pressed {
+     -fx-border-width: 1, 2;
+     -fx-border-color: -style-tab-border-color-1, -style-tab-border-color-2;
+  }
+
+ .tab .tab-label {
+      -fx-text-fill: black;
+ }
+ .tab:selected .tab-label {
+      -fx-text-fill: -text-color-blue;
+ }
+ .tab-pane > .tab-header-area > .headers-region > .tab:selected  .focus-indicator {
+     -fx-focus-color: transparent;
+     -fx-faint-focus-color: transparent;
+ }
+
+ /* accordion */
+ .vbox-accordion {
+     -fx-padding: 5 5 5 15;
+ }
+ .button-accordion {
+     -fx-background-color: #b6b6b6, linear-gradient(from 15% 53% to 15% 120% , #C2C2C2, #F1F1F1 100% );
+     -fx-background-radius: 5;
+     -fx-background-insets: 0,1;
+     -fx-padding: 3 30 3 30;
+     /*-fx-border: 5;*/
+     -fx-text-fill: black;
+     -fx-font-size: 14px;
+ }
+ .button-accordion:hover {
+     -fx-background-color: #b2bde1, linear-gradient(from 0% 83% to 0% -37% , repeat, #a0a0a0, #d5d5d5 61% );
+ }
+ .button-accordion:hover:focused {
+     -fx-background-color: #a1a1a1, linear-gradient(from 0% 83% to 0% -37% , repeat, #a0a0a0, #d5d5d5 61% );
+ }
+ .button-accordion:focused {
+     -fx-background-color: #b2bde1, linear-gradient(from 0% 83% to 0% -37% , repeat, #808080, #b5b5b5 61% );
+ }
+ .button-accordion:pressed {
+     -fx-background-color: #b2bde1, linear-gradient(from 0% 83% to 0% -37% , repeat, #808080, #b5b5b5 61% );
+ }
+
+ .pProgressBar .bar {
+     -fx-border-insets: 2 2 3 2;
+     -fx-border-radius: 5;
+     -fx-border-color: #0085be;
+
+     -fx-background-insets: 2 2 3 2;
+     -fx-background-radius: 5;
+     -fx-background-color: #5d5e8c,
+         linear-gradient(to bottom, #0085be 10%, white 100% );
+ }

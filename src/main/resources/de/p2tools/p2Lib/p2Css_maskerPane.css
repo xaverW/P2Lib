@@ -15,20 +15,33 @@
  */
 
 
-.pCheckComboBox  * {
+.p2MaskerPane {
+    -fx-background-color : rgba(15, 15, 15, 0.7);
+    -fx-background-radius: 5;
+    -fx-effect           : innershadow(two-pass-box, rgba(255, 255, 255, 0.6), 5.0, 0.25, 0, 0);
+    -foreground-color    : white;
+    -icon-color          : white;
 }
 
-.pCheckComboBox .menu-button{
-    -fx-background-radius: 10;
-
-    -fx-border-radius: 10;
-    -fx-border-width: 2;
-    -fx-border-insets: -5 -10;
-    -fx-border-color: darkgrey;
+.p2MaskerTextLabel {
+    -foreground-color: snow;
+    -fx-background-radius: 30;
+    -fx-background-color : whitesmoke;
+    -fx-text-fill: black;
 }
-/*
 
-.pCheckComboBox .tooltip {
-    -fx-background-color: black;
+.p2MaskerButtonStop {
+    -fx-background-radius: 30;
+    -fx-background-color : whitesmoke;
+    -fx-text-fill: black;
 }
-*/
+
+.p2MaskerProgressIndicator {
+    -fx-background-radius: 30;
+    -fx-progress-color: deepskyblue;
+}
+
+.p2MaskerVBoxIndicator {
+    -fx-background-color: silver;
+    -fx-background-radius: 100;
+}

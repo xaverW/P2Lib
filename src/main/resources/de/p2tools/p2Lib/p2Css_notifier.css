@@ -19,10 +19,6 @@
  * 27.07.2018
  */
 
-/*.root {
-    -fx-background-color: transparent;
-    -fx-fill            : transparent;
-}*/
 .notification {
     -fx-background-color : rgba(15, 15, 15, 0.8);
     -fx-background-radius: 5;

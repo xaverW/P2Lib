@@ -1,0 +1,349 @@
+/*  Programmweites style sheet */
+
+.alignCenter {
+  -fx-alignment: center;
+}
+.alignCenterRight {
+  -fx-alignment: center-right;
+}
+.alignCenterRightPadding_10 {
+  -fx-alignment: center-right;
+  -fx-padding: 0 10 0 0;
+}
+.alignCenterRightPadding_25 {
+  -fx-alignment: center-right;
+  -fx-padding: 0 25 0 0;
+}
+.alignCenterLeft {
+  -fx-alignment: center-left;
+}
+
+
+/* PFilterTextField */
+.PFilterTextField .button{
+    -fx-border-radius: 0 5 5 0;
+    -fx-background-radius: 0 5 5 0;
+}
+
+.PFilterTextField .text-field{
+    -fx-border-radius: 5 0 0 5;
+    -fx-background-radius: 5 0 0 5;
+}
+
+/* PFilterComboBoxObject */
+.PFilterComboBoxObject .button{
+    -fx-border-radius: 0 5 5 0;
+    -fx-background-radius: 0 5 5 0;
+}
+
+.PFilterComboBoxObject .combo-box-base{
+    -fx-border-radius: 5 0 0 5;
+    -fx-background-radius: 5 0 0 5;
+}
+
+.PYearPicker > * {
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+}
+
+/* CheckBoxCell */
+.checkbox-table * {
+    -fx-background-color: transparent;
+}
+.checkbox-table:disabled {
+    -fx-opacity: 1;
+}
+.checkbox-table .box {
+    -fx-border-radius: 10px;
+    -fx-border-color: lightgray;
+}
+.checkbox-table:selected .box {
+    -fx-border-color: steelblue;
+}
+.checkbox-table:selected .mark {
+    -fx-background-color: black;
+}
+
+/* Rahmen für die Dialoge */
+.dialog-border {
+    -fx-background-insets: 10, 40;
+    -fx-border-color: lightgray transparent lightgray transparent, -p2-color-blue1;
+    -fx-border-insets: 0, 15;
+    -fx-border-width: 20 5, 10 3;
+}
+
+.dialog-border-small {
+    -fx-background-insets: 10, 40;
+    -fx-border-color: lightgray, -p2-color-blue1;
+    -fx-border-insets: 0, 5;
+    -fx-border-width: 5, 1;
+}
+
+.dialog-title {
+    -fx-background-color: lightgray;
+    -fx-background-insets: 0;
+    -fx-border-color: -p2-color-blue1 transparent;
+    -fx-border-insets: 0;
+    -fx-border-width: 2 0;
+
+    -fx-padding: 5px;
+    -fx-text-alignment: center;
+    -fx-alignment: center ;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.3em;
+}
+
+.dialog-about {
+    -fx-background-insets: 100, 40;
+    -fx-border-color: -p2-color-blue1, -p2-color-blue2;
+    -fx-border-insets: 0, 3;
+    -fx-padding: 10;
+    -fx-border-width: 3, 2;
+ }
+
+
+/* farblich abgesetzter Bereich in vielen Panes/Dialogen*/
+.extra-pane {
+    -fx-background-color: -style-extra-pane-color;
+/*    -fx-border-radius: 3px;*/
+    -fx-background-radius: 3px;
+    -fx-border-color: #939a9f;
+}
+
+/* ist nur ein Strich als Trenner: im FilmFilter*/
+ .pseperator1 .line {
+     -fx-border-style: solid;
+     -fx-border-width: 0 0 1 0; /* makes really one-pixel-border */
+     -fx-border-color: -p2-color-blue1;
+ }
+
+ .pseperator2 .line {
+     -fx-border-style: solid;
+     -fx-border-width: 0 0 2 0; /* makes really one-pixel-border */
+     -fx-border-color: -p2-color-blue1;
+ }
+
+ .pseperator3 .line {
+     -fx-border-style: solid;
+     -fx-border-width: 0 0 3 0; /* makes really one-pixel-border */
+     -fx-border-color: -p2-color-blue1;
+ }
+
+/* farblich abgesetzter Bereich in vielen Panes/Dialogen mit dem close-button*/
+.close-pane {
+    -fx-padding: 3;
+    -fx-background-color: -style-extra-pane-color;
+}
+.close-button  {
+    -fx-background-radius: 18;
+    -fx-min-width: 18;
+    -fx-min-height: 18;
+    -fx-max-width: 18;
+    -fx-max-height: 18;
+
+    -fx-border-radius: 20;
+    -fx-border-width: 1;
+    -fx-border-color: #7e7e7e;
+
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-image: url("/de/p2tools/p2Lib/icons/button-close.png");
+}
+.close-button:hover {
+    -fx-effect: innershadow(gaussian, #646464, 15, 0, 0, 0);
+}
+
+
+/* Button "Filme", "Downloads", "Abos" */
+.btnTab, .btnTab-sel{
+    -fx-border-width: 0;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,1;
+    -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-padding: 5 20 5 20;
+
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+.btnTab:pressed {
+    -fx-border-width: 0;
+    -fx-padding: 5 20 5 20;
+}
+btnTab-sel:pressed{
+    -fx-border-width: 0;
+    -fx-padding: 3 10 3 10;
+}
+.btnTab:focused{
+    -fx-background-color: #355c8c, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.5,1,1;
+}
+.btnTab:hover{
+    -fx-background-insets: -1.0,1,1;
+}
+.btnTab:focused:hover{
+    -fx-background-insets: -1.5,1,1;
+}
+.btnTab-sel{
+    -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.3,1,1;
+    -fx-text-fill: -text-color-blue;
+}
+.btnTab-sel:focused{
+    -fx-background-insets: -1,1,1;
+}
+.btnTab-sel:hover{
+    -fx-background-insets: -1.5,1,1;
+}
+.btnTab-sel:focused:hover{
+    -fx-background-insets: -1.6,1,1;
+}
+
+
+
+/* Button Sender/Favoriten/History */
+/* sind die blauen TabButton */
+.btnTabTop, .btnTabTop-sel{
+    -fx-background-radius: 20;
+    -fx-background-color: -grad-notSel;
+    -fx-effect: dropshadow(three-pass-box, #464f5f, 3, 0.2 , 2 , 2 );
+    -fx-padding: 10 60 10 60;
+
+    -fx-alignment: center;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.btnTabTop:hover{
+    -fx-effect: dropshadow(three-pass-box, #464f5f, 10, 0.2 , 3 , 3);
+}
+.btnTabTop-sel{
+    -fx-background-color: -grad-sel;
+    -fx-effect: dropshadow(three-pass-box, #404040, 5, 0.2 , 2 , 2 );
+}
+.btnTabTop-sel:hover{
+    -fx-effect: dropshadow(three-pass-box, #464f5f, 10, 0.2 , 3 , 3);
+}
+
+
+/* Menü-Button */
+.btnFunction{
+    -fx-border-radius: 30;
+    -fx-border-width: 0;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,1;
+    -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
+    -fx-padding: 5;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+}
+.btnFunc-1{
+    -fx-padding: 3 10 3 10;
+}
+.btnFunc-2{
+    -fx-padding: 5 20 5 20;
+}
+.btnFunction > .arrow-button{
+    /*Pfeil ausblenden*/
+    -fx-padding: 0;
+}
+.btnFunction > .arrow-button > .arrow{
+    /*Pfeil ausblenden*/
+    -fx-padding: 0;
+}
+.btnFunc-1:pressed{
+    -fx-border-width: 0;
+    -fx-padding: 3 10 3 10;
+}
+.btnFunc-2:pressed{
+    -fx-border-width: 0;
+    -fx-padding: 5 20 5 20;
+}
+.btnFunction:focused{
+    -fx-background-color: #4898de, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.4,1,1;
+}
+.btnFunction:hover{
+    -fx-background-color: #005ab0, -lin-grad-btn-func-1, -rad-grad-btn-func-1;
+    -fx-background-insets: -0.8,1,1;
+}
+.btnFunction:focused:hover{
+    -fx-background-color: #005ab0, -lin-grad-btn-func-1, -rad-grad-btn-func-1;
+    -fx-background-insets: -1.2,1,1;
+}
+
+/*Button in der Tabelle*/
+.btnTable{
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-background-insets: 0,1,1;
+    -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-padding: 5 10;
+
+    -fx-alignment: center ;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+.btnTable:pressed{
+    -fx-border-width: 1;
+    -fx-padding: 5 10;
+}
+.btnTable:focused{
+    -fx-background-color: #8d8d8d, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.5,1,1;
+}
+.btnTable:hover{
+    -fx-background-color: #98abc4, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.5,1,1;
+}
+.btnTable:focused:hover{
+    -fx-background-color: #98abc4, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -1,1,1;
+}
+
+
+/* Startdialog beim ersten Programmstart */
+.btnStartDialog{
+    -fx-font-weight: bold;
+    -fx-alignment: center ;
+    -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,1;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-padding: 5 10;
+    /*-fx-border: 5;*/
+}
+.btnStartDialog:focused{
+    -fx-background-color: #8d8d8d, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.5,1,1;
+}
+.btnStartDialog:hover{
+    -fx-background-color: #98abc4, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.8,1,1;
+}
+.btnStartDialog:focused:hover{
+    -fx-background-color: #98abc4, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -1.4,1,1;
+}
+
+.btnStartDialogSel{
+    -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: 0,1,1;
+    -fx-text-fill: -text-color-blue;
+}
+.btnStartDialogSel:focused{
+    -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.5,1,1;
+}
+.btnStartDialogSel:hover{
+    -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.8,1,1;
+}
+.btnStartDialogSel:focused:hover{
+    -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -1.4,1,1;
+}
+
