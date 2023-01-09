@@ -42,14 +42,14 @@ public class PTipOfDayDialog extends PDialogExtra {
     public static final Image ICON_BUTTON_PREV = new Image(PTipOfDayDialog.class.getResourceAsStream("button-prev.png"));
 
     private final List<PTipOfDay> pTipList;
-    private ImageView iv = new ImageView();
-    private Label lblText = new Label();
-    private HBox hBoxHyper = new HBox();
-    private StringProperty shownProp;
-    private BooleanProperty showTip;
+    private final ImageView iv = new ImageView();
+    private final Label lblText = new Label();
+    private final HBox hBoxHyper = new HBox();
+    private final StringProperty shownProp;
+    private final BooleanProperty showTip;
     private int imageSize = 0;
     private Button btnOk, btnPrev, btnNext;
-    private CheckBox chkShow = new CheckBox("Tips anzeigen");
+    private final CheckBox chkShow = new CheckBox("Tips anzeigen");
     private int actTipOfDay = 0;
 
     public PTipOfDayDialog(Stage stage, List<PTipOfDay> pTipList, StringProperty shownProp, BooleanProperty showTip) {
@@ -113,9 +113,9 @@ public class PTipOfDayDialog extends PDialogExtra {
             selectActToolTip(false);
         });
 
-        btnOk.getStyleClass().add("btnStartDialog");
-        btnNext.getStyleClass().add("btnStartDialog");
-        btnPrev.getStyleClass().add("btnStartDialog");
+//        btnOk.getStyleClass().add("btnStartDialog");
+//        btnNext.getStyleClass().add("btnStartDialog");
+//        btnPrev.getStyleClass().add("btnStartDialog");
 
         addOkButton(btnOk);
         ButtonBar.setButtonData(btnPrev, ButtonBar.ButtonData.BACK_PREVIOUS);

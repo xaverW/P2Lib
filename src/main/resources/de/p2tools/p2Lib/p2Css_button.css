@@ -5,35 +5,27 @@
     -fx-border-radius: 6;
     -fx-border-width: 1;
 
-    -fx-background-color: #d3d3d3;
+    -fx-background-color: #d3d3d3
     -fx-background-radius: 6;
     -fx-background-insets: 0;
     -fx-padding: 5 15 5 15;
     -fx-text-fill: black;
-/*    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );*/
-    -fx-font-family: "Arial";
-    -fx-font-size: 12px;
-
 }
 .button:pressed{
+    -fx-border-color: -text-color-blue;
     -fx-border-width: 2;
     -fx-padding: 4 14 4 14;
+    -fx-text-fill: -text-color-blue;
 }
 .button:focused{
     -fx-border-color: -text-color-blue;
-    -fx-background-color: #4898de, -lin-grad-1, -rad-grad-1;
     -fx-background-insets: 0,0,0;
-    -fx-text-fill: -text-color-blue;
 }
 .button:hover{
     -fx-border-color: -text-color-blue;
-    -fx-background-color: #005ab0, -lin-grad-btn-func-1, -rad-grad-btn-func-1;
     -fx-background-insets: 0,0,0;
-    -fx-text-fill: -text-color-blue;
 }
 .button:focused:hover{
     -fx-border-color: -text-color-blue;
-    -fx-background-color: #005ab0, -lin-grad-btn-func-1, -rad-grad-btn-func-1;
     -fx-background-insets: 0,0,0;
-    -fx-text-fill: -text-color-blue;
 }

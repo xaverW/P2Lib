@@ -33,9 +33,9 @@ public class PMaskerPane extends BorderPane {
 
     private final VBox vBoxCont = new VBox();
     private final HBox vBoxIndicator = new HBox();
-    HBox hBoxText = new HBox(10);
     private final Label lblText = new Label("");
     private final Button btnStop = new Button("Stop");
+    HBox hBoxText = new HBox(10);
 
     public PMaskerPane() {
 

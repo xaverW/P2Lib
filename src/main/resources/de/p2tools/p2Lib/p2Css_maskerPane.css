@@ -16,32 +16,40 @@
 
 
 .p2MaskerPane {
-    -fx-background-color : rgba(15, 15, 15, 0.7);
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
     -fx-background-radius: 5;
+    -fx-background-color : rgba(15, 15, 15, 0.7);
     -fx-effect           : innershadow(two-pass-box, rgba(255, 255, 255, 0.6), 5.0, 0.25, 0, 0);
     -foreground-color    : white;
     -icon-color          : white;
 }
 
 .p2MaskerTextLabel {
-    -foreground-color: snow;
-    -fx-background-radius: 30;
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
     -fx-background-color : whitesmoke;
+    -foreground-color: snow;
     -fx-text-fill: black;
 }
 
 .p2MaskerButtonStop {
-    -fx-background-radius: 30;
-    -fx-background-color : whitesmoke;
-    -fx-text-fill: black;
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+/*    -fx-background-color : whitesmoke;*/
+/*    -fx-text-fill: black;*/
 }
 
 .p2MaskerProgressIndicator {
-    -fx-background-radius: 30;
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
     -fx-progress-color: deepskyblue;
 }
 
 .p2MaskerVBoxIndicator {
-    -fx-background-color: silver;
     -fx-background-radius: 100;
+    -fx-background-color: silver;
 }

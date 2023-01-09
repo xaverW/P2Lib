@@ -201,12 +201,11 @@ btnTab-sel:pressed{
 }
 
 
-
 /* Button Sender/Favoriten/History */
 /* sind die blauen TabButton */
 .btnTabTop, .btnTabTop-sel{
     -fx-background-radius: 20;
-    -fx-background-color: -grad-notSel;
+    -fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 20%, center 90% 75%, radius 30%, reflect, #305d9c, #203e68 75%, #1e3c64 75%);
     -fx-effect: dropshadow(three-pass-box, #464f5f, 3, 0.2 , 2 , 2 );
     -fx-padding: 10 60 10 60;
 
@@ -218,7 +217,7 @@ btnTab-sel:pressed{
     -fx-effect: dropshadow(three-pass-box, #464f5f, 10, 0.2 , 3 , 3);
 }
 .btnTabTop-sel{
-    -fx-background-color: -grad-sel;
+    -fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 20%, center 90% 75%, radius 30%, reflect, #4e9bff, #4181d6 75%, #407cd0 75%);
     -fx-effect: dropshadow(three-pass-box, #404040, 5, 0.2 , 2 , 2 );
 }
 .btnTabTop-sel:hover{
@@ -228,9 +227,9 @@ btnTab-sel:pressed{
 
 /* Menü-Button */
 .btnFunction{
-    -fx-border-radius: 30;
+    -fx-border-radius: 25;
     -fx-border-width: 0;
-    -fx-background-radius: 30;
+    -fx-background-radius: 25;
     -fx-background-insets: 0,1,1;
     -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
     -fx-padding: 5;
@@ -242,6 +241,17 @@ btnTab-sel:pressed{
 }
 .btnFunc-2{
     -fx-padding: 5 20 5 20;
+}
+.btnFuncStartDialog{
+    -fx-padding: 5 20 5 20;
+    -fx-font-weight: bold;
+}
+.btnFuncStartDialogSel{
+    -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.8,1,1;
+    -fx-padding: 5 20 5 20;
+    -fx-text-fill: -text-color-blue;
+    -fx-font-weight: bold;
 }
 .btnFunction > .arrow-button{
     /*Pfeil ausblenden*/
@@ -260,15 +270,15 @@ btnTab-sel:pressed{
     -fx-padding: 5 20 5 20;
 }
 .btnFunction:focused{
-    -fx-background-color: #4898de, -lin-grad-1, -rad-grad-1;
+    -fx-background-color: #004b91, -lin-grad-1, -rad-grad-1;
     -fx-background-insets: -0.4,1,1;
 }
 .btnFunction:hover{
-    -fx-background-color: #005ab0, -lin-grad-btn-func-1, -rad-grad-btn-func-1;
+    -fx-background-color: #005ab0, -lin-grad-1, -rad-grad-1;
     -fx-background-insets: -0.8,1,1;
 }
 .btnFunction:focused:hover{
-    -fx-background-color: #005ab0, -lin-grad-btn-func-1, -rad-grad-btn-func-1;
+    -fx-background-color: #005ab0, -lin-grad-1, -rad-grad-1;
     -fx-background-insets: -1.2,1,1;
 }
 
@@ -276,19 +286,19 @@ btnTab-sel:pressed{
 .btnTable{
     -fx-border-width: 1;
     -fx-border-radius: 20;
-    -fx-background-radius: 20;
+    -fx-background-radius: 25;
     -fx-background-insets: 0,1,1;
     -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
-    -fx-padding: 5 10;
+    -fx-padding: 3 10;
 
     -fx-alignment: center ;
     -fx-text-fill: black;
     -fx-font-weight: bold;
 }
 .btnTable:pressed{
-    -fx-border-width: 1;
-    -fx-padding: 5 10;
+    -fx-border-width: 2;
+    -fx-padding: 2 9;
 }
 .btnTable:focused{
     -fx-background-color: #8d8d8d, -lin-grad-1, -rad-grad-1;
@@ -302,48 +312,3 @@ btnTab-sel:pressed{
     -fx-background-color: #98abc4, -lin-grad-1, -rad-grad-1;
     -fx-background-insets: -1,1,1;
 }
-
-
-/* Startdialog beim ersten Programmstart */
-.btnStartDialog{
-    -fx-font-weight: bold;
-    -fx-alignment: center ;
-    -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
-    -fx-background-radius: 30;
-    -fx-background-insets: 0,1,1;
-    -fx-text-fill: black;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
-    -fx-padding: 5 10;
-    /*-fx-border: 5;*/
-}
-.btnStartDialog:focused{
-    -fx-background-color: #8d8d8d, -lin-grad-1, -rad-grad-1;
-    -fx-background-insets: -0.5,1,1;
-}
-.btnStartDialog:hover{
-    -fx-background-color: #98abc4, -lin-grad-1, -rad-grad-1;
-    -fx-background-insets: -0.8,1,1;
-}
-.btnStartDialog:focused:hover{
-    -fx-background-color: #98abc4, -lin-grad-1, -rad-grad-1;
-    -fx-background-insets: -1.4,1,1;
-}
-
-.btnStartDialogSel{
-    -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
-    -fx-background-insets: 0,1,1;
-    -fx-text-fill: -text-color-blue;
-}
-.btnStartDialogSel:focused{
-    -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
-    -fx-background-insets: -0.5,1,1;
-}
-.btnStartDialogSel:hover{
-    -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
-    -fx-background-insets: -0.8,1,1;
-}
-.btnStartDialogSel:focused:hover{
-    -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
-    -fx-background-insets: -1.4,1,1;
-}
-

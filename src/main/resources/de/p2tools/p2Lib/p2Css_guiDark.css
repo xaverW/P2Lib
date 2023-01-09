@@ -15,17 +15,12 @@
         );
     -fx-focused-mark-color : -fx-focused-text-base-color ;
 
-    -tab-button-1: #969696;
-    -tab-button-2: #a6a6a6;
-    -tab-button-3: rgba(230,230,230,0);
+    -tab-button-1: #4a4a4a;
+    -tab-button-2: #545454;
+    -tab-button-3: rgba(50,50,50,0);
 
-    -filter-lin-grad-1: linear-gradient(from 50% 22% to 50% 120% , reflect, #6D6D6D 10% , #8A929E 100% );
-
-    -lin-grad-1: linear-gradient(from 0% 0% to 100% 100%, -tab-button-1 50%, white 100%);
+    -lin-grad-1: linear-gradient(from 0% 0% to 100% 100%, -tab-button-1 50%, #616161 100%);
     -rad-grad-1: radial-gradient(center 50% -40%, radius 200%, -tab-button-2 45%, -tab-button-3 50%);
-
-    -lin-grad-btn-func-1: linear-gradient(from 0% 0% to 100% 100%, -tab-button-1 40%, white 90%);
-    -rad-grad-btn-func-1: radial-gradient(center 80% -70%, radius 200%, -tab-button-2 35%, -tab-button-3 40%);
 
     -style-tab-border-color-1: #003ca0;
     -style-tab-border-color-2: #003cff;
@@ -35,13 +30,64 @@
     -lblSelectedLines-color-1: derive(-fx-base, 70%);
     -lblSelectedLines-color-2: derive(-fx-base, 40%);
 
-    -text-color-blue: #002fbe;
+    -text-sel-color: #00b3ff;
 }
 
 
 /* ========================================================================== */
 /* sind javafx gui Elemente */
 /* ========================================================================== */
+
+.button{
+    -fx-border-color: #868787;
+    -fx-background-color: #55595b;
+    -fx-text-fill: white;
+}
+.button:focused{
+    -fx-background-color: #4898de, -lin-grad-1, -rad-grad-1;
+    -fx-text-fill: white;
+}
+.button:hover{
+    -fx-background-color: #005ab0, -lin-grad-1, -rad-grad-1;
+    -fx-text-fill: white;
+}
+.button:focused:hover{
+    -fx-background-color: #005ab0, -lin-grad-1, -rad-grad-1;
+    -fx-text-fill: white;
+}
+.button:focused:hover:pressed{
+    -fx-text-fill: -text-sel-color;
+}
+
+
+ /* tabs of the tabpane*/
+ .tab .tab-label {
+ }
+ .tab-pane {
+  }
+ .tab-pane > .tab-header-area > .headers-region > .tab {
+     -fx-background-color: transparent, -lin-grad-1, -rad-grad-1;
+     -fx-text-fill: #f0f0f0;
+  }
+ .tab-pane > .tab-header-area > .headers-region > .tab:selected {
+     -fx-border-color: -style-tab-border-color-1, transparent;
+  }
+ .tab-pane > .tab-header-area > .headers-region > .tab:hover {
+     -fx-border-color: -style-tab-border-color-1, -style-tab-border-color-2, transparent;
+  }
+ .tab-pane > .tab-header-area > .headers-region > .tab:pressed {
+     -fx-border-color: -style-tab-border-color-1, -style-tab-border-color-2;
+  }
+
+ .tab .tab-label {
+      -fx-text-fill: #f0f0f0;
+ }
+ .tab:selected .tab-label {
+      -fx-text-fill: -text-sel-color;
+ }
+ .tab-pane > .tab-header-area > .headers-region > .tab:selected  .focus-indicator {
+ }
+
 
 /* sind alle Context-Menüs */
 .context-menu {

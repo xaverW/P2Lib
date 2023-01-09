@@ -23,11 +23,8 @@
     -tab-button-2: #e6e6e6;
     -tab-button-3: rgba(230,230,230,0);
 
-    -filter-lin-grad-1: linear-gradient(from 50% 17% to 50% 114% , repeat, #E6E6E6, #CBD8EB 100% );
     -lin-grad-1: linear-gradient(from 0% 0% to 100% 100%, -tab-button-1 50%, white 100%);
     -rad-grad-1: radial-gradient(center 50% -40%, radius 200%, -tab-button-2 45%, -tab-button-3 50%);
-    -lin-grad-btn-func-1: linear-gradient(from 0% 0% to 100% 100%, -tab-button-1 40%, white 90%);
-    -rad-grad-btn-func-1: radial-gradient(center 80% -70%, radius 200%, -tab-button-2 35%, -tab-button-3 40%);
 
     -style-tab-border-color-1: #4169E1; /*royalblue*/
     -style-tab-border-color-2: #4a77ff;
@@ -36,10 +33,6 @@
 
     -lblSelectedLines-color-1: derive(-fx-base, -40%);
     -lblSelectedLines-color-2: derive(-fx-base, -10%);
-
-    /*TabButton Sender/Favoriten/History*/
-    -grad-notSel: radial-gradient(focus-angle 45deg, focus-distance 20%, center 90% 75%, radius 30%, reflect, #305d9c, #203e68 75%, #1e3c64 75%);
-    -grad-sel: radial-gradient(focus-angle 45deg, focus-distance 20%, center 90% 75%, radius 30%, reflect, #4e9bff, #4181d6 75%, #407cd0 75%);
 }
 
 /* ========================================================================== */
@@ -119,10 +112,7 @@
 
      -fx-background-radius: 0, 10 10 0 0, 6 6 0 0;
      -fx-background-insets: 0, 0 3 0 0, 2 5 2 2;
-     -fx-background-color:
-              transparent,
-              -lin-grad-1,
-              -rad-grad-1;
+     -fx-background-color: transparent, -lin-grad-1, -rad-grad-1;
      -fx-text-fill: black;
   }
  .tab-pane > .tab-header-area > .headers-region > .tab:selected {
