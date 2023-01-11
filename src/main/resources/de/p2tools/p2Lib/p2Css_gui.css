@@ -184,7 +184,7 @@
 /* Button "Filme", "Downloads", "Abos" */
 .btnTab, .btnTab-sel{
     -fx-border-width: 0;
-    -fx-background-radius: 30;
+    -fx-background-radius: 10;
     -fx-background-insets: 0,1,1;
     -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
@@ -287,6 +287,10 @@ btnTab-sel:pressed{
 .btnFunction > .arrow-button > .arrow{
     /*Pfeil ausblenden*/
     -fx-padding: 0;
+}
+.btnFunction:pressed{
+    -fx-border-width: 0;
+    -fx-padding: 5;
 }
 .btnFunc-1:pressed{
     -fx-border-width: 0;

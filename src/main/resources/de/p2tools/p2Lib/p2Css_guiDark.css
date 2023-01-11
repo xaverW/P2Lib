@@ -144,3 +144,13 @@
 .button-accordion {
     -fx-background-color: linear-gradient(from 15% 53% to 15% 120% , #9B9B9B, #DBDBDB 100% );
 }
+
+/* und eigenen Sachen */
+.btnTab, .btnTab-sel{
+    -fx-text-fill: white;
+}
+.btnTab-sel{
+    -fx-text-fill: -text-color-blue;
+}
+
+
