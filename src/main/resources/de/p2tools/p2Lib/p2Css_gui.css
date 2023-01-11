@@ -204,10 +204,10 @@ btnTab-sel:pressed{
 /* Button Sender/Favoriten/History */
 /* sind die blauen TabButton */
 .btnTabTop, .btnTabTop-sel{
-    -fx-background-radius: 20;
+    -fx-background-radius: 10;
     -fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 20%, center 90% 75%, radius 30%, reflect, #305d9c, #203e68 75%, #1e3c64 75%);
     -fx-effect: dropshadow(three-pass-box, #464f5f, 3, 0.2 , 2 , 2 );
-    -fx-padding: 10 60 10 60;
+    -fx-padding: 6 40 6 40;
 
     -fx-alignment: center;
     -fx-text-fill: white;
@@ -227,9 +227,9 @@ btnTab-sel:pressed{
 
 /* Menü-Button */
 .btnFunction{
-    -fx-border-radius: 25;
+    -fx-border-radius: 10;
     -fx-border-width: 0;
-    -fx-background-radius: 25;
+    -fx-background-radius: 10;
     -fx-background-insets: 0,1,1;
     -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
     -fx-padding: 5;
@@ -240,7 +240,7 @@ btnTab-sel:pressed{
     -fx-padding: 3 10 3 10;
 }
 .btnFunc-2{
-    -fx-padding: 5 20 5 20;
+    -fx-padding: 5 15 5 15;
 }
 .btnFuncStartDialog{
     -fx-padding: 5 20 5 20;
@@ -267,7 +267,7 @@ btnTab-sel:pressed{
 }
 .btnFunc-2:pressed{
     -fx-border-width: 0;
-    -fx-padding: 5 20 5 20;
+    -fx-padding: 5 15 5 15;
 }
 .btnFunction:focused{
     -fx-background-color: #004b91, -lin-grad-1, -rad-grad-1;
@@ -285,8 +285,8 @@ btnTab-sel:pressed{
 /*Button in der Tabelle*/
 .btnTable{
     -fx-border-width: 1;
-    -fx-border-radius: 20;
-    -fx-background-radius: 25;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
     -fx-background-insets: 0,1,1;
     -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
