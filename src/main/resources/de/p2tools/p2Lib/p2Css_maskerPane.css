@@ -16,40 +16,34 @@
 
 
 .p2MaskerPane {
-    -fx-border-width: 1;
-    -fx-border-radius: 20;
-    -fx-background-radius: 5;
     -fx-background-color : rgba(15, 15, 15, 0.7);
     -fx-effect           : innershadow(two-pass-box, rgba(255, 255, 255, 0.6), 5.0, 0.25, 0, 0);
-    -foreground-color    : white;
-    -icon-color          : white;
 }
 
 .p2MaskerTextLabel {
     -fx-border-width: 1;
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
-    -fx-background-color : whitesmoke;
-    -foreground-color: snow;
-    -fx-text-fill: black;
+    -fx-border-radius: 10;
+    -fx-border-color: #868787;
+    -fx-background-radius: 10;
+    -fx-background-color : #424242;
+    -fx-text-fill: white;
 }
 
 .p2MaskerButtonStop {
     -fx-border-width: 1;
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
-/*    -fx-background-color : whitesmoke;*/
-/*    -fx-text-fill: black;*/
+    -fx-border-radius: 10;
+    -fx-border-color: #868787;
+    -fx-background-radius: 10;
+    -fx-background-color : #424242;
+    -fx-text-fill: white;
 }
 
 .p2MaskerProgressIndicator {
-    -fx-border-width: 1;
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
-    -fx-progress-color: deepskyblue;
+    -fx-border-width: 10;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-progress-color: #00bfff;
 }
-
-.p2MaskerVBoxIndicator {
-    -fx-background-radius: 100;
-    -fx-background-color: silver;
+.progress-indicator .indicator {
+    -fx-background-color: transparent;
 }

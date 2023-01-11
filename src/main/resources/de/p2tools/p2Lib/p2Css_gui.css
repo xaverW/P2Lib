@@ -18,6 +18,33 @@
   -fx-alignment: center-left;
 }
 
+/*Button zum löschen der Filter*/
+.btnClearFilter {
+    -fx-background-color: #6a7c9a, -clear-filter-lin-grad-1, -clear-filter-rad-grad-1;
+    /*-fx-background-radius: 10;*/
+    -fx-background-insets: 0,2,2;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-padding: 5 20 5 20;
+}
+.btnClearFilter:focused{
+    -fx-background-color: #0c3f8d, -clear-filter-lin-grad-1, -clear-filter-rad-grad-1;
+    -fx-background-insets: -0.5,1,1;
+}
+.btnClearFilter:hover{
+    -fx-background-color: #00508d, -clear-filter-lin-grad-1, -clear-filter-rad-grad-1;
+    -fx-background-insets: -0.8,1,1;
+}
+.btnClearFilter:focused:hover{
+    -fx-background-color: #003462, -clear-filter-lin-grad-1, -clear-filter-rad-grad-1;
+    -fx-background-insets: -1.4,1,1;
+}
+.btnClearFilter:pressed{
+    -fx-background-color: #1d0f62,
+         linear-gradient(from 0% 0% to 100% 100%, #d6d6d6 40%, white 90%),
+         radial-gradient(center 80% -70%, radius 200%, #e6e6e6 35%, -clear-filter-tab-button-3 40%);
+}
+
 
 /* PFilterTextField */
 .PFilterTextField .button{
@@ -227,9 +254,9 @@ btnTab-sel:pressed{
 
 /* Menü-Button */
 .btnFunction{
-    -fx-border-radius: 10;
+    -fx-border-radius: 5;
     -fx-border-width: 0;
-    -fx-background-radius: 10;
+    -fx-background-radius: 5;
     -fx-background-insets: 0,1,1;
     -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
     -fx-padding: 5;

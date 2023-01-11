@@ -11,11 +11,17 @@
     -fx-padding: 5 15 5 15;
     -fx-text-fill: black;
 }
+.buttonSmall{
+    -fx-padding: 5;
+}
 .button:pressed{
     -fx-border-color: -text-color-blue;
     -fx-border-width: 2;
     -fx-padding: 4 14 4 14;
     -fx-text-fill: -text-color-blue;
+}
+.buttonSmall:pressed{
+    -fx-padding: 4;
 }
 .button:focused{
     -fx-border-color: -text-color-blue;

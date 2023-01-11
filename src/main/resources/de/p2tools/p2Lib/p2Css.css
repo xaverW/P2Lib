@@ -33,6 +33,16 @@
 
     -lblSelectedLines-color-1: derive(-fx-base, -40%);
     -lblSelectedLines-color-2: derive(-fx-base, -10%);
+
+
+     /*für den FilterClear-Button*/
+    -clear-filter-tab-button-1: #d6d6d6;
+    -clear-filter-tab-button-2: #e6e6e6;
+    -clear-filter-tab-button-3: #d6d6d6;
+    -clear-filter-lin-grad-1: linear-gradient(from 0% 0% to 100% 100%, -clear-filter-tab-button-1 50%, white 100%);
+    -clear-filter-rad-grad-1: radial-gradient(center 50% -40%, radius 200%, -clear-filter-tab-button-2 45%, -clear-filter-tab-button-3 50%);
+
+
 }
 
 /* ========================================================================== */
@@ -175,3 +185,22 @@
      -fx-background-color: #5d5e8c,
          linear-gradient(to bottom, #0085be 10%, white 100% );
  }
+
+/* CheckBoxCell: CheckBoxen in der Tabelle*/
+.checkbox-table * {
+    -fx-background-color: transparent;
+}
+.checkbox-table:disabled {
+    -fx-opacity: 1;
+}
+.checkbox-table .box {
+    -fx-border-radius: 10px;
+    -fx-border-color: lightgray;
+}
+.checkbox-table:selected .box {
+    -fx-border-color: -p2-color-blue1;
+}
+.checkbox-table:selected .mark {
+    -fx-background-color: black;
+}
+

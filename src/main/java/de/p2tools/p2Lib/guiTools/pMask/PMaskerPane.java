@@ -32,21 +32,18 @@ public class PMaskerPane extends BorderPane {
     private final ProgressIndicator progressIndicator = new ProgressIndicator();
 
     private final VBox vBoxCont = new VBox();
-    private final HBox vBoxIndicator = new HBox();
     private final Label lblText = new Label("");
     private final Button btnStop = new Button("Stop");
-    HBox hBoxText = new HBox(10);
+    private final HBox hBoxText = new HBox(10);
 
     public PMaskerPane() {
-
         getStyleClass().add("p2MaskerPane");
         lblText.getStyleClass().add("p2MaskerTextLabel");
         btnStop.getStyleClass().add("p2MaskerButtonStop");
         progressIndicator.getStyleClass().add("p2MaskerProgressIndicator");
-        vBoxIndicator.getStyleClass().add("p2MaskerVBoxIndicator");
 
-        this.heightProperty().addListener((observable, oldValue, newValue) -> setSize());
-        this.widthProperty().addListener((observable, oldValue, newValue) -> setSize());
+//        this.heightProperty().addListener((observable, oldValue, newValue) -> setSize());
+//        this.widthProperty().addListener((observable, oldValue, newValue) -> setSize());
 
         setVBoxCont();
         setSize();
@@ -61,7 +58,7 @@ public class PMaskerPane extends BorderPane {
     public void setButtonText(String text) {
         Platform.runLater(() -> {
             btnStop.setText(text);
-            setSize();
+//            setSize();
         });
     }
 
@@ -141,19 +138,19 @@ public class PMaskerPane extends BorderPane {
 
         lblText.setMaxWidth(Double.MAX_VALUE);
         lblText.setAlignment(Pos.CENTER);
-        lblText.setPadding(new Insets(3, 10, 3, 10));
+        lblText.setPadding(new Insets(5, 10, 5, 10));
+        lblText.setMinHeight(btnStop.getHeight());
 
-        btnStop.heightProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                lblText.setMinHeight(newValue.doubleValue());
-            }
-        });
+//        btnStop.heightProperty().addListener((observable, oldValue, newValue) -> {
+//            if (newValue != null) {
+//                lblText.setMinHeight(newValue.doubleValue());
+//            }
+//        });
         setBtnVisible(false);
 
         hBoxText.setAlignment(Pos.CENTER);
         HBox.setHgrow(lblText, Priority.ALWAYS);
         hBoxText.getChildren().addAll(lblText, btnStop);
-
         vBoxCont.getChildren().addAll(progressIndicator, hBoxText);
     }
 
@@ -165,7 +162,6 @@ public class PMaskerPane extends BorderPane {
     private void setSize() {
         vBoxCont.setMinWidth(500);
         vBoxCont.setMaxWidth(500);
-
 //        double w = this.getWidth(), h = this.getHeight();
 //        w = w / 3;
 //        h = h / 3;
@@ -173,10 +169,7 @@ public class PMaskerPane extends BorderPane {
 //        if (w == 0 || h == 0) {
 //            return;
 //        }
-//
 //        vBoxCont.setMinWidth(w);
 //        vBoxCont.setMaxWidth(w);
-        vBoxCont.setAlignment(Pos.CENTER);
     }
-
 }
