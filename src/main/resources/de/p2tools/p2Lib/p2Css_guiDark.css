@@ -153,4 +153,6 @@
     -fx-text-fill: -text-color-blue;
 }
 
-
+.btnFunction{
+    -fx-text-fill: white;
+}

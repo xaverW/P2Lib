@@ -1,0 +1,115 @@
+/*  Programmweites style sheet */
+
+/*Button zum löschen der Filter*/
+.btnClearFilter {
+    -fx-padding: 5 20 5 20;
+}
+.btnClearFilter:pressed{
+    -fx-border-width: 2;
+    -fx-padding: 4 19 4 19;
+}
+
+
+/* Button Sender/Favoriten/History */
+/* sind die blauen TabButton */
+.btnTabTop, .btnTabTop-sel{
+    -fx-background-radius: 20 20 5 5 ;
+    -fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 20%, center 90% 75%, radius 30%, reflect, #305d9c, #203e68 75%, #1e3c64 75%);
+    -fx-effect: dropshadow(three-pass-box, #464f5f, 3, 0.2 , 2 , 2 );
+    -fx-padding: 6 40 6 40;
+
+    -fx-alignment: center;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.btnTabTop:hover{
+    -fx-effect: dropshadow(three-pass-box, #464f5f, 10, 0.2 , 3 , 3);
+}
+.btnTabTop-sel{
+    -fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 20%, center 90% 75%, radius 30%, reflect, #4e9bff, #4181d6 75%, #407cd0 75%);
+    -fx-effect: dropshadow(three-pass-box, #404040, 5, 0.2 , 2 , 2 );
+}
+.btnTabTop-sel:hover{
+    -fx-effect: dropshadow(three-pass-box, #464f5f, 10, 0.2 , 3 , 3);
+}
+
+
+/* Menü-Button */
+/* Func-Button */
+.btnFunction{
+    -fx-border-radius: 20;
+    -fx-border-width: 0;
+    -fx-background-radius: 20;
+    -fx-background-insets: 0,1,1;
+    -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
+    -fx-padding: 5;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+}
+.btnFunc-1{
+    -fx-padding: 3 10;
+}
+.btnFunc-2{
+    -fx-padding: 5 15;
+}
+.btnFunc-3{
+    -fx-padding: 5 20 5 20;
+    -fx-font-weight: bold;
+}
+.btnFuncTable{
+    -fx-border-width: 1;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-padding: 3 10;
+}
+.btnFuncStartDialog{
+    -fx-padding: 5 20 5 20;
+    -fx-font-weight: bold;
+}
+.btnFuncStartDialogSel{
+    -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.8,1,1;
+    -fx-padding: 5 20 5 20;
+    -fx-text-fill: -text-color-blue;
+    -fx-font-weight: bold;
+}
+.btnFunction > .arrow-button{
+    /*Pfeil ausblenden*/
+    -fx-padding: 0;
+}
+.btnFunction > .arrow-button > .arrow{
+    /*Pfeil ausblenden*/
+    -fx-padding: 0;
+}
+.btnFunction:pressed{
+    -fx-border-width: 0;
+    -fx-padding: 5;
+}
+.btnFunc-1:pressed{
+    -fx-border-width: 0;
+    -fx-padding: 3 10;
+}
+.btnFunc-2:pressed{
+    -fx-border-width: 0;
+    -fx-padding: 5 15;
+}
+.btnFunc-3:pressed{
+    -fx-border-width: 0;
+    -fx-padding: 5 20 5 20;
+}
+.btnFuncTable:pressed{
+    -fx-border-width: 1;
+    -fx-padding: 3 10;
+}
+.btnFunction:focused{
+    -fx-background-color: #004b91, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.4,1,1;
+}
+.btnFunction:hover{
+    -fx-background-color: #005ab0, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.8,1,1;
+}
+.btnFunction:focused:hover{
+    -fx-background-color: #005ab0, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -1.2,1,1;
+}

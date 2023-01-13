@@ -53,11 +53,13 @@ public class P2LibInit {
 
     public static void addP2LibCssToScene(Scene scene) {
         List<String> list = new ArrayList<>();
-        list.add("de/p2tools/p2Lib/p2Css.css");
         list.add("de/p2tools/p2Lib/p2Css_button.css");
         list.add("de/p2tools/p2Lib/p2Css_maskerPane.css");
         list.add("de/p2tools/p2Lib/p2Css_toggleSwitch.css");
         list.add("de/p2tools/p2Lib/p2Css_notifier.css");
+        list.add("de/p2tools/p2Lib/p2Css.css");
+        list.add("de/p2tools/p2Lib/p2Css_toolButton.css");
+        list.add("de/p2tools/p2Lib/p2Css_smallGui.css");
         for (String s : P2LibConst.cssFileList) {
             list.add(s);
         }
