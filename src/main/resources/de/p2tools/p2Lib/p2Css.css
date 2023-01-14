@@ -81,13 +81,26 @@
      -fx-background-radius: 5 0 0 5;
  }
 
- /* damit leere Tabellenzeilen nicht angezeigt werden */
- .table-row-cell:empty {
-     -fx-background-color: transparent;
+/* Tabelle */
+.table-row-cell: hover {
+    -fx-background-color: #c5c5c5;
+    -fx-text-background-color: black;
+    -fx-background-insets: 0, 1;
+}
+.table-row-cell:focused:hover{
+    -fx-background-color: #6c6c6c;
+    -fx-background-insets: 0, 1;
+}
+/* damit leere Tabellenzeilen nicht angezeigt werden */
+.table-row-cell:empty {
+    -fx-background-color: transparent;
  }
- .table-row-cell:empty .table-cell {
-     -fx-border-width: 0px;
+.table-row-cell:empty .table-cell {
+    -fx-border-width: 0px;
  }
+
+
+
  /* damit leere Treetable-Zeilen nicht angezeigt werden */
  .tree-table-row-cell:empty {
      -fx-border-width: 0;

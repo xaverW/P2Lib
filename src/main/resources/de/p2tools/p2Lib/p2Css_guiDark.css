@@ -31,6 +31,7 @@
     -lblSelectedLines-color-2: derive(-fx-base, 40%);
 
     -text-sel-color: #00b3ff;
+    -dark-blue: #00374d;
 }
 
 
@@ -59,8 +60,47 @@
     -fx-text-fill: -text-sel-color;
 }
 
+/* Tabelle */
+.table-view{
+   -fx-background-color: transparent;
+}
+.table-view .table-cell{
+    -fx-border-color: #515151;
+}
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, #cdcdcd;
+    -fx-background-insets: 0, 1;
+    -fx-padding: 0;
+}
+.table-row-cell:even{
+    -fx-background-color: -fx-table-cell-border-color, #bfbfbf;
+    -fx-background-insets: 0, 1;
+    -fx-padding: 0;
+}
+.table-row-cell:selected{
+    -fx-background-color: red, #b2d8ff;
+    -fx-background-insets: 0, 1;
+    -fx-padding: 0;
+}
+.table-row-cell: hover {
+    -fx-background-color: #464646;
+    -fx-text-background-color: white;
+    -fx-background-insets: 0, 1;
+}
+.table-row-cell:focused:hover{
+    -fx-background-color: #313131;
+    -fx-text-background-color: #a1caff;
+    -fx-background-insets: 0, 1;
+}
+/* damit leere Tabellenzeilen nicht angezeigt werden */
+.table-row-cell:empty {
+    -fx-background-color: transparent;
+ }
+.table-row-cell:empty .table-cell {
+    -fx-border-width: 0px;
+ }
 
- /* tabs of the tabpane*/
+/* tabs of the tabpane*/
  .tab .tab-label {
  }
  .tab-pane {
