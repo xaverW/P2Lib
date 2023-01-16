@@ -8,8 +8,8 @@
 }
 
 .btnSmallGui{
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
     -fx-background-insets: 0,1,1;
     -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );

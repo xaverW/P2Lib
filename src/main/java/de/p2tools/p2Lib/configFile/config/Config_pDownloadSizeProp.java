@@ -36,19 +36,19 @@ public class Config_pDownloadSizeProp extends Config {
 
     @Override
     public void setActValue(Object act) {
-        actValue.setFileSize(((DownloadSize) act).getFileSize());
+        actValue.setSize(((DownloadSize) act).getSize());
     }
 
     public void setActValue(DownloadSize act) {
-        actValue.setFileSize(act.getFileSize());
+        actValue.setSize(act.getSize());
     }
 
     @Override
     public void setActValue(String act) {
         try {
-            actValue.setFileSize(act);
+            actValue.setSize(act);
         } catch (Exception ex) {
-            actValue.setFileSize(0);
+            actValue.setSize(0);
         }
     }
 
