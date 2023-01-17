@@ -16,6 +16,8 @@
 
 package de.p2tools.p2Lib;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -23,21 +25,23 @@ import java.util.List;
 
 public class P2LibConst {
     public static final String URL_WEBSITE_DONATE = "https://www.p2tools.de/donate.html";
-    public static final String CSS_GUI = "de/p2tools/p2Lib/p2Css_gui.css";
-    public static final String CSS_GUI_DARK = "de/p2tools/p2Lib/p2Css_guiDark.css";
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
     public static final String LINE_SEPARATORx2 = LINE_SEPARATOR + LINE_SEPARATOR;
     public static final String LINE_SEPARATORx3 = LINE_SEPARATOR + LINE_SEPARATOR + LINE_SEPARATOR;
     public static final String LINE_SEPARATORx4 = LINE_SEPARATOR + LINE_SEPARATOR + LINE_SEPARATOR + LINE_SEPARATOR;
-    public static Stage primaryStage = null;
-    public static String progName = "P2Tools";
     public static List<String> cssFileList = new ArrayList();
-    public static String userAgent = "";
     public static String logfile = "P2Tools_%g.log";
     public static String logfile_0 = "P2Tools_0.log";
     public static String logdir = "Log";
     public static String styleFile = "";
     public static int MIN_BUTTON_WIDTH = 100;
+
+    //sind die Einstellungen des Programms
+    public static Stage primaryStage = null;
+    public static String progName = "P2Tools";
+    public static String userAgent = "";
+    public static BooleanProperty darkMode = new SimpleBooleanProperty();
+
     public static boolean debug = false; //Debugmodus
     public static boolean duration = false; //Duration ausgeben
 }

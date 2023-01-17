@@ -16,6 +16,7 @@
 
 package de.p2tools.p2Lib;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -24,10 +25,12 @@ import java.util.List;
 
 public class P2LibInit {
 
-    public static void initLib(Stage primaryStage, String progName, String userAgent, boolean debug, boolean duration) {
+    public static void initLib(Stage primaryStage, String progName, String userAgent,
+                               BooleanProperty darkMode, boolean debug, boolean duration) {
         P2LibConst.primaryStage = primaryStage;
         P2LibConst.progName = progName;
         P2LibConst.userAgent = userAgent;
+        P2LibConst.darkMode = darkMode;
         P2LibConst.debug = debug;
         P2LibConst.duration = duration;
     }
@@ -42,6 +45,7 @@ public class P2LibInit {
     }
 
     public static void addCssFile(String cssFile) {
+        //ist für die css des Programms
         if (!P2LibConst.cssFileList.contains(cssFile)) {
             P2LibConst.cssFileList.add(cssFile);
         }
@@ -51,18 +55,28 @@ public class P2LibInit {
         P2LibConst.cssFileList.removeIf(cssF -> cssF.equals(cssFile));
     }
 
-    public static void addP2LibCssToScene(Scene scene) {
+    public static void addP2CssToScene(Scene scene) {
         List<String> list = new ArrayList<>();
         list.add("de/p2tools/p2Lib/p2Css_button.css");
         list.add("de/p2tools/p2Lib/p2Css_maskerPane.css");
         list.add("de/p2tools/p2Lib/p2Css_toggleSwitch.css");
         list.add("de/p2tools/p2Lib/p2Css_notifier.css");
+        list.add("de/p2tools/p2Lib/p2Css_table.css");
         list.add("de/p2tools/p2Lib/p2Css.css");
         list.add("de/p2tools/p2Lib/p2Css_toolButton.css");
         list.add("de/p2tools/p2Lib/p2Css_smallGui.css");
+        list.add("de/p2tools/p2Lib/p2Css_gui.css");
+
+        if (P2LibConst.darkMode.getValue()) {
+            list.add("de/p2tools/p2Lib/p2Css_dark.css");
+            list.add("de/p2tools/p2Lib/p2Css_darkTable.css");
+        }
+
         for (String s : P2LibConst.cssFileList) {
+            //und dann noch die vom Programm
             list.add(s);
         }
+
         if (scene != null) {
             scene.getStylesheets().setAll(list);
         }
