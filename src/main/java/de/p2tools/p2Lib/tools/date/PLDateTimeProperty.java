@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 public class PLDateTimeProperty extends SimpleObjectProperty<LocalDateTime> {
 
     public PLDateTimeProperty() {
-        setValue(LocalDateTime.now());
+        setValue(LocalDateTime.MIN);
     }
 
     public PLDateTimeProperty(LocalDateTime pDate) {
@@ -31,7 +31,12 @@ public class PLDateTimeProperty extends SimpleObjectProperty<LocalDateTime> {
     }
 
     public PLDateTimeProperty(String date) {
-        setValue(PLDateTimeFactory.setDate(date, ""));
+        setValue(PLDateTimeFactory.fromString(date));
+    }
+
+    public void clearPLocalDate() {
+        this.setValue(LocalDateTime.MIN);
+        return;
     }
 
     @Override

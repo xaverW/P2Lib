@@ -62,12 +62,22 @@ public class PLDateTimeFactory {
         return localDateTime;
     }
 
+    public static String toStringDate(LocalDateTime localDateTime) {
+        if (localDateTime == null) {
+            return "";
+        } else if (localDateTime.isEqual(LocalDateTime.MIN)) {
+            return "";
+        } else {
+            return localDateTime.format(DateFactory.DT_FORMATTER_dd_MM_yyyy);
+        }
+    }
+
     public static LocalDateTime fromString(String strDate) {
         try {
             if (strDate.isEmpty()) {
                 return LocalDateTime.MIN;
             } else {
-                return LocalDateTime.parse(strDate, DateFactory.DT_FORMATTER_yyyy_MM_dd___HH__mm__ss);
+                return LocalDateTime.parse(strDate, DateFactory.DT_FORMATTER_dd_MM_yyyy___HH__mm__ss);
             }
         } catch (Exception ex) {
             return LocalDateTime.MIN;
@@ -79,7 +89,7 @@ public class PLDateTimeFactory {
             if (strDate.isEmpty()) {
                 return LocalDateTime.MIN;
             } else {
-                return LocalDateTime.parse(strDate, DateFactory.DT_FORMATTER_dd_MM_yyyy___HH__mm__ss);
+                return LocalDateTime.parse(strDate, DateFactory.DT_FORMATTER_yyyy_MM_dd___HH__mm__ss);
             }
         } catch (Exception ex) {
             return LocalDateTime.MIN;

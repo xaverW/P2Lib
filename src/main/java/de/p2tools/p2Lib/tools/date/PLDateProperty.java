@@ -43,8 +43,7 @@ public class PLDateProperty extends SimpleObjectProperty<LocalDate> {
     }
 
     public void clearPLocalDate() {
-        LocalDate pLocalDate = LocalDate.MIN;
-        this.setValue(pLocalDate);
+        this.setValue(LocalDate.MIN);
         return;
     }
 
