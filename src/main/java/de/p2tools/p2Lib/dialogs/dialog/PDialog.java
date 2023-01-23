@@ -19,6 +19,7 @@ package de.p2tools.p2Lib.dialogs.dialog;
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.P2LibInit;
 import de.p2tools.p2Lib.configFile.IoReadWriteStyle;
+import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.icons.GetIcon;
 import de.p2tools.p2Lib.tools.PException;
 import de.p2tools.p2Lib.tools.log.PLog;
@@ -34,6 +35,9 @@ import java.nio.file.Path;
 
 
 public class PDialog {
+    //    private double stageWidth = 0;
+//    private double stageHeight = 0;
+    private static String iconPath = "";
     private final StringProperty sizeConfiguration;
     private final boolean modal;
     private final boolean setOnlySize; // dann wird nur die Größe nicht aber die Position gesetzt
@@ -42,9 +46,6 @@ public class PDialog {
     private Scene scene = null;
     private Stage stage = null;
     private Pane pane;
-    private double stageWidth = 0;
-    private double stageHeight = 0;
-    private static String iconPath = "";
 
     PDialog(Stage ownerForCenteringDialog, StringProperty sizeConfiguration,
             String title, boolean modal, boolean setOnlySize) {
@@ -64,7 +65,7 @@ public class PDialog {
         this.modal = modal;
         this.title = title;
         this.setOnlySize = setOnlySize;
-        this.iconPath = iconPath;
+        PDialog.iconPath = iconPath;
     }
 
     public static String getIconPath() {
@@ -85,12 +86,15 @@ public class PDialog {
             if (scene == null) {
                 PException.throwPException(912012458, "no scene");
             }
+            scene.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
+                if (keyEvent.getCode() == KeyCode.ESCAPE) {
+                    close();
+                }
+            });
 
-            updateCss();
             stage = new Stage();
             stage.setScene(scene);
             stage.setTitle(title);
-
             if (modal) {
                 stage.initModality(Modality.APPLICATION_MODAL);
             }
@@ -98,16 +102,16 @@ public class PDialog {
                 e.consume();
                 close();
             });
-            scene.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
-                if (keyEvent.getCode() == KeyCode.ESCAPE) {
-                    close();
-                }
-            });
+            //brauchts zwar nicht 2x, der Dialog "springt" dann aber weniger
+            stage.setOnShowing(e -> PGuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog));
+            stage.setOnShown(e -> PGuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog));
 
+            updateCss();
             setIcon();
             make();
 
             PDialogFactory.addSizeListener(stage, sizeConfiguration);
+
             if (show) {
                 showDialog();
             }
@@ -123,20 +127,9 @@ public class PDialog {
 
     public void updateCss() {
         P2LibInit.addP2CssToScene(scene);
-
         if (P2LibConst.styleFile != null && !P2LibConst.styleFile.isEmpty() && scene != null) {
             final Path path = Path.of(P2LibConst.styleFile);
             IoReadWriteStyle.readStyle(path, scene);
-        }
-    }
-
-    private void createNewScene(Pane pane) {
-        if (sizeConfiguration != null) {
-            //dann wird die Größe noch gesetzt
-            this.scene = new Scene(pane);
-        } else {
-            // für Win, damit die Dialoge nicht über den Bildschirm raus ragen
-            this.scene = new Scene(pane, 800, 700);
         }
     }
 
@@ -146,15 +139,19 @@ public class PDialog {
     }
 
     public void close() {
-        //bei wiederkehrenden Dialogen: die pos/size merken
-        stageWidth = stage.getWidth();
-        stageHeight = stage.getHeight();
         stage.close();
     }
 
     public void showDialog() {
-        PDialogFactory.showDialog(stage, sizeConfiguration, stageHeight, stageWidth,
-                ownerForCenteringDialog, modal, setOnlySize);
+        if (!stage.isShowing()) {
+            if (modal) {
+                stage.showAndWait();
+            } else {
+                stage.show();
+            }
+        }
+        stage.requestFocus();
+        stage.toFront();
     }
 
     public Stage getStage() {

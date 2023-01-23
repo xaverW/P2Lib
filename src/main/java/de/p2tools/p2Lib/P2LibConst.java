@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class P2LibConst {
+    public static final int NUMBER_NOT_STARTED = Integer.MAX_VALUE;
     public static final String URL_WEBSITE_DONATE = "https://www.p2tools.de/donate.html";
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
     public static final String LINE_SEPARATORx2 = LINE_SEPARATOR + LINE_SEPARATOR;
@@ -44,4 +45,6 @@ public class P2LibConst {
 
     public static boolean debug = false; //Debugmodus
     public static boolean duration = false; //Duration ausgeben
+
+
 }

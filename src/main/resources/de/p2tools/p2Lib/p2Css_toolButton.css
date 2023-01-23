@@ -56,6 +56,10 @@
     -fx-padding: 5 20 5 20;
     -fx-font-weight: bold;
 }
+.btnFunc-4{
+    -fx-padding: 10 25 10 25;
+    -fx-font-weight: bold;
+}
 .btnFuncTable{
     -fx-border-width: 1;
     -fx-border-radius: 15;
@@ -96,6 +100,10 @@
 .btnFunc-3:pressed{
     -fx-border-width: 0;
     -fx-padding: 5 20 5 20;
+}
+.btnFunc-4:pressed{
+    -fx-border-width: 0;
+    -fx-padding: 10 25 10 25;
 }
 .btnFuncTable:pressed{
     -fx-border-width: 1;
