@@ -39,12 +39,6 @@ public class CellIntMax<S, T> extends TableCell<S, T> {
                     return;
                 }
 
-                if (item == null || empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
-
                 if (item == P2LibConst.NUMBER_NOT_STARTED) {
                     setGraphic(null);
                     setText(null);
