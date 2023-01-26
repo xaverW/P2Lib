@@ -153,8 +153,8 @@ public class PGuiSize {
         if (setSize && size) {
             newStage.setWidth(w);
             newStage.setHeight(h);
-        } else {
-            //dann einpassen
+        } else if (setSize) {
+            //dann wenigstens einpassen
             newStage.sizeToScene();
         }
 
@@ -162,7 +162,8 @@ public class PGuiSize {
         if (setPos && pos) {
             newStage.setX(posX);
             newStage.setY(posY);
-        } else {
+        } else if (setPos) {
+            //dann wenigstens versuchen vor das "Hauptfenster"
             setInFrontOfPrimaryStage(newStage, ownerForCenteringDialog);
         }
 

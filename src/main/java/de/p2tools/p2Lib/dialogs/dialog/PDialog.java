@@ -38,7 +38,7 @@ public class PDialog {
     //    private double stageWidth = 0;
 //    private double stageHeight = 0;
     private static String iconPath = "";
-    private final StringProperty sizeConfiguration;
+    private StringProperty sizeConfiguration;
     private final boolean modal;
     private final boolean setOnlySize; // dann wird nur die Größe nicht aber die Position gesetzt
     private final String title;
@@ -152,6 +152,14 @@ public class PDialog {
         }
         stage.requestFocus();
         stage.toFront();
+    }
+
+    public StringProperty getSizeConfiguration() {
+        return sizeConfiguration;
+    }
+
+    public void setSizeConfiguration(StringProperty sizeConfiguration) {
+        this.sizeConfiguration = sizeConfiguration;
     }
 
     public Stage getStage() {
