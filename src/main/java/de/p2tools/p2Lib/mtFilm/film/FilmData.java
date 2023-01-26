@@ -224,14 +224,12 @@ public class FilmData extends FilmDataProps implements PData {
             return;
         }
 
-//        int d = (int) PMath.divideAndRoundUp(duration, 60);
         int d = (int) (durSecond / 60);
         if (d <= 0) {
             d = 1;
         }
 
         setDurationMinute(d);
-        // arr[FilmXml.FILM_DURATION] = arr[FilmXml.FILM_DURATION] + "   " + d;
     }
 
     private void setDatum() {
