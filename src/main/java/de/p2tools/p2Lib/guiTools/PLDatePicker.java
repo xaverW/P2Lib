@@ -17,14 +17,13 @@
 
 package de.p2tools.p2Lib.guiTools;
 
+import de.p2tools.p2Lib.tools.date.DateFactory;
 import de.p2tools.p2Lib.tools.date.PDateFactory;
 import javafx.scene.control.DatePicker;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class PLDatePicker extends DatePicker {
-    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     public PLDatePicker() {
     }
@@ -36,8 +35,8 @@ public class PLDatePicker extends DatePicker {
     public String getDateStr() {
         String ret = "";
         LocalDate date = getValue();
-        if (date != null) {
-            ret = dateFormatter.format(date);
+        if (date != null && !date.equals(LocalDate.MIN)) {
+            ret = DateFactory.DT_FORMATTER_dd_MM_yyyy.format(date);
         }
         return ret;
     }
@@ -47,7 +46,11 @@ public class PLDatePicker extends DatePicker {
     }
 
     public void clearDate() {
-        this.setValue(LocalDate.MIN);
+        this.setValue(null);
+    }
+
+    public void setToday() {
+        this.setValue(LocalDate.now());
     }
 
     public void setDate(LocalDate pLocalDate) {
@@ -56,7 +59,7 @@ public class PLDatePicker extends DatePicker {
 
     public void setDate(String stringDate) {
         if (stringDate == null || stringDate.isEmpty()) {
-            this.setValue(LocalDate.MIN);
+            this.setValue(null);
         } else {
             this.setValue(PDateFactory.getLocalDate(stringDate));
         }
