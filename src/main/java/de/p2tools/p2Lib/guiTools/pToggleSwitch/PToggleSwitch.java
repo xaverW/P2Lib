@@ -67,6 +67,27 @@ public class PToggleSwitch extends HBox {
         this.bold = true;
     }
 
+    public void setLabelLeft(String lblOn, String lblOff, String lblIndeterminate) {
+        //da wird der extern zugeführte Label gesetzt
+        this.strOn = lblOn;
+        this.strOff = lblOff;
+        this.strIndeterminate = lblIndeterminate;
+
+        indeterminateProperty().addListener((observable, oldValue, newValue) -> setLblLeft());
+        selectedProperty().addListener((observable, oldValue, newValue) -> setLblLeft());
+        setLblLeft();
+    }
+
+    private void setLblLeft() {
+        if (this.isSelected()) {
+            lblLeft.setText(strOn);
+        } else if (this.isIndeterminate()) {
+            lblLeft.setText(strIndeterminate);
+        } else {
+            lblLeft.setText(strOff);
+        }
+    }
+
     public void setLabelRight(Label lblOn, Label lblOff, Label lblIndeterminate) {
         //da wird der extern zugeführte Label gesetzt
         this.lblOn = lblOn;
