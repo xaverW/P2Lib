@@ -207,16 +207,6 @@ public class FilmDataProps extends FilmDataXml {
         this.newFilm = newFilm;
     }
 
-//    public boolean isShown() {
-//        return shown;
-//    }
-//
-//    public void setShown(boolean shown) {
-//        if (!isLive()) {
-//            this.shown = shown;
-//        }
-//    }
-
     public boolean getActHist() {
         return actHist;
     }

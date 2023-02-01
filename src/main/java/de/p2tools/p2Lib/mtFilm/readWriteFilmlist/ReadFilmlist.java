@@ -59,22 +59,24 @@ public class ReadFilmlist {
     String channel = "", theme = "";
     private double progress = 0;
     private int countAll = 0;
+    private int savedBandwidth = LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE;
+    private boolean loadFromWeb = false;//nur dann müssen die Filme gefiltert werden
+
     private Map<String, Integer> filmsPerChannelFoundCompleteList = new TreeMap<>();
     private Map<String, Integer> filmsPerChannelUsed = new TreeMap<>();
     private Map<String, Integer> filmsPerChannelBlocked = new TreeMap<>();
-    private Map<String, Integer> filmsPerDateBlocked = new TreeMap<>();
+    private Map<String, Integer> filmsPerDaysBlocked = new TreeMap<>();
     private Map<String, Integer> filmsPerDurationBlocked = new TreeMap<>();
-    private int savedBandwidth = LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE;
 
     /*
-    Hier wird die Filmliste tatsächlich geladen (von Datei/URL)
+    Hier wird die Filmliste tatsächlich geladen: lokal von Datei, oder aus dem Web mit URL
      */
-    public void readFilmlist(List<String> logList, String sourceFileUrl, final Filmlist filmlist) {
+    public void readFilmlistWebOrLocal(List<String> logList, final Filmlist filmlist, String sourceFileOrUrl) {
         countAll = 0;
         filmsPerChannelFoundCompleteList.clear();
         filmsPerChannelUsed.clear();
         filmsPerChannelBlocked.clear();
-        filmsPerDateBlocked.clear();
+        filmsPerDaysBlocked.clear();
         filmsPerDurationBlocked.clear();
 
         logList.add("");
@@ -82,18 +84,20 @@ public class ReadFilmlist {
 
         PDuration.counterStart("ReadFilmlist.readFilmlist()");
         try {
-            notifyStart(sourceFileUrl); // für die Progressanzeige
+            notifyStart(sourceFileOrUrl); // für die Progressanzeige
 
             filmlist.clear();
-            if (sourceFileUrl.startsWith("http")) {
-                // URL laden
-                logList.add("Filmliste aus URL laden: " + sourceFileUrl);
-                processFromWeb(new URL(sourceFileUrl), filmlist);
+            if (sourceFileOrUrl.startsWith("http")) {
+                //dann aus dem Web mit der URL laden
+                logList.add("Filmliste aus URL laden: " + sourceFileOrUrl);
+                loadFromWeb = true;
+                processFromWeb(new URL(sourceFileOrUrl), filmlist);
 
             } else {
-                // lokale Datei laden
-                logList.add("Filmliste aus Datei laden: " + sourceFileUrl);
-                processFromFile(sourceFileUrl, filmlist);
+                //dann lokale Datei laden
+                logList.add("Filmliste aus Datei laden: " + sourceFileOrUrl);
+                loadFromWeb = false;
+                processFromFile(sourceFileOrUrl, filmlist);
             }
 
             if (LoadFactoryConst.loadFilmlist.isStop()) {
@@ -115,7 +119,159 @@ public class ReadFilmlist {
         PDuration.counterStop("ReadFilmlist.readFilmlist()");
         logList.add(PLog.LILNE2);
         logList.add("");
-        notifyFinished(sourceFileUrl);
+        notifyFinished(sourceFileOrUrl);
+    }
+
+    /**
+     * Download a process a filmliste from the web.
+     *
+     * @param source   source url as string
+     * @param filmlist the list to read to
+     */
+    private void processFromWeb(URL source, Filmlist filmlist) {
+        final Request.Builder builder = new Request.Builder().url(source);
+        builder.addHeader("User-Agent", LoadFactoryConst.userAgent);
+
+        // our progress monitor callback
+        final InputStreamProgressMonitor monitor = new InputStreamProgressMonitor() {
+            private int oldProgress = 0;
+
+            @Override
+            public void progress(long bytesRead, long size) {
+                final int iProgress = (int) (bytesRead * 100/* zum Runden */ / size);
+                if (iProgress != oldProgress) {
+                    oldProgress = iProgress;
+                    notifyProgress(source.toString(), 1.0 * iProgress / 100);
+                }
+            }
+        };
+
+        try (Response response = MLHttpClient.getInstance().getHttpClient().newCall(builder.build()).execute();
+             ResponseBody body = response.body()) {
+            if (body != null && response.isSuccessful()) {
+
+                try (InputStream input = new ProgressMonitorInputStream(body.byteStream(), body.contentLength(), monitor)) {
+                    try (InputStream is = selectDecompressor(source.toString(), input);
+                         JsonParser jp = new JsonFactory().createParser(is)) {
+                        readData(jp, filmlist);
+                    }
+                }
+
+            }
+        } catch (final Exception ex) {
+            PLog.errorLog(820147395, ex, "FilmListe: " + source);
+            filmlist.clear();
+        }
+    }
+
+    /**
+     * Read a locally available filmlist.
+     *
+     * @param source   file path as string
+     * @param filmlist the list to read to
+     */
+    private void processFromFile(String source, Filmlist filmlist) {
+        notifyProgress(source, ListenerLoadFilmlist.PROGRESS_INDETERMINATE);
+        try (InputStream in = selectDecompressor(source, new FileInputStream(source));
+             JsonParser jp = new JsonFactory().createParser(in)) {
+            readData(jp, filmlist);
+        } catch (final FileNotFoundException ex) {
+            PLog.errorLog(894512369, "FilmListe existiert nicht: " + source);
+            filmlist.clear();
+        } catch (final Exception ex) {
+            PLog.errorLog(945123641, ex, "FilmListe: " + source);
+            filmlist.clear();
+        }
+    }
+
+    private void readData(JsonParser jp, Filmlist filmlist) throws IOException {
+        JsonToken jsonToken;
+        ArrayList listChannel = LoadFactory.getSenderListNotToLoad();
+        final long loadFilmsMaxMilliSeconds = getDaysLoadingFilms();
+        final int loadFilmsMinDuration = LoadFactoryConst.SYSTEM_LOAD_FILMLIST_MIN_DURATION;
+        final LoadFactoryConst.FilmChecker checker = LoadFactoryConst.checker;
+
+
+        if (jp.nextToken() != JsonToken.START_OBJECT) {
+            throw new IllegalStateException("Expected data to start with an Object");
+        }
+
+        while ((jsonToken = jp.nextToken()) != null) {
+            if (jsonToken == JsonToken.END_OBJECT) {
+                break;
+            }
+            if (jp.isExpectedStartArrayToken()) {
+                for (int k = 0; k < FilmlistXml.MAX_ELEM; ++k) {
+                    filmlist.metaData[k] = jp.nextTextValue();
+                }
+                break;
+            }
+        }
+        while ((jsonToken = jp.nextToken()) != null) {
+            if (jsonToken == JsonToken.END_OBJECT) {
+                break;
+            }
+            if (jp.isExpectedStartArrayToken()) {
+                // sind nur die Feldbeschreibungen, brauch mer nicht
+                jp.nextToken();
+                break;
+            }
+        }
+
+        final boolean listChannelIsEmpty = listChannel.isEmpty();
+        while (!LoadFactoryConst.loadFilmlist.isStop() && (jsonToken = jp.nextToken()) != null) {
+            if (jsonToken == JsonToken.END_OBJECT) {
+                break;
+            }
+
+            if (jp.isExpectedStartArrayToken()) {
+                final FilmData film = filmlist.getNewElement();
+                addValue(film, jp);
+                ++countAll;
+                countFilm(filmsPerChannelFoundCompleteList, film);
+                film.init(); // damit wird auch das Datum! gesetzt
+
+                //=========================
+                //Filter
+                if (loadFromWeb) {
+                    //und jetzt wird gefiltert, wenn aus dem Web, die lokale ist ja bereits gefiltert
+                    //bringt aber nur ~5% Einsparung :(
+                    if (!listChannelIsEmpty && listChannel.contains(film.arr[FilmDataXml.FILM_CHANNEL])) {
+                        //diesen Sender nicht laden
+                        countFilm(filmsPerChannelBlocked, film);
+                        continue;
+                    }
+                    if (loadFilmsMaxMilliSeconds > 0 && !checkDays(film, loadFilmsMaxMilliSeconds)) {
+                        //wenn er zu alt ist, nicht laden
+                        countFilm(filmsPerDaysBlocked, film);
+                        continue;
+                    }
+                    if (loadFilmsMinDuration > 0 && !checkDuration(film, loadFilmsMinDuration)) {
+                        //wenn er zu kurz ist, nicht laden
+                        countFilm(filmsPerDurationBlocked, film);
+                        continue;
+                    }
+
+                    //und jetzt noch evt. gegen eine Blacklist prüfen
+                    if (checker != null) {
+                        if (checker.check(film)) {
+                            continue;
+                        }
+                    }
+                }
+
+                countFilm(filmsPerChannelUsed, film);
+                filmlist.importFilmOnlyWithNr(film);
+            }
+        }
+    }
+
+    private void countFilm(Map<String, Integer> map, FilmData film) {
+        if (map.containsKey(film.arr[FilmData.FILM_CHANNEL])) {
+            map.put(film.arr[FilmData.FILM_CHANNEL], 1 + map.get(film.arr[FilmData.FILM_CHANNEL]));
+        } else {
+            map.put(film.arr[FilmData.FILM_CHANNEL], 1);
+        }
     }
 
     private void countFoundChannel(List<String> logList, Filmlist filmlist) {
@@ -176,15 +332,15 @@ public class ReadFilmlist {
             logList.add(" ");
         }
 
-        if (!filmsPerDateBlocked.isEmpty()) {
+        if (!filmsPerDaysBlocked.isEmpty()) {
             logList.add(PLog.LILNE3);
             logList.add(" ");
-            final int date = LoadFactoryConst.SYSTEM_LOAD_FILMLIST_MAX_DAYS;
-            logList.add("== nach Datum geblockte Filme (max. " + date + " Tage) ==");
+            final int maxDays = LoadFactoryConst.SYSTEM_LOAD_FILMLIST_MAX_DAYS;
+            logList.add("== nach max. Tage geblockte Filme (max. " + maxDays + " Tage) ==");
 
             sumFilms = 0;
-            filmsPerDateBlocked.keySet().stream().forEach(key -> {
-                int found = filmsPerDateBlocked.get(key);
+            filmsPerDaysBlocked.keySet().stream().forEach(key -> {
+                int found = filmsPerDaysBlocked.get(key);
                 sumFilms += found;
                 logList.add(PStringUtils.increaseString(KEYSIZE, key) + ": " + found);
             });
@@ -221,85 +377,6 @@ public class ReadFilmlist {
             in = zipInputStream;
         }
         return in;
-    }
-
-    private void readData(JsonParser jp, Filmlist filmlist) throws IOException {
-        JsonToken jsonToken;
-        ArrayList listChannel = LoadFactory.getSenderListNotToLoad();
-        final long loadFilmsMaxMilliSeconds = getDaysLoadingFilms();
-        final int loadFilmsMinDuration = LoadFactoryConst.SYSTEM_LOAD_FILMLIST_MIN_DURATION;
-
-
-        if (jp.nextToken() != JsonToken.START_OBJECT) {
-            throw new IllegalStateException("Expected data to start with an Object");
-        }
-
-        while ((jsonToken = jp.nextToken()) != null) {
-            if (jsonToken == JsonToken.END_OBJECT) {
-                break;
-            }
-            if (jp.isExpectedStartArrayToken()) {
-                for (int k = 0; k < FilmlistXml.MAX_ELEM; ++k) {
-                    filmlist.metaData[k] = jp.nextTextValue();
-                }
-                break;
-            }
-        }
-        while ((jsonToken = jp.nextToken()) != null) {
-            if (jsonToken == JsonToken.END_OBJECT) {
-                break;
-            }
-            if (jp.isExpectedStartArrayToken()) {
-                // sind nur die Feldbeschreibungen, brauch mer nicht
-                jp.nextToken();
-                break;
-            }
-        }
-
-        final boolean listChannelIsEmpty = listChannel.isEmpty();
-        while (!LoadFactoryConst.loadFilmlist.isStop() && (jsonToken = jp.nextToken()) != null) {
-            if (jsonToken == JsonToken.END_OBJECT) {
-                break;
-            }
-
-            if (jp.isExpectedStartArrayToken()) {
-                final FilmData film = filmlist.getNewElement();
-                addValue(film, jp);
-                ++countAll;
-                countFilm(filmsPerChannelFoundCompleteList, film);
-
-                if (!listChannelIsEmpty && listChannel.contains(film.arr[FilmDataXml.FILM_CHANNEL])) {
-                    // diesen Sender nicht laden
-                    countFilm(filmsPerChannelBlocked, film);
-                    continue;
-                }
-
-                film.init(); // damit wird auch das Datum! gesetzt
-                if (loadFilmsMaxMilliSeconds > 0 && !checkDate(film, loadFilmsMaxMilliSeconds)) {
-                    // wenn das Datum nicht passt, nicht laden
-                    countFilm(filmsPerDateBlocked, film);
-                    continue;
-                }
-                if (loadFilmsMinDuration > 0 && !checkDuration(film, loadFilmsMinDuration)) {
-                    // wenn das Datum nicht passt, nicht laden
-                    countFilm(filmsPerDurationBlocked, film);
-                    continue;
-                }
-
-                countFilm(filmsPerChannelUsed, film);
-                filmlist.importFilmOnlyWithNr(film);
-            }
-
-        }
-
-    }
-
-    private void countFilm(Map<String, Integer> map, FilmData film) {
-        if (map.containsKey(film.arr[FilmData.FILM_CHANNEL])) {
-            map.put(film.arr[FilmData.FILM_CHANNEL], 1 + map.get(film.arr[FilmData.FILM_CHANNEL]));
-        } else {
-            map.put(film.arr[FilmData.FILM_CHANNEL], 1);
-        }
     }
 
     private void addValue(FilmData film, JsonParser jp) throws IOException {
@@ -376,26 +453,6 @@ public class ReadFilmlist {
         }
     }
 
-    /**
-     * Read a locally available filmlist.
-     *
-     * @param source   file path as string
-     * @param filmlist the list to read to
-     */
-    private void processFromFile(String source, Filmlist filmlist) {
-        notifyProgress(source, ListenerLoadFilmlist.PROGRESS_INDETERMINATE);
-        try (InputStream in = selectDecompressor(source, new FileInputStream(source));
-             JsonParser jp = new JsonFactory().createParser(in)) {
-            readData(jp, filmlist);
-        } catch (final FileNotFoundException ex) {
-            PLog.errorLog(894512369, "FilmListe existiert nicht: " + source);
-            filmlist.clear();
-        } catch (final Exception ex) {
-            PLog.errorLog(945123641, ex, "FilmListe: " + source);
-            filmlist.clear();
-        }
-    }
-
     private long getDaysLoadingFilms() {
         final long days = LoadFactoryConst.SYSTEM_LOAD_FILMLIST_MAX_DAYS;
         if (days > 0) {
@@ -405,53 +462,12 @@ public class ReadFilmlist {
         }
     }
 
-    /**
-     * Download a process a filmliste from the web.
-     *
-     * @param source   source url as string
-     * @param filmlist the list to read to
-     */
-    private void processFromWeb(URL source, Filmlist filmlist) {
-        final Request.Builder builder = new Request.Builder().url(source);
-        builder.addHeader("User-Agent", LoadFactoryConst.userAgent);
-
-        // our progress monitor callback
-        final InputStreamProgressMonitor monitor = new InputStreamProgressMonitor() {
-            private int oldProgress = 0;
-
-            @Override
-            public void progress(long bytesRead, long size) {
-                final int iProgress = (int) (bytesRead * 100/* zum Runden */ / size);
-                if (iProgress != oldProgress) {
-                    oldProgress = iProgress;
-                    notifyProgress(source.toString(), 1.0 * iProgress / 100);
-                }
-            }
-        };
-
-        try (Response response = MLHttpClient.getInstance().getHttpClient().newCall(builder.build()).execute();
-             ResponseBody body = response.body()) {
-            if (body != null && response.isSuccessful()) {
-
-                try (InputStream input = new ProgressMonitorInputStream(body.byteStream(), body.contentLength(), monitor)) {
-                    try (InputStream is = selectDecompressor(source.toString(), input);
-                         JsonParser jp = new JsonFactory().createParser(is)) {
-                        readData(jp, filmlist);
-                    }
-                }
-
-            }
-        } catch (final Exception ex) {
-            PLog.errorLog(820147395, ex, "FilmListe: " + source);
-            filmlist.clear();
-        }
-    }
-
-    private boolean checkDate(FilmData film, long loadFilmsLastSeconds) {
-        // true wenn der Film angezeigt werden kann!
+    private boolean checkDays(FilmData film, long loadFilmsLastMilliSeconds) {
+        // true, wenn der Film angezeigt werden kann!
         try {
             if (film.filmDate.getTime() != 0) {
-                if (film.filmDate.getTime() < loadFilmsLastSeconds) {
+                if (film.filmDate.getTime() < loadFilmsLastMilliSeconds) {
+                    //dann ist er zu alt
                     return false;
                 }
             }
@@ -462,10 +478,11 @@ public class ReadFilmlist {
     }
 
     private boolean checkDuration(FilmData film, int loadFilmsMinDuration) {
-        // true wenn der Film angezeigt werden kann!
+        //true, wenn der Film angezeigt werden kann!
         try {
             if (film.getDurationMinute() != 0) {
                 if (film.getDurationMinute() < loadFilmsMinDuration) {
+                    //dann ist er zu kurz
                     return false;
                 }
             }

@@ -43,7 +43,7 @@ public class ImportNewFilmlistFromServer {
     // #########################################################
     // Filmliste importieren, URL automatisch wählen
     // #########################################################
-    public void importFilmListAuto(List<String> logList, Filmlist filmlist, Filmlist filmlistDiff) {
+    public void importFilmListFromWebAuto(List<String> logList, Filmlist filmlist, Filmlist filmlistDiff) {
         STATE state;
         boolean ret;
         if (filmlist.isTooOldForDiff()) {
@@ -90,7 +90,7 @@ public class ImportNewFilmlistFromServer {
                 return false;
             }
 
-            new ReadFilmlist().readFilmlist(logList, updateUrl, list);
+            new ReadFilmlist().readFilmlistWebOrLocal(logList, list, updateUrl);
             ret = !list.isEmpty();
 
             if (ret && i < 1 && list.isOlderThan(5 * 60 * 60 /* sekunden */)) {

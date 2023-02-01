@@ -20,7 +20,6 @@ package de.p2tools.p2Lib.mtFilm.loadFilmlist;
 import de.p2tools.p2Lib.alert.PAlert;
 import de.p2tools.p2Lib.mtFilm.tools.LoadFactoryConst;
 import javafx.application.Platform;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,8 +66,6 @@ public class LoadFactory {
                             "\n\n" +
                             "Einstellungen -> Filmliste laden"));
         }
-
         return allSender;
     }
-
 }

@@ -99,21 +99,21 @@ public class LoadFilmlist {
     /**
      * Filmliste beim Programmstart laden
      */
-    public void loadFilmlistProgStart(boolean firstProgramStart, String filmListFile, boolean loadOnStartUp) {
+    public void loadFilmlistProgStart(boolean firstProgramStart, String localFilmListFile, boolean loadNewFilmlistOnProgramStart) {
         setPropLoadFilmlist(true);
         new Thread(() -> {
             final List<String> logList = new ArrayList<>();
-            loadFilmlistStart(logList, firstProgramStart, filmListFile, loadOnStartUp);
+            loadFilmlistProgStart(logList, firstProgramStart, localFilmListFile, loadNewFilmlistOnProgramStart);
             PLog.addSysLog(logList);
             setPropLoadFilmlist(false);
         }).start();
     }
 
-    public void loadNewFilmlist(boolean alwaysLoadNew, String filmListFile) {
+    public void loadNewFilmlistFromWeb(boolean alwaysLoadNew, String localFilmListFile) {
         setPropLoadFilmlist(true);
         new Thread(() -> {
             final List<String> logList = new ArrayList<>();
-            loadNewFilmlistFromServer(logList, alwaysLoadNew, filmListFile);
+            loadNewFilmlistFromServer(logList, alwaysLoadNew, localFilmListFile);
             PLog.addSysLog(logList);
             setPropLoadFilmlist(false);
         }).start();
@@ -134,7 +134,10 @@ public class LoadFilmlist {
     /**
      * Filmliste beim Programmstart laden
      */
-    private void loadFilmlistStart(List<String> logList, boolean firstProgramStart, String filmListFile, boolean loadOnStartUp) {
+    private void loadFilmlistProgStart(List<String> logList, boolean firstProgramStart,
+                                       String localFilmListFile, boolean loadNewListOnProgStart) {
+        //hier wird die gespeicherte Filmliste geladen und wenn zu alt, wird eine neue aus
+        //dem Web geladen
         PDuration.counterStart("LoadFilmlist.loadFilmlistStart");
         // Start des Ladens, gibts keine Fortschrittsanzeige und kein Abbrechen
         if (LoadFactory.checkAllSenderSelectedNotToLoad()) {
@@ -152,11 +155,11 @@ public class LoadFilmlist {
 
         if (!firstProgramStart) {
             // gespeicherte Filmliste laden, macht beim ersten Programmstart keinen Sinn
-            loadStoredList(logList, filmListNew, filmListFile);
+            loadStoredList(logList, filmListNew, localFilmListFile);
             PDuration.onlyPing("Programmstart Filmliste laden: geladen");
         }
 
-        if (filmListNew.isTooOld() && loadOnStartUp) {
+        if (filmListNew.isTooOld() && loadNewListOnProgStart) {
             //eine neue Filmliste laden wenn die gespeicherte zu alt ist
             final String text;
             logList.add("Filmliste zu alt, neue Filmliste laden");
@@ -168,7 +171,7 @@ public class LoadFilmlist {
                     ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
 
             PDuration.onlyPing("Programmstart Filmliste laden: neue Liste laden");
-            loadNewList(logList, false, true, filmListFile);
+            loadNewFilmlistFromServer(logList, false, true, localFilmListFile);
             PDuration.onlyPing("Programmstart Filmliste laden: neue Liste geladen");
         }
 
@@ -181,24 +184,23 @@ public class LoadFilmlist {
     // #######################################
     // #######################################
 
-    private void loadNewFilmlistFromServer(List<String> logList, boolean alwaysLoadNew, String filmListFile) {
+    private void loadNewFilmlistFromServer(List<String> logList, boolean alwaysLoadNew, String localFilmListFile) {
+        //damit wird eine neue Filmliste (Web) geladen UND auch gleich im Config-Ordner gespeichert
         PDuration.counterStart("LoadFilmlist.loadNewFilmlistFromServer");
-        // damit wird eine neue Filmliste (Web) geladen UND auch gleich im Config-Ordner gespeichert
         if (LoadFactory.checkAllSenderSelectedNotToLoad()) {
             // alle Sender sind vom Laden ausgenommen
             return;
         }
 
-//        progData.maskerPane.setButtonVisible(true);
         PDuration.onlyPing("Filmliste laden: start");
         startMsg();
         logList.add("");
         logList.add("Alte Liste erstellt  am: " + LoadFactoryConst.filmlist.genDate());
         logList.add("           Anzahl Filme: " + LoadFactoryConst.filmlist.size());
         logList.add("           Anzahl  Neue: " + LoadFactoryConst.filmlist.countNewFilms());
-        logList.add(" ");
+        logList.add("");
 
-        loadNewList(logList, alwaysLoadNew, false, filmListFile);
+        loadNewFilmlistFromServer(logList, alwaysLoadNew, false, localFilmListFile);
         afterLoading(logList);
         PDuration.counterStop("LoadFilmlist.loadNewFilmlistFromServer");
     }
@@ -236,17 +238,19 @@ public class LoadFilmlist {
         setFinished();
     }
 
-    private void loadStoredList(List<String> logList, Filmlist filmlist, String filmListFile) {
-        new ReadFilmlist().readFilmlist(logList, filmListFile, filmlist);
+    private void loadStoredList(List<String> logList, Filmlist filmlist, String localFilmListFile) {
+        new ReadFilmlist().readFilmlistWebOrLocal(logList, filmlist, localFilmListFile);
     }
 
-    private void loadNewList(List<String> logList, boolean alwaysLoadNew, boolean intern, String filmListFile) {
+    private void loadNewFilmlistFromServer(List<String> logList, boolean alwaysLoadNew, boolean intern, String localFilmListFile) {
         if (intern) {
-            // Hash mit URLs füllen
+            //dann ist die lokale Liste schon geladen und zu alt
+            //Hash mit URLs füllen
             fillHash(logList, filmListNew);
 
         } else {
-            // Hash mit URLs füllen
+            //Start durch Button und die bestehende Liste wird aktualisiert
+            //Hash mit URLs füllen
             fillHash(logList, LoadFactoryConst.filmlist);
 
             filmListNew.setMeta(LoadFactoryConst.filmlist);
@@ -260,30 +264,18 @@ public class LoadFilmlist {
         setStop(false);
         logList.add("Filmliste laden (auto)");
         // Filmliste laden und Url automatisch ermitteln
-        importNewFilmlisteFromServer.importFilmListAuto(logList, filmListNew, filmListDiff);
-        afterImportNewFilmlistFromServer(logList, filmListFile);
-    }
-
-    private void startMsg() {
-        PLog.addSysLog("");
-        PLog.sysLog(PLog.LILNE1);
-        PLog.addSysLog("Filmliste laden");
-    }
-
-    private void stopMsg() {
-        PLog.addSysLog("Filmliste geladen");
-        PLog.sysLog(PLog.LILNE1);
-        PLog.addSysLog("");
+        importNewFilmlisteFromServer.importFilmListFromWebAuto(logList, filmListNew, filmListDiff);
+        afterLoadingNewFilmlistFromServer(logList, localFilmListFile);
     }
 
     /**
      * wird nach dem Import einer neuen Liste gemacht
      */
-    private void afterImportNewFilmlistFromServer(List<String> logList, String filmListFile) {
+    private void afterLoadingNewFilmlistFromServer(List<String> logList, String localFilmListFile) {
         logList.add(PLog.LILNE3);
 
         if (!filmListDiff.isEmpty()) {
-            // wenn nur ein Update
+            //dann wars nur ein Update
             filmListNew.updateList(filmListDiff, true/* Vergleich über Index, sonst nur URL */, true /* ersetzen */);
             filmListNew.metaData = filmListDiff.metaData;
             filmListNew.sort(); // jetzt sollte alles passen
@@ -301,13 +293,26 @@ public class LoadFilmlist {
 
         logList.add("");
         logList.add("Filme schreiben (" + filmListNew.size() + " Filme) :");
-        logList.add("   --> Start Schreiben nach: " + filmListFile);
-        new WriteFilmlistJson().write(filmListFile, filmListNew);
+        logList.add("   --> Start Schreiben nach: " + localFilmListFile);
+        new WriteFilmlistJson().write(localFilmListFile, filmListNew);
         logList.add("   --> geschrieben!");
         logList.add("");
     }
 
+    private void startMsg() {
+        PLog.addSysLog("");
+        PLog.sysLog(PLog.LILNE1);
+        PLog.addSysLog("Filmliste laden");
+    }
+
+    private void stopMsg() {
+        PLog.addSysLog("Filmliste geladen");
+        PLog.sysLog(PLog.LILNE1);
+        PLog.addSysLog("");
+    }
+
     private void fillHash(List<String> logList, Filmlist<FilmData> filmlist) {
+        //alle historyURLs in den hash schreiben
         logList.add(PLog.LILNE3);
         logList.add("Hash füllen, Größe vorher: " + hashSet.size());
 

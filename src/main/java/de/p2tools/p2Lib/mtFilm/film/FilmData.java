@@ -80,22 +80,6 @@ public class FilmData extends FilmDataProps implements PData {
         //=================================
         // Filmzeit
         setFilmTime();
-
-//        //=================================
-//        // Diacritic
-//        initDiacritic();
-    }
-
-//    private void initDiacritic() {
-//        if (ProgData.generatingDiacriticDone) {
-//            //dann müssen die Diacritic erstellt werden
-//            FilmDataFactory.generateDiacritic(this);
-//        }
-//    }
-
-    public void initDate() {
-        // ActList braucht nur das, geht schneller
-        setDatum();
     }
 
     private void setFilmTime() {

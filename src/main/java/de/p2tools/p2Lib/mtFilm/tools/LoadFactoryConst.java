@@ -17,6 +17,7 @@
 
 package de.p2tools.p2Lib.mtFilm.tools;
 
+import de.p2tools.p2Lib.mtFilm.film.FilmData;
 import de.p2tools.p2Lib.mtFilm.film.Filmlist;
 import de.p2tools.p2Lib.mtFilm.loadFilmlist.LoadFilmlist;
 import javafx.stage.Stage;
@@ -72,10 +73,15 @@ public class LoadFactoryConst {
     public static int SYSTEM_LOAD_FILMLIST_MAX_DAYS = 0;
     public static int SYSTEM_LOAD_FILMLIST_MIN_DURATION = 0;
     public static boolean removeDiacritic = false;
+    public static FilmChecker checker = null;//0,2s schneller als mit checker->true
 
     public static Filmlist filmlist;
 
     public static String userAgent = "";
     public static LoadFilmlist loadFilmlist;
     public static Stage primaryStage = null;
+
+    public interface FilmChecker {
+        boolean check(FilmData film);
+    }
 }

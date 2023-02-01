@@ -19,6 +19,7 @@ package de.p2tools.p2Lib.data;
 
 import de.p2tools.p2Lib.configFile.config.*;
 import de.p2tools.p2Lib.configFile.configList.ConfigStringList;
+import de.p2tools.p2Lib.configFile.configList.ConfigStringPropList;
 import de.p2tools.p2Lib.configFile.pData.PDataSample;
 import de.p2tools.p2Lib.tools.date.*;
 import javafx.beans.property.*;
@@ -200,6 +201,13 @@ public class PDataProgConfig extends PDataSample<PDataProgConfig> {
     public static synchronized ObservableList<String> addListProp(String key) {
         ObservableList<String> list = FXCollections.observableArrayList();
         ConfigStringList c = new ConfigStringList(key, list);
+        arrayList.add(c);
+        return list;
+    }
+
+    public static synchronized ObservableList<StringProperty> addPropListProp(String key) {
+        ObservableList<StringProperty> list = FXCollections.observableArrayList();
+        ConfigStringPropList c = new ConfigStringPropList(key, list);
         arrayList.add(c);
         return list;
     }
