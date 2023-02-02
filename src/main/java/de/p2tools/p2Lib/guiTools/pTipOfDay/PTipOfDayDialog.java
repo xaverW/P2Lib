@@ -93,7 +93,7 @@ public class PTipOfDayDialog extends PDialogExtra {
         hBox.getChildren().addAll(vBoxL, vBoxR);
 
         VBox.setVgrow(hBox, Priority.ALWAYS);
-        this.getvBoxCont().getChildren().add(hBox);
+        this.getVBoxCont().getChildren().add(hBox);
     }
 
     private void initButton() {

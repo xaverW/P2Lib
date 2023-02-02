@@ -23,6 +23,8 @@ import de.p2tools.p2Lib.guiTools.PGuiSize;
 import de.p2tools.p2Lib.icons.GetIcon;
 import de.p2tools.p2Lib.tools.PException;
 import de.p2tools.p2Lib.tools.log.PLog;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -45,6 +47,7 @@ public class PDialog {
     private final Stage ownerForCenteringDialog;
     private Scene scene = null;
     private Stage stage = null;
+    private ObjectProperty<Stage> stageProp = new SimpleObjectProperty<>(null);
     private Pane pane;
 
     PDialog(Stage ownerForCenteringDialog, StringProperty sizeConfiguration,
@@ -93,6 +96,7 @@ public class PDialog {
             });
 
             stage = new Stage();
+            stageProp.setValue(stage);
             stage.setScene(scene);
             stage.setTitle(title);
             if (modal) {
@@ -164,6 +168,10 @@ public class PDialog {
 
     public Stage getStage() {
         return stage;
+    }
+
+    public ObjectProperty<Stage> getStageProp() {
+        return stageProp;
     }
 
     public boolean isShowing() {

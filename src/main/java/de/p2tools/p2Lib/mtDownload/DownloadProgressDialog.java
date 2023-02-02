@@ -46,7 +46,7 @@ public class DownloadProgressDialog extends PDialogExtra {
         this.lblName.setText(fileName);
         this.startText = text;
 
-        vBoxCont = getvBoxCont();
+        vBoxCont = getVBoxCont();
         init(true);
     }
 
@@ -92,6 +92,7 @@ public class DownloadProgressDialog extends PDialogExtra {
         close();
     }
 
+    @Override
     public void close() {
         Platform.runLater(() -> super.close());
     }

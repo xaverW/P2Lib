@@ -50,16 +50,8 @@ public class ProgInfoDialog extends PDialogExtra {
     private final Runtime rt = Runtime.getRuntime();
     private static final int MEGABYTE = 1000 * 1000;
 
-    public ProgInfoDialog() {
-        super(P2LibConst.primaryStage, null, "Speicherverbrauch des Programms", false, false);
-
-        addOkButton(btnOk);
-        init(true);
-    }
-
     public ProgInfoDialog(boolean showDialog) {
-        super(P2LibConst.primaryStage, null, "Speicherverbrauch des Programms", false, false);
-
+        super(P2LibConst.primaryStage, null, "Speicherverbrauch des Programms", false, false, DECO.NOTHING);
         addOkButton(btnOk);
         init(showDialog);
     }
@@ -126,7 +118,7 @@ public class ProgInfoDialog extends PDialogExtra {
                 PColumnConstraints.getCcComputedSizeAndHgrow(),
                 PColumnConstraints.getCcPrefSize());
 
-        getvBoxCont().getChildren().add(gridPane);
+        getVBoxCont().getChildren().add(gridPane);
 
         //Update every second...
         Timeline timeline = new Timeline(new KeyFrame(

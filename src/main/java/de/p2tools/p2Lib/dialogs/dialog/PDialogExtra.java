@@ -163,7 +163,7 @@ public class PDialogExtra extends PDialog {
         return hBoxTitle;
     }
 
-    public VBox getvBoxCont() {
+    public VBox getVBoxCont() {
         return vBoxCont;
     }
 

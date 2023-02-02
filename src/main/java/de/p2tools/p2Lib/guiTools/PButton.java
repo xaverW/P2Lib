@@ -20,6 +20,7 @@ package de.p2tools.p2Lib.guiTools;
 import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.ProgIcons;
 import de.p2tools.p2Lib.alert.PAlert;
+import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -68,6 +69,19 @@ public class PButton {
 
 
         btnHelp.setOnAction(a -> PAlert.showHelpAlert(stage, header, helpText));
+        return btnHelp;
+    }
+
+    public static Button helpButton(ObjectProperty<Stage> stageProp, String header, String helpText) {
+        final Button btnHelp = new Button("");
+        btnHelp.setTooltip(new Tooltip("Hilfe anzeigen"));
+        if (hlpImage == null) {
+            btnHelp.setGraphic(ProgIcons.Icons.IMAGE_HELP.getImageView()); //neues ImageView!
+        } else {
+            btnHelp.setGraphic(new ImageView(hlpImage)); //neues ImageView!
+        }
+
+        btnHelp.setOnAction(a -> PAlert.showHelpAlert(stageProp.getValue(), header, helpText));
         return btnHelp;
     }
 

@@ -106,7 +106,7 @@ public abstract class AboutDialog extends PDialogExtra {
         hBox.getChildren().add(gridPane);
         hBox.setAlignment(Pos.CENTER);
         hBox.getStyleClass().add("dialog-about");
-        getvBoxCont().getChildren().add(hBox);
+        getVBoxCont().getChildren().add(hBox);
 
         int row = 0;
 
@@ -146,7 +146,7 @@ public abstract class AboutDialog extends PDialogExtra {
         gridPane.setHgap(10);
         gridPane.setVgap(3);
         gridPane.setPadding(new Insets(0, 10, 10, 10));
-        getvBoxCont().getChildren().add(gridPane);
+        getVBoxCont().getChildren().add(gridPane);
 
         row = 0;
         int c = 0;

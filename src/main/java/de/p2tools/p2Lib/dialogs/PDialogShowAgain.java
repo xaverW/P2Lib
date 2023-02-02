@@ -61,6 +61,6 @@ public class PDialogShowAgain extends PDialogExtra {
         final TextArea textArea = new TextArea(text);
         textArea.setWrapText(true);
         textArea.setEditable(false);
-        getvBoxCont().getChildren().add(textArea);
+        getVBoxCont().getChildren().add(textArea);
     }
 }

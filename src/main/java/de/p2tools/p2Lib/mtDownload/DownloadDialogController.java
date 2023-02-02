@@ -72,7 +72,7 @@ public class DownloadDialogController extends PDialogExtra {
         }
         this.fileName.setValue(getFileName(filePath.getValueSafe(), this.orgFileName));
 
-        vBoxCont = getvBoxCont();
+        vBoxCont = getVBoxCont();
         init(true);
     }
 
