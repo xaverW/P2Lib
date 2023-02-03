@@ -181,8 +181,8 @@ class SaveConfig {
 
 
     private void writePDataList(PDataList pDataList, int tab) throws XMLStreamException {
-        String xmlName = pDataList.getTag().split(PData.TAGGER)[0];
         //String xmlName = pDataList.getTag();
+        String xmlName = pDataList.getTag().split(PData.TAGGER)[0];
 
         xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); //neue Zeile
 
@@ -213,7 +213,8 @@ class SaveConfig {
         if (config.getActValue() != null && !config.getActValue().isEmpty()) {
 
             writeTab(tab++);
-            xmlStreamWriter.writeStartElement(config.getKey());
+            //xmlStreamWriter.writeStartElement(config.getKey());
+            xmlStreamWriter.writeStartElement(config.getKey().split(PData.TAGGER)[0]);
             xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); //neue Zeile
 
             ObservableList<Object> actValue = config.getActValue();
@@ -221,7 +222,8 @@ class SaveConfig {
             for (Object o : actValue) {
                 ++i;
                 writeTab(tab);
-                xmlStreamWriter.writeStartElement(config.getKey() + "-" + i);
+                //xmlStreamWriter.writeStartElement(config.getKey() + "-" + i);
+                xmlStreamWriter.writeStartElement(config.getKey().split(PData.TAGGER)[0] + "-" + i);
                 xmlStreamWriter.writeCharacters(o.toString());
                 xmlStreamWriter.writeEndElement();
                 xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); //neue Zeile
@@ -245,7 +247,8 @@ class SaveConfig {
     private void writeConfig(Config config, int tab) throws XMLStreamException {
         if (config.getActValue() != null && !config.getActValueString().isEmpty()) {
             writeTab(tab);
-            xmlStreamWriter.writeStartElement(config.getKey());
+//            xmlStreamWriter.writeStartElement(config.getKey());
+            xmlStreamWriter.writeStartElement(config.getKey().split(PData.TAGGER)[0]);
             xmlStreamWriter.writeCharacters(config.getActValueString());
             xmlStreamWriter.writeEndElement();
             xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); //neue Zeile

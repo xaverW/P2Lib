@@ -37,10 +37,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-//public static final int START_ELEMENT=1;
-//public static final int END_ELEMENT=2;
-//public static final int CHARACTERS=4;
-
 class LoadConfig implements AutoCloseable {
 
     private final Path xmlFilePath;
