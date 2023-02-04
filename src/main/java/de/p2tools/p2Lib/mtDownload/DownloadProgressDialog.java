@@ -41,7 +41,7 @@ public class DownloadProgressDialog extends PDialogExtra {
     private String startText = "";
 
     DownloadProgressDialog(Stage stage, String fileName, String text) {
-        super(stage, null, "Download", false, false, DECO.NONE);
+        super(stage, null, "Download", false, false, DECO.NO_BORDER);
 
         this.lblName.setText(fileName);
         this.startText = text;

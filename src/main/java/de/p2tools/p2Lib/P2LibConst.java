@@ -48,4 +48,14 @@ public class P2LibConst {
     public static boolean duration = false; //Duration ausgeben
 
 
+    //Projektweite Abstände
+    public static int DIST_BUTTON = 5;//Abstand zwischen den Button
+    public static int DIST_BUTTON_BLOCK = 10;//Abstand zwischen den Button-Blöcken
+    public static int DIST_BUTTON_BLOCK_BIG = 20;//Abstand zwischen den Button-Blöcken
+    public static int DIST_GRIDPANE_HGAP = 5;
+    public static int DIST_GRIDPANE_VGAP = 5;
+    public static int DIST_GRIDPANE_PADDING = 10;
+    public static int DIST_EDGE = 10;//Abstand zum Rand
+
+
 }

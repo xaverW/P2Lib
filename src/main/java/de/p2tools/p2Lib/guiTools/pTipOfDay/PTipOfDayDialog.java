@@ -53,7 +53,7 @@ public class PTipOfDayDialog extends PDialogExtra {
     private int actTipOfDay = 0;
 
     public PTipOfDayDialog(Stage stage, List<PTipOfDay> pTipList, StringProperty shownProp, BooleanProperty showTip) {
-        super(stage, null, "Tip des Tages", true, true, DECO.NONE);
+        super(stage, null, "Tip des Tages", true, true, DECO.NO_BORDER);
         this.pTipList = pTipList;
         this.shownProp = shownProp;
         this.showTip = showTip;
@@ -61,7 +61,7 @@ public class PTipOfDayDialog extends PDialogExtra {
     }
 
     public PTipOfDayDialog(Stage stage, List<PTipOfDay> pTipList, StringProperty shownProp, BooleanProperty showTip, int imageSize) {
-        super(stage, null, "Tip des Tages", true, true, DECO.NONE);
+        super(stage, null, "Tip des Tages", true, true, DECO.NO_BORDER);
         this.pTipList = pTipList;
         this.shownProp = shownProp;
         this.showTip = showTip;

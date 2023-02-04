@@ -57,7 +57,7 @@ public class DownloadDialogController extends PDialogExtra {
     private boolean ok = false;
 
     public DownloadDialogController(final Stage stage, final String url, final StringProperty path, final String orgFileName) {
-        super(stage, null, "Download", true, false, DECO.SMALL);
+        super(stage, null, "Download", true, false, DECO.BORDER_SMALL);
 
         this.stage = stage;
         this.url = url;

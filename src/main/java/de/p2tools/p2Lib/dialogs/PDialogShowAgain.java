@@ -35,7 +35,7 @@ public class PDialogShowAgain extends PDialogExtra {
 
     public PDialogShowAgain(Stage ownerForCenteringDialog, StringProperty conf,
                             String title, String text, BooleanProperty showAgain) {
-        super(ownerForCenteringDialog, conf, title, true, false, DECO.NONE, true);
+        super(ownerForCenteringDialog, conf, title, true, false, DECO.NO_BORDER, true);
         this.showAgain = showAgain;
         this.text = text;
 

@@ -65,6 +65,7 @@ public class P2LibInit {
         list.add("de/p2tools/p2Lib/p2Css.css");
         list.add("de/p2tools/p2Lib/p2Css_toolButton.css");
         list.add("de/p2tools/p2Lib/p2Css_smallGui.css");
+        list.add("de/p2tools/p2Lib/p2Css_dialog.css");
         list.add("de/p2tools/p2Lib/p2Css_gui.css");
 
         if (P2LibConst.darkMode.getValue()) {
