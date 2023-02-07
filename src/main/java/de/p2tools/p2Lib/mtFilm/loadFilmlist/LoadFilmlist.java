@@ -147,7 +147,7 @@ public class LoadFilmlist {
 
         PDuration.onlyPing("Programmstart Filmliste laden: start");
         startMsg();
-        setStart(new ListenerFilmlistLoadEvent("", "gespeicherte Filmliste laden",
+        setStart(new ListenerFilmlistLoadEvent("gespeicherte Filmliste laden",
                 ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false));
 
         filmListNew.setMeta(LoadFactoryConst.filmlist);
@@ -167,7 +167,7 @@ public class LoadFilmlist {
             text = "Filmliste ist zu alt, eine neue downloaden";
             logList.add(PLog.LILNE3);
 
-            setProgress(new ListenerFilmlistLoadEvent("", text,
+            setProgress(new ListenerFilmlistLoadEvent(text,
                     ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
 
             PDuration.onlyPing("Programmstart Filmliste laden: neue Liste laden");
@@ -175,7 +175,7 @@ public class LoadFilmlist {
             PDuration.onlyPing("Programmstart Filmliste laden: neue Liste geladen");
         }
 
-        setLoaded(new ListenerFilmlistLoadEvent("", "Filme verarbeiten",
+        setLoaded(new ListenerFilmlistLoadEvent("Filme verarbeiten",
                 ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
         afterLoading(logList);
         PDuration.counterStop("LoadFilmlist.loadFilmlistStart");
@@ -214,7 +214,7 @@ public class LoadFilmlist {
         logList.add(PLog.LILNE2);
         logList.add("");
 
-        setLoaded(new ListenerFilmlistLoadEvent("", "Filme markieren, Themen suchen",
+        setLoaded(new ListenerFilmlistLoadEvent("Filme markieren, Themen suchen",
                 ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
         logList.add("Filme markieren");
         final int count = filmListNew.markFilms();
@@ -222,7 +222,7 @@ public class LoadFilmlist {
 
         filmListNew.loadSender();
 
-        setLoaded(new ListenerFilmlistLoadEvent("", "Filme in Downloads eingetragen",
+        setLoaded(new ListenerFilmlistLoadEvent("Filme in Downloads eingetragen",
                 ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
         logList.add("Filme in Downloads eingetragen");
 //        progData.downloadList.addFilmInList(filmListNew);

@@ -25,10 +25,6 @@ import javax.swing.event.EventListenerList;
 public class NotifyProgress {
     public final EventListenerList listeners = new EventListenerList();
 
-    public void notifyFinishedOk() {
-        notifyEvent(NotifyProgress.NOTIFY.FINISHED, ListenerFilmlistLoadEvent.getEmptyEvent());
-    }
-
     public void notifyEvent(NOTIFY notify, ListenerFilmlistLoadEvent event) {
         try {
             Platform.runLater(() -> {
@@ -54,6 +50,10 @@ public class NotifyProgress {
         } catch (final Exception ex) {
             PLog.errorLog(912045120, ex);
         }
+    }
+
+    public void notifyFinishedOk() {
+        notifyEvent(NotifyProgress.NOTIFY.FINISHED, ListenerFilmlistLoadEvent.getEmptyEvent());
     }
 
     public enum NOTIFY {START, PROGRESS, LOADED, FINISHED}

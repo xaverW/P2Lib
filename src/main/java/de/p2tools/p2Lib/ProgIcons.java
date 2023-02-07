@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 public class ProgIcons {
     public enum Icons {
         ICON_BUTTON_CLEAR_FILTER("button-clear-filter.png", 25, 20),
+        ICON_BUTTON_CLEAR_FILTER_SMALL("button-clear-filter-small.png", 16, 15),
         IMAGE_HELP("button-help.png"),
         IMAGE_FILE_OPEN("button-file-open.png"),
         IMAGE_STOP("button-stop.png");

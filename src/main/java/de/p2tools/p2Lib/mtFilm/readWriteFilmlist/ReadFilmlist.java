@@ -59,7 +59,7 @@ public class ReadFilmlist {
     String channel = "", theme = "";
     private double progress = 0;
     private int countAll = 0;
-    private int savedBandwidth = LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE;
+    private int savedBandwidth = LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE.getValue();
     private boolean loadFromWeb = false;//nur dann müssen die Filme gefiltert werden
 
     private Map<String, Integer> filmsPerChannelFoundCompleteList = new TreeMap<>();
@@ -68,9 +68,7 @@ public class ReadFilmlist {
     private Map<String, Integer> filmsPerDaysBlocked = new TreeMap<>();
     private Map<String, Integer> filmsPerDurationBlocked = new TreeMap<>();
 
-    /*
-    Hier wird die Filmliste tatsächlich geladen: lokal von Datei, oder aus dem Web mit URL
-     */
+    //Hier wird die Filmliste tatsächlich geladen: lokal von Datei, oder aus dem Web mit URL
     public void readFilmlistWebOrLocal(List<String> logList, final Filmlist filmlist, String sourceFileOrUrl) {
         countAll = 0;
         filmsPerChannelFoundCompleteList.clear();
@@ -495,19 +493,20 @@ public class ReadFilmlist {
     private void notifyStart(String url) {
         progress = 0;
         // save download bandwidth
-        if (LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE == REDUCED_BANDWIDTH) {
+        if (LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE.getValue() == REDUCED_BANDWIDTH) {
             PLog.sysLog("Bandbreite reduzieren: Ist schon reduziert!!!!");
+
         } else {
-            savedBandwidth = LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE;
+            savedBandwidth = LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE.getValue();
             PLog.sysLog("Bandbreite zurücksetzen für das Laden der Filmliste von: " + savedBandwidth + " auf " + REDUCED_BANDWIDTH);
             Platform.runLater(() -> {
-                LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE = REDUCED_BANDWIDTH;
+                //wird im GUI angezeigt!!
+                LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE.setValue(REDUCED_BANDWIDTH);
             });
         }
 
-
         LoadFactoryConst.loadFilmlist.setStart(
-                new ListenerFilmlistLoadEvent(url, "Filmliste downloaden", 0, 0, false));
+                new ListenerFilmlistLoadEvent("Filmliste downloaden", 0, 0, false));
     }
 
     private void notifyProgress(String url, double iProgress) {
@@ -516,20 +515,19 @@ public class ReadFilmlist {
             progress = ListenerLoadFilmlist.PROGRESS_MAX;
         }
         LoadFactoryConst.loadFilmlist.setProgress(
-                new ListenerFilmlistLoadEvent(url, "Filmliste downloaden", progress, 0, false));
+                new ListenerFilmlistLoadEvent("Filmliste downloaden", progress, 0, false));
     }
 
     private void notifyFinished(String url) {
         // reset download bandwidth
         PLog.sysLog("Bandbreite wieder herstellen: " + savedBandwidth);
         Platform.runLater(() -> {
-            LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE = savedBandwidth;
+            LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE.setValue(savedBandwidth);
         });
 
         // Laden ist durch
-
         LoadFactoryConst.loadFilmlist.setLoaded(
-                new ListenerFilmlistLoadEvent("", "Filme verarbeiten",
+                new ListenerFilmlistLoadEvent("Filme verarbeiten",
                         ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
     }
 }

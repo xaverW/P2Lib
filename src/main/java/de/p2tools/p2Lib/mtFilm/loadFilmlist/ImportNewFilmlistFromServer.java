@@ -74,7 +74,7 @@ public class ImportNewFilmlistFromServer {
 
     private synchronized void reportFinished(boolean ok) {
         for (final ListenerLoadFilmlist l : eventListenerList.getListeners(ListenerLoadFilmlist.class)) {
-            l.finished(new ListenerFilmlistLoadEvent("", "", 0, 0, !ok));
+            l.finished(new ListenerFilmlistLoadEvent("", 0, 0, !ok));
         }
     }
 

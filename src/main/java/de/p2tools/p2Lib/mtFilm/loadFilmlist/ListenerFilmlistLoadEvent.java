@@ -18,15 +18,13 @@ package de.p2tools.p2Lib.mtFilm.loadFilmlist;
 
 public class ListenerFilmlistLoadEvent {
 
-    public String senderUrl = "";
     public String text;
     public double max;
     public double progress;
     public boolean error;
     public int countFoundFilms;
 
-    public ListenerFilmlistLoadEvent(String senderUrl, String text, double max, double progress, int countFoundFilms, boolean error) {
-        this.senderUrl = senderUrl;
+    public ListenerFilmlistLoadEvent(String text, double max, double progress, int countFoundFilms, boolean error) {
         this.text = text;
         this.max = max;
         this.progress = progress;
@@ -34,16 +32,15 @@ public class ListenerFilmlistLoadEvent {
         this.error = error;
     }
 
-    public ListenerFilmlistLoadEvent(String senderUrl, String text, double progress, int countFoundFilms, boolean error) {
-        this.senderUrl = senderUrl;
+    public ListenerFilmlistLoadEvent(String text, double progress, int countFoundFilms, boolean error) {
         this.text = text;
-        max = 0;
+        this.max = 0;
         this.progress = progress;
         this.countFoundFilms = countFoundFilms;
         this.error = error;
     }
 
     public static ListenerFilmlistLoadEvent getEmptyEvent() {
-        return new ListenerFilmlistLoadEvent("", "", 0, 0, false);
+        return new ListenerFilmlistLoadEvent("", 0, 0, false);
     }
 }
