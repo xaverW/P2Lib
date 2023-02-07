@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2Lib.guiTools;
+package de.p2tools.p2Lib.guiTools.pTable;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
@@ -27,7 +27,7 @@ import javafx.util.Callback;
 /**
  * das style der box ist: "checkbox-table"
  */
-public class PCheckBoxCell<S, T> extends TableCell<S, T> {
+public class CellCheckBox<S, T> extends TableCell<S, T> {
 
     public Callback<TableColumn<S, Boolean>, TableCell<S, Boolean>> cellFactoryBool
             = (final TableColumn<S, Boolean> param) -> {
@@ -53,22 +53,8 @@ public class PCheckBoxCell<S, T> extends TableCell<S, T> {
                 box.getStyleClass().add("checkbox-table");
                 box.setSelected(item.booleanValue());
                 setGraphic(box);
-
             }
         };
         return cell;
     };
-
-    public void initCell(Boolean item) {
-        setAlignment(Pos.CENTER);
-        CheckBox box = new CheckBox();
-        box.setMaxHeight(6);
-        box.setMinHeight(6);
-        box.setPrefSize(6, 6);
-        box.setDisable(true);
-        box.getStyleClass().add("checkbox-table");
-
-        box.setSelected(item.booleanValue());
-        setGraphic(box);
-    }
 }
