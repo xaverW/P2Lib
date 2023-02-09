@@ -21,11 +21,14 @@
     -fx-text-background-color: black;
     -fx-background-insets: 0;
 }
-/*.table-row-cell:focused:hover{
+/*
+.table-row-cell:focused:hover{
     -fx-background-color: #a2a2a2;
     -fx-background-insets: 0, 1;
     -fx-text-background-color: blue;
-}*/
+}
+*/
+
 /* damit leere Tabellenzeilen nicht angezeigt werden */
 .table-row-cell:empty {
     -fx-background-color: transparent;
@@ -36,7 +39,7 @@
 
 
 
- /* damit leere Treetable-Zeilen nicht angezeigt werden */
+/* damit leere Treetable-Zeilen nicht angezeigt werden */
  .tree-table-row-cell:empty {
      -fx-border-width: 0;
      -fx-background-color: transparent;
@@ -44,14 +47,14 @@
  .tree-table-row-cell:empty .tree-table-cell {
      -fx-border-width: 0px;
  }
- /* Treetable Zeilenrahmen anzeigen */
+/* Treetable Zeilenrahmen anzeigen */
  .tree-table-row-cell {
      -fx-border-width: 0 0 1 0;
      -fx-border-color: -fx-table-cell-border-color;
  }
 
 
- /* tabpane */
+/* tabpane */
 .tab-pane {
     -fx-border-width: 1;
     -fx-border-color: -text-color-blue;
@@ -98,7 +101,6 @@
 }
 
 /*
-
 .tab-pane > .tab-header-area  > .headers-region > .tab{
     -fx-border-insets: 0 20 0 0;
     -fx-background-insets: 0 20 0 0;

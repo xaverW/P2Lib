@@ -1,19 +1,19 @@
 /*  style sheet for the dark-theme */
 
 .root {
-    -fx-base: #383b3d;
-    -fx-accent: #e7eff7 ;
-    -fx-default-button: #7f878f ;
-    -fx-focus-color: #dfdfdf;
-    -fx-faint-focus-color: #efefef22;
+    -fx-base: #2b2b2b;/*Hintergrund gesamtes GUI*/
+    -fx-accent: #e7eff7;/*Menü: selektiert*/
+    /*-fx-default-button: #7f878f;*/
+    -fx-focus-color: #dfdfdf;/*selektierte Elemente*/
+    -fx-faint-focus-color: #efefef22;/*selektierte Elemente*/
     -fx-focused-text-base-color : ladder(
             -fx-selection-bar,
             -fx-light-text-color 45%,
             -fx-dark-text-color 46%,
             -fx-dark-text-color 59%,
             -fx-mid-text-color 60%
-        );
-    -fx-focused-mark-color : -fx-focused-text-base-color ;
+        );/*Menütext, selektiert*/
+    -fx-focused-mark-color : -fx-focused-text-base-color ;/*Untermenü: Pfeil*/
 
     -tab-button-1: #4a4a4a;
     -tab-button-2: #545454;
