@@ -72,11 +72,11 @@
 .tab-pane > .tab-header-area > .headers-region > .tab {
     -fx-border-width: 1, 2, 0;/* 3 Rahmen, damit die "Gesamtbreite" gleich bleibt */
     -fx-border-radius: 15 15 5 5, 15 15 5 5, 15 15 5 5;
-    -fx-border-insets: 0 3 0 3, 3 6 3 6, 3 6 3 6;/* die unterschiedlichen Abstände sind für den "Abstand" zwischen den Tabs */
+    -fx-border-insets: 0 2 0 2, 3 5 3 5, 3 5 3 5;/* die unterschiedlichen Abstände sind für den "Abstand" zwischen den Tabs */
     -fx-border-color: -style-tab-border-color-1, transparent, transparent;
 
     -fx-background-radius: 0, 15 15 5 5, 15 15 5 5;
-    -fx-background-insets: 0 3 0 3, 0 3 0 3, 3 6 3 6;
+    -fx-background-insets: 0 3 0 3, 0 3 0 3, 0 3 0 3;
     -fx-background-color: transparent, -lin-grad-1, -rad-grad-1;
 
     -fx-padding: 0 10 0 10;

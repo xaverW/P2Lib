@@ -19,7 +19,7 @@ package de.p2tools.p2Lib.mtFilter;
 
 import de.p2tools.p2Lib.data.PColorData;
 import javafx.application.Platform;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.paint.Color;
 
 public class FilterCheckRegEx {
@@ -30,13 +30,12 @@ public class FilterCheckRegEx {
     public static PColorData COLOR_OK = new PColorData("COLOR_FILTER_REGEX",
             Color.rgb(225, 255, 225), Color.rgb(128, 179, 213));
 
-    private TextField tf;
+    private TextInputControl tf;
     private boolean colorRed = false;
     private int counter = 0;
     private ColorThread colorThread = null;
 
-
-    public FilterCheckRegEx(TextField tf) {
+    public FilterCheckRegEx(TextInputControl tf) {
         this.tf = tf;
         checkPattern();
     }
