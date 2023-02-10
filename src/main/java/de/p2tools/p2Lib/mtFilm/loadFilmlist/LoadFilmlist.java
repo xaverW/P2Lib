@@ -164,7 +164,7 @@ public class LoadFilmlist {
             final String text;
             logList.add("Filmliste zu alt, neue Filmliste laden");
             logList.add("Alter|min]: " + filmListNew.getAge() / 60);
-            text = "Filmliste ist zu alt, eine neue downloaden";
+            text = "Filmliste ist zu alt, eine neue laden";
             logList.add(PLog.LILNE3);
 
             setProgress(new ListenerFilmlistLoadEvent(text,

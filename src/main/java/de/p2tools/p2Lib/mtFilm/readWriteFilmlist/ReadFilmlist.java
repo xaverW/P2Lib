@@ -506,7 +506,7 @@ public class ReadFilmlist {
         }
 
         LoadFactoryConst.loadFilmlist.setStart(
-                new ListenerFilmlistLoadEvent("Filmliste downloaden", 0, 0, false));
+                new ListenerFilmlistLoadEvent("Filmliste laden", 0, 0, false));
     }
 
     private void notifyProgress(String url, double iProgress) {
@@ -515,7 +515,7 @@ public class ReadFilmlist {
             progress = ListenerLoadFilmlist.PROGRESS_MAX;
         }
         LoadFactoryConst.loadFilmlist.setProgress(
-                new ListenerFilmlistLoadEvent("Filmliste downloaden", progress, 0, false));
+                new ListenerFilmlistLoadEvent("Filmliste laden", progress, 0, false));
     }
 
     private void notifyFinished(String url) {
