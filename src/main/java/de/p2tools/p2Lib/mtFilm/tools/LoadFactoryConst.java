@@ -64,14 +64,17 @@ public class LoadFactoryConst {
     // Uhrzeit ab der die Diffliste alle Änderungen abdeckt, die Filmliste darf also nicht vor xx erstellt worden sein
     public static final String TIME_MAX_AGE_FOR_DIFF = "09";
     // MediathekView URLs
-    public static final String ADRESSE_FILMLISTEN_SERVER_DIFF = "http://res.mediathekview.de/diff.xml";
-    public static final String ADRESSE_FILMLISTEN_SERVER_AKT = "http://res.mediathekview.de/akt.xml";
+    public static String FILMLIST_URL_AKT = "https://liste.mediathekview.de/Filmliste-akt.xz";
+    public static String FILMLIST_URL_DIFF = "https://liste.mediathekview.de/Filmliste-diff.xz";
+
     public static final String FORMAT_ZIP = ".zip";
     public static final String FORMAT_XZ = ".xz";
     public static String GEO_HOME_PLACE = "";
     public static boolean debug = false;
     public static String SYSTEM_LOAD_NOT_SENDER = "";
     public static IntegerProperty DOWNLOAD_MAX_BANDWIDTH_KBYTE = new SimpleIntegerProperty(0);//damit wird die Downloadbandbreite reduziert
+    public static int downloadMaxBandwidth = 0;//ist der Wert beim DownloadStart
+
     public static int SYSTEM_LOAD_FILMLIST_MAX_DAYS = 0;
     public static int SYSTEM_LOAD_FILMLIST_MIN_DURATION = 0;
     public static boolean removeDiacritic = false;

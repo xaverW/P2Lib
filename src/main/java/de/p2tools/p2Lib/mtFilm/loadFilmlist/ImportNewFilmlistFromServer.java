@@ -16,7 +16,6 @@
 
 package de.p2tools.p2Lib.mtFilm.loadFilmlist;
 
-import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.mtFilm.film.Filmlist;
 import de.p2tools.p2Lib.mtFilm.readWriteFilmlist.ReadFilmlist;
 import de.p2tools.p2Lib.mtFilm.tools.LoadFactoryConst;
@@ -65,7 +64,7 @@ public class ImportNewFilmlistFromServer {
     }
 
     private boolean loadList(List<String> logList, Filmlist list, STATE state) {
-        String updateUrl = state == STATE.COMPLETE ? P2LibConst.FILMLIST_URL_AKT : P2LibConst.FILMLIST_URL_DIFF;
+        String updateUrl = state == STATE.COMPLETE ? LoadFactoryConst.FILMLIST_URL_AKT : LoadFactoryConst.FILMLIST_URL_DIFF;
         new ReadFilmlist().readFilmlistWebOrLocal(logList, list, updateUrl);
 
         if (LoadFactoryConst.loadFilmlist.isStop()) {

@@ -59,7 +59,6 @@ public class ReadFilmlist {
     String channel = "", theme = "";
     private double progress = 0;
     private int countAll = 0;
-    private int savedBandwidth = LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE.getValue();
     private boolean loadFromWeb = false;//nur dann müssen die Filme gefiltert werden
 
     private Map<String, Integer> filmsPerChannelFoundCompleteList = new TreeMap<>();
@@ -81,8 +80,9 @@ public class ReadFilmlist {
         logList.add(PLog.LILNE2);
 
         PDuration.counterStart("ReadFilmlist.readFilmlist()");
+
         try {
-            notifyStart(sourceFileOrUrl); // für die Progressanzeige
+            notifyStart(); // für die Progressanzeige
 
             filmlist.clear();
             if (sourceFileOrUrl.startsWith("http")) {
@@ -117,7 +117,7 @@ public class ReadFilmlist {
         PDuration.counterStop("ReadFilmlist.readFilmlist()");
         logList.add(PLog.LILNE2);
         logList.add("");
-        notifyFinished(sourceFileOrUrl);
+        notifyFinished();
     }
 
     /**
@@ -139,7 +139,7 @@ public class ReadFilmlist {
                 final int iProgress = (int) (bytesRead * 100/* zum Runden */ / size);
                 if (iProgress != oldProgress) {
                     oldProgress = iProgress;
-                    notifyProgress(source.toString(), 1.0 * iProgress / 100);
+                    notifyProgress(1.0 * iProgress / 100);
                 }
             }
         };
@@ -169,7 +169,7 @@ public class ReadFilmlist {
      * @param filmlist the list to read to
      */
     private void processFromFile(String source, Filmlist filmlist) {
-        notifyProgress(source, ListenerLoadFilmlist.PROGRESS_INDETERMINATE);
+        notifyProgress(ListenerLoadFilmlist.PROGRESS_INDETERMINATE);
         try (InputStream in = selectDecompressor(source, new FileInputStream(source));
              JsonParser jp = new JsonFactory().createParser(in)) {
             readData(jp, filmlist);
@@ -490,26 +490,18 @@ public class ReadFilmlist {
         return true;
     }
 
-    private void notifyStart(String url) {
+    private void notifyStart() {
         progress = 0;
-        // save download bandwidth
-        if (LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE.getValue() == REDUCED_BANDWIDTH) {
-            PLog.sysLog("Bandbreite reduzieren: Ist schon reduziert!!!!");
-
-        } else {
-            savedBandwidth = LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE.getValue();
-            PLog.sysLog("Bandbreite zurücksetzen für das Laden der Filmliste von: " + savedBandwidth + " auf " + REDUCED_BANDWIDTH);
-            Platform.runLater(() -> {
-                //wird im GUI angezeigt!!
-                LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE.setValue(REDUCED_BANDWIDTH);
-            });
-        }
+        PLog.sysLog("Bandbreite zurücksetzen für das Laden der Filmliste von: " +
+                LoadFactoryConst.downloadMaxBandwidth + " auf " + REDUCED_BANDWIDTH);
+        //wird im GUI angezeigt!!
+        Platform.runLater(() -> LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE.setValue(REDUCED_BANDWIDTH));
 
         LoadFactoryConst.loadFilmlist.setStart(
                 new ListenerFilmlistLoadEvent("Filmliste laden", 0, 0, false));
     }
 
-    private void notifyProgress(String url, double iProgress) {
+    private void notifyProgress(double iProgress) {
         progress = iProgress;
         if (progress > ListenerLoadFilmlist.PROGRESS_MAX) {
             progress = ListenerLoadFilmlist.PROGRESS_MAX;
@@ -518,12 +510,11 @@ public class ReadFilmlist {
                 new ListenerFilmlistLoadEvent("Filmliste laden", progress, 0, false));
     }
 
-    private void notifyFinished(String url) {
+    private void notifyFinished() {
         // reset download bandwidth
-        PLog.sysLog("Bandbreite wieder herstellen: " + savedBandwidth);
-        Platform.runLater(() -> {
-            LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE.setValue(savedBandwidth);
-        });
+        PLog.sysLog("Bandbreite wieder herstellen: " + LoadFactoryConst.downloadMaxBandwidth);
+        //dann die Bandbreite wieder herstellen, wird im GUI angezeigt!!
+        Platform.runLater(() -> LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE.setValue(LoadFactoryConst.downloadMaxBandwidth));
 
         // Laden ist durch
         LoadFactoryConst.loadFilmlist.setLoaded(

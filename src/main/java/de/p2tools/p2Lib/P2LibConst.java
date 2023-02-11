@@ -47,11 +47,7 @@ public class P2LibConst {
 
     public static boolean debug = false; //Debugmodus
     public static boolean duration = false; //Duration ausgeben
-
-    public static String FILMLIST_URL_AKT = "https://liste.mediathekview.de/Filmliste-akt.xz";
-    public static String FILMLIST_URL_DIFF = "https://liste.mediathekview.de/Filmliste-diff.xz";
-
-
+    
     //Projektweite Abstände
     public static int DIST_BUTTON = 5;//Abstand zwischen den Button
     public static int DIST_BUTTON_BLOCK = 10;//Abstand zwischen den Button-Blöcken
