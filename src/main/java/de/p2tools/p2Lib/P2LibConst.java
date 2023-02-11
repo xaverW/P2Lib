@@ -25,6 +25,7 @@ import java.util.List;
 
 public class P2LibConst {
     public static final int NUMBER_NOT_STARTED = Integer.MAX_VALUE;
+    public static final int NUMBER_NULL = 0;
 
     public static final String URL_WEBSITE_DONATE = "https://www.p2tools.de/donate.html";
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
@@ -46,6 +47,9 @@ public class P2LibConst {
 
     public static boolean debug = false; //Debugmodus
     public static boolean duration = false; //Duration ausgeben
+
+    public static String FILMLIST_URL_AKT = "https://liste.mediathekview.de/Filmliste-akt.xz";
+    public static String FILMLIST_URL_DIFF = "https://liste.mediathekview.de/Filmliste-diff.xz";
 
 
     //Projektweite Abstände

@@ -20,6 +20,7 @@ package de.p2tools.p2Lib.mtFilm.loadFilmlist;
 import de.p2tools.p2Lib.mtFilm.film.FilmData;
 import de.p2tools.p2Lib.mtFilm.film.FilmFactory;
 import de.p2tools.p2Lib.mtFilm.film.Filmlist;
+import de.p2tools.p2Lib.mtFilm.film.FilmlistFactory;
 import de.p2tools.p2Lib.mtFilm.readWriteFilmlist.ReadFilmlist;
 import de.p2tools.p2Lib.mtFilm.readWriteFilmlist.WriteFilmlistJson;
 import de.p2tools.p2Lib.mtFilm.tools.LoadFactoryConst;
@@ -99,11 +100,12 @@ public class LoadFilmlist {
     /**
      * Filmliste beim Programmstart laden
      */
-    public void loadFilmlistProgStart(boolean firstProgramStart, String localFilmListFile, boolean loadNewFilmlistOnProgramStart) {
+    public void loadFilmlistProgStart(boolean firstProgramStart, String localFilmListFile,
+                                      boolean loadNewFilmlistOnProgramStart, int age) {
         setPropLoadFilmlist(true);
         new Thread(() -> {
             final List<String> logList = new ArrayList<>();
-            loadFilmlistProgStart(logList, firstProgramStart, localFilmListFile, loadNewFilmlistOnProgramStart);
+            loadFilmlistProgStart(logList, firstProgramStart, localFilmListFile, loadNewFilmlistOnProgramStart, age);
             PLog.addSysLog(logList);
             setPropLoadFilmlist(false);
         }).start();
@@ -113,7 +115,7 @@ public class LoadFilmlist {
         setPropLoadFilmlist(true);
         new Thread(() -> {
             final List<String> logList = new ArrayList<>();
-            loadNewFilmlistFromServer(logList, alwaysLoadNew, localFilmListFile);
+            loadNewFilmlistFromWeb(logList, alwaysLoadNew, localFilmListFile);
             PLog.addSysLog(logList);
             setPropLoadFilmlist(false);
         }).start();
@@ -135,7 +137,7 @@ public class LoadFilmlist {
      * Filmliste beim Programmstart laden
      */
     private void loadFilmlistProgStart(List<String> logList, boolean firstProgramStart,
-                                       String localFilmListFile, boolean loadNewListOnProgStart) {
+                                       String localFilmListFile, boolean loadNewListOnProgStart, int age) {
         //hier wird die gespeicherte Filmliste geladen und wenn zu alt, wird eine neue aus
         //dem Web geladen
         PDuration.counterStart("LoadFilmlist.loadFilmlistStart");
@@ -154,13 +156,21 @@ public class LoadFilmlist {
         filmListNew.setAll(LoadFactoryConst.filmlist);
 
         if (!firstProgramStart) {
-            // gespeicherte Filmliste laden, macht beim ersten Programmstart keinen Sinn
-            loadStoredList(logList, filmListNew, localFilmListFile);
+            //gespeicherte Filmliste laden, macht beim ersten Programmstart keinen Sinn
+            if (FilmlistFactory.isTooOld(age) && loadNewListOnProgStart) {
+                //und wenn zu alt und neue soll beim ProgStart geladen werden
+                //dann gleich weiter
+                PDuration.onlyPing("Programmstart Filmliste zu alt, neue aus dem Web laden");
+
+            } else {
+                //nur dann die gespeicherte Liste laden
+                loadStoredList(logList, filmListNew, localFilmListFile);
+            }
             PDuration.onlyPing("Programmstart Filmliste laden: geladen");
         }
 
         if (filmListNew.isTooOld() && loadNewListOnProgStart) {
-            //eine neue Filmliste laden wenn die gespeicherte zu alt ist
+            //eine neue Filmliste laden, wenn die gespeicherte zu alt ist
             final String text;
             logList.add("Filmliste zu alt, neue Filmliste laden");
             logList.add("Alter|min]: " + filmListNew.getAge() / 60);
@@ -171,7 +181,7 @@ public class LoadFilmlist {
                     ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
 
             PDuration.onlyPing("Programmstart Filmliste laden: neue Liste laden");
-            loadNewFilmlistFromServer(logList, false, true, localFilmListFile);
+            loadNewFilmlistFromWeb(logList, false, true, localFilmListFile);
             PDuration.onlyPing("Programmstart Filmliste laden: neue Liste geladen");
         }
 
@@ -184,7 +194,7 @@ public class LoadFilmlist {
     // #######################################
     // #######################################
 
-    private void loadNewFilmlistFromServer(List<String> logList, boolean alwaysLoadNew, String localFilmListFile) {
+    private void loadNewFilmlistFromWeb(List<String> logList, boolean alwaysLoadNew, String localFilmListFile) {
         //damit wird eine neue Filmliste (Web) geladen UND auch gleich im Config-Ordner gespeichert
         PDuration.counterStart("LoadFilmlist.loadNewFilmlistFromServer");
         if (LoadFactory.checkAllSenderSelectedNotToLoad()) {
@@ -200,7 +210,7 @@ public class LoadFilmlist {
         logList.add("           Anzahl  Neue: " + LoadFactoryConst.filmlist.countNewFilms());
         logList.add("");
 
-        loadNewFilmlistFromServer(logList, alwaysLoadNew, false, localFilmListFile);
+        loadNewFilmlistFromWeb(logList, alwaysLoadNew, false, localFilmListFile);
         afterLoading(logList);
         PDuration.counterStop("LoadFilmlist.loadNewFilmlistFromServer");
     }
@@ -225,7 +235,6 @@ public class LoadFilmlist {
         setLoaded(new ListenerFilmlistLoadEvent("Filme in Downloads eingetragen",
                 ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
         logList.add("Filme in Downloads eingetragen");
-//        progData.downloadList.addFilmInList(filmListNew);
 
         //die FilmList wieder füllen
         logList.add("==> und jetzt die Filmliste wieder füllen :)");
@@ -242,7 +251,8 @@ public class LoadFilmlist {
         new ReadFilmlist().readFilmlistWebOrLocal(logList, filmlist, localFilmListFile);
     }
 
-    private void loadNewFilmlistFromServer(List<String> logList, boolean alwaysLoadNew, boolean intern, String localFilmListFile) {
+    private void loadNewFilmlistFromWeb(List<String> logList, boolean alwaysLoadNew, boolean intern, String
+            localFilmListFile) {
         if (intern) {
             //dann ist die lokale Liste schon geladen und zu alt
             //Hash mit URLs füllen
@@ -264,8 +274,18 @@ public class LoadFilmlist {
         setStop(false);
         logList.add("Filmliste laden (auto)");
         // Filmliste laden und Url automatisch ermitteln
-        importNewFilmlisteFromServer.importFilmListFromWebAuto(logList, filmListNew, filmListDiff);
-        afterLoadingNewFilmlistFromServer(logList, localFilmListFile);
+        boolean wasOk = importNewFilmlisteFromServer.importFilmListFromWebAuto(logList, filmListNew, filmListDiff);
+        if (wasOk) {
+            //dann hats geklappt
+            afterLoadingNewFilmlistFromServer(logList, localFilmListFile);
+        } else {
+            //dann wars fehlerhaft
+            logList.add(PLog.LILNE3);
+            logList.add("Das Laden hat nicht geklappt, alte Liste wieder laden");
+            LoadFactoryConst.loadFilmlist.setStop(false);
+            loadStoredList(logList, filmListNew, localFilmListFile);
+            logList.add("");
+        }
     }
 
     /**

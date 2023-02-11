@@ -16,6 +16,7 @@
 
 package de.p2tools.p2Lib.mtFilm.film;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.mtFilm.tools.LoadFactoryConst;
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
@@ -241,6 +242,24 @@ public class FilmlistFactory {
     }
 
     /**
+     * Check if available Filmlist is older than a specified value.
+     *
+     * @return true if too old or if the list is empty.
+     */
+    public static boolean isTooOld(int age) {
+        if (LoadFactoryConst.debug) {
+            //im Debugmodus nie automatisch laden
+            return false;
+        }
+        if (age == P2LibConst.NUMBER_NULL) {
+            //dann ist das Alter nicht gesetzt
+            return true;
+        }
+
+        return (isOlderThan(age, LoadFactoryConst.ALTER_FILMLISTE_SEKUNDEN_FUER_AUTOUPDATE));
+    }
+
+    /**
      * Check if Filmlist is too old for using a diff list.
      *
      * @return true if empty or too old.
@@ -274,5 +293,18 @@ public class FilmlistFactory {
             PLog.addSysLog("Die Filmliste ist " + ret / 60 + " Minuten alt");
         }
         return ret > second;
+    }
+
+    /**
+     * Check if list is older than specified parameter.
+     *
+     * @param second The age in seconds.
+     * @return true if older.
+     */
+    public static boolean isOlderThan(int age, int second) {
+        if (age != 0) {
+            PLog.addSysLog("Die Filmliste ist " + age / 60 + " Minuten alt");
+        }
+        return age > second;
     }
 }
