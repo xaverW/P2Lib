@@ -66,6 +66,8 @@ public class LoadFactoryConst {
     // MediathekView URLs
     public static String FILMLIST_URL_AKT = "https://liste.mediathekview.de/Filmliste-akt.xz";
     public static String FILMLIST_URL_DIFF = "https://liste.mediathekview.de/Filmliste-diff.xz";
+    public static String FILMLIST_ID = "https://liste.mediathekview.de/filmliste.id";
+
 
     public static final String FORMAT_ZIP = ".zip";
     public static final String FORMAT_XZ = ".xz";
