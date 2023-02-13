@@ -149,17 +149,34 @@ public class PGuiSize {
             posY = PGuiSize.getPosY(sizeConfiguration);
         }
 
+
         //Größe setzen
         if (setSize && size) {
-            newStage.setWidth(w);
-            newStage.setHeight(h);
+            if (w <= 25 || h <= 25) {
+                //dann stimmt was nicht, => einpassen
+                newStage.sizeToScene();
+            } else {
+                newStage.setWidth(w);
+                newStage.setHeight(h);
+            }
         } else if (setSize) {
             //dann wenigstens einpassen
             newStage.sizeToScene();
         }
 
+
         //Pos setzen
         if (setPos && pos) {
+            if (posX < 0) {
+                //sonst wäre das Fenster "möglicherweise außerhalb" des sichtbaren Bereichs
+                //das kann Windows nicht abfangen :(, Linux(KDE) machts richtig!!!
+                posX = 0;
+            }
+            if (posY < 0) {
+                //sonst wäre das Fenster "möglicherweise außerhalb" des sichtbaren Bereichs
+                //das kann Windows nicht abfangen :(, Linux(KDE) machts richtig!!!
+                posY = 0;
+            }
             newStage.setX(posX);
             newStage.setY(posY);
         } else if (setPos) {
@@ -167,6 +184,8 @@ public class PGuiSize {
             setInFrontOfPrimaryStage(newStage, ownerForCenteringDialog);
         }
 
+
+        //und nix wie raus
         if (!setPos && setSize && size) {
             return true;
         }
