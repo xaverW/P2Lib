@@ -170,11 +170,15 @@ public class PGuiSize {
             if (posX < 0) {
                 //sonst wäre das Fenster "möglicherweise außerhalb" des sichtbaren Bereichs
                 //das kann Windows nicht abfangen :(, Linux(KDE) machts richtig!!!
+                //rechts und unten kann das Fenster immer noch abhauen, ist bei mehreren Monitoren
+                //nicht so einfach auszuschießen
                 posX = 0;
             }
             if (posY < 0) {
                 //sonst wäre das Fenster "möglicherweise außerhalb" des sichtbaren Bereichs
                 //das kann Windows nicht abfangen :(, Linux(KDE) machts richtig!!!
+                //rechts und unten kann das Fenster immer noch abhauen, ist bei mehreren Monitoren
+                //nicht so einfach auszuschießen
                 posY = 0;
             }
             newStage.setX(posX);
