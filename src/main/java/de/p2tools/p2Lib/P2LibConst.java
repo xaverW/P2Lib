@@ -38,6 +38,7 @@ public class P2LibConst {
     public static String logdir = "Log";
     public static String styleFile = "";
     public static int MIN_BUTTON_WIDTH = 100;
+    public static final String CONFIG_XML_START = "Mediathek";
 
     //sind die Einstellungen des Programms
     public static Stage primaryStage = null;
@@ -47,7 +48,7 @@ public class P2LibConst {
 
     public static boolean debug = false; //Debugmodus
     public static boolean duration = false; //Duration ausgeben
-    
+
     //Projektweite Abstände
     public static int DIST_BUTTON = 5;//Abstand zwischen den Button
     public static int DIST_BUTTON_BLOCK = 10;//Abstand zwischen den Button-Blöcken

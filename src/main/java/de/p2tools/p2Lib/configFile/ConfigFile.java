@@ -17,41 +17,72 @@
 
 package de.p2tools.p2Lib.configFile;
 
+import de.p2tools.p2Lib.P2LibConst;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
 
-import java.nio.file.Path;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class ConfigFile {
 
-    private final Path configFile;
+    private String filePath = "";
+    private final InputStreamReader isr;
+    private String xmlStart = P2LibConst.CONFIG_XML_START;
+    private final boolean backup;//Backup laden / Backup speichern
+    private String backupHeader = "", backupText = "";//Text der angezeigt wird, wenn das Backup geladen werden soll
     private final ArrayList<PData> pData;
     private final ArrayList<PDataList> pDataList;
-    private final String xmlStart;
 
-
-    public ConfigFile(String xmlStart, Path configFile) {
-        this.xmlStart = xmlStart;
-        this.configFile = configFile;
+    public ConfigFile(String filePath, boolean backup) {
+        this.filePath = filePath;
+        this.isr = null;
+        this.backup = backup;
         this.pDataList = new ArrayList<>();
         this.pData = new ArrayList<>();
     }
 
-    public String getXmlStart() {
-        return xmlStart;
+    public ConfigFile(InputStreamReader isr, boolean backup) {
+        this.isr = isr;
+        this.backup = backup;
+        this.pDataList = new ArrayList<>();
+        this.pData = new ArrayList<>();
     }
 
-    public Path getConfigFile() {
-        return configFile;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public InputStreamReader getIsr() {
+        return isr;
+    }
+
+    public boolean isBackup() {
+        return backup;
+    }
+
+    public void setBackupHeader(String backupHeader) {
+        this.backupHeader = backupHeader;
+    }
+
+    public String getBackupHeader() {
+        return backupHeader;
+    }
+
+    public void setBackupText(String backupText) {
+        this.backupText = backupText;
+    }
+
+    public String getBackupText() {
+        return backupText;
     }
 
     public void addConfigs(PData pData) {
         this.pData.add(pData);
-    }
-
-    public ArrayList<PData> getpData() {
-        return pData;
     }
 
     public void addConfigs(PDataList configsData) {
@@ -60,5 +91,17 @@ public class ConfigFile {
 
     public ArrayList<PDataList> getpDataList() {
         return pDataList;
+    }
+
+    public ArrayList<PData> getpData() {
+        return pData;
+    }
+
+    public void setXmlStart(String xmlStart) {
+        this.xmlStart = xmlStart;
+    }
+
+    public String getXmlStart() {
+        return xmlStart;
     }
 }

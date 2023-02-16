@@ -26,9 +26,7 @@ public class PUrlTools {
     public static final int TIME_OUT = 10_000;
 
     public static boolean isUrl(String fileUrl) {
-        // return dateiUrl.startsWith("http") ? true : false || dateiUrl.startsWith("www") ? true :
-        // false;
-        return fileUrl.startsWith("http") || fileUrl.startsWith("www");
+        return fileUrl.toLowerCase().startsWith("http") || fileUrl.toLowerCase().startsWith("www");
     }
 
     public static boolean urlExists(String url) {

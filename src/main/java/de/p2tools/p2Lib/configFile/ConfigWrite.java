@@ -38,18 +38,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-class SaveConfig {
+class ConfigWrite {
 
+    private final Path xmlFilePath;
     private final String xmlStart;
     private final ArrayList<PDataList> pDataList;
     private final ArrayList<PData> pData;
-    private final Path xmlFilePath;
-    //private OutputStream outputStream = null;
     private OutputStreamWriter outputStreamWriter = null;
     private XMLStreamWriter xmlStreamWriter = null;
 
-    SaveConfig(String xmlStart, Path filePath, ArrayList<PDataList> pDataList, ArrayList<PData> pData) {
-        xmlFilePath = filePath;
+    ConfigWrite(Path filePath, String xmlStart, ArrayList<PDataList> pDataList, ArrayList<PData> pData) {
+        this.xmlFilePath = filePath;
         this.xmlStart = xmlStart;
         this.pDataList = pDataList;
         this.pData = pData;
@@ -247,7 +246,6 @@ class SaveConfig {
     private void writeConfig(Config config, int tab) throws XMLStreamException {
         if (config.getActValue() != null && !config.getActValueString().isEmpty()) {
             writeTab(tab);
-//            xmlStreamWriter.writeStartElement(config.getKey());
             xmlStreamWriter.writeStartElement(config.getKey().split(PData.TAGGER)[0]);
             xmlStreamWriter.writeCharacters(config.getActValueString());
             xmlStreamWriter.writeEndElement();

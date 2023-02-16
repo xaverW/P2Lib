@@ -23,29 +23,18 @@ import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-public class WriteConfigFile {
-    public static final int MAX_COPY_BACKUPFILE = 5; // Maximum number of backup files to be stored.
-
+public class ConfigFileWrite {
+    public static final int MAX_COPY_BACKUP_FILE = 5; // Maximum number of backup files to be stored.
     private final ArrayList<ConfigFile> cFileList;
-    private int maxCopyBackupfile = MAX_COPY_BACKUPFILE;
 
-
-    public WriteConfigFile() {
+    public ConfigFileWrite() {
         this.cFileList = new ArrayList<>();
-    }
-
-    public int getMaxCopyBackupfile() {
-        return maxCopyBackupfile;
-    }
-
-    public void setMaxCopyBackupfile(int maxCopyBackupfile) {
-        this.maxCopyBackupfile = maxCopyBackupfile;
     }
 
     public void addConfigFile(ConfigFile configFile) {
         cFileList.add(configFile);
     }
-    
+
     /**
      * write config zip-file, all configs in one zip-file, named by configFileZip
      *
@@ -53,17 +42,17 @@ public class WriteConfigFile {
      */
     public boolean writeConfigFileZip(Path configFileZip) {
         boolean ret = true;
-        new BackupConfigFile(maxCopyBackupfile, configFileZip).configCopy();
+        new BackupConfigFile(MAX_COPY_BACKUP_FILE, configFileZip).configCopy();
 
         try (FileOutputStream fout = new FileOutputStream(configFileZip.toFile());
              ZipOutputStream zipOut = new ZipOutputStream(fout)) {
 
             for (ConfigFile cf : cFileList) {
-                ZipEntry zipEntry = new ZipEntry(cf.getConfigFile().getFileName().toString());
+                ZipEntry zipEntry = new ZipEntry(Path.of(cf.getFilePath()).getFileName().toString());
                 zipOut.putNextEntry(zipEntry);
 
-                SaveConfig saveConfig = new SaveConfig(cf.getXmlStart(), configFileZip, cf.getpDataList(), cf.getpData());
-                if (!saveConfig.write(zipOut)) {
+                ConfigWrite configWrite = new ConfigWrite(configFileZip, cf.getXmlStart(), cf.getpDataList(), cf.getpData());
+                if (!configWrite.write(zipOut)) {
                     ret = false;
                 }
             }
@@ -81,23 +70,14 @@ public class WriteConfigFile {
      * @return
      */
     public boolean writeConfigFile() {
-        return writeConfigFile(true);
-    }
-
-    /**
-     * write configs direct to the file, named in the config
-     *
-     * @return
-     */
-    public boolean writeConfigFile(boolean backup) {
         boolean ret = true;
 
         for (ConfigFile cf : cFileList) {
-            if (backup) {
-                new BackupConfigFile(maxCopyBackupfile, cf.getConfigFile()).configCopy();
+            if (cf.isBackup()) {
+                new BackupConfigFile(MAX_COPY_BACKUP_FILE, Path.of(cf.getFilePath())).configCopy();
             }
-            SaveConfig saveConfig = new SaveConfig(cf.getXmlStart(), cf.getConfigFile(), cf.getpDataList(), cf.getpData());
-            if (!saveConfig.write()) {
+            ConfigWrite configWrite = new ConfigWrite(Path.of(cf.getFilePath()), cf.getXmlStart(), cf.getpDataList(), cf.getpData());
+            if (!configWrite.write()) {
                 ret = false;
             }
         }

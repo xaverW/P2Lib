@@ -23,99 +23,30 @@ import de.p2tools.p2Lib.configFile.config.Config_pDataList;
 import de.p2tools.p2Lib.configFile.configList.ConfigList;
 import de.p2tools.p2Lib.configFile.pData.PData;
 import de.p2tools.p2Lib.configFile.pData.PDataList;
-import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
 
-class LoadConfig implements AutoCloseable {
+class ConfigRead implements AutoCloseable {
 
-    private final Path xmlFilePath;
+    private final ConfigFile configFile;
     private final XMLInputFactory inFactory;
-    private ArrayList<PDataList> pDataListArr = null;
-    private final ArrayList<PData> pDataArr;
 
     /**
-     * @param filePath
-     * @param configsListArrayDataList
-     * @param pDataArr
+     * @param configFile
      */
-    LoadConfig(Path filePath, ArrayList<PDataList> configsListArrayDataList, ArrayList<PData> pDataArr) {
-        this.xmlFilePath = filePath;
-        this.pDataListArr = configsListArrayDataList;
-        this.pDataArr = pDataArr;
-
+    ConfigRead(ConfigFile configFile) {
+        this.configFile = configFile;
         inFactory = XMLInputFactory.newInstance();
         inFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.FALSE);
     }
 
-    /**
-     * @param filePath
-     * @param pDataArr
-     */
-    LoadConfig(Path filePath, ArrayList<PData> pDataArr) {
-        this.xmlFilePath = filePath;
-        this.pDataArr = pDataArr;
-
-        inFactory = XMLInputFactory.newInstance();
-        inFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.FALSE);
-    }
-
-    /**
-     * @return
-     */
-    boolean readConfiguration(InputStream inputStream) {
-        boolean ret;
-        try {
-            InputStreamReader in = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-            ret = read(in);
-
-        } catch (final Exception ex) {
-            ret = false;
-            PLog.errorLog(963258967, ex);
-        }
-
-        return ret;
-    }
-
-    /**
-     * @return
-     */
-    boolean readConfiguration() {
-        if (!Files.exists(xmlFilePath)) {
-            return false;
-        }
-
-        PDuration.counterStart("readConfiguration");
-        boolean ret;
-        try (InputStream is = Files.newInputStream(xmlFilePath);
-             InputStreamReader in = new InputStreamReader(is, StandardCharsets.UTF_8)) {
-            ret = read(in);
-
-        } catch (final Exception ex) {
-            ret = false;
-            PLog.errorLog(454102598, ex);
-        }
-        PDuration.counterStop("readConfiguration");
-
-        return ret;
-    }
-
-    /**
-     * @return
-     */
     boolean read(InputStreamReader in) {
-        boolean ret = false;
-
+        boolean ret;
         XMLStreamReader parser = null;
         try {
             parser = inFactory.createXMLStreamReader(in);
@@ -149,8 +80,8 @@ class LoadConfig implements AutoCloseable {
     }
 
     private boolean get(XMLStreamReader parser, String xmlElem) {
-        if (pDataListArr != null) {
-            for (PDataList pDataList : pDataListArr) {
+        if (configFile.getpDataList() != null) {
+            for (PDataList pDataList : configFile.getpDataList()) {
 
                 //if (pDataList.getTag().equals(xmlElem)) {
                 if (checkTag(pDataList.getTag(), xmlElem)) {
@@ -160,8 +91,8 @@ class LoadConfig implements AutoCloseable {
             }
         }
 
-        if (pDataArr != null) {
-            for (PData pData : pDataArr) {
+        if (configFile.getpData() != null) {
+            for (PData pData : configFile.getpData()) {
 
                 //if (pData.getTag().equals(xmlElem)) {
                 if (checkTag(pData.getTag(), xmlElem)) {

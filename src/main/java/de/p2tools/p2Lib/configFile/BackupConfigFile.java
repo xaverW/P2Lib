@@ -33,7 +33,6 @@ import java.util.Calendar;
 
 class BackupConfigFile {
     private static final String CONFIG_FILE_COPY_ADDON = "_copy_";
-
     private boolean alreadyMadeBackup = false;
     private final int maxCopyBackup;
     private final String backupFileName;
@@ -54,7 +53,7 @@ class BackupConfigFile {
         }
 
         ArrayList<String> list = new ArrayList<>();
-        // nur einmal pro Programmstart machen
+        //nur einmal pro Programmstart machen
         list.add(PLog.LILNE3);
         list.add("BackupConfigFile sichern");
 
@@ -96,13 +95,7 @@ class BackupConfigFile {
         PLog.sysLog(list);
     }
 
-    ArrayList<Path> loadBackup() {
-        return loadBackup("", "");
-    }
-
     ArrayList<Path> loadBackup(String header, String text) {
-
-        boolean ret = false;
         final ArrayList<Path> pathList = new ArrayList<>();
         getXmlCopyFilePath(pathList);
         if (pathList.isEmpty()) {
@@ -112,7 +105,6 @@ class BackupConfigFile {
 
         // dann gibts ein Backup
         PLog.sysLog("Es gibt ein Backup");
-
 
         if (PAlert.BUTTON.YES != new PDialogFileChosser().showAlert_yes_no("Gesicherte Einstellungen laden?",
 
@@ -130,17 +122,6 @@ class BackupConfigFile {
         }
 
         return pathList;
-//        for (final Path p : pathList) {
-//            // teils geladene Reste entfernen
-//            PLog.sysLog(new String[]{"Versuch Backup zu laden:", p.toString()});
-//            if (new LoadConfig(p, pDataListArr, pDataArr).readConfiguration()) {
-//                PLog.sysLog(new String[]{"Backup hat geklappt:", p.toString()});
-//                ret = true;
-//                break;
-//            }
-//        }
-//
-//        return ret;
     }
 
     /**

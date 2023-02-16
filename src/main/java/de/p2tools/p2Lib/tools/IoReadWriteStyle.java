@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2Lib.configFile;
+package de.p2tools.p2Lib.tools;
 
 import de.p2tools.p2Lib.tools.duration.PDuration;
 import de.p2tools.p2Lib.tools.log.PLog;
@@ -29,14 +29,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class IoReadWriteStyle {
-    public static String STYLE_START = "/* Programm weites style sheet */\n" +
-            "\n";
-    public static String STYLE =
-            ".root {\n" +
-                    "  -fx-font-size: ##pt ;\n" +
-                    "}\n";
+    public static String STYLE_START = "/* Programm weites style sheet */\n" + "\n";
+    public static String STYLE = ".root {\n" + "  -fx-font-size: ##pt ;\n" + "}\n";
     public static String STYLE_END = "\n";
-
     private static final ArrayList<String> list = new ArrayList<>();
 
     private IoReadWriteStyle() {
@@ -62,13 +57,6 @@ public class IoReadWriteStyle {
 
         if (Files.exists(filePath)) {
             try {
-                // das geht alles :)
-//                File f = new File("/home/emil/daten/software/java-fx-11/MTInfo/MTInfo/p2Style.css");
-//                scene.getStylesheets().add("file:///" + f.getAbsolutePath());
-//                scene.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
-//                String uri = f.toURI().toString();
-//                scene.getStylesheets().add(uri);
-
                 scene.getStylesheets().removeAll(filePath.toUri().toString());
                 scene.getStylesheets().add(filePath.toUri().toString());
                 ret = true;
@@ -83,18 +71,15 @@ public class IoReadWriteStyle {
     }
 
     private static void writeData(Path filePath, int size) {
-
         try (BufferedWriter bufferedWriter = (
                 new BufferedWriter(new OutputStreamWriter(Files.newOutputStream(filePath), StandardCharsets.UTF_8)))) {
 
             list.add("Start Schreiben nach: " + filePath.toAbsolutePath());
-
             String style = STYLE_START;
             if (size > 0) {
                 style += STYLE.replace("##", size + "");
             }
             style += STYLE_END;
-
             bufferedWriter.write(style);
             list.add("geschrieben!");
         } catch (final Exception ex) {
