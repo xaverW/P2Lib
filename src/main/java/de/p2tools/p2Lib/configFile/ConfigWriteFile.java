@@ -17,22 +17,19 @@
 
 package de.p2tools.p2Lib.configFile;
 
+import de.p2tools.p2Lib.tools.log.PLog;
+
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class ConfigWriteFile {
-    public static final int MAX_COPY_BACKUP_FILE = 5; // Maximum number of backup files to be stored.
-    private final ArrayList<ConfigFile> cFileList;
-
-    public ConfigWriteFile() {
-        this.cFileList = new ArrayList<>();
-    }
-
-    public void addConfigFile(ConfigFile configFile) {
-        cFileList.add(configFile);
+    private ConfigWriteFile() {
     }
 
     /**
@@ -40,27 +37,26 @@ public class ConfigWriteFile {
      *
      * @return
      */
-    public boolean writeConfigFileZip(Path configFileZip) {
+    public static boolean writeConfigFileZip(Path path, ArrayList<ConfigFile> cFileList) {
         boolean ret = true;
-        new ConfigBackupFile(configFileZip).backupConfigFile();
+        try {
+            Files.createDirectories(path.getParent());
+            new ConfigBackupFile(path).backupConfigFile();
 
-        try (FileOutputStream fout = new FileOutputStream(configFileZip.toFile());
-             ZipOutputStream zipOut = new ZipOutputStream(fout)) {
-
+            ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(path.toFile()));
             for (ConfigFile cf : cFileList) {
                 ZipEntry zipEntry = new ZipEntry(Path.of(cf.getFilePath()).getFileName().toString());
                 zipOut.putNextEntry(zipEntry);
 
-                ConfigWrite configWrite = new ConfigWrite(configFileZip, cf.getXmlStart(), cf.getpDataList(), cf.getpData());
+                ConfigWrite configWrite = new ConfigWrite(cf);
                 if (!configWrite.write(zipOut)) {
                     ret = false;
                 }
             }
-
         } catch (Exception ex) {
+            PLog.errorLog(784512589, ex);
             ret = false;
         }
-
         return ret;
     }
 
@@ -69,19 +65,31 @@ public class ConfigWriteFile {
      *
      * @return
      */
-    public boolean writeConfigFile() {
+    public static boolean writeConfigFile(ConfigFile cFile) {
+        ArrayList<ConfigFile> list = new ArrayList<>();
+        list.add(cFile);
+        return writeConfigFile(list);
+    }
+
+    public static boolean writeConfigFile(ArrayList<ConfigFile> cFileList) {
         boolean ret = true;
+        try {
+            for (ConfigFile cf : cFileList) {
+                Files.createDirectories(Path.of(cf.getFilePath()).getParent());
+                if (cf.isBackup()) {
+                    new ConfigBackupFile(Path.of(cf.getFilePath())).backupConfigFile();
+                }
 
-        for (ConfigFile cf : cFileList) {
-            if (cf.isBackup()) {
-                new ConfigBackupFile(Path.of(cf.getFilePath())).backupConfigFile();
+                ConfigWrite configWrite = new ConfigWrite(cf);
+                OutputStream outputStream = Files.newOutputStream(Path.of(cf.getFilePath()));
+                if (!configWrite.write(outputStream)) {
+                    ret = false;
+                }
             }
-            ConfigWrite configWrite = new ConfigWrite(Path.of(cf.getFilePath()), cf.getXmlStart(), cf.getpDataList(), cf.getpData());
-            if (!configWrite.write()) {
-                ret = false;
-            }
+        } catch (IOException ex) {
+            PLog.errorLog(602035789, ex);
+            ret = false;
         }
-
         return ret;
     }
 }

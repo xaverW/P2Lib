@@ -30,90 +30,53 @@ import javafx.collections.ObservableList;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
 
 class ConfigWrite {
 
-    private final Path xmlFilePath;
-    private final String xmlStart;
-    private final ArrayList<PDataList> pDataList;
-    private final ArrayList<PData> pData;
+    private final ConfigFile configFile;
     private OutputStreamWriter outputStreamWriter = null;
     private XMLStreamWriter xmlStreamWriter = null;
 
-    ConfigWrite(Path filePath, String xmlStart, ArrayList<PDataList> pDataList, ArrayList<PData> pData) {
-        this.xmlFilePath = filePath;
-        this.xmlStart = xmlStart;
-        this.pDataList = pDataList;
-        this.pData = pData;
+    ConfigWrite(ConfigFile configFile) {
+        this.configFile = configFile;
     }
 
     synchronized boolean write(OutputStream outputStream) {
-        boolean ret;
-        PLog.sysLog("ProgData Schreiben nach: " + outputStream.toString());
-
         try {
             xmlWriteStart(outputStream);
             xmlDataWrite();
             xmlWriteEnd();
-
-            ret = true;
+            return true;
         } catch (final Exception ex) {
             PLog.errorLog(912014085, ex);
-            ret = false;
+            return false;
         }
-
-        return ret;
     }
 
-    synchronized boolean write() {
-        boolean ret;
-        PLog.sysLog("ProgData Schreiben nach: " + xmlFilePath.toString());
-
-        try (OutputStream outputStream = Files.newOutputStream(xmlFilePath)) {
-
-            xmlWriteStart(outputStream);
-            xmlDataWrite();
-            xmlWriteEnd();
-
-            ret = true;
-        } catch (final Exception ex) {
-            PLog.errorLog(945120145, ex);
-            ret = false;
-        }
-
-        return ret;
-    }
-
-    private void xmlWriteStart(OutputStream outputStream) throws IOException, XMLStreamException {
-        PLog.sysLog("Start Schreiben nach: " + xmlFilePath.toAbsolutePath());
-        Files.createDirectories(xmlFilePath.getParent());
-
+    private void xmlWriteStart(OutputStream outputStream) throws XMLStreamException {
+        PLog.sysLog("Start Schreiben nach: " + configFile.getFilePath());
         outputStreamWriter = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
         final XMLOutputFactory outFactory = XMLOutputFactory.newInstance();
         xmlStreamWriter = outFactory.createXMLStreamWriter(outputStreamWriter);
 
         xmlStreamWriter.writeStartDocument(StandardCharsets.UTF_8.name(), "1.0");
         xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR);
-        xmlStreamWriter.writeStartElement(xmlStart);
+        xmlStreamWriter.writeStartElement(configFile.getXmlStart());
         xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR);
     }
 
     private void xmlDataWrite() throws XMLStreamException {
-        for (PData pData : this.pData) {
+        for (PData pData : configFile.getpData()) {
             xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATORx2);
             xmlStreamWriter.writeComment(pData.getComment());
             xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR);
             write(pData, 0);
         }
 
-        for (PDataList cl : pDataList) {
+        for (PDataList cl : configFile.getpDataList()) {
             xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR);
             xmlStreamWriter.writeComment(cl.getComment());
             write(cl, 0);
@@ -131,7 +94,6 @@ class ConfigWrite {
 
 
     private void write(Object o, int tab) throws XMLStreamException {
-
         //Standard-Daten
         if (o instanceof PData) {
             writePData((PData) o, tab);

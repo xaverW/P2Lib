@@ -32,6 +32,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 class ConfigBackupFile {
+    public static final int MAX_COPY_BACKUP_FILE = 5; // Maximum number of backup files to be stored.
+
     private static boolean alreadyMadeBackup = false;
     private static final String CONFIG_FILE_COPY_ADDON = "_copy_";
     private final String backupFileName;
@@ -66,7 +68,7 @@ class ConfigBackupFile {
 
             if (createTime == -1 || createTime < getToday_00_00()) {
                 //und es schon von gestern ist
-                for (int i = ConfigWriteFile.MAX_COPY_BACKUP_FILE; i > 1; --i) {
+                for (int i = MAX_COPY_BACKUP_FILE; i > 1; --i) {
                     confFileCopy = filePath.getParent().resolve(backupFileName + (i - 1));//Start: xx_copy_4, xx_copy_3, ..
                     final Path confFileCopy_2 = filePath.getParent().resolve(backupFileName + i);//wird zu xx_copy_5, xx_copy_4, ..
                     if (Files.exists(confFileCopy)) {
@@ -129,7 +131,7 @@ class ConfigBackupFile {
      * @param xmlFilePath Path to file.
      */
     private void getXmlCopyFilePath(ArrayList<Path> xmlFilePath) {
-        for (int i = 1; i <= ConfigWriteFile.MAX_COPY_BACKUP_FILE; ++i) {
+        for (int i = 1; i <= MAX_COPY_BACKUP_FILE; ++i) {
             final Path path = filePath.getParent().resolve(backupFileName + i);
             if (Files.exists(path)) {
                 xmlFilePath.add(path);
