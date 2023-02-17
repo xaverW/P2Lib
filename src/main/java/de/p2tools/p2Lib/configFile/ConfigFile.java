@@ -49,6 +49,10 @@ public class ConfigFile {
         this.pData = new ArrayList<>();
     }
 
+    public void clearConfigFile() {
+        //muss, wenn gebraucht, überschieben werden!!
+    }
+
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
