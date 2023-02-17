@@ -35,9 +35,9 @@ import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-public class ConfigFileRead {
+public class ConfigReadFile {
 
-    private ConfigFileRead() {
+    private ConfigReadFile() {
     }
 
     public static boolean readConfig(ConfigFile configFile) {
@@ -53,7 +53,7 @@ public class ConfigFileRead {
             return false;
         }
 
-        ArrayList<Path> pathList = new BackupConfigFile(ConfigFileWrite.MAX_COPY_BACKUP_FILE, Path.of(configFile.getFilePath())).
+        ArrayList<Path> pathList = new ConfigBackupFile(Path.of(configFile.getFilePath())).
                 loadBackup(configFile.getBackupHeader(), configFile.getBackupText());
         if (pathList == null) {
             // dann gibts keine Backups

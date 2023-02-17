@@ -31,15 +31,13 @@ import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-class BackupConfigFile {
+class ConfigBackupFile {
+    private static boolean alreadyMadeBackup = false;
     private static final String CONFIG_FILE_COPY_ADDON = "_copy_";
-    private boolean alreadyMadeBackup = false;
-    private final int maxCopyBackup;
     private final String backupFileName;
     private final Path filePath;
 
-    BackupConfigFile(int maxCopyBackup, Path filePath) {
-        this.maxCopyBackup = maxCopyBackup;
+    ConfigBackupFile(Path filePath) {
         this.filePath = filePath;
         this.backupFileName = filePath.getFileName().toString() + CONFIG_FILE_COPY_ADDON;
     }
@@ -47,43 +45,43 @@ class BackupConfigFile {
     /**
      * Create backup copies of settings file.
      */
-    void configCopy() {
+    void backupConfigFile() {
         if (alreadyMadeBackup) {
             return;
         }
 
         ArrayList<String> list = new ArrayList<>();
-        //nur einmal pro Programmstart machen
         list.add(PLog.LILNE3);
         list.add("BackupConfigFile sichern");
 
         try {
             long createTime = -1;
-
             Path confFileCopy = filePath.getParent().resolve(backupFileName + 1);
             if (Files.exists(confFileCopy)) {
+                //schauen, obs das File schon gibt
                 final BasicFileAttributes attrs = Files.readAttributes(confFileCopy, BasicFileAttributes.class);
                 final FileTime d = attrs.lastModifiedTime();
                 createTime = d.toMillis();
             }
 
             if (createTime == -1 || createTime < getToday_00_00()) {
-                // nur dann ist die letzte Kopie älter als einen Tag
-                for (int i = maxCopyBackup; i > 1; --i) {
-                    confFileCopy = filePath.getParent().resolve(backupFileName + (i - 1));
-                    final Path confFileCopy_2 = filePath.getParent().resolve(backupFileName + i);
+                //und es schon von gestern ist
+                for (int i = ConfigWriteFile.MAX_COPY_BACKUP_FILE; i > 1; --i) {
+                    confFileCopy = filePath.getParent().resolve(backupFileName + (i - 1));//Start: xx_copy_4, xx_copy_3, ..
+                    final Path confFileCopy_2 = filePath.getParent().resolve(backupFileName + i);//wird zu xx_copy_5, xx_copy_4, ..
                     if (Files.exists(confFileCopy)) {
                         Files.move(confFileCopy, confFileCopy_2, StandardCopyOption.REPLACE_EXISTING);
                     }
                 }
+
                 if (Files.exists(filePath)) {
-                    Files.move(filePath,
-                            filePath.getParent().resolve(backupFileName + 1),
+                    //und jetzt das org-config kopieren zu xx_copy_1
+                    Files.move(filePath, filePath.getParent().resolve(backupFileName + 1),
                             StandardCopyOption.REPLACE_EXISTING);
                 }
-                list.add("BackupConfigFile wurden gesichert");
+                list.add("BackupConfigFile wurde gesichert: " + backupFileName + 1);
             } else {
-                list.add("BackupConfigFile wurden heute schon gesichert");
+                list.add("BackupConfigFile wurde heute schon gesichert");
             }
         } catch (final IOException e) {
             list.add("Die Einstellungen konnten nicht komplett gesichert werden!");
@@ -131,7 +129,7 @@ class BackupConfigFile {
      * @param xmlFilePath Path to file.
      */
     private void getXmlCopyFilePath(ArrayList<Path> xmlFilePath) {
-        for (int i = 1; i <= maxCopyBackup; ++i) {
+        for (int i = 1; i <= ConfigWriteFile.MAX_COPY_BACKUP_FILE; ++i) {
             final Path path = filePath.getParent().resolve(backupFileName + i);
             if (Files.exists(path)) {
                 xmlFilePath.add(path);

@@ -23,11 +23,11 @@ import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-public class ConfigFileWrite {
+public class ConfigWriteFile {
     public static final int MAX_COPY_BACKUP_FILE = 5; // Maximum number of backup files to be stored.
     private final ArrayList<ConfigFile> cFileList;
 
-    public ConfigFileWrite() {
+    public ConfigWriteFile() {
         this.cFileList = new ArrayList<>();
     }
 
@@ -42,7 +42,7 @@ public class ConfigFileWrite {
      */
     public boolean writeConfigFileZip(Path configFileZip) {
         boolean ret = true;
-        new BackupConfigFile(MAX_COPY_BACKUP_FILE, configFileZip).configCopy();
+        new ConfigBackupFile(configFileZip).backupConfigFile();
 
         try (FileOutputStream fout = new FileOutputStream(configFileZip.toFile());
              ZipOutputStream zipOut = new ZipOutputStream(fout)) {
@@ -74,7 +74,7 @@ public class ConfigFileWrite {
 
         for (ConfigFile cf : cFileList) {
             if (cf.isBackup()) {
-                new BackupConfigFile(MAX_COPY_BACKUP_FILE, Path.of(cf.getFilePath())).configCopy();
+                new ConfigBackupFile(Path.of(cf.getFilePath())).backupConfigFile();
             }
             ConfigWrite configWrite = new ConfigWrite(Path.of(cf.getFilePath()), cf.getXmlStart(), cf.getpDataList(), cf.getpData());
             if (!configWrite.write()) {
