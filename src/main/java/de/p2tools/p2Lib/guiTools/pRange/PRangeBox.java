@@ -31,6 +31,7 @@ import javafx.util.StringConverter;
 
 public class PRangeBox extends VBox {
 
+    private final String STR_ALLES = "Alles";
     private final int MIN_DIST = 5; //min einstellbarer Wert und Tick im Slider
 
     private final int MIN_VALUE;
@@ -96,24 +97,24 @@ public class PRangeBox extends VBox {
         return minValue.get();
     }
 
-    public IntegerProperty minValueProperty() {
-        return minValue;
-    }
-
     public void setMinValue(int minValue) {
         this.minValue.set(minValue);
+    }
+
+    public IntegerProperty minValueProperty() {
+        return minValue;
     }
 
     public int getMaxValue() {
         return maxValue.get();
     }
 
-    public IntegerProperty maxValueProperty() {
-        return maxValue;
-    }
-
     public void setMaxValue(int maxValue) {
         this.maxValue.set(maxValue);
+    }
+
+    public IntegerProperty maxValueProperty() {
+        return maxValue;
     }
 
     public String getValuePrefix() {
@@ -254,8 +255,8 @@ public class PRangeBox extends VBox {
         slider.setLabelFormatter(new StringConverter<>() {
             @Override
             public String toString(Double x) {
-                if (x == MIN_VALUE) return "alles";
-                if (x == MAX_VALUE) return "alles";
+                if (x == MIN_VALUE) return STR_ALLES;
+                if (x == MAX_VALUE) return STR_ALLES;
 
                 int i = x.intValue();
                 i = i * MIN_DIST;
@@ -298,8 +299,6 @@ public class PRangeBox extends VBox {
     }
 
     private void setRangeTxt() {
-        final String STR_ALLES = "alles";
-
         int minIntSlider = (int) sliderMin.getValue();
         int maxIntSlider = (int) sliderMax.getValue();
         int minInt = (int) sliderMin.getValue() * MIN_DIST;
@@ -309,11 +308,11 @@ public class PRangeBox extends VBox {
         if (minIntSlider == MIN_VALUE && maxIntSlider == MAX_VALUE) {
             text = valuePrefix + STR_ALLES;
         } else if (minIntSlider == MIN_VALUE) {
-            text = valuePrefix + "max. " + maxInt + unitSuffix;
+            text = valuePrefix + "Max. " + maxInt + unitSuffix;
         } else if (maxIntSlider == MAX_VALUE) {
-            text = valuePrefix + "min. " + minInt + unitSuffix;
+            text = valuePrefix + "Min. " + minInt + unitSuffix;
         } else {
-            text = valuePrefix + "von " + minInt + " bis " + maxInt + unitSuffix;
+            text = valuePrefix + "Von " + minInt + " bis " + maxInt + unitSuffix;
         }
 
         menuButton.setText(text);
