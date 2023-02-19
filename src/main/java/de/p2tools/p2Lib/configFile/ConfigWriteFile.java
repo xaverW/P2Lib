@@ -51,8 +51,11 @@ public class ConfigWriteFile {
                 ConfigWrite configWrite = new ConfigWrite(cf);
                 if (!configWrite.write(zipOut)) {
                     ret = false;
+                    break;
                 }
+                zipOut.closeEntry();
             }
+            zipOut.close();
         } catch (Exception ex) {
             PLog.errorLog(784512589, ex);
             ret = false;
