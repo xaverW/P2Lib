@@ -77,6 +77,6 @@ public class PToggleSwitchOnly extends HBox {
     private void init() {
         this.setAlignment(Pos.CENTER);
         this.getChildren().addAll(checkBox);
-        getStyleClass().add("ptoggleswitch");
+        getStyleClass().add("pToggleSwitch");
     }
 }

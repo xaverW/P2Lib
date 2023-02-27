@@ -207,7 +207,7 @@ public class PToggleSwitch extends HBox {
             this.getChildren().addAll(lblLeft, checkBox);
         }
         setCheckHgrow();
-        getStyleClass().add("ptoggleswitch");
+        getStyleClass().add("pToggleSwitch");
         if (bold) {
             getStyleClass().add("pToggleSwitchBold");
         }
