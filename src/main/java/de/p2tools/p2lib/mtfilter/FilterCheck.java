@@ -28,24 +28,40 @@ public class FilterCheck {
     private FilterCheck() {
     }
 
-    public static boolean check(Filter filter, String im) {
+    public static boolean checkLowerCase(Filter filter, String checkString, String checkStrLowerCase) {
         // wenn einer passt, dann ists gut
         if (filter.pattern != null) {
             // dann ists eine RegEx
-            return (filter.pattern.matcher(im).matches());
+            return filter.pattern.matcher(checkString).matches();
         }
 
         if (filter.exclude) {
             //dann werden die Begriffe ausgeschlossen
-            return !checkInclude(filter, im.toLowerCase());
+            return !checkInclude(filter, checkStrLowerCase);
         } else {
             //dann müssen die Begriffe enthalten sein
-            return checkInclude(filter, im.toLowerCase());
+            return checkInclude(filter, checkStrLowerCase);
+        }
+    }
+
+    public static boolean check(Filter filter, String checkString) {
+        // wenn einer passt, dann ists gut
+        if (filter.pattern != null) {
+            // dann ists eine RegEx
+            return filter.pattern.matcher(checkString).matches();
+        }
+
+        if (filter.exclude) {
+            //dann werden die Begriffe ausgeschlossen
+            return !checkInclude(filter, checkString.toLowerCase());
+        } else {
+            //dann müssen die Begriffe enthalten sein
+            return checkInclude(filter, checkString.toLowerCase());
         }
     }
 
     private static boolean checkInclude(Filter filter, String im) {
-        if (filter.filterAnd) {
+        if (filter.isFilterAnd) {
             //Suchbegriffe müssen alle passen
             for (final String s : filter.filterArr) {
                 //dann jeden Suchbegriff checken

@@ -27,6 +27,10 @@ import java.time.format.DateTimeFormatter;
 
 public class FilmData extends FilmDataProps implements PData {
 
+    public String FILM_CHANNEL_STR = "";
+    public String FILM_THEME_STR = "";
+    public String FILM_TITLE_STR = "";
+
     public static final String RESOLUTION_ASK = "ask";
     public static final String RESOLUTION_NORMAL = "normal";
     public static final String RESOLUTION_HD = "hd";
@@ -90,6 +94,18 @@ public class FilmData extends FilmDataProps implements PData {
         } else {
             setFilmTime(FILM_TIME_EMPTY);
         }
+    }
+
+    public void setLowerCase() {
+        FILM_CHANNEL_STR = getChannel().toLowerCase();
+        FILM_THEME_STR = getTheme().toLowerCase();
+        FILM_TITLE_STR = getTitle().toLowerCase();
+    }
+
+    public void clearLowerCase() {
+        FILM_CHANNEL_STR = "";
+        FILM_THEME_STR = "";
+        FILM_TITLE_STR = "";
     }
 
     public String getUrlForResolution(String resolution) {

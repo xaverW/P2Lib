@@ -43,7 +43,7 @@ public class FilmDataProps extends FilmDataXml {
     private boolean shown = false;
     private boolean actHist = false;
     private boolean bookmark = false;
-    private boolean blackBlocked = false;
+    private boolean isBlackBlocked = false;
 
     public int getDurationMinute() {
         return durationMinute;
@@ -245,10 +245,10 @@ public class FilmDataProps extends FilmDataXml {
     }
 
     public boolean isBlackBlocked() {
-        return blackBlocked;
+        return isBlackBlocked;
     }
 
     public void setBlackBlocked(boolean blackBlocked) {
-        this.blackBlocked = blackBlocked;
+        this.isBlackBlocked = blackBlocked;
     }
 }

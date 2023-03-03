@@ -25,10 +25,11 @@ public class Filter {
 
     public String filter = "";
     public String[] filterArr = {""};
-    public boolean filterAnd = false;
-    public boolean exact = false;
+    public boolean isFilterAnd = false;
+    public boolean isExact = false;
     public Pattern pattern = null;
-    public boolean empty = true;
+    public boolean isEmpty = true;//wenn er wirklich leer ist
+    public boolean isQick = false;//wenn er als "Quick" laufen kann
     public boolean exclude = false;
 
     public Filter() {
@@ -38,16 +39,18 @@ public class Filter {
         this.filter = filter;
         this.filterArr = new String[]{filter};
         if (makeArr) {
+            //Sender, Thema, Titel, ..
             makeFilterArray();
         } else {
+            //Url, Datum
             makeFilter();
         }
     }
 
-    public Filter(String filter, boolean exact, boolean makeArr) {
+    public Filter(String filter, boolean isExact, boolean makeArr) {
         this.filter = filter;
         this.filterArr = new String[]{filter};
-        this.exact = exact;
+        this.isExact = isExact;
         if (makeArr) {
             makeFilterArray();
         } else {
@@ -55,57 +58,62 @@ public class Filter {
         }
     }
 
-    public void makeFilter() {
-        // keine Auftrennung mit ":" oder "," für z.B. URLs
-        if (filter.isEmpty()) {
-            filterArr = new String[]{""};
-            pattern = null;
-            empty = true;
-            return;
-        }
-
-        setValues();
-        if (exact || pattern != null) {
-            filterArr = new String[]{filter};
-
-        } else {
-            filterArr = new String[]{filter.trim().toLowerCase()};
-        }
-
-        checkArray();
-    }
-
     public void makeFilterArray() {
         if (filter.isEmpty()) {
             filterArr = new String[]{""};
             pattern = null;
-            empty = true;
+            isEmpty = true;
             return;
         }
 
         setValues();
-        if (exact || pattern != null) {
+        if (isExact || pattern != null) {
             filterArr = new String[]{filter};
 
         } else {
             if (filter.contains(":")) {
-                filterAnd = true;
+                isFilterAnd = true;
                 filterArr = filter.split(":");
             } else {
-                filterAnd = false;
+                isFilterAnd = false;
                 filterArr = filter.split(",");
             }
 
             for (int i = 0; i < filterArr.length; ++i) {
                 filterArr[i] = filterArr[i].trim().toLowerCase();
             }
+            if (filterArr.length == 1) {
+                //dann gibts nur einen Filtereintrag
+                isQick = true;
+            }
+        }
+
+        checkArray();
+    }
+
+    public void makeFilter() {
+        // keine Auftrennung mit ":" oder "," für z.B. URLs
+        if (filter.isEmpty()) {
+            filterArr = new String[]{""};
+            pattern = null;
+            isEmpty = true;
+            return;
+        }
+
+        setValues();
+        if (isExact || pattern != null) {
+            filterArr = new String[]{filter};
+
+        } else {
+            isQick = true;
+            filterArr = new String[]{filter.trim().toLowerCase()};
         }
 
         checkArray();
     }
 
     private void setValues() {
-        empty = false;
+        isEmpty = false;
         pattern = makePattern(filter);
         exclude = isExclusion(filter);
         if (exclude) {
@@ -117,7 +125,7 @@ public class Filter {
         if (filterArr == null || filterArr.length == 0) {
             filterArr = new String[]{""};
             pattern = null;
-            empty = true;
+            isEmpty = true;
         }
     }
 
@@ -125,7 +133,8 @@ public class Filter {
         Pattern p = null;
         try {
             if (isPattern(filter)) {
-                p = Pattern.compile(filter.substring(2), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE | Pattern.DOTALL);
+                p = Pattern.compile(filter.substring(FILTER_REG_EX.length()),
+                        Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE | Pattern.DOTALL);
             }
         } catch (final Exception ex) {
             p = null;
