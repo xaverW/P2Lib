@@ -67,8 +67,13 @@ public class Filter {
         }
 
         setValues();
-        if (isExact || pattern != null) {
+        if (pattern != null) {
             filterArr = new String[]{filter};
+
+        } else if (isExact) {
+            //dann gibts nur einen Filtereintrag
+            filterArr = new String[]{filter.trim().toLowerCase()};
+            isQick = true;
 
         } else {
             if (filter.contains(":")) {
@@ -101,12 +106,13 @@ public class Filter {
         }
 
         setValues();
-        if (isExact || pattern != null) {
+        if (pattern != null) {
             filterArr = new String[]{filter};
 
         } else {
-            isQick = true;
+            //dann gibts nur einen Filtereintrag, egal ob exact
             filterArr = new String[]{filter.trim().toLowerCase()};
+            isQick = true;
         }
 
         checkArray();

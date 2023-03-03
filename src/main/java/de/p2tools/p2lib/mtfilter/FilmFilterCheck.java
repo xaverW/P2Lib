@@ -90,7 +90,6 @@ public class FilmFilterCheck {
 
     public static boolean checkMatchThemeExact(Filter theme, FilmData film) {
         if (theme.isExact) {
-            // da ist keine Form optimal?? aber so passt es zur Sortierung der Themenliste
             if (!theme.filter.equalsIgnoreCase(film.arr[FilmDataXml.FILM_THEME])) {
                 return false;
             }
@@ -104,8 +103,8 @@ public class FilmFilterCheck {
 
     private static boolean checkMatchThemeExactLowerCase(Filter theme, FilmData film) {
         if (theme.isExact) {
-            // da ist keine Form optimal?? aber so passt es zur Sortierung der Themenliste
-            if (!theme.filter.equals(film.FILM_THEME_STR)) {
+            if (!theme.filterArr[0].equals(film.FILM_THEME_STR)) {
+                //exact: dann werden auch der Kleinbuchstaben verglichen!!
                 return false;
             }
         } else {
