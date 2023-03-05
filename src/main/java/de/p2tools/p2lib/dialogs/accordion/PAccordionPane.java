@@ -27,7 +27,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -37,15 +36,13 @@ public class PAccordionPane extends AnchorPane {
     private final Accordion accordion = new Accordion();
     private final HBox hBox = new HBox(0);
     private final CheckBox cbxAccordion = new CheckBox("");
-    private final Stage stage;
     public Collection<TitledPane> titledPanes;
     private ScrollPane scrollPane = new ScrollPane();
     private VBox noaccordion = new VBox();
     private BooleanProperty accordionProp;
     private IntegerProperty selectedPane;
 
-    public PAccordionPane(Stage stage, BooleanProperty accordionProp, IntegerProperty selectedPane) {
-        this.stage = stage;
+    public PAccordionPane(BooleanProperty accordionProp, IntegerProperty selectedPane) {
         this.accordionProp = accordionProp;
         this.selectedPane = selectedPane;
 
