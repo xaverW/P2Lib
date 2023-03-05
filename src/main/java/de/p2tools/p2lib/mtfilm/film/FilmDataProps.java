@@ -215,6 +215,10 @@ public class FilmDataProps extends FilmDataXml {
         this.actHist = actHist;
     }
 
+    public boolean isActHist() {
+        return actHist;
+    }
+
     public String getFilmDateLong() {
         // beschleunigt etwas das Laden der Filmliste
         return arr[FILM_DATE_LONG];
@@ -230,10 +234,6 @@ public class FilmDataProps extends FilmDataXml {
 
     public void setShown(boolean shown) {
         this.shown = shown;
-    }
-
-    public boolean isActHist() {
-        return actHist;
     }
 
     public boolean isBookmark() {
