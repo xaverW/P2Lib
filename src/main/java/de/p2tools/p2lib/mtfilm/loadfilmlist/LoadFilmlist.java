@@ -308,11 +308,11 @@ public class LoadFilmlist {
         logList.add("Unicode-Zeichen korrigieren");
         FilmFactory.cleanFaultyCharacterFilmlist(filmListNew);
 
-        logList.add("Diacritics setzen/ändern, Diacritics suchen");
+        logList.add("Diakritika setzen/ändern, Diakritika suchen");
         if (LoadFactoryConst.removeDiacritic) {
             FilmFactory.flattenDiacritic(filmListNew);
         } else {
-            logList.add("Diacritics: nicht gewollt");
+            logList.add("Diakritika: nicht gewollt");
         }
 
         logList.add("");

@@ -41,7 +41,7 @@ public class FilmData extends FilmDataProps implements PData {
     public static final String GEO_CH = "CH";
     public static final String GEO_EU = "EU";
     public static final String GEO_WELT = "WELT";
-    public boolean showDiacritic = true; //Diacritic werden angezeigt, ist bei neuem Film so!!
+    public boolean showDiacritic = true; //Diakritika werden angezeigt, ist bei neuem Film so!!
 
 
     public FilmData() {
