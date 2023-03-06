@@ -29,7 +29,7 @@ public class Filter {
     public boolean isExact = false;
     public Pattern pattern = null;
     public boolean isEmpty = true;//wenn er wirklich leer ist
-    public boolean isQick = false;//wenn er als "Quick" laufen kann
+    public boolean isQuick = false;//wenn er als "Quick" laufen kann
     public boolean exclude = false;
 
     public Filter() {
@@ -73,7 +73,7 @@ public class Filter {
         } else if (isExact) {
             //dann gibts nur einen Filtereintrag
             filterArr = new String[]{filter.trim().toLowerCase()};
-            isQick = true;
+            isQuick = true;
 
         } else {
             if (filter.contains(":")) {
@@ -89,7 +89,7 @@ public class Filter {
             }
             if (filterArr.length == 1) {
                 //dann gibts nur einen Filtereintrag
-                isQick = true;
+                isQuick = true;
             }
         }
 
@@ -112,7 +112,7 @@ public class Filter {
         } else {
             //dann gibts nur einen Filtereintrag, egal ob exact
             filterArr = new String[]{filter.trim().toLowerCase()};
-            isQick = true;
+            isQuick = true;
         }
 
         checkArray();
@@ -120,6 +120,7 @@ public class Filter {
 
     private void setValues() {
         isEmpty = false;
+        isQuick = false;
         pattern = makePattern(filter);
         exclude = isExclusion(filter);
         if (exclude) {
