@@ -76,7 +76,7 @@ public class FilmFactory {
         PDuration.counterStop("cleanFaultyCharacter");
     }
 
-    public static void generateDiacritic(FilmData filmData) {
+    public static void flattenDiacritic(FilmData filmData) {
         //dann setzen
         //5,6s, 693MB ~15-20MB mehr durch die zusätzlichen Felder,
         //6,2s 829MB wenn alle Felder gesetzt würden
@@ -158,19 +158,14 @@ public class FilmFactory {
 //        arr[i2] = s;
 //    }
 
-    public static void setDiacritic(SimpleListProperty<? extends FilmData> filmlist, boolean remove) {
-        if (remove) {
-            //dann sollen die Diacritic *nicht* angezeigt werden
-            genDiacriticAndSet(filmlist);
-        }
-    }
-
-    private static void genDiacriticAndSet(SimpleListProperty<? extends FilmData> filmlist) {
-        PDuration.counterStart("FilmlistFactory.genDiacriticAndSet");
+    //    public static void flattenDiacritic(SimpleListProperty<? extends FilmData> filmlist, boolean remove) {
+    public static void flattenDiacritic(SimpleListProperty<? extends FilmData> filmlist) {
+        //dann sollen die Diacritic *nicht* angezeigt werden!!
+        PDuration.counterStart("flattenDiacritic");
         filmlist.stream().forEach(film -> {
-            FilmFactory.generateDiacritic(film);
+            FilmFactory.flattenDiacritic(film);
         });
-        PDuration.counterStop("FilmlistFactory.genDiacriticAndSet");
+        PDuration.counterStop("flattenDiacritic");
     }
 
     public static String cleanUnicode(String ret) {

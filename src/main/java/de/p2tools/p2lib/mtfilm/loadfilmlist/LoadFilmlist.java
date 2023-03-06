@@ -309,7 +309,11 @@ public class LoadFilmlist {
         FilmFactory.cleanFaultyCharacterFilmlist(filmListNew);
 
         logList.add("Diacritics setzen/ändern, Diacritics suchen");
-        FilmFactory.setDiacritic(filmListNew, LoadFactoryConst.removeDiacritic);
+        if (LoadFactoryConst.removeDiacritic) {
+            FilmFactory.flattenDiacritic(filmListNew);
+        } else {
+            logList.add("Diacritics: nicht gewollt");
+        }
 
         logList.add("");
         logList.add("Filme schreiben (" + filmListNew.size() + " Filme) :");
