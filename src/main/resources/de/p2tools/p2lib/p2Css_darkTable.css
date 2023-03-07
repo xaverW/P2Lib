@@ -25,6 +25,11 @@
     -fx-background-insets: 0;
     -fx-padding: 0;
 }
+.table-row-cell:selected:hover{
+    -fx-background-color: derive(-fx-control-inner-background, 150%);
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
 /*
 .table-row-cell:selected:hover{
     -fx-background-color: #b2d8ff;

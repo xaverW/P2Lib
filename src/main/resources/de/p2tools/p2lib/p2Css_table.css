@@ -16,11 +16,16 @@
 
 
 /* Tabelle */
-.table-row-cell: hover {
-    -fx-background-color: #dadada;
+.table-row-cell:hover {
+    -fx-background-color: #e2e2e2;
+    /*-fx-background-color: derive(-fx-control-inner-background, 100%);*/
     -fx-text-background-color: black;
     -fx-background-insets: 0;
 }
+.table-row-cell:hover:selected{
+    -fx-background-color: #989898;
+}
+
 /*
 .table-row-cell:focused:hover{
     -fx-background-color: #a2a2a2;
