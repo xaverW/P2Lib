@@ -99,7 +99,6 @@ public class FilmData extends FilmDataProps implements PData {
                 setFilmTime(FILM_TIME_EMPTY);
             }
         } else {
-            arr[FILM_TIME] = "";
             setFilmTime(FILM_TIME_EMPTY);
         }
     }
