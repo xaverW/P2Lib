@@ -64,9 +64,13 @@
 }
 
 /* farblich abgesetzter Bereich in vielen Panes/Dialogen*/
+.extra-pane-filter {
+    -fx-background-color: -style-extra-pane-color;
+    -fx-border-width: 1 0 0 0; /* makes really one-pixel-border */
+    -fx-border-color: #939a9f;
+}
 .extra-pane {
     -fx-background-color: -style-extra-pane-color;
-/*    -fx-border-radius: 3px;*/
     -fx-background-radius: 3px;
     -fx-border-color: #939a9f;
 }
