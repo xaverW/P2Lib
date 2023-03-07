@@ -88,10 +88,18 @@ public class FilmData extends FilmDataProps implements PData {
 
     private void setFilmTime() {
         if (!arr[FILM_TIME].isEmpty()) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-            LocalTime time = LocalTime.parse(arr[FILM_TIME], formatter);
-            setFilmTime(time.toSecondOfDay());
+            try {
+                if (arr[FILM_TIME].length() == 5) {
+                    arr[FILM_TIME] = arr[FILM_TIME] + ":00";
+                }
+                LocalTime time = LocalTime.parse(arr[FILM_TIME], DateTimeFormatter.ofPattern("HH:mm:ss"));
+                setFilmTime(time.toSecondOfDay());
+            } catch (Exception ignore) {
+                arr[FILM_TIME] = "";
+                setFilmTime(FILM_TIME_EMPTY);
+            }
         } else {
+            arr[FILM_TIME] = "";
             setFilmTime(FILM_TIME_EMPTY);
         }
     }
