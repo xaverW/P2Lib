@@ -173,38 +173,37 @@ public class LoadFilmlist {
             logList.add("## Erster Programmstart -> Liste aus dem Web laden");
         } else {
             if (LoadFactoryConst.loadNewFilmlistOnProgramStart) {
+                //dann bei Bedarf, eine neue Liste aus dem Web laden
                 if (FilmlistFactory.isTooOld(LoadFactoryConst.dateStoredFilmlist)) {
                     //und wenn zu alt und neue soll beim ProgStart geladen werden, dann gleich weiter
                     logList.add("## Gespeicherte Filmliste zu alt, gleich Neue aus dem Web laden");
+
                 } else {
                     logList.add("## Gespeicherte Filmliste nicht zu alt, gespeicherte laden");
                     loadStoredList(logList, filmListNew, LoadFactoryConst.localFilmListFile);
+                    if (filmListNew.isEmpty()) {
+                        //dann ist sie leer
+                        logList.add("## Gespeicherte Filmliste ist leer, neue Filmliste aus dem Web laden");
+                        logList.add("## Alter|min]: " + filmListNew.getAge() / 60);
+                        logList.add("## " + PLog.LILNE3);
+                    }
                 }
+
+                if (filmListNew.isEmpty()) {
+                    //dann war sie zu alt oder ist leer
+                    setProgress(new ListenerFilmlistLoadEvent("Filmliste ist zu alt, eine neue laden",
+                            ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
+                    logList.add("## Neue Liste aus dem Web laden");
+                    loadNewFilmlistFromWeb(logList, false, true, LoadFactoryConst.localFilmListFile);
+                    PDuration.onlyPing("Programmstart: Neu Filmliste aus dem Web geladen");
+                }
+
             } else {
-                //gespeicherte Liste laden
+                //Keine neue Liste aus dem Web beim Programmstart, immer gespeicherte Liste laden
                 logList.add("## Beim Programmstart soll keine neue Liste geladen werden");
                 logList.add("## Gespeicherte Liste laden");
                 loadStoredList(logList, filmListNew, LoadFactoryConst.localFilmListFile);
             }
-        }
-
-        if (filmListNew.isTooOld() && LoadFactoryConst.loadNewFilmlistOnProgramStart) {
-            //eine neue Filmliste laden, wenn die gespeicherte zu alt ist
-            if (filmListNew.isEmpty()) {
-                logList.add("## Gespeicherte Filmliste leer, neue Filmliste laden");
-                logList.add("## " + PLog.LILNE3);
-            } else {
-                logList.add("## Gespeicherte Filmliste zu alt, neue Filmliste laden");
-                logList.add("## Alter|min]: " + filmListNew.getAge() / 60);
-                logList.add("## " + PLog.LILNE3);
-            }
-
-            setProgress(new ListenerFilmlistLoadEvent("Filmliste ist zu alt, eine neue laden",
-                    ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
-
-            logList.add("## Neue Liste aus dem Web laden");
-            loadNewFilmlistFromWeb(logList, false, true, LoadFactoryConst.localFilmListFile);
-            PDuration.onlyPing("Programmstart: Neu Filmliste aus dem Web geladen");
         }
 
         setLoaded(new ListenerFilmlistLoadEvent("Filme verarbeiten",

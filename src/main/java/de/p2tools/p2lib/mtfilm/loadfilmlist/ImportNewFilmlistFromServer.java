@@ -37,7 +37,7 @@ public class ImportNewFilmlistFromServer {
     public boolean importFilmListFromWebAuto(List<String> logList, Filmlist filmlist, Filmlist filmListDiff) {
         STATE state;
         boolean ret;
-        if (filmlist.isTooOldForDiff()) {
+        if (filmlist.isTooOldForDiffOrEmpty()) {
             // dann eine komplette Liste laden
             state = STATE.COMPLETE;
             filmlist.clear();

@@ -277,13 +277,15 @@ public class FilmlistFactory {
      *
      * @return true if too old or if the list is empty.
      */
-    public static boolean isTooOld(ListProperty<? extends FilmData> filmList, String[] metaData) {
+    public static boolean isTooOldOrEmpty(ListProperty<? extends FilmData> filmList, String[] metaData) {
         if (LoadFactoryConst.debug) {
-            // im Debugmodus nie automatisch laden
+            //im Debugmodus nie automatisch laden
             return false;
         }
-
-        return (filmList.isEmpty()) || (isOlderThan(metaData, LoadFactoryConst.ALTER_FILMLISTE_SEKUNDEN_FUER_AUTOUPDATE));
+        if (filmList.isEmpty()) {
+            return true;
+        }
+        return isOlderThan(metaData, LoadFactoryConst.ALTER_FILMLISTE_SEKUNDEN_FUER_AUTOUPDATE);
     }
 
     /**
@@ -307,8 +309,7 @@ public class FilmlistFactory {
             PLog.addSysLog("Die Filmliste hat kein Alter gespeichert -> Neue laden");
             return true;
         }
-//        PLog.addSysLog("Die Filmliste ist " + age / 60 + " Minuten alt");
-        return (isOlderThan(age, LoadFactoryConst.ALTER_FILMLISTE_SEKUNDEN_FUER_AUTOUPDATE));
+        return isOlderThan(age, LoadFactoryConst.ALTER_FILMLISTE_SEKUNDEN_FUER_AUTOUPDATE);
     }
 
     /**
@@ -334,7 +335,7 @@ public class FilmlistFactory {
      *
      * @return true if empty or too old.
      */
-    public static boolean isTooOldForDiff(ListProperty<? extends FilmData> filmList, String[] metaData) {
+    public static boolean isTooOldForDiffOrEmpty(ListProperty<? extends FilmData> filmList, String[] metaData) {
         if (filmList.isEmpty()) {
             return true;
         }

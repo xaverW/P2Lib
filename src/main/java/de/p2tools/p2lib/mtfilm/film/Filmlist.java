@@ -204,8 +204,8 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
      *
      * @return true if too old or if the list is empty.
      */
-    public synchronized boolean isTooOld() {
-        return FilmlistFactory.isTooOld(this, metaData);
+    public synchronized boolean isTooOldOrEmpty() {
+        return FilmlistFactory.isTooOldOrEmpty(this, metaData);
     }
 
     /**
@@ -213,8 +213,8 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
      *
      * @return true if empty or too old.
      */
-    public synchronized boolean isTooOldForDiff() {
-        return FilmlistFactory.isTooOldForDiff(this, metaData);
+    public synchronized boolean isTooOldForDiffOrEmpty() {
+        return FilmlistFactory.isTooOldForDiffOrEmpty(this, metaData);
     }
 
     /**
