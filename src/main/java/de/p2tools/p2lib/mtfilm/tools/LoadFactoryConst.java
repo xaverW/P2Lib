@@ -72,8 +72,13 @@ public class LoadFactoryConst {
     public static String GEO_HOME_PLACE = "";
     public static boolean debug = false;
     public static String SYSTEM_LOAD_NOT_SENDER = "";
+    public static String dateStoredFilmlist = "";
     public static IntegerProperty DOWNLOAD_MAX_BANDWIDTH_KBYTE = new SimpleIntegerProperty(0);//damit wird die Downloadbandbreite reduziert
     public static int downloadMaxBandwidth = 0;//ist der Wert beim DownloadStart
+    public static boolean firstProgramStart = false;
+    public static String localFilmListFile = "";
+    public static boolean loadNewFilmlistOnProgramStart = true;
+
 
     public static int SYSTEM_LOAD_FILMLIST_MAX_DAYS = 0;
     public static int SYSTEM_LOAD_FILMLIST_MIN_DURATION = 0;

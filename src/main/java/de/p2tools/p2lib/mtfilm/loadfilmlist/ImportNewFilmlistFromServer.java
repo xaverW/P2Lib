@@ -41,24 +41,24 @@ public class ImportNewFilmlistFromServer {
             // dann eine komplette Liste laden
             state = STATE.COMPLETE;
             filmlist.clear();
-            logList.add("komplette Filmliste laden");
+            logList.add("## Komplette Filmliste laden");
             ret = loadList(logList, filmlist, state);
         } else {
             // nur ein Update laden
             state = STATE.DIFF;
-            logList.add("Diffliste laden");
+            logList.add("## Diffliste laden");
             ret = loadList(logList, filmListDiff, state);
             if (!ret || filmListDiff.isEmpty()) {
                 // wenn diff, dann nochmal mit einer kompletten Liste versuchen
                 state = STATE.COMPLETE;
                 filmlist.clear();
                 filmListDiff.clear();
-                logList.add("Diffliste war leer, komplette Filmliste laden");
+                logList.add("## Diffliste war leer, komplette Filmliste laden");
                 ret = loadList(logList, filmlist, state);
             }
         }
         if (!ret) {
-            logList.add("Es konnten keine Filme geladen werden!");
+            logList.add("## Es konnten keine Filme geladen werden!");
         }
         return ret;
     }

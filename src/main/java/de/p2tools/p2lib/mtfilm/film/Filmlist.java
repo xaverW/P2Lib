@@ -191,6 +191,15 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
     }
 
     /**
+     * Get the age of the film list.
+     *
+     * @return Age as a {@link java.util.Date} object.
+     */
+    public static String getAgeAsStringDate(String[] metaData) {
+        return FilmlistFactory.getAgeAsStringDate(metaData);
+    }
+
+    /**
      * Check if available Filmlist is older than a specified value.
      *
      * @return true if too old or if the list is empty.

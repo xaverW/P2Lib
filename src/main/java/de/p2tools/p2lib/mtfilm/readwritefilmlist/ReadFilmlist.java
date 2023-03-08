@@ -69,6 +69,8 @@ public class ReadFilmlist {
 
     //Hier wird die Filmliste tatsächlich geladen: lokal von Datei, oder aus dem Web mit URL
     public void readFilmlistWebOrLocal(List<String> logList, final Filmlist filmlist, String sourceFileOrUrl) {
+        PDuration.counterStart("readFilmlistWebOrLocal");
+
         countAll = 0;
         filmsPerChannelFoundCompleteList.clear();
         filmsPerChannelUsed.clear();
@@ -76,36 +78,32 @@ public class ReadFilmlist {
         filmsPerDaysBlocked.clear();
         filmsPerDurationBlocked.clear();
 
-        logList.add("");
-        logList.add(PLog.LILNE2);
-
-        PDuration.counterStart("ReadFilmlist.readFilmlist()");
-
+        logList.add("## " + PLog.LILNE2);
         try {
             notifyStart(); // für die Progressanzeige
 
             filmlist.clear();
             if (sourceFileOrUrl.startsWith("http")) {
                 //dann aus dem Web mit der URL laden
-                logList.add("Filmliste aus URL laden: " + sourceFileOrUrl);
+                logList.add("## Filmliste aus URL laden: " + sourceFileOrUrl);
                 loadFromWeb = true;
                 processFromWeb(new URL(sourceFileOrUrl), filmlist);
 
             } else {
                 //dann lokale Datei laden
-                logList.add("Filmliste aus Datei laden: " + sourceFileOrUrl);
+                logList.add("## Filmliste aus Datei laden: " + sourceFileOrUrl);
                 loadFromWeb = false;
                 processFromFile(sourceFileOrUrl, filmlist);
             }
 
             if (LoadFactoryConst.loadFilmlist.isStop()) {
-                logList.add(" -> Filmliste laden abgebrochen");
+                logList.add("## -> Filmliste laden abgebrochen");
                 filmlist.clear();
 
             } else {
-                logList.add("   erstellt am:        " + filmlist.genDate());
-                logList.add("   Anzahl Gesamtliste: " + countAll);
-                logList.add("   Anzahl verwendet:   " + filmlist.size());
+                logList.add("##   Erstellt am:        " + filmlist.genDate());
+                logList.add("##   Anzahl Gesamtliste: " + countAll);
+                logList.add("##   Anzahl verwendet:   " + filmlist.size());
                 countFoundChannel(logList, filmlist);
             }
         } catch (final MalformedURLException ex) {
@@ -113,11 +111,10 @@ public class ReadFilmlist {
         } catch (final Exception ex) {
             PLog.errorLog(965412378, ex);
         }
-
-        PDuration.counterStop("ReadFilmlist.readFilmlist()");
-        logList.add(PLog.LILNE2);
-        logList.add("");
+        logList.add("## " + PLog.LILNE2);
         notifyFinished();
+
+        PDuration.counterStop("readFilmlistWebOrLocal");
     }
 
     /**
@@ -275,21 +272,21 @@ public class ReadFilmlist {
     private void countFoundChannel(List<String> logList, Filmlist filmlist) {
         final int KEYSIZE = 12;
 
-        PDuration.counterStart("ReadFilmlist.countFoundChannel()");
+        PDuration.counterStart("countFoundChannel");
         if (!filmsPerChannelFoundCompleteList.isEmpty()) {
-            logList.add(PLog.LILNE3);
-            logList.add(" ");
-            logList.add("== Filme pro Sender in der Gesamtliste ==");
+            logList.add("## " + PLog.LILNE3);
+            logList.add("##");
+            logList.add("## == Filme pro Sender in der Gesamtliste ==");
 
             sumFilms = 0;
             filmsPerChannelFoundCompleteList.keySet().stream().forEach(key -> {
                 int found = filmsPerChannelFoundCompleteList.get(key);
                 sumFilms += found;
-                logList.add(PStringUtils.increaseString(KEYSIZE, key) + ": " + found);
+                logList.add("## " + PStringUtils.increaseString(KEYSIZE, key) + ": " + found);
             });
-            logList.add("--");
-            logList.add(PStringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
-            logList.add(" ");
+            logList.add("## --");
+            logList.add("## " + PStringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
+            logList.add("##");
         }
 
         if (sumFilms == filmlist.size()) {
@@ -299,71 +296,71 @@ public class ReadFilmlist {
         }
 
         if (!filmsPerChannelUsed.isEmpty()) {
-            logList.add(PLog.LILNE3);
-            logList.add(" ");
-            logList.add("== Filme pro Sender verwendet ==");
+            logList.add("## " + PLog.LILNE3);
+            logList.add("##  ");
+            logList.add("## == Filme pro Sender verwendet ==");
 
             sumFilms = 0;
             filmsPerChannelUsed.keySet().stream().forEach(key -> {
                 int found = filmsPerChannelUsed.get(key);
                 sumFilms += found;
-                logList.add(PStringUtils.increaseString(KEYSIZE, key) + ": " + found);
+                logList.add("## " + PStringUtils.increaseString(KEYSIZE, key) + ": " + found);
             });
-            logList.add("--");
-            logList.add(PStringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
-            logList.add(" ");
+            logList.add("## --");
+            logList.add("## " + PStringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
+            logList.add("## ");
         }
 
         if (!filmsPerChannelBlocked.isEmpty()) {
-            logList.add(PLog.LILNE3);
-            logList.add(" ");
-            logList.add("== nach Sender geblockte Filme ==");
+            logList.add("## " + PLog.LILNE3);
+            logList.add("## ");
+            logList.add("## == nach Sender geblockte Filme ==");
 
             sumFilms = 0;
             filmsPerChannelBlocked.keySet().stream().forEach(key -> {
                 int found = filmsPerChannelBlocked.get(key);
                 sumFilms += found;
-                logList.add(PStringUtils.increaseString(KEYSIZE, key) + ": " + found);
+                logList.add("## " + PStringUtils.increaseString(KEYSIZE, key) + ": " + found);
             });
-            logList.add("--");
-            logList.add(PStringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
-            logList.add(" ");
+            logList.add("## --");
+            logList.add("## " + PStringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
+            logList.add("## ");
         }
 
         if (!filmsPerDaysBlocked.isEmpty()) {
-            logList.add(PLog.LILNE3);
-            logList.add(" ");
+            logList.add("## " + PLog.LILNE3);
+            logList.add("## ");
             final int maxDays = LoadFactoryConst.SYSTEM_LOAD_FILMLIST_MAX_DAYS;
-            logList.add("== nach max. Tage geblockte Filme (max. " + maxDays + " Tage) ==");
+            logList.add("## == nach max. Tage geblockte Filme (max. " + maxDays + " Tage) ==");
 
             sumFilms = 0;
             filmsPerDaysBlocked.keySet().stream().forEach(key -> {
                 int found = filmsPerDaysBlocked.get(key);
                 sumFilms += found;
-                logList.add(PStringUtils.increaseString(KEYSIZE, key) + ": " + found);
+                logList.add("## " + PStringUtils.increaseString(KEYSIZE, key) + ": " + found);
             });
-            logList.add("--");
-            logList.add(PStringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
-            logList.add(" ");
+            logList.add("## --");
+            logList.add("## " + PStringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
+            logList.add("## ");
         }
 
         if (!filmsPerDurationBlocked.isEmpty()) {
-            logList.add(PLog.LILNE3);
-            logList.add(" ");
+            logList.add("## " + PLog.LILNE3);
+            logList.add("## ");
             final int dur = LoadFactoryConst.SYSTEM_LOAD_FILMLIST_MIN_DURATION;
-            logList.add("== nach Filmlänge geblockte Filme (mind. " + dur + " min.) ==");
+            logList.add("## == nach Filmlänge geblockte Filme (mind. " + dur + " min.) ==");
 
             sumFilms = 0;
             filmsPerDurationBlocked.keySet().stream().forEach(key -> {
                 int found = filmsPerDurationBlocked.get(key);
                 sumFilms += found;
-                logList.add(PStringUtils.increaseString(KEYSIZE, key) + ": " + found);
+                logList.add("## " + PStringUtils.increaseString(KEYSIZE, key) + ": " + found);
             });
-            logList.add("--");
-            logList.add(PStringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
-            logList.add(" ");
+            logList.add("## --");
+            logList.add("## " + PStringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
+            logList.add("## ");
         }
-        PDuration.counterStop("ReadFilmlist.countFoundChannel()");
+        PDuration.counterStop("countFoundChannel");
     }
 
     private InputStream selectDecompressor(String source, InputStream in) throws Exception {

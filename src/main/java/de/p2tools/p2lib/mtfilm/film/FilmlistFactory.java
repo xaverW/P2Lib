@@ -179,6 +179,29 @@ public class FilmlistFactory {
      *
      * @return Age in seconds.
      */
+    public static int getAge(String strDate) {
+        int ret = P2LibConst.NUMBER_NULL;
+        final Date now = new Date(System.currentTimeMillis());
+        final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);
+        sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
+
+        if (!strDate.isEmpty()) {
+            Date date = getDate(strDate, sdfUtc);
+            if (date != null) {
+                ret = Math.round((now.getTime() - date.getTime()) / (1000));
+                if (ret < 0) {
+                    ret = P2LibConst.NUMBER_NULL;
+                }
+            }
+        }
+        return ret;
+    }
+
+    /**
+     * Get the age of the film list.
+     *
+     * @return Age in seconds.
+     */
     public static int getAge(String[] metaData) {
         int ret = 0;
         final Date now = new Date(System.currentTimeMillis());
@@ -212,6 +235,28 @@ public class FilmlistFactory {
         }
     }
 
+    /**
+     * Get the age of the film list.
+     *
+     * @return Age as a {@link java.util.Date} object.
+     */
+    public static String getAgeAsStringDate(String[] metaData) {
+        String ret = "";
+        Date date = FilmlistFactory.getAgeAsDate(metaData);
+        final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);
+        final SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
+        sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
+        if (date != null) {
+            try {
+                ret = sdf.format(date);
+            } catch (Exception ignore) {
+                ret = "";
+            }
+        }
+        return ret;
+    }
+
+
     private static Date getDate(String date, SimpleDateFormat df) {
         if (date.isEmpty()) {
             // dann ist die Filmliste noch nicht geladen
@@ -239,6 +284,31 @@ public class FilmlistFactory {
         }
 
         return (filmList.isEmpty()) || (isOlderThan(metaData, LoadFactoryConst.ALTER_FILMLISTE_SEKUNDEN_FUER_AUTOUPDATE));
+    }
+
+    /**
+     * Check if available Filmlist is older than a specified value.
+     *
+     * @return true if too old or if the list is empty.
+     */
+    public static boolean isTooOld(String strAge) {
+        if (LoadFactoryConst.debug) {
+            //im Debugmodus nie automatisch laden
+            return false;
+        }
+        if (strAge.isEmpty()) {
+            //dann ist das Alter nicht gesetzt
+            PLog.addSysLog("Die Filmliste hat kein Alter gespeichert -> Neue laden");
+            return true;
+        }
+        int age = getAge(strAge);
+        if (age == P2LibConst.NUMBER_NULL) {
+            //dann ist das Alter nicht gesetzt
+            PLog.addSysLog("Die Filmliste hat kein Alter gespeichert -> Neue laden");
+            return true;
+        }
+//        PLog.addSysLog("Die Filmliste ist " + age / 60 + " Minuten alt");
+        return (isOlderThan(age, LoadFactoryConst.ALTER_FILMLISTE_SEKUNDEN_FUER_AUTOUPDATE));
     }
 
     /**
