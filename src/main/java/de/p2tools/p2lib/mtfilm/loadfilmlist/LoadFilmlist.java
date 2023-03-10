@@ -193,7 +193,7 @@ public class LoadFilmlist {
                 logList.add("## Programmstart: Gespeicherte Liste laden");
                 loadStoredList(logList, filmListNew, LoadFactoryConst.localFilmListFile);
                 logList.add("## Programmstart: Gespeicherte Liste geladen");
-                System.out.println("loadStoredList: " + PDuration.counterStop("loadStoredList"));
+                logList.add("## loadStoredList: " + PDuration.counterStop("loadStoredList"));
 
                 if (filmListNew.isEmpty()) {
                     //dann ist sie leer
