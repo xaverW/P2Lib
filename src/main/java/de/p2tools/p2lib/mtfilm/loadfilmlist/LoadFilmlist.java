@@ -44,6 +44,7 @@ public class LoadFilmlist {
     private final ImportNewFilmlistFromServer importNewFilmlisteFromServer;
     private final NotifyProgress notifyProgress = new NotifyProgress();
     private BooleanProperty propLoadFilmlist = new SimpleBooleanProperty(false);
+    private boolean filmlistTooOld = false;
 
     public LoadFilmlist() {
         this.filmListDiff = new Filmlist();
@@ -106,11 +107,13 @@ public class LoadFilmlist {
             final List<String> logList = new ArrayList<>();
             PDuration.counterStart("loadFilmlistProgStart");
 
+            logList.add("");
             logList.add("## " + PLog.LILNE1);
             logList.add("## Filmliste beim **Programmstart** laden - start");
             loadFilmlistProgStart(logList);
             logList.add("## Filmliste beim Programmstart laden - ende");
             logList.add("## " + PLog.LILNE1);
+            logList.add("");
             PLog.addSysLog(logList);
 
             setPropLoadFilmlist(false);
@@ -124,11 +127,13 @@ public class LoadFilmlist {
             final List<String> logList = new ArrayList<>();
             PDuration.counterStart("loadNewFilmlistFromWeb");
 
+            logList.add("");
             logList.add("## " + PLog.LILNE1);
             logList.add("## Filmliste aus dem Web laden - start");
             loadNewFilmlistFromWeb(logList, alwaysLoadNew, localFilmListFile);
             logList.add("## Filmliste aus dem Web laden - ende");
             logList.add("## " + PLog.LILNE1);
+            logList.add("");
             PLog.addSysLog(logList);
 
             setPropLoadFilmlist(false);
@@ -175,25 +180,35 @@ public class LoadFilmlist {
             if (LoadFactoryConst.loadNewFilmlistOnProgramStart) {
                 //dann bei Bedarf, eine neue Liste aus dem Web laden
                 if (FilmlistFactory.isTooOld(LoadFactoryConst.dateStoredFilmlist)) {
-                    //und wenn zu alt und neue soll beim ProgStart geladen werden, dann gleich weiter
-                    logList.add("## Gespeicherte Filmliste zu alt, gleich Neue aus dem Web laden");
+                    //zu alt, muss aber trotzdem geladen werden :(
+                    //wenn nur ein Update aus dem Web geladen wird, wird die ja nur Upgedatet und der Hash für "neue" brauchts auch
+                    logList.add("## Gespeicherte Filmliste zu alt: " + LoadFactoryConst.dateStoredFilmlist);
+                    filmlistTooOld = true;
 
                 } else {
-                    logList.add("## Gespeicherte Filmliste nicht zu alt, gespeicherte laden");
-                    loadStoredList(logList, filmListNew, LoadFactoryConst.localFilmListFile);
-                    if (filmListNew.isEmpty()) {
-                        //dann ist sie leer
-                        logList.add("## Gespeicherte Filmliste ist leer, neue Filmliste aus dem Web laden");
-                        logList.add("## Alter|min]: " + filmListNew.getAge() / 60);
-                        logList.add("## " + PLog.LILNE3);
-                    }
+                    logList.add("## Gespeicherte Filmliste nicht zu alt: " + LoadFactoryConst.dateStoredFilmlist);
                 }
 
+                PDuration.counterStart("loadStoredList");
+                logList.add("## Programmstart: Gespeicherte Liste laden");
+                loadStoredList(logList, filmListNew, LoadFactoryConst.localFilmListFile);
+                logList.add("## Programmstart: Gespeicherte Liste geladen");
+                System.out.println("loadStoredList: " + PDuration.counterStop("loadStoredList"));
+
                 if (filmListNew.isEmpty()) {
+                    //dann ist sie leer
+                    logList.add("## Gespeicherte Filmliste ist leer, neue Filmliste aus dem Web laden");
+                    logList.add("## Alter|min]: " + filmListNew.getAge() / 60);
+                    logList.add("## " + PLog.LILNE3);
+                }
+
+                if (filmlistTooOld || filmListNew.isEmpty()) {
                     //dann war sie zu alt oder ist leer
+                    filmlistTooOld = false;//dann gleich wieder ausschalten
                     setProgress(new ListenerFilmlistLoadEvent("Filmliste ist zu alt, eine neue laden",
                             ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
-                    logList.add("## Neue Liste aus dem Web laden");
+
+                    logList.add("## Programmstart: Neue Liste aus dem Web laden");
                     loadNewFilmlistFromWeb(logList, false, true, LoadFactoryConst.localFilmListFile);
                     PDuration.onlyPing("Programmstart: Neu Filmliste aus dem Web geladen");
                 }
@@ -201,8 +216,9 @@ public class LoadFilmlist {
             } else {
                 //Keine neue Liste aus dem Web beim Programmstart, immer gespeicherte Liste laden
                 logList.add("## Beim Programmstart soll keine neue Liste geladen werden");
-                logList.add("## Gespeicherte Liste laden");
+                logList.add("## Programmstart: Gespeicherte Liste aus laden");
                 loadStoredList(logList, filmListNew, LoadFactoryConst.localFilmListFile);
+                logList.add("## Programmstart: Gespeicherte Liste aus geladen");
             }
         }
 
@@ -311,18 +327,24 @@ public class LoadFilmlist {
         logList.add("## " + PLog.LILNE3);
 
         if (!filmListDiff.isEmpty()) {
-            //dann wars nur ein Update
+            //dann wars nur ein Update und das muss einsortiert werden
             filmListNew.updateList(filmListDiff, true/* Vergleich über Index, sonst nur URL */, true /* ersetzen */);
+
             filmListNew.metaData = filmListDiff.metaData;
-            filmListNew.sort(); // jetzt sollte alles passen
+            PDuration.counterStart("sortNewList");
+            filmListNew.sort(); //~3s, jetzt sollte alles passen
+            logList.add("## Update List, Sort: " + PDuration.counterStop("sortNewList"));
+
             filmListDiff.clear();
         }
 
         logList.add("## Neue Filme markieren");
         findAndMarkNewFilms(logList, filmListNew);
 
-        logList.add("## Unicode-Zeichen korrigieren");
+        //Unicode-Zeichen korrigieren
+        PDuration.counterStart("cleanFaultyCharacter");
         FilmFactory.cleanFaultyCharacterFilmlist(filmListNew);
+        logList.add("## Unicode-Zeichen korrigieren: " + PDuration.counterStop("cleanFaultyCharacter"));
 
         logList.add("## Diakritika setzen/ändern, Diakritika suchen");
         if (LoadFactoryConst.removeDiacritic) {

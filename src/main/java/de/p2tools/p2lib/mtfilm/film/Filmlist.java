@@ -108,7 +108,7 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
                                         boolean index /* Vergleich über Index, sonst nur URL */,
                                         boolean replace) {
         // in eine vorhandene Liste soll eine andere Filmliste einsortiert werden
-        // es werden nur Filme die noch nicht vorhanden sind, einsortiert
+        // es werden nur Filme, die noch nicht vorhanden sind, einsortiert
         // "ersetzen": true: dann werden gleiche (index/URL) in der Liste durch neue ersetzt
         FilmlistFactory.updateList(this, addList, index, replace);
     }
