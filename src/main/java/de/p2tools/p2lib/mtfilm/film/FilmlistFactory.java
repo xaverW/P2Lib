@@ -149,7 +149,7 @@ public class FilmlistFactory {
         final HashSet<String> urlHashSet = new HashSet<>(filmList.size(), 0.75F);
 
         // todo exception parallel?? Unterschied ~10ms (bei Gesamt: 110ms)
-        PDuration.counterStart("Filme markieren");
+        PDuration.counterStart("markFilms");
         try {
             countDouble = 0;
             filmList.stream().forEach((FilmData f) -> {
@@ -167,7 +167,7 @@ public class FilmlistFactory {
         } catch (Exception ex) {
             PLog.errorLog(951024789, ex);
         }
-        PDuration.counterStop("Filme markieren");
+        PDuration.counterStop("markFilms");
 
         urlHashSet.clear();
         return countDouble;

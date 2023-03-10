@@ -236,7 +236,7 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
      * für die Filterfelder in GuiFilme.
      */
     public synchronized void loadSender() {
-        PDuration.counterStart("Filmlist.loadSender");
+        PDuration.counterStart("loadSender");
 
         final LinkedHashSet<String> senderSet = new LinkedHashSet<>(21);
         // der erste Sender ist ""
@@ -245,7 +245,7 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
         stream().forEach((film) -> senderSet.add(film.getChannel()));
         sender = senderSet.toArray(new String[senderSet.size()]);
 
-        PDuration.counterStop("Filmlist.loadSender");
+        PDuration.counterStop("loadSender");
 //        loadUrls();
     }
 

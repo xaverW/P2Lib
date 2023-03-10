@@ -51,7 +51,7 @@ public class FilmFactory {
         // gibt da einen Java-Bug
         // https://github.com/javafxports/openjdk-jfx/issues/287
 
-        PDuration.counterStart("cleanFaultyCharacter");
+        PDuration.counterStart("cleanFaultyCharacterFilmlist");
 
         filmlist.stream().forEach(film -> {
 
@@ -73,7 +73,7 @@ public class FilmFactory {
             PLog.sysLog("Key: " + (int) key + "  Key: " + key + "  Anz: " + value);
         }
 
-        PDuration.counterStop("cleanFaultyCharacter");
+        PDuration.counterStop("cleanFaultyCharacterFilmlist");
     }
 
     public static void flattenDiacritic(FilmData filmData) {
