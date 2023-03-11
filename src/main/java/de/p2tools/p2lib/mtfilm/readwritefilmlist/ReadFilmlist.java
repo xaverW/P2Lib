@@ -222,9 +222,12 @@ public class ReadFilmlist {
             if (jp.isExpectedStartArrayToken()) {
                 final FilmData film = filmlist.getNewElement();
                 addValue(film, jp);
-                ++countAll;
-                countFilm(filmsPerChannelFoundCompleteList, film);
-                film.init(); // damit wird auch das Datum! gesetzt
+                if (!LoadFactoryConst.loadOnlyToOldForDiff) {
+                    //sonst muss eh die ganze Liste geladen werden und es wird dann nur die URL für den Hash gebraucht
+                    ++countAll;
+                    countFilm(filmsPerChannelFoundCompleteList, film);
+                    film.init(); // damit wird auch das Datum! gesetzt
+                }
 
                 //=========================
                 //Filter

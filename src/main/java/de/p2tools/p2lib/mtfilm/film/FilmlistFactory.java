@@ -183,7 +183,7 @@ public class FilmlistFactory {
         int ret = P2LibConst.NUMBER_NULL;
         final Date now = new Date(System.currentTimeMillis());
         final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);
-        sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
+//        sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
 
         if (!strDate.isEmpty()) {
             Date date = getDate(strDate, sdfUtc);
@@ -340,17 +340,50 @@ public class FilmlistFactory {
             return true;
         }
         try {
-            final String dateMaxDiff_str =
-                    new SimpleDateFormat("yyyy.MM.dd__").format(new Date()) + LoadFactoryConst.TIME_MAX_AGE_FOR_DIFF + ":00:00";
+            final String dateMaxDiff_str = new SimpleDateFormat("yyyy.MM.dd__").format(new Date()) +
+                    LoadFactoryConst.TIME_MAX_AGE_FOR_DIFF;//2023.02.10__09:00:00
             final Date dateMaxDiff = new SimpleDateFormat("yyyy.MM.dd__HH:mm:ss").parse(dateMaxDiff_str);
+
             final Date dateFilmlist = getAgeAsDate(metaData);
+
             if (dateFilmlist != null) {
-                return dateFilmlist.getTime() < dateMaxDiff.getTime();
+                return dateFilmlist.getTime() < dateMaxDiff.getTime();//vor: 2023.02.10__09:00:00
             }
         } catch (final Exception ignored) {
         }
+
         return true;
     }
+
+    public static boolean isTooOldForDiff(String strDate) {
+        if (LoadFactoryConst.debug) {
+            //im Debugmodus nie automatisch laden
+            return false;
+        }
+        if (strDate.isEmpty()) {
+            //dann ist das Alter nicht gesetzt
+            PLog.addSysLog("Die Filmliste hat kein Alter gespeichert -> Neue laden");
+            return true;
+        }
+
+        try {
+            final String dateMaxDiff_str = new SimpleDateFormat("yyyy.MM.dd__").format(new Date()) +
+                    LoadFactoryConst.TIME_MAX_AGE_FOR_DIFF;//2023.02.10__09:00:00
+            final Date dateMaxDiff = new SimpleDateFormat("yyyy.MM.dd__HH:mm:ss").parse(dateMaxDiff_str);
+
+            final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);
+//            sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
+            Date date = getDate(strDate, sdfUtc);
+
+            if (date != null) {
+                return date.getTime() < dateMaxDiff.getTime();
+            }
+        } catch (final Exception ignored) {
+        }
+
+        return true;
+    }
+
 
     /**
      * Check if list is older than specified parameter.

@@ -62,7 +62,7 @@ public class LoadFactoryConst {
     // beim Programmstart wird die Liste geladen wenn sie älter ist als ..
     public static final int ALTER_FILMLISTE_SEKUNDEN_FUER_AUTOUPDATE = 4 * 60 * 60;
     // Uhrzeit ab der die Diffliste alle Änderungen abdeckt, die Filmliste darf also nicht vor xx erstellt worden sein
-    public static final String TIME_MAX_AGE_FOR_DIFF = "09";
+    public static final String TIME_MAX_AGE_FOR_DIFF = "09:00:00";
     public static final String FORMAT_ZIP = ".zip";
     public static final String FORMAT_XZ = ".xz";
     // MediathekView URLs
@@ -82,6 +82,8 @@ public class LoadFactoryConst {
     public static int SYSTEM_LOAD_FILMLIST_MAX_DAYS = 0;
     public static int SYSTEM_LOAD_FILMLIST_MIN_DURATION = 0;
     public static boolean removeDiacritic = false;
+    public static boolean loadOnlyToOldForDiff = false;
+
     public static FilmChecker checker = null;//0,2s schneller als mit checker->true
 
     public static Filmlist filmlist;

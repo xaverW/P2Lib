@@ -102,6 +102,13 @@ public class LoadFilmlist {
      * Filmliste beim Programmstart laden
      */
     public void loadFilmlistProgStart() {
+        if (LoadFactory.checkAllSenderSelectedNotToLoad()) {
+            // alle Sender sind vom Laden ausgenommen
+            PLog.sysLog("Filmliste laden: Es sind keine Sender eingeschaltet!!");
+            return;
+        }
+
+        // Start des Ladens, gibts keine Fortschrittsanzeige und kein Abbrechen
         setPropLoadFilmlist(true);
         new Thread(() -> {
             final List<String> logList = new ArrayList<>();
@@ -122,15 +129,30 @@ public class LoadFilmlist {
     }
 
     public void loadNewFilmlistFromWeb(boolean alwaysLoadNew, String localFilmListFile) {
+        if (LoadFactory.checkAllSenderSelectedNotToLoad()) {
+            // alle Sender sind vom Laden ausgenommen
+            PLog.sysLog("Filmliste laden: Es sind keine Sender eingeschaltet!!");
+            //todo Dialog anzeigen
+            return;
+        }
+
         setPropLoadFilmlist(true);
         new Thread(() -> {
             final List<String> logList = new ArrayList<>();
             PDuration.counterStart("loadNewFilmlistFromWeb");
 
+            //damit wird eine neue Filmliste (Web) geladen UND auch gleich im Config-Ordner gespeichert
             logList.add("");
             logList.add("## " + PLog.LILNE1);
             logList.add("## Filmliste aus dem Web laden - start");
-            loadNewFilmlistFromWeb(logList, alwaysLoadNew, localFilmListFile);
+            logList.add("## Alte Liste erstellt  am: " + LoadFactoryConst.filmlist.genDate());
+            logList.add("##            Anzahl Filme: " + LoadFactoryConst.filmlist.size());
+            logList.add("##            Anzahl  Neue: " + LoadFactoryConst.filmlist.countNewFilms());
+            logList.add("##");
+
+            loadNewFilmlistFromWeb(logList, alwaysLoadNew, false, localFilmListFile);
+            afterLoading(logList);
+
             logList.add("## Filmliste aus dem Web laden - ende");
             logList.add("## " + PLog.LILNE1);
             logList.add("");
@@ -160,13 +182,6 @@ public class LoadFilmlist {
         //hier wird die gespeicherte Filmliste geladen und wenn zu alt, wird eine neue aus
         //dem Web geladen
 
-        // Start des Ladens, gibts keine Fortschrittsanzeige und kein Abbrechen
-        if (LoadFactory.checkAllSenderSelectedNotToLoad()) {
-            // alle Sender sind vom Laden ausgenommen
-            logList.add("## Es sind keine Sender eingeschaltet!!");
-            return;
-        }
-
         setStart(new ListenerFilmlistLoadEvent("gespeicherte Filmliste laden",
                 ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false));
 
@@ -179,6 +194,8 @@ public class LoadFilmlist {
         } else {
             if (LoadFactoryConst.loadNewFilmlistOnProgramStart) {
                 //dann bei Bedarf, eine neue Liste aus dem Web laden
+                LoadFactoryConst.loadOnlyToOldForDiff = FilmlistFactory.isTooOldForDiff(LoadFactoryConst.dateStoredFilmlist);
+                logList.add("## Gespeicherte Filmliste zu toOldForDiff: " + LoadFactoryConst.loadOnlyToOldForDiff);
                 if (FilmlistFactory.isTooOld(LoadFactoryConst.dateStoredFilmlist)) {
                     //zu alt, muss aber trotzdem geladen werden :(
                     //wenn nur ein Update aus dem Web geladen wird, wird die ja nur Upgedatet und der Hash für "neue" brauchts auch
@@ -192,6 +209,8 @@ public class LoadFilmlist {
                 PDuration.counterStart("loadStoredList");
                 logList.add("## Programmstart: Gespeicherte Liste laden");
                 loadStoredList(logList, filmListNew, LoadFactoryConst.localFilmListFile);
+                LoadFactoryConst.loadOnlyToOldForDiff = false;//!! jetzt gleich wieder ausschalten, sonst klappt das weitere Laden nicht mehr
+
                 logList.add("## Programmstart: Gespeicherte Liste geladen");
                 logList.add("## loadStoredList: " + PDuration.counterStop("loadStoredList"));
 
@@ -230,23 +249,6 @@ public class LoadFilmlist {
     // #######################################
     // #######################################
 
-    private void loadNewFilmlistFromWeb(List<String> logList, boolean alwaysLoadNew, String localFilmListFile) {
-        //damit wird eine neue Filmliste (Web) geladen UND auch gleich im Config-Ordner gespeichert
-        if (LoadFactory.checkAllSenderSelectedNotToLoad()) {
-            // alle Sender sind vom Laden ausgenommen
-            logList.add("## Es sind keine Sender eingeschaltet!!");
-            return;
-        }
-
-        logList.add("##");
-        logList.add("## Alte Liste erstellt  am: " + LoadFactoryConst.filmlist.genDate());
-        logList.add("##            Anzahl Filme: " + LoadFactoryConst.filmlist.size());
-        logList.add("##            Anzahl  Neue: " + LoadFactoryConst.filmlist.countNewFilms());
-        logList.add("##");
-
-        loadNewFilmlistFromWeb(logList, alwaysLoadNew, false, localFilmListFile);
-        afterLoading(logList);
-    }
 
     private void afterLoading(List<String> logList) {
         logList.add("##");
