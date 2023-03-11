@@ -313,24 +313,6 @@ public class FilmlistFactory {
     }
 
     /**
-     * Check if available Filmlist is older than a specified value.
-     *
-     * @return true if too old or if the list is empty.
-     */
-    public static boolean isTooOld(int age) {
-        if (LoadFactoryConst.debug) {
-            //im Debugmodus nie automatisch laden
-            return false;
-        }
-        if (age == P2LibConst.NUMBER_NULL) {
-            //dann ist das Alter nicht gesetzt
-            return true;
-        }
-
-        return (isOlderThan(age, LoadFactoryConst.ALTER_FILMLISTE_SEKUNDEN_FUER_AUTOUPDATE));
-    }
-
-    /**
      * Check if Filmlist is too old for using a diff list.
      *
      * @return true if empty or too old.
