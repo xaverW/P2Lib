@@ -195,15 +195,15 @@ public class LoadFilmlist {
             if (LoadFactoryConst.loadNewFilmlistOnProgramStart) {
                 //dann bei Bedarf, eine neue Liste aus dem Web laden
                 LoadFactoryConst.loadOnlyToOldForDiff = FilmlistFactory.isTooOldForDiff(LoadFactoryConst.dateStoredFilmlist);
-                logList.add("## Gespeicherte Filmliste zu toOldForDiff: " + LoadFactoryConst.loadOnlyToOldForDiff);
+                logList.add("## Gespeicherte Filmliste toOldForDiff: " + LoadFactoryConst.loadOnlyToOldForDiff);
                 if (FilmlistFactory.isTooOld(LoadFactoryConst.dateStoredFilmlist)) {
                     //zu alt, muss aber trotzdem geladen werden :(
                     //wenn nur ein Update aus dem Web geladen wird, wird die ja nur Upgedatet und der Hash für "neue" brauchts auch
-                    logList.add("## Gespeicherte Filmliste zu alt: " + LoadFactoryConst.dateStoredFilmlist);
+                    logList.add("## Gespeicherte Filmliste ist zu alt: " + LoadFactoryConst.dateStoredFilmlist);
                     filmlistTooOld = true;
 
                 } else {
-                    logList.add("## Gespeicherte Filmliste nicht zu alt: " + LoadFactoryConst.dateStoredFilmlist);
+                    logList.add("## Gespeicherte Filmliste ist nicht zu alt: " + LoadFactoryConst.dateStoredFilmlist);
                 }
 
                 PDuration.counterStart("loadStoredList");
