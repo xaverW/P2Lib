@@ -182,17 +182,28 @@ public class LoadFilmlist {
         //hier wird die gespeicherte Filmliste geladen und wenn zu alt, wird eine neue aus
         //dem Web geladen
 
-        setStart(new ListenerFilmlistLoadEvent("gespeicherte Filmliste laden",
-                ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false));
-
         filmListNew.setMeta(LoadFactoryConst.filmlist);
         filmListNew.setAll(LoadFactoryConst.filmlist);
 
         if (LoadFactoryConst.firstProgramStart) {
             //gespeicherte Filmliste laden, macht beim ersten Programmstart keinen Sinn
             logList.add("## Erster Programmstart -> Liste aus dem Web laden");
+            setStart(new ListenerFilmlistLoadEvent("Erster Programmstart, Filmliste laden",
+                    ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false));
+            loadNewFilmlistFromWeb(logList, false, true, LoadFactoryConst.localFilmListFile);
+            PDuration.onlyPing("Erster Programmstart: Neu Filmliste aus dem Web geladen");
+
         } else {
-            if (LoadFactoryConst.loadNewFilmlistOnProgramStart) {
+            setStart(new ListenerFilmlistLoadEvent("Programmstart, Filmliste laden",
+                    ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false));
+            if (!LoadFactoryConst.loadNewFilmlistOnProgramStart) {
+                //Keine neue Liste aus dem Web beim Programmstart, immer gespeicherte Liste laden
+                logList.add("## Beim Programmstart soll keine neue Liste geladen werden");
+                logList.add("## Programmstart: Gespeicherte Liste aus laden");
+                loadStoredList(logList, filmListNew, LoadFactoryConst.localFilmListFile);
+                logList.add("## Programmstart: Gespeicherte Liste aus geladen");
+
+            } else {
                 //dann bei Bedarf, eine neue Liste aus dem Web laden
                 LoadFactoryConst.loadOnlyToOldForDiff = FilmlistFactory.isTooOldForDiff(LoadFactoryConst.dateStoredFilmlist);
                 logList.add("## Gespeicherte Filmliste toOldForDiff: " + LoadFactoryConst.loadOnlyToOldForDiff);
@@ -231,13 +242,6 @@ public class LoadFilmlist {
                     loadNewFilmlistFromWeb(logList, false, true, LoadFactoryConst.localFilmListFile);
                     PDuration.onlyPing("Programmstart: Neu Filmliste aus dem Web geladen");
                 }
-
-            } else {
-                //Keine neue Liste aus dem Web beim Programmstart, immer gespeicherte Liste laden
-                logList.add("## Beim Programmstart soll keine neue Liste geladen werden");
-                logList.add("## Programmstart: Gespeicherte Liste aus laden");
-                loadStoredList(logList, filmListNew, LoadFactoryConst.localFilmListFile);
-                logList.add("## Programmstart: Gespeicherte Liste aus geladen");
             }
         }
 
