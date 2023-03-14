@@ -91,6 +91,7 @@ public class LoadFactoryConst {
     public static String userAgent = "";
     public static LoadFilmlist loadFilmlist;
     public static Stage primaryStage = null;
+    public static String filmListUrl = "";
 
     public interface FilmChecker {
         boolean check(FilmData film);
