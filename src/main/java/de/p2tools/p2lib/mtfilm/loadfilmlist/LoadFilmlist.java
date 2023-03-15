@@ -62,12 +62,12 @@ public class LoadFilmlist {
 
     public void addListenerLoadFilmlist(ListenerLoadFilmlist listener) {
         notifyProgress.listeners.add(ListenerLoadFilmlist.class, listener);
-        System.out.println("======>" + notifyProgress.listeners.getListenerCount());
+        PLog.debugLog("======>" + notifyProgress.listeners.getListenerCount());
     }
 
     public void removeListenerLoadFilmlist(ListenerLoadFilmlist listener) {
         notifyProgress.listeners.remove(ListenerLoadFilmlist.class, listener);
-        System.out.println("======>" + notifyProgress.listeners.getListenerCount());
+        PLog.debugLog("======>" + notifyProgress.listeners.getListenerCount());
     }
 
     public void setStart(ListenerFilmlistLoadEvent event) {
@@ -121,7 +121,7 @@ public class LoadFilmlist {
             logList.add("## Filmliste beim Programmstart laden - ende");
             logList.add("## " + PLog.LILNE1);
             logList.add("");
-            PLog.addSysLog(logList);
+            PLog.sysLog(logList);
 
             setPropLoadFilmlist(false);
             PDuration.counterStop("loadFilmlistProgStart");
@@ -156,7 +156,7 @@ public class LoadFilmlist {
             logList.add("## Filmliste aus dem Web laden - ende");
             logList.add("## " + PLog.LILNE1);
             logList.add("");
-            PLog.addSysLog(logList);
+            PLog.sysLog(logList);
 
             setPropLoadFilmlist(false);
             PDuration.counterStop("loadNewFilmlistFromWeb");
@@ -223,7 +223,8 @@ public class LoadFilmlist {
                 LoadFactoryConst.loadOnlyToOldForDiff = false;//!! jetzt gleich wieder ausschalten, sonst klappt das weitere Laden nicht mehr
 
                 logList.add("## Programmstart: Gespeicherte Liste geladen");
-                logList.add("## loadStoredList: " + PDuration.counterStop("loadStoredList"));
+
+                PLog.debugLog("## loadStoredList: " + PDuration.counterStop("loadStoredList"));
 
                 if (filmListNew.isEmpty()) {
                     //dann ist sie leer

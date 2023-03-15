@@ -300,13 +300,13 @@ public class FilmlistFactory {
         }
         if (strAge.isEmpty()) {
             //dann ist das Alter nicht gesetzt
-            PLog.addSysLog("Die Filmliste hat kein Alter gespeichert -> Neue laden");
+            PLog.sysLog("Die Filmliste hat kein Alter gespeichert -> Neue laden");
             return true;
         }
         int age = getAge(strAge);
         if (age == P2LibConst.NUMBER_NULL) {
             //dann ist das Alter nicht gesetzt
-            PLog.addSysLog("Die Filmliste hat kein Alter gespeichert -> Neue laden");
+            PLog.sysLog("Die Filmliste hat kein Alter gespeichert -> Neue laden");
             return true;
         }
         return isOlderThan(age, LoadFactoryConst.ALTER_FILMLISTE_SEKUNDEN_FUER_AUTOUPDATE);
@@ -344,7 +344,7 @@ public class FilmlistFactory {
         }
         if (strDate.isEmpty()) {
             //dann ist das Alter nicht gesetzt
-            PLog.addSysLog("Die Filmliste hat kein Alter gespeichert -> Neue laden");
+            PLog.sysLog("Die Filmliste hat kein Alter gespeichert -> Neue laden");
             return true;
         }
 
@@ -376,7 +376,7 @@ public class FilmlistFactory {
     public static boolean isOlderThan(String[] metaData, int second) {
         final int ret = getAge(metaData);
         if (ret != 0) {
-            PLog.addSysLog("Die Filmliste ist " + ret / 60 + " Minuten alt");
+            PLog.sysLog("Die Filmliste ist " + ret / 60 + " Minuten alt");
         }
         return ret > second;
     }
@@ -389,7 +389,7 @@ public class FilmlistFactory {
      */
     public static boolean isOlderThan(int age, int second) {
         if (age != 0) {
-            PLog.addSysLog("Die Filmliste ist " + age / 60 + " Minuten alt");
+            PLog.sysLog("Die Filmliste ist " + age / 60 + " Minuten alt");
         }
         return age > second;
     }

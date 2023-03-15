@@ -15,16 +15,16 @@
  */
 
 
-package de.p2tools.p2lib.tools.log.loglevel;
+package de.p2tools.p2lib.tools.log;
 
 import java.util.logging.Level;
 
-public class ExtToolMsgLevel extends Level {
+public class PLevel extends Level {
+    public static final Level DURATION = new PLevel("DURATION", Level.INFO.intValue() + 1);
+    public static final Level DEBUG = new PLevel("DEBUG", Level.INFO.intValue() + 2);
+    public static final Level EXT_TOOL_MSG = new PLevel("EXT_TOOL", Level.INFO.intValue() + 3);
 
-    public static final Level EXT_TOOL_MSG = new ExtToolMsgLevel("EXT_TOOL", Level.INFO.intValue() + 3);
-
-    public ExtToolMsgLevel(String name, int value) {
+    public PLevel(String name, int value) {
         super(name, value);
     }
-
 }

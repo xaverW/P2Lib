@@ -18,7 +18,7 @@ package de.p2tools.p2lib.mtfilm.film;
 
 import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.PDebugLog;
+import de.p2tools.p2lib.tools.log.PLog;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
@@ -76,7 +76,7 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
     }
 
     public synchronized void filteredListSetPred(Predicate<FilmData> predicate) {
-        PDebugLog.sysLog("=================> Filter: " + ++count);
+        PLog.debugLog("=================> Filter: " + ++count);
         PDuration.counterStart("FilmList.filteredListSetPred");
         getFilteredList().setPredicate(predicate);
         PDuration.counterStop("FilmList.filteredListSetPred");

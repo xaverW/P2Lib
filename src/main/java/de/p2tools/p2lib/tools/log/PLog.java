@@ -35,28 +35,41 @@ public class PLog {
     static final LinkedList<Error> errorList = new LinkedList<>();
     static boolean progress = false;
 
-    public static synchronized void errorLog(int errorNumber, Exception ex) {
-        PLogger.LogSevere(addErrNr(errorNumber, ""), ex);
-        error(errorNumber, ex, new String[]{});
+    //Externe Tools Infos
+    public static synchronized void extToolLog(String text) {
+        PLogger.LogExtToolMsg(text);
+        resetProgress();
     }
 
-    /*
-    Fehlermeldungen
-     */
-
-    public static synchronized void errorLog(int errorNumber, Exception ex, String text) {
-        PLogger.LogSevere(addErrNr(errorNumber, text), ex);
-        error(errorNumber, ex, new String[]{text});
-    }
-
-    public static synchronized void errorLog(int errorNumber, Exception ex, String text[]) {
-        String log = PStringUtils.appendArray(text, P2LibConst.LINE_SEPARATOR);
+    //Meldungen zur Zeitmessung
+    public static synchronized void durationLog(ArrayList<String> list) {
+        String log = PStringUtils.appendList(list, P2LibConst.LINE_SEPARATOR);
         if (log.isEmpty()) {
             return;
         }
-        log = errorNumber + P2LibConst.LINE_SEPARATOR + log;
-        PLogger.LogSevere(log, ex);
-        error(errorNumber, ex, text);
+
+        if (P2LibConst.duration) {
+            // nur dann sollen sie mit ausgegeben werden
+            PLogger.LogDuration(log);
+        }
+    }
+
+    //empty line
+    public static synchronized void emptyLine() {
+        PLogger.LogInfo("");
+    }
+
+    public static synchronized void progress(String text) {
+        progress = true;
+        if (!text.isEmpty()) {
+            System.out.print(text + '\r');
+        }
+    }
+
+    //Fehlermeldungen
+    public static synchronized void errorLog(int errorNumber, Exception ex) {
+        PLogger.LogSevere(addErrNr(errorNumber, ""), ex);
+        error(errorNumber, ex, new String[]{});
     }
 
     public static synchronized void errorLog(int errorNumber, String text) {
@@ -74,16 +87,22 @@ public class PLog {
         error(errorNumber, null, text);
     }
 
-    /*
-    empty line
-     */
-    public static synchronized void emptyLine() {
-        PLogger.LogInfo("");
+    public static synchronized void errorLog(int errorNumber, Exception ex, String text) {
+        PLogger.LogSevere(addErrNr(errorNumber, text), ex);
+        error(errorNumber, ex, new String[]{text});
     }
 
-    /*
-    Systeminfos
-     */
+    public static synchronized void errorLog(int errorNumber, Exception ex, String text[]) {
+        String log = PStringUtils.appendArray(text, P2LibConst.LINE_SEPARATOR);
+        if (log.isEmpty()) {
+            return;
+        }
+        log = errorNumber + P2LibConst.LINE_SEPARATOR + log;
+        PLogger.LogSevere(log, ex);
+        error(errorNumber, ex, text);
+    }
+
+    //Systeminfos
     public static synchronized void sysLog(String text) {
         PLogger.LogInfo(text);
         resetProgress();
@@ -107,84 +126,39 @@ public class PLog {
         resetProgress();
     }
 
-    /*
-    add Systeminfos
-     */
-    public static synchronized void addSysLog(String text) {
-        PLogger.LogAddInfo(text);
+    //DebugInfos
+    public static synchronized void debugLog(String text) {
+        if (!P2LibConst.debug) {
+            return;
+        }
+        PLogger.LogDebug(text);
         resetProgress();
     }
 
-    public static synchronized void addSysLog(String text[]) {
+    public static synchronized void debugLog(String text[]) {
+        if (!P2LibConst.debug) {
+            return;
+        }
         String log = PStringUtils.appendArray(text, P2LibConst.LINE_SEPARATOR);
         if (log.isEmpty()) {
             return;
         }
-        PLogger.LogAddInfo(log);
+        PLogger.LogDebug(log);
         resetProgress();
     }
 
-    public static synchronized void addSysLog(List<String> list) {
+    public static synchronized void debugLog(List<String> list) {
+        if (!P2LibConst.debug) {
+            return;
+        }
         String log = PStringUtils.appendList(list, P2LibConst.LINE_SEPARATOR);
         if (log.isEmpty()) {
             return;
         }
-        PLogger.LogAddInfo(log);
+        PLogger.LogDebug(log);
         resetProgress();
     }
 
-    /*
-    Externe Tools Infos
-     */
-    public static synchronized void extToolLog(String text) {
-        PLogger.LogExtToolMsg(text);
-        resetProgress();
-    }
-
-    /*
-    Infos die auch der User im Tab Meldungen sieht
-     */
-    public static synchronized void userLog(String text[]) {
-        String log = PStringUtils.appendArray(text, P2LibConst.LINE_SEPARATOR);
-        if (log.isEmpty()) {
-            return;
-        }
-
-        PLogger.LogUserMsg(log);
-        UserMessage.userMsg(text);
-        resetProgress();
-    }
-
-    public static synchronized void userLog(ArrayList<String> list) {
-        String log = PStringUtils.appendList(list, P2LibConst.LINE_SEPARATOR);
-        if (log.isEmpty()) {
-            return;
-        }
-        PLogger.LogUserMsg(log);
-        UserMessage.userMsg(list);
-        resetProgress();
-    }
-
-    public static synchronized void userLog(String text) {
-        PLogger.LogUserMsg(text);
-        UserMessage.userMsg(text);
-        resetProgress();
-    }
-
-    /*
-    Meldungen zur Zeitmessung
-     */
-    public static synchronized void durationLog(ArrayList<String> list) {
-        String log = PStringUtils.appendList(list, P2LibConst.LINE_SEPARATOR);
-        if (log.isEmpty()) {
-            return;
-        }
-
-        if (P2LibConst.duration) {
-            // nur dann sollen sie mit ausgegeben werden
-            PLogger.LogDuration(log);
-        }
-    }
 
     private static String addErrNr(int errNr, String txt) {
         return errNr + "  " + txt;
@@ -222,13 +196,6 @@ public class PLog {
         errorList.add(new Error(no, classs, exception));
     }
 
-    public static synchronized void progress(String text) {
-        progress = true;
-        if (!text.isEmpty()) {
-            System.out.print(text + '\r');
-        }
-    }
-
     private static void resetProgress() {
         // Leerzeile um die Progresszeile zu löschen
         if (progress) {
@@ -250,6 +217,4 @@ public class PLog {
             this.count = 1;
         }
     }
-
-
 }

@@ -20,10 +20,6 @@ package de.p2tools.p2lib.tools.log;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
 import de.p2tools.p2lib.guitools.POpen;
-import de.p2tools.p2lib.tools.log.loglevel.AddInfoLevel;
-import de.p2tools.p2lib.tools.log.loglevel.DurLevel;
-import de.p2tools.p2lib.tools.log.loglevel.ExtToolMsgLevel;
-import de.p2tools.p2lib.tools.log.loglevel.UsrMsgLevel;
 import javafx.application.Platform;
 
 import java.io.File;
@@ -47,6 +43,38 @@ public class PLogger {
         consoleHandler.setFormatter(new PFormatter());
 
         LOGGER.setLevel(Level.ALL);
+    }
+
+    public static void LogInfo(String info) {
+        LOGGER.info(info);
+    }
+
+    public static void LogDebug(String info) {
+        LOGGER.log(PLevel.DEBUG, info);
+    }
+
+    public static void LogDuration(String info) {
+        LOGGER.log(PLevel.DURATION, info);
+    }
+
+    public static void LogExtToolMsg(String info) {
+        LOGGER.log(PLevel.EXT_TOOL_MSG, info);
+    }
+
+    public static void LogWarning(String info) {
+        LOGGER.warning(info);
+    }
+
+    public static void LogSevere(String info) {
+        LOGGER.log(Level.SEVERE, info);
+    }
+
+    public static void LogSevere(String info, Exception ex) {
+        LOGGER.log(Level.SEVERE, info, ex);
+    }
+
+    public static void LogSevere(Exception ex) {
+        LOGGER.log(Level.SEVERE, "", ex);
     }
 
     public static void removeFileHandler() {
@@ -102,45 +130,4 @@ public class PLogger {
         }
 
     }
-
-    public static void LogConfig(String info) {
-        LOGGER.log(Level.CONFIG, info);
-    }
-
-    public static void LogInfo(String info) {
-        LOGGER.info(info);
-    }
-
-    public static void LogAddInfo(String info) {
-        LOGGER.log(AddInfoLevel.ADD_INFO, info);
-    }
-
-    public static void LogDuration(String info) {
-        LOGGER.log(DurLevel.DURATION, info);
-    }
-
-    public static void LogUserMsg(String info) {
-        LOGGER.log(UsrMsgLevel.USERMSG, info);
-    }
-
-    public static void LogExtToolMsg(String info) {
-        LOGGER.log(ExtToolMsgLevel.EXT_TOOL_MSG, info);
-    }
-
-    public static void LogWarning(String info) {
-        LOGGER.warning(info);
-    }
-
-    public static void LogSevere(String info) {
-        LOGGER.log(Level.SEVERE, info);
-    }
-
-    public static void LogSevere(String info, Exception ex) {
-        LOGGER.log(Level.SEVERE, info, ex);
-    }
-
-    public static void LogSevere(Exception ex) {
-        LOGGER.log(Level.SEVERE, "", ex);
-    }
-
 }
