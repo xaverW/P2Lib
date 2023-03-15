@@ -340,7 +340,7 @@ public class LoadFilmlist {
             filmListNew.metaData = filmListDiff.metaData;
             PDuration.counterStart("sortNewList");
             filmListNew.sort(); //~3s, jetzt sollte alles passen
-            logList.add("## Update List, Sort: " + PDuration.counterStop("sortNewList"));
+            PLog.debugLog("## Update List, Sort: " + PDuration.counterStop("sortNewList"));
 
             filmListDiff.clear();
         }
@@ -351,7 +351,7 @@ public class LoadFilmlist {
         //Unicode-Zeichen korrigieren
         PDuration.counterStart("cleanFaultyCharacter");
         FilmFactory.cleanFaultyCharacterFilmlist(filmListNew);
-        logList.add("## Unicode-Zeichen korrigieren: " + PDuration.counterStop("cleanFaultyCharacter"));
+        PLog.debugLog("## Unicode-Zeichen korrigieren: " + PDuration.counterStop("cleanFaultyCharacter"));
 
         logList.add("## Diakritika setzen/ändern, Diakritika suchen");
         if (LoadFactoryConst.removeDiacritic) {
