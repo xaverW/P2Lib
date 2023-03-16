@@ -181,6 +181,10 @@ public class PToggleSwitch extends HBox {
         setCheckHgrow();
     }
 
+    public CheckBox getCheckBox() {
+        return checkBox;
+    }
+
     private void init() {
         this.setAlignment(Pos.CENTER_LEFT);
 
