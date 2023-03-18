@@ -66,6 +66,31 @@ public class FilmFilterCheck {
         return true;
     }
 
+    public static boolean checkFilterMatch(Filter sender,
+                                           Filter theme,
+                                           Filter themeTitle,
+                                           Filter title,
+                                           FilmData filmData) {
+
+        if (!sender.isEmpty && !checkMatchChannelSmartLowerCase(sender, filmData)) {
+            return false;
+        }
+
+        if (!theme.isEmpty && !checkMatchThemeExactLowerCase(theme, filmData)) {
+            return false;
+        }
+
+        if (!themeTitle.isEmpty && !checkMatchThemeTitleLowerCase(themeTitle, filmData)) {
+            return false;
+        }
+
+        if (!title.isEmpty && !checkMatchTitleLowerCase(title, filmData)) {
+            return false;
+        }
+
+        return true;
+    }
+
     public static boolean checkMatchChannelSmart(Filter sender, FilmData film) {
         // nur ein Suchbegriff muss passen
         for (final String s : sender.filterArr) {
