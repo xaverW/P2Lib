@@ -2,11 +2,18 @@
 
 /*Button zum löschen der Filter*/
 .btnClearFilter {
-    -fx-padding: 5 20 5 20;
+    -fx-padding: 3 20 3 20;
 }
 .btnClearFilter:pressed{
     -fx-border-width: 2;
-    -fx-padding: 4 19 4 19;
+    -fx-padding: 2 19 2 19;
+}
+.btnClearFilterSmall {
+    -fx-padding: 3 10;
+}
+.btnClearFilterSmall:pressed{
+    -fx-border-width: 2;
+    -fx-padding: 2 9;
 }
 
 
