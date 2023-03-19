@@ -122,13 +122,22 @@
 .cbo-menu{
     -fx-border-radius: 5;
     -fx-background-radius: 5;
+    -fx-padding: 1;
 }
 .cbo-menu > .arrow-button > .arrow {
     -fx-background-color: #0b99c9;
 }
+.cbo-menu-item{
+   -fx-padding: 3;
+ }
+
 .cbo-menu-button {
     -fx-padding: 1;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
     -fx-font-size: 0.9em;
+}
+
+.cbo-menu-button:pressed {
+    -fx-padding: 0 11 0 11;
 }
