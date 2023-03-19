@@ -37,17 +37,20 @@ public class LoadFactoryConst {
 
     public static final String BR = "BR";
     public static final String DW = "DW";
+    public static final String FUNK_NET = "Funk.net";
+
     public static final String HR = "HR";
     public static final String KIKA = "KiKA";
     public static final String MDR = "MDR";
     public static final String NDR = "NDR";
     public static final String ORF = "ORF";
     public static final String PHOENIX = "PHOENIX";
+    public static final String RADIO_BREMEN_TV = "Radio Bremen TV";
     public static final String RBB = "RBB";
     public static final String RBB_TV = "rbtv";
+
     public static final String SR = "SR";
     public static final String SRF = "SRF";
-    public static final String SRF_PODCAST = "SRF.Podcast";
     public static final String SWR = "SWR";
     public static final String WDR = "WDR";
     public static final String ZDF = "ZDF";
@@ -55,8 +58,8 @@ public class LoadFactoryConst {
 
     public static final String[] SENDER = {DREISAT, ARD,
             ARTE_DE, ARTE_EN, ARTE_ES, ARTE_FR, ARTE_IT, ARTE_PL,
-            BR, DW, HR, KIKA, MDR, NDR, ORF, PHOENIX, RBB, RBB_TV, SR,
-            SRF, SRF_PODCAST, SWR, WDR, ZDF, ZDF_TIVI};
+            BR, DW, FUNK_NET, HR, KIKA, MDR, NDR, ORF, PHOENIX, RADIO_BREMEN_TV, RBB, RBB_TV,
+            SR, SRF, SWR, WDR, ZDF, ZDF_TIVI};
 
 
     // beim Programmstart wird die Liste geladen wenn sie älter ist als ..

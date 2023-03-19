@@ -36,8 +36,8 @@ public class Filter {
     }
 
     public Filter(String filter, boolean makeArr) {
-        this.filter = filter;
-        this.filterArr = new String[]{filter};
+        this.filter = filter.trim();
+        this.filterArr = new String[]{this.filter};
         if (makeArr) {
             //Sender, Thema, Titel, ..
             makeFilterArray();
@@ -48,8 +48,8 @@ public class Filter {
     }
 
     public Filter(String filter, boolean isExact, boolean makeArr) {
-        this.filter = filter;
-        this.filterArr = new String[]{filter};
+        this.filter = filter.trim();
+        this.filterArr = new String[]{this.filter};
         this.isExact = isExact;
         if (makeArr) {
             makeFilterArray();
