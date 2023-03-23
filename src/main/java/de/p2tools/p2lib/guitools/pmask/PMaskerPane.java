@@ -42,11 +42,7 @@ public class PMaskerPane extends BorderPane {
         btnStop.getStyleClass().add("p2MaskerButtonStop");
         progressIndicator.getStyleClass().add("p2MaskerProgressIndicator");
 
-//        this.heightProperty().addListener((observable, oldValue, newValue) -> setSize());
-//        this.widthProperty().addListener((observable, oldValue, newValue) -> setSize());
-
         setVBoxCont();
-        setSize();
         this.setCenter(vBoxCont);
         this.setVisible(false);
     }
@@ -58,7 +54,6 @@ public class PMaskerPane extends BorderPane {
     public void setButtonText(String text) {
         Platform.runLater(() -> {
             btnStop.setText(text);
-//            setSize();
         });
     }
 
@@ -70,27 +65,26 @@ public class PMaskerPane extends BorderPane {
     }
 
     public void setTextVisible(boolean textVisible) {
+        //dann wird nur der "Kreisel" angezeigt
         Platform.runLater(() -> {
             setLblVisible(textVisible);
         });
     }
 
+    public void setMaskerText(String text) {
+        Platform.runLater(() -> {
+            lblText.setText(text);
+        });
+    }
+
     public void switchOffMasker() {
-        setMaskerVisible(false);
+        setMaskerVisible(false, false, false);
     }
 
-    public void setMaskerVisible(boolean maskerVisible) {
-        setMaskerVisible(maskerVisible, true, false);
-    }
-
-    public void setMaskerVisible(boolean maskerVisible, boolean buttonVisible) {
-        setMaskerVisible(maskerVisible, true, buttonVisible);
-    }
-
-    public void setMaskerVisible(boolean maskerVisible, boolean text, boolean buttonVisible) {
+    public void setMaskerVisible(boolean maskerVisible, boolean textVisible, boolean buttonVisible) {
         Platform.runLater(() -> {
             setPaneVisible(maskerVisible);
-            setLblVisible(text);
+            setLblVisible(textVisible);
             setBtnVisible(buttonVisible);
         });
     }
@@ -104,12 +98,6 @@ public class PMaskerPane extends BorderPane {
     public void setMaskerProgressIndeterminate() {
         Platform.runLater(() -> {
             setProgress(-1, "");
-        });
-    }
-
-    public void setMaskerText(String text) {
-        Platform.runLater(() -> {
-            lblText.setText(text);
         });
     }
 
@@ -129,6 +117,8 @@ public class PMaskerPane extends BorderPane {
     }
 
     private void setVBoxCont() {
+        vBoxCont.setMinWidth(500);
+        vBoxCont.setMaxWidth(500);
         vBoxCont.setSpacing(20);
         vBoxCont.setPadding(new Insets(20));
         vBoxCont.setAlignment(Pos.CENTER);
@@ -141,11 +131,6 @@ public class PMaskerPane extends BorderPane {
         lblText.setPadding(new Insets(5, 10, 5, 10));
         lblText.setMinHeight(btnStop.getHeight());
 
-//        btnStop.heightProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue != null) {
-//                lblText.setMinHeight(newValue.doubleValue());
-//            }
-//        });
         setBtnVisible(false);
 
         hBoxText.setAlignment(Pos.CENTER);
@@ -157,19 +142,5 @@ public class PMaskerPane extends BorderPane {
     private void setProgress(double progress, String text) {
         progressIndicator.setProgress(progress);
         lblText.setText(text);
-    }
-
-    private void setSize() {
-        vBoxCont.setMinWidth(500);
-        vBoxCont.setMaxWidth(500);
-//        double w = this.getWidth(), h = this.getHeight();
-//        w = w / 3;
-//        h = h / 3;
-//
-//        if (w == 0 || h == 0) {
-//            return;
-//        }
-//        vBoxCont.setMinWidth(w);
-//        vBoxCont.setMaxWidth(w);
     }
 }
