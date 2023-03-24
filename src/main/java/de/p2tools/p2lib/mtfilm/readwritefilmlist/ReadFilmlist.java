@@ -86,12 +86,14 @@ public class ReadFilmlist {
             if (sourceFileOrUrl.startsWith("http")) {
                 //dann aus dem Web mit der URL laden
                 logList.add("## Filmliste aus URL laden: " + sourceFileOrUrl);
+                logList.add("## FilmInit wird gemacht: " + LoadFactoryConst.filmInitNecessary);
                 loadFromWeb = true;
                 processFromWeb(new URL(sourceFileOrUrl), filmlist);
 
             } else {
                 //dann lokale Datei laden
                 logList.add("## Filmliste aus Datei laden: " + sourceFileOrUrl);
+                logList.add("## FilmInit wird gemacht: " + LoadFactoryConst.filmInitNecessary);
                 loadFromWeb = false;
                 processFromFile(sourceFileOrUrl, filmlist);
             }
@@ -222,7 +224,7 @@ public class ReadFilmlist {
             if (jp.isExpectedStartArrayToken()) {
                 final FilmData film = filmlist.getNewElement();
                 addValue(film, jp);
-                if (!LoadFactoryConst.loadOnlyToOldForDiff) {
+                if (LoadFactoryConst.filmInitNecessary) {
                     //sonst muss eh die ganze Liste geladen werden und es wird dann nur die URL für den Hash gebraucht
                     ++countAll;
                     countFilm(filmsPerChannelFoundCompleteList, film);

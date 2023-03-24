@@ -64,7 +64,7 @@ public class ImportNewFilmlistFromServer {
     }
 
     private boolean loadList(List<String> logList, Filmlist list, STATE state) {
-        String updateUrl = state == STATE.COMPLETE ? LoadFactoryConst.FILMLIST_URL_AKT : LoadFactoryConst.FILMLIST_URL_DIFF;
+        String updateUrl;
         if (LoadFactoryConst.filmListUrl.isEmpty()) {
             //dann die Standard-URLs verwenden
             updateUrl = state == STATE.COMPLETE ? LoadFactoryConst.FILMLIST_URL_AKT : LoadFactoryConst.FILMLIST_URL_DIFF;

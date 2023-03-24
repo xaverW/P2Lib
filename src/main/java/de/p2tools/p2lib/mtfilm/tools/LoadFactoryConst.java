@@ -85,7 +85,7 @@ public class LoadFactoryConst {
     public static int SYSTEM_LOAD_FILMLIST_MAX_DAYS = 0;
     public static int SYSTEM_LOAD_FILMLIST_MIN_DURATION = 0;
     public static boolean removeDiacritic = false;
-    public static boolean loadOnlyToOldForDiff = false;
+    public static boolean filmInitNecessary = true;
 
     public static FilmChecker checker = null;//0,2s schneller als mit checker->true
 

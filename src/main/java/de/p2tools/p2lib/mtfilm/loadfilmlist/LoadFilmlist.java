@@ -197,33 +197,40 @@ public class LoadFilmlist {
             setStart(new ListenerFilmlistLoadEvent("Programmstart, Filmliste laden",
                     ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false));
             if (!LoadFactoryConst.loadNewFilmlistOnProgramStart) {
-                //Keine neue Liste aus dem Web beim Programmstart, immer gespeicherte Liste laden
+                //dann wird keine neue Liste aus dem Web beim Programmstart geladen, immer gespeicherte Liste laden
                 logList.add("## Beim Programmstart soll keine neue Liste geladen werden");
                 logList.add("## Programmstart: Gespeicherte Liste aus laden");
+                LoadFactoryConst.filmInitNecessary = true;
                 loadStoredList(logList, filmListNew, LoadFactoryConst.localFilmListFile);
                 logList.add("## Programmstart: Gespeicherte Liste aus geladen");
 
             } else {
-                //dann bei Bedarf, eine neue Liste aus dem Web laden
-                LoadFactoryConst.loadOnlyToOldForDiff = FilmlistFactory.isTooOldForDiff(LoadFactoryConst.dateStoredFilmlist);
-                logList.add("## Gespeicherte Filmliste toOldForDiff: " + LoadFactoryConst.loadOnlyToOldForDiff);
                 if (FilmlistFactory.isTooOld(LoadFactoryConst.dateStoredFilmlist)) {
-                    //zu alt, muss aber trotzdem geladen werden :(
-                    //wenn nur ein Update aus dem Web geladen wird, wird die ja nur Upgedatet und der Hash für "neue" brauchts auch
+                    //gespeicherte Liste zu alt und muss aber trotzdem geladen werden :(
+                    //den Hash für "neue" braucht es immer
                     logList.add("## Gespeicherte Filmliste ist zu alt: " + LoadFactoryConst.dateStoredFilmlist);
                     filmlistTooOld = true;
 
+                    //und jetzt noch schauen, ob ein diff reicht
+                    if (FilmlistFactory.isTooOldForDiff(LoadFactoryConst.dateStoredFilmlist)) {
+                        logList.add("## Gespeicherte Filmliste zu alt für ein DIFF, kein FILM_INIT");
+                        LoadFactoryConst.filmInitNecessary = false;
+
+                    } else {
+                        logList.add("## Gespeicherte Filmliste zu alt, DIFF reicht, FILM_INIT wird gemacht");
+                        LoadFactoryConst.filmInitNecessary = true;
+                    }
                 } else {
                     logList.add("## Gespeicherte Filmliste ist nicht zu alt: " + LoadFactoryConst.dateStoredFilmlist);
+                    LoadFactoryConst.filmInitNecessary = true;
                 }
 
                 PDuration.counterStart("loadStoredList");
                 logList.add("## Programmstart: Gespeicherte Liste laden");
                 loadStoredList(logList, filmListNew, LoadFactoryConst.localFilmListFile);
-                LoadFactoryConst.loadOnlyToOldForDiff = false;//!! jetzt gleich wieder ausschalten, sonst klappt das weitere Laden nicht mehr
+                LoadFactoryConst.filmInitNecessary = true;//!! jetzt gleich wieder setzen, sonst klappt das weitere Laden nicht mehr
 
                 logList.add("## Programmstart: Gespeicherte Liste geladen");
-
                 PLog.debugLog("## loadStoredList: " + PDuration.counterStop("loadStoredList"));
 
                 if (filmListNew.isEmpty()) {
