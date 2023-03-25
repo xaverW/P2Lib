@@ -18,6 +18,7 @@
     -p2-color-blue1: #4682B4;
     -p2-color-blue2: #1d364b;
     -text-color-blue: #002fbe;
+    -p2-color-border: #b5b5b5;
 
     -tab-button-1: #d6d6d6;
     -tab-button-2: #e6e6e6;
@@ -101,10 +102,10 @@
      -fx-background-color: #a1a1a1, linear-gradient(from 0% 83% to 0% -37% , repeat, #a0a0a0, #d5d5d5 61% );
  }
  .button-accordion:focused {
-     -fx-background-color: #b2bde1, linear-gradient(from 0% 83% to 0% -37% , repeat, #808080, #b5b5b5 61% );
+     -fx-background-color: #b2bde1, linear-gradient(from 0% 83% to 0% -37% , repeat, #808080, -p2-color-border 61% );
  }
  .button-accordion:pressed {
-     -fx-background-color: #b2bde1, linear-gradient(from 0% 83% to 0% -37% , repeat, #808080, #b5b5b5 61% );
+     -fx-background-color: #b2bde1, linear-gradient(from 0% 83% to 0% -37% , repeat, #808080, -p2-color-border 61% );
  }
 
  .pProgressBar .bar {
