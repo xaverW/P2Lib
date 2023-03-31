@@ -76,7 +76,13 @@ public class Filter {
             isQuick = true;
 
         } else {
-            if (filter.contains(":")) {
+            if (filter.trim().startsWith("\"") &&
+                    filter.trim().endsWith("\"") &&
+                    filter.length() > 1 /*sonst meldet er auch schon " */) {
+                filterArr = new String[]{filter.substring(1, filter.length() - 1)};
+                System.out.println(filterArr[0]);
+
+            } else if (filter.contains(":")) {
                 isFilterAnd = true;
                 filterArr = filter.split(":");
             } else {
