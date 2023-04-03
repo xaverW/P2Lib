@@ -80,7 +80,7 @@ public class Filter {
                     filter.trim().endsWith("\"") &&
                     filter.length() > 1 /*sonst meldet er auch schon " */) {
                 filterArr = new String[]{filter.substring(1, filter.length() - 1)};
-                System.out.println(filterArr[0]);
+                //System.out.println(filterArr[0]);
 
             } else if (filter.contains(":")) {
                 isFilterAnd = true;
