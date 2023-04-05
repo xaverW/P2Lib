@@ -31,10 +31,10 @@ public class DiacriticFactory {
 
     public static String flattenDiacritic(String string) {
         try {
-//            if (string.equals(strip(string))) {
-//                //8,83s
-//                return string;
-//            }
+//           if (string.equals(strip(string))) {
+//               //8,83s
+//               return string;
+//           }
 
             String to = strip(string);
             if (string.equals(to)) {
@@ -50,24 +50,24 @@ public class DiacriticFactory {
             for (int i = 0; i < s.length; ++i) {
                 String st = s[i] + "";
 
-//                if (string.substring(i, i + 1).equals("ä") || string.substring(i, i + 1).equals("ö") ||
-//                        string.substring(i, i + 1).equals("ü") || string.substring(i, i + 1).equals("Ä") ||
-//                        string.substring(i, i + 1).equals("Ö") || string.substring(i, i + 1).equals("Ü")) {
-//                    //13,56s
-//                    t[i] = s[i];
-//                }
+//               if (string.substring(i, i + 1).equals("ä") || string.substring(i, i + 1).equals("ö") ||
+//                       string.substring(i, i + 1).equals("ü") || string.substring(i, i + 1).equals("Ä") ||
+//                       string.substring(i, i + 1).equals("Ö") || string.substring(i, i + 1).equals("Ü")) {
+//                   //13,56s
+//                   t[i] = s[i];
+//               }
 
-//                if (st.equals("ä") || st.equals("ö") || st.equals("ü") ||
-//                        st.equals("Ä") || st.equals("Ö") || st.equals("Ü")) {
-//                    //7,17s
-//                    if (i == 0) {
-//                        to = st + to.substring(i + 1);
-//                    } else if (i == to.length() - 1) {
-//                        to = to.substring(0, i) + st;
-//                    } else {
-//                        to = to.substring(0, i) + st + to.substring(i + 1);
-//                    }
-//                }
+//               if (st.equals("ä") || st.equals("ö") || st.equals("ü") ||
+//                       st.equals("Ä") || st.equals("Ö") || st.equals("Ü")) {
+//                   //7,17s
+//                   if (i == 0) {
+//                       to = st + to.substring(i + 1);
+//                   } else if (i == to.length() - 1) {
+//                       to = to.substring(0, i) + st;
+//                   } else {
+//                       to = to.substring(0, i) + st + to.substring(i + 1);
+//                   }
+//               }
 
                 if (st.equals("ä") || st.equals("ö") || st.equals("ü") ||
                         st.equals("Ä") || st.equals("Ö") || st.equals("Ü")) {
@@ -76,7 +76,7 @@ public class DiacriticFactory {
                 }
             }
 
-//            return to;
+//           return to;
             return String.valueOf(t);
 
         } catch (Exception ex) {
@@ -86,7 +86,7 @@ public class DiacriticFactory {
     }
 
     private static String strip(String str) {
-//        return StringUtils.stripAccents(str); //7,9s
+//       return StringUtils.stripAccents(str); //7,9s
 
         str = Normalizer.normalize(str, Normalizer.Form.NFD); //6,5s
         str = DIACRITICS_AND_FRIENDS.matcher(str).replaceAll("");

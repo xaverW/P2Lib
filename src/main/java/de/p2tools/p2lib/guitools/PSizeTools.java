@@ -20,7 +20,7 @@ public class PSizeTools {
 
     public static String getSize(long l) {
         if (l > 1000 * 1000) {
-            // größer als 1MB sonst kann ich mirs sparen
+            //größer als 1MB sonst kann ich mirs sparen
             return String.valueOf(l / (1000 * 1000));
         } else if (l > 0) {
             return "1";

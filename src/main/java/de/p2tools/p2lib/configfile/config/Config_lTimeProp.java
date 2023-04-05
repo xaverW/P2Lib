@@ -65,9 +65,9 @@ public class Config_lTimeProp extends Config {
         return actValue;
     }
 
-//    @Override
-//    public Control getControl() {
-//        PLDatePicker control = new PLDatePicker(getPDate());
-//        return control;
-//    }
+//   @Override
+//   public Control getControl() {
+//       PLDatePicker control = new PLDatePicker(getPDate());
+//       return control;
+//   }
 }

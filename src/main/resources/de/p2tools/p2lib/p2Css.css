@@ -82,32 +82,6 @@
      -fx-background-radius: 5 0 0 5;
  }
 
- /* accordion */
- .vbox-accordion {
-     -fx-padding: 5 5 5 15;
- }
- .button-accordion {
-     -fx-background-color: #b6b6b6, linear-gradient(from 15% 53% to 15% 120% , #C2C2C2, #F1F1F1 100% );
-     -fx-background-radius: 5;
-     -fx-background-insets: 0,1;
-     -fx-padding: 3 30 3 30;
-     /*-fx-border: 5;*/
-     -fx-text-fill: black;
-     -fx-font-size: 14px;
- }
- .button-accordion:hover {
-     -fx-background-color: #b2bde1, linear-gradient(from 0% 83% to 0% -37% , repeat, #a0a0a0, #d5d5d5 61% );
- }
- .button-accordion:hover:focused {
-     -fx-background-color: #a1a1a1, linear-gradient(from 0% 83% to 0% -37% , repeat, #a0a0a0, #d5d5d5 61% );
- }
- .button-accordion:focused {
-     -fx-background-color: #b2bde1, linear-gradient(from 0% 83% to 0% -37% , repeat, #808080, -p2-color-border 61% );
- }
- .button-accordion:pressed {
-     -fx-background-color: #b2bde1, linear-gradient(from 0% 83% to 0% -37% , repeat, #808080, -p2-color-border 61% );
- }
-
  .pProgressBar .bar {
      -fx-border-insets: 2 2 3 2;
      -fx-border-radius: 5;

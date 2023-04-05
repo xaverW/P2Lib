@@ -113,9 +113,9 @@ public class PTipOfDayDialog extends PDialogExtra {
             selectActToolTip(false);
         });
 
-//        btnOk.getStyleClass().add("btnStartDialog");
-//        btnNext.getStyleClass().add("btnStartDialog");
-//        btnPrev.getStyleClass().add("btnStartDialog");
+//       btnOk.getStyleClass().add("btnStartDialog");
+//       btnNext.getStyleClass().add("btnStartDialog");
+//       btnPrev.getStyleClass().add("btnStartDialog");
 
         addOkButton(btnOk);
         ButtonBar.setButtonData(btnPrev, ButtonBar.ButtonData.BACK_PREVIOUS);

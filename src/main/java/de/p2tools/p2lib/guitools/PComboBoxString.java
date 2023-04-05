@@ -66,7 +66,7 @@ public class PComboBoxString extends ComboBox<String> {
     }
 
     public void init(ObservableList<String> dataList, String init, StringProperty selValueStringProperty) {
-        // init wird gesetzt, wenn selValue leer ist
+        //init wird gesetzt, wenn selValue leer ist
         this.selValueStringProperty = selValueStringProperty;
         this.itemsList = dataList;
 
@@ -103,7 +103,7 @@ public class PComboBoxString extends ComboBox<String> {
     }
 
     public void selectElement(String element) {
-//        selValueStringProperty.setValue(element);
+//       selValueStringProperty.setValue(element);
         setValue(element);
     }
 
@@ -130,18 +130,18 @@ public class PComboBoxString extends ComboBox<String> {
 
         getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && !itemsList.contains(newValue)) {
-                // itemsList.add(newValue);
-                // oder
+                //itemsList.add(newValue);
+                //oder
                 itemsList.add(1, newValue);
                 setValue(newValue);
             }
         });
 
         getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue != null && !itemsList.contains(newValue)) {
-//                itemsList.add(0, newValue); todo da landen sonst alle Tippser in der Liste ??
-//                setValue(newValue);
-//            }
+//           if (newValue != null && !itemsList.contains(newValue)) {
+//               itemsList.add(0, newValue); todo da landen sonst alle Tippser in der Liste ??
+//               setValue(newValue);
+//           }
             check();
         });
 
@@ -153,7 +153,7 @@ public class PComboBoxString extends ComboBox<String> {
 
         itemsList.addListener((ListChangeListener<String>) c -> {
                     if (itemsList.size() == 1) {
-                        getSelectionModel().selectFirst(); // ist: ""
+                        getSelectionModel().selectFirst(); //ist: ""
                     }
                 }
         );
@@ -224,13 +224,13 @@ public class PComboBoxString extends ComboBox<String> {
         }
 
 
-        // macht Probleme wenn die Liste für 2 Combos benutzt wird
-//        list.add("");
-//        itemsList.stream().forEach(d -> {
-//            if (!list.contains(d) && list.size() < maxElements) {
-//                list.add(d);
-//            }
-//        });
+        //macht Probleme wenn die Liste für 2 Combos benutzt wird
+//       list.add("");
+//       itemsList.stream().forEach(d -> {
+//           if (!list.contains(d) && list.size() < maxElements) {
+//               list.add(d);
+//           }
+//       });
 //        itemsList.setAll(list);
     }
 

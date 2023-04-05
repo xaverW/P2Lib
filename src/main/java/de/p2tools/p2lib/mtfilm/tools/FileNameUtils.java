@@ -41,7 +41,7 @@ public class FileNameUtils {
     public static final String REGEXP_ILLEGAL_CHARACTERS_OTHERS_PATH = "[:\\\\*|<>]";
 
     public static String checkFileName(final String name, final boolean isPath) {
-        // dient nur zur Anzeige für Probleme (Textfeld wird rot)
+        //dient nur zur Anzeige für Probleme (Textfeld wird rot)
         String ret = name;
         boolean isWindowsPath = false;
         final String splitChar;
@@ -56,9 +56,9 @@ public class FileNameUtils {
             ret = removeWindowsTrailingDots(ret);
             if (isPath) {
                 if (ret.length() > 1 && ret.charAt(1) == ':') {
-                    // damit auch "d:" und nicht nur "d:\" als Pfad geht
+                    //damit auch "d:" und nicht nur "d:\" als Pfad geht
                     isWindowsPath = true;
-                    ret = ret.replaceFirst(":", ""); // muss zum Schluss wieder rein, kann aber so nicht ersetzt werden
+                    ret = ret.replaceFirst(":", ""); //muss zum Schluss wieder rein, kann aber so nicht ersetzt werden
                 }
             }
         } else {
@@ -67,14 +67,14 @@ public class FileNameUtils {
 
         if (isPath && ret.contains(File.separator)) {
             String str = "";
-            final String[] sa = ret.split(splitChar); // Regex
+            final String[] sa = ret.split(splitChar); //Regex
             for (String s : sa) {
                 if (!s.isEmpty()) {
                     str += File.separator + convertToNativeEncoding(s, false); //sind ja nur noch die Ordnernamen
                 }
             }
             if (!ret.startsWith(File.separator)) {
-                str = str.replaceFirst(splitChar, ""); // wieder Regex
+                str = str.replaceFirst(splitChar, ""); //wieder Regex
             }
             if (ret.endsWith(File.separator)) {
                 str = str + File.separator;
@@ -85,7 +85,7 @@ public class FileNameUtils {
         }
 
         if (isWindowsPath) {
-            // c: wieder herstellen
+            //c: wieder herstellen
             if (ret.length() == 1) {
                 ret = ret + ":";
             } else if (ret.length() > 1) {
@@ -103,8 +103,8 @@ public class FileNameUtils {
      * @return Cleanup string with no dots anymore.
      */
     private static String removeWindowsTrailingDots(String fileName) {
-        // machte unter Win noch Probleme, zB. bei dem Titel: "betrifft: ..."
-        // "." und " " am Ende machen Probleme
+        //machte unter Win noch Probleme, zB. bei dem Titel: "betrifft: ..."
+        //"." und " " am Ende machen Probleme
         while (!fileName.isEmpty() && (fileName.endsWith(".") || fileName.endsWith(" "))) {
             fileName = fileName.substring(0, fileName.length() - 1);
         }
@@ -118,7 +118,7 @@ public class FileNameUtils {
      * @return Cleanup string with no dots anymore.
      */
     private static String removeStartingDots(String fileName) {
-        // machte unter Linux Probleme, zB. bei dem Titel: "....Paula"
+        //machte unter Linux Probleme, zB. bei dem Titel: "....Paula"
         while (!fileName.isEmpty() && (fileName.startsWith("."))) {
             fileName = fileName.substring(1, fileName.length());
         }
@@ -139,7 +139,7 @@ public class FileNameUtils {
         //convert our filename to OS encoding...
         try {
             final CharsetEncoder charsetEncoder = Charset.defaultCharset().newEncoder();
-            charsetEncoder.onMalformedInput(CodingErrorAction.REPLACE); // otherwise breaks on first unconvertable char
+            charsetEncoder.onMalformedInput(CodingErrorAction.REPLACE); //otherwise breaks on first unconvertable char
             charsetEncoder.onUnmappableCharacter(CodingErrorAction.REPLACE);
             charsetEncoder.replaceWith(new byte[]{'_'});
 
@@ -174,7 +174,7 @@ public class FileNameUtils {
         ret = ret.replace("Ü", "Ue");
         ret = ret.replace("ß", "ss");
 
-        // ein Versuch zu vereinfachen
+        //ein Versuch zu vereinfachen
         ret = cleanUnicode(ret);
 
         ret = removeIllegalCharacters(ret, isPath);
@@ -182,7 +182,7 @@ public class FileNameUtils {
         //convert our filename to OS encoding...
         try {
             final CharsetEncoder charsetEncoder = Charset.forName("US-ASCII").newEncoder();
-            charsetEncoder.onMalformedInput(CodingErrorAction.REPLACE); // otherwise breaks on first unconvertable char
+            charsetEncoder.onMalformedInput(CodingErrorAction.REPLACE); //otherwise breaks on first unconvertable char
             charsetEncoder.onUnmappableCharacter(CodingErrorAction.REPLACE);
             charsetEncoder.replaceWith(new byte[]{'_'});
 
