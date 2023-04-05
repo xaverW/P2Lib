@@ -81,6 +81,14 @@ public class PMaskerPane extends BorderPane {
         setMaskerVisible(false, false, false);
     }
 
+    public void setMaskerVisible() {
+        Platform.runLater(() -> {
+            setPaneVisible(true);
+            setLblVisible(true);
+            setBtnVisible(true);
+        });
+    }
+
     public void setMaskerVisible(boolean maskerVisible, boolean textVisible, boolean buttonVisible) {
         Platform.runLater(() -> {
             setPaneVisible(maskerVisible);

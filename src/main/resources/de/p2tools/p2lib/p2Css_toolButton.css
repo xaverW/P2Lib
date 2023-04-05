@@ -67,23 +67,6 @@
     -fx-padding: 5 25 5 25;
     -fx-font-weight: bold;
 }
-.btnFuncTable{
-    -fx-border-width: 1;
-    -fx-border-radius: 15;
-    -fx-background-radius: 15;
-    -fx-padding: 3 10;
-}
-.btnFuncStartDialog{
-    -fx-padding: 5 20 5 20;
-    -fx-font-weight: bold;
-}
-.btnFuncStartDialogSel{
-    -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
-    -fx-background-insets: -0.8,1,1;
-    -fx-padding: 5 20 5 20;
-    -fx-text-fill: -text-color-blue;
-    -fx-font-weight: bold;
-}
 .btnFunction > .arrow-button{
     /*Pfeil ausblenden*/
     -fx-padding: 0;
@@ -112,10 +95,6 @@
     -fx-border-width: 0;
     -fx-padding: 5 25 5 25;
 }
-.btnFuncTable:pressed{
-    -fx-border-width: 1;
-    -fx-padding: 3 10;
-}
 .btnFunction:focused{
     -fx-background-color: #004b91, -lin-grad-1, -rad-grad-1;
     -fx-background-insets: -0.4,1,1;
@@ -127,4 +106,35 @@
 .btnFunction:focused:hover{
     -fx-background-color: #005ab0, -lin-grad-1, -rad-grad-1;
     -fx-background-insets: -1.2,1,1;
+}
+
+/*  ========================= */
+/*  Überschreibt btnFunc */
+.btnFuncTable{
+    -fx-border-width: 1;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-padding: 3 10;
+}
+.btnFuncTable:pressed{
+    -fx-border-width: 1;
+    -fx-padding: 3 10;
+}
+
+.btnFuncStartDialog{
+    -fx-padding: 5 20 5 20;
+    -fx-font-weight: bold;
+}
+.btnFuncStartDialogSel{
+    -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
+    -fx-background-insets: -0.8,1,1;
+    -fx-padding: 5 20 5 20;
+    -fx-text-fill: -text-color-blue;
+    -fx-font-weight: bold;
+}
+.btnFuncStartDialog:pressed{
+    -fx-padding: 5 20 5 20;
+}
+.btnFuncStartDialogSel:pressed{
+    -fx-padding: 5 20 5 20;
 }
