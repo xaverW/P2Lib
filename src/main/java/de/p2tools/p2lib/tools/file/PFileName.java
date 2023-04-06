@@ -121,6 +121,55 @@ public class PFileName {
         return ret;
     }
 
+    public static String getNextFileNameWithDateWithOutPath(String onlyFileName, String suffix) {
+        if (onlyFileName == null || suffix == null) {
+            return "";
+        }
+
+        String dotSuffix = suffix.startsWith(".") ? suffix : "." + suffix;
+        onlyFileName = PFileUtils.getFileName(onlyFileName);//erst mal vom evtl. Pfad reinigen
+        String filenameNoSuffix = cleanName(onlyFileName, dotSuffix);
+        String ret;
+
+        final String date1_pre = FORMATTER_PRE_ddMMyyyy.format(new Date());
+        final String date2_pre = FORMATTER_PRE_ddMMyyyyHHmmss.format(new Date());
+        final String date1 = FORMATTER_ddMMyyyy.format(new Date());
+        final String date2 = FORMATTER_ddMMyyyyHHmmss.format(new Date());
+
+        final String containDatePre1 = getDateString(filenameNoSuffix, FORMATTER_PRE_ddMMyyyy);
+        final String containDatePre2 = getDateString(filenameNoSuffix, FORMATTER_PRE_ddMMyyyyHHmmss);
+        final String containDate1 = getDateString(filenameNoSuffix, FORMATTER_ddMMyyyy);
+        final String containDate2 = getDateString(filenameNoSuffix, FORMATTER_ddMMyyyyHHmmss);
+
+        if (!onlyFileName.endsWith(dotSuffix)) {
+            //dann erst mal damit
+            ret = filenameNoSuffix + dotSuffix;
+            return ret;
+        }
+
+        if (!containDatePre1.isEmpty()) {
+            ret = filenameNoSuffix.replace(containDatePre1, "");
+            ret = ret + date1;
+
+        } else if (!containDate1.isEmpty()) {
+            ret = filenameNoSuffix.replace(containDate1, "");
+            ret = date2_pre + ret;
+
+        } else if (!containDatePre2.isEmpty()) {
+            ret = filenameNoSuffix.replace(containDatePre2, "");
+            ret = ret + date2;
+
+        } else if (!containDate2.isEmpty()) {
+            ret = filenameNoSuffix.replace(containDate2, "");
+
+        } else {
+            ret = date1_pre + filenameNoSuffix;
+        }
+
+        ret = ret + dotSuffix;
+        return ret;
+    }
+
     private static String removeCounter(String name) {
         // __20181215 --> Datum darf nicht gelöscht werden
         return name.replaceAll(STR + "[0-9]{1,5}\\.", ".");
