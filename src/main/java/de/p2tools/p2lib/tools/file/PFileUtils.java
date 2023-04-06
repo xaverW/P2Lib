@@ -18,8 +18,8 @@ package de.p2tools.p2lib.tools.file;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2lib.dialogs.PDialogFileChosser;
+import de.p2tools.p2lib.tools.log.PLog;
 import javafx.stage.Stage;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -321,9 +321,8 @@ public class PFileUtils {
     }
 
     public static String getFileNameSuffix(String path) {
-        // Suffix einer Pfad/Dateinamen extrahieren
+        // Suffix eines Pfad/Dateinamen extrahieren
         // FILENAME.SUFF
-
         String suff = "";
         try {
             suff = FilenameUtils.getExtension(path);
@@ -335,6 +334,22 @@ public class PFileUtils {
         }
 
         return suff;
+    }
+
+    public static String getFileName(String path) {
+        // Dateiname eines Pfad/Dateinamen extrahieren
+        // /PATH/FILENAME.SUFF
+        String name = "";
+        try {
+            name = FilenameUtils.getName(path);
+            if (name == null || name.isEmpty()) {
+                return "";
+            }
+        } catch (Exception ignore) {
+            return "";
+        }
+
+        return name;
     }
 
     public static String removeFileNameSuffix(String path) {

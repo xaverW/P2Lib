@@ -77,6 +77,7 @@ public class PFileName {
         }
 
         String dotSuffix = suffix.startsWith(".") ? suffix : "." + suffix;
+        onlyFileName = PFileUtils.getFileName(onlyFileName);//erst mal vom evtl. Pfad reinigen
         String filenameNoSuffix = cleanName(onlyFileName, dotSuffix);
         String ret;
 
