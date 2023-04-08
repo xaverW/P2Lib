@@ -21,6 +21,16 @@ import java.util.regex.Pattern;
 
 public class PRegEx {
 
+    public static boolean checkPattern(String regEx) {
+        Pattern p;
+        try {
+            p = Pattern.compile(regEx);
+        } catch (final Exception ex) {
+            p = null;
+        }
+        return p != null;
+    }
+
     public static Pattern makePattern(String regEx) {
         Pattern p;
         try {
