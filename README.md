@@ -3,4 +3,4 @@
 
 # P2Lib
 
-Die Lib enthält gemeinsame Klassen, die in den anderen Programmen verwendet werden.
+Die Lib enthält gemeinsame Klassen, die in meinen Programmen verwendet werden.

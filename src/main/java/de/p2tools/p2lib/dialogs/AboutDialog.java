@@ -18,9 +18,9 @@ package de.p2tools.p2lib.dialogs;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2lib.tools.ProgramToolsFactory;
 import de.p2tools.p2lib.guitools.PColumnConstraints;
 import de.p2tools.p2lib.guitools.PHyperlink;
+import de.p2tools.p2lib.tools.ProgramToolsFactory;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -43,7 +43,8 @@ public abstract class AboutDialog extends PDialogExtra {
 
     private Button btnOk = new Button("_Ok");
     private Button btnCheck = new Button("_Programmupdate prüfen");
-    private final Color GRAY;
+    private final Color PROG_COLOR_MARK;
+    private final Color PROG_COLOR;
     private final String progName;
     private final String URL_WEBSITE;
     private final String URL_WEBSITE_HELP;
@@ -70,9 +71,13 @@ public abstract class AboutDialog extends PDialogExtra {
         this.imageView = imageView;
 
         if (dark) {
-            this.GRAY = Color.LAVENDER;
+            this.PROG_COLOR_MARK = Color.rgb(244, 244, 255);
+            this.PROG_COLOR = Color.rgb(200, 200, 209);
         } else {
-            this.GRAY = Color.DARKBLUE;
+            this.PROG_COLOR_MARK = Color.rgb(0, 0, 75);
+            this.PROG_COLOR = Color.rgb(0, 0, 75);
+
+
         }
 
         this.listName = listName;
@@ -119,18 +124,20 @@ public abstract class AboutDialog extends PDialogExtra {
         // top
         Text text1 = new Text(progName);
         text1.setFont(Font.font(null, FontWeight.BOLD, 40));
+        text1.setFill(PROG_COLOR_MARK);
         gridPane.add(text1, 1, row);
         GridPane.setValignment(text1, VPos.TOP);
         GridPane.setHalignment(text1, HPos.CENTER);
 
         Text text2 = new Text(P2LibConst.LINE_SEPARATOR + "Version: " + ProgramToolsFactory.getProgVersion());
         text2.setFont(new Font(18));
+        text2.setFill(PROG_COLOR);
         gridPane.add(text2, 1, ++row);
         GridPane.setHalignment(text2, HPos.CENTER);
 
         Text text3 = new Text("[ Build: " + ProgramToolsFactory.getBuild() + " vom " + ProgramToolsFactory.getCompileDate() + " ]");
         text3.setFont(new Font(15));
-        text3.setFill(GRAY);
+        text3.setFill(PROG_COLOR);
         gridPane.add(text3, 1, ++row);
         GridPane.setValignment(text3, VPos.BOTTOM);
         GridPane.setHalignment(text3, HPos.CENTER);
@@ -152,15 +159,18 @@ public abstract class AboutDialog extends PDialogExtra {
 
         Text text = new Text(P2LibConst.LINE_SEPARATOR + "Autor");
         text.setFont(Font.font(null, FontWeight.BOLD, 15));
+        text.setFill(PROG_COLOR_MARK);
         gridPane.add(text, c, ++row, 2, 1);
 
         text = new Text("Xaver W. (xaverW)");
         text.setFont(new Font(15));
+        text.setFill(PROG_COLOR);
         gridPane.add(text, c, ++row, 2, 1);
 
         // Pfade
         text = new Text(P2LibConst.LINE_SEPARATOR + "Programm Informationen");
         text.setFont(Font.font(null, FontWeight.BOLD, 15));
+        text.setFill(PROG_COLOR_MARK);
         gridPane.add(text, c, ++row, 2, 1);
 
         PHyperlink hyperlinkWeb = new PHyperlink(URL_WEBSITE,
@@ -172,19 +182,19 @@ public abstract class AboutDialog extends PDialogExtra {
 
         text = new Text("Website:");
         text.setFont(new Font(15));
-        text.setFill(GRAY);
+        text.setFill(PROG_COLOR);
         gridPane.add(text, c, ++row);
         gridPane.add(hyperlinkWeb, c + 1, row);
 
         text = new Text("Anleitung:");
         text.setFont(new Font(15));
-        text.setFill(GRAY);
+        text.setFill(PROG_COLOR);
         gridPane.add(text, c, ++row);
         gridPane.add(hyperlinkHelp, c + 1, row);
 
         text = new Text("Spende:");
         text.setFont(new Font(15));
-        text.setFill(GRAY);
+        text.setFill(PROG_COLOR);
         gridPane.add(text, c, ++row);
         gridPane.add(hyperlinkDonate, c + 1, row);
 
@@ -193,45 +203,46 @@ public abstract class AboutDialog extends PDialogExtra {
         for (int i = 0; i < listName.length && i < listValue.length; ++i) {
             text = new Text(listName[i]);
             text.setFont(new Font(15));
-            text.setFill(GRAY);
+            text.setFill(PROG_COLOR);
             gridPane.add(text, c, ++row);
 
             text = new Text(listValue[i]);
             text.setFont(new Font(15));
-            text.setFill(GRAY);
+            text.setFill(PROG_COLOR);
             gridPane.add(text, c + 1, row);
         }
 
         // Java
         text = new Text(P2LibConst.LINE_SEPARATOR + "Java Informationen");
         text.setFont(Font.font(null, FontWeight.BOLD, 15));
+        text.setFill(PROG_COLOR_MARK);
         gridPane.add(text, c, ++row, 2, 1);
 
         text = new Text("Version:");
         text.setFont(new Font(15));
-        text.setFill(GRAY);
+        text.setFill(PROG_COLOR);
         gridPane.add(text, c, ++row);
 
         text = new Text(System.getProperty("java.version"));
         text.setFont(new Font(15));
-        text.setFill(GRAY);
+        text.setFill(PROG_COLOR);
         gridPane.add(text, c + 1, row);
 
         text = new Text("Type:");
         text.setFont(new Font(15));
-        text.setFill(GRAY);
+        text.setFill(PROG_COLOR);
         gridPane.add(text, c, ++row);
 
         String strVmType = System.getProperty("java.vm.name");
         strVmType += " (" + System.getProperty("java.vendor") + ")";
         text = new Text(strVmType);
         text.setFont(new Font(15));
-        text.setFill(GRAY);
+        text.setFill(PROG_COLOR);
         gridPane.add(text, c + 1, row);
 
         text = new Text("JavaFX:");
         text.setFont(new Font(15));
-        text.setFill(GRAY);
+        text.setFill(PROG_COLOR);
         gridPane.add(text, c, ++row);
 
         //https://edencoding.com/how-to-check-your-javafx-version/
@@ -240,13 +251,14 @@ public abstract class AboutDialog extends PDialogExtra {
         String fxVmType = System.getProperty("javafx.runtime.version");
         text = new Text(fxVmType);
         text.setFont(new Font(15));
-        text.setFill(GRAY);
+        text.setFill(PROG_COLOR);
         gridPane.add(text, c + 1, row);
 
         text = new Text(P2LibConst.LINE_SEPARATORx2 + "Ein Dankeschön an alle," + P2LibConst.LINE_SEPARATOR +
                 "die mit Vorschlägen oder Quelltext" + P2LibConst.LINE_SEPARATOR +
                 "zu diesem Programm beigetragen haben.");
         text.setFont(Font.font(null, FontWeight.BOLD, 15));
+        text.setFill(PROG_COLOR_MARK);
         gridPane.add(text, c, ++row, 2, 1);
     }
 
