@@ -26,36 +26,49 @@ import java.util.List;
 
 public class PTimePicker extends ComboBox<LocalTime> {
     private int addMinutes = 15;
+    private boolean fromNow = false;
 
     public PTimePicker() {
         LocalTime l = LocalTime.now().plusMinutes(addMinutes);
-        LocalTime pLocalTime = LocalTime.of(l.getHour(), l.getMinute());
-        init(pLocalTime);
+        LocalTime startTime = LocalTime.of(l.getHour(), l.getMinute());
+        init(startTime);
+    }
+
+    public PTimePicker(boolean fromNow) {
+        this.fromNow = fromNow;
+        LocalTime l = LocalTime.now().plusMinutes(addMinutes);
+        LocalTime startTime = LocalTime.of(l.getHour(), l.getMinute());
+        init(startTime);
     }
 
     public PTimePicker(int addMinutes) {
         this.addMinutes = addMinutes;
         LocalTime l = LocalTime.now();
-        LocalTime pLocalTime = LocalTime.of(l.getHour(), l.getMinute());
-        init(pLocalTime);
+        LocalTime startTime = LocalTime.of(l.getHour(), l.getMinute());
+        init(startTime);
     }
 
-    public PTimePicker(LocalTime pLocalTime, int addMinutes) {
+    public PTimePicker(LocalTime startTime, int addMinutes) {
         this.addMinutes = addMinutes;
-        init(pLocalTime);
+        init(startTime);
     }
 
-    private void init(LocalTime pLocalTime) {
+    private void init(LocalTime startTime) {
         LocalTime pl = LocalTime.ofSecondOfDay(0);
         List<LocalTime> list = new ArrayList<>();
         LocalTime plSelect = pl;
 
-        list.add(pl);
         for (int h = 0; h < 24; ++h) {
             for (int m = 0; m < 60; m += addMinutes) {
                 pl = LocalTime.of(h, m);
-                list.add(pl);
-                if (pl.compareTo(pLocalTime) <= 0) {
+
+                if (pl.compareTo(LocalTime.now()) <= 0 && !fromNow) {
+                    list.add(pl);
+                } else if (pl.compareTo(LocalTime.now()) > 0) {
+                    list.add(pl);
+                }
+
+                if (pl.compareTo(startTime) <= 0) {
                     plSelect = pl;
                 }
             }
