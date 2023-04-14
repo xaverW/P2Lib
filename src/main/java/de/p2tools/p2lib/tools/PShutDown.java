@@ -20,23 +20,46 @@ package de.p2tools.p2lib.tools;
 import de.p2tools.p2lib.tools.log.PLog;
 
 public class PShutDown {
+    public static final String SHUT_DOWN_LINUX = "shutdown -h now";
+    public static final String SHUT_DOWN_WINDOWS = "shutdown.exe -s -t 0";
 
-    public static void shutDown() {
+    public static String getShutDownCommand() {
         String osName = System.getProperty("os.name");
         String shutdownCommand = "";
-
         if (osName.startsWith("Win")) {
-            shutdownCommand = "shutdown.exe -s -t 0";
+            shutdownCommand = SHUT_DOWN_WINDOWS;
 
         } else if (osName.startsWith("Linux") || osName.startsWith("Mac")) {
-            shutdownCommand = "shutdown -h now";
+            shutdownCommand = SHUT_DOWN_LINUX;
 
         } else {
             System.err.println("Shutdown unsupported operating system ...");
         }
+        return shutdownCommand;
+    }
 
+    public static void shutDown(String shutDown) {
+        if (shutDown == null || shutDown.isEmpty()) {
+            //dann auf herkömmliche Art
+            shutDown();
+
+        } else {
+            //dann übergebenen Befehl ausführen
+            try {
+//                System.out.println(shutDown);
+                Runtime.getRuntime().exec(shutDown);
+            } catch (Exception ex) {
+                PLog.errorLog(953696974, ex.getMessage());
+            }
+        }
+    }
+
+    public static void shutDown() {
+        //Rechner mit Standardmethode herunterfahren
+        String shutdownCommand = getShutDownCommand();
         if (!shutdownCommand.isEmpty()) {
             try {
+//                System.out.println(shutdownCommand);
                 Runtime.getRuntime().exec(shutdownCommand);
             } catch (Exception ex) {
                 PLog.errorLog(457892014, ex.getMessage());
