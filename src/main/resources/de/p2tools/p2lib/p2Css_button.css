@@ -14,6 +14,12 @@
 .buttonSmall{
     -fx-padding: 4
 }
+.buttonVerySmall{
+    -fx-padding: 1
+}
+.buttonVeryLow{
+    -fx-padding: 1 12 1 12;
+}
 .button:pressed{
     -fx-border-color: -text-color-blue;
     -fx-border-width: 2;
@@ -22,6 +28,12 @@
 }
 .buttonSmall:pressed{
     -fx-padding: 3;
+}
+.buttonVerySmall:pressed{
+    -fx-padding: 0;
+}
+.buttonVeryLow:pressed{
+    -fx-padding: 0 11 0 11;
 }
 .button:focused{
     -fx-border-color: -text-color-blue;

@@ -39,10 +39,10 @@ public class Filter {
         this.filter = filter.trim();
         this.filterArr = new String[]{this.filter};
         if (makeArr) {
-            //Sender, Thema, Titel, ..
+            // Sender, Thema, Titel, ..
             makeFilterArray();
         } else {
-            //Url, Datum
+            // Url, Datum
             makeFilter();
         }
     }
@@ -71,7 +71,7 @@ public class Filter {
             filterArr = new String[]{filter};
 
         } else if (isExact) {
-            //dann gibts nur einen Filtereintrag
+            // dann gibts nur einen Filtereintrag
             filterArr = new String[]{filter.trim().toLowerCase()};
             isQuick = true;
 
@@ -80,7 +80,7 @@ public class Filter {
                     filter.trim().endsWith("\"") &&
                     filter.length() > 1 /*sonst meldet er auch schon " */) {
                 filterArr = new String[]{filter.substring(1, filter.length() - 1)};
-                //System.out.println(filterArr[0]);
+                // System.out.println(filterArr[0]);
 
             } else if (filter.contains(":")) {
                 isFilterAnd = true;
@@ -94,7 +94,7 @@ public class Filter {
                 filterArr[i] = filterArr[i].trim().toLowerCase();
             }
             if (filterArr.length == 1) {
-                //dann gibts nur einen Filtereintrag
+                // dann gibts nur einen Filtereintrag
                 isQuick = true;
             }
         }
@@ -116,7 +116,7 @@ public class Filter {
             filterArr = new String[]{filter};
 
         } else {
-            //dann gibts nur einen Filtereintrag, egal ob exact
+            // dann gibts nur einen Filtereintrag, egal ob exact
             filterArr = new String[]{filter.trim().toLowerCase()};
             isQuick = true;
         }

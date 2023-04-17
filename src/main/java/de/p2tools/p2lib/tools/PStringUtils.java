@@ -63,7 +63,7 @@ public class PStringUtils {
         ret = ret.replace("Ü", "Ue");
         ret = ret.replace("ß", "ss");
 
-        //convert our filename to OS encoding...
+        // convert our filename to OS encoding...
         try {
             final CharsetEncoder charsetEncoder = Charset.forName("US-ASCII").newEncoder();
             charsetEncoder.onMalformedInput(CodingErrorAction.REPLACE); // otherwise breaks on first unconvertable char
@@ -75,7 +75,7 @@ public class PStringUtils {
                 ret = new String(buf.array());
             }
 
-            //remove NUL character from conversion...
+            // remove NUL character from conversion...
             ret = ret.replaceAll("\\u0000", "");
         } catch (CharacterCodingException ex) {
             PLog.errorLog(945120201, ex);

@@ -33,12 +33,12 @@ public class NotificationBuilder<B extends NotificationBuilder<B>> {
     private HashMap<String, Property> properties = new HashMap<>();
 
 
-    //******************** Constructors **************************************
+    // ******************** Constructors **************************************
     protected NotificationBuilder() {
     }
 
 
-    //******************** Methods *******************************************
+    // ******************** Methods *******************************************
     public final static NotificationBuilder create() {
         return new NotificationBuilder();
     }

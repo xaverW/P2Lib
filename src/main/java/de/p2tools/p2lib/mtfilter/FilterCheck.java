@@ -36,10 +36,10 @@ public class FilterCheck {
         }
 
         if (filter.exclude) {
-            //dann werden die Begriffe ausgeschlossen
+            // dann werden die Begriffe ausgeschlossen
             return !checkInclude(filter, checkStrLowerCase);
         } else {
-            //dann müssen die Begriffe enthalten sein
+            // dann müssen die Begriffe enthalten sein
             return checkInclude(filter, checkStrLowerCase);
         }
     }
