@@ -17,6 +17,7 @@
 
 package de.p2tools.p2lib.guitools.pmask;
 
+import de.p2tools.p2lib.P2LibConst;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -31,10 +32,10 @@ import javafx.scene.layout.VBox;
 public class PMaskerPane extends BorderPane {
     private final ProgressIndicator progressIndicator = new ProgressIndicator();
 
+    private boolean txtBtnHorizontal = true;
     private final VBox vBoxCont = new VBox();
     private final Label lblText = new Label("");
     private final Button btnStop = new Button("Stop");
-    private final HBox hBoxText = new HBox(10);
 
     public PMaskerPane() {
         getStyleClass().add("p2MaskerPane");
@@ -109,6 +110,15 @@ public class PMaskerPane extends BorderPane {
         });
     }
 
+    public boolean isTxtBtnHorizontal() {
+        return txtBtnHorizontal;
+    }
+
+    public void setTxtBtnHorizontal(boolean txtBtnHorizontal) {
+        this.txtBtnHorizontal = txtBtnHorizontal;
+        setVBoxCont();
+    }
+
     private void setBtnVisible(boolean visible) {
         btnStop.setVisible(visible);
         btnStop.setManaged(visible);
@@ -125,6 +135,7 @@ public class PMaskerPane extends BorderPane {
     }
 
     private void setVBoxCont() {
+        vBoxCont.getChildren().clear();
         vBoxCont.setMinWidth(500);
         vBoxCont.setMaxWidth(500);
         vBoxCont.setSpacing(20);
@@ -141,10 +152,19 @@ public class PMaskerPane extends BorderPane {
 
         setBtnVisible(false);
 
-        hBoxText.setAlignment(Pos.CENTER);
-        HBox.setHgrow(lblText, Priority.ALWAYS);
-        hBoxText.getChildren().addAll(lblText, btnStop);
-        vBoxCont.getChildren().addAll(progressIndicator, hBoxText);
+        if (txtBtnHorizontal) {
+            HBox hBox = new HBox(P2LibConst.DIST_HBOX);
+            hBox.setAlignment(Pos.CENTER);
+            HBox.setHgrow(lblText, Priority.ALWAYS);
+            hBox.getChildren().addAll(lblText, btnStop);
+            vBoxCont.getChildren().addAll(progressIndicator, hBox);
+
+        } else {
+            final VBox vBox = new VBox(P2LibConst.DIST_VBOX);
+            vBox.setAlignment(Pos.CENTER);
+            vBox.getChildren().addAll(lblText, btnStop);
+            vBoxCont.getChildren().addAll(progressIndicator, vBox);
+        }
     }
 
     private void setProgress(double progress, String text) {
