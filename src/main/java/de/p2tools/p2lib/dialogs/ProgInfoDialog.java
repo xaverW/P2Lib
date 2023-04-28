@@ -19,10 +19,10 @@ package de.p2tools.p2lib.dialogs;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.guitools.PColumnConstraints;
 import de.p2tools.p2lib.tools.ProgramToolsFactory;
 import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2lib.tools.log.PLog;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -80,6 +80,7 @@ public class ProgInfoDialog extends PDialogExtra {
         //Java
         Text text = new Text("Java Informationen");
         text.setFont(Font.font(null, FontWeight.BOLD, 15));
+        text.getStyleClass().add("downloadGuiMediaText");
         gridPane.add(text, 0, row, 3, 1);
 
         gridPane.add(new Label("Version:"), 0, ++row);
@@ -95,6 +96,7 @@ public class ProgInfoDialog extends PDialogExtra {
         gridPane.add(new Label(" "), 0, ++row);
         text = new Text("Speicherverbrauch des Programms");
         text.setFont(Font.font(null, FontWeight.BOLD, 15));
+        text.getStyleClass().add("downloadGuiMediaText");
         gridPane.add(text, 0, ++row, 3, 1);
 
         progressBar.setMaxWidth(Double.MAX_VALUE);
@@ -110,6 +112,7 @@ public class ProgInfoDialog extends PDialogExtra {
         gridPane.add(new Label(" "), 0, ++row);
         text = new Text("Laufzeiten des Programms");
         text.setFont(Font.font(null, FontWeight.BOLD, 15));
+        text.getStyleClass().add("downloadGuiMediaText");
         gridPane.add(text, 0, ++row, 3, 1);
         gridPane.add(btnDuration, 0, ++row);
 

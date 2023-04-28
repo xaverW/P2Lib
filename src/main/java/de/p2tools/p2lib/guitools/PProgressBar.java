@@ -36,6 +36,7 @@ public class PProgressBar extends StackPane {
         this.setPadding(new Insets(10));
         this.setAlignment(progressBar, Pos.CENTER);
         this.setAlignment(text, Pos.CENTER);
+
         setProgress();
         progressBar.getStyleClass().add("pProgressBar");
 

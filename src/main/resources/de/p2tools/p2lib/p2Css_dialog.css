@@ -26,10 +26,12 @@
     -fx-border-color: -p2-color-blue1 transparent;
     -fx-border-insets: 0;
     -fx-border-width: 2 0;
-
     -fx-padding: 5px;
-    -fx-text-alignment: center;
     -fx-alignment: center ;
+}
+.dialog-title .label{
+    -fx-text-alignment: center;
+    -fx-text-fill: black;
     -fx-font-weight: bold;
     -fx-font-size: 1.3em;
 }
