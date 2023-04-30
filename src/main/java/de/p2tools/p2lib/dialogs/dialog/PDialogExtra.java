@@ -53,6 +53,16 @@ public class PDialogExtra extends PDialog {
     private boolean masker = false;
     private DECO deco = DECO.BORDER;
 
+    public static enum STATE {
+        STATE_OK,
+        STATE_CANCEL,
+        STATE_1,
+        STATE_2,
+        STATE_3,
+        STATE_4,
+        STATE_5
+    }
+
     public PDialogExtra() {
         super(P2LibConst.primaryStage, null, "", true, true);
         initDialog();
