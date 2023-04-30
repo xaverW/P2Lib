@@ -223,7 +223,7 @@ public class PDialogExtra extends PDialog {
         }
     }
 
-    public void addOkCancelApplyButtons(Button btnOk, Button btnCancel, Button btnApplay) {
+    public void addOkCancelApplyButtons(Button btnOk, Button btnCancel, Button btnApply) {
         if (btnOk != null) {
             ButtonBar.setButtonData(btnOk, ButtonBar.ButtonData.OK_DONE);
             buttonBar.getButtons().addAll(btnOk);
@@ -232,9 +232,9 @@ public class PDialogExtra extends PDialog {
             ButtonBar.setButtonData(btnCancel, ButtonBar.ButtonData.CANCEL_CLOSE);
             buttonBar.getButtons().addAll(btnCancel);
         }
-        if (btnApplay != null) {
-            ButtonBar.setButtonData(btnApplay, ButtonBar.ButtonData.APPLY);
-            buttonBar.getButtons().addAll(btnApplay);
+        if (btnApply != null) {
+            ButtonBar.setButtonData(btnApply, ButtonBar.ButtonData.APPLY);
+            buttonBar.getButtons().addAll(btnApply);
         }
     }
 
