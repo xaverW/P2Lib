@@ -177,6 +177,8 @@ public abstract class AboutDialog extends PDialogExtra {
                 urlOpenProg, imageView);
         PHyperlink hyperlinkHelp = new PHyperlink(URL_WEBSITE_HELP,
                 urlOpenProg, imageView);
+        PHyperlink hyperlinkForum = new PHyperlink(P2LibConst.URL_WEBSITE_FORUM,
+                urlOpenProg, imageView);
         PHyperlink hyperlinkDonate = new PHyperlink(P2LibConst.URL_WEBSITE_DONATE,
                 urlOpenProg, imageView);
 
@@ -197,6 +199,12 @@ public abstract class AboutDialog extends PDialogExtra {
         text.setFill(PROG_COLOR);
         gridPane.add(text, c, ++row);
         gridPane.add(hyperlinkDonate, c + 1, row);
+
+        text = new Text("Forum:");
+        text.setFont(new Font(15));
+        text.setFill(PROG_COLOR);
+        gridPane.add(text, c, ++row);
+        gridPane.add(hyperlinkForum, c + 1, row);
 
         gridPane.add(new Label(""), c, ++row);
 
