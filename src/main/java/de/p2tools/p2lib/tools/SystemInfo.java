@@ -19,7 +19,6 @@ package de.p2tools.p2lib.tools;
 
 import java.awt.*;
 import java.lang.reflect.Field;
-import java.security.AccessControlException;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -330,7 +329,7 @@ public final class SystemInfo {
     public static String getProperty(String key, String defaultValue) {
         try {
             return System.getProperty(key, defaultValue);
-        } catch (AccessControlException var3) {
+        } catch (Exception var3) {
             return defaultValue;
         }
     }
