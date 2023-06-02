@@ -46,7 +46,6 @@ public class PShutDown {
         } else {
             //dann übergebenen Befehl ausführen
             try {
-//                System.out.println(shutDown);
                 Runtime.getRuntime().exec(shutDown);
             } catch (Exception ex) {
                 PLog.errorLog(953696974, ex.getMessage());
@@ -59,7 +58,6 @@ public class PShutDown {
         String shutdownCommand = getShutDownCommand();
         if (!shutdownCommand.isEmpty()) {
             try {
-//                System.out.println(shutdownCommand);
                 Runtime.getRuntime().exec(shutdownCommand);
             } catch (Exception ex) {
                 PLog.errorLog(457892014, ex.getMessage());

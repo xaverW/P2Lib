@@ -98,67 +98,8 @@ public class FilmFactory {
         filmData.arr[FilmData.FILM_TITLE] = DiacriticFactory.flattenDiacritic(filmData.getTitle());
         filmData.arr[FilmData.FILM_THEME] = DiacriticFactory.flattenDiacritic(filmData.getTheme());
         filmData.setDescription(DiacriticFactory.flattenDiacritic(filmData.getDescription()));
-
-
-//        String s = DiacriticFactory.flattenDiacritic(filmData.getTitle());
-//        if (!s.equals(filmData.getTitle())) {
-////            ++count;
-////            System.out.println("Diakrit: " + count + " - " + filmData.getChannel() + " - " + filmData.getTheme() + " - " + filmData.getTitle());
-//            filmData.arr[FilmData.FILM_TITLE2] = s;
-//        } else {
-//            filmData.arr[FilmData.FILM_TITLE2] = "";
-//        }
-//        s = DiacriticFactory.flattenDiacritic(filmData.getTheme());
-//        if (!s.equals(filmData.getTheme())) {
-//            filmData.arr[FilmData.FILM_THEME2] = s;
-//        } else {
-//            filmData.arr[FilmData.FILM_THEME2] = "";
-//        }
-//        s = DiacriticFactory.flattenDiacritic(filmData.getDescription());
-//        if (!s.equals(filmData.getDescription())) {
-//            filmData.arr[FilmData.FILM_DESCRIPTION2] = s;
-//        } else {
-//            filmData.arr[FilmData.FILM_DESCRIPTION2] = "";
-//        }
-//        setDiacritic(filmData);
     }
 
-//    public static void setDiacritic(FilmData filmData) {
-//        if (ProgConfig.SYSTEM_SHOW_DIACRITICS.getValue()) {
-//            //Diacritic werden angezeigt
-//            if (filmData.showDiacritic) {
-//                //dann passts schon
-//                return;
-//            }
-//            //dann wird gedreht
-//            filmData.showDiacritic = true;
-//
-//        } else {
-//            //Diacritic werden *nicht* angezeigt
-//            if (!filmData.showDiacritic) {
-//                //dann passts schon
-//                return;
-//            }
-//            //dann wird gedreht
-//            filmData.showDiacritic = false;
-//        }
-//
-//        change(filmData.arr, FilmData.FILM_TITLE, FilmData.FILM_TITLE2);
-//        change(filmData.arr, FilmData.FILM_THEME, FilmData.FILM_THEME2);
-//        change(filmData.arr, FilmData.FILM_DESCRIPTION, FilmData.FILM_DESCRIPTION2);
-//    }
-
-//    private static void change(String[] arr, int i1, int i2) {
-//        if (arr[i2].isEmpty()) {
-//            //dann gibts keine Diacritic
-//            return;
-//        }
-//        final String s = arr[i1];
-//        arr[i1] = arr[i2];
-//        arr[i2] = s;
-//    }
-
-    //    public static void flattenDiacritic(SimpleListProperty<? extends FilmData> filmlist, boolean remove) {
     public static void flattenDiacritic(SimpleListProperty<? extends FilmData> filmlist) {
         //dann sollen die Diacritic *nicht* angezeigt werden!!
         PDuration.counterStart("flattenDiacritic");
