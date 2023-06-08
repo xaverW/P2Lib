@@ -45,9 +45,13 @@ module de.p2tools.p2lib {
     requires java.logging;
     requires java.desktop;
 
-    requires org.apache.commons.lang3;
-    requires okhttp;
     requires org.apache.commons.io;
+    requires org.apache.commons.lang3;
+    
+    requires org.tukaani.xz;
     requires com.fasterxml.jackson.core;
-    requires xz;
+    
+    requires okhttp3;
+    requires okio;
+    requires kotlin.stdlib;    
 }
