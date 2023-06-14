@@ -16,7 +16,9 @@
 
 package de.p2tools.p2lib.guitools.pclosepane;
 
+import de.p2tools.p2lib.guitools.PGuiTools;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -26,21 +28,42 @@ import javafx.scene.layout.VBox;
 
 public class PClosePaneH extends HBox {
 
-
     private final VBox vBoxAll = new VBox();
+    private final BooleanProperty closeProperty;
+    private final boolean scroll;
+    private final BooleanProperty ripProperty;
+    ;
 
-    public PClosePaneH(BooleanProperty booleanProperty, boolean scroll) {
+    public PClosePaneH(BooleanProperty closeProperty, boolean scroll) {
+        this.closeProperty = closeProperty;
+        this.scroll = scroll;
+        this.ripProperty = null;
+        init();
+    }
+
+    public PClosePaneH(BooleanProperty closeProperty, boolean scroll, boolean rip) {
+        this.closeProperty = closeProperty;
+        this.scroll = scroll;
+        this.ripProperty = new SimpleBooleanProperty();
+        init();
+    }
+
+    private void init() {
         Button button = new Button();
         button.getStyleClass().add("close-button");
-        button.setOnAction(a -> {
-            booleanProperty.setValue(false);
-        });
-
+        button.setOnAction(a -> closeProperty.setValue(false));
 
         VBox vBox = new VBox();
         vBox.getStyleClass().add("close-pane");
         vBox.setAlignment(Pos.TOP_CENTER);
-        vBox.getChildren().addAll(button);
+        if (ripProperty != null) {
+            Button buttonRip = new Button();
+            buttonRip.getStyleClass().add("rip-button");
+            buttonRip.setOnAction(a -> ripProperty.setValue(!ripProperty.get()));
+            vBox.getChildren().addAll(button, PGuiTools.getVBoxGrower(), buttonRip);
+        } else {
+            vBox.getChildren().addAll(button);
+        }
 
         if (scroll) {
             ScrollPane scrollPane = new ScrollPane();
@@ -58,5 +81,9 @@ public class PClosePaneH extends HBox {
 
     public VBox getVBoxAll() {
         return vBoxAll;
+    }
+
+    public BooleanProperty getRipProperty() {
+        return ripProperty;
     }
 }

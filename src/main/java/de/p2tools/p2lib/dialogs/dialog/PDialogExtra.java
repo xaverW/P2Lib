@@ -148,15 +148,15 @@ public class PDialogExtra extends PDialog {
 
     @Override
     public void init(boolean show) {
-        if (show) {
-            addDialog(this);
-        }
+//        if (show) {
+        addDialog(this);
+//        }
         super.init(show);
     }
 
     @Override
     public void showDialog() {
-        addDialog(this);
+//        addDialog(this);
         super.showDialog();
     }
 

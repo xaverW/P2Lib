@@ -26,7 +26,6 @@ import javafx.scene.layout.VBox;
 
 public class PClosePaneV extends VBox {
 
-
     private final VBox vBoxAll = new VBox();
 
     public PClosePaneV(BooleanProperty booleanProperty, boolean scroll) {
