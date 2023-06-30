@@ -57,6 +57,7 @@ public class P2LibConst {
     public static int DIST_GRIDPANE_VGAP = 5;
     public static int DIST_GRIDPANE_PADDING = 10;
     public static int DIST_EDGE = 10;//Abstand zum Rand
+    public static int DIST_EDGE_SMALL = 5;//Abstand zum Rand
     public static int DIST_VBOX = 10;//Abstand zum Rand
     public static int DIST_HBOX = 10;//Abstand zum Rand
 }

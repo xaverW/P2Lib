@@ -77,14 +77,15 @@ public class PFileUtils {
     }
 
     public static String addsPath(String path1, String path2) {
-        //todo
         //!!!!! bei Win/Linux kommen unterschiedliche Strings raus!!!
         // \de\p2tools\filerunner\icon\P2.png
         // /de/p2tools/filerunner/icon/P2.png
-//        final String ret = concatPaths(path1, path2);
         String ret = "";
         try {
-            ret = Paths.get(path1, path2).toString();
+//            ret = FilenameUtils.concat(path1, path2);
+//            ret = Paths.get(path1, path2).toString();
+
+            ret = Paths.get(path1).resolve(path2).toString();
             if (ret.isEmpty()) {
                 PLog.errorLog(283946015, path1 + " - " + path2);
             }
@@ -93,29 +94,6 @@ public class PFileUtils {
         }
         return ret;
     }
-
-//    private static String concatPaths(String path1, String path2) {
-//        String ret;
-//
-//        if (path1 == null || path2 == null) {
-//            return "";
-//        }
-//        if (path1.isEmpty() || path2.isEmpty()) {
-//            return path1 + path2;
-//        }
-//
-//        if (path1.endsWith(File.separator)) {
-//            ret = path1.substring(0, path1.length() - 1);
-//        } else {
-//            ret = path1;
-//        }
-//        if (path2.charAt(0) == File.separatorChar) {
-//            ret += path2;
-//        } else {
-//            ret += File.separator + path2;
-//        }
-//        return ret;
-//    }
 
     public static boolean fileExist(String file) {
         if (file == null || file.isEmpty() || !new File(file).exists()) {
