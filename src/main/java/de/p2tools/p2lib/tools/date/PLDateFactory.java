@@ -141,6 +141,10 @@ public class PLDateFactory {
     }
 
     public static LocalDate fromString(String strDate) {
+        return fromString(strDate, false);
+    }
+
+    public static LocalDate fromString(String strDate, boolean now) {
         try {
             if (strDate.isEmpty()) {
                 return LocalDate.MIN;
@@ -148,11 +152,19 @@ public class PLDateFactory {
                 return LocalDate.parse(strDate, DateFactory.DT_FORMATTER_dd_MM_yyyy);
             }
         } catch (Exception ex) {
-            return LocalDate.MIN;
+            if (now) {
+                return LocalDate.now();
+            } else {
+                return LocalDate.MIN;
+            }
         }
     }
 
     public static LocalDate fromStringR(String strDate) {
+        return fromStringR(strDate, false);
+    }
+
+    public static LocalDate fromStringR(String strDate, boolean now) {
         try {
             if (strDate.isEmpty()) {
                 return LocalDate.MIN;
@@ -160,7 +172,11 @@ public class PLDateFactory {
                 return LocalDate.parse(strDate, DateFactory.DT_FORMATTER_yyyy_MM_dd);
             }
         } catch (Exception ex) {
-            return LocalDate.MIN;
+            if (now) {
+                return LocalDate.now();
+            } else {
+                return LocalDate.MIN;
+            }
         }
     }
 
