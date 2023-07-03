@@ -42,6 +42,17 @@ public class ConfigFile {
         this.pData = new ArrayList<>();
     }
 
+    public ConfigFile(String filePath, String xmlStart, boolean backup) {
+        this.filePath = filePath;
+        if (!xmlStart.isEmpty()) {
+            this.xmlStart = xmlStart;
+        }
+        this.isr = null;
+        this.backup = backup;
+        this.pDataList = new ArrayList<>();
+        this.pData = new ArrayList<>();
+    }
+
     public ConfigFile(InputStreamReader isr, boolean backup) {
         this.isr = isr;
         this.backup = backup;
