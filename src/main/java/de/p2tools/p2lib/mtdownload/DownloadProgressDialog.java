@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.mtdownload;
 
-import de.p2tools.p2lib.ProgIcons;
+import de.p2tools.p2lib.ProgIconsP2Lib;
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2lib.guitools.PColumnConstraints;
 import de.p2tools.p2lib.guitools.PProgressBar;
@@ -72,7 +72,7 @@ public class DownloadProgressDialog extends PDialogExtra {
         gridPane.add(progressBar, 1, 0);
         gridPane.add(btnCancel, 2, 0);
 
-        btnCancel.setGraphic(ProgIcons.Icons.IMAGE_STOP.getImageView());
+        btnCancel.setGraphic(ProgIconsP2Lib.IMAGE_STOP.getImageView());
         btnCancel.setTooltip(new Tooltip("Den Download abbrechen"));
         btnCancel.setOnAction(event -> {
             isCanceled = true;

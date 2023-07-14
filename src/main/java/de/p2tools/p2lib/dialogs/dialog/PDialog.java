@@ -18,21 +18,23 @@ package de.p2tools.p2lib.dialogs.dialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.P2LibInit;
-import de.p2tools.p2lib.icons.GetIcon;
-import de.p2tools.p2lib.tools.PException;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2lib.guitools.PGuiSize;
 import de.p2tools.p2lib.tools.IoReadWriteStyle;
+import de.p2tools.p2lib.tools.PException;
+import de.p2tools.p2lib.tools.log.PLog;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.nio.file.Path;
 
 
@@ -126,7 +128,19 @@ public class PDialog {
     }
 
     public void setIcon() {
-        GetIcon.addWindowP2Icon(stage, iconPath);
+        if (iconPath.isEmpty() || !new File(iconPath).exists()) {
+            P2WindowIcon.addWindowP2Icon(stage);
+            return;
+        }
+
+        try {
+            Image icon = new Image(new File(iconPath).toURI().toString(),
+                    P2LibConst.WINDOW_ICON_WIDTH, P2LibConst.WINDOW_ICON_HEIGHT, true, true);
+            stage.getIcons().add(0, icon);
+        } catch (Exception ex) {
+            PLog.errorLog(204503978, ex);
+            P2WindowIcon.addWindowP2Icon(stage);
+        }
     }
 
     public void updateCss() {

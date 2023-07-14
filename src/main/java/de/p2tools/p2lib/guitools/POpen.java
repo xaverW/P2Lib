@@ -18,7 +18,7 @@ package de.p2tools.p2lib.guitools;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.dialogs.PDialogFileChosser;
+import de.p2tools.p2lib.dialogs.PDialogFileChooser;
 import de.p2tools.p2lib.tools.log.PLog;
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
@@ -141,7 +141,7 @@ public class POpen {
         File filmFile;
         filmFile = new File(file);
         if (!filmFile.exists()) {
-            new PDialogFileChosser().showErrorAlert("Fehler", "Kein Film", "Film existiert noch nicht!");
+            new PDialogFileChooser().showErrorAlert("Fehler", "Kein Film", "Film existiert noch nicht!");
             return;
         }
 
@@ -308,7 +308,7 @@ public class POpen {
         }
 
         try {
-            program = PDialogFileChosser.showFileChooser(stage, title, header,
+            program = PDialogFileChooser.showFileChooser(stage, title, header,
                     cont, false, getProgIcon);
 
             if (!program.isEmpty()) {

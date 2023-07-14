@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.mtdownload;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.ProgIcons;
+import de.p2tools.p2lib.ProgIconsP2Lib;
 import de.p2tools.p2lib.alert.PAlert;
 import de.p2tools.p2lib.dialogs.PDirFileChooser;
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
@@ -106,7 +106,7 @@ public class DownloadDialogController extends PDialogExtra {
             nameChanged = true;
         });
         final Button btnDest = new Button();
-        btnDest.setGraphic(ProgIcons.Icons.IMAGE_FILE_OPEN.getImageView());
+        btnDest.setGraphic(ProgIconsP2Lib.IMAGE_FILE_OPEN.getImageView());
         btnDest.setTooltip(new Tooltip("Einen Ordner zum Speichern der Datei auswählen"));
         btnDest.setOnAction(event -> {
             PDirFileChooser.DirChooser(stage, txtDestPath);

@@ -1,5 +1,7 @@
 module de.p2tools.p2lib {
 
+    opens de.p2tools.p2lib;
+    
     exports de.p2tools.p2lib;
     exports de.p2tools.p2lib.alert;
     exports de.p2tools.p2lib.checkforactinfos;

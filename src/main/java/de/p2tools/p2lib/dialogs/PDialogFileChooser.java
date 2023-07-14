@@ -16,7 +16,7 @@
 
 package de.p2tools.p2lib.dialogs;
 
-import de.p2tools.p2lib.ProgIcons;
+import de.p2tools.p2lib.ProgIconsP2Lib;
 import de.p2tools.p2lib.alert.PAlert;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -30,7 +30,7 @@ import javafx.stage.Stage;
 
 import java.util.Optional;
 
-public class PDialogFileChosser extends PAlert {
+public class PDialogFileChooser extends PAlert {
 
     //todo deprecated
     public static String showFileChooser(Stage stage, String title, String header, String content, boolean dir, ImageView imageView) {
@@ -74,7 +74,7 @@ public class PDialogFileChosser extends PAlert {
         if (imageView != null) {
             btnDest.setGraphic(imageView);
         } else {
-            btnDest.setGraphic(ProgIcons.Icons.IMAGE_FILE_OPEN.getImageView());
+            btnDest.setGraphic(ProgIconsP2Lib.IMAGE_FILE_OPEN.getImageView());
         }
         btnDest.setOnAction(event -> {
             if (dir) {

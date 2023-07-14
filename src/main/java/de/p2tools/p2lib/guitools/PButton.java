@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.guitools;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.ProgIcons;
+import de.p2tools.p2lib.ProgIconsP2Lib;
 import de.p2tools.p2lib.alert.PAlert;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.Button;
@@ -62,7 +62,7 @@ public class PButton {
         final Button btnHelp = new Button("");
         btnHelp.setTooltip(new Tooltip("Hilfe anzeigen"));
         if (hlpImage == null) {
-            btnHelp.setGraphic(ProgIcons.Icons.IMAGE_HELP.getImageView()); //neues ImageView!
+            btnHelp.setGraphic(ProgIconsP2Lib.IMAGE_HELP.getImageView()); //neues ImageView!
         } else {
             btnHelp.setGraphic(new ImageView(hlpImage)); //neues ImageView!
         }
@@ -76,7 +76,7 @@ public class PButton {
         final Button btnHelp = new Button("");
         btnHelp.setTooltip(new Tooltip("Hilfe anzeigen"));
         if (hlpImage == null) {
-            btnHelp.setGraphic(ProgIcons.Icons.IMAGE_HELP.getImageView()); //neues ImageView!
+            btnHelp.setGraphic(ProgIconsP2Lib.IMAGE_HELP.getImageView()); //neues ImageView!
         } else {
             btnHelp.setGraphic(new ImageView(hlpImage)); //neues ImageView!
         }

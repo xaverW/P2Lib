@@ -15,7 +15,7 @@ package de.p2tools.p2lib.guitools;/*
  */
 
 
-import de.p2tools.p2lib.ProgIcons;
+import de.p2tools.p2lib.ProgIconsP2Lib;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 
@@ -25,7 +25,7 @@ public class PButtonClearFilterFactory {
 
     public static Button getPButtonClearFilter() {
         Button button = new Button();
-        button.setGraphic(ProgIcons.Icons.ICON_BUTTON_CLEAR_FILTER.getImageView());
+        button.setGraphic(ProgIconsP2Lib.ICON_BUTTON_CLEAR_FILTER.getImageView());
         button.getStyleClass().add("btnClearFilter");
         button.setTooltip(new Tooltip("Textfilter löschen, ein zweiter Klick löscht alle Filter"));
         return button;
@@ -33,7 +33,7 @@ public class PButtonClearFilterFactory {
 
     public static Button getPButtonClear() {
         Button button = new Button();
-        button.setGraphic(ProgIcons.Icons.ICON_BUTTON_CLEAR_FILTER.getImageView());
+        button.setGraphic(ProgIconsP2Lib.ICON_BUTTON_CLEAR_FILTER.getImageView());
         button.getStyleClass().add("btnClearFilter");
         button.setTooltip(new Tooltip("Filter löschen, ein Klick löscht alle Filter"));
         return button;
@@ -41,7 +41,7 @@ public class PButtonClearFilterFactory {
 
     public static Button getPButtonClearSmall() {
         Button button = new Button();
-        button.setGraphic(ProgIcons.Icons.ICON_BUTTON_CLEAR_FILTER.getImageView());
+        button.setGraphic(ProgIconsP2Lib.ICON_BUTTON_CLEAR_FILTER.getImageView());
         button.getStyleClass().add("btnClearFilterSmall");
         button.setTooltip(new Tooltip("Filter löschen, ein Klick löscht alle Filter"));
         return button;

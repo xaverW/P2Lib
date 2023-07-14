@@ -19,7 +19,7 @@ package de.p2tools.p2lib.configfile;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.dialogs.PDialogFileChosser;
+import de.p2tools.p2lib.dialogs.PDialogFileChooser;
 import de.p2tools.p2lib.tools.log.PLog;
 
 import java.io.IOException;
@@ -107,7 +107,7 @@ class ConfigBackupFile {
         PLog.sysLog("Es gibt ein Backup");
         //stage bzw. scene gibts noch nicht
         //ist ja meist der Programmstart!!!
-        if (PAlert.BUTTON.YES != new PDialogFileChosser().showAlert_yes_no(null, "Gesicherte Einstellungen laden?",
+        if (PAlert.BUTTON.YES != new PDialogFileChooser().showAlert_yes_no(null, "Gesicherte Einstellungen laden?",
 
                 header.isEmpty() ? "Die Einstellungen sind beschädigt" + P2LibConst.LINE_SEPARATOR +
                         "und können nicht geladen werden." : header,
