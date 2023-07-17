@@ -36,6 +36,19 @@ public class ProgIconsP2Lib {
     public static P2IconP2Lib P2_WINDOW_ICON = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "P2_32.png", 58, 58);
 
 
+    public static final P2IconP2Lib ICON_BUTTON_NEXT = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "button-next.png");
+    public static final P2IconP2Lib ICON_BUTTON_PREV = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "button-prev.png");
+
+
+    public static String ICON_PATH_NOTIFICATION = "guitools/pnotification/";
+    public static String ICON_PATH_NOTIFICATION_LONG = "de/p2tools/p2lib/guitools/pnotification/";
+
+    public static final P2IconP2Lib INFO_ICON = new P2IconP2Lib(ICON_PATH_NOTIFICATION, ICON_PATH_NOTIFICATION_LONG, "info.png", 25, 24);
+    public static final P2IconP2Lib WARNING_ICON = new P2IconP2Lib(ICON_PATH_NOTIFICATION, ICON_PATH_NOTIFICATION_LONG, "warning.png", 25, 24);
+    public static final P2IconP2Lib SUCCESS_ICON = new P2IconP2Lib(ICON_PATH_NOTIFICATION, ICON_PATH_NOTIFICATION_LONG, "success.png", 25, 24);
+    public static final P2IconP2Lib ERROR_ICON = new P2IconP2Lib(ICON_PATH_NOTIFICATION, ICON_PATH_NOTIFICATION_LONG, "error.png", 25, 24);
+
+
     public static void initIcons() {
         iconList.forEach(p -> {
             String url = p.genUrl(P2LibInit.class, P2LibConst.class, ProgIconsP2Lib.class);

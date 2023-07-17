@@ -17,6 +17,7 @@
 
 package de.p2tools.p2lib.guitools.ptipofday;
 
+import de.p2tools.p2lib.ProgIconsP2Lib;
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2lib.guitools.PButton;
 import de.p2tools.p2lib.guitools.PHyperlink;
@@ -38,8 +39,8 @@ import java.util.List;
 
 public class PTipOfDayDialog extends PDialogExtra {
 
-    public static final Image ICON_BUTTON_NEXT = new Image(PTipOfDayDialog.class.getResourceAsStream("button-next.png"));
-    public static final Image ICON_BUTTON_PREV = new Image(PTipOfDayDialog.class.getResourceAsStream("button-prev.png"));
+//    public static final Image ICON_BUTTON_NEXT = new Image(PTipOfDayDialog.class.getResourceAsStream("button-next.png"));
+//    public static final Image ICON_BUTTON_PREV = new Image(PTipOfDayDialog.class.getResourceAsStream("button-prev.png"));
 
     private final List<PTipOfDay> pTipList;
     private final ImageView iv = new ImageView();
@@ -104,11 +105,11 @@ public class PTipOfDayDialog extends PDialogExtra {
             super.close();
         });
 
-        btnNext = PButton.getButton(new ImageView(ICON_BUTTON_NEXT), "nächste Seite");
+        btnNext = PButton.getButton(ProgIconsP2Lib.ICON_BUTTON_NEXT.getImageView(), "nächste Seite");
         btnNext.setOnAction(event -> {
             selectActToolTip(true);
         });
-        btnPrev = PButton.getButton(new ImageView(ICON_BUTTON_PREV), "vorherige Seite");
+        btnPrev = PButton.getButton(ProgIconsP2Lib.ICON_BUTTON_PREV.getImageView(), "vorherige Seite");
         btnPrev.setOnAction(event -> {
             selectActToolTip(false);
         });

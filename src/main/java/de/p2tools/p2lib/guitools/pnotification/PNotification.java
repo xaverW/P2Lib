@@ -18,6 +18,7 @@
 package de.p2tools.p2lib.guitools.pnotification;
 
 import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.ProgIconsP2Lib;
 import de.p2tools.p2lib.tools.PException;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -64,17 +65,17 @@ public class PNotification {
             final Image image;
             switch (state) {
                 case INFO:
-                    image = Notification.INFO_ICON;
+                    image = ProgIconsP2Lib.INFO_ICON.getImage();
                     break;
                 case WARNING:
-                    image = Notification.WARNING_ICON;
+                    image = ProgIconsP2Lib.WARNING_ICON.getImage();
                     break;
                 case SUCCESS:
-                    image = Notification.SUCCESS_ICON;
+                    image = ProgIconsP2Lib.SUCCESS_ICON.getImage();
                     break;
                 case ERROR:
                 default:
-                    image = Notification.ERROR_ICON;
+                    image = ProgIconsP2Lib.ERROR_ICON.getImage();
             }
 
             final Notification notification =

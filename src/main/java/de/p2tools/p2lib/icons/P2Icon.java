@@ -189,10 +189,10 @@ public abstract class P2Icon {
     public boolean set(URL url, String p, String caller) {
         if (url != null) {
             setUrl(url.toExternalForm());
-            System.out.println("------------------>");
-            System.out.println("caller: " + caller);
-            System.out.println("path: " + p);
-            System.out.println("url: " + url);
+//            System.out.println("------------------>");
+//            System.out.println("caller: " + caller);
+//            System.out.println("path: " + p);
+//            System.out.println("url: " + url);
             return true;
         }
         return false;

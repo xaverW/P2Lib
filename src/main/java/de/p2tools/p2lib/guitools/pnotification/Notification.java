@@ -16,6 +16,7 @@
 
 package de.p2tools.p2lib.guitools.pnotification;
 
+import de.p2tools.p2lib.ProgIconsP2Lib;
 import de.p2tools.p2lib.tools.PException;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -55,10 +56,10 @@ import java.util.stream.IntStream;
  */
 public class Notification {
 
-    public static final Image INFO_ICON = new Image(Notifier.class.getResourceAsStream("info.png"));
-    public static final Image WARNING_ICON = new Image(Notifier.class.getResourceAsStream("warning.png"));
-    public static final Image SUCCESS_ICON = new Image(Notifier.class.getResourceAsStream("success.png"));
-    public static final Image ERROR_ICON = new Image(Notifier.class.getResourceAsStream("error.png"));
+    //    public static final Image INFO_ICON =  new Image(Notifier.class.getResourceAsStream("info.png"));
+//    public static final Image WARNING_ICON = new Image(Notifier.class.getResourceAsStream("warning.png"));
+//    public static final Image SUCCESS_ICON = new Image(Notifier.class.getResourceAsStream("success.png"));
+//    public static final Image ERROR_ICON = new Image(Notifier.class.getResourceAsStream("error.png"));
     private static Stage pStage = null;
 
     public final String TITLE;
@@ -307,7 +308,7 @@ public class Notification {
          * @param MESSAGE
          */
         public void notifyInfo(final String TITLE, final String MESSAGE) {
-            notify(new Notification(TITLE, MESSAGE, Notification.INFO_ICON));
+            notify(new Notification(TITLE, MESSAGE, ProgIconsP2Lib.INFO_ICON.getImage()));
         }
 
         /**
@@ -317,7 +318,7 @@ public class Notification {
          * @param MESSAGE
          */
         public void notifyWarning(final String TITLE, final String MESSAGE) {
-            notify(new Notification(TITLE, MESSAGE, Notification.WARNING_ICON));
+            notify(new Notification(TITLE, MESSAGE, ProgIconsP2Lib.WARNING_ICON.getImage()));
         }
 
         /**
@@ -327,7 +328,7 @@ public class Notification {
          * @param MESSAGE
          */
         public void notifySuccess(final String TITLE, final String MESSAGE) {
-            notify(new Notification(TITLE, MESSAGE, Notification.SUCCESS_ICON));
+            notify(new Notification(TITLE, MESSAGE, ProgIconsP2Lib.SUCCESS_ICON.getImage()));
         }
 
         /**
@@ -337,7 +338,7 @@ public class Notification {
          * @param MESSAGE
          */
         public void notifyError(final String TITLE, final String MESSAGE) {
-            notify(new Notification(TITLE, MESSAGE, Notification.ERROR_ICON));
+            notify(new Notification(TITLE, MESSAGE, ProgIconsP2Lib.ERROR_ICON.getImage()));
         }
 
         /**

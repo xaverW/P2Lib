@@ -17,9 +17,13 @@
 
 package de.p2tools.p2lib.guitools;
 
+import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.ProgIconsP2Lib;
 import de.p2tools.p2lib.tools.log.PLog;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class P2WindowIcon {
     private P2WindowIcon() {
@@ -30,6 +34,22 @@ public class P2WindowIcon {
             stage.getIcons().add(0, ProgIconsP2Lib.P2_WINDOW_ICON.getImage());
         } catch (Exception ex) {
             PLog.errorLog(945720146, "Kann Window-Icon nicht setzen");
+        }
+    }
+
+    public static void setWindowIcon(Stage stage, String iconPath) {
+        if (iconPath.isEmpty() || !new File(iconPath).exists()) {
+            addWindowP2Icon(stage);
+            return;
+        }
+
+        try {
+            Image icon = new Image(new File(iconPath).toURI().toString(),
+                    P2LibConst.WINDOW_ICON_WIDTH, P2LibConst.WINDOW_ICON_HEIGHT, true, true);
+            stage.getIcons().add(0, icon);
+        } catch (Exception ex) {
+            PLog.errorLog(204503978, ex);
+            addWindowP2Icon(stage);
         }
     }
 }
