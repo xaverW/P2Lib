@@ -29,7 +29,7 @@ import javafx.util.Callback;
  */
 public class CellCheckBox<S, T> extends TableCell<S, T> {
 
-    public Callback<TableColumn<S, Boolean>, TableCell<S, Boolean>> cellFactoryBool
+    public Callback<TableColumn<S, Boolean>, TableCell<S, Boolean>> cellFactory
             = (final TableColumn<S, Boolean> param) -> {
 
         final TableCell<S, Boolean> cell = new TableCell<S, Boolean>() {

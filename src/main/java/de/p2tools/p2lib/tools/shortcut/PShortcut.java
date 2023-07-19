@@ -20,7 +20,7 @@ package de.p2tools.p2lib.tools.shortcut;
 import javafx.beans.property.StringProperty;
 
 public class PShortcut {
-    private StringProperty actShortcut;
+    private final StringProperty actShortcut;
     private String orgShortcut = "";
     private String description = "";
     private String longDescription = "";
