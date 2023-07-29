@@ -16,7 +16,7 @@
 
 package de.p2tools.p2lib.guitools.pclosepane;
 
-import de.p2tools.p2lib.guitools.PGuiTools;
+import de.p2tools.p2lib.guitools.P2GuiTools;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
@@ -60,7 +60,7 @@ public class PClosePaneH extends HBox {
             Button buttonRip = new Button();
             buttonRip.getStyleClass().add("rip-button");
             buttonRip.setOnAction(a -> ripProperty.setValue(!ripProperty.get()));
-            vBox.getChildren().addAll(button, PGuiTools.getVBoxGrower(), buttonRip);
+            vBox.getChildren().addAll(button, P2GuiTools.getVBoxGrower(), buttonRip);
         } else {
             vBox.getChildren().addAll(button);
         }

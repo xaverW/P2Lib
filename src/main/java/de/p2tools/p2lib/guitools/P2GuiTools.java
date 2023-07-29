@@ -25,7 +25,7 @@ import javafx.scene.layout.VBox;
 
 import java.awt.*;
 
-public class PGuiTools {
+public class P2GuiTools {
 
     public static Region getHBoxGrower() {
         Region region = new Region();
