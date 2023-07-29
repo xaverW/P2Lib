@@ -17,11 +17,16 @@
 
 package de.p2tools.p2lib.tools;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 public class PIndex {
 
     private static long counter = new Date().getTime();
+    private static int counterInt = (int) ChronoUnit.SECONDS.between(
+            LocalDateTime.of(2023, 1, 1, 0, 0),
+            LocalDateTime.now());
 
     private PIndex() {
     }
@@ -43,5 +48,24 @@ public class PIndex {
 
     public static synchronized String getIndexStr() {
         return getIndex() + "";
+    }
+
+    public static synchronized String getIndexInt(String prefix) {
+        final String idx;
+        if (prefix == null || prefix.isEmpty()) {
+            idx = getIndexInt() + "";
+        } else {
+            idx = prefix + "-" + getIndexInt();
+        }
+        return idx;
+    }
+
+    public static synchronized int getIndexInt() {
+        ++counterInt;
+        return counterInt;
+    }
+
+    public static synchronized String getIndexIntStr() {
+        return getIndexInt() + "";
     }
 }
