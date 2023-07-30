@@ -30,31 +30,27 @@ import javafx.util.Callback;
 public class CellCheckBox<S, T> extends TableCell<S, T> {
 
     public Callback<TableColumn<S, Boolean>, TableCell<S, Boolean>> cellFactory
-            = (final TableColumn<S, Boolean> param) -> {
+            = (final TableColumn<S, Boolean> param) -> new TableCell<>() {
 
-        final TableCell<S, Boolean> cell = new TableCell<S, Boolean>() {
+        @Override
+        public void updateItem(Boolean item, boolean empty) {
+            super.updateItem(item, empty);
 
-            @Override
-            public void updateItem(Boolean item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (item == null || empty) {
-                    setGraphic(null);
-                    setText(null);
-                    return;
-                }
-
-                setAlignment(Pos.CENTER);
-                CheckBox box = new CheckBox();
-                box.setMaxHeight(6);
-                box.setMinHeight(6);
-                box.setPrefSize(6, 6);
-                box.setDisable(true);
-                box.getStyleClass().add("checkbox-table");
-                box.setSelected(item.booleanValue());
-                setGraphic(box);
+            if (item == null || empty) {
+                setGraphic(null);
+                setText(null);
+                return;
             }
-        };
-        return cell;
+
+            setAlignment(Pos.CENTER);
+            CheckBox box = new CheckBox();
+            box.setMaxHeight(6);
+            box.setMinHeight(6);
+            box.setPrefSize(6, 6);
+            box.setDisable(true);
+            box.getStyleClass().add("checkbox-table");
+            box.setSelected(item);
+            setGraphic(box);
+        }
     };
 }
