@@ -53,6 +53,9 @@
     -fx-text-fill: black;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
 }
+.btnFunc-0{
+    -fx-padding: 2;
+}
 .btnFunc-1{
     -fx-padding: 3 10;
 }
@@ -78,6 +81,10 @@
 .btnFunction:pressed{
     -fx-border-width: 0;
     -fx-padding: 5;
+}
+.btnFunc-0:pressed{
+    -fx-border-width: 0;
+    -fx-padding: 2;
 }
 .btnFunc-1:pressed{
     -fx-border-width: 0;
