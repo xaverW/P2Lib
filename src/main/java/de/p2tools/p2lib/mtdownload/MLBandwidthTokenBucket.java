@@ -1,5 +1,5 @@
 /*
- * MTViewer Copyright (C) 2017 W. Xaver W.Xaver[at]googlemail.com
+ * MTPlayer Copyright (C) 2017 W. Xaver W.Xaver[at]googlemail.com
  * https://www.p2tools.de
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
@@ -17,6 +17,7 @@
 package de.p2tools.p2lib.mtdownload;
 
 import de.p2tools.p2lib.tools.log.PLog;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 
 import java.util.concurrent.Semaphore;
@@ -26,24 +27,32 @@ import java.util.concurrent.Semaphore;
  * selected bandwidth limit will not be exceeded for all concurrent direct downloads. Bandwidth
  * throttling based on http://en.wikipedia.org/wiki/Token_bucket
  */
-public class BandwidthTokenBucket {
+public class MLBandwidthTokenBucket {
 
     public static final int DEFAULT_BUFFER_SIZE = 4 * 1024; // default byte buffer size
-    public static final int BANDWIDTH_MAX_RED_KBYTE = 500; // 500 kByte/s
+    private final Semaphore bucketSize = new Semaphore(0, false);
+
     public static final int BANDWIDTH_MAX_BYTE = 1_000_000; // 1.000 kByte/s
     public static final int BANDWIDTH_MAX_KBYTE = 1_000; // 1.000 kByte/s
-    private final Semaphore bucketSize = new Semaphore(0, false);
-    IntegerProperty bandwidthValue;
-    private volatile int bucketCapacity = BANDWIDTH_MAX_RED_KBYTE * 1_000; // 500kByte/s
+    public static final int BANDWIDTH_PAUSE_MAX_BYTE = 50_000; // 50 kByte/s
+
+    private volatile int bucketCapacityByte = BANDWIDTH_MAX_BYTE; // capacity BYTE!!
     private MVBandwidthTokenBucketFillerThread fillerThread = null;
+    private final IntegerProperty bandwidthValueKByte;
+    private final BooleanProperty pauseDownloadCapacity;
 
-    public BandwidthTokenBucket(IntegerProperty bandwidthValue) {
-        this.bandwidthValue = bandwidthValue;
+    public MLBandwidthTokenBucket(IntegerProperty bandwidthValueKByte, BooleanProperty pauseDownloadCapacity) {
+        this.bandwidthValueKByte = bandwidthValueKByte;
+        this.pauseDownloadCapacity = pauseDownloadCapacity;
 
-        setBucketCapacity(getBandwidth());
-        this.bandwidthValue.addListener(l -> {
+        setBucketCapacityByte(getBandwidth());
+        this.bandwidthValueKByte.addListener(l -> {
             PLog.sysLog("change bucketCapacity: " + getBandwidth() + " bytesPerSecond");
-            setBucketCapacity(getBandwidth());
+            setBucketCapacityByte(getBandwidth());
+        });
+        this.pauseDownloadCapacity.addListener(l -> {
+            PLog.sysLog("change bucketCapacity: " + getBandwidth() + " bytesPerSecond");
+            setBucketCapacityByte(getBandwidth());
         });
     }
 
@@ -64,7 +73,7 @@ public class BandwidthTokenBucket {
      */
     public void takeBlocking(final int howMany) {
         // if bucket size equals BANDWIDTH_MAX_BYTE then unlimited speed...
-        if (getBucketCapacity() < BANDWIDTH_MAX_BYTE) {
+        if (getBucketCapacityByte() < BANDWIDTH_MAX_BYTE) {
             try {
                 bucketSize.acquire(howMany);
             } catch (final Exception ignored) {
@@ -84,13 +93,23 @@ public class BandwidthTokenBucket {
      *
      * @return Maximum number of tokens in the bucket.
      */
-    public synchronized int getBucketCapacity() {
-        return bucketCapacity;
+    public synchronized int getBucketCapacityByte() {
+        return bucketCapacityByte;
     }
 
-    public synchronized void setBucketCapacity(int bucketCapacity) {
-        this.bucketCapacity = bucketCapacity;
-        if (bucketCapacity == BANDWIDTH_MAX_BYTE) {
+    /**
+     * Kill the semaphore filling thread.
+     */
+    private void terminateFillerThread() {
+        if (fillerThread != null) {
+            fillerThread.interrupt();
+            fillerThread = null;
+        }
+    }
+
+    public synchronized void setBucketCapacityByte(int bucketCapacityByte) {
+        this.bucketCapacityByte = bucketCapacityByte;
+        if (bucketCapacityByte == BANDWIDTH_MAX_BYTE) {
             terminateFillerThread();
 
             // if we have waiting callers, release them by releasing buckets in the semaphore...
@@ -110,30 +129,22 @@ public class BandwidthTokenBucket {
     }
 
     /**
-     * Kill the semaphore filling thread.
-     */
-    private void terminateFillerThread() {
-        if (fillerThread != null) {
-            fillerThread.interrupt();
-            fillerThread = null;
-        }
-    }
-
-    /**
      * Read bandwidth settings from config.
      *
      * @return The maximum bandwidth in bytes set or zero for unlimited speed.
      */
     private int getBandwidth() {
-        int bytesPerSecond;
+        if (pauseDownloadCapacity.getValue()) {
+            return BANDWIDTH_PAUSE_MAX_BYTE;
+        }
 
+        int bytesPerSecond;
         try {
-            final int maxKBytePerSec = bandwidthValue.get();
-            bytesPerSecond = maxKBytePerSec * 1_000;
+            bytesPerSecond = bandwidthValueKByte.get() * 1_000;
         } catch (final Exception ex) {
             PLog.errorLog(612547803, ex, "reset Bandwidth");
             bytesPerSecond = BANDWIDTH_MAX_KBYTE * 1_000;
-            bandwidthValue.set(BANDWIDTH_MAX_KBYTE);
+            bandwidthValueKByte.set(BANDWIDTH_MAX_KBYTE);
         }
         return bytesPerSecond;
     }
@@ -152,9 +163,9 @@ public class BandwidthTokenBucket {
             try {
                 while (!isInterrupted()) {
                     // run 2times per second, its more regular
-                    final int bucketCapacity = getBucketCapacity();
+                    final int bucketCapacity = getBucketCapacityByte();
                     // for unlimited speed we dont need the thread
-                    if (bucketCapacity == BandwidthTokenBucket.BANDWIDTH_MAX_BYTE) {
+                    if (bucketCapacity == MLBandwidthTokenBucket.BANDWIDTH_MAX_BYTE) {
                         break;
                     }
 

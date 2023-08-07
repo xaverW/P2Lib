@@ -20,8 +20,6 @@ package de.p2tools.p2lib.mtfilm.tools;
 import de.p2tools.p2lib.mtfilm.film.FilmData;
 import de.p2tools.p2lib.mtfilm.film.Filmlist;
 import de.p2tools.p2lib.mtfilm.loadfilmlist.LoadFilmlist;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.stage.Stage;
 
 public class LoadFactoryConst {
@@ -76,8 +74,6 @@ public class LoadFactoryConst {
     public static boolean debug = false;
     public static String SYSTEM_LOAD_NOT_SENDER = "";
     public static String dateStoredFilmlist = "";
-    public static IntegerProperty DOWNLOAD_MAX_BANDWIDTH_KBYTE = new SimpleIntegerProperty(0);//damit wird die Downloadbandbreite reduziert
-    public static int downloadMaxBandwidth = 0;//ist der Wert beim DownloadStart
     public static boolean firstProgramStart = false;
     public static String localFilmListFile = "";
     public static boolean loadNewFilmlistOnProgramStart = true;

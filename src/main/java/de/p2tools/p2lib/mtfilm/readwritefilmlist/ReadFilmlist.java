@@ -33,7 +33,6 @@ import de.p2tools.p2lib.mtfilm.tools.ProgressMonitorInputStream;
 import de.p2tools.p2lib.tools.PStringUtils;
 import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2lib.tools.log.PLog;
-import javafx.application.Platform;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -54,7 +53,6 @@ import java.util.zip.ZipInputStream;
 
 public class ReadFilmlist {
 
-    private final int REDUCED_BANDWIDTH = 55;//ist ein Wert, der nicht eingestellt werden kann
     int sumFilms = 0;
     String channel = "", theme = "";
     private double progress = 0;
@@ -494,11 +492,6 @@ public class ReadFilmlist {
 
     private void notifyStart() {
         progress = 0;
-        PLog.sysLog("Bandbreite zurücksetzen für das Laden der Filmliste von: " +
-                LoadFactoryConst.downloadMaxBandwidth + " auf " + REDUCED_BANDWIDTH);
-        //wird im GUI angezeigt!!
-        Platform.runLater(() -> LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE.setValue(REDUCED_BANDWIDTH));
-
         LoadFactoryConst.loadFilmlist.setStart(
                 new ListenerFilmlistLoadEvent("Filmliste laden", 0, 0, false));
     }
@@ -513,11 +506,6 @@ public class ReadFilmlist {
     }
 
     private void notifyFinished() {
-        // reset download bandwidth
-        PLog.sysLog("Bandbreite wieder herstellen: " + LoadFactoryConst.downloadMaxBandwidth);
-        //dann die Bandbreite wieder herstellen, wird im GUI angezeigt!!
-        Platform.runLater(() -> LoadFactoryConst.DOWNLOAD_MAX_BANDWIDTH_KBYTE.setValue(LoadFactoryConst.downloadMaxBandwidth));
-
         // Laden ist durch
         LoadFactoryConst.loadFilmlist.setLoaded(
                 new ListenerFilmlistLoadEvent("Filme verarbeiten",

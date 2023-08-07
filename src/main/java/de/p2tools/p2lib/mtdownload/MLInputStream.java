@@ -1,5 +1,5 @@
 /*
- * MTViewer Copyright (C) 2017 W. Xaver W.Xaver[at]googlemail.com
+ * MTPlayer Copyright (C) 2017 W. Xaver W.Xaver[at]googlemail.com
  * https://www.p2tools.de
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
@@ -16,6 +16,7 @@
 
 package de.p2tools.p2lib.mtdownload;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 
 import java.io.IOException;
@@ -23,15 +24,18 @@ import java.io.InputStream;
 import java.util.TimerTask;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class MTInputStream extends InputStream {
+public class MLInputStream extends InputStream {
 
     private final InputStream iStream;
+    private MLBandwidthTokenBucket bucket = null;
     private final BandwidthCalculationTask calculationTask;
-    private BandwidthTokenBucket bucket = null;
 
-    public MTInputStream(InputStream in, java.util.Timer calculationTimer, IntegerProperty integerProperty) {
+    public MLInputStream(InputStream in,
+                         java.util.Timer calculationTimer,
+                         IntegerProperty bucketCapacityKByte,
+                         BooleanProperty pauseDownloadCapacity) {
         iStream = in;
-        bucket = new BandwidthTokenBucket(integerProperty);
+        bucket = new MLBandwidthTokenBucket(bucketCapacityKByte, pauseDownloadCapacity);
         bucket.ensureBucketThreadIsRunning();
 
         //start bandwidth calculation
@@ -123,11 +127,11 @@ public class MTInputStream extends InputStream {
      */
     private class BandwidthCalculationTask extends TimerTask {
 
-        private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
         private long oldTotalBytes = 0;
         private long totalBytesRead = 0;
         private long bandwidth = 0;
         private long sumTime = 0;
+        private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 
         @Override
         public void run() {
