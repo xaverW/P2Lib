@@ -78,8 +78,7 @@ public class ReadFilmlist {
 
         logList.add("## " + PLog.LILNE2);
         try {
-            notifyStart(); // für die Progressanzeige
-
+            progress = 0; // für die Progressanzeige
             filmlist.clear();
             if (sourceFileOrUrl.startsWith("http")) {
                 //dann aus dem Web mit der URL laden
@@ -112,7 +111,7 @@ public class ReadFilmlist {
             PLog.errorLog(965412378, ex);
         }
         logList.add("## " + PLog.LILNE2);
-        notifyFinished();
+        notifyLoaded();
 
         PDuration.counterStop("readFilmlistWebOrLocal");
     }
@@ -490,13 +489,6 @@ public class ReadFilmlist {
         return true;
     }
 
-    private void notifyStart() {
-        progress = 0;
-        LoadFactoryConst.loadFilmlist.setStart(
-                new ListenerFilmlistLoadEvent("Filmliste laden",
-                        ListenerLoadFilmlist.PROGRESS_MIN, 0, false));
-    }
-
     private void notifyProgress(double iProgress) {
         progress = iProgress;
         if (progress > ListenerLoadFilmlist.PROGRESS_MAX) {
@@ -506,7 +498,7 @@ public class ReadFilmlist {
                 new ListenerFilmlistLoadEvent("Filmliste laden", progress, 0, false));
     }
 
-    private void notifyFinished() {
+    private void notifyLoaded() {
         // Laden ist durch
         LoadFactoryConst.loadFilmlist.setLoaded(
                 new ListenerFilmlistLoadEvent("Filme verarbeiten",

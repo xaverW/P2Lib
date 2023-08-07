@@ -101,6 +101,9 @@ public class LoadFilmlist {
 
         // Start des Ladens, gibts keine Fortschrittsanzeige und kein Abbrechen
         setPropLoadFilmlist(true);
+        setStart(new ListenerFilmlistLoadEvent("Programmstart, Filmliste laden",
+                ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false));
+
         new Thread(() -> {
             final List<String> logList = new ArrayList<>();
             PDuration.counterStart("loadFilmlistProgStart");
@@ -128,6 +131,9 @@ public class LoadFilmlist {
         }
 
         setPropLoadFilmlist(true);
+        setStart(new ListenerFilmlistLoadEvent("Filmliste aus dem Web laden",
+                ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false));
+
         new Thread(() -> {
             final List<String> logList = new ArrayList<>();
             PDuration.counterStart("loadNewFilmlistFromWeb");
@@ -180,16 +186,12 @@ public class LoadFilmlist {
         if (LoadFactoryConst.firstProgramStart) {
             // gespeicherte Filmliste laden, macht beim ersten Programmstart keinen Sinn
             logList.add("## Erster Programmstart -> Liste aus dem Web laden");
-            setStart(new ListenerFilmlistLoadEvent("Erster Programmstart, Filmliste laden",
-                    ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false));
 
             loadNewFilmlistFromWeb(logList, false, true, LoadFactoryConst.localFilmListFile);
             PDuration.onlyPing("Erster Programmstart: Neu Filmliste aus dem Web geladen");
 
         } else {
             // dann ist ein normaler Start mit vorhandener Filmliste
-            setStart(new ListenerFilmlistLoadEvent("Programmstart, Filmliste laden",
-                    ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false));
             if (!LoadFactoryConst.loadNewFilmlistOnProgramStart) {
                 //dann wird keine neue Liste aus dem Web beim Programmstart geladen, immer gespeicherte Liste laden
                 logList.add("## Beim Programmstart soll keine neue Liste geladen werden");
