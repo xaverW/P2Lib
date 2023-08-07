@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2lib.mtfilm.tools;
+package de.p2tools.p2lib.mtfilm.film;
 
 import de.p2tools.p2lib.tools.GermanStringSorter;
 

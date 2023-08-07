@@ -16,7 +16,6 @@
 
 package de.p2tools.p2lib.mtfilm.film;
 
-import de.p2tools.p2lib.mtfilm.tools.Data;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 public class FilmDataXml extends Data<FilmDataXml> {
