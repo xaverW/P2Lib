@@ -493,7 +493,8 @@ public class ReadFilmlist {
     private void notifyStart() {
         progress = 0;
         LoadFactoryConst.loadFilmlist.setStart(
-                new ListenerFilmlistLoadEvent("Filmliste laden", 0, 0, false));
+                new ListenerFilmlistLoadEvent("Filmliste laden",
+                        ListenerLoadFilmlist.PROGRESS_MIN, 0, false));
     }
 
     private void notifyProgress(double iProgress) {

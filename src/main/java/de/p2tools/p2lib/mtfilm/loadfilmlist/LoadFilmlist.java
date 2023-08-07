@@ -42,7 +42,7 @@ public class LoadFilmlist {
     private final Filmlist filmListDiff;
     private final Filmlist filmListNew;
     private final ImportNewFilmlistFromServer importNewFilmlisteFromServer;
-    private final NotifyProgress notifyProgress = new NotifyProgress();
+    public final FilmListLoadNotifier filmListLoadNotifier = new FilmListLoadNotifier();
     private BooleanProperty propLoadFilmlist = new SimpleBooleanProperty(false);
     private boolean filmlistTooOld = false;
 
@@ -60,34 +60,25 @@ public class LoadFilmlist {
         importNewFilmlisteFromServer = new ImportNewFilmlistFromServer();
     }
 
-    public void addListenerLoadFilmlist(ListenerLoadFilmlist listener) {
-        notifyProgress.listeners.add(ListenerLoadFilmlist.class, listener);
-        PLog.debugLog("======>" + notifyProgress.listeners.getListenerCount());
-    }
-
-    public void removeListenerLoadFilmlist(ListenerLoadFilmlist listener) {
-        notifyProgress.listeners.remove(ListenerLoadFilmlist.class, listener);
-        PLog.debugLog("======>" + notifyProgress.listeners.getListenerCount());
-    }
-
     public void setStart(ListenerFilmlistLoadEvent event) {
-        notifyProgress.notifyEvent(NotifyProgress.NOTIFY.START, event);
+        filmListLoadNotifier.notifyEvent(FilmListLoadNotifier.NOTIFY.START, event);
     }
 
     public void setProgress(ListenerFilmlistLoadEvent event) {
-        notifyProgress.notifyEvent(NotifyProgress.NOTIFY.PROGRESS, event);
+        filmListLoadNotifier.notifyEvent(FilmListLoadNotifier.NOTIFY.PROGRESS, event);
     }
 
     public void setLoaded(ListenerFilmlistLoadEvent event) {
-        notifyProgress.notifyEvent(NotifyProgress.NOTIFY.LOADED, event);
+        // das wird öfters aufgerufen
+        filmListLoadNotifier.notifyEvent(FilmListLoadNotifier.NOTIFY.LOADED, event);
     }
 
     public void setFinished(ListenerFilmlistLoadEvent event) {
-        notifyProgress.notifyEvent(NotifyProgress.NOTIFY.FINISHED, event);
+        filmListLoadNotifier.notifyEvent(FilmListLoadNotifier.NOTIFY.FINISHED, event);
     }
 
     public void setFinished() {
-        notifyProgress.notifyFinishedOk();
+        filmListLoadNotifier.notifyFinishedOk();
     }
 
     public synchronized boolean isStop() {
@@ -179,21 +170,24 @@ public class LoadFilmlist {
      * Filmliste beim Programmstart laden
      */
     private void loadFilmlistProgStart(List<String> logList) {
-        //hier wird die gespeicherte Filmliste geladen und wenn zu alt, wird eine neue aus
-        //dem Web geladen
+        // einer der ZWEI Einstiegspunkte zum Laden: ProgStart / sofort Web
+        // hier wird die gespeicherte Filmliste geladen und wenn zu alt, wird eine neue aus
+        // dem Web geladen
 
         filmListNew.setMeta(LoadFactoryConst.filmlist);
         filmListNew.setAll(LoadFactoryConst.filmlist);
 
         if (LoadFactoryConst.firstProgramStart) {
-            //gespeicherte Filmliste laden, macht beim ersten Programmstart keinen Sinn
+            // gespeicherte Filmliste laden, macht beim ersten Programmstart keinen Sinn
             logList.add("## Erster Programmstart -> Liste aus dem Web laden");
             setStart(new ListenerFilmlistLoadEvent("Erster Programmstart, Filmliste laden",
                     ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false));
+
             loadNewFilmlistFromWeb(logList, false, true, LoadFactoryConst.localFilmListFile);
             PDuration.onlyPing("Erster Programmstart: Neu Filmliste aus dem Web geladen");
 
         } else {
+            // dann ist ein normaler Start mit vorhandener Filmliste
             setStart(new ListenerFilmlistLoadEvent("Programmstart, Filmliste laden",
                     ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false));
             if (!LoadFactoryConst.loadNewFilmlistOnProgramStart) {
@@ -299,6 +293,7 @@ public class LoadFilmlist {
 
     private void loadNewFilmlistFromWeb(List<String> logList, boolean alwaysLoadNew, boolean intern, String
             localFilmListFile) {
+        // einer der ZWEI Einstiegspunkte zum Laden: ProgStart / sofort Web
         if (intern) {
             //dann ist die lokale Liste schon geladen und zu alt
             //Hash mit URLs füllen

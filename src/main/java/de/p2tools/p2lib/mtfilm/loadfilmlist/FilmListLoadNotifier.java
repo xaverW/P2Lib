@@ -22,30 +22,20 @@ import javafx.application.Platform;
 
 import javax.swing.event.EventListenerList;
 
-public class NotifyProgress {
+public class FilmListLoadNotifier {
     public final EventListenerList listeners = new EventListenerList();
 
     public void notifyEvent(NOTIFY notify, ListenerFilmlistLoadEvent event) {
         try {
             Platform.runLater(() -> {
-
                 for (final ListenerLoadFilmlist l : listeners.getListeners(ListenerLoadFilmlist.class)) {
                     switch (notify) {
-                        case START:
-                            l.start(event);
-                            break;
-                        case PROGRESS:
-                            l.progress(event);
-                            break;
-                        case LOADED:
-                            l.loaded(event);
-                            break;
-                        case FINISHED:
-                            l.finished(event);
-                            break;
+                        case START -> l.start(event);
+                        case PROGRESS -> l.progress(event);
+                        case LOADED -> l.loaded(event);
+                        case FINISHED -> l.finished(event);
                     }
                 }
-
             });
         } catch (final Exception ex) {
             PLog.errorLog(912045120, ex);
@@ -53,7 +43,17 @@ public class NotifyProgress {
     }
 
     public void notifyFinishedOk() {
-        notifyEvent(NotifyProgress.NOTIFY.FINISHED, ListenerFilmlistLoadEvent.getEmptyEvent());
+        notifyEvent(FilmListLoadNotifier.NOTIFY.FINISHED, ListenerFilmlistLoadEvent.getEmptyEvent());
+    }
+
+    public void addListenerLoadFilmlist(ListenerLoadFilmlist listener) {
+        listeners.add(ListenerLoadFilmlist.class, listener);
+        PLog.debugLog("======>" + listeners.getListenerCount());
+    }
+
+    public void removeListenerLoadFilmlist(ListenerLoadFilmlist listener) {
+        listeners.remove(ListenerLoadFilmlist.class, listener);
+        PLog.debugLog("======>" + listeners.getListenerCount());
     }
 
     public enum NOTIFY {START, PROGRESS, LOADED, FINISHED}
