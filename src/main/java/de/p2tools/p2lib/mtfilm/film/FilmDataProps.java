@@ -44,6 +44,7 @@ public class FilmDataProps extends FilmDataXml {
     private boolean actHist = false;
     private boolean bookmark = false;
     private boolean isBlackBlocked = false;
+    private int propose = 0;
 
     public int getDurationMinute() {
         return durationMinute;
@@ -250,5 +251,17 @@ public class FilmDataProps extends FilmDataXml {
 
     public void setBlackBlocked(boolean blackBlocked) {
         this.isBlackBlocked = blackBlocked;
+    }
+
+    public int getPropose() {
+        return propose;
+    }
+
+    public void setPropose(int propose) {
+        this.propose = propose;
+    }
+
+    public void addPropose(int propose) {
+        this.propose = this.propose + propose;
     }
 }
