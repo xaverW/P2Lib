@@ -29,7 +29,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 
-public class PRangeBox extends VBox {
+public class P2RangeBox_ extends VBox {
 
     private final String STR_ALLES = "Alles";
     private final int MIN_DIST = 5; //min einstellbarer Wert und Tick im Slider
@@ -51,7 +51,7 @@ public class PRangeBox extends VBox {
     private String unitSuffix = " Minuten";
 
 
-    public PRangeBox(int min, int max) {
+    public P2RangeBox_(int min, int max) {
         checkValues(min, max);
 
         MIN_VALUE = min / MIN_DIST;
@@ -64,7 +64,7 @@ public class PRangeBox extends VBox {
         initSlider();
     }
 
-    public PRangeBox(int min, int max, IntegerProperty minValue, IntegerProperty maxValue) {
+    public P2RangeBox_(int min, int max, IntegerProperty minValue, IntegerProperty maxValue) {
         checkValues(min, max);
 
         MIN_VALUE = min / MIN_DIST;

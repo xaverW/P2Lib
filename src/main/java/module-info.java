@@ -1,7 +1,7 @@
 module de.p2tools.p2lib {
 
     opens de.p2tools.p2lib;
-    
+
     exports de.p2tools.p2lib;
     exports de.p2tools.p2lib.alert;
     exports de.p2tools.p2lib.checkforactinfos;
@@ -49,11 +49,12 @@ module de.p2tools.p2lib {
 
     requires org.apache.commons.io;
     requires org.apache.commons.lang3;
-    
+
     requires org.tukaani.xz;
     requires com.fasterxml.jackson.core;
-    
+
     requires okhttp3;
     requires okio;
-    requires kotlin.stdlib;    
+    requires kotlin.stdlib;
+    requires org.controlsfx.controls;
 }

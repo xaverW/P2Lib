@@ -154,3 +154,9 @@
 .cbo-menu-button:pressed {
     -fx-padding: 0 11 0 11;
 }
+
+/* RangeSlider*/
+.range-slider .range-bar {
+    /*-fx-background-color: -fx-text-base-color;*/
+    -fx-background-color: #a1a1a1;
+}

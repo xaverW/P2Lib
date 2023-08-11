@@ -131,3 +131,10 @@
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
     -fx-text-fill: white;
 }
+
+/* RangeSlider*/
+.range-slider .range-bar {
+    /*-fx-background-color: -fx-text-base-color;*/
+    -fx-background-color: #dadada;
+}
+
