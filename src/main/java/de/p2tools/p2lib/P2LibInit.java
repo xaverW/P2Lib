@@ -61,7 +61,7 @@ public class P2LibInit {
         list.add("de/p2tools/p2lib/p2Css_button.css");
         list.add("de/p2tools/p2lib/p2Css_maskerPane.css");
         list.add("de/p2tools/p2lib/p2Css_toggleSwitch.css");
-        list.add("de/p2tools/p2lib/p2Css_notifier.css");
+        list.add("de/p2tools/p2lib/p2Css_p2Notify.css");
         list.add("de/p2tools/p2lib/p2Css_table.css");
         list.add("de/p2tools/p2lib/p2Css.css");
         list.add("de/p2tools/p2lib/p2Css_toolButton.css");
@@ -74,10 +74,8 @@ public class P2LibInit {
             list.add("de/p2tools/p2lib/p2Css_darkTable.css");
         }
 
-        for (String s : P2LibConst.cssFileList) {
-            //und dann noch die vom Programm
-            list.add(s);
-        }
+        //und dann noch die vom Programm
+        list.addAll(P2LibConst.cssFileList);
 
         if (scene != null) {
             scene.getStylesheets().setAll(list);

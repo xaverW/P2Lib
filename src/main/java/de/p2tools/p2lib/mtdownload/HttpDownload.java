@@ -18,7 +18,7 @@ package de.p2tools.p2lib.mtdownload;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.guitools.pnotification.PNotification;
+import de.p2tools.p2lib.guitools.pnotification.P2Notification;
 import de.p2tools.p2lib.tools.file.PFileSize;
 import de.p2tools.p2lib.tools.file.PFileUtils;
 import de.p2tools.p2lib.tools.log.PLog;
@@ -135,9 +135,9 @@ public class HttpDownload extends Thread {
                     ));
 
         } else {
-            PNotification.addNotification("Download",
+            P2Notification.addNotification("Download",
                     "Der Download ist abgeschlossen" + P2LibConst.LINE_SEPARATOR +
-                            "und war erfolgreich.", PNotification.STATE.SUCCESS);
+                            "und war erfolgreich.", P2Notification.STATE.SUCCESS);
         }
         --downloadRunning;
     }

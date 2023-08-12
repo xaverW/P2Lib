@@ -12,8 +12,10 @@
  *
  * You should have received a copy of the GNU General Public License along with this program. If
  * not, see <http://www.gnu.org/licenses/>.
+ *
+ * https://bitbucket.org/hansolo/enzo/overview
+ * Notification ist ein Tool von Gerrit Grunwald das ich mir für mein Projekte angepasst habe.
  */
-
 
 package de.p2tools.p2lib.guitools.pnotification;
 
@@ -21,20 +23,12 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.ProgIconsP2Lib;
 import de.p2tools.p2lib.tools.PException;
 import javafx.application.Platform;
-import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
-/**
- * changed by Xaver W.
- * 27.07.2018
- */
-public class PNotification {
+public class P2Notification {
 
     public enum STATE {INFO, WARNING, SUCCESS, ERROR}
-
-    private static Notification.Notifier notifier;
 
     static {
         Platform.runLater(() -> {
@@ -42,14 +36,8 @@ public class PNotification {
             if (stage == null) {
                 PException.throwPException(912036447, "PNotification: stage not set");
             }
-
-            Notification.setStage(stage);
-            notifier = NotifierBuilder.create()
-                    .popupLocation(Pos.BOTTOM_RIGHT)
-                    .popupLifeTime(Duration.millis(5000))
-                    .build();
+            P2Notify.stage = stage;
         });
-
     }
 
     public static void addNotification(String title, String text, boolean error) {
@@ -62,32 +50,14 @@ public class PNotification {
 
     public static void addNotification(String title, String text, STATE state) {
         Platform.runLater(() -> {
-            final Image image;
-            switch (state) {
-                case INFO:
-                    image = ProgIconsP2Lib.INFO_ICON.getImage();
-                    break;
-                case WARNING:
-                    image = ProgIconsP2Lib.WARNING_ICON.getImage();
-                    break;
-                case SUCCESS:
-                    image = ProgIconsP2Lib.SUCCESS_ICON.getImage();
-                    break;
-                case ERROR:
-                default:
-                    image = ProgIconsP2Lib.ERROR_ICON.getImage();
-            }
-
-            final Notification notification =
-                    NotificationBuilder.create().title(title).message(text).image(image).build();
-            notifier.notify(notification);
+            final Image image = switch (state) {
+                case INFO -> ProgIconsP2Lib.INFO_ICON.getImage();
+                case WARNING -> ProgIconsP2Lib.WARNING_ICON.getImage();
+                case SUCCESS -> ProgIconsP2Lib.SUCCESS_ICON.getImage();
+                default -> ProgIconsP2Lib.ERROR_ICON.getImage();
+            };
+            final P2Notify notification = new P2Notify(title, text, image);
+            notification.notify(notification);
         });
     }
-
 }
-
-
-
-
-
-
