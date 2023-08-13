@@ -31,16 +31,19 @@ public class P2NotificationFactory {
      */
     static void preOrder(Pos popupLocation, double spacingY) {
         if (P2Notify.popups.isEmpty()) return;
-        double actPos = getStartPos(P2Notify.stageRef, popupLocation, P2Notify.offsetY); // liefert den obersten/untersten Startpunkt
+        double actPosX = getStartPosX(P2Notify.stageRef, popupLocation, P2Notify.offsetX, P2Notify.width);
+        double actPosY = getStartPosY(P2Notify.stageRef, popupLocation, P2Notify.offsetY); // liefert den obersten/untersten Startpunkt
 
         for (int i = 0; i < P2Notify.popups.size(); ++i) {
             Popup pop = P2Notify.popups.get(i);
+            pop.setX(actPosX);
+
             switch (popupLocation) {
                 case TOP_LEFT:
                 case TOP_CENTER:
                 case TOP_RIGHT: {
-                    pop.setY(actPos);
-                    actPos = actPos + pop.getHeight() + spacingY;
+                    pop.setY(actPosY);
+                    actPosY = actPosY + pop.getHeight() + spacingY;
                 }
                 break;
 
@@ -48,35 +51,29 @@ public class P2NotificationFactory {
                 case BOTTOM_CENTER:
                 case BOTTOM_RIGHT:
                 default: {
-                    actPos = actPos - pop.getHeight();
-                    pop.setY(actPos);
-                    actPos = actPos - spacingY;
+                    actPosY = actPosY - pop.getHeight();
+                    pop.setY(actPosY);
+                    actPosY = actPosY - spacingY;
                 }
                 break;
             }
         }
-//        double old = 0;
-//        for (int i = 0; i < P2Notify.popups.size(); ++i) {
-//            double d = P2Notify.popups.get(i).getY();
-//            System.out.println("d - " + i + " " + d + " " + (d - old));
-//            old = d;
-//        }
     }
 
-    static double getX(Stage stageRef, Pos popupLocation, double offsetX, double width) {
-        if (null == stageRef) return calcX(popupLocation, offsetX, width,
-                0.0, Screen.getPrimary().getBounds().getWidth());
-        return calcX(popupLocation, offsetX, width, stageRef.getX(), stageRef.getWidth());
-    }
-
-    static double getStartPos(Stage stageRef, Pos popupLocation, double offsetY) {
+    private static double getStartPosY(Stage stageRef, Pos popupLocation, double offsetY) {
         if (null == stageRef)
             return calcStartPosY(popupLocation, offsetY, 0.0, Screen.getPrimary().getBounds().getHeight());
         return calcStartPosY(popupLocation, offsetY, stageRef.getY(), stageRef.getHeight());
     }
 
-    static double calcStartPosY(Pos popupLocation, double offsetY,
-                                final double TOP, final double TOTAL_HEIGHT) {
+    private static double getStartPosX(Stage stageRef, Pos popupLocation, double offsetX, double width) {
+        if (null == stageRef) return calcStartPosX(popupLocation, offsetX, width,
+                0.0, Screen.getPrimary().getBounds().getWidth());
+        return calcStartPosX(popupLocation, offsetX, width, stageRef.getX(), stageRef.getWidth());
+    }
+
+    private static double calcStartPosY(Pos popupLocation, double offsetY,
+                                        final double TOP, final double TOTAL_HEIGHT) {
         return switch (popupLocation) {
             case TOP_LEFT, TOP_CENTER, TOP_RIGHT -> TOP + offsetY;
             case CENTER_LEFT, CENTER, CENTER_RIGHT -> TOP + (TOTAL_HEIGHT) / 2 - offsetY;
@@ -85,29 +82,12 @@ public class P2NotificationFactory {
         };
     }
 
-
-    static double getY(Stage stageRef, Pos popupLocation, double offsetY, double height) {
-        if (null == stageRef)
-            return calcY(popupLocation, offsetY, height, 0.0, Screen.getPrimary().getBounds().getHeight());
-        return calcY(popupLocation, offsetY, height, stageRef.getY(), stageRef.getHeight());
-    }
-
-    static double calcX(Pos popupLocation, double offsetX, double width,
-                        final double LEFT, final double TOTAL_WIDTH) {
+    private static double calcStartPosX(Pos popupLocation, double offsetX, double width,
+                                        final double LEFT, final double TOTAL_WIDTH) {
         return switch (popupLocation) {
             case TOP_LEFT, CENTER_LEFT, BOTTOM_LEFT -> LEFT + offsetX;
             case TOP_CENTER, CENTER, BOTTOM_CENTER -> LEFT + (TOTAL_WIDTH - width) * 0.5 - offsetX;
             case TOP_RIGHT, CENTER_RIGHT, BOTTOM_RIGHT -> LEFT + TOTAL_WIDTH - width - offsetX;
-            default -> 0.0;
-        };
-    }
-
-    static double calcY(Pos popupLocation, double offsetY, double height,
-                        final double TOP, final double TOTAL_HEIGHT) {
-        return switch (popupLocation) {
-            case TOP_LEFT, TOP_CENTER, TOP_RIGHT -> TOP + offsetY;
-            case CENTER_LEFT, CENTER, CENTER_RIGHT -> TOP + (TOTAL_HEIGHT - height) / 2 - offsetY;
-            case BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT -> TOP + TOTAL_HEIGHT - height - offsetY;
             default -> 0.0;
         };
     }

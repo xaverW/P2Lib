@@ -14,6 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  *
  * https://bitbucket.org/hansolo/enzo/overview
+ * unter Apache License, Version 2.0, January 2004
  * Notification ist ein Tool von Gerrit Grunwald das ich mir für mein Projekte angepasst habe.
  */
 

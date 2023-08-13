@@ -58,7 +58,7 @@ public class P2Notify {
     public static final double ICON_HEIGHT = 24;
     public static double width = 300;
     public static double offsetX = 0; // The horizontal shift required - The default is 0 px.
-    public static double offsetY = 25; // The vertical shift required - The default is 25 px.
+    public static double offsetY = 40; // The vertical shift required - The default is 25 px. - Linux braucht 40
     public static double spacingY = 5; // The spacing between multiple Notifications - The default is 5 px.
     public static Pos popupLocation = Pos.BOTTOM_RIGHT;
     public static Duration popupLifetime = Duration.millis(5_000);
@@ -131,9 +131,6 @@ public class P2Notify {
         popupContent.getStyleClass().add("p2Notify");
         popupContent.getChildren().addAll(popupLayout);
         popupContent.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        popup.setX(P2NotificationFactory.getX(stageRef, popupLocation, offsetX, width));
-        popup.setY(P2NotificationFactory.getY(stageRef, popupLocation, offsetY, height));
 
         popup.getContent().add(popupContent);
         popup.addEventHandler(MouseEvent.MOUSE_PRESSED, new WeakEventHandler<>(event ->
