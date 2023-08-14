@@ -27,9 +27,14 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -43,6 +48,8 @@ public abstract class AboutDialog extends PDialogExtra {
 
     private Button btnOk = new Button("_Ok");
     private Button btnCheck = new Button("_Programmupdate prüfen");
+    private final String MAIL = "w.xaver@googlemail.com";
+
     private final Color PROG_COLOR_MARK;
     private final Color PROG_COLOR;
     private final String progName;
@@ -167,6 +174,13 @@ public abstract class AboutDialog extends PDialogExtra {
         text.setFill(PROG_COLOR);
         gridPane.add(text, c, ++row, 2, 1);
 
+        final Text textM = new Text(MAIL);
+        textM.setFont(new Font(14));
+        textM.setFill(PROG_COLOR);
+        gridPane.add(textM, c, ++row, 2, 1);
+        textM.setOnContextMenuRequested(event ->
+                getMenu(textM, event));
+
         // Pfade
         text = new Text(P2LibConst.LINE_SEPARATOR + "Programm Informationen");
         text.setFont(Font.font(null, FontWeight.BOLD, 15));
@@ -273,5 +287,18 @@ public abstract class AboutDialog extends PDialogExtra {
     private Image getImage() {
         final String path = "/de/p2tools/p2lib/icons/P2.png";
         return new Image(path, 128, 128, false, true);
+    }
+
+    private void getMenu(Text text, ContextMenuEvent event) {
+        final ContextMenu contextMenu = new ContextMenu();
+        MenuItem menuItem = new MenuItem("Kopieren");
+        menuItem.setOnAction(a -> {
+            final Clipboard clipboard = Clipboard.getSystemClipboard();
+            final ClipboardContent content = new ClipboardContent();
+            content.putString(text.getText());
+            clipboard.setContent(content);
+        });
+        contextMenu.getItems().addAll(menuItem);
+        contextMenu.show(text, event.getScreenX(), event.getScreenY());
     }
 }
