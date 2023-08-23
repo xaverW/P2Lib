@@ -51,6 +51,7 @@
     -fx-background-color: #c3c4c4, -lin-grad-1, -rad-grad-1;
     -fx-padding: 5;
     -fx-text-fill: black;
+    -fx-alignment: center;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
 }
 .btnFunc-0{
