@@ -31,6 +31,7 @@ public class FilmData extends FilmDataProps implements PData {
     public String FILM_THEME_STR = "";
     public String FILM_TITLE_STR = "";
 
+    public static final String RESOLUTION_ASK = "ask";
     public static final String RESOLUTION_NORMAL = "normal";
     public static final String RESOLUTION_HD = "hd";
     public static final String RESOLUTION_SMALL = "small";
