@@ -43,6 +43,7 @@ module de.p2tools.p2lib {
     exports de.p2tools.p2lib.tools.shortcut;
 
     requires javafx.controls;
+    requires org.controlsfx.controls;
 
     requires java.logging;
     requires java.desktop;
@@ -54,7 +55,4 @@ module de.p2tools.p2lib {
     requires com.fasterxml.jackson.core;
 
     requires okhttp3;
-    requires okio;
-    requires kotlin.stdlib;
-    requires org.controlsfx.controls;
 }

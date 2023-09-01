@@ -25,6 +25,7 @@ import de.p2tools.p2lib.ProgIconsP2Lib;
 import de.p2tools.p2lib.tools.PException;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class P2Notification {
@@ -58,6 +59,19 @@ public class P2Notification {
                 default -> ProgIconsP2Lib.ERROR_ICON.getImage();
             };
             final P2Notify notification = new P2Notify(title, text, image);
+            notification.notify(notification);
+        });
+    }
+
+    public static void addNotification(String title, String text, STATE state, HBox hBoxBottom) {
+        Platform.runLater(() -> {
+            final Image image = switch (state) {
+                case INFO -> ProgIconsP2Lib.INFO_ICON.getImage();
+                case WARNING -> ProgIconsP2Lib.WARNING_ICON.getImage();
+                case SUCCESS -> ProgIconsP2Lib.SUCCESS_ICON.getImage();
+                default -> ProgIconsP2Lib.ERROR_ICON.getImage();
+            };
+            final P2Notify notification = new P2Notify(title, text, image, hBoxBottom);
             notification.notify(notification);
         });
     }

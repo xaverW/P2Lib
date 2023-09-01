@@ -57,21 +57,35 @@ public class P2Notify {
     public static final double ICON_WIDTH = 24;
     public static final double ICON_HEIGHT = 24;
     public static double width = 300;
-    public static double offsetX = 0; // The horizontal shift required - The default is 0 px.
-    public static double offsetY = 40; // The vertical shift required - The default is 25 px. - Linux braucht 40
-    public static double spacingY = 5; // The spacing between multiple Notifications - The default is 5 px.
+    public static double offsetX = 15; // The horizontal shift required - The default is 0 px.
+    public static double offsetY = 50; // The vertical shift required - The default is 25 px. - Linux braucht 40
+    public static double spacingY = 10; // The spacing between multiple Notifications - The default is 5 px.
     public static Pos popupLocation = Pos.BOTTOM_RIGHT;
-    public static Duration popupLifetime = Duration.millis(5_000);
+    public static Duration popupLifetime = Duration.millis(8_000);
     public static Duration popupAnimationTime = Duration.millis(500);
     public static final ObservableList<Popup> popups = FXCollections.observableArrayList();
     public static Scene scene = null;
 
+    private HBox hBoxBottom = null;
     private double height = 80;
 
     public P2Notify(final String title, final String message, final Image image) {
         this.title = title;
         this.message = message;
         this.image = image;
+        if (stage == null) {
+            PException.throwPException(912036478, "Notification: stage not set");
+        }
+        if (scene == null) {
+            scene = stage.getScene();
+        }
+    }
+
+    public P2Notify(final String title, final String message, final Image image, HBox hBoxBottom) {
+        this.title = title;
+        this.message = message;
+        this.image = image;
+        this.hBoxBottom = hBoxBottom;
         if (stage == null) {
             PException.throwPException(912036478, "Notification: stage not set");
         }
@@ -121,10 +135,13 @@ public class P2Notify {
         HBox hBox = new HBox();
         hBox.getChildren().addAll(title, P2GuiTools.getHBoxGrower(), btnClose);
 
-        VBox popupLayout = new VBox();
+        final VBox popupLayout = new VBox();
         popupLayout.setSpacing(10);
         popupLayout.setPadding(new Insets(10, 10, 10, 10));
         popupLayout.getChildren().addAll(hBox, message);
+        if (hBoxBottom != null) {
+            popupLayout.getChildren().add(hBoxBottom);
+        }
 
         StackPane popupContent = new StackPane();
         popupContent.setPrefSize(width, height);
