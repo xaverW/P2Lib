@@ -35,7 +35,7 @@ public class P2RangeBox extends VBox {
     private IntegerProperty minValueProp = new SimpleIntegerProperty();
     private IntegerProperty maxValueProp = new SimpleIntegerProperty();
 
-    private String unitSuffix = " Minuten";
+    private String unitSuffix = "Minuten";
     private final RangeSlider slider;
     private final Label lblTime = new Label();
     private final String title;
@@ -68,6 +68,10 @@ public class P2RangeBox extends VBox {
         } else {
             createSlider();
         }
+    }
+
+    public void setUnitSuffix(String unitSuffix) {
+        this.unitSuffix = unitSuffix;
     }
 
     private void createSliderTop() {
@@ -106,7 +110,7 @@ public class P2RangeBox extends VBox {
     }
 
     private StackPane getStack() {
-        Label l = new Label("Von " + MAX_VALUE + " bis " + MAX_VALUE + unitSuffix); // ist der längste Label
+        Label l = new Label("Von " + MAX_VALUE + " bis " + MAX_VALUE + " " + unitSuffix); // ist der längste Label
         l.setVisible(false);
         StackPane stackPane = new StackPane(); // um die Breite konstant zu halten :)
         stackPane.getChildren().addAll(l, lblTime);
@@ -148,11 +152,11 @@ public class P2RangeBox extends VBox {
         if (minIntSlider == MIN_VALUE && maxIntSlider == MAX_VALUE) {
             text = STR_ALLES;
         } else if (minIntSlider == MIN_VALUE) {
-            text = "Max. " + maxIntSlider + unitSuffix;
+            text = "Max. " + maxIntSlider + " " + unitSuffix;
         } else if (maxIntSlider == MAX_VALUE) {
-            text = "Min. " + minIntSlider + unitSuffix;
+            text = "Min. " + minIntSlider + " " + unitSuffix;
         } else {
-            text = "Von " + minIntSlider + " bis " + maxIntSlider + unitSuffix;
+            text = "Von " + minIntSlider + " bis " + maxIntSlider + " " + unitSuffix;
         }
 
         lblTime.setText(text);
