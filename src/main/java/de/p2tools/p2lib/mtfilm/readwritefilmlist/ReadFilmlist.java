@@ -24,9 +24,9 @@ import de.p2tools.p2lib.mtfilm.film.FilmData;
 import de.p2tools.p2lib.mtfilm.film.FilmDataXml;
 import de.p2tools.p2lib.mtfilm.film.Filmlist;
 import de.p2tools.p2lib.mtfilm.film.FilmlistXml;
-import de.p2tools.p2lib.mtfilm.loadfilmlist.ListenerFilmlistLoadEvent;
-import de.p2tools.p2lib.mtfilm.loadfilmlist.ListenerLoadFilmlist;
 import de.p2tools.p2lib.mtfilm.loadfilmlist.LoadFactory;
+import de.p2tools.p2lib.mtfilm.loadfilmlist.P2LoadEvent;
+import de.p2tools.p2lib.mtfilm.loadfilmlist.P2LoadListener;
 import de.p2tools.p2lib.mtfilm.tools.InputStreamProgressMonitor;
 import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 import de.p2tools.p2lib.mtfilm.tools.ProgressMonitorInputStream;
@@ -165,7 +165,7 @@ public class ReadFilmlist {
      * @param filmlist the list to read to
      */
     private void processFromFile(String source, Filmlist filmlist) {
-        notifyProgress(ListenerLoadFilmlist.PROGRESS_INDETERMINATE);
+        notifyProgress(P2LoadListener.PROGRESS_INDETERMINATE);
         try (InputStream in = selectDecompressor(source, new FileInputStream(source));
              JsonParser jp = new JsonFactory().createParser(in)) {
             readData(jp, filmlist);
@@ -491,17 +491,17 @@ public class ReadFilmlist {
 
     private void notifyProgress(double iProgress) {
         progress = iProgress;
-        if (progress > ListenerLoadFilmlist.PROGRESS_MAX) {
-            progress = ListenerLoadFilmlist.PROGRESS_MAX;
+        if (progress > P2LoadListener.PROGRESS_MAX) {
+            progress = P2LoadListener.PROGRESS_MAX;
         }
         LoadFactoryConst.loadFilmlist.setProgress(
-                new ListenerFilmlistLoadEvent("Filmliste laden", progress, 0, false));
+                new P2LoadEvent("Filmliste laden", progress, 0, false));
     }
 
     private void notifyLoaded() {
         // Laden ist durch
         LoadFactoryConst.loadFilmlist.setLoaded(
-                new ListenerFilmlistLoadEvent("Filme verarbeiten",
-                        ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
+                new P2LoadEvent("Filme verarbeiten",
+                        P2LoadListener.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
     }
 }

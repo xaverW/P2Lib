@@ -42,7 +42,7 @@ public class LoadFilmlist {
     private final Filmlist filmListDiff;
     private final Filmlist filmListNew;
     private final ImportNewFilmlistFromServer importNewFilmlisteFromServer;
-    public final FilmListLoadNotifier filmListLoadNotifier = new FilmListLoadNotifier();
+    public final P2LoadNotifier p2LoadNotifier = new P2LoadNotifier();
     private BooleanProperty propLoadFilmlist = new SimpleBooleanProperty(false);
     private boolean filmlistTooOld = false;
 
@@ -60,25 +60,25 @@ public class LoadFilmlist {
         importNewFilmlisteFromServer = new ImportNewFilmlistFromServer();
     }
 
-    public void setStart(ListenerFilmlistLoadEvent event) {
-        filmListLoadNotifier.notifyEvent(FilmListLoadNotifier.NOTIFY.START, event);
+    public void setStart(P2LoadEvent event) {
+        p2LoadNotifier.notifyEvent(P2LoadNotifier.NOTIFY.START, event);
     }
 
-    public void setProgress(ListenerFilmlistLoadEvent event) {
-        filmListLoadNotifier.notifyEvent(FilmListLoadNotifier.NOTIFY.PROGRESS, event);
+    public void setProgress(P2LoadEvent event) {
+        p2LoadNotifier.notifyEvent(P2LoadNotifier.NOTIFY.PROGRESS, event);
     }
 
-    public void setLoaded(ListenerFilmlistLoadEvent event) {
+    public void setLoaded(P2LoadEvent event) {
         // das wird öfters aufgerufen
-        filmListLoadNotifier.notifyEvent(FilmListLoadNotifier.NOTIFY.LOADED, event);
+        p2LoadNotifier.notifyEvent(P2LoadNotifier.NOTIFY.LOADED, event);
     }
 
-    public void setFinished(ListenerFilmlistLoadEvent event) {
-        filmListLoadNotifier.notifyEvent(FilmListLoadNotifier.NOTIFY.FINISHED, event);
+    public void setFinished(P2LoadEvent event) {
+        p2LoadNotifier.notifyEvent(P2LoadNotifier.NOTIFY.FINISHED, event);
     }
 
     public void setFinished() {
-        filmListLoadNotifier.notifyFinishedOk();
+        p2LoadNotifier.notifyFinishedOk();
     }
 
     public synchronized boolean isStop() {
@@ -101,8 +101,8 @@ public class LoadFilmlist {
 
         // Start des Ladens, gibts keine Fortschrittsanzeige und kein Abbrechen
         setPropLoadFilmlist(true);
-        setStart(new ListenerFilmlistLoadEvent("Programmstart, Filmliste laden",
-                ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false));
+        setStart(new P2LoadEvent("Programmstart, Filmliste laden",
+                P2LoadListener.PROGRESS_INDETERMINATE, 0, false));
 
         new Thread(() -> {
             final List<String> logList = new ArrayList<>();
@@ -131,8 +131,8 @@ public class LoadFilmlist {
         }
 
         setPropLoadFilmlist(true);
-        setStart(new ListenerFilmlistLoadEvent("Filmliste aus dem Web laden",
-                ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false));
+        setStart(new P2LoadEvent("Filmliste aus dem Web laden",
+                P2LoadListener.PROGRESS_INDETERMINATE, 0, false));
 
         new Thread(() -> {
             final List<String> logList = new ArrayList<>();
@@ -239,8 +239,8 @@ public class LoadFilmlist {
                 if (filmlistTooOld || filmListNew.isEmpty()) {
                     //dann war sie zu alt oder ist leer
                     filmlistTooOld = false;//dann gleich wieder ausschalten
-                    setProgress(new ListenerFilmlistLoadEvent("Filmliste ist zu alt, eine neue laden",
-                            ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
+                    setProgress(new P2LoadEvent("Filmliste ist zu alt, eine neue laden",
+                            P2LoadListener.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
 
                     logList.add("## Programmstart: Neue Liste aus dem Web laden");
                     loadNewFilmlistFromWeb(logList, false, true, LoadFactoryConst.localFilmListFile);
@@ -249,8 +249,8 @@ public class LoadFilmlist {
             }
         }
 
-        setLoaded(new ListenerFilmlistLoadEvent("Filme verarbeiten",
-                ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
+        setLoaded(new P2LoadEvent("Filme verarbeiten",
+                P2LoadListener.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
         afterLoading(logList);
     }
 
@@ -267,16 +267,16 @@ public class LoadFilmlist {
         logList.add("## " + PLog.LILNE2);
         logList.add("##");
 
-        setLoaded(new ListenerFilmlistLoadEvent("Filme markieren, Themen suchen",
-                ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
+        setLoaded(new P2LoadEvent("Filme markieren, Themen suchen",
+                P2LoadListener.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
         logList.add("## Filme markieren");
         final int count = filmListNew.markFilms();
         logList.add("## Anzahl doppelte Filme: " + count);
 
         filmListNew.loadSender();
 
-        setLoaded(new ListenerFilmlistLoadEvent("Filme in Downloads eingetragen",
-                ListenerLoadFilmlist.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
+        setLoaded(new P2LoadEvent("Filme in Downloads eingetragen",
+                P2LoadListener.PROGRESS_INDETERMINATE, 0, false/* Fehler */));
         logList.add("## Filme in Downloads eingetragen");
 
         //die FilmList wieder füllen

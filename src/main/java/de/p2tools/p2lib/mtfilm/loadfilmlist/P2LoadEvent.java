@@ -16,23 +16,31 @@
 
 package de.p2tools.p2lib.mtfilm.loadfilmlist;
 
-import java.util.EventListener;
+public class P2LoadEvent {
 
-public class ListenerLoadFilmlist implements EventListener {
+    public String text;
+    public double max;
+    public double progress;
+    public boolean error;
+    public int countFoundFilms;
 
-    public static final double PROGRESS_MIN = 0.0;
-    public static final double PROGRESS_MAX = 1.0;
-    public static final double PROGRESS_INDETERMINATE = -1.0;
-
-    public void start(ListenerFilmlistLoadEvent e) {
+    public P2LoadEvent(String text, double max, double progress, int countFoundFilms, boolean error) {
+        this.text = text;
+        this.max = max;
+        this.progress = progress;
+        this.countFoundFilms = countFoundFilms;
+        this.error = error;
     }
 
-    public void progress(ListenerFilmlistLoadEvent e) {
+    public P2LoadEvent(String text, double progress, int countFoundFilms, boolean error) {
+        this.text = text;
+        this.max = 0;
+        this.progress = progress;
+        this.countFoundFilms = countFoundFilms;
+        this.error = error;
     }
 
-    public void loaded(ListenerFilmlistLoadEvent e) {
-    }
-
-    public void finished(ListenerFilmlistLoadEvent e) {
+    public static P2LoadEvent getEmptyEvent() {
+        return new P2LoadEvent("", 0, 0, false);
     }
 }

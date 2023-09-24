@@ -22,13 +22,13 @@ import javafx.application.Platform;
 
 import javax.swing.event.EventListenerList;
 
-public class FilmListLoadNotifier {
+public class P2LoadNotifier {
     public final EventListenerList listeners = new EventListenerList();
 
-    public void notifyEvent(NOTIFY notify, ListenerFilmlistLoadEvent event) {
+    public void notifyEvent(NOTIFY notify, P2LoadEvent event) {
         try {
             Platform.runLater(() -> {
-                for (final ListenerLoadFilmlist l : listeners.getListeners(ListenerLoadFilmlist.class)) {
+                for (final P2LoadListener l : listeners.getListeners(P2LoadListener.class)) {
                     switch (notify) {
                         case START -> l.start(event);
                         case PROGRESS -> l.progress(event);
@@ -43,16 +43,16 @@ public class FilmListLoadNotifier {
     }
 
     public void notifyFinishedOk() {
-        notifyEvent(FilmListLoadNotifier.NOTIFY.FINISHED, ListenerFilmlistLoadEvent.getEmptyEvent());
+        notifyEvent(P2LoadNotifier.NOTIFY.FINISHED, P2LoadEvent.getEmptyEvent());
     }
 
-    public void addListenerLoadFilmlist(ListenerLoadFilmlist listener) {
-        listeners.add(ListenerLoadFilmlist.class, listener);
+    public void addListenerLoadFilmlist(P2LoadListener listener) {
+        listeners.add(P2LoadListener.class, listener);
         PLog.debugLog("======>" + listeners.getListenerCount());
     }
 
-    public void removeListenerLoadFilmlist(ListenerLoadFilmlist listener) {
-        listeners.remove(ListenerLoadFilmlist.class, listener);
+    public void removeListenerLoadFilmlist(P2LoadListener listener) {
+        listeners.remove(P2LoadListener.class, listener);
         PLog.debugLog("======>" + listeners.getListenerCount());
     }
 

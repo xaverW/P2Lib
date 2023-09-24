@@ -199,4 +199,12 @@ public class PLDateFactory {
             return localDate.format(DateFactory.DT_FORMATTER_yyyy_MM_dd);
         }
     }
+
+    public static String getNowString() {
+        return LocalDate.now().format(DateFactory.DT_FORMATTER_dd_MM_yyyy);
+    }
+
+    public static String getNowStringR() {
+        return LocalDate.now().format(DateFactory.DT_FORMATTER_yyyy_MM_dd);
+    }
 }
