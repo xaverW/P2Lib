@@ -1,5 +1,6 @@
-package de.p2tools.p2lib.guitools;/*
- * P2Tools Copyright (C) 2022 W. Xaver W.Xaver[at]googlemail.com
+package de.p2tools.p2lib.guitools;
+/*
+ * P2Tools Copyright (C) 2023 W. Xaver W.Xaver[at]googlemail.com
  * https://www.p2tools.de/
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the

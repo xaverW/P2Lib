@@ -1,5 +1,5 @@
 /*
- * P2Tools Copyright (C) 2022 W. Xaver W.Xaver[at]googlemail.com
+ * P2Tools Copyright (C) 2023 W. Xaver W.Xaver[at]googlemail.com
  * https://www.p2tools.de/
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
@@ -295,12 +295,36 @@ public class FilmFilterCheck {
         return true;
     }
 
+    public static boolean checkMatchMinDur(int minDur, int durationMinute) {
+        if (minDur == FilterCheck.FILTER_ALL_OR_MIN) {
+            return true;
+        }
+
+        if (durationMinute != 0 && durationMinute < minDur) {
+            return false;
+        }
+
+        return true;
+    }
+
     public static boolean checkMatchMaxDur(int maxDur, FilmData film) {
         if (maxDur == FilterCheck.FILTER_DURATION_MAX_MINUTE) {
             return true;
         }
 
         final int durationMinute = film.getDurationMinute();
+        if (durationMinute != 0 && durationMinute > maxDur) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean checkMatchMaxDur(int maxDur, int durationMinute) {
+        if (maxDur == FilterCheck.FILTER_DURATION_MAX_MINUTE) {
+            return true;
+        }
+
         if (durationMinute != 0 && durationMinute > maxDur) {
             return false;
         }

@@ -14,7 +14,6 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-
 package de.p2tools.p2lib.tools;
 
 import java.util.ArrayList;

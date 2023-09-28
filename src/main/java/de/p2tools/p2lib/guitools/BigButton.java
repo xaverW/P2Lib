@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 W. Xaver W.Xaver[at]googlemail.com
+ * P2Tools Copyright (C) 2023 W. Xaver W.Xaver[at]googlemail.com
  * https://www.p2tools.de
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
@@ -38,7 +38,7 @@ public class BigButton extends Button {
 
         Label detailsLabel = new Label(text);
 
-        if (img!=null) {
+        if (img != null) {
             graphicGrid.add(img, 0, 0);
         }
         graphicGrid.add(btnHeaderLabel, 1, 0);
@@ -59,7 +59,7 @@ public class BigButton extends Button {
 
         Label btnHeaderLabel = new Label(header);
         btnHeaderLabel.setStyle("-fx-font-size: 1.5em;");
-        if (img!=null) {
+        if (img != null) {
             graphicGrid.add(img, 0, 0);
         }
         graphicGrid.add(btnHeaderLabel, 1, 0);

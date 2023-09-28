@@ -1,5 +1,5 @@
 /*
- * P2Tools Copyright (C) 2018 W. Xaver W.Xaver[at]googlemail.com
+ * P2Tools Copyright (C) 2023 W. Xaver W.Xaver[at]googlemail.com
  * https://www.p2tools.de/
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
@@ -69,6 +69,16 @@ public class PLDateTimeFactory {
             return "";
         } else {
             return localDateTime.format(DateFactory.DT_FORMATTER_dd_MM_yyyy);
+        }
+    }
+
+    public static String toStringTime(LocalDateTime localDateTime) {
+        if (localDateTime == null) {
+            return "";
+        } else if (localDateTime.isEqual(LocalDateTime.MIN)) {
+            return "";
+        } else {
+            return localDateTime.format(DateFactory.DT_FORMATTER_HH__mm);
         }
     }
 
