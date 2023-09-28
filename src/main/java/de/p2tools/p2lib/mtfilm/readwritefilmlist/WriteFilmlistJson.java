@@ -1,6 +1,6 @@
 /*
  * P2Tools Copyright (C) 2023 W. Xaver W.Xaver[at]googlemail.com
- * https://www.p2tools.de/mtviewer/
+ * https://www.p2tools.de
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the
