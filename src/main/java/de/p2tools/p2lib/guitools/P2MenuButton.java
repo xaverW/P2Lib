@@ -42,20 +42,31 @@ public class P2MenuButton extends MenuButton {
         this.filterProperty = filterProperty;
         this.allButtonList = allButtonList;
 
-        init();
+        initMenuButton();
     }
 
-    private void init() {
+    public P2MenuButton(StringProperty filterProperty, ObservableList<String> allButtonList, boolean minWidth) {
+        this.filterProperty = filterProperty;
+        this.allButtonList = allButtonList;
+        initMenuButton();
+        if (minWidth) {
+            setMaxWidth(-1);
+            setMinWidth(200);
+        }
+    }
+
+    private void initMenuButton() {
+        getStyleClass().add("cbo-menu");
         setMaxWidth(Double.MAX_VALUE);
-        initMenu();
+        updateMenuButton();
         filterProperty.addListener((observable, oldValue, newValue) -> {
-            initMenu();
+            updateMenuButton();
         });
-        allButtonList.addListener((ListChangeListener<String>) c -> initMenu());
+        allButtonList.addListener((ListChangeListener<String>) c -> updateMenuButton());
         textProperty().bindBidirectional(filterProperty);
     }
 
-    private void initMenu() {
+    private void updateMenuButton() {
         getItems().clear();
         menuItemsList.clear();
 
@@ -74,18 +85,21 @@ public class P2MenuButton extends MenuButton {
         CheckBox miCheckAll = new CheckBox();
         miCheckAll.setVisible(false);
 
-        Button btnAll = new Button("Auswahl löschen");
-        btnAll.setMaxWidth(Double.MAX_VALUE);
-        btnAll.setOnAction(e -> {
+        Button btnClear = new Button("Auswahl löschen");
+        btnClear.getStyleClass().add("cbo-menu-button");
+        btnClear.setMaxWidth(Double.MAX_VALUE);
+        btnClear.minWidthProperty().bind(widthProperty().add(-50));
+        btnClear.setOnAction(e -> {
             clearChannelMenuText();
             hide();
         });
 
         HBox hBoxAll = new HBox(P2LibConst.DIST_BUTTON);
         hBoxAll.setAlignment(Pos.CENTER_LEFT);
-        hBoxAll.getChildren().addAll(miCheckAll, btnAll);
+        hBoxAll.getChildren().addAll(miCheckAll, btnClear);
 
         CustomMenuItem cmiAll = new CustomMenuItem(hBoxAll);
+        cmiAll.getStyleClass().add("cbo-menu-item");
         getItems().add(cmiAll);
 
         for (String s : allButtonList) {
@@ -97,25 +111,28 @@ public class P2MenuButton extends MenuButton {
             if (filterList.contains(s.trim().toLowerCase())) {
                 miCheck.setSelected(true);
             }
-            miCheck.setOnAction(a -> setChannelMenuText());
+            miCheck.setOnAction(a -> setMenuText());
 
             MenuItemClass menuItemClass = new MenuItemClass(s, miCheck);
             menuItemsList.add(menuItemClass);
 
             Button btnChannel = new Button(s);
+            btnChannel.getStyleClass().add("cbo-menu-button");
             btnChannel.setMaxWidth(Double.MAX_VALUE);
+            btnChannel.minWidthProperty().bind(widthProperty().add(-50));
             btnChannel.setOnAction(e -> {
                 setChannelCheckBoxAndMenuText(menuItemClass);
                 hide();
             });
 
-            HBox hBox = new HBox(10);
+            HBox hBox = new HBox(5);
             hBox.prefWidthProperty().bind(hBoxAll.widthProperty());
             hBox.setAlignment(Pos.CENTER_LEFT);
-            hBox.getChildren().addAll(miCheck, btnChannel);
             HBox.setHgrow(btnChannel, Priority.ALWAYS);
+            hBox.getChildren().addAll(miCheck, btnChannel);
 
             CustomMenuItem cmi = new CustomMenuItem(hBox);
+            cmi.getStyleClass().add("cbo-menu-item");
             getItems().add(cmi);
         }
     }
@@ -125,7 +142,7 @@ public class P2MenuButton extends MenuButton {
             cm.getCheckBox().setSelected(false);
         }
         cmi.getCheckBox().setSelected(true);
-        setChannelMenuText();
+        setMenuText();
     }
 
     private void clearChannelMenuText() {
@@ -133,9 +150,10 @@ public class P2MenuButton extends MenuButton {
             cmi.getCheckBox().setSelected(false);
         }
         setText("");
+        doAfterSelction("");
     }
 
-    private void setChannelMenuText() {
+    private void setMenuText() {
         StringBuilder text = new StringBuilder();
         for (MenuItemClass cmi : menuItemsList) {
             if (cmi.getCheckBox().isSelected()) {
@@ -143,6 +161,11 @@ public class P2MenuButton extends MenuButton {
             }
         }
         setText(text.toString());
+        doAfterSelction(text.toString());
+    }
+
+    public void doAfterSelction(String text) {
+
     }
 
     private static class MenuItemClass {
