@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.configfile.config;
 
-import de.p2tools.p2lib.guitools.PTimePicker;
+import de.p2tools.p2lib.guitools.P2TimePicker;
 import de.p2tools.p2lib.tools.date.PLTimeFactory;
 import javafx.scene.control.Control;
 
@@ -73,7 +73,7 @@ public abstract class Config_lTime extends Config {
 
     @Override
     public Control getControl() {
-        PTimePicker control = new PTimePicker();
+        P2TimePicker control = new P2TimePicker();
         return control;
     }
 

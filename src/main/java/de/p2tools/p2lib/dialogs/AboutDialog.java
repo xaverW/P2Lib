@@ -18,8 +18,8 @@ package de.p2tools.p2lib.dialogs;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.PHyperlink;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.tools.ProgramToolsFactory;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.HPos;
@@ -150,8 +150,8 @@ public abstract class AboutDialog extends PDialogExtra {
         GridPane.setHalignment(text3, HPos.CENTER);
 
         HBox.setHgrow(gridPane, Priority.ALWAYS);
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow());
 
 
         //=======================
@@ -187,13 +187,13 @@ public abstract class AboutDialog extends PDialogExtra {
         text.setFill(PROG_COLOR_MARK);
         gridPane.add(text, c, ++row, 2, 1);
 
-        PHyperlink hyperlinkWeb = new PHyperlink(URL_WEBSITE,
+        P2Hyperlink hyperlinkWeb = new P2Hyperlink(URL_WEBSITE,
                 urlOpenProg, imageView);
-        PHyperlink hyperlinkHelp = new PHyperlink(URL_WEBSITE_HELP,
+        P2Hyperlink hyperlinkHelp = new P2Hyperlink(URL_WEBSITE_HELP,
                 urlOpenProg, imageView);
-        PHyperlink hyperlinkForum = new PHyperlink(P2LibConst.URL_WEBSITE_FORUM,
+        P2Hyperlink hyperlinkForum = new P2Hyperlink(P2LibConst.URL_WEBSITE_FORUM,
                 urlOpenProg, imageView);
-        PHyperlink hyperlinkDonate = new PHyperlink(P2LibConst.URL_WEBSITE_DONATE,
+        P2Hyperlink hyperlinkDonate = new P2Hyperlink(P2LibConst.URL_WEBSITE_DONATE,
                 urlOpenProg, imageView);
 
         text = new Text("Website:");

@@ -19,7 +19,7 @@ package de.p2tools.p2lib.dialogs.dialog;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.P2LibInit;
 import de.p2tools.p2lib.guitools.P2WindowIcon;
-import de.p2tools.p2lib.guitools.PGuiSize;
+import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.tools.IoReadWriteStyle;
 import de.p2tools.p2lib.tools.PException;
 import de.p2tools.p2lib.tools.log.PLog;
@@ -109,8 +109,8 @@ public class PDialog {
                 close();
             });
             //brauchts zwar nicht 2x, der Dialog "springt" dann aber weniger
-            stage.setOnShowing(e -> PGuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog));
-            stage.setOnShown(e -> PGuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog));
+            stage.setOnShowing(e -> P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog));
+            stage.setOnShown(e -> P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog));
 
             updateCss();
             setIcon();

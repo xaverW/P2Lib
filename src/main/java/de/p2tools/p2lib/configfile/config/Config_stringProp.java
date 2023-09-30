@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.configfile.config;
 
-import de.p2tools.p2lib.guitools.PTextFieldRegEx;
+import de.p2tools.p2lib.guitools.P2TextFieldRegEx;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
@@ -80,7 +80,7 @@ public class Config_stringProp extends Config {
         Control control;
 
         if (regEx != null && !regEx.isEmpty()) {
-            final PTextFieldRegEx txt = new PTextFieldRegEx(regEx);
+            final P2TextFieldRegEx txt = new P2TextFieldRegEx(regEx);
             txt.setStringProperty(getProperty());
             control = txt;
 

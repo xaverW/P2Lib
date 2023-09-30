@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.configfile.config;
 
-import de.p2tools.p2lib.guitools.PTextFieldInteger;
+import de.p2tools.p2lib.guitools.P2TextFieldInteger;
 import javafx.beans.property.IntegerProperty;
 import javafx.scene.control.Control;
 
@@ -70,7 +70,7 @@ public class Config_intProp extends Config {
 
     @Override
     public Control getControl() {
-        PTextFieldInteger control = new PTextFieldInteger(getProperty());
+        P2TextFieldInteger control = new P2TextFieldInteger(getProperty());
         return control;
     }
 }

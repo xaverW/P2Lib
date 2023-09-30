@@ -17,8 +17,8 @@
 
 package de.p2tools.p2lib.checkforupdates;
 
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.PHyperlink;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.mtdownload.DownloadFactory;
 import de.p2tools.p2lib.tools.net.PUrlTools;
 import javafx.beans.property.BooleanProperty;
@@ -52,8 +52,8 @@ public class InfoAlertFactory {
         gridPane.setVgap(10);
 
         Label txtVersion = new Label(progUpdateData.getVersionText());
-        Hyperlink hyperlinkUrl = new PHyperlink(progUpdateData.getProgUrl());
-        Hyperlink hyperlinkDownUrl = new PHyperlink(progUpdateData.getProgDownloadUrl());
+        Hyperlink hyperlinkUrl = new P2Hyperlink(progUpdateData.getProgUrl());
+        Hyperlink hyperlinkDownUrl = new P2Hyperlink(progUpdateData.getProgDownloadUrl());
 
         TextArea textArea = new TextArea();
         textArea.setText(progUpdateData.getShowText());
@@ -88,8 +88,8 @@ public class InfoAlertFactory {
         gridPane.add(lblRel, 0, ++row);
         gridPane.add(textArea, 0, ++row, 2, 1);
 
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow());
 
         VBox vBox = new VBox(10);
         vBox.getChildren().add(gridPane);

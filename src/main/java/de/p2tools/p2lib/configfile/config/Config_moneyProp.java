@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.configfile.config;
 
-import de.p2tools.p2lib.guitools.PTextFieldMoney;
+import de.p2tools.p2lib.guitools.P2TextFieldMoney;
 import javafx.beans.property.LongProperty;
 import javafx.scene.control.Control;
 
@@ -77,7 +77,7 @@ public class Config_moneyProp extends Config {
 
     @Override
     public Control getControl() {
-        PTextFieldMoney control = new PTextFieldMoney(getProperty(), onlyLabel);
+        P2TextFieldMoney control = new P2TextFieldMoney(getProperty(), onlyLabel);
         return control;
     }
 }

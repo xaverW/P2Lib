@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.configfile.config;
 
-import de.p2tools.p2lib.guitools.PLDatePicker;
+import de.p2tools.p2lib.guitools.P2LDatePicker;
 import de.p2tools.p2lib.tools.date.PLDateTimeFactory;
 import de.p2tools.p2lib.tools.date.PLDateTimeProperty;
 import javafx.scene.control.Control;
@@ -69,7 +69,7 @@ public class Config_lDateTimeProp extends Config {
 
     @Override
     public Control getControl() {
-        PLDatePicker control = new PLDatePicker(actValue.getValue().toLocalDate());
+        P2LDatePicker control = new P2LDatePicker(actValue.getValue().toLocalDate());
         return control;
     }
 }

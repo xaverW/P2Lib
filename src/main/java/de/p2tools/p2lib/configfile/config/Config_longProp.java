@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.configfile.config;
 
-import de.p2tools.p2lib.guitools.PTextFieldLong;
+import de.p2tools.p2lib.guitools.P2TextFieldLong;
 import javafx.beans.property.LongProperty;
 import javafx.scene.control.Control;
 
@@ -70,7 +70,7 @@ public class Config_longProp extends Config {
 
     @Override
     public Control getControl() {
-        PTextFieldLong control = new PTextFieldLong(getProperty());
+        P2TextFieldLong control = new P2TextFieldLong(getProperty());
         return control;
     }
 }

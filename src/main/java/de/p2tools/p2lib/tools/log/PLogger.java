@@ -19,7 +19,7 @@ package de.p2tools.p2lib.tools.log;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.guitools.POpen;
+import de.p2tools.p2lib.guitools.P2Open;
 import javafx.application.Platform;
 
 import java.io.File;
@@ -94,9 +94,9 @@ public class PLogger {
         // wenn logfile existiert, dann das öffnen, ansonsten den Ordner
         Path path = Paths.get(handlerDir, P2LibConst.logfile_0);
         if (path.toFile().exists()) {
-            POpen.openFile(path.toString());
+            P2Open.openFile(path.toString());
         } else {
-            POpen.openDir(handlerDir);
+            P2Open.openDir(handlerDir);
         }
 
     }

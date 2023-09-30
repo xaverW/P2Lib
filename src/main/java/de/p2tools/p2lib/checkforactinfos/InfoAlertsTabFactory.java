@@ -17,8 +17,8 @@
 
 package de.p2tools.p2lib.checkforactinfos;
 
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.PHyperlink;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.mtdownload.DownloadFactory;
 import de.p2tools.p2lib.tools.date.PLDateFactory;
 import de.p2tools.p2lib.tools.net.PUrlTools;
@@ -112,8 +112,8 @@ public class InfoAlertsTabFactory {
         final Label txtVersion = new Label(foundSearchData.getNewVersionNo() +
                 "  vom: " + PLDateFactory.getDate_yMd(foundSearchData.getNewVersionDate()));
 
-        final Hyperlink hyperlinkUrl = new PHyperlink(foundSearchData.getUrlWebsite());
-        final Hyperlink hyperlinkDownUrl = new PHyperlink(foundSearchData.getUrlDownload());
+        final Hyperlink hyperlinkUrl = new P2Hyperlink(foundSearchData.getUrlWebsite());
+        final Hyperlink hyperlinkDownUrl = new P2Hyperlink(foundSearchData.getUrlDownload());
 
         int row = 0;
         lblActVersion.setPadding(new Insets(VERSION_PADDING_T, 0, VERSION_PADDING_B, 0));
@@ -163,8 +163,8 @@ public class InfoAlertsTabFactory {
         gridPane.add(lblRel, 0, ++row);
         gridPane.add(textArea, 0, ++row, 2, 1);
 
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow());
 
         final VBox vBox = new VBox(10);
         vBox.getChildren().add(gridPane);
@@ -254,8 +254,8 @@ public class InfoAlertsTabFactory {
                     + "  vom: " + PLDateFactory.getDate_yMd(foundSearchData.getNewDailyDate()) + "]");
         }
 
-        final Hyperlink hyperlinkUrl = new PHyperlink(foundSearchData.getUrlWebsite());
-        final Hyperlink hyperlinkDownUrl = new PHyperlink(foundSearchData.getUrlDownload());
+        final Hyperlink hyperlinkUrl = new P2Hyperlink(foundSearchData.getUrlWebsite());
+        final Hyperlink hyperlinkDownUrl = new P2Hyperlink(foundSearchData.getUrlDownload());
         final Label lblActVersion = new Label("Aktuelle Version:");
         final Label lblVersion = new Label("Neue Version:");
         final Label lblWeb = new Label("Webseite:");
@@ -308,8 +308,8 @@ public class InfoAlertsTabFactory {
         gridPane.add(lblRel, 0, ++row);
         gridPane.add(textArea, 0, ++row, 2, 1);
 
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow());
 
         final RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setValignment(VPos.CENTER);

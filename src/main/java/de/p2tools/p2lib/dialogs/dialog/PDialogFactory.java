@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.dialogs.dialog;
 
-import de.p2tools.p2lib.guitools.PGuiSize;
+import de.p2tools.p2lib.guitools.P2GuiSize;
 import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
 
@@ -29,22 +29,22 @@ public class PDialogFactory {
         if (sizeConfiguration != null) {
             stage.widthProperty().addListener((v, o, n) -> {
                 if (stage.isShowing()) {
-                    PGuiSize.getSizeStage(sizeConfiguration, stage);
+                    P2GuiSize.getSizeStage(sizeConfiguration, stage);
                 }
             });
             stage.heightProperty().addListener((v, o, n) -> {
                 if (stage.isShowing()) {
-                    PGuiSize.getSizeStage(sizeConfiguration, stage);
+                    P2GuiSize.getSizeStage(sizeConfiguration, stage);
                 }
             });
             stage.xProperty().addListener((v, o, n) -> {
                 if (stage.isShowing()) {
-                    PGuiSize.getSizeStage(sizeConfiguration, stage);
+                    P2GuiSize.getSizeStage(sizeConfiguration, stage);
                 }
             });
             stage.yProperty().addListener((v, o, n) -> {
                 if (stage.isShowing()) {
-                    PGuiSize.getSizeStage(sizeConfiguration, stage);
+                    P2GuiSize.getSizeStage(sizeConfiguration, stage);
                 }
             });
         }

@@ -19,8 +19,8 @@ package de.p2tools.p2lib.mtdownload;
 
 import de.p2tools.p2lib.ProgIconsP2Lib;
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
-import de.p2tools.p2lib.guitools.PProgressBar;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.P2ProgressBar;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -35,7 +35,7 @@ public class DownloadProgressDialog extends PDialogExtra {
     private VBox vBoxCont;
     private Button btnCancel = new Button("");
     private GridPane gridPane = new GridPane();
-    private PProgressBar progressBar = new PProgressBar();
+    private P2ProgressBar progressBar = new P2ProgressBar();
     private Label lblName = new Label();
     private boolean isCanceled = false;
     private String startText = "";
@@ -65,8 +65,8 @@ public class DownloadProgressDialog extends PDialogExtra {
         gridPane.setPadding(new Insets(0));
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcPrefSize(),
-                PColumnConstraints.getCcComputedSizeAndHgrow(), PColumnConstraints.getCcPrefSize());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
+                P2ColumnConstraints.getCcComputedSizeAndHgrow(), P2ColumnConstraints.getCcPrefSize());
 
         gridPane.add(lblName, 0, 0);
         gridPane.add(progressBar, 1, 0);

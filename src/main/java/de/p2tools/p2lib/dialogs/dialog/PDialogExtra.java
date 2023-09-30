@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.dialogs.dialog;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.pmask.PMaskerPane;
+import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
@@ -49,7 +49,7 @@ public class PDialogExtra extends PDialog {
 
     private static ArrayList<PDialog> dialogList = new ArrayList<>();
     private final ScrollPane scrollPane = new ScrollPane();
-    private PMaskerPane maskerPane = null;
+    private P2MaskerPane maskerPane = null;
     private boolean masker = false;
     private DECO deco = DECO.BORDER;
 
@@ -97,7 +97,7 @@ public class PDialogExtra extends PDialog {
         super(ownerForCenteringDialog, conf, title, modal, setOnlySize);
         this.deco = deco;
         this.masker = masker;
-        maskerPane = new PMaskerPane();
+        maskerPane = new P2MaskerPane();
         initDialog();
     }
 
@@ -266,7 +266,7 @@ public class PDialogExtra extends PDialog {
         }
     }
 
-    public PMaskerPane getMaskerPane() {
+    public P2MaskerPane getMaskerPane() {
         return maskerPane;
     }
 

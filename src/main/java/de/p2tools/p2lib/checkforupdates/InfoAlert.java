@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.checkforupdates;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.PColumnConstraints;
+import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -220,7 +220,7 @@ public class InfoAlert {
             }
         }
 
-        gridPane.getColumnConstraints().addAll(PColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcComputedSizeAndHgrow());
         scrollPane.setContent(gridPane);
         tabInfos.setContent(scrollPane);
     }

@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.configfile.config;
 
-import de.p2tools.p2lib.guitools.PTextFieldDouble;
+import de.p2tools.p2lib.guitools.P2TextFieldDouble;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.control.Control;
 
@@ -70,7 +70,7 @@ public class Config_doubleProp extends Config {
 
     @Override
     public Control getControl() {
-        PTextFieldDouble control = new PTextFieldDouble(getProperty());
+        P2TextFieldDouble control = new P2TextFieldDouble(getProperty());
         return control;
     }
 }

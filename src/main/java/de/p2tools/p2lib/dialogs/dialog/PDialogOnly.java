@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.dialogs.dialog;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.pmask.PMaskerPane;
+import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
@@ -32,7 +32,7 @@ public class PDialogOnly extends PDialog {
     private static final ArrayList<PDialog> dialogList = new ArrayList<>();
 
     private final VBox vBoxCompleteDialog = new VBox(); // ist der gesamte Dialog
-    private PMaskerPane maskerPane = null;
+    private P2MaskerPane maskerPane = null;
     private boolean masker = false;
 
     public PDialogOnly() {
@@ -61,7 +61,7 @@ public class PDialogOnly extends PDialog {
                        String title, boolean modal, boolean setOnlySize, boolean masker) {
         super(ownerForCenteringDialog, conf, title, modal, setOnlySize);
         this.masker = masker;
-        maskerPane = new PMaskerPane();
+        maskerPane = new P2MaskerPane();
         initDialog();
     }
 
@@ -135,7 +135,7 @@ public class PDialogOnly extends PDialog {
         }
     }
 
-    public PMaskerPane getMaskerPane() {
+    public P2MaskerPane getMaskerPane() {
         return maskerPane;
     }
 
