@@ -33,7 +33,7 @@ import java.nio.file.Paths;
 
 public class PFileUtils {
     private final static int WIN_MAX_PATH_LENGTH = 250;
-    private final static int X_MAX_NAME_LENGTH = 255;
+    private final static int X_MAX_NAME_LENGTH = 250;
 
     /**
      * Return the path to the user´s home directory.
@@ -82,9 +82,6 @@ public class PFileUtils {
         // /de/p2tools/filerunner/icon/P2.png
         String ret = "";
         try {
-//            ret = FilenameUtils.concat(path1, path2);
-//            ret = Paths.get(path1, path2).toString();
-
             ret = Paths.get(path1).resolve(path2).toString();
             if (ret.isEmpty()) {
                 PLog.errorLog(283946015, path1 + " - " + path2);
@@ -254,7 +251,7 @@ public class PFileUtils {
         return true;
     }
 
-    public static String[] checkLengthPath(String[] pathName) {
+    public static void checkLengthPath(String[] pathName) {
         if (SystemUtils.IS_OS_WINDOWS) {
             // in Win dürfen die Pfade nicht länger als 260 Zeichen haben (für die Infodatei kommen noch
             // ".txt" dazu)
@@ -276,8 +273,6 @@ public class PFileUtils {
                 PLog.errorLog(823012012, "Name zu lang: " + pathName[1]);
                 pathName[1] = cutName(pathName[1], X_MAX_NAME_LENGTH);
             }
-
-        return pathName;
     }
 
     public static String cutName(String name, int length) {
@@ -328,6 +323,23 @@ public class PFileUtils {
         }
 
         return name;
+    }
+
+    public static String getFileNameWithOutExtension(String path) {
+        // Dateiname eines Pfad/Dateinamen extrahieren
+        // /PATH/FILENAME.SUFF
+        String nameWithOutSuff;
+        try {
+            nameWithOutSuff = getFileName(path);
+            nameWithOutSuff = FilenameUtils.removeExtension(nameWithOutSuff);
+            if (nameWithOutSuff == null || nameWithOutSuff.isEmpty()) {
+                return "";
+            }
+        } catch (Exception ignore) {
+            return "";
+        }
+
+        return nameWithOutSuff;
     }
 
     public static String removeFileNameSuffix(String path) {
