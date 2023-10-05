@@ -21,22 +21,16 @@ import javafx.beans.property.ObjectPropertyBase;
 
 public class DownloadSize extends ObjectPropertyBase<DownloadSizeData> implements Comparable<DownloadSize> {
 
-    private long actFileSize = -1L;
-    private Long fileSize = 0L;
-    private DownloadSizeData downloadSizeData = new DownloadSizeData(0, "");
+    private long fileSizeLoaded = -1L; // ist der Wert des aktuell laufenden Downloads (Teil bei Abbrüchen)
+    private Long fileSizeUrl = 0L; // ist der Wert aus der URL, also Org-Größe
 
     public DownloadSize() {
-    }
-
-    public DownloadSize(long fileSize, long actFileSize) {
-        this.fileSize = fileSize;
-        this.actFileSize = actFileSize;
     }
 
     @Override
     public void setValue(DownloadSizeData v) {
         super.setValue(v);
-        fileSize = v.l;
+        fileSizeUrl = v.l;
     }
 
     @Override
@@ -46,7 +40,7 @@ public class DownloadSize extends ObjectPropertyBase<DownloadSizeData> implement
 
     @Override
     public final DownloadSizeData get() {
-        return new DownloadSizeData(fileSize, getString());
+        return new DownloadSizeData(fileSizeUrl, getString());
     }
 
     @Override
@@ -61,7 +55,7 @@ public class DownloadSize extends ObjectPropertyBase<DownloadSizeData> implement
 
     @Override
     public int compareTo(DownloadSize ll) {
-        return (fileSize.compareTo(ll.fileSize));
+        return (fileSizeUrl.compareTo(ll.fileSizeUrl));
     }
 
     @Override
@@ -69,73 +63,73 @@ public class DownloadSize extends ObjectPropertyBase<DownloadSizeData> implement
         return getString();
     }
 
-    public void setSize(String size) {
+    public void setFileSizeUrl(String size) {
         // im Film ist die Größe in "MB" !!
         if (size.isEmpty()) {
-            actFileSize = -1L;
-            fileSize = 0L;
+            fileSizeLoaded = -1L;
+            fileSizeUrl = 0L;
         } else {
             try {
-                fileSize = Long.valueOf(size);
-                fileSize = fileSize * 1000 * 1000;
+                fileSizeUrl = Long.valueOf(size);
+                fileSizeUrl = fileSizeUrl * 1000 * 1000;
             } catch (final Exception ex) {
                 PLog.errorLog(978745320, ex, "String: " + size);
-                fileSize = 0L;
+                fileSizeUrl = 0L;
             }
         }
+
         fireValueChangedEvent();
     }
 
-    public void setSize(long l) {
-        fileSize = l;
+    public void setFileSize(long l) {
+        fileSizeUrl = l;
         fireValueChangedEvent();
     }
 
-    public long getSize() {
-        return fileSize;
+    public long getFileSizeUrl() {
+        return fileSizeUrl;
     }
 
-    public void setActFileSize(long l) {
-        actFileSize = l;
-        if (fileSize < actFileSize) {
+    public void setFileSizeLoaded(long l) {
+        fileSizeLoaded = l;
+        if (fileSizeUrl < fileSizeLoaded) {
             //kann bei m3u8-URL passieren
-            fileSize = 0L;
+            fileSizeUrl = 0L;
         }
         fireValueChangedEvent();
     }
 
     public void addActFileSize(long l) {
-        actFileSize += l;
-        if (fileSize < actFileSize) {
+        fileSizeLoaded += l;
+        if (fileSizeUrl < fileSizeLoaded) {
             //kann bei m3u8-URL passieren
-            fileSize = 0L;
+            fileSizeUrl = 0L;
         }
         fireValueChangedEvent();
     }
 
-    public long getActFileSize() {
-        return actFileSize;
+    public long getFileSizeLoaded() {
+        return fileSizeLoaded;
     }
 
-    public void reset() {
-        actFileSize = -1L;
+    public void resetActFileSize() {
+        fileSizeLoaded = -1L;
         fireValueChangedEvent();
     }
 
     private String getString() {
         String sizeStr;
-        if (actFileSize <= 0) {
-            if (fileSize > 0) {
-                sizeStr = SizeTools.getSize(fileSize);
+        if (fileSizeLoaded <= 0) {
+            if (fileSizeUrl > 0) {
+                sizeStr = SizeTools.getSize(fileSizeUrl);
             } else {
                 sizeStr = "";
             }
-        } else if (fileSize > 0) {
-            sizeStr = SizeTools.getSize(actFileSize) + " von " + SizeTools.getSize(fileSize);
+        } else if (fileSizeUrl > 0) {
+            sizeStr = SizeTools.getSize(fileSizeLoaded) + " von " + SizeTools.getSize(fileSizeUrl);
         } else {
-            sizeStr = SizeTools.getSize(actFileSize);
+            sizeStr = SizeTools.getSize(fileSizeLoaded);
         }
-        downloadSizeData = new DownloadSizeData(fileSize, sizeStr);
         return sizeStr;
     }
 }
