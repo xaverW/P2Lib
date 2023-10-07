@@ -21,8 +21,8 @@ import javafx.beans.property.ObjectPropertyBase;
 
 public class DownloadSize extends ObjectPropertyBase<DownloadSizeData> implements Comparable<DownloadSize> {
 
-    private long fileSizeLoaded = -1L; // ist der Wert des aktuell laufenden Downloads (Teil bei Abbrüchen)
-    private Long fileSizeUrl = 0L; // ist der Wert aus der URL, also Org-Größe
+    private long fileActuallySize = 0L; // ist der Wert des aktuell laufenden Downloads (Downloadteil bei Abbrüchen)
+    private Long fileTargetSize = 0L; // ist der Wert aus der URL/geladenen Datei, also Org-Größe
 
     public DownloadSize() {
     }
@@ -30,7 +30,7 @@ public class DownloadSize extends ObjectPropertyBase<DownloadSizeData> implement
     @Override
     public void setValue(DownloadSizeData v) {
         super.setValue(v);
-        fileSizeUrl = v.l;
+        fileTargetSize = v.l;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class DownloadSize extends ObjectPropertyBase<DownloadSizeData> implement
 
     @Override
     public final DownloadSizeData get() {
-        return new DownloadSizeData(fileSizeUrl, getString());
+        return new DownloadSizeData(fileTargetSize, getString());
     }
 
     @Override
@@ -55,7 +55,7 @@ public class DownloadSize extends ObjectPropertyBase<DownloadSizeData> implement
 
     @Override
     public int compareTo(DownloadSize ll) {
-        return (fileSizeUrl.compareTo(ll.fileSizeUrl));
+        return (fileTargetSize.compareTo(ll.fileTargetSize));
     }
 
     @Override
@@ -63,73 +63,79 @@ public class DownloadSize extends ObjectPropertyBase<DownloadSizeData> implement
         return getString();
     }
 
-    public void setFileSizeUrl(String size) {
+    public void setFileTargetSize(String size) {
         // im Film ist die Größe in "MB" !!
         if (size.isEmpty()) {
-            fileSizeLoaded = -1L;
-            fileSizeUrl = 0L;
+            fileActuallySize = 0L;
+            fileTargetSize = 0L;
         } else {
             try {
-                fileSizeUrl = Long.valueOf(size);
-                fileSizeUrl = fileSizeUrl * 1000 * 1000;
+                fileTargetSize = Long.valueOf(size);
+                fileTargetSize = fileTargetSize * 1000 * 1000;
             } catch (final Exception ex) {
                 PLog.errorLog(978745320, ex, "String: " + size);
-                fileSizeUrl = 0L;
+                fileTargetSize = 0L;
             }
         }
 
         fireValueChangedEvent();
     }
 
-    public void setFileSize(long l) {
-        fileSizeUrl = l;
+    public void setFileSizeUrl(long l) {
+        fileTargetSize = l;
         fireValueChangedEvent();
     }
 
-    public long getFileSizeUrl() {
-        return fileSizeUrl;
+    public long getFileTargetSize() {
+        return fileTargetSize;
     }
 
-    public void setFileSizeLoaded(long l) {
-        fileSizeLoaded = l;
-        if (fileSizeUrl < fileSizeLoaded) {
+    public void setFileActuallySize(long l) {
+        fileActuallySize = l;
+        if (fileTargetSize < fileActuallySize) {
             //kann bei m3u8-URL passieren
-            fileSizeUrl = 0L;
+            fileTargetSize = fileActuallySize;
         }
         fireValueChangedEvent();
     }
 
     public void addActFileSize(long l) {
-        fileSizeLoaded += l;
-        if (fileSizeUrl < fileSizeLoaded) {
+        fileActuallySize += l;
+        if (fileTargetSize < fileActuallySize) {
             //kann bei m3u8-URL passieren
-            fileSizeUrl = 0L;
+            fileTargetSize = fileActuallySize;
         }
         fireValueChangedEvent();
     }
 
-    public long getFileSizeLoaded() {
-        return fileSizeLoaded;
+    public long getFileActuallySize() {
+        return fileActuallySize;
     }
 
     public void resetActFileSize() {
-        fileSizeLoaded = -1L;
+        fileActuallySize = 0L;
         fireValueChangedEvent();
     }
 
     private String getString() {
-        String sizeStr;
-        if (fileSizeLoaded <= 0) {
-            if (fileSizeUrl > 0) {
-                sizeStr = SizeTools.getSize(fileSizeUrl);
+        if (fileActuallySize <= 0) {
+            if (fileTargetSize > 0) {
+                return SizeTools.getSize(fileTargetSize);
             } else {
-                sizeStr = "";
+                return "";
             }
-        } else if (fileSizeUrl > 0) {
-            sizeStr = SizeTools.getSize(fileSizeLoaded) + " von " + SizeTools.getSize(fileSizeUrl);
-        } else {
-            sizeStr = SizeTools.getSize(fileSizeLoaded);
         }
-        return sizeStr;
+
+        // dann gibts eine aktSize > 0
+        if (fileTargetSize == fileActuallySize) {
+            // ist bei m3u8-URLs so, die wachsen
+            return SizeTools.getSize(fileTargetSize);
+        }
+
+        if (fileTargetSize > 0) {
+            return SizeTools.getSize(fileActuallySize) + " von " + SizeTools.getSize(fileTargetSize);
+        }
+
+        return SizeTools.getSize(fileActuallySize);
     }
 }
