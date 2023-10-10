@@ -81,7 +81,7 @@ public class DownloadSize extends ObjectPropertyBase<DownloadSizeData> implement
         fireValueChangedEvent();
     }
 
-    public void setFileTargetSize(long l) {
+    public void setTargetSize(long l) {
         targetSize = l;
         fireValueChangedEvent();
     }

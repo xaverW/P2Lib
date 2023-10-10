@@ -359,7 +359,7 @@ public class PDialogExtra extends PDialog {
         hButton.setAlignment(Pos.CENTER_RIGHT);
         hBoxLeft.setAlignment(Pos.CENTER_RIGHT);
         hBoxRight.setAlignment(Pos.CENTER_RIGHT);
-        HBox.setHgrow(buttonBar, Priority.ALWAYS);
+        HBox.setHgrow(hBoxLeft, Priority.ALWAYS);
         hButton.getChildren().addAll(hBoxLeft, buttonBar, hBoxRight);
         vBoxCompleteDialog.getChildren().addAll(hBoxOverButtons, hButton);
     }
