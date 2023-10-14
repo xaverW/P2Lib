@@ -4,6 +4,7 @@ module de.p2tools.p2lib {
 
     exports de.p2tools.p2lib;
     exports de.p2tools.p2lib.alert;
+    exports de.p2tools.p2lib.atdata;
     exports de.p2tools.p2lib.checkforactinfos;
     exports de.p2tools.p2lib.checkforupdates;
     exports de.p2tools.p2lib.configfile;

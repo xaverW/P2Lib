@@ -172,6 +172,4 @@ public class PDateFactory {
             return pDate.getDateTime(DateFactory.F_FORMAT_yyyy_MM_dd);
         }
     }
-
-
 }
