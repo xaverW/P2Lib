@@ -26,7 +26,7 @@ public class FoundAll {
 
     public static void foundAll(FoundSearchData foundSearchData) {
         FoundAllFiles.found(foundSearchData);
-        if (foundSearchData.isShowAllways() ||
+        if (foundSearchData.isShowAlways() ||
 
                 foundSearchData.isFoundNewInfo() && !foundSearchData.getFoundFileListInfo().isEmpty() ||
                 foundSearchData.isFoundNewVersion() && !foundSearchData.getFoundFileListAct().isEmpty() ||
@@ -42,9 +42,11 @@ public class FoundAll {
     }
 
     private static void runInfoAlert(FoundSearchData foundSearchData) {
+        // die Infos über Updates anzeigen
         InfoAlert infoAlert = new InfoAlert(foundSearchData);
         infoAlert.showInfoAlert("");
 
+        // und merken was schon angezeigt wurde
         if (foundSearchData.isFoundNewVersion() && !foundSearchData.searchActAgainProperty().getValue()) {
             //dann die angezeigte neue Version merken
             foundSearchData.lastActDateProperty().setValue(foundSearchData.getNewVersionDate());

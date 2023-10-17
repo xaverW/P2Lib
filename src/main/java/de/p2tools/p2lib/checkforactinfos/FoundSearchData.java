@@ -75,7 +75,7 @@ public class FoundSearchData {
 
     private final StringProperty downloadDir;
 
-    private boolean showAllways;
+    private boolean showAlways;
 
     public FoundSearchData(final Stage stage,
                            final String searchUrl,
@@ -96,7 +96,7 @@ public class FoundSearchData {
                            final String progBuildNo,
                            final String progBuildDate,
                            final StringProperty downloadDir,
-                           final boolean showAllways
+                           final boolean showAlways
     ) {
 
         this.stage = stage;
@@ -132,7 +132,7 @@ public class FoundSearchData {
             //das ist die aktuelle Programmversion die läuft
             this.lastDailyDate.setValue(this.progBuildDate);
         }
-        this.showAllways = showAllways;
+        this.showAlways = showAlways;
     }
 
     public Stage getStage() {
@@ -499,11 +499,11 @@ public class FoundSearchData {
         this.downloadDir.set(downloadDir);
     }
 
-    public boolean isShowAllways() {
-        return showAllways;
+    public boolean isShowAlways() {
+        return showAlways;
     }
 
-    public void setShowAllways(final boolean showAllways) {
-        this.showAllways = showAllways;
+    public void setShowAlways(final boolean showAlways) {
+        this.showAlways = showAlways;
     }
 }

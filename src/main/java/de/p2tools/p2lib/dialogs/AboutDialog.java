@@ -46,8 +46,8 @@ import javafx.stage.Stage;
 
 public abstract class AboutDialog extends PDialogExtra {
 
-    private Button btnOk = new Button("_Ok");
-    private Button btnCheck = new Button("_Programmupdate prüfen");
+    private final Button btnOk = new Button("_Ok");
+    private final Button btnCheck = new Button("_Programmupdate prüfen");
     private final String MAIL = "w.xaver@googlemail.com";
 
     private final Color PROG_COLOR_MARK;
@@ -83,8 +83,6 @@ public abstract class AboutDialog extends PDialogExtra {
         } else {
             this.PROG_COLOR_MARK = Color.rgb(0, 0, 75);
             this.PROG_COLOR = Color.rgb(0, 0, 75);
-
-
         }
 
         this.listName = listName;

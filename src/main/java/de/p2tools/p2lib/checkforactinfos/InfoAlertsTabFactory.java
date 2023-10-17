@@ -189,18 +189,18 @@ public class InfoAlertsTabFactory {
         return tabVersion;
     }
 
-    public static Tab addTabBeta(final FoundSearchData foundSearchData, final boolean beta) {
+    public static Tab addTabBeta(final FoundSearchData foundSearchData, final boolean isBetaTab) {
         if (!foundSearchData.searchBetaProperty().getValue()) {
             //Beta oder Daily: danach soll nicht gesucht werden
             return null;
         }
 
-        if (!beta && !foundSearchData.searchDailyProperty().getValue()) {
+        if (!isBetaTab && !foundSearchData.searchDailyProperty().getValue()) {
             //Daily: danach soll nicht gesucht werden
             return null;
         }
 
-        if (beta) {
+        if (isBetaTab) {
             //beta
             if (!foundSearchData.isFoundNewBeta() || foundSearchData.getFoundFileListBeta().isEmpty()) {
                 //beta: nichts gefunden oder Liste leer
@@ -214,7 +214,7 @@ public class InfoAlertsTabFactory {
             }
         }
 
-        return makeTabBeta(foundSearchData, beta);
+        return makeTabBeta(foundSearchData, isBetaTab);
     }
 
     private static Tab makeTabBeta(final FoundSearchData foundSearchData, final boolean beta) {

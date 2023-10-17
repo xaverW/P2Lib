@@ -111,8 +111,8 @@ public class FoundAllFiles {
             foundFile.setFileDate(fileName.
                     substring(fileName.indexOf("__") + "__".length(), fileName.lastIndexOf(".")));
 
-            if (foundSearchData.isShowAllways() ||
-                    (!foundSearchData.isShowAllways() &&
+            if (foundSearchData.isShowAlways() ||
+                    (!foundSearchData.isShowAlways() &&
                             FoundFactory.isNewFound(foundSearchData.getLastInfoDate(), foundFile.getFileDate()))) {
 
                 //Infos sind vorhanden
@@ -163,9 +163,9 @@ public class FoundAllFiles {
                 //Infofile
                 foundSearchData.setNewVersionText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
 
-            } else if ((foundSearchData.isShowAllways() &&
+            } else if ((foundSearchData.isShowAlways() &&
                     FoundFactory.isNewFound(foundSearchData.getProgBuildDate(), foundFile.getFileDate())) ||
-                    (!foundSearchData.isShowAllways() &&
+                    (!foundSearchData.isShowAlways() &&
                             FoundFactory.isNewFound(foundSearchData.getLastActDate(), foundFile.getFileDate()))) {
 
                 //ist eine neue Version
@@ -226,9 +226,9 @@ public class FoundAllFiles {
                 //Programmdatei
                 if (beta) {
                     //beta
-                    if ((foundSearchData.isShowAllways() &&
+                    if ((foundSearchData.isShowAlways() &&
                             FoundFactory.isNewFound(foundSearchData.getProgBuildDate(), foundFile.getFileDate())) ||
-                            (!foundSearchData.isShowAllways() &&
+                            (!foundSearchData.isShowAlways() &&
                                     FoundFactory.isNewFound(foundSearchData.getLastBetaDate(), foundFile.getFileDate()))) {
                         //ist eine neue Version
                         //-> die noch nicht angezeigt wurde ODER
@@ -243,9 +243,9 @@ public class FoundAllFiles {
 
                 } else {
                     //daily
-                    if ((foundSearchData.isShowAllways() &&
+                    if ((foundSearchData.isShowAlways() &&
                             FoundFactory.isNewFound(foundSearchData.getProgBuildDate(), foundFile.getFileDate())) ||
-                            (!foundSearchData.isShowAllways() &&
+                            (!foundSearchData.isShowAlways() &&
                                     FoundFactory.isNewFound(foundSearchData.getLastDailyDate(), foundFile.getFileDate()))) {
                         //ist eine neue Version
                         //-> die noch nicht angezeigt wurde ODER

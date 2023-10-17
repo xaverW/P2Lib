@@ -17,6 +17,7 @@
 
 package de.p2tools.p2lib.mtdownload;
 
+import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.ProgIconsP2Lib;
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
@@ -32,11 +33,11 @@ import javafx.stage.Stage;
 
 public class DownloadProgressDialog extends PDialogExtra {
 
-    private VBox vBoxCont;
-    private Button btnCancel = new Button("");
-    private GridPane gridPane = new GridPane();
-    private P2ProgressBar progressBar = new P2ProgressBar();
-    private Label lblName = new Label();
+    private final VBox vBoxCont;
+    private final Button btnCancel = new Button("");
+    private final GridPane gridPane = new GridPane();
+    private final P2ProgressBar progressBar = new P2ProgressBar();
+    private final Label lblName = new Label();
     private boolean isCanceled = false;
     private String startText = "";
 
@@ -52,25 +53,23 @@ public class DownloadProgressDialog extends PDialogExtra {
 
     @Override
     public void make() {
-        getStage().setMinWidth(500);
         vBoxCont.setPadding(new Insets(5));
-        vBoxCont.setSpacing(10);
+        vBoxCont.setSpacing(P2LibConst.DIST_VBOX);
         vBoxCont.getChildren().addAll(gridPane);
 
         progressBar.setMinWidth(100);
-        progressBar.setMaxWidth(Double.MAX_VALUE);
         progressBar.setProgress(0, startText);
 
-        gridPane.setMaxWidth(Double.MAX_VALUE);
         gridPane.setPadding(new Insets(0));
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
-                P2ColumnConstraints.getCcComputedSizeAndHgrow(), P2ColumnConstraints.getCcPrefSize());
+        gridPane.setHgap(P2LibConst.DIST_GRIDPANE_HGAP);
+        gridPane.setVgap(P2LibConst.DIST_GRIDPANE_VGAP);
 
-        gridPane.add(lblName, 0, 0);
-        gridPane.add(progressBar, 1, 0);
-        gridPane.add(btnCancel, 2, 0);
+        gridPane.add(lblName, 0, 0, 2, 1);
+        gridPane.add(progressBar, 0, 1);
+        gridPane.add(btnCancel, 1, 1);
+
+        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcComputedSizeAndHgrow(),
+                P2ColumnConstraints.getCcPrefSize());
 
         btnCancel.setGraphic(ProgIconsP2Lib.IMAGE_STOP.getImageView());
         btnCancel.setTooltip(new Tooltip("Den Download abbrechen"));
