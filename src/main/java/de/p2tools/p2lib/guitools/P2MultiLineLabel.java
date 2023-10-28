@@ -32,6 +32,7 @@ public class P2MultiLineLabel extends Label {
     }
 
     private void init() {
+        setMaxWidth(Double.MAX_VALUE);
         setWrapText(true);
         setPadding(new Insets(2, 4, 2, 4));
         setStyle("-fx-border-color: #c5c5c5;");
