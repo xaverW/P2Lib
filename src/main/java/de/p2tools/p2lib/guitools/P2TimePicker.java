@@ -62,13 +62,13 @@ public class P2TimePicker extends ComboBox<LocalTime> {
             for (int m = 0; m < 60; m += addMinutes) {
                 pl = LocalTime.of(h, m);
 
-                if (pl.compareTo(LocalTime.now()) <= 0 && !fromNow) {
+                if (!pl.isAfter(LocalTime.now()) && !fromNow) {
                     list.add(pl);
-                } else if (pl.compareTo(LocalTime.now()) > 0) {
+                } else if (pl.isAfter(LocalTime.now())) {
                     list.add(pl);
                 }
 
-                if (pl.compareTo(startTime) <= 0) {
+                if (!pl.isAfter(startTime)) {
                     plSelect = pl;
                 }
             }

@@ -29,7 +29,7 @@ import de.p2tools.p2lib.configfile.config.Config;
 
 public interface PData {
 
-    String TAGGER = ":";
+    String TAGGER = ":"; // das neue Tag steht VORNE!!
 
     String getTag();
 

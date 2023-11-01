@@ -38,8 +38,8 @@ public class PLTimeFactory {
     public static String toString_HM(LocalTime localTime) {
         if (localTime == null) {
             return "";
-        } else if (localTime.compareTo(LocalTime.MIN) == 0) {
-            return "";
+//        } else if (localTime.equals(LocalTime.MIN)) {
+//            return "";
         } else {
             return localTime.format(DateFactory.DT_FORMATTER_HH__mm);
         }
@@ -60,8 +60,8 @@ public class PLTimeFactory {
     public static String toString(LocalTime localTime) {
         if (localTime == null) {
             return "";
-        } else if (localTime.compareTo(LocalTime.MIN) == 0) {
-            return "";
+//        } else if (localTime.equals(LocalTime.MIN)) {
+//            return "";
         } else {
             return localTime.format(DateFactory.DT_FORMATTER_HH__mm__ss);
         }

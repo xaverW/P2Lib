@@ -18,6 +18,7 @@
 package de.p2tools.p2lib.guitools;
 
 import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -104,6 +105,13 @@ public class P2ColumnConstraints {
         cc.setHgrow(Priority.ALWAYS);
         cc.setHalignment(HPos.RIGHT);
         return cc;
+    }
+
+    public static RowConstraints getRcPrefSizeTop() {
+        RowConstraints row = new RowConstraints();
+        row.setValignment(VPos.TOP);
+        row.setVgrow(Priority.NEVER);
+        return row;
     }
 
     public static RowConstraints getRcPrefSize() {
