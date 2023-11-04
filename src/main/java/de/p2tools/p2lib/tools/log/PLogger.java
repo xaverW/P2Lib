@@ -102,6 +102,10 @@ public class PLogger {
     }
 
     public static void setFileHandler(String path) {
+        setFileHandler(path, true);
+    }
+
+    public static void setFileHandler(String path, boolean withGui) {
         String logDir = path.isEmpty() ? P2LibConst.logdir : path;
 
         if (handlerDir.equals(logDir) && fileHandler != null) {
@@ -125,9 +129,10 @@ public class PLogger {
             fileHandler.setFormatter(new PFormatter());
         } catch (IOException exception) {
             LOGGER.log(Level.SEVERE, "Error occur in FileHandler.", exception);
-            Platform.runLater(() -> PAlert.showErrorAlert("Logfile anlegen", "Das Logfile kann icht angelegt werden, " +
-                    "bitte Pfad zum Logfile prüfen."));
+            if (withGui) {
+                Platform.runLater(() -> PAlert.showErrorAlert("Logfile anlegen", "Das Logfile kann icht angelegt werden, " +
+                        "bitte Pfad zum Logfile prüfen."));
+            }
         }
-
     }
 }
