@@ -42,6 +42,15 @@
 
 
 /* Menü-Button */
+/* farblich abgesetzter Bereich mit den Menü-Button rechts */
+.menu-button {
+    -fx-border-style: solid;
+    -fx-border-color: #c3c4c4;
+    -fx-border-width: 1;
+    -fx-padding: 10;
+    -fx-background-color: -style-extra-pane-color;
+}
+
 /* Func-Button */
 .btnFunction{
     -fx-border-radius: 20;

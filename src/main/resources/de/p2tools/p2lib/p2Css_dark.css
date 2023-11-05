@@ -138,3 +138,10 @@
     -fx-background-color: #dadada;
 }
 
+/* Menü-Button */
+/* farblich abgesetzter Bereich mit den Menü-Button rechts */
+.menu-button {
+    -fx-border-color: #6f6f6f;
+}
+
+

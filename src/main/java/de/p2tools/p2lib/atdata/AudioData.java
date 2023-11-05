@@ -50,7 +50,6 @@ public class AudioData extends AudioDataProps implements PData {
         setLength();
         // Datum
         setDate();
-
     }
 
     public String getIndex() {

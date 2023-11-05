@@ -28,7 +28,6 @@ public class AudioDataProps extends AudioDataXml {
     private boolean newAudio = false;
     private boolean shown = false;
     private boolean bookmark = false;
-    private boolean actHist = false;
 
     public int getDurationMinute() {
         return durationMinute;
@@ -117,13 +116,5 @@ public class AudioDataProps extends AudioDataXml {
 
     public void setBookmark(boolean bookmark) {
         this.bookmark = bookmark;
-    }
-
-    public boolean isActHist() {
-        return actHist;
-    }
-
-    public void setActHist(boolean actHist) {
-        this.actHist = actHist;
     }
 }
