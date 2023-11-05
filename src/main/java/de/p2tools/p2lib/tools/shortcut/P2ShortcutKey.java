@@ -19,13 +19,13 @@ package de.p2tools.p2lib.tools.shortcut;
 
 import javafx.beans.property.StringProperty;
 
-public class PShortcut {
+public class P2ShortcutKey {
     private final StringProperty actShortcut;
     private String orgShortcut = "";
     private String description = "";
     private String longDescription = "";
 
-    public PShortcut(StringProperty actShortcut, String orgShortcut, String description, String longDescription) {
+    public P2ShortcutKey(StringProperty actShortcut, String orgShortcut, String description, String longDescription) {
         this.actShortcut = actShortcut;
         this.orgShortcut = orgShortcut;
         this.description = description;

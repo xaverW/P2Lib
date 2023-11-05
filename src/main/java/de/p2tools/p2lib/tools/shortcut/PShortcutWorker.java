@@ -26,12 +26,12 @@ public class PShortcutWorker {
     private PShortcutWorker() {
     }
 
-    public static void addShortCut(MenuItem menuItem, PShortcut shortcut) {
+    public static void addShortCut(MenuItem menuItem, P2ShortcutKey shortcut) {
         setShortcut(menuItem, shortcut);
         shortcut.actShortcutProperty().addListener(c -> setShortcut(menuItem, shortcut));
     }
 
-    private static void setShortcut(MenuItem menuItem, PShortcut shortcut) {
+    private static void setShortcut(MenuItem menuItem, P2ShortcutKey shortcut) {
         try {
             final KeyCombination keyComb = KeyCodeCombination.valueOf(shortcut.getActShortcut());
             menuItem.setAccelerator(keyComb);
