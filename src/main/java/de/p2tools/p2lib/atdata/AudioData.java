@@ -45,7 +45,7 @@ public class AudioData extends AudioDataProps implements PData {
         setNewAudio(Boolean.parseBoolean(arr[AUDIO_NEW]));
         preserveMemory();
         // Dateigröße
-        audioSize.setAudioSize(this);
+        audioSize.setAudioSize(arr[AudioDataXml.AUDIO_SIZE]);
         // Dauer
         setLength();
         // Datum
@@ -61,10 +61,6 @@ public class AudioData extends AudioDataProps implements PData {
     private void preserveMemory() {
         // ================================
         // Speicher sparen
-        if (arr[AUDIO_SIZE].length() < 3) { //todo brauchts das überhaupt??
-            arr[AUDIO_SIZE] = arr[AUDIO_SIZE].intern();
-        }
-
         arr[AUDIO_DATE] = arr[AUDIO_DATE].intern();
     }
 

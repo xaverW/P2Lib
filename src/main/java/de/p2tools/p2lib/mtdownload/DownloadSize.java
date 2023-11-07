@@ -90,6 +90,18 @@ public class DownloadSize extends ObjectPropertyBase<DownloadSizeData> implement
         return targetSize;
     }
 
+    public String getTargetSizeStr() {
+        if (targetSize == 0) {
+            return "";
+        } else {
+            return targetSize + "";
+        }
+    }
+
+    public String getTargetSizeMBStr() {
+        return SizeTools.getSize(targetSize);
+    }
+
     public void setActuallySize(long l) {
         actuallySize = l;
         if (targetSize < actuallySize) {

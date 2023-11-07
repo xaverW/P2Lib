@@ -26,20 +26,20 @@ public class AudioSize implements Comparable<AudioSize> {
     public AudioSize() {
     }
 
-    void setAudioSize(AudioData audio) {
-        if (audio.arr[AudioDataXml.AUDIO_SIZE].equals("<1")) {
-            audio.arr[AudioDataXml.AUDIO_SIZE] = "1";
+    void setAudioSize(String audioSize) {
+        if (audioSize.equals("<1")) {
+            audioSize = "1";
         }
 
         try {
-            s = audio.arr[AudioDataXml.AUDIO_SIZE];
-            if (audio.arr[AudioDataXml.AUDIO_SIZE].isEmpty()) {
+            s = audioSize;
+            if (audioSize.isEmpty()) {
                 l = 0L;
             } else {
-                l = Long.parseLong(audio.arr[AudioDataXml.AUDIO_SIZE]);
+                l = Long.parseLong(audioSize);
             }
         } catch (final Exception ex) {
-            PLog.errorLog(649891025, ex, "String: " + audio.arr[AudioDataXml.AUDIO_SIZE]);
+            PLog.errorLog(649891025, ex, "String: " + audioSize);
             l = 0L;
             s = "";
         }

@@ -75,11 +75,11 @@ public class AudioList extends SimpleListProperty<AudioData> {
         PDuration.counterStop("FilmList.filteredListSetPred");
     }
 
-    public synchronized boolean importFilmOnlyWithNr(AudioData film) {
+    public synchronized void importFilmOnlyWithNr(AudioData film) {
         // hier nur beim Laden aus einer fertigen Audioliste mit der GUI
         // die Audios sind schon sortiert, nur die Nummer muss noch ergänzt werden
         film.no = nr++;
-        return add(film);
+        add(film);
     }
 
     @Override
