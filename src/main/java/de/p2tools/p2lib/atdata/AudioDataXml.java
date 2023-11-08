@@ -21,11 +21,6 @@ import org.apache.commons.lang3.time.FastDateFormat;
 public class AudioDataXml extends Data<AudioDataXml> {
     static final FastDateFormat sdf_date = FastDateFormat.getInstance("dd.MM.yyyy");
 
-    public static final String AUDIO_LIST_META_DATE_GMT = "Datum-GMT";
-    public static final int AUDIO_LIST_META_DATE_GMT_NR = 0;
-    public static final String AUDIO_LIST_META_DATE = "Datum";
-    public static final int AUDIO_LIST_META_DATE_NR = 1;
-
     // für die Liste
     public static final int AUDIO_LIST_META_MAX_ELEM = 2;
     public static final String AUDIO_LIST_TAG = "Audios";
