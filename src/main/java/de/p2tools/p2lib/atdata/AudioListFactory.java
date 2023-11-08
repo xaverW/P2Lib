@@ -21,11 +21,16 @@ import de.p2tools.p2lib.tools.date.DateFactory;
 import de.p2tools.p2lib.tools.date.PLDateTimeFactory;
 import de.p2tools.p2lib.tools.log.PLog;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.SimpleTimeZone;
 
 public class AudioListFactory {
+    public static final String DATE_TIME_FORMAT = "dd.MM.yyyy HH:mm:ss";
+
     private AudioListFactory() {
     }
 
@@ -49,6 +54,54 @@ public class AudioListFactory {
         LocalDate act = listDate.toLocalDate(); //2015-11-??
         LocalDate today = LocalDate.now(); //2015-11-23
         return !act.equals(today);
+    }
+
+    public static int getAge(String[] metaData) {
+        int ret = 0;
+        final Date now = new Date(System.currentTimeMillis());
+        final Date filmDate = getAgeAsDate(metaData);
+        if (filmDate != null) {
+            ret = Math.round((now.getTime() - filmDate.getTime()) / (1000));
+            if (ret < 0) {
+                ret = 0;
+            }
+        }
+        return ret;
+    }
+
+    /**
+     * Get the age of the film list.
+     *
+     * @return Age as a {@link Date} object.
+     */
+    public static Date getAgeAsDate(String[] metaData) {
+        final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);
+        final SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
+        sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
+
+        if (!metaData[AudioDataXml.AUDIO_LIST_META_DATE_GMT_NR].isEmpty()) {
+            final String date = metaData[AudioDataXml.AUDIO_LIST_META_DATE_GMT_NR];
+            return getDate(date, sdfUtc);
+
+        } else {
+            final String date = metaData[AudioDataXml.AUDIO_LIST_META_DATE_NR];
+            return getDate(date, sdf);
+        }
+    }
+
+    private static Date getDate(String date, SimpleDateFormat df) {
+        if (date.isEmpty()) {
+            // dann ist die Filmliste noch nicht geladen
+            return null;
+        }
+
+        Date filmDate = null;
+        try {
+            filmDate = df.parse(date);
+        } catch (final Exception ignored) {
+        }
+
+        return filmDate;
     }
 
     /**

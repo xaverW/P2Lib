@@ -33,6 +33,7 @@ public class AudioList extends SimpleListProperty<AudioData> {
 
     public static int META_GMT = 0;
     public static int META_LOCAL = 1;
+    
     public int nr = 1;
     public String[] metaData = new String[]{"GMT", "LocalDate"}; // AudioDataXml.AUDIO_LIST_META_MAX_ELEM
     public String[] sender = {""};
@@ -128,5 +129,14 @@ public class AudioList extends SimpleListProperty<AudioData> {
         genre = setGenre.toArray(new String[0]);
 
         PDuration.counterStop("loadSenderAndGenre");
+    }
+
+    /**
+     * Get the age of the film list.
+     *
+     * @return Age in seconds.
+     */
+    public int getAge() {
+        return AudioListFactory.getAge(metaData);
     }
 }
