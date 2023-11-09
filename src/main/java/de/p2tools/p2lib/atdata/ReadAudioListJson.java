@@ -110,8 +110,8 @@ public class ReadAudioListJson {
                 case AudioDataXml.JSON_AUDIO_DURATION:
                     audioData.arr[AudioDataXml.AUDIO_DURATION] = str;
                     break;
-                case AudioDataXml.JSON_AUDIO_SIZE:
-                    audioData.arr[AudioDataXml.AUDIO_SIZE] = str;
+                case AudioDataXml.JSON_AUDIO_SIZE_MB:
+                    audioData.arr[AudioDataXml.AUDIO_SIZE_MB] = str;
                     break;
                 case AudioDataXml.JSON_AUDIO_DESCRIPTION:
                     audioData.arr[AudioDataXml.AUDIO_DESCRIPTION] = str;

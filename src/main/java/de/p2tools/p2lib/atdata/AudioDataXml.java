@@ -33,7 +33,7 @@ public class AudioDataXml extends Data<AudioDataXml> {
     public static final int JSON_AUDIO_DATE = 4;
     public static final int JSON_AUDIO_TIME = 5;
     public static final int JSON_AUDIO_DURATION = 6;
-    public static final int JSON_AUDIO_SIZE = 7;
+    public static final int JSON_AUDIO_SIZE_MB = 7;
     public static final int JSON_AUDIO_DESCRIPTION = 8;
     public static final int JSON_AUDIO_URL = 9;
     public static final int JSON_AUDIO_WEBSITE = 10;
@@ -67,7 +67,7 @@ public class AudioDataXml extends Data<AudioDataXml> {
     public static final int AUDIO_DATE = 7;
     public static final int AUDIO_TIME = 8;
     public static final int AUDIO_DURATION = 9;
-    public static final int AUDIO_SIZE = 10;
+    public static final int AUDIO_SIZE_MB = 10;
     public static final int AUDIO_DESCRIPTION = 11;
     public static final int AUDIO_URL = 12;
     public static final int AUDIO_WEBSITE = 13;

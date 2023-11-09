@@ -45,7 +45,7 @@ public class AudioData extends AudioDataProps implements PData {
         setNewAudio(Boolean.parseBoolean(arr[AUDIO_NEW]));
         preserveMemory();
         // Dateigröße
-        audioSize.setAudioSize(arr[AudioDataXml.AUDIO_SIZE]);
+        audioSize.setAudioSize(arr[AudioDataXml.AUDIO_SIZE_MB]);
         // Dauer
         setLength();
         // Datum

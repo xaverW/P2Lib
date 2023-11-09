@@ -90,8 +90,8 @@ public class WriteAudioListJson {
                     case AudioDataXml.JSON_AUDIO_DURATION:
                         jg.writeString(audioData.arr[AudioDataXml.AUDIO_DURATION]);
                         break;
-                    case AudioDataXml.JSON_AUDIO_SIZE:
-                        jg.writeString(audioData.arr[AudioDataXml.AUDIO_SIZE]);
+                    case AudioDataXml.JSON_AUDIO_SIZE_MB:
+                        jg.writeString(audioData.arr[AudioDataXml.AUDIO_SIZE_MB]);
                         break;
 
 
