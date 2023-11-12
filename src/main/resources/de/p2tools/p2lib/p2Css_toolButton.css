@@ -43,7 +43,7 @@
 
 /* Menü-Button */
 /* farblich abgesetzter Bereich mit den Menü-Button rechts */
-.menu-button {
+.button-menu {
     -fx-border-style: solid;
     -fx-border-color: #c3c4c4;
     -fx-border-width: 1;

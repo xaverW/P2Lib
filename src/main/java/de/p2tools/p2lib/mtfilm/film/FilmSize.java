@@ -36,7 +36,7 @@ public class FilmSize implements Comparable<FilmSize> {
             if (film.arr[FilmDataXml.FILM_SIZE].isEmpty()) {
                 l = 0L;
             } else {
-                l = Long.valueOf(film.arr[FilmDataXml.FILM_SIZE]);
+                l = Long.parseLong(film.arr[FilmDataXml.FILM_SIZE]);
             }
         } catch (final Exception ex) {
             PLog.errorLog(649891025, ex, "String: " + film.arr[FilmDataXml.FILM_SIZE]);

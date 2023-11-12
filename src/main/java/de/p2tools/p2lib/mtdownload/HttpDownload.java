@@ -146,9 +146,9 @@ public class HttpDownload extends Thread {
         closeConn(conn);
 
         try {
-            final URL url_ = new URL(url);
-            fileSize = DownloadFactory.getContentLength(url_, false);
-            conn = (HttpURLConnection) url_.openConnection();
+            final URL url = new URL(this.url);
+            fileSize = DownloadFactory.getContentLength(url, false);
+            conn = (HttpURLConnection) url.openConnection();
             // 250 Sekunden, wie bei Firefox
             int CONECTION_TIMEOUT_SECOND_DOWNLOAD = 250;
             conn.setConnectTimeout(1000 * CONECTION_TIMEOUT_SECOND_DOWNLOAD);
@@ -162,7 +162,7 @@ public class HttpDownload extends Thread {
                 if (httpResponseCode == 416) {
                     conn.disconnect();
                     // Get a new connection and reset download param...
-                    conn = (HttpURLConnection) url_.openConnection();
+                    conn = (HttpURLConnection) url.openConnection();
                     downloaded = 0;
                     setupHttpConnection(conn);
                     conn.connect();

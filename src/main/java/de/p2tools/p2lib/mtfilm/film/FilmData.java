@@ -116,7 +116,7 @@ public class FilmData extends FilmDataProps implements PData {
 
     public String getUrlForResolution(String resolution) {
         if (resolution.equals(RESOLUTION_SMALL)) {
-            return getUrlNormalSmal();
+            return getUrlNormalSmall();
         }
         if (resolution.equals(RESOLUTION_HD)) {
             return getUrlNormalHd();
@@ -265,7 +265,7 @@ public class FilmData extends FilmDataProps implements PData {
     }
 
 
-    private String getUrlNormalSmal() {
+    private String getUrlNormalSmall() {
         // liefert die kleine normale URL
         if (!arr[FILM_URL_SMALL].isEmpty()) {
             try {
