@@ -54,13 +54,13 @@ public class FilterCheckRegEx {
                 // aber falsch
                 colorRed = true;
                 tf.setStyle("");
-                tf.setStyle("-fx-control-inner-background: " + COLOR_ERROR + ";");
+                tf.setStyle(COLOR_ERROR.getCssBackground());
 
             } else {
                 // RegEx OK
                 colorRed = false;
                 tf.setStyle("");
-                tf.setStyle("-fx-control-inner-background: " + COLOR_OK + ";");
+                tf.setStyle(COLOR_OK.getCssBackground());
             }
 
             if (colorThread != null) {
