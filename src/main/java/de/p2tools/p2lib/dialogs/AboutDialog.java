@@ -18,6 +18,7 @@ package de.p2tools.p2lib.dialogs;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.guitools.P2ClipBoardContext;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.tools.ProgramToolsFactory;
@@ -27,14 +28,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -48,7 +44,6 @@ public abstract class AboutDialog extends PDialogExtra {
 
     private final Button btnOk = new Button("_Ok");
     private final Button btnCheck = new Button("_Programmupdate prüfen");
-    private final String MAIL = "w.xaver@googlemail.com";
 
     private final Color PROG_COLOR_MARK;
     private final Color PROG_COLOR;
@@ -103,21 +98,19 @@ public abstract class AboutDialog extends PDialogExtra {
     }
 
     private void makeGrid() {
+        getVBoxCont().setSpacing(5);
+
         btnOk.setOnAction(a -> close());
         btnCheck.setOnAction(a -> runCheckButton());
 
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(5);
-        gridPane.setPadding(new Insets(0, 10, 0, 10));
+        GridPane gridPane = getGridPane();
+        int row = 0;
 
         HBox hBox = new HBox();
         hBox.getChildren().add(gridPane);
         hBox.setAlignment(Pos.CENTER);
         hBox.getStyleClass().add("dialog-about");
         getVBoxCont().getChildren().add(hBox);
-
-        int row = 0;
 
         ImageView iv = new ImageView();
         Image im = getImage();
@@ -140,7 +133,8 @@ public abstract class AboutDialog extends PDialogExtra {
         gridPane.add(text2, 1, ++row);
         GridPane.setHalignment(text2, HPos.CENTER);
 
-        Text text3 = new Text("[ Build: " + ProgramToolsFactory.getBuild() + " vom " + ProgramToolsFactory.getCompileDate() + " ]");
+        Text text3 = new Text("[ Build: " + ProgramToolsFactory.getBuild() + " vom " +
+                ProgramToolsFactory.getCompileDate() + " ]");
         text3.setFont(new Font(15));
         text3.setFill(PROG_COLOR);
         gridPane.add(text3, 1, ++row);
@@ -150,41 +144,43 @@ public abstract class AboutDialog extends PDialogExtra {
         HBox.setHgrow(gridPane, Priority.ALWAYS);
         gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
                 P2ColumnConstraints.getCcComputedSizeAndHgrow());
-
+        // Menü
+        P2ClipBoardContext.addMenu("Infos kopieren",
+                text1.getText() + "\n" + text2.getText() + "\n" + text3.getText(), gridPane);
 
         //=======================
-        gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(3);
-        gridPane.setPadding(new Insets(0, 10, 10, 10));
-        getVBoxCont().getChildren().add(gridPane);
-
+        gridPane = getGridPane();
         row = 0;
         int c = 0;
 
-        Text text = new Text(P2LibConst.LINE_SEPARATOR + "Autor");
+        Text text = new Text("Autor");
         text.setFont(Font.font(null, FontWeight.BOLD, 15));
         text.setFill(PROG_COLOR_MARK);
-        gridPane.add(text, c, ++row, 2, 1);
+        gridPane.add(text, c, row, 2, 1);
 
         text = new Text("Xaver W. (xaverW)");
         text.setFont(new Font(15));
         text.setFill(PROG_COLOR);
         gridPane.add(text, c, ++row, 2, 1);
 
-        final Text textM = new Text(MAIL);
+        final Text textM = new Text(P2LibConst.MAIL_XAVER);
         textM.setFont(new Font(14));
         textM.setFill(PROG_COLOR);
         gridPane.add(textM, c, ++row, 2, 1);
-        textM.setOnContextMenuRequested(event ->
-                getMenu(textM, event));
+        P2ClipBoardContext.addMenu("Mail kopieren", P2LibConst.MAIL_XAVER, gridPane);
 
+        //====================
         // Pfade
-        text = new Text(P2LibConst.LINE_SEPARATOR + "Programm Informationen");
+        StringBuilder txtContext = new StringBuilder();
+        gridPane = getGridPane();
+        row = 0;
+
+        text = new Text("Programm Informationen");
         text.setFont(Font.font(null, FontWeight.BOLD, 15));
         text.setFill(PROG_COLOR_MARK);
-        gridPane.add(text, c, ++row, 2, 1);
+        txtContext.append(text.getText());
 
+        gridPane.add(text, c, row, 2, 1);
         P2Hyperlink hyperlinkWeb = new P2Hyperlink(URL_WEBSITE,
                 urlOpenProg, imageView);
         P2Hyperlink hyperlinkHelp = new P2Hyperlink(URL_WEBSITE_HELP,
@@ -193,6 +189,11 @@ public abstract class AboutDialog extends PDialogExtra {
                 urlOpenProg, imageView);
         P2Hyperlink hyperlinkDonate = new P2Hyperlink(P2LibConst.URL_WEBSITE_DONATE,
                 urlOpenProg, imageView);
+
+        txtContext.append("\n").append("Website: ").append(hyperlinkWeb.getText()).append("\n")
+                .append("Anleitung: ").append(hyperlinkHelp.getText()).append("\n")
+                .append("Spende: ").append(hyperlinkForum.getText()).append("\n")
+                .append("Forum: ").append(hyperlinkDonate.getText());
 
         text = new Text("Website:");
         text.setFont(new Font(15));
@@ -219,7 +220,6 @@ public abstract class AboutDialog extends PDialogExtra {
         gridPane.add(hyperlinkForum, c + 1, row);
 
         gridPane.add(new Label(""), c, ++row);
-
         for (int i = 0; i < listName.length && i < listValue.length; ++i) {
             text = new Text(listName[i]);
             text.setFont(new Font(15));
@@ -230,13 +230,23 @@ public abstract class AboutDialog extends PDialogExtra {
             text.setFont(new Font(15));
             text.setFill(PROG_COLOR);
             gridPane.add(text, c + 1, row);
+            txtContext.append("\n").append(listName[i]).append(": ").append(listValue[i]);
         }
 
+        // Menü
+        P2ClipBoardContext.addMenu("Programm-Infos kopieren", txtContext.toString(), gridPane);
+
+        //====================
         // Java
-        text = new Text(P2LibConst.LINE_SEPARATOR + "Java Informationen");
+        txtContext = new StringBuilder();
+        gridPane = getGridPane();
+        row = 0;
+
+        text = new Text("Java Informationen");
         text.setFont(Font.font(null, FontWeight.BOLD, 15));
         text.setFill(PROG_COLOR_MARK);
-        gridPane.add(text, c, ++row, 2, 1);
+        gridPane.add(text, c, row, 2, 1);
+        txtContext.append("Java Informationen");
 
         text = new Text("Version:");
         text.setFont(new Font(15));
@@ -247,6 +257,7 @@ public abstract class AboutDialog extends PDialogExtra {
         text.setFont(new Font(15));
         text.setFill(PROG_COLOR);
         gridPane.add(text, c + 1, row);
+        txtContext.append("\n").append("Version: ").append(text.getText());
 
         text = new Text("Type:");
         text.setFont(new Font(15));
@@ -259,6 +270,7 @@ public abstract class AboutDialog extends PDialogExtra {
         text.setFont(new Font(15));
         text.setFill(PROG_COLOR);
         gridPane.add(text, c + 1, row);
+        txtContext.append("\n").append("Type: ").append(text.getText());
 
         text = new Text("JavaFX:");
         text.setFont(new Font(15));
@@ -273,13 +285,19 @@ public abstract class AboutDialog extends PDialogExtra {
         text.setFont(new Font(15));
         text.setFill(PROG_COLOR);
         gridPane.add(text, c + 1, row);
+        txtContext.append("\n").append("JavaFX: ").append(text.getText());
+        P2ClipBoardContext.addMenu("Java-Infos kopieren", txtContext.toString(), gridPane);
 
-        text = new Text(P2LibConst.LINE_SEPARATORx2 + "Ein Dankeschön an alle," + P2LibConst.LINE_SEPARATOR +
+        //====================
+        // Danke
+        gridPane = getGridPane();
+        row = 0;
+        text = new Text("Ein Dankeschön an alle," + P2LibConst.LINE_SEPARATOR +
                 "die mit Vorschlägen oder Quelltext" + P2LibConst.LINE_SEPARATOR +
                 "zu diesem Programm beigetragen haben.");
         text.setFont(Font.font(null, FontWeight.BOLD, 15));
         text.setFill(PROG_COLOR_MARK);
-        gridPane.add(text, c, ++row, 2, 1);
+        gridPane.add(text, c, row, 2, 1);
     }
 
     private Image getImage() {
@@ -287,16 +305,12 @@ public abstract class AboutDialog extends PDialogExtra {
         return new Image(path, 128, 128, false, true);
     }
 
-    private void getMenu(Text text, ContextMenuEvent event) {
-        final ContextMenu contextMenu = new ContextMenu();
-        MenuItem menuItem = new MenuItem("Kopieren");
-        menuItem.setOnAction(a -> {
-            final Clipboard clipboard = Clipboard.getSystemClipboard();
-            final ClipboardContent content = new ClipboardContent();
-            content.putString(text.getText());
-            clipboard.setContent(content);
-        });
-        contextMenu.getItems().addAll(menuItem);
-        contextMenu.show(text, event.getScreenX(), event.getScreenY());
+    private GridPane getGridPane() {
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(3);
+        gridPane.setPadding(new Insets(0, 10, 10, 10));
+        getVBoxCont().getChildren().add(gridPane);
+        return gridPane;
     }
 }

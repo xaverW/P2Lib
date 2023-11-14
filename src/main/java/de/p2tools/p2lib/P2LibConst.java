@@ -30,6 +30,7 @@ public class P2LibConst {
     public static final int WINDOW_ICON_WIDTH = 58;
     public static final int WINDOW_ICON_HEIGHT = 58;
 
+    public static final String MAIL_XAVER = "w.xaver@googlemail.com";
     public static final String URL_WEBSITE_DONATE = "https://www.p2tools.de/donate/";
     public static final String URL_WEBSITE_FORUM = "https://p2forum.de";
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
