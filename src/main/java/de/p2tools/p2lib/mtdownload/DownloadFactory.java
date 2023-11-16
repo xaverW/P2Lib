@@ -140,7 +140,7 @@ public class DownloadFactory {
             }
         } catch (final Exception ex) {
             ret = -1;
-            PLog.errorLog(643298301, ex);
+            PLog.errorLog(643298301, ex, "URL: " + url);
         } finally {
             if (connection != null) {
                 connection.disconnect();
