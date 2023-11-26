@@ -80,6 +80,9 @@
     -fx-padding: 5 25 5 25;
     -fx-font-weight: bold;
 }
+.btnFunc-5{
+    -fx-padding: 3 5;
+}
 .btnFunction > .arrow-button{
     /*Pfeil ausblenden*/
     -fx-padding: 0;
@@ -111,6 +114,10 @@
 .btnFunc-4:pressed{
     -fx-border-width: 0;
     -fx-padding: 5 25 5 25;
+}
+.btnFunc-5:pressed{
+    -fx-border-width: 0;
+    -fx-padding: 3 5;
 }
 .btnFunction:focused{
     -fx-background-color: #004b91, -lin-grad-1, -rad-grad-1;
