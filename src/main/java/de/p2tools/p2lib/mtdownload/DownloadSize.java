@@ -21,8 +21,8 @@ import javafx.beans.property.ObjectPropertyBase;
 
 public class DownloadSize extends ObjectPropertyBase<DownloadSizeData> implements Comparable<DownloadSize> {
 
-    private long actuallySize = 0L; // ist der Wert des aktuell laufenden Downloads (Downloadteil bei Abbrüchen)
-    private Long targetSize = 0L; // ist der Wert aus der URL/geladenen Datei, also Org-Größe
+    private long actuallySize = 0L; // Byte, ist der Wert des aktuell laufenden Downloads (Downloadteil bei Abbrüchen)
+    private Long targetSize = 0L; // Byte, ist der Wert aus der URL/geladenen Datei, also Org-Größe
 
     public DownloadSize() {
     }

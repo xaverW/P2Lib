@@ -17,6 +17,10 @@
 .alignCenterLeft {
   -fx-alignment: center-left;
 }
+.alignCenterLeftPadding_10 {
+  -fx-alignment: center-left;
+  -fx-padding: 0 0 0 10;
+}
 
 /* PFilterTextField */
 .PFilterTextField .button{
