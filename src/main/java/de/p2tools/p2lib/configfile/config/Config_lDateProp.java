@@ -39,8 +39,8 @@ public class Config_lDateProp extends Config {
     }
 
     @Override
-    public PLDateProperty getActValue() {
-        return actValue;
+    public LocalDate getActValue() {
+        return actValue.getValue();
     }
 
     @Override
