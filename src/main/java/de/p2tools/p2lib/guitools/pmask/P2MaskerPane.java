@@ -153,14 +153,14 @@ public class P2MaskerPane extends BorderPane {
         setBtnVisible(false);
 
         if (txtBtnHorizontal) {
-            HBox hBox = new HBox(P2LibConst.DIST_HBOX);
+            HBox hBox = new HBox(P2LibConst.PADDING_HBOX);
             hBox.setAlignment(Pos.CENTER);
             HBox.setHgrow(lblText, Priority.ALWAYS);
             hBox.getChildren().addAll(lblText, btnStop);
             vBoxCont.getChildren().addAll(progressIndicator, hBox);
 
         } else {
-            final VBox vBox = new VBox(P2LibConst.DIST_VBOX);
+            final VBox vBox = new VBox(P2LibConst.PADDING_VBOX);
             vBox.setAlignment(Pos.CENTER);
             vBox.getChildren().addAll(lblText, btnStop);
             vBoxCont.getChildren().addAll(progressIndicator, vBox);

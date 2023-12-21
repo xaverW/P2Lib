@@ -57,11 +57,22 @@ public class P2LibConst {
     public static int DIST_BUTTON = 5;//Abstand zwischen den Button
     public static int DIST_BUTTON_BLOCK = 10;//Abstand zwischen den Button-Blöcken
     public static int DIST_BUTTON_BLOCK_BIG = 20;//Abstand zwischen den Button-Blöcken
+
     public static int DIST_GRIDPANE_HGAP = 5;
     public static int DIST_GRIDPANE_VGAP = 5;
-    public static int DIST_GRIDPANE_PADDING = 10;
-    public static int DIST_EDGE = 10;//Abstand zum Rand
-    public static int DIST_EDGE_SMALL = 5;//Abstand zum Rand
-    public static int DIST_VBOX = 10;//Abstand zum Rand
-    public static int DIST_HBOX = 10;//Abstand zum Rand
+    public static int PADDING_GRIDPANE = 10;
+    public static int PADDING_GRIDPANE_SMALL = 5;
+
+    public static int PADDING = 10;//Abstand zum Rand
+    public static int PADDING__SMALL = 5;//Abstand zum Rand
+
+    public static int SPACING_VBOX = 10;
+    public static int SPACING_VBOX_SMALL = 5;
+    public static int SPACING_HBOX = 10;
+    public static int SPACING_HBOX_SMALL = 5;
+
+    public static int PADDING_VBOX = 10;//Abstand zum Rand
+    public static int PADDING_VBOX_SMALL = 5;//Abstand zum Rand
+    public static int PADDING_HBOX = 10;//Abstand zum Rand
+    public static int PADDING_HBOX_SMALL = 5;//Abstand zum Rand
 }

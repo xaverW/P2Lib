@@ -304,7 +304,7 @@ public class PDialogExtra extends PDialog {
             super.setPane(vBoxCompleteDialog);
         }
 
-        vBoxCompleteDialog.setPadding(new Insets(P2LibConst.DIST_EDGE));//ist der Bereich außerhalb des Rahmens
+        vBoxCompleteDialog.setPadding(new Insets(P2LibConst.PADDING));//ist der Bereich außerhalb des Rahmens
 
         hBoxOverAll.setVisible(false);//wird nur eingeschaltet, wenn abgerufen
         hBoxOverAll.setManaged(false);
@@ -316,7 +316,7 @@ public class PDialogExtra extends PDialog {
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
-        vBoxCont.setPadding(new Insets(P2LibConst.DIST_EDGE));
+        vBoxCont.setPadding(new Insets(P2LibConst.PADDING));
         scrollPane.setContent(vBoxCont);
     }
 

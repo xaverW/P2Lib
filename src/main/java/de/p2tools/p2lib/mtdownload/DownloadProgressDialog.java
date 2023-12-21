@@ -54,7 +54,7 @@ public class DownloadProgressDialog extends PDialogExtra {
     @Override
     public void make() {
         vBoxCont.setPadding(new Insets(5));
-        vBoxCont.setSpacing(P2LibConst.DIST_VBOX);
+        vBoxCont.setSpacing(P2LibConst.PADDING_VBOX);
         vBoxCont.getChildren().addAll(gridPane);
 
         progressBar.setMinWidth(100);
