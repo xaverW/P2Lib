@@ -29,14 +29,14 @@ public class P2DateGmtFactory {
     }
 
     public static String getDateTimeGmt() {
-        SimpleDateFormat gmtDateFormat = new SimpleDateFormat(DateFactory.STR__dd_MM_yyyy___HH__mm__ss);
+        SimpleDateFormat gmtDateFormat = new SimpleDateFormat(P2DateConst.STR__dd_MM_yyyy___HH__mm__ss);
         gmtDateFormat.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
         return gmtDateFormat.format(new Date());
     }
 
     public static String getLocalDateTimeStringFromGmt(String strDate) {
         LocalDateTime localDateTime = getLocalDateTimeFromGmt(strDate);
-        return PLDateTimeFactory.toString(localDateTime);
+        return P2LDateTimeFactory.toString(localDateTime);
     }
 
     public static LocalDateTime getLocalDateTimeFromGmt(String strDate) {
@@ -45,7 +45,7 @@ public class P2DateGmtFactory {
         }
 
         try {
-            final SimpleDateFormat sdfUtc = new SimpleDateFormat(DateFactory.STR__dd_MM_yyyy___HH__mm__ss);
+            final SimpleDateFormat sdfUtc = new SimpleDateFormat(P2DateConst.STR__dd_MM_yyyy___HH__mm__ss);
             sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
 
             Date filmDate = null;

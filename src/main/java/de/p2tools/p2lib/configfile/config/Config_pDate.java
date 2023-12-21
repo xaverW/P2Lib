@@ -17,34 +17,34 @@
 
 package de.p2tools.p2lib.configfile.config;
 
-import de.p2tools.p2lib.tools.date.PDate;
+import de.p2tools.p2lib.tools.date.P2Date;
 
 public abstract class Config_pDate extends Config {
 
-    private PDate actValue;
+    private P2Date actValue;
 
-    public Config_pDate(String key, PDate actValue) {
+    public Config_pDate(String key, P2Date actValue) {
         super(key);
         this.actValue = actValue;
     }
 
-    public Config_pDate(String key, String name, PDate actValue) {
+    public Config_pDate(String key, String name, P2Date actValue) {
         super(key, name);
         this.actValue = actValue;
     }
 
     @Override
-    public PDate getActValue() {
+    public P2Date getActValue() {
         return actValue;
     }
 
     @Override
     public void setActValue(Object act) {
-        actValue = (PDate) act;
+        actValue = (P2Date) act;
         setUsedValue(actValue);
     }
 
-    public void setActValue(PDate act) {
+    public void setActValue(P2Date act) {
         actValue = act;
         setUsedValue(actValue);
     }
@@ -52,9 +52,9 @@ public abstract class Config_pDate extends Config {
     @Override
     public void setActValue(String act) {
         try {
-            actValue = new PDate(act);
+            actValue = new P2Date(act);
         } catch (Exception ex) {
-            actValue = new PDate();
+            actValue = new P2Date();
         }
         setUsedValue(actValue);
     }
@@ -65,5 +65,5 @@ public abstract class Config_pDate extends Config {
         return ret;
     }
 
-    public abstract void setUsedValue(PDate act);
+    public abstract void setUsedValue(P2Date act);
 }

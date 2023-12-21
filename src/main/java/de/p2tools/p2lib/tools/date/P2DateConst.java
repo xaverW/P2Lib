@@ -22,7 +22,7 @@ import org.apache.commons.lang3.time.FastDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-public class DateFactory {
+public class P2DateConst {
 
     //_ = .
     //__ = :
@@ -58,6 +58,6 @@ public class DateFactory {
     public static final DateTimeFormatter DT_FORMATTER_EEE_MMM_dd_ = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
 
 
-    private DateFactory() {
+    private P2DateConst() {
     }
 }

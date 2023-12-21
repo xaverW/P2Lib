@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.configfile.config;
 
 import de.p2tools.p2lib.guitools.P2LDatePicker;
-import de.p2tools.p2lib.tools.date.PLDateTimeFactory;
+import de.p2tools.p2lib.tools.date.P2LDateTimeFactory;
 import javafx.scene.control.Control;
 
 import java.time.LocalDateTime;
@@ -29,12 +29,12 @@ public abstract class Config_lDateTime extends Config {
 
     public Config_lDateTime(String key, String actValue) {
         super(key);
-        this.actValue = PLDateTimeFactory.setDate(actValue, "");
+        this.actValue = P2LDateTimeFactory.setDate(actValue, "");
     }
 
     public Config_lDateTime(String key, String name, String actValue) {
         super(key, name);
-        this.actValue = PLDateTimeFactory.setDate(actValue, "");
+        this.actValue = P2LDateTimeFactory.setDate(actValue, "");
     }
 
     public Config_lDateTime(String key, String name, LocalDateTime localDateTime) {
@@ -59,13 +59,13 @@ public abstract class Config_lDateTime extends Config {
     }
 
     public void setActValue(String act) {
-        actValue = PLDateTimeFactory.fromString(act);
+        actValue = P2LDateTimeFactory.fromString(act);
         setUsedValue(actValue);
     }
 
     @Override
     public String getActValueString() {
-        return PLDateTimeFactory.toString(actValue);
+        return P2LDateTimeFactory.toString(actValue);
     }
 
     @Override

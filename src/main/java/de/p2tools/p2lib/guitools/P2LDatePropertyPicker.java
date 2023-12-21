@@ -18,8 +18,8 @@
 package de.p2tools.p2lib.guitools;
 
 import de.p2tools.p2lib.tools.PException;
-import de.p2tools.p2lib.tools.date.PLDateFactory;
-import de.p2tools.p2lib.tools.date.PLDateProperty;
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.DatePicker;
 
@@ -28,7 +28,7 @@ import java.time.format.DateTimeFormatter;
 
 public class P2LDatePropertyPicker extends DatePicker {
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    private PLDateProperty boundPLocalDateProperty = null;
+    private P2LDateProperty boundPLocalDateProperty = null;
     private ChangeListener<LocalDate> changeListener = null;
 
     public P2LDatePropertyPicker() {
@@ -36,7 +36,7 @@ public class P2LDatePropertyPicker extends DatePicker {
         init();
     }
 
-    public P2LDatePropertyPicker(PLDateProperty pDateProperty) {
+    public P2LDatePropertyPicker(P2LDateProperty pDateProperty) {
         if (pDateProperty == null) {
             PException.throwPException(978450201, this.getClass().toString());
         }
@@ -79,7 +79,7 @@ public class P2LDatePropertyPicker extends DatePicker {
         }
     }
 
-    public void bindPDateProperty(PLDateProperty pDateProperty) {
+    public void bindPDateProperty(P2LDateProperty pDateProperty) {
         if (pDateProperty == null) {
             PException.throwPException(978450201, this.getClass().toString());
         }
@@ -125,7 +125,7 @@ public class P2LDatePropertyPicker extends DatePicker {
         if (stringDate == null || stringDate.isEmpty()) {
             setValue(null);
         } else {
-            setValue(PLDateFactory.fromString(stringDate));
+            setValue(P2LDateFactory.fromString(stringDate));
         }
         setDate();
     }

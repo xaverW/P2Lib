@@ -25,26 +25,26 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PDateFactory {
+public class P2DateFactory {
 
     public static String getTodayStr() {
-        return new PDate().getDateTime(DateFactory.F_FORMAT_dd_MM_yyyy);
+        return new P2Date().getDateTime(P2DateConst.F_FORMAT_dd_MM_yyyy);
     }
 
     public static String getTodayInverseStr() {
-        return new PDate().getDateTime(DateFactory.F_FORMAT_yyyy_MM_dd);
+        return new P2Date().getDateTime(P2DateConst.F_FORMAT_yyyy_MM_dd);
     }
 
-    public static PDate getToday() {
-        PDate pDate = new PDate();
-        pDate.setPDateToday();
-        return pDate;
+    public static P2Date getToday() {
+        P2Date p2Date = new P2Date();
+        p2Date.setPDateToday();
+        return p2Date;
     }
 
-    public static PDate getYesterday() {
+    public static P2Date getYesterday() {
         LocalDate pDate = LocalDate.now().minusDays(1);
         ZoneId defaultZoneId = ZoneId.systemDefault();
-        return new PDate(Date.from(pDate.atStartOfDay(defaultZoneId).toInstant()));
+        return new P2Date(Date.from(pDate.atStartOfDay(defaultZoneId).toInstant()));
     }
 
     public static String getAktYearStr() {
@@ -58,7 +58,7 @@ public class PDateFactory {
     public static int getYearIntFromString(String year) {
         int ret;
         try {
-            final long y = DateFactory.F_FORMAT_yyyy.parse(year).getTime();
+            final long y = P2DateConst.F_FORMAT_yyyy.parse(year).getTime();
             ret = Integer.parseInt(year);
         } catch (Exception ex) {
             ret = 0;
@@ -111,24 +111,24 @@ public class PDateFactory {
         }
 
         try {
-            return LocalDate.parse(strDate, DateFactory.DT_FORMATTER_dd_MM_yyyy);
+            return LocalDate.parse(strDate, P2DateConst.DT_FORMATTER_dd_MM_yyyy);
         } catch (final Exception ex) {
         }
         try {
-            return LocalDate.parse(strDate, DateFactory.DT_FORMATTER_d_MM_yyyy);
+            return LocalDate.parse(strDate, P2DateConst.DT_FORMATTER_d_MM_yyyy);
         } catch (final Exception ex) {
         }
         try {
-            return LocalDate.parse(strDate, DateFactory.DT_FORMATTER_dd_M_yyyy);
+            return LocalDate.parse(strDate, P2DateConst.DT_FORMATTER_dd_M_yyyy);
         } catch (final Exception ex) {
         }
         try {
-            return LocalDate.parse(strDate, DateFactory.DT_FORMATTER_d_M_yyyy);
+            return LocalDate.parse(strDate, P2DateConst.DT_FORMATTER_d_M_yyyy);
         } catch (final Exception ex) {
         }
 
         try {
-            return LocalDate.parse(strDate, DateFactory.DT_FORMATTER_EEE_MMM_dd_);
+            return LocalDate.parse(strDate, P2DateConst.DT_FORMATTER_EEE_MMM_dd_);
         } catch (final Exception ex) {
         }
 
@@ -157,19 +157,19 @@ public class PDateFactory {
         return Math.abs(ret);
     }
 
-    public static String toString(PDate pDate) {
-        if (pDate == null) {
+    public static String toString(P2Date p2Date) {
+        if (p2Date == null) {
             return "";
         } else {
-            return pDate.getDateTime(DateFactory.F_FORMAT_dd_MM_yyyy);
+            return p2Date.getDateTime(P2DateConst.F_FORMAT_dd_MM_yyyy);
         }
     }
 
-    public static String toStringR(PDate pDate) {
-        if (pDate == null) {
+    public static String toStringR(P2Date p2Date) {
+        if (p2Date == null) {
             return "";
         } else {
-            return pDate.getDateTime(DateFactory.F_FORMAT_yyyy_MM_dd);
+            return p2Date.getDateTime(P2DateConst.F_FORMAT_yyyy_MM_dd);
         }
     }
 }

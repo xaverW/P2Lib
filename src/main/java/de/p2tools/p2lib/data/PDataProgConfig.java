@@ -162,29 +162,29 @@ public class PDataProgConfig extends PDataSample<PDataProgConfig> {
         return addBoolProp(key, init);
     }
 
-    public static synchronized PDateProperty addPDateProp(String key, PDate pDate) {
-        PDateProperty property = new PDateProperty(pDate);
+    public static synchronized P2DateProperty addPDateProp(String key, P2Date p2Date) {
+        P2DateProperty property = new P2DateProperty(p2Date);
         Config_pDateProp c = new Config_pDateProp(key, key, property);
         arrayList.add(c);
         return property;
     }
 
-    public static synchronized PLDateProperty addPLocalDateProp(String key, LocalDate localDate) {
-        PLDateProperty property = new PLDateProperty(localDate);
+    public static synchronized P2LDateProperty addPLocalDateProp(String key, LocalDate localDate) {
+        P2LDateProperty property = new P2LDateProperty(localDate);
         Config_lDateProp c = new Config_lDateProp(key, key, property);
         arrayList.add(c);
         return property;
     }
 
-    public static synchronized PLDateTimeProperty addPLocalDateTimeProp(String key, LocalDateTime localDateTime) {
-        PLDateTimeProperty property = new PLDateTimeProperty(localDateTime);
+    public static synchronized P2LDateTimeProperty addPLocalDateTimeProp(String key, LocalDateTime localDateTime) {
+        P2LDateTimeProperty property = new P2LDateTimeProperty(localDateTime);
         Config_lDateTimeProp c = new Config_lDateTimeProp(key, key, property);
         arrayList.add(c);
         return property;
     }
 
-    public static synchronized PLTimeProperty addPLocalTimeProp(String key, LocalTime localTime) {
-        PLTimeProperty property = new PLTimeProperty(localTime);
+    public static synchronized P2LTimeProperty addPLocalTimeProp(String key, LocalTime localTime) {
+        P2LTimeProperty property = new P2LTimeProperty(localTime);
         Config_lTimeProp c = new Config_lTimeProp(key, key, property);
         arrayList.add(c);
         return property;

@@ -20,25 +20,25 @@ import de.p2tools.p2lib.tools.log.PLog;
 import javafx.beans.property.SimpleObjectProperty;
 import org.apache.commons.lang3.time.FastDateFormat;
 
-public class PDateProperty extends SimpleObjectProperty<PDate> {
+public class P2DateProperty extends SimpleObjectProperty<P2Date> {
 
-    public PDateProperty() {
-        setValue(new PDate());
+    public P2DateProperty() {
+        setValue(new P2Date());
     }
 
-    public PDateProperty(PDate pDate) {
-        setValue(pDate);
+    public P2DateProperty(P2Date p2Date) {
+        setValue(p2Date);
     }
 
-    public PDateProperty(long l) {
-        setValue(new PDate(l));
+    public P2DateProperty(long l) {
+        setValue(new P2Date(l));
     }
 
-    public PDateProperty(String date) {
+    public P2DateProperty(String date) {
         setPDate(date);
     }
 
-    public PDateProperty(String date, String time) {
+    public P2DateProperty(String date, String time) {
         setPDate(date, time);
     }
 
@@ -47,29 +47,29 @@ public class PDateProperty extends SimpleObjectProperty<PDate> {
     }
 
     public void setPDate(String strDate, String strTime) {
-        PDate pDate = new PDate();
-        pDate.setPDate(strDate, strTime);
-        setValue(pDate);
+        P2Date p2Date = new P2Date();
+        p2Date.setPDate(strDate, strTime);
+        setValue(p2Date);
     }
 
     public void clearPDate() {
-        this.setValue(new PDate(0));
+        this.setValue(new P2Date(0));
         return;
     }
 
     public void setPDateToday() {
         try {
-            final String strToday = new PDate().getDateTime(DateFactory.F_FORMAT_dd_MM_yyyy);
-            final long lToday = DateFactory.F_FORMAT_dd_MM_yyyy.parse(strToday).getTime();
-            this.setValue(new PDate(lToday));
+            final String strToday = new P2Date().getDateTime(P2DateConst.F_FORMAT_dd_MM_yyyy);
+            final long lToday = P2DateConst.F_FORMAT_dd_MM_yyyy.parse(strToday).getTime();
+            this.setValue(new P2Date(lToday));
         } catch (final Exception ex) {
-            this.setValue(new PDate(0));
+            this.setValue(new P2Date(0));
             PLog.errorLog(915263630, ex);
         }
     }
 
     public void setPDateNow() {
-        this.setValue(new PDate());
+        this.setValue(new P2Date());
     }
 
     public String getDateTime(FastDateFormat format) {
@@ -100,6 +100,6 @@ public class PDateProperty extends SimpleObjectProperty<PDate> {
 
     @Override
     public String toString() {
-        return PDateFactory.toString(getValue());
+        return P2DateFactory.toString(getValue());
     }
 }

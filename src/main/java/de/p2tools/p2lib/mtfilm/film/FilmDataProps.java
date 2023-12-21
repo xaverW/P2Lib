@@ -18,7 +18,7 @@ package de.p2tools.p2lib.mtfilm.film;
 
 import de.p2tools.p2lib.mtfilm.tools.FilmDate;
 import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
-import de.p2tools.p2lib.tools.date.PDate;
+import de.p2tools.p2lib.tools.date.P2Date;
 import de.p2tools.p2lib.tools.log.PLog;
 
 public class FilmDataProps extends FilmDataXml {
@@ -116,7 +116,7 @@ public class FilmDataProps extends FilmDataXml {
         return arr[FILM_TITLE];
     }
 
-    public PDate getDate() {
+    public P2Date getDate() {
         return filmDate;
     }
 

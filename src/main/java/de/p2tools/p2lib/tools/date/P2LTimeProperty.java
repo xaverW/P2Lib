@@ -18,29 +18,39 @@ package de.p2tools.p2lib.tools.date;
 
 import javafx.beans.property.SimpleObjectProperty;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
-public class PLDateTimeProperty extends SimpleObjectProperty<LocalDateTime> {
+public class P2LTimeProperty extends SimpleObjectProperty<LocalTime> {
 
-    public PLDateTimeProperty() {
-        setValue(LocalDateTime.MIN);
+    public P2LTimeProperty() {
+        clearPLocalTime();
     }
 
-    public PLDateTimeProperty(LocalDateTime pDate) {
+    public P2LTimeProperty(LocalTime pDate) {
         setValue(pDate);
     }
 
-    public PLDateTimeProperty(String date) {
-        setValue(PLDateTimeFactory.fromString(date));
+    public P2LTimeProperty(String date) {
+        setPLocalTime(date);
     }
 
-    public void clearPLocalDate() {
-        this.setValue(LocalDateTime.MIN);
+    public void setPLocalTime(LocalTime localDate) {
+        setValue(localDate);
+    }
+
+    public void setPLocalTime(String strDate) {
+        LocalTime pLocalDate = P2LTimeFactory.fromString(strDate);
+        setValue(pLocalDate);
+    }
+
+    public void clearPLocalTime() {
+        LocalTime pLocalTime = LocalTime.now();
+        this.setValue(pLocalTime);
         return;
     }
 
     @Override
     public String toString() {
-        return PLDateTimeFactory.toString(this.getValue());
+        return P2LTimeFactory.toString(this.getValue());
     }
 }

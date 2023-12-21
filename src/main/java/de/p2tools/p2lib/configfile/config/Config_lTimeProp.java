@@ -17,21 +17,21 @@
 
 package de.p2tools.p2lib.configfile.config;
 
-import de.p2tools.p2lib.tools.date.PLTimeFactory;
-import de.p2tools.p2lib.tools.date.PLTimeProperty;
+import de.p2tools.p2lib.tools.date.P2LTimeFactory;
+import de.p2tools.p2lib.tools.date.P2LTimeProperty;
 
 import java.time.LocalTime;
 
 public class Config_lTimeProp extends Config {
 
-    private final PLTimeProperty actValue;
+    private final P2LTimeProperty actValue;
 
-    public Config_lTimeProp(String key, PLTimeProperty actValue) {
+    public Config_lTimeProp(String key, P2LTimeProperty actValue) {
         super(key);
         this.actValue = actValue;
     }
 
-    public Config_lTimeProp(String key, String name, PLTimeProperty actValue) {
+    public Config_lTimeProp(String key, String name, P2LTimeProperty actValue) {
         super(key, name);
         this.actValue = actValue;
     }
@@ -52,16 +52,16 @@ public class Config_lTimeProp extends Config {
 
     @Override
     public void setActValue(String act) {
-        PLTimeFactory.fromString(act);
+        P2LTimeFactory.fromString(act);
     }
 
     @Override
     public String getActValueString() {
-        return PLTimeFactory.toString(actValue.getValue());
+        return P2LTimeFactory.toString(actValue.getValue());
     }
 
     @Override
-    public PLTimeProperty getProperty() {
+    public P2LTimeProperty getProperty() {
         return actValue;
     }
 

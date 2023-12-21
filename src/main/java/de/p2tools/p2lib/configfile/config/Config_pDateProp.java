@@ -17,54 +17,54 @@
 
 package de.p2tools.p2lib.configfile.config;
 
-import de.p2tools.p2lib.tools.date.PDate;
-import de.p2tools.p2lib.tools.date.PDateFactory;
-import de.p2tools.p2lib.tools.date.PDateProperty;
+import de.p2tools.p2lib.tools.date.P2Date;
+import de.p2tools.p2lib.tools.date.P2DateFactory;
+import de.p2tools.p2lib.tools.date.P2DateProperty;
 
 public class Config_pDateProp extends Config {
 
-    private PDateProperty actValue;
+    private P2DateProperty actValue;
 
-    public Config_pDateProp(String key, PDateProperty actValue) {
+    public Config_pDateProp(String key, P2DateProperty actValue) {
         super(key);
         this.actValue = actValue;
     }
 
-    public Config_pDateProp(String key, String name, PDateProperty actValue) {
+    public Config_pDateProp(String key, String name, P2DateProperty actValue) {
         super(key, name);
         this.actValue = actValue;
     }
 
     @Override
     public void setActValue(Object act) {
-        actValue.setValue((PDate) act);
+        actValue.setValue((P2Date) act);
     }
 
-    public void setActValue(PDate act) {
+    public void setActValue(P2Date act) {
         actValue.setValue(act);
     }
 
     @Override
     public void setActValue(String act) {
         try {
-            actValue.setValue(new PDate(act));
+            actValue.setValue(new P2Date(act));
         } catch (Exception ex) {
-            actValue.setValue(new PDate());
+            actValue.setValue(new P2Date());
         }
     }
 
     @Override
-    public PDate getActValue() {
+    public P2Date getActValue() {
         return actValue.getValue();
     }
 
     @Override
     public String getActValueString() {
-        return getActValue() == null ? "" : PDateFactory.toString(getActValue());
+        return getActValue() == null ? "" : P2DateFactory.toString(getActValue());
     }
 
     @Override
-    public PDateProperty getProperty() {
+    public P2DateProperty getProperty() {
         return actValue;
     }
 }

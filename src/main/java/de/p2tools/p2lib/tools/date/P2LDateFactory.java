@@ -23,9 +23,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PLDateFactory {
+public class P2LDateFactory {
 
-    private PLDateFactory() {
+    private P2LDateFactory() {
     }
 
     public static String getDateTime(LocalDate localDate, DateTimeFormatter format) {
@@ -83,9 +83,9 @@ public class PLDateFactory {
 
     public static String getDate_yMd(String d) {
         try {
-            LocalDate localDate = LocalDate.parse(d, DateFactory.DT_FORMATTER_yyyy_MM_dd);
+            LocalDate localDate = LocalDate.parse(d, P2DateConst.DT_FORMATTER_yyyy_MM_dd);
             if (localDate != null) {
-                return localDate.format(DateFactory.DT_FORMATTER_dd_MM_yyyy);
+                return localDate.format(P2DateConst.DT_FORMATTER_dd_MM_yyyy);
             }
         } catch (final Exception ex) {
         }
@@ -105,10 +105,10 @@ public class PLDateFactory {
 //        return new PLocalDate(LocalDate.of(localDate.getYear(), localDate.getMonth(), localDate.getDayOfMonth()));
 //    }
 
-    public static PDate getPDate(LocalDate localDate) {
+    public static P2Date getPDate(LocalDate localDate) {
         try {
-            PDate pd = new PDate();
-            pd.setPDate(getDateTime(localDate, DateFactory.DT_FORMATTER_dd_MM_yyyy));
+            P2Date pd = new P2Date();
+            pd.setPDate(getDateTime(localDate, P2DateConst.DT_FORMATTER_dd_MM_yyyy));
             return pd;
         } catch (final Exception ex) {
         }
@@ -120,7 +120,7 @@ public class PLDateFactory {
         if (localDate == null) {
             return "";
         } else {
-            return localDate.format(DateFactory.DT_FORMATTER_yyyy);
+            return localDate.format(P2DateConst.DT_FORMATTER_yyyy);
         }
     }
 
@@ -149,7 +149,7 @@ public class PLDateFactory {
             if (strDate.isEmpty()) {
                 return LocalDate.MIN;
             } else {
-                return LocalDate.parse(strDate, DateFactory.DT_FORMATTER_dd_MM_yyyy);
+                return LocalDate.parse(strDate, P2DateConst.DT_FORMATTER_dd_MM_yyyy);
             }
         } catch (Exception ex) {
             if (now) {
@@ -169,7 +169,7 @@ public class PLDateFactory {
             if (strDate.isEmpty()) {
                 return LocalDate.MIN;
             } else {
-                return LocalDate.parse(strDate, DateFactory.DT_FORMATTER_yyyy_MM_dd);
+                return LocalDate.parse(strDate, P2DateConst.DT_FORMATTER_yyyy_MM_dd);
             }
         } catch (Exception ex) {
             if (now) {
@@ -186,7 +186,7 @@ public class PLDateFactory {
         } else if (localDate.isEqual(LocalDate.MIN)) {
             return "";
         } else {
-            return localDate.format(DateFactory.DT_FORMATTER_dd_MM_yyyy);
+            return localDate.format(P2DateConst.DT_FORMATTER_dd_MM_yyyy);
         }
     }
 
@@ -196,15 +196,15 @@ public class PLDateFactory {
         } else if (localDate.isEqual(LocalDate.MIN)) {
             return "";
         } else {
-            return localDate.format(DateFactory.DT_FORMATTER_yyyy_MM_dd);
+            return localDate.format(P2DateConst.DT_FORMATTER_yyyy_MM_dd);
         }
     }
 
     public static String getNowString() {
-        return LocalDate.now().format(DateFactory.DT_FORMATTER_dd_MM_yyyy);
+        return LocalDate.now().format(P2DateConst.DT_FORMATTER_dd_MM_yyyy);
     }
 
     public static String getNowStringR() {
-        return LocalDate.now().format(DateFactory.DT_FORMATTER_yyyy_MM_dd);
+        return LocalDate.now().format(P2DateConst.DT_FORMATTER_yyyy_MM_dd);
     }
 }

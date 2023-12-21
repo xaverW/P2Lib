@@ -17,8 +17,8 @@
 
 package de.p2tools.p2lib.guitools;
 
-import de.p2tools.p2lib.tools.date.PDateFactory;
-import de.p2tools.p2lib.tools.date.DateFactory;
+import de.p2tools.p2lib.tools.date.P2DateConst;
+import de.p2tools.p2lib.tools.date.P2DateFactory;
 import javafx.scene.control.DatePicker;
 
 import java.time.LocalDate;
@@ -36,7 +36,7 @@ public class P2LDatePicker extends DatePicker {
         String ret = "";
         LocalDate date = getValue();
         if (date != null && !date.equals(LocalDate.MIN)) {
-            ret = DateFactory.DT_FORMATTER_dd_MM_yyyy.format(date);
+            ret = P2DateConst.DT_FORMATTER_dd_MM_yyyy.format(date);
         }
         return ret;
     }
@@ -61,7 +61,7 @@ public class P2LDatePicker extends DatePicker {
         if (stringDate == null || stringDate.isEmpty()) {
             this.setValue(null);
         } else {
-            this.setValue(PDateFactory.getLocalDate(stringDate));
+            this.setValue(P2DateFactory.getLocalDate(stringDate));
         }
     }
 }

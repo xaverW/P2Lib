@@ -22,30 +22,30 @@ import org.apache.commons.lang3.time.FastDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class PDate extends Date {
+public class P2Date extends Date {
 
-    public PDate() {
+    public P2Date() {
         super();
     }
 
-    public PDate(Date date) {
+    public P2Date(Date date) {
         super(date.getTime());
     }
 
-    public PDate(long l) {
+    public P2Date(long l) {
         super(l);
     }
 
-    public PDate(String date) {
+    public P2Date(String date) {
         setPDate(date);
     }
 
-    public PDate(String date, String time) {
+    public P2Date(String date, String time) {
         setPDate(date, time);
     }
 
-    public void setPDate(PDate pDate) {
-        this.setTime(pDate.getTime());
+    public void setPDate(P2Date p2Date) {
+        this.setTime(p2Date.getTime());
     }
 
     public void setPDate(String strDate) {
@@ -94,9 +94,9 @@ public class PDate extends Date {
 
         try {
             if (strTime.isEmpty()) {
-                setTime(DateFactory.F_FORMAT_dd_MM_yyyy.parse(strDate).getTime());
+                setTime(P2DateConst.F_FORMAT_dd_MM_yyyy.parse(strDate).getTime());
             } else {
-                setTime(DateFactory.F_FORMAT_dd_MM_yyyyKomma___HH_mm.parse(strDate + strTime).getTime());
+                setTime(P2DateConst.F_FORMAT_dd_MM_yyyyKomma___HH_mm.parse(strDate + strTime).getTime());
             }
             return;
         } catch (final Exception ex) {
@@ -104,9 +104,9 @@ public class PDate extends Date {
 
         try {
             if (strTime.isEmpty()) {
-                setTime(DateFactory.F_FORMAT_dd_MM_yyyy.parse(strDate).getTime());
+                setTime(P2DateConst.F_FORMAT_dd_MM_yyyy.parse(strDate).getTime());
             } else {
-                setTime(DateFactory.F_FORMAT_dd_MM_yyyyKomma___HH_mm_ss.parse(strDate + strTime).getTime());
+                setTime(P2DateConst.F_FORMAT_dd_MM_yyyyKomma___HH_mm_ss.parse(strDate + strTime).getTime());
             }
             return;
         } catch (final Exception ex) {
@@ -123,7 +123,7 @@ public class PDate extends Date {
         }
 
         try {
-            return PLDateFactory.fromString(strDate);
+            return P2LDateFactory.fromString(strDate);
         } catch (final Exception ex) {
         }
         return null;
@@ -139,8 +139,8 @@ public class PDate extends Date {
 
     public void setPDateToday() {
         try {
-            final String strToday = new PDate().getDateTime(DateFactory.F_FORMAT_dd_MM_yyyy);
-            final long lToday = DateFactory.F_FORMAT_dd_MM_yyyy.parse(strToday).getTime();
+            final String strToday = new P2Date().getDateTime(P2DateConst.F_FORMAT_dd_MM_yyyy);
+            final long lToday = P2DateConst.F_FORMAT_dd_MM_yyyy.parse(strToday).getTime();
             setTime(lToday);
         } catch (final Exception ex) {
             setTime(0);
@@ -150,7 +150,7 @@ public class PDate extends Date {
 
     public void setPDateNow() {
         try {
-            setTime(new PDate().getTime());
+            setTime(new P2Date().getTime());
         } catch (final Exception ex) {
             setTime(0);
             PLog.errorLog(915263630, ex);
@@ -167,17 +167,17 @@ public class PDate extends Date {
 
     public String get_yyyy_MM_dd() {
         if (this.getTime() == 0) {
-            return DateFactory.F_FORMAT_yyyy_MM_dd.format(new Date());
+            return P2DateConst.F_FORMAT_yyyy_MM_dd.format(new Date());
         } else {
-            return DateFactory.F_FORMAT_yyyy_MM_dd.format(this);
+            return P2DateConst.F_FORMAT_yyyy_MM_dd.format(this);
         }
     }
 
     public String get_dd_MM_yyyy() {
         if (this.getTime() == 0) {
-            return DateFactory.F_FORMAT_dd_MM_yyyy.format(new Date());
+            return P2DateConst.F_FORMAT_dd_MM_yyyy.format(new Date());
         } else {
-            return DateFactory.F_FORMAT_dd_MM_yyyy.format(this);
+            return P2DateConst.F_FORMAT_dd_MM_yyyy.format(this);
         }
     }
 
@@ -187,7 +187,7 @@ public class PDate extends Date {
      * @return Differenz in Sekunden.
      */
     public int diffInSeconds() {
-        final int ret = (int) (1L * (this.getTime() - new PDate().getTime()) / 1000L);
+        final int ret = (int) (1L * (this.getTime() - new P2Date().getTime()) / 1000L);
         return Math.abs(ret);
     }
 
@@ -202,10 +202,10 @@ public class PDate extends Date {
 
     @Override
     public String toString() {
-        return PDateFactory.toString(this);
+        return P2DateFactory.toString(this);
     }
 
     public String toStringR() {
-        return PDateFactory.toStringR(this);
+        return P2DateFactory.toStringR(this);
     }
 }

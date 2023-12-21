@@ -18,9 +18,9 @@ package de.p2tools.p2lib.tools.date;
 
 import java.time.LocalTime;
 
-public class PLTimeFactory {
+public class P2LTimeFactory {
 
-    private PLTimeFactory() {
+    private P2LTimeFactory() {
     }
 
     public static LocalTime fromString_HM(String strDate) {
@@ -28,7 +28,7 @@ public class PLTimeFactory {
             if (strDate.isEmpty()) {
                 return LocalTime.MIN;
             } else {
-                return LocalTime.parse(strDate, DateFactory.DT_FORMATTER_HH__mm);
+                return LocalTime.parse(strDate, P2DateConst.DT_FORMATTER_HH__mm);
             }
         } catch (Exception ex) {
             return LocalTime.MIN;
@@ -41,7 +41,7 @@ public class PLTimeFactory {
 //        } else if (localTime.equals(LocalTime.MIN)) {
 //            return "";
         } else {
-            return localTime.format(DateFactory.DT_FORMATTER_HH__mm);
+            return localTime.format(P2DateConst.DT_FORMATTER_HH__mm);
         }
     }
 
@@ -50,7 +50,7 @@ public class PLTimeFactory {
             if (strDate.isEmpty()) {
                 return LocalTime.MIN;
             } else {
-                return LocalTime.parse(strDate, DateFactory.DT_FORMATTER_HH__mm__ss);
+                return LocalTime.parse(strDate, P2DateConst.DT_FORMATTER_HH__mm__ss);
             }
         } catch (Exception ex) {
             return LocalTime.MIN;
@@ -63,7 +63,7 @@ public class PLTimeFactory {
 //        } else if (localTime.equals(LocalTime.MIN)) {
 //            return "";
         } else {
-            return localTime.format(DateFactory.DT_FORMATTER_HH__mm__ss);
+            return localTime.format(P2DateConst.DT_FORMATTER_HH__mm__ss);
         }
     }
 }

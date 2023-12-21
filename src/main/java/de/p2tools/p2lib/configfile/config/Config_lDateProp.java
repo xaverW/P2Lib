@@ -18,22 +18,22 @@
 package de.p2tools.p2lib.configfile.config;
 
 import de.p2tools.p2lib.guitools.P2LDatePicker;
-import de.p2tools.p2lib.tools.date.PLDateFactory;
-import de.p2tools.p2lib.tools.date.PLDateProperty;
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateProperty;
 import javafx.scene.control.Control;
 
 import java.time.LocalDate;
 
 public class Config_lDateProp extends Config {
 
-    private final PLDateProperty actValue;
+    private final P2LDateProperty actValue;
 
-    public Config_lDateProp(String key, PLDateProperty actValue) {
+    public Config_lDateProp(String key, P2LDateProperty actValue) {
         super(key);
         this.actValue = actValue;
     }
 
-    public Config_lDateProp(String key, String name, PLDateProperty actValue) {
+    public Config_lDateProp(String key, String name, P2LDateProperty actValue) {
         super(key, name);
         this.actValue = actValue;
     }
@@ -54,16 +54,16 @@ public class Config_lDateProp extends Config {
 
     @Override
     public void setActValue(String act) {
-        actValue.setValue(PLDateFactory.fromString(act));
+        actValue.setValue(P2LDateFactory.fromString(act));
     }
 
     @Override
     public String getActValueString() {
-        return PLDateFactory.toString(actValue.getValue());
+        return P2LDateFactory.toString(actValue.getValue());
     }
 
     @Override
-    public PLDateProperty getProperty() {
+    public P2LDateProperty getProperty() {
         return actValue;
     }
 

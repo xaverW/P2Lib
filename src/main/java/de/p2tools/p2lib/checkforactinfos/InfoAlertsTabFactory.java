@@ -20,7 +20,7 @@ package de.p2tools.p2lib.checkforactinfos;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.mtdownload.DownloadFactory;
-import de.p2tools.p2lib.tools.date.PLDateFactory;
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2lib.tools.net.PUrlTools;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -107,10 +107,10 @@ public class InfoAlertsTabFactory {
 
         final Label lblRel = new Label(foundSearchData.isFoundNewVersion() ? "Änderungen:" : "");
         final Label txtActVersion = new Label(foundSearchData.getProgVersion() +
-                "  vom: " + PLDateFactory.getDate_yMd(foundSearchData.getProgBuildDate()));
+                "  vom: " + P2LDateFactory.getDate_yMd(foundSearchData.getProgBuildDate()));
 
         final Label txtVersion = new Label(foundSearchData.getNewVersionNo() +
-                "  vom: " + PLDateFactory.getDate_yMd(foundSearchData.getNewVersionDate()));
+                "  vom: " + P2LDateFactory.getDate_yMd(foundSearchData.getNewVersionDate()));
 
         final Hyperlink hyperlinkUrl = new P2Hyperlink(foundSearchData.getUrlWebsite());
         final Hyperlink hyperlinkDownUrl = new P2Hyperlink(foundSearchData.getUrlDownload());
@@ -241,17 +241,17 @@ public class InfoAlertsTabFactory {
 
         final Label txtActVersion = new Label(foundSearchData.getProgVersion() +
                 "   [Build: " + foundSearchData.getProgBuildNo() +
-                "  vom: " + PLDateFactory.getDate_yMd(foundSearchData.getProgBuildDate()) + "]");
+                "  vom: " + P2LDateFactory.getDate_yMd(foundSearchData.getProgBuildDate()) + "]");
 
         final Label txtVersion = new Label();
         if (beta) {
             txtVersion.setText(foundSearchData.getNewBetaVersion() +
                     "   [Build: " + foundSearchData.getNewBetaBuildNo()
-                    + "  vom: " + PLDateFactory.getDate_yMd(foundSearchData.getNewBetaDate()) + "]");
+                    + "  vom: " + P2LDateFactory.getDate_yMd(foundSearchData.getNewBetaDate()) + "]");
         } else {
             txtVersion.setText(foundSearchData.getNewDailyVersion() +
                     "   [Build: " + foundSearchData.getNewDailyBuild()
-                    + "  vom: " + PLDateFactory.getDate_yMd(foundSearchData.getNewDailyDate()) + "]");
+                    + "  vom: " + P2LDateFactory.getDate_yMd(foundSearchData.getNewDailyDate()) + "]");
         }
 
         final Hyperlink hyperlinkUrl = new P2Hyperlink(foundSearchData.getUrlWebsite());

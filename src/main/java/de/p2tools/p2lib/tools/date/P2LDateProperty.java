@@ -20,17 +20,17 @@ import javafx.beans.property.SimpleObjectProperty;
 
 import java.time.LocalDate;
 
-public class PLDateProperty extends SimpleObjectProperty<LocalDate> {
+public class P2LDateProperty extends SimpleObjectProperty<LocalDate> {
 
-    public PLDateProperty() {
+    public P2LDateProperty() {
         clearPLocalDate();
     }
 
-    public PLDateProperty(LocalDate localDate) {
+    public P2LDateProperty(LocalDate localDate) {
         setValue(localDate);
     }
 
-    public PLDateProperty(String date) {
+    public P2LDateProperty(String date) {
         setPLocalDate(date);
     }
 
@@ -39,7 +39,7 @@ public class PLDateProperty extends SimpleObjectProperty<LocalDate> {
     }
 
     public void setPLocalDate(String strDate) {
-        setValue(PLDateFactory.fromString(strDate));
+        setValue(P2LDateFactory.fromString(strDate));
     }
 
     public void clearPLocalDate() {
@@ -49,6 +49,6 @@ public class PLDateProperty extends SimpleObjectProperty<LocalDate> {
 
     @Override
     public String toString() {
-        return PLDateFactory.toString(getValue());
+        return P2LDateFactory.toString(getValue());
     }
 }
