@@ -67,7 +67,7 @@
 
 .tab .tab-label {
     -fx-text-alignment: center;
-    -fx-alignment: center ;
+    -fx-alignment: center;
     -fx-text-fill: black;
 }
 .tab:selected .tab-label {
@@ -75,9 +75,47 @@
 }
 
 .tab-pane > .tab-header-area > .headers-region > .tab {
-    -fx-border-width: 1, 2, 0;/* 3 Rahmen, damit die "Gesamtbreite" gleich bleibt */
+    -fx-border-width: 1;
+    -fx-border-insets: 7 3 0 3;
+    -fx-border-radius: 12 12 5 5;
+    -fx-border-color: -style-tab-border-color-1;
+
+    -fx-background-insets: 8 4 1 4;
+    -fx-background-radius: 12 12 5 5;
+    -fx-background-color: -lin-grad-1;
+
+    -fx-padding: 0 10 0 10;
+    -fx-text-fill: black;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-border-width: 3;
+    -fx-border-insets: 2 1 0 1;
+    -fx-border-color: -style-tab-border-color-1;
+    -fx-background-insets: 3 2 1 2;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab:hover {
+    -fx-border-width: 3;
+    -fx-border-insets: 2 1 0 1;
+    -fx-border-color: -style-tab-border-color-1;
+    -fx-background-insets: 3 2 1 2;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab:pressed {
+    -fx-border-width: 3;
+    -fx-border-insets: 2 1 0 1;
+    -fx-border-color: -style-tab-border-color-2;
+    -fx-background-insets: 3 2 1 2;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected  .focus-indicator {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+
+/*.tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-border-width: 1, 2, 0;*//* 3 Rahmen, damit die "Gesamtbreite" gleich bleibt *//*
     -fx-border-radius: 15 15 5 5, 15 15 5 5, 15 15 5 5;
-    -fx-border-insets: 0 2 0 2, 3 5 3 5, 3 5 3 5;/* die unterschiedlichen Abstände sind für den "Abstand" zwischen den Tabs */
+    -fx-border-insets: 0 2 0 2, 3 5 3 5, 3 5 3 5;*//* die unterschiedlichen Abstände sind für den "Abstand" zwischen den Tabs *//*
     -fx-border-color: -style-tab-border-color-1, transparent, transparent;
 
     -fx-background-radius: 0, 15 15 5 5, 15 15 5 5;
@@ -103,7 +141,7 @@
 .tab-pane > .tab-header-area > .headers-region > .tab:selected  .focus-indicator {
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
-}
+}*/
 
 /*
 .tab-pane > .tab-header-area  > .headers-region > .tab{
