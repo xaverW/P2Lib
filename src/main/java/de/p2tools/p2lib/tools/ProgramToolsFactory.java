@@ -90,6 +90,7 @@ public class ProgramToolsFactory {
                 "  Patch: " + Runtime.version().patch());
         list.add("         Runtimeversion: " + System.getProperty("java.runtime.version"));
 
+        list.add("JavaFX:  " + System.getProperty("javafx.runtime.version"));
         return list.toArray(new String[0]);
     }
 
