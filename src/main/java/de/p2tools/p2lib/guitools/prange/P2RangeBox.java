@@ -25,7 +25,11 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.util.StringConverter;
 import org.controlsfx.control.RangeSlider;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class P2RangeBox extends VBox {
 
@@ -34,11 +38,14 @@ public class P2RangeBox extends VBox {
     private final int MAX_VALUE;
     private IntegerProperty minValueProp = new SimpleIntegerProperty();
     private IntegerProperty maxValueProp = new SimpleIntegerProperty();
+    private final String pattern = "HH:mm";
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
     private String unitSuffix = "Minuten";
     private final RangeSlider slider;
     private final Label lblTime = new Label();
     private final String title;
+    private boolean hourPerDay = false;
 
     public P2RangeBox(String title, boolean titleTop, int min, int max) {
         this.title = title;
@@ -46,8 +53,7 @@ public class P2RangeBox extends VBox {
         this.MAX_VALUE = max;
         minValueProp.setValue(min);
         maxValueProp.setValue(max);
-        this.slider = new RangeSlider(minValueProp.getValue(), maxValueProp.getValue(),
-                minValueProp.getValue(), maxValueProp.getValue());
+        this.slider = new RangeSlider(min, max, min, max);
         if (titleTop) {
             createSliderTop();
         } else {
@@ -61,8 +67,7 @@ public class P2RangeBox extends VBox {
         this.MAX_VALUE = max;
         minValueProp = minValue;
         maxValueProp = maxValue;
-        this.slider = new RangeSlider(minValue.getValue(), maxValue.getValue(),
-                minValue.getValue(), maxValue.getValue());
+        this.slider = new RangeSlider(min, max, minValue.getValue(), maxValue.getValue());
         if (titleTop) {
             createSliderTop();
         } else {
@@ -128,6 +133,25 @@ public class P2RangeBox extends VBox {
         slider.setBlockIncrement(10);
     }
 
+    public void set24h() {
+        unitSuffix = "Uhr";
+        hourPerDay = true;
+        slider.setSnapToTicks(true);
+        slider.setMinorTickCount(15); // also 16 Abschnitte, 4h/16=15min
+        slider.setMajorTickUnit(60 * 60 * 4);
+        slider.setLabelFormatter(new StringConverter<>() {
+            @Override
+            public String toString(Number x) {
+                return (int) (x.doubleValue() / 60 / 60) + "";
+            }
+
+            @Override
+            public Double fromString(String string) {
+                return null;
+            }
+        });
+    }
+
     public int getActMinValue() {
         return minValueProp.get();
     }
@@ -147,18 +171,29 @@ public class P2RangeBox extends VBox {
     private void setRangeTxt() {
         int minIntSlider = (int) slider.getLowValue();
         int maxIntSlider = (int) slider.getHighValue();
-
         final String text;
+        String timeL;
+        String timeM;
+
+        if (hourPerDay) {
+            LocalTime lt = LocalTime.ofSecondOfDay(minIntSlider == MAX_VALUE ? minIntSlider - 1 : minIntSlider); // 0 ... MAX-1
+            timeL = lt.format(formatter);
+            LocalTime mt = LocalTime.ofSecondOfDay(maxIntSlider == MAX_VALUE ? maxIntSlider - 1 : maxIntSlider);
+            timeM = mt.format(formatter);
+        } else {
+            timeL = minIntSlider + "";
+            timeM = maxIntSlider + "";
+        }
+
         if (minIntSlider == MIN_VALUE && maxIntSlider == MAX_VALUE) {
             text = STR_ALLES;
         } else if (minIntSlider == MIN_VALUE) {
-            text = "Max. " + maxIntSlider + " " + unitSuffix;
+            text = "Max. " + timeM + " " + unitSuffix;
         } else if (maxIntSlider == MAX_VALUE) {
-            text = "Min. " + minIntSlider + " " + unitSuffix;
+            text = "Min. " + timeL + " " + unitSuffix;
         } else {
-            text = "Von " + minIntSlider + " bis " + maxIntSlider + " " + unitSuffix;
+            text = "Von " + timeL + " bis " + timeM + " " + unitSuffix;
         }
-
         lblTime.setText(text);
     }
 }
