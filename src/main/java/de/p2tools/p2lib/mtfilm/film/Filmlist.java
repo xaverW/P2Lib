@@ -27,7 +27,6 @@ import javafx.collections.transformation.SortedList;
 import java.util.*;
 import java.util.function.Predicate;
 
-@SuppressWarnings("serial")
 public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
 
     public int nr = 1;

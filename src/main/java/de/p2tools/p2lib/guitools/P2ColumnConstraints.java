@@ -107,6 +107,15 @@ public class P2ColumnConstraints {
         return cc;
     }
 
+    public static ColumnConstraints getCcComputedSizeAndHgrowCenter() {
+        final ColumnConstraints cc = new ColumnConstraints();
+        cc.setFillWidth(true);
+        cc.setMinWidth(Region.USE_COMPUTED_SIZE);
+        cc.setHgrow(Priority.ALWAYS);
+        cc.setHalignment(HPos.CENTER);
+        return cc;
+    }
+
     public static RowConstraints getRcPrefSizeTop() {
         RowConstraints row = new RowConstraints();
         row.setValignment(VPos.TOP);

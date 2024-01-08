@@ -21,11 +21,21 @@ import javafx.scene.paint.Color;
 
 public class P2Color {
 
-    public static String getCssColor(Color color) {
-        return colorChanelToHex(color.getRed())
-                + colorChanelToHex(color.getGreen())
-                + colorChanelToHex(color.getBlue())
-                + colorChanelToHex(color.getOpacity());
+    public static String getCssColor(Color color, boolean addHash) {
+        // final String c = P2Color.getCssColor(color);
+        // btn.setStyle("-fx-border-color: #" + c);
+        if (addHash) {
+            return "#" + colorChanelToHex(color.getRed())
+                    + colorChanelToHex(color.getGreen())
+                    + colorChanelToHex(color.getBlue())
+                    + colorChanelToHex(color.getOpacity());
+
+        } else {
+            return colorChanelToHex(color.getRed())
+                    + colorChanelToHex(color.getGreen())
+                    + colorChanelToHex(color.getBlue())
+                    + colorChanelToHex(color.getOpacity());
+        }
     }
 
     private static String colorChanelToHex(double chanelValue) {
