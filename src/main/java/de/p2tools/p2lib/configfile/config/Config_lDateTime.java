@@ -29,12 +29,14 @@ public abstract class Config_lDateTime extends Config {
 
     public Config_lDateTime(String key, String actValue) {
         super(key);
-        this.actValue = P2LDateTimeFactory.setDate(actValue, "");
+        this.actValue = P2LDateTimeFactory.fromString(actValue);
+//        this.actValue = P2LDateTimeFactory.setDate(actValue, "");
     }
 
     public Config_lDateTime(String key, String name, String actValue) {
         super(key, name);
-        this.actValue = P2LDateTimeFactory.setDate(actValue, "");
+        this.actValue = P2LDateTimeFactory.fromString(actValue);
+//        this.actValue = P2LDateTimeFactory.setDate(actValue, "");
     }
 
     public Config_lDateTime(String key, String name, LocalDateTime localDateTime) {
