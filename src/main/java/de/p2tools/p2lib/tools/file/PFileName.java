@@ -29,8 +29,10 @@ import java.util.Date;
 public class PFileName {
     private static final String STR = "__";
     private static final FastDateFormat FORMATTER_PRE_ddMMyyyyHHmmss = FastDateFormat.getInstance("yyyyMMdd_HHmmss" + STR);
+    private static final FastDateFormat FORMATTER_PRE_ddMMyyyyHHmm = FastDateFormat.getInstance("yyyyMMdd_HHmm" + STR);
     private static final FastDateFormat FORMATTER_PRE_ddMMyyyy = FastDateFormat.getInstance("yyyyMMdd" + STR);
     private static final FastDateFormat FORMATTER_ddMMyyyyHHmmss = FastDateFormat.getInstance(STR + "yyyyMMdd_HHmmss");
+    private static final FastDateFormat FORMATTER_ddMMyyyyHHmm = FastDateFormat.getInstance(STR + "yyyyMMdd_HHmm");
     private static final FastDateFormat FORMATTER_ddMMyyyy = FastDateFormat.getInstance(STR + "yyyyMMdd");
 
     public static String getNextFileNameWithNo(String path, String selName, String suff) {
@@ -59,7 +61,7 @@ public class PFileName {
         return ret;
     }
 
-    public static String getNextFileNameWithDate(String name, String suffix) {
+    public static String getNextFileNameWithDate(String name, String suffix, boolean second) {
         if (name.isEmpty()) {
             String dotSuffix = suffix.startsWith(".") ? suffix : "." + suffix;
             name = System.getProperty("user.home");
@@ -68,10 +70,10 @@ public class PFileName {
 
         String onlyName = FilenameUtils.getName(name);
         String onlyPath = FilenameUtils.getFullPath(name);
-        return getNextFileNameWithDate(onlyPath, onlyName, suffix);
+        return getNextFileNameWithDate(onlyPath, onlyName, suffix, second);
     }
 
-    public static String getNextFileNameWithDate(String onlyPath, String onlyFileName, String suffix) {
+    public static String getNextFileNameWithDate(String onlyPath, String onlyFileName, String suffix, boolean second) {
         if (onlyPath == null || onlyFileName == null || suffix == null) {
             return "";
         }
@@ -82,14 +84,34 @@ public class PFileName {
         String ret;
 
         final String date1_pre = FORMATTER_PRE_ddMMyyyy.format(new Date());
-        final String date2_pre = FORMATTER_PRE_ddMMyyyyHHmmss.format(new Date());
+        final String date2_pre;
+        if (second) {
+            date2_pre = FORMATTER_PRE_ddMMyyyyHHmmss.format(new Date());
+        } else {
+            date2_pre = FORMATTER_PRE_ddMMyyyyHHmm.format(new Date());
+        }
         final String date1 = FORMATTER_ddMMyyyy.format(new Date());
-        final String date2 = FORMATTER_ddMMyyyyHHmmss.format(new Date());
+        final String date2;
+        if (second) {
+            date2 = FORMATTER_ddMMyyyyHHmmss.format(new Date());
+        } else {
+            date2 = FORMATTER_ddMMyyyyHHmm.format(new Date());
+        }
 
         final String containDatePre1 = getDateString(filenameNoSuffix, FORMATTER_PRE_ddMMyyyy);
-        final String containDatePre2 = getDateString(filenameNoSuffix, FORMATTER_PRE_ddMMyyyyHHmmss);
+        final String containDatePre2;
+        if (second) {
+            containDatePre2 = getDateString(filenameNoSuffix, FORMATTER_PRE_ddMMyyyyHHmmss);
+        } else {
+            containDatePre2 = getDateString(filenameNoSuffix, FORMATTER_PRE_ddMMyyyyHHmm);
+        }
         final String containDate1 = getDateString(filenameNoSuffix, FORMATTER_ddMMyyyy);
-        final String containDate2 = getDateString(filenameNoSuffix, FORMATTER_ddMMyyyyHHmmss);
+        final String containDate2;
+        if (second) {
+            containDate2 = getDateString(filenameNoSuffix, FORMATTER_ddMMyyyyHHmmss);
+        } else {
+            containDate2 = getDateString(filenameNoSuffix, FORMATTER_ddMMyyyyHHmm);
+        }
 
         if (!onlyFileName.endsWith(dotSuffix)) {
             //dann erst mal damit
