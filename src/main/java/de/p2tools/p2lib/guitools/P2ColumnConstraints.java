@@ -55,6 +55,13 @@ public class P2ColumnConstraints {
      *
      * @return
      */
+    public static ColumnConstraints getCcPrefSizeLeft() {
+        final ColumnConstraints cc = new ColumnConstraints();
+        cc.setMinWidth(Region.USE_PREF_SIZE);
+        cc.setHalignment(HPos.LEFT);
+        return cc;
+    }
+
     public static ColumnConstraints getCcPrefSizeRight() {
         final ColumnConstraints cc = new ColumnConstraints();
         cc.setMinWidth(Region.USE_PREF_SIZE);
