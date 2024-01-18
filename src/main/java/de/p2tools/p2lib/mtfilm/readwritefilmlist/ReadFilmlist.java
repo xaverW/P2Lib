@@ -249,7 +249,7 @@ public class ReadFilmlist {
                         continue;
                     }
 
-                    //und jetzt noch evt. gegen eine Blacklist prüfen
+                    //und jetzt noch evtl. gegen eine Blacklist prüfen
                     if (checker != null) {
                         if (checker.check(film)) {
                             continue;
