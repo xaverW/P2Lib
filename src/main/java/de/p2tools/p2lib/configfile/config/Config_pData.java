@@ -32,10 +32,11 @@ public class Config_pData extends Config {
         this.actValue = pData;
     }
 
-    public Config_pData(String key, PData pData) {
-        super(key);
-        this.actValue = pData;
-    }
+//    public Config_pData(String key, PData pData) {
+    // --> key wird beim schreiben NICHT verwendet!!!
+//        super(key);
+//        this.actValue = pData;
+//    }
 
     @Override
     public PData getActValue() {

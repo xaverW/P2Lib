@@ -29,10 +29,11 @@ public class Config_pDataList extends Config {
 
     private PDataList actValue;
 
-    public Config_pDataList(String key, PDataList<? extends PData> pDataList) {
-        super(key);
-        this.actValue = pDataList;
-    }
+//    public Config_pDataList(String key, PDataList<? extends PData> pDataList) {
+    // --> key wird beim schreiben NICHT verwendet!!!
+//        super(key);
+//        this.actValue = pDataList;
+//    }
 
     public Config_pDataList(PDataList<? extends PData> pDataList) {
         super(pDataList.getTag());
