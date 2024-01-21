@@ -152,7 +152,7 @@ public class FilmlistFactory {
         PDuration.counterStart("markFilms");
         try {
             countDouble = 0;
-            filmList.stream().forEach((FilmData f) -> {
+            filmList.forEach((FilmData f) -> {
 
                 f.setGeoBlocked();
                 f.setInFuture();
