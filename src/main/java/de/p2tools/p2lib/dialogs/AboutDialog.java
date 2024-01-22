@@ -192,8 +192,8 @@ public abstract class AboutDialog extends PDialogExtra {
 
         txtContext.append("\n").append("Website: ").append(hyperlinkWeb.getText()).append("\n")
                 .append("Anleitung: ").append(hyperlinkHelp.getText()).append("\n")
-                .append("Spende: ").append(hyperlinkForum.getText()).append("\n")
-                .append("Forum: ").append(hyperlinkDonate.getText());
+                .append("Spende: ").append(hyperlinkDonate.getText()).append("\n")
+                .append("Forum: ").append(hyperlinkForum.getText());
 
         text = new Text("Website:");
         text.setFont(new Font(15));
