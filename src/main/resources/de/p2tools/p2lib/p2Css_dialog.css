@@ -43,3 +43,12 @@
     -fx-padding: 10;
     -fx-border-width: 3, 2;
  }
+
+.dialog-whats-new {
+    -fx-border-color: -p2-color-blue2;
+    -fx-border-width: 3;
+ }
+.dialog-whats-new-list {
+    -fx-border-color: -p2-color-blue1;
+    -fx-border-width: 3;
+ }
