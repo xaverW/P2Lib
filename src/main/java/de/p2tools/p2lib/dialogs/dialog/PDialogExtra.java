@@ -36,7 +36,7 @@ import java.util.ArrayList;
 
 public class PDialogExtra extends PDialog {
 
-    private final VBox vBoxCompleteDialog = new VBox(10); // ist der gesamte Dialog
+    private final VBox vBoxCompleteDialog = new VBox(5); // ist der gesamte Dialog
     private final HBox hBoxOverAll = new HBox(10); // ist der Bereich über dem Inhalt, Titel und dem Scrollpanel
     private final HBox hBoxTitle = new HBox(10); // ist der Bereich über dem Inhalt mit dem Titel
 
@@ -115,7 +115,7 @@ public class PDialogExtra extends PDialog {
     }
 
     public static void closeAllDialog() {
-        dialogList.stream().forEach(pDialog -> {
+        dialogList.forEach(pDialog -> {
             Platform.runLater(() -> {
                 pDialog.hide();
             });
@@ -123,7 +123,7 @@ public class PDialogExtra extends PDialog {
     }
 
     public static void showAllDialog() {
-        dialogList.stream().forEach(pDialog -> {
+        dialogList.forEach(pDialog -> {
             Platform.runLater(() -> {
                 pDialog.showDialog();
             });
@@ -323,7 +323,7 @@ public class PDialogExtra extends PDialog {
     private void initBorderBig() {
         VBox vBoxStyledBorder = new VBox();
         vBoxStyledBorder.getStyleClass().add("dialog-border-big");
-        vBoxStyledBorder.setSpacing(10);
+//        vBoxStyledBorder.setSpacing(10);
         VBox.setVgrow(vBoxStyledBorder, Priority.ALWAYS);
 
         vBoxStyledBorder.getChildren().addAll(scrollPane);
@@ -333,7 +333,7 @@ public class PDialogExtra extends PDialog {
     private void initBorder() {
         VBox vBoxStyledBorder = new VBox();
         vBoxStyledBorder.getStyleClass().add("dialog-border");
-        vBoxStyledBorder.setSpacing(10);
+//        vBoxStyledBorder.setSpacing(10);
         VBox.setVgrow(vBoxStyledBorder, Priority.ALWAYS);
 
         vBoxStyledBorder.getChildren().addAll(scrollPane);
@@ -343,7 +343,7 @@ public class PDialogExtra extends PDialog {
     private void initBorderSmall() {
         VBox vBoxStyledBorder = new VBox();
         vBoxStyledBorder.getStyleClass().add("dialog-border-small");
-        vBoxStyledBorder.setSpacing(10);
+//        vBoxStyledBorder.setSpacing(10);
         VBox.setVgrow(vBoxStyledBorder, Priority.ALWAYS);
 
         vBoxStyledBorder.getChildren().addAll(scrollPane);

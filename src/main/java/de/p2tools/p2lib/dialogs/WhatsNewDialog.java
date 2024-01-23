@@ -134,10 +134,11 @@ public class WhatsNewDialog extends PDialogExtra {
             gridPane.add(text, 0, ++row);
 
             if (!whatsNewInfo.getImage().isEmpty()) {
-                Image im = new Image(whatsNewInfo.getImage(), 350, 350, true, true);
-                ImageView iv = new ImageView(im);
-                gridPane.add(iv, 0, ++row);
-                GridPane.setHalignment(iv, HPos.CENTER);
+                ImageView imageView = new ImageView(new Image(whatsNewInfo.getImage()));
+                imageView.setFitWidth(600);
+                imageView.setPreserveRatio(true);
+                gridPane.add(imageView, 0, ++row);
+                GridPane.setHalignment(imageView, HPos.CENTER);
             }
 
             TextArea ta = new TextArea(whatsNewInfo.getText());
