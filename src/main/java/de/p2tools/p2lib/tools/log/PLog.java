@@ -26,6 +26,7 @@ import java.util.List;
 
 public class PLog {
 
+    public static int COUNT = 0;
     public static final String LILNE1 = "############################################################";
     public static final String LILNE2 = "============================================================";
     public static final String LILNE3 = "------------------------------------------------------------";
@@ -127,6 +128,14 @@ public class PLog {
     }
 
     //DebugInfos
+    public static synchronized void debugLogCount(String text) {
+        if (!P2LibConst.debug) {
+            return;
+        }
+        PLogger.LogDebug(COUNT + " - " + text);
+        resetProgress();
+    }
+
     public static synchronized void debugLog(String text) {
         if (!P2LibConst.debug) {
             return;
