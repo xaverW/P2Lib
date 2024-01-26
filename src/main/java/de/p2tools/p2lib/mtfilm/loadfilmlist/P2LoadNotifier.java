@@ -48,12 +48,12 @@ public class P2LoadNotifier {
 
     public void addListenerLoadFilmlist(P2LoadListener listener) {
         listeners.add(P2LoadListener.class, listener);
-        PLog.debugLog("======>" + listeners.getListenerCount());
+        PLog.debugLogCount("addListenerLoadFilmlist: " + listeners.getListenerCount());
     }
 
     public void removeListenerLoadFilmlist(P2LoadListener listener) {
         listeners.remove(P2LoadListener.class, listener);
-        PLog.debugLog("======>" + listeners.getListenerCount());
+        PLog.debugLogCount("removeListenerLoadFilmlist: " + listeners.getListenerCount());
     }
 
     public enum NOTIFY {START, PROGRESS, LOADED, FINISHED}

@@ -132,7 +132,7 @@ public class PLog {
         if (!P2LibConst.debug) {
             return;
         }
-        PLogger.LogDebug(COUNT + " - " + text);
+        PLogger.LogDebug("<==: " + ++COUNT + " :==> " + " - " + text);
         resetProgress();
     }
 
