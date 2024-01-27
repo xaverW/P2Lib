@@ -23,8 +23,8 @@ import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.tools.ProgramToolsFactory;
 import javafx.beans.property.StringProperty;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -87,6 +87,7 @@ public class WhatsNewDialog extends PDialogExtra {
 
     private void makeGridProgram() {
         GridPane gridPane = getGridPane();
+        gridPane.setPadding(new Insets(10));
         getVBoxCont().getChildren().add(gridPane);
         gridPane.getStyleClass().add("dialog-whats-new");
 
@@ -113,48 +114,55 @@ public class WhatsNewDialog extends PDialogExtra {
     }
 
     private void makeGridWhatNew() {
-        GridPane gridPane = getGridPane();
-        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcComputedSizeAndHgrow());
+        VBox vBox = new VBox();
+        vBox.setPadding(new Insets(5));
+        vBox.setSpacing(10);
+        // vBox.getStyleClass().add("dialog-whats-new-list");
 
         final ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
-        scrollPane.setContent(gridPane);
+        scrollPane.setContent(vBox);
         scrollPane.setPrefHeight(400);
-        scrollPane.getStyleClass().add("dialog-whats-new-list");
+        // scrollPane.getStyleClass().add("dialog-whats-new-list");
 
         getVBoxCont().getChildren().add(scrollPane);
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
 
-        int row = -1;
+        boolean first = true;
         for (WhatsNewInfo whatsNewInfo : list) {
+            if (first) {
+                first = false;
+            } else {
+                vBox.getChildren().add(new Label());
+            }
+
             Text text = new Text(whatsNewInfo.getHeader());
             text.setFont(Font.font(null, FontWeight.BOLD, -1));
             text.setFill(PROG_COLOR_MARK);
-            gridPane.add(text, 0, ++row);
-
+            vBox.getChildren().add(text);
             if (!whatsNewInfo.getImage().isEmpty()) {
                 ImageView imageView = new ImageView(new Image(whatsNewInfo.getImage()));
-                imageView.setFitWidth(600);
+                imageView.setFitWidth(500);
                 imageView.setPreserveRatio(true);
-                gridPane.add(imageView, 0, ++row);
-                GridPane.setHalignment(imageView, HPos.CENTER);
+                HBox hBox = new HBox();
+                hBox.getChildren().add(imageView);
+                hBox.setAlignment(Pos.CENTER);
+                vBox.getChildren().add(hBox);
             }
 
             TextArea ta = new TextArea(whatsNewInfo.getText());
             ta.setEditable(false);
             ta.setWrapText(true);
-            ta.setMinHeight(150);
-            ta.setMaxHeight(150);
-            gridPane.add(ta, 0, ++row);
-
-            gridPane.add(new Label(""), 0, ++row);
-            gridPane.add(new Label(""), 0, ++row);
+            ta.setMinHeight(whatsNewInfo.getTaHeight());
+            ta.setMaxHeight(whatsNewInfo.getTaHeight());
+            vBox.getChildren().add(ta);
         }
     }
 
     private void makeGridBottom() {
         GridPane gridPane = getGridPane();
+        gridPane.setPadding(new Insets(10));
         gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
                 P2ColumnConstraints.getCcPrefSize(),
                 P2ColumnConstraints.getCcComputedSizeAndHgrow());
