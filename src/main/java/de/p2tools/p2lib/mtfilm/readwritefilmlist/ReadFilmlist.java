@@ -233,6 +233,12 @@ public class ReadFilmlist {
                 if (loadFromWeb) {
                     //und jetzt wird gefiltert, wenn aus dem Web, die lokale ist ja bereits gefiltert
                     //bringt aber nur ~5% Einsparung :(
+                    if (film.arr[FilmDataXml.FILM_CHANNEL].equals("rbtv") ||
+                            film.arr[FilmDataXml.FILM_CHANNEL].equals("Radio Bremen TV")) {
+                        // die sind unterschiedlich geschrieben und alles RadioBremen
+                        film.arr[FilmDataXml.FILM_CHANNEL] = "RBTV";
+                    }
+
                     if (!listChannelIsEmpty && listChannel.contains(film.arr[FilmDataXml.FILM_CHANNEL])) {
                         //diesen Sender nicht laden
                         countFilm(filmsPerChannelBlocked, film);

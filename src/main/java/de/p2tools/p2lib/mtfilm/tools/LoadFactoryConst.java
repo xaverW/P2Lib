@@ -23,41 +23,41 @@ import de.p2tools.p2lib.mtfilm.loadfilmlist.LoadFilmlist;
 import javafx.stage.Stage;
 
 public class LoadFactoryConst {
-    public static final String DREISAT = "3Sat";
+    public static final String DREI_SAT = "3Sat";
     public static final String ARD = "ARD";
 
-    public static final String ARTE_DE = "ARTE.DE";
-    public static final String ARTE_EN = "ARTE.EN";
-    public static final String ARTE_ES = "ARTE.ES";
-    public static final String ARTE_FR = "ARTE.FR";
-    public static final String ARTE_IT = "ARTE.IT";
-    public static final String ARTE_PL = "ARTE.PL";
+    private static final String ARTE_DE = "ARTE.DE";
+    private static final String ARTE_EN = "ARTE.EN";
+    private static final String ARTE_ES = "ARTE.ES";
+    private static final String ARTE_FR = "ARTE.FR";
+    private static final String ARTE_IT = "ARTE.IT";
+    private static final String ARTE_PL = "ARTE.PL";
 
-    public static final String BR = "BR";
-    public static final String DW = "DW";
-    public static final String FUNK_NET = "Funk.net";
+    private static final String BR = "BR";
+    private static final String DW = "DW";
+    private static final String FUNK_NET = "Funk.net";
 
-    public static final String HR = "HR";
-    public static final String KIKA = "KiKA";
-    public static final String MDR = "MDR";
-    public static final String NDR = "NDR";
-    public static final String ORF = "ORF";
-    public static final String PHOENIX = "PHOENIX";
-    public static final String RADIO_BREMEN_TV = "Radio Bremen TV";
-    public static final String RBB = "RBB";
-    public static final String RBB_TV = "rbtv";
+    private static final String HR = "HR";
+    public static final String KIKA = "KiKA"; // wird bein Einsortieren eine updateFilmListe gebraucht
+    private static final String MDR = "MDR";
+    private static final String NDR = "NDR";
+    public static final String ORF = "ORF"; // wird bein Einsortieren eine updateFilmListe gebraucht
+    private static final String PHOENIX = "PHOENIX";
+    private static final String RBB = "RBB";
+    private static final String RBB_TV = "RBTV"; // "rbtv" und "Radio Bremen TV" werden darauf abgebildet
 
-    public static final String SR = "SR";
-    public static final String SRF = "SRF";
-    public static final String SWR = "SWR";
-    public static final String WDR = "WDR";
-    public static final String ZDF = "ZDF";
-    public static final String ZDF_TIVI = "ZDF-tivi";
+    private static final String SR = "SR";
+    private static final String SRF = "SRF";
+    private static final String SWR = "SWR";
+    private static final String WDR = "WDR";
+    private static final String ZDF = "ZDF";
+    private static final String ZDF_TIVI = "ZDF-tivi";
 
-    public static final String[] SENDER = {DREISAT, ARD,
+    // das wird in den Einstellungen "Sender nicht laden" angezeigt
+    public static final String[] SENDER = {DREI_SAT, ARD,
             ARTE_DE, ARTE_EN, ARTE_ES, ARTE_FR, ARTE_IT, ARTE_PL,
-            BR, DW, FUNK_NET, HR, KIKA, MDR, NDR, ORF, PHOENIX, RADIO_BREMEN_TV, RBB, RBB_TV,
-            SR, SRF, SWR, WDR, ZDF, ZDF_TIVI};
+            BR, DW, FUNK_NET, HR, KIKA, MDR, NDR, ORF, PHOENIX, RBB, RBB_TV, SR,
+            SRF, SWR, WDR, ZDF, ZDF_TIVI};
 
 
     // beim Programmstart wird die Liste geladen wenn sie älter ist als ..
