@@ -22,6 +22,7 @@ import de.p2tools.p2lib.guitools.pnotification.P2Notification;
 import de.p2tools.p2lib.tools.file.PFileSize;
 import de.p2tools.p2lib.tools.file.PFileUtils;
 import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.net.P2UrlConnectionFactory;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
@@ -148,7 +149,8 @@ public class HttpDownload extends Thread {
         try {
             final URL url = new URL(this.url);
             fileSize = DownloadFactory.getContentLength(url, false);
-            conn = (HttpURLConnection) url.openConnection();
+            // conn = (HttpURLConnection) url.openConnection();
+            conn = P2UrlConnectionFactory.getUrlConnection(url);
             // 250 Sekunden, wie bei Firefox
             int CONECTION_TIMEOUT_SECOND_DOWNLOAD = 250;
             conn.setConnectTimeout(1000 * CONECTION_TIMEOUT_SECOND_DOWNLOAD);
@@ -162,7 +164,8 @@ public class HttpDownload extends Thread {
                 if (httpResponseCode == 416) {
                     conn.disconnect();
                     // Get a new connection and reset download param...
-                    conn = (HttpURLConnection) url.openConnection();
+                    // conn = (HttpURLConnection) url.openConnection();
+                    conn = P2UrlConnectionFactory.getUrlConnection(url);
                     downloaded = 0;
                     setupHttpConnection(conn);
                     conn.connect();

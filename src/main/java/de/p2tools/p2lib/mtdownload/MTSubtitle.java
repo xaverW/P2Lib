@@ -18,13 +18,13 @@
 package de.p2tools.p2lib.mtdownload;
 
 import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.net.P2UrlConnectionFactory;
 import de.p2tools.p2lib.tools.net.PUrlTools;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -119,7 +119,8 @@ public class MTSubtitle {
                     "schreiben nach: ", destPath});
 
             Files.createDirectories(Paths.get(destPath));
-            final HttpURLConnection conn = (HttpURLConnection) new URL(urlSubtitle).openConnection();
+            // final HttpURLConnection conn = (HttpURLConnection) new URL(urlSubtitle).openConnection();
+            final HttpURLConnection conn = P2UrlConnectionFactory.getUrlConnection(urlSubtitle);
             setupConnection(conn, userAgent);
 
             if ((conn.getResponseCode()) < HttpURLConnection.HTTP_BAD_REQUEST) {

@@ -20,7 +20,6 @@ package de.p2tools.p2lib.tools.net;
 import de.p2tools.p2lib.tools.log.PLog;
 
 import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class PUrlTools {
     public static final int TIME_OUT = 10_000;
@@ -31,8 +30,9 @@ public class PUrlTools {
 
     public static boolean urlExists(String url) {
         try {
-//            HttpURLConnection.setFollowRedirects(true);
-            HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+            // HttpURLConnection.setFollowRedirects(true);
+            // HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+            HttpURLConnection con = P2UrlConnectionFactory.getUrlConnection(url);
             con.setRequestMethod("GET");
             con.setConnectTimeout(TIME_OUT);
             con.setReadTimeout(10_000);

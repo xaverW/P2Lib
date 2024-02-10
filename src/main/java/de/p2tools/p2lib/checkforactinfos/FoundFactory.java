@@ -19,13 +19,13 @@ package de.p2tools.p2lib.checkforactinfos;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.net.P2UrlConnectionFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
@@ -72,7 +72,8 @@ public class FoundFactory {
 
     public static InputStream connectToServer(String searchUrl) throws IOException {
         final int TIMEOUT = 10_000; // timeout ms
-        final HttpURLConnection conn = (HttpURLConnection) new URL(searchUrl).openConnection();
+        // final HttpURLConnection conn = (HttpURLConnection) new URL(searchUrl).openConnection();
+        final HttpURLConnection conn = P2UrlConnectionFactory.getUrlConnection(searchUrl);
         conn.setRequestProperty("User-Agent", P2LibConst.userAgent);
         conn.setReadTimeout(TIMEOUT);
         conn.setConnectTimeout(TIMEOUT);

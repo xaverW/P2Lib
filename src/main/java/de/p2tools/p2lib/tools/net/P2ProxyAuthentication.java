@@ -22,7 +22,7 @@ import de.p2tools.p2lib.tools.log.PLog;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 
-public class Proxy {
+public class P2ProxyAuthentication {
     private static final String HTTP_PROXY_USER = "http.proxyUser";
     private static final String HTTP_PROXY_PW = "http.proxyPassword";
     private static final String LOG_TEXT_PROXY_AUTHENTICATION_SUCCESSFUL = "Proxy Authentication: (%s)";
@@ -30,7 +30,7 @@ public class Proxy {
     private static final String LOG_TEXT_PROXY_PASSWORD_NOT_SET = "Proxy Authentication: Password is not set";
     private static final String LOG_TEXT_PROXY_AUTHENTICATION_CANNOT_ACCESS_PROXY_USER_PROXY_PW = "Proxy Authentication: cannot access proxyUser / proxyPassword";
 
-    public static void proxyAuthentication() {
+    public static void setProxyAuthentication() {
         try {
             final String prxUser = System.getProperty(HTTP_PROXY_USER, null);
             final String prxPassword = System.getProperty(HTTP_PROXY_PW, null);
@@ -53,5 +53,4 @@ public class Proxy {
             PLog.sysLog(LOG_TEXT_PROXY_AUTHENTICATION_CANNOT_ACCESS_PROXY_USER_PROXY_PW + se.toString());
         }
     }
-
 }

@@ -19,6 +19,7 @@ package de.p2tools.p2lib.configfile;
 
 import de.p2tools.p2lib.tools.duration.PDuration;
 import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.net.P2UrlConnectionFactory;
 import de.p2tools.p2lib.tools.net.PUrlTools;
 
 import java.io.IOException;
@@ -26,7 +27,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -90,7 +90,8 @@ public class ConfigReadFile {
             //dann aus dem Web laden
             HttpURLConnection conn = null;
             try {
-                conn = (HttpURLConnection) new URL(configFile.getFilePath()).openConnection();
+                // conn = (HttpURLConnection) new URL(configFile.getFilePath()).openConnection();
+                conn = P2UrlConnectionFactory.getUrlConnection(configFile.getFilePath());
                 conn.setConnectTimeout(5000);
                 conn.setReadTimeout(5000);
             } catch (final MalformedURLException ex) {

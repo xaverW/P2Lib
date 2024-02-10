@@ -19,6 +19,7 @@ package de.p2tools.p2lib.mtdownload;
 
 import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.net.P2UrlConnectionFactory;
 import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
 
@@ -71,7 +72,8 @@ public class DownloadFactory {
         HttpURLConnection conn = null;
 
         try {
-            conn = (HttpURLConnection) url.openConnection();
+            //conn = (HttpURLConnection) url.openConnection();
+            conn = P2UrlConnectionFactory.getUrlConnection(url);
             conn.setConnectTimeout(1000 * timeOutSec);
             conn.setReadTimeout(1000 * timeOutSec);
 
@@ -126,7 +128,8 @@ public class DownloadFactory {
         HttpURLConnection connection = null;
 
         try {
-            connection = (HttpURLConnection) url.openConnection();
+            // connection = (HttpURLConnection) url.openConnection();
+            connection = P2UrlConnectionFactory.getUrlConnection(url);
             connection.setRequestProperty("User-Agent", LoadFactoryConst.userAgent);
             connection.setReadTimeout(TIMEOUT_LENGTH);
             connection.setConnectTimeout(TIMEOUT_LENGTH);
