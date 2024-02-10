@@ -19,7 +19,7 @@ package de.p2tools.p2lib.mtfilm.readwritefilmlist;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import de.p2tools.p2lib.mtdownload.MLHttpClient;
+import de.p2tools.p2lib.mtdownload.MLHttpClientProxy;
 import de.p2tools.p2lib.mtfilm.film.FilmData;
 import de.p2tools.p2lib.mtfilm.film.FilmDataXml;
 import de.p2tools.p2lib.mtfilm.film.Filmlist;
@@ -140,7 +140,7 @@ public class ReadFilmlist {
             }
         };
 
-        try (Response response = MLHttpClient.getInstance().getHttpClient().newCall(builder.build()).execute();
+        try (Response response = MLHttpClientProxy.getInstance().getHttpClient().newCall(builder.build()).execute();
              ResponseBody body = response.body()) {
             if (body != null && response.isSuccessful()) {
 

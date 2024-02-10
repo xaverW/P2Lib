@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.mtfilm.tools;
 
-import de.p2tools.p2lib.mtdownload.MLHttpClient;
+import de.p2tools.p2lib.mtdownload.MLHttpClientProxy;
 import de.p2tools.p2lib.tools.log.PLog;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -86,7 +86,7 @@ public class SearchFilmlistUpdate {
         HttpUrl filmListUrl = HttpUrl.parse(LoadFactoryConst.FILMLIST_ID);
         final Request request = new Request.Builder().url(Objects.requireNonNull(filmListUrl)).build();
 
-        try (Response response = MLHttpClient.getInstance().getHttpClient().newCall(request).execute();
+        try (Response response = MLHttpClientProxy.getInstance().getHttpClient().newCall(request).execute();
              ResponseBody body = response.body()) {
             if (body != null && response.isSuccessful()) {
 

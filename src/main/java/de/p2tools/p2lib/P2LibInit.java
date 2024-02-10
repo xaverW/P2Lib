@@ -36,6 +36,15 @@ public class P2LibInit {
         P2LibConst.duration = duration;
     }
 
+    public static void initProxy(boolean useProxy,
+                                 String proxyHost, String proxyPort, String proxyUser, String proxyPwd) {
+        P2LibConst.useProxy.setValue(useProxy);
+        P2LibConst.proxyHost.setValue(proxyHost);
+        P2LibConst.proxyPort.setValue(proxyPort);
+        P2LibConst.proxyUser.setValue(proxyUser);
+        P2LibConst.proxyPwd.setValue(proxyPwd);
+    }
+
     public static void setPrimaryStage(Stage primaryStage) {
         P2LibConst.primaryStage = primaryStage;
     }

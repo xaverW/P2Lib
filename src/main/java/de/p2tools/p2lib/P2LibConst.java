@@ -18,6 +18,8 @@ package de.p2tools.p2lib;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -49,6 +51,12 @@ public class P2LibConst {
     public static String progName = "P2Tools";
     public static String userAgent = "";
     public static BooleanProperty darkMode = new SimpleBooleanProperty();
+
+    public static BooleanProperty useProxy = new SimpleBooleanProperty(false);
+    public static StringProperty proxyHost = new SimpleStringProperty("");
+    public static StringProperty proxyPort = new SimpleStringProperty("");
+    public static StringProperty proxyUser = new SimpleStringProperty("");
+    public static StringProperty proxyPwd = new SimpleStringProperty("");
 
     public static boolean debug = false; //Debugmodus
     public static boolean duration = false; //Duration ausgeben
