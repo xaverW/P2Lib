@@ -26,7 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 
-public class PFileName {
+public class P2FileName {
     private static final String STR = "__";
     private static final FastDateFormat FORMATTER_PRE_ddMMyyyyHHmmss = FastDateFormat.getInstance("yyyyMMdd_HHmmss" + STR);
     private static final FastDateFormat FORMATTER_PRE_ddMMyyyyHHmm = FastDateFormat.getInstance("yyyyMMdd_HHmm" + STR);
@@ -65,7 +65,7 @@ public class PFileName {
         if (name.isEmpty()) {
             String dotSuffix = suffix.startsWith(".") ? suffix : "." + suffix;
             name = System.getProperty("user.home");
-            name = PFileUtils.addsPath(name, "Infos" + dotSuffix);
+            name = P2FileUtils.addsPath(name, "Infos" + dotSuffix);
         }
 
         String onlyName = FilenameUtils.getName(name);
@@ -79,7 +79,7 @@ public class PFileName {
         }
 
         String dotSuffix = suffix.startsWith(".") ? suffix : "." + suffix;
-        onlyFileName = PFileUtils.getFileName(onlyFileName);//erst mal vom evtl. Pfad reinigen
+        onlyFileName = P2FileUtils.getFileName(onlyFileName);//erst mal vom evtl. Pfad reinigen
         String filenameNoSuffix = cleanName(onlyFileName, dotSuffix);
         String ret;
 
@@ -115,7 +115,7 @@ public class PFileName {
 
         if (!onlyFileName.endsWith(dotSuffix)) {
             //dann erst mal damit
-            ret = PFileUtils.addsPath(onlyPath, filenameNoSuffix + dotSuffix);
+            ret = P2FileUtils.addsPath(onlyPath, filenameNoSuffix + dotSuffix);
             return ret;
         }
 
@@ -139,7 +139,7 @@ public class PFileName {
         }
 
         ret = ret + dotSuffix;
-        ret = PFileUtils.addsPath(onlyPath, ret);
+        ret = P2FileUtils.addsPath(onlyPath, ret);
         return ret;
     }
 
@@ -149,7 +149,7 @@ public class PFileName {
         }
 
         String dotSuffix = suffix.startsWith(".") ? suffix : "." + suffix;
-        onlyFileName = PFileUtils.getFileName(onlyFileName);//erst mal vom evtl. Pfad reinigen
+        onlyFileName = P2FileUtils.getFileName(onlyFileName);//erst mal vom evtl. Pfad reinigen
         String filenameNoSuffix = cleanName(onlyFileName, dotSuffix);
         String ret;
 

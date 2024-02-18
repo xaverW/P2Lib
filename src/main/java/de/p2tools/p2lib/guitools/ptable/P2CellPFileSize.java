@@ -17,20 +17,20 @@
 
 package de.p2tools.p2lib.guitools.ptable;
 
-import de.p2tools.p2lib.tools.file.PFileSize;
+import de.p2tools.p2lib.tools.file.P2FileSize;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.util.Callback;
 
 public class P2CellPFileSize<S, T> extends TableCell<S, T> {
 
-    public final Callback<TableColumn<S, PFileSize>, TableCell<S, PFileSize>> cellFactory
-            = (final TableColumn<S, PFileSize> param) -> {
+    public final Callback<TableColumn<S, P2FileSize>, TableCell<S, P2FileSize>> cellFactory
+            = (final TableColumn<S, P2FileSize> param) -> {
 
-        final TableCell<S, PFileSize> cell = new TableCell<>() {
+        final TableCell<S, P2FileSize> cell = new TableCell<>() {
 
             @Override
-            public void updateItem(PFileSize item, boolean empty) {
+            public void updateItem(P2FileSize item, boolean empty) {
                 super.updateItem(item, empty);
 
                 if (item == null || empty) {

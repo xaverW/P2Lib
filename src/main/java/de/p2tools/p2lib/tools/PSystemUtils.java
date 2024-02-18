@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.tools;
 
-import de.p2tools.p2lib.tools.file.PFileUtils;
+import de.p2tools.p2lib.tools.file.P2FileUtils;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
@@ -35,6 +35,6 @@ public class PSystemUtils {
      * @return Standardpfad zu den Downloads.
      */
     public static String getStandardDownloadPath() {
-        return PFileUtils.addsPath(PFileUtils.getHomePath(), "Downloads");
+        return P2FileUtils.addsPath(P2FileUtils.getHomePath(), "Downloads");
     }
 }

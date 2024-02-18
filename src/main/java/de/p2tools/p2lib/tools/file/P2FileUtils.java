@@ -26,12 +26,9 @@ import org.apache.commons.lang3.SystemUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileStore;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 
-public class PFileUtils {
+public class P2FileUtils {
     private final static int WIN_MAX_PATH_LENGTH = 250;
     private final static int X_MAX_NAME_LENGTH = 250;
 
@@ -42,6 +39,24 @@ public class PFileUtils {
      */
     public static String getHomePath() {
         return System.getProperty("user.home");
+    }
+
+    public static boolean pathIsEmpty(String path) {
+        return pathIsEmpty(Path.of(path));
+    }
+
+    public static boolean pathIsEmpty(Path path) {
+        try {
+            if (Files.isDirectory(path)) {
+                try (DirectoryStream<Path> directory = Files.newDirectoryStream(path)) {
+                    return !directory.iterator().hasNext();
+                }
+            }
+        } catch (IOException ex) {
+            PLog.errorLog(645120789, ex.getLocalizedMessage());
+        }
+
+        return false;
     }
 
     public static int countFilesInDirectory(String directory) {

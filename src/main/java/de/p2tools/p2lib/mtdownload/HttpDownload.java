@@ -19,8 +19,8 @@ package de.p2tools.p2lib.mtdownload;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
 import de.p2tools.p2lib.guitools.pnotification.P2Notification;
-import de.p2tools.p2lib.tools.file.PFileSize;
-import de.p2tools.p2lib.tools.file.PFileUtils;
+import de.p2tools.p2lib.tools.file.P2FileSize;
+import de.p2tools.p2lib.tools.file.P2FileUtils;
 import de.p2tools.p2lib.tools.log.PLog;
 import de.p2tools.p2lib.tools.net.P2UrlConnectionFactory;
 import javafx.application.Platform;
@@ -62,7 +62,7 @@ public class HttpDownload extends Thread {
         this.url = url;
         this.destDir = destDir;
         this.destName = destName;
-        this.destDirFile = PFileUtils.addsPath(destDir, destName);
+        this.destDirFile = P2FileUtils.addsPath(destDir, destName);
         setName("DOWNLOAD FILE THREAD: " + destName);
     }
 
@@ -241,7 +241,7 @@ public class HttpDownload extends Thread {
     }
 
     private String getText() {
-        return PFileSize.convertToStr(downloaded) + " von " + PFileSize.convertToStr(fileSize);
+        return P2FileSize.convertToStr(downloaded) + " von " + P2FileSize.convertToStr(fileSize);
     }
 
     /**

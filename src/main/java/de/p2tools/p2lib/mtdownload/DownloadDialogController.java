@@ -22,7 +22,7 @@ import de.p2tools.p2lib.alert.PAlert;
 import de.p2tools.p2lib.dialogs.PDirFileChooser;
 import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
-import de.p2tools.p2lib.tools.file.PFileUtils;
+import de.p2tools.p2lib.tools.file.P2FileUtils;
 import de.p2tools.p2lib.tools.net.PUrlTools;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -66,7 +66,7 @@ public class DownloadDialogController extends PDialogExtra {
         this.path = path;
 
         if (path == null || path.getValueSafe().isEmpty()) {
-            this.filePath.set(PFileUtils.getHomePath());
+            this.filePath.set(P2FileUtils.getHomePath());
         } else {
             this.filePath.set(path.getValue());
         }
@@ -153,18 +153,18 @@ public class DownloadDialogController extends PDialogExtra {
         }
 
         String newName = orgFileName;
-        String file = PFileUtils.addsPath(dir, orgFileName);
+        String file = P2FileUtils.addsPath(dir, orgFileName);
 
-        final String noSuff = PFileUtils.removeFileNameSuffix(orgFileName);
-        final String suff = PFileUtils.getFileNameSuffix(orgFileName);
+        final String noSuff = P2FileUtils.removeFileNameSuffix(orgFileName);
+        final String suff = P2FileUtils.getFileNameSuffix(orgFileName);
         if (noSuff.isEmpty() || suff.isEmpty()) {
             return name;
         }
 
         int i = 1;
-        while (PFileUtils.fileExist(file)) {
+        while (P2FileUtils.fileExist(file)) {
             newName = noSuff + "-" + i++ + "." + suff;
-            file = PFileUtils.addsPath(dir, newName);
+            file = P2FileUtils.addsPath(dir, newName);
         }
 
         return newName;
@@ -175,8 +175,8 @@ public class DownloadDialogController extends PDialogExtra {
 
         final String destDir = txtDestPath.getText();
         final String destName = txtName.getText();
-        final String file = PFileUtils.addsPath(destDir, destName);
-        if (PFileUtils.fileExist(file)) {
+        final String file = P2FileUtils.addsPath(destDir, destName);
+        if (P2FileUtils.fileExist(file)) {
             ret = false;
             final PAlert.BUTTON button = PAlert.showAlert_yes_no("Hinweis", "Datei speichern",
                     "Die Zieldatei exisiert bereits:" + P2LibConst.LINE_SEPARATORx2 +

@@ -16,7 +16,7 @@
 
 package de.p2tools.p2lib.dialogs;
 
-import de.p2tools.p2lib.tools.file.PFileName;
+import de.p2tools.p2lib.tools.file.P2FileName;
 import de.p2tools.p2lib.tools.log.PLog;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -201,7 +201,7 @@ public class PDirFileChooser {
                 if (relPath.isEmpty()) {
                     ret = selectedFile.getAbsolutePath();
                 } else {
-                    ret = PFileName.getFilenameRelative(selectedFile, relPath);
+                    ret = P2FileName.getFilenameRelative(selectedFile, relPath);
                 }
 
                 if (!cbPath.getItems().contains(ret)) {

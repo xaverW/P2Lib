@@ -20,7 +20,7 @@ package de.p2tools.p2lib.tools.file;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-public class PFileSize implements Comparable<PFileSize> {
+public class P2FileSize implements Comparable<P2FileSize> {
     private static final long GBYTE = 1000L * 1000L * 1000L;
     private static final long MBYTE = 1000L * 1000L;
     private static final long KBYTE = 1000L;
@@ -28,12 +28,12 @@ public class PFileSize implements Comparable<PFileSize> {
     private long sizeL = 0;
     private String sizeStr = "";
 
-    public PFileSize(long sizeL) {
+    public P2FileSize(long sizeL) {
         this.sizeL = sizeL;
         convertToStr();
     }
 
-    public PFileSize(String sizeStr) {
+    public P2FileSize(String sizeStr) {
         try {
             sizeL = Long.parseLong(sizeStr);
         } catch (Exception ex) {
@@ -108,11 +108,11 @@ public class PFileSize implements Comparable<PFileSize> {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof PFileSize)) {
+        if (!(obj instanceof P2FileSize)) {
             return false;
         }
 
-        final PFileSize other = (PFileSize) obj;
+        final P2FileSize other = (P2FileSize) obj;
         return other.sizeL == sizeL;
     }
 
@@ -145,7 +145,7 @@ public class PFileSize implements Comparable<PFileSize> {
     }
 
     @Override
-    public int compareTo(PFileSize o) {
+    public int compareTo(P2FileSize o) {
         if (sizeL < o.sizeL) {
             return -1;
         }

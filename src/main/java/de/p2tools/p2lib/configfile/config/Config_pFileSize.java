@@ -17,33 +17,33 @@
 
 package de.p2tools.p2lib.configfile.config;
 
-import de.p2tools.p2lib.tools.file.PFileSize;
+import de.p2tools.p2lib.tools.file.P2FileSize;
 
 public class Config_pFileSize extends Config {
 
-    private final PFileSize actValue;
+    private final P2FileSize actValue;
 
-    public Config_pFileSize(String key, PFileSize actValue) {
+    public Config_pFileSize(String key, P2FileSize actValue) {
         super(key);
         this.actValue = actValue;
     }
 
-    public Config_pFileSize(String key, String name, PFileSize actValue) {
+    public Config_pFileSize(String key, String name, P2FileSize actValue) {
         super(key, name);
         this.actValue = actValue;
     }
 
     @Override
-    public PFileSize getActValue() {
+    public P2FileSize getActValue() {
         return actValue;
     }
 
     @Override
     public void setActValue(Object act) {
-        actValue.setSizeL(((PFileSize) act).getSizeL());
+        actValue.setSizeL(((P2FileSize) act).getSizeL());
     }
 
-    public void setActValue(PFileSize act) {
+    public void setActValue(P2FileSize act) {
         actValue.setSizeL(act.getSizeL());
     }
 
