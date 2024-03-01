@@ -40,8 +40,8 @@ public class FilmDataProps extends FilmDataXml {
     // todo?? die Property brauchts nicht alle aber dann müssen die checkboxen in der Tabelle
     // ersetzt werden
     private boolean newFilm = false;
-    private boolean shown = false;
-    private boolean actHist = false;
+    private boolean shown = false; // Film ist in der History
+    private boolean actHist = false; // ist die History von JETZ, setzt aber auch "shown"
     private boolean bookmark = false;
     private boolean isBlackBlocked = false;
     private int propose = 0;
@@ -206,10 +206,6 @@ public class FilmDataProps extends FilmDataXml {
 
     public void setNewFilm(final boolean newFilm) {
         this.newFilm = newFilm;
-    }
-
-    public boolean getActHist() {
-        return actHist;
     }
 
     public void setActHist(boolean actHist) {
