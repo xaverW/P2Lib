@@ -161,6 +161,7 @@ public class FoundAllFiles {
 
             if (fileName.endsWith(".txt")) {
                 //Infofile
+                PLog.debugLog("Infofile laden: "+ foundFile.getFileName() + "  --  " + foundFile.getFileUrl());
                 foundSearchData.setNewVersionText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
 
             } else if ((foundSearchData.isShowAlways() &&
@@ -217,8 +218,10 @@ public class FoundAllFiles {
             if (fileName.endsWith(".txt")) {
                 //Infofile
                 if (beta) {
+                    PLog.debugLog("Infofile beta laden: "+ foundFile.getFileName() + "  --  " + foundFile.getFileUrl());
                     foundSearchData.setNewBetaText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
                 } else {
+                    PLog.debugLog("Infofile daily laden: "+ foundFile.getFileName() + "  --  " + foundFile.getFileUrl());
                     foundSearchData.setNewDailyText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
                 }
 
