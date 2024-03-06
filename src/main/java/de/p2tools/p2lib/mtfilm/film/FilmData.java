@@ -215,8 +215,8 @@ public class FilmData extends FilmDataProps implements PData {
                         power *= 60;
                     }
                 }
+                setDur(durSecond);
             }
-            setDur(durSecond);
 
         } catch (final Exception ex) {
             setDur(0);
