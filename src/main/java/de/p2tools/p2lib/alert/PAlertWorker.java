@@ -307,7 +307,7 @@ public class PAlertWorker {
     // Ok
 
     static boolean infoNoSelection(Stage stage) {
-        final Alert alert = getAlert(stage, Alert.AlertType.INFORMATION, "keine Auswahl", "Es wurden nichts markiert.");
+        final Alert alert = getAlert(stage, Alert.AlertType.INFORMATION, "keine Auswahl", "Es wurde nichts markiert.");
         alert.setContentText("Zeile auswählen!");
 
         final Optional<ButtonType> bt = alert.showAndWait();
