@@ -19,6 +19,7 @@ package de.p2tools.p2lib.mtfilm.readwritefilmlist;
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
+import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.mtfilm.film.FilmData;
 import de.p2tools.p2lib.mtfilm.film.FilmDataXml;
 import de.p2tools.p2lib.mtfilm.film.Filmlist;
@@ -150,7 +151,9 @@ public class WriteFilmlistJson {
     private JsonGenerator getJsonGenerator(OutputStream os) throws IOException {
         JsonFactory jsonF = new JsonFactory();
         JsonGenerator jg = jsonF.createGenerator(os, JsonEncoding.UTF8);
-        jg.useDefaultPrettyPrinter(); // enable indentation just to make debug/testing easier
+        if (P2LibConst.debug) {
+            jg.useDefaultPrettyPrinter(); // enable indentation just to make debug/testing easier
+        }
 
         return jg;
     }
