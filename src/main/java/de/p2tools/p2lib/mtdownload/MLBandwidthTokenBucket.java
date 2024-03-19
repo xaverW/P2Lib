@@ -32,21 +32,21 @@ public class MLBandwidthTokenBucket {
     public static final int DEFAULT_BUFFER_SIZE = 4 * 1024; // default byte buffer size
     private final Semaphore bucketSize = new Semaphore(0, false);
 
-    public static final int BANDWIDTH_MAX_BYTE = 1_000_000; // 1.000 kByte/s
-    public static final int BANDWIDTH_MAX_KBYTE = 1_000; // 1.000 kByte/s
-    public static final int BANDWIDTH_PAUSE_MAX_BYTE = 50_000; // 50 kByte/s
+    public static final int BANDWIDTH_MAX_BYTE = 10_000_000; // 10 MByte/s, höchste Wert der eingestellt werden kann
+    public static final int BANDWIDTH_RUN_FREE = 0; // ist der Wert für Downloads ohne Bremse
+    public static final int BANDWIDTH_PAUSE_MAX_BYTE = 50_000; // 50 kByte/s, beim Laden der Filmliste
 
-    private volatile int bucketCapacityByte = BANDWIDTH_MAX_BYTE; // capacity BYTE!!
+    private volatile int bucketCapacityByte = BANDWIDTH_RUN_FREE; // capacity BYTE!!
     private MVBandwidthTokenBucketFillerThread fillerThread = null;
-    private final IntegerProperty bandwidthValueKByte;
+    private final IntegerProperty bandwidthValueByte;
     private final BooleanProperty pauseDownloadCapacity;
 
-    public MLBandwidthTokenBucket(IntegerProperty bandwidthValueKByte, BooleanProperty pauseDownloadCapacity) {
-        this.bandwidthValueKByte = bandwidthValueKByte;
-        this.pauseDownloadCapacity = pauseDownloadCapacity;
+    public MLBandwidthTokenBucket(IntegerProperty bandwidthValueByte, BooleanProperty pauseDownloadCapacity) {
+        this.bandwidthValueByte = bandwidthValueByte; // ist der eingestellte Wert der max. Bandbreite
+        this.pauseDownloadCapacity = pauseDownloadCapacity; // true, wenn die Filmliste geladen wird
 
         setBucketCapacityByte(getBandwidth());
-        this.bandwidthValueKByte.addListener(l -> {
+        this.bandwidthValueByte.addListener(l -> {
             PLog.sysLog("change bucketCapacity: " + getBandwidth() + " bytesPerSecond");
             setBucketCapacityByte(getBandwidth());
         });
@@ -72,8 +72,8 @@ public class MLBandwidthTokenBucket {
      * @param howMany The number of bytes to acquire.
      */
     public void takeBlocking(final int howMany) {
-        // if bucket size equals BANDWIDTH_MAX_BYTE then unlimited speed...
-        if (getBucketCapacityByte() < BANDWIDTH_MAX_BYTE) {
+        // if bucket size equals BANDWIDTH_RUN_FREE then unlimited speed...
+        if (getBucketCapacityByte() > BANDWIDTH_RUN_FREE) {
             try {
                 bucketSize.acquire(howMany);
             } catch (final Exception ignored) {
@@ -109,20 +109,17 @@ public class MLBandwidthTokenBucket {
 
     public synchronized void setBucketCapacityByte(int bucketCapacityByte) {
         this.bucketCapacityByte = bucketCapacityByte;
-        if (bucketCapacityByte == BANDWIDTH_MAX_BYTE) {
-            terminateFillerThread();
-
+        terminateFillerThread();
+        if (bucketCapacityByte == BANDWIDTH_RUN_FREE) {
             // if we have waiting callers, release them by releasing buckets in the semaphore...
             while (bucketSize.hasQueuedThreads()) {
                 bucketSize.release();
             }
-
             // reset semaphore
             bucketSize.drainPermits();
-        } else {
-            terminateFillerThread();
-            bucketSize.drainPermits();
 
+        } else {
+            bucketSize.drainPermits();
             // restart filler thread with new settings...
             ensureBucketThreadIsRunning();
         }
@@ -140,11 +137,11 @@ public class MLBandwidthTokenBucket {
 
         int bytesPerSecond;
         try {
-            bytesPerSecond = bandwidthValueKByte.get() * 1_000;
+            bytesPerSecond = bandwidthValueByte.get();
         } catch (final Exception ex) {
             PLog.errorLog(612547803, ex, "reset Bandwidth");
-            bytesPerSecond = BANDWIDTH_MAX_KBYTE * 1_000;
-            bandwidthValueKByte.set(BANDWIDTH_MAX_KBYTE);
+            bytesPerSecond = BANDWIDTH_RUN_FREE;
+            bandwidthValueByte.set(BANDWIDTH_RUN_FREE);
         }
         return bytesPerSecond;
     }
@@ -164,8 +161,8 @@ public class MLBandwidthTokenBucket {
                 while (!isInterrupted()) {
                     // run 2times per second, its more regular
                     final int bucketCapacity = getBucketCapacityByte();
-                    // for unlimited speed we dont need the thread
-                    if (bucketCapacity == MLBandwidthTokenBucket.BANDWIDTH_MAX_BYTE) {
+                    // for unlimited speed we don't need the thread
+                    if (bucketCapacity == BANDWIDTH_RUN_FREE) {
                         break;
                     }
 

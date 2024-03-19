@@ -32,10 +32,10 @@ public class MLInputStream extends InputStream {
 
     public MLInputStream(InputStream in,
                          java.util.Timer calculationTimer,
-                         IntegerProperty bucketCapacityKByte,
+                         IntegerProperty bucketCapacityByte,
                          BooleanProperty pauseDownloadCapacity) {
         iStream = in;
-        bucket = new MLBandwidthTokenBucket(bucketCapacityKByte, pauseDownloadCapacity);
+        bucket = new MLBandwidthTokenBucket(bucketCapacityByte, pauseDownloadCapacity);
         bucket.ensureBucketThreadIsRunning();
 
         //start bandwidth calculation
