@@ -20,10 +20,10 @@
 /* Button Sender/Favoriten/History */
 /* sind die blauen TabButton */
 .btnTabTop, .btnTabTop-sel{
-    -fx-background-radius: 20 20 5 5 ;
+    -fx-background-radius: 15 15 4 4 ;
     -fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 20%, center 90% 75%, radius 30%, reflect, #305d9c, #203e68 75%, #1e3c64 75%);
     -fx-effect: dropshadow(three-pass-box, #464f5f, 3, 0.2 , 2 , 2 );
-    -fx-padding: 6 40 6 40;
+    -fx-padding: 5 40 5 40;
 
     -fx-alignment: center;
     -fx-text-fill: white;
@@ -39,6 +39,30 @@
 .btnTabTop-sel:hover{
     -fx-effect: dropshadow(three-pass-box, #464f5f, 10, 0.2 , 3 , 3);
 }
+
+/* Button Sender/Favoriten/History */
+/* sind die blauen TabButton */
+.btnTabTopSmall, .btnTabTopSmall-sel{
+    -fx-background-radius: 15 15 4 4 ;
+    -fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 20%, center 90% 75%, radius 30%, reflect, #305d9c, #203e68 75%, #1e3c64 75%);
+    -fx-effect: dropshadow(three-pass-box, #464f5f, 3, 0.2 , 2 , 2 );
+    -fx-padding: 5 20 5 20;
+
+    -fx-alignment: center;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.btnTabTopSmall:hover{
+    -fx-effect: dropshadow(three-pass-box, #464f5f, 10, 0.2 , 3 , 3);
+}
+.btnTabTopSmall-sel{
+    -fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 20%, center 90% 75%, radius 30%, reflect, #4e9bff, #4181d6 75%, #407cd0 75%);
+    -fx-effect: dropshadow(three-pass-box, #404040, 5, 0.2 , 2 , 2 );
+}
+.btnTabTopSmall-sel:hover{
+    -fx-effect: dropshadow(three-pass-box, #464f5f, 10, 0.2 , 3 , 3);
+}
+
 
 
 /* Menü-Button */
