@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.dialogs;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ClipBoardContext;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
@@ -40,7 +40,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public abstract class AboutDialog extends PDialogExtra {
+public abstract class AboutDialog extends P2DialogExtra {
 
     private final Button btnOk = new Button("_Ok");
     private final Button btnCheck = new Button("_Programmupdate prüfen");

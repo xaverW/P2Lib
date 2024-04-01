@@ -20,7 +20,7 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.ProgIconsP2Lib;
 import de.p2tools.p2lib.alert.PAlert;
 import de.p2tools.p2lib.dialogs.PDirFileChooser;
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.tools.file.P2FileUtils;
 import de.p2tools.p2lib.tools.net.PUrlTools;
@@ -35,7 +35,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class DownloadDialogController extends PDialogExtra {
+public class DownloadDialogController extends P2DialogExtra {
 
     private final VBox vBoxCont;
 

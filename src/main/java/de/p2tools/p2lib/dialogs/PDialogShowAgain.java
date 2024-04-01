@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.dialogs;
 
 
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.Button;
@@ -27,7 +27,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class PDialogShowAgain extends PDialogExtra {
+public class PDialogShowAgain extends P2DialogExtra {
 
     private final Button btnOk = new Button("_Ok");
     private final BooleanProperty showAgain;

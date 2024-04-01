@@ -18,8 +18,8 @@ package de.p2tools.p2lib.dialogs.dialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.P2LibInit;
-import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2lib.guitools.P2GuiSize;
+import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2lib.tools.IoReadWriteStyle;
 import de.p2tools.p2lib.tools.PException;
 import de.p2tools.p2lib.tools.log.PLog;
@@ -38,9 +38,7 @@ import java.io.File;
 import java.nio.file.Path;
 
 
-public class PDialog {
-    //    private double stageWidth = 0;
-//    private double stageHeight = 0;
+public class P2Dialog {
     private static String iconPath = "";
     private StringProperty sizeConfiguration;
     private final boolean modal;
@@ -52,8 +50,8 @@ public class PDialog {
     private ObjectProperty<Stage> stageProp = new SimpleObjectProperty<>(null);
     private Pane pane;
 
-    PDialog(Stage ownerForCenteringDialog, StringProperty sizeConfiguration,
-            String title, boolean modal, boolean setOnlySize) {
+    P2Dialog(Stage ownerForCenteringDialog, StringProperty sizeConfiguration,
+             String title, boolean modal, boolean setOnlySize) {
 
         this.ownerForCenteringDialog = ownerForCenteringDialog;
         this.sizeConfiguration = sizeConfiguration;
@@ -62,15 +60,15 @@ public class PDialog {
         this.setOnlySize = setOnlySize;
     }
 
-    PDialog(Stage ownerForCenteringDialog, StringProperty sizeConfiguration,
-            String title, boolean modal, boolean setOnlySize, String iconPath) {
+    P2Dialog(Stage ownerForCenteringDialog, StringProperty sizeConfiguration,
+             String title, boolean modal, boolean setOnlySize, String iconPath) {
 
         this.ownerForCenteringDialog = ownerForCenteringDialog;
         this.sizeConfiguration = sizeConfiguration;
         this.modal = modal;
         this.title = title;
         this.setOnlySize = setOnlySize;
-        PDialog.iconPath = iconPath;
+        P2Dialog.iconPath = iconPath;
     }
 
     public static String getIconPath() {
@@ -78,7 +76,7 @@ public class PDialog {
     }
 
     public static void setIconPath(String iconPath) {
-        PDialog.iconPath = iconPath;
+        P2Dialog.iconPath = iconPath;
     }
 
     void setPane(Pane pane) {
@@ -109,14 +107,26 @@ public class PDialog {
                 close();
             });
             //brauchts zwar nicht 2x, der Dialog "springt" dann aber weniger
-            stage.setOnShowing(e -> P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog));
-            stage.setOnShown(e -> P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog));
+            stage.setOnShowing(e -> {
+                if (setOnlySize) {
+                    P2GuiSize.setOnlySize(sizeConfiguration, stage, ownerForCenteringDialog);
+                } else {
+                    P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
+                }
+            });
+            stage.setOnShown(e -> {
+                if (setOnlySize) {
+                    P2GuiSize.setOnlySize(sizeConfiguration, stage, ownerForCenteringDialog);
+                } else {
+                    P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
+                }
+            });
 
             updateCss();
             setIcon();
             make();
 
-            PDialogFactory.addSizeListener(stage, sizeConfiguration);
+            P2DialogFactory.addSizeListener(stage, sizeConfiguration);
 
             if (show) {
                 showDialog();

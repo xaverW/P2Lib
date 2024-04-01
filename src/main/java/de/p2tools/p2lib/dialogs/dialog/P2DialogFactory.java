@@ -21,8 +21,8 @@ import de.p2tools.p2lib.guitools.P2GuiSize;
 import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
 
-public class PDialogFactory {
-    private PDialogFactory() {
+public class P2DialogFactory {
+    private P2DialogFactory() {
     }
 
     static void addSizeListener(Stage stage, StringProperty sizeConfiguration) {
@@ -49,50 +49,4 @@ public class PDialogFactory {
             });
         }
     }
-
-//    public static void showDialog(Stage stage, StringProperty sizeConfiguration) {
-//        showDialog(stage, sizeConfiguration, /*0, 0,*/
-//                null, false, false);
-//    }
-
-//    public static void showDialog(Stage stage, StringProperty sizeConfiguration, /*double stageHeight, double stageWidth,*/
-//                                  Stage ownerForCenteringDialog, boolean modal, boolean onlySize) {
-//
-//        //Größe setzen
-//      /*  if (stageHeight > 0 && stageWidth > 0) {
-//            //die gemerkte Größe wieder setzen
-//            stage.setHeight(stageHeight);
-//            stage.setWidth(stageWidth);
-//
-//        } else*/
-//
-////        if (sizeConfiguration != null && !sizeConfiguration.getValueSafe().isEmpty()) {
-////            PGuiSize.setSize(sizeConfiguration, stage);
-////
-////        } else {
-////            //dann einpassen
-////            stage.sizeToScene();
-////        }
-////
-////        //Pos setzen
-////        if (onlySize || sizeConfiguration == null || !PGuiSize.setPos(sizeConfiguration, stage, ownerForCenteringDialog)) {
-////            if (ownerForCenteringDialog == null) {
-////                stage.centerOnScreen();
-////            } else {
-////                setInFrontOfPrimaryStage(stage, ownerForCenteringDialog);
-////            }
-////        }
-//
-//        stage.requestFocus();
-//        stage.toFront();
-//        if (!stage.isShowing()) {
-//            if (modal) {
-//                stage.showAndWait();
-//            } else {
-//                stage.show();
-//            }
-//        }
-//    }
-
-
 }

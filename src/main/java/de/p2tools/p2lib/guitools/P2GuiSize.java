@@ -104,8 +104,16 @@ public class P2GuiSize {
         return posY;
     }
 
-    public static void setSizePos(StringProperty sizeConfiguration, Stage newStage, Stage ownerForCenteringDialog) {
-        setSizePos(sizeConfiguration, newStage, ownerForCenteringDialog, true, true);
+    public static void setSizePos(StringProperty sizeConfiguration, Stage stage, Stage ownerForCenteringDialog) {
+        setSizePos(sizeConfiguration, stage, ownerForCenteringDialog, true, true);
+    }
+
+    public static void setSizePos(StringProperty sizeConfiguration, Stage stage) {
+        setSizePos(sizeConfiguration, stage, null, true, true);
+    }
+
+    public static void setOnlySize(StringProperty sizeConfiguration, Stage stage, Stage ownerForCenteringDialog) {
+        setSizePos(sizeConfiguration, stage, ownerForCenteringDialog, false, true);
     }
 
     public static void setOnlySize(StringProperty sizeConfiguration, Stage stage) {
@@ -113,20 +121,20 @@ public class P2GuiSize {
         setSizePos(sizeConfiguration, stage, null, false, true);
     }
 
-    public static void setOnlyPos(StringProperty sizeConfiguration, Stage newStage) {
-        //nur die Größe setzen
-        setSizePos(sizeConfiguration, newStage, null, true, false);
-    }
-
     public static void setOnlyPos(StringProperty sizeConfiguration, Stage newStage, Stage ownerForCenteringDialog) {
         //nur die Größe setzen
         setSizePos(sizeConfiguration, newStage, ownerForCenteringDialog, true, false);
     }
 
-    private static boolean setSizePos(StringProperty sizeConfiguration,
-                                      Stage newStage, Stage ownerForCenteringDialog,
-                                      boolean setPos,
-                                      boolean setSize) {
+    public static void setOnlyPos(StringProperty sizeConfiguration, Stage newStage) {
+        //nur die Größe setzen
+        setSizePos(sizeConfiguration, newStage, null, true, false);
+    }
+
+    private static void setSizePos(StringProperty sizeConfiguration,
+                                   Stage newStage, Stage ownerForCenteringDialog,
+                                   boolean setPos,
+                                   boolean setSize) {
 
         int h = 0, w = 0, posX = 0, posY = 0;
         boolean size = false, pos = false;
@@ -183,22 +191,10 @@ public class P2GuiSize {
             }
             newStage.setX(posX);
             newStage.setY(posY);
-        } else if (setPos) {
+
+        } else {
             //dann wenigstens versuchen vor das "Hauptfenster"
             setInFrontOfPrimaryStage(newStage, ownerForCenteringDialog);
-        }
-
-
-        //und nix wie raus
-        if (!setPos && setSize && size) {
-            return true;
-        }
-        if (!setSize && setPos && pos) {
-            return true;
-        } else if (setSize && setPos && size && pos) {
-            return true;
-        } else {
-            return false;
         }
     }
 

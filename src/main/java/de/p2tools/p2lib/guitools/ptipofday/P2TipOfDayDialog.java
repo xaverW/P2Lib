@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.guitools.ptipofday;
 
 import de.p2tools.p2lib.ProgIconsP2Lib;
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import javafx.beans.property.BooleanProperty;
@@ -37,7 +37,7 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
-public class P2TipOfDayDialog extends PDialogExtra {
+public class P2TipOfDayDialog extends P2DialogExtra {
 
 //    public static final Image ICON_BUTTON_NEXT = new Image(PTipOfDayDialog.class.getResourceAsStream("button-next.png"));
 //    public static final Image ICON_BUTTON_PREV = new Image(PTipOfDayDialog.class.getResourceAsStream("button-prev.png"));

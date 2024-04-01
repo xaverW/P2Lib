@@ -19,7 +19,7 @@ package de.p2tools.p2lib.mtdownload;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.ProgIconsP2Lib;
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2ProgressBar;
 import javafx.application.Platform;
@@ -31,7 +31,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class DownloadProgressDialog extends PDialogExtra {
+public class DownloadProgressDialog extends P2DialogExtra {
 
     private final VBox vBoxCont;
     private final Button btnCancel = new Button("");

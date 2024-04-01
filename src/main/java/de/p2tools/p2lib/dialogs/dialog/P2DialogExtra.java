@@ -34,7 +34,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-public class PDialogExtra extends PDialog {
+public class P2DialogExtra extends P2Dialog {
 
     private final VBox vBoxCompleteDialog = new VBox(5); // ist der gesamte Dialog
     private final HBox hBoxOverAll = new HBox(10); // ist der Bereich über dem Inhalt, Titel und dem Scrollpanel
@@ -47,7 +47,7 @@ public class PDialogExtra extends PDialog {
     private final HBox hBoxRight = new HBox(10); // ist nach der ButtonBar
     private final ButtonBar buttonBar = new ButtonBar();
 
-    private static ArrayList<PDialog> dialogList = new ArrayList<>();
+    private static ArrayList<P2Dialog> dialogList = new ArrayList<>();
     private final ScrollPane scrollPane = new ScrollPane();
     private P2MaskerPane maskerPane = null;
     private boolean masker = false;
@@ -60,37 +60,37 @@ public class PDialogExtra extends PDialog {
         STATE_ONLY_DOWNLOAD
     }
 
-    public PDialogExtra() {
+    public P2DialogExtra() {
         super(P2LibConst.primaryStage, null, "", true, true);
         initDialog();
     }
 
-    public PDialogExtra(StringProperty conf, String title) {
+    public P2DialogExtra(StringProperty conf, String title) {
         // ist nur ein einfacher Dialog, zentral über dem Hauptfenster
         super(P2LibConst.primaryStage, conf, title, true, true);
         initDialog();
     }
 
-    public PDialogExtra(Stage ownerForCenteringDialog, StringProperty conf, String title) {
+    public P2DialogExtra(Stage ownerForCenteringDialog, StringProperty conf, String title) {
         super(ownerForCenteringDialog, conf, title, true, true);
         initDialog();
     }
 
-    public PDialogExtra(Stage ownerForCenteringDialog, StringProperty conf,
-                        String title, boolean modal, boolean setOnlySize) {
+    public P2DialogExtra(Stage ownerForCenteringDialog, StringProperty conf,
+                         String title, boolean modal, boolean setOnlySize) {
         super(ownerForCenteringDialog, conf, title, modal, setOnlySize);
         initDialog();
     }
 
-    public PDialogExtra(Stage ownerForCenteringDialog, StringProperty conf,
-                        String title, boolean modal, boolean setOnlySize, DECO deco) {
+    public P2DialogExtra(Stage ownerForCenteringDialog, StringProperty conf,
+                         String title, boolean modal, boolean setOnlySize, DECO deco) {
         super(ownerForCenteringDialog, conf, title, modal, setOnlySize);
         this.deco = deco;
         initDialog();
     }
 
-    public PDialogExtra(Stage ownerForCenteringDialog, StringProperty conf,
-                        String title, boolean modal, boolean setOnlySize, DECO deco, boolean masker) {
+    public P2DialogExtra(Stage ownerForCenteringDialog, StringProperty conf,
+                         String title, boolean modal, boolean setOnlySize, DECO deco, boolean masker) {
         super(ownerForCenteringDialog, conf, title, modal, setOnlySize);
         this.deco = deco;
         this.masker = masker;
@@ -98,34 +98,34 @@ public class PDialogExtra extends PDialog {
         initDialog();
     }
 
-    private static synchronized void addDialog(PDialog pDialog) {
+    private static synchronized void addDialog(P2Dialog p2Dialog) {
         boolean found = false;
-        for (PDialog dialog : dialogList) {
-            if (dialog.equals(pDialog)) {
+        for (P2Dialog dialog : dialogList) {
+            if (dialog.equals(p2Dialog)) {
                 found = true;
             }
         }
         if (!found) {
-            dialogList.add(pDialog);
+            dialogList.add(p2Dialog);
         }
     }
 
-    private static synchronized void removeDialog(PDialog pDialog) {
-        dialogList.remove(pDialog);
+    private static synchronized void removeDialog(P2Dialog p2Dialog) {
+        dialogList.remove(p2Dialog);
     }
 
     public static void closeAllDialog() {
-        dialogList.forEach(pDialog -> {
+        dialogList.forEach(p2Dialog -> {
             Platform.runLater(() -> {
-                pDialog.hide();
+                p2Dialog.hide();
             });
         });
     }
 
     public static void showAllDialog() {
-        dialogList.forEach(pDialog -> {
+        dialogList.forEach(p2Dialog -> {
             Platform.runLater(() -> {
-                pDialog.showDialog();
+                p2Dialog.showDialog();
             });
         });
     }
@@ -145,15 +145,12 @@ public class PDialogExtra extends PDialog {
 
     @Override
     public void init(boolean show) {
-//        if (show) {
         addDialog(this);
-//        }
         super.init(show);
     }
 
     @Override
     public void showDialog() {
-//        addDialog(this);
         super.showDialog();
     }
 
@@ -323,7 +320,6 @@ public class PDialogExtra extends PDialog {
     private void initBorderBig() {
         VBox vBoxStyledBorder = new VBox();
         vBoxStyledBorder.getStyleClass().add("dialog-border-big");
-//        vBoxStyledBorder.setSpacing(10);
         VBox.setVgrow(vBoxStyledBorder, Priority.ALWAYS);
 
         vBoxStyledBorder.getChildren().addAll(scrollPane);
@@ -333,7 +329,6 @@ public class PDialogExtra extends PDialog {
     private void initBorder() {
         VBox vBoxStyledBorder = new VBox();
         vBoxStyledBorder.getStyleClass().add("dialog-border");
-//        vBoxStyledBorder.setSpacing(10);
         VBox.setVgrow(vBoxStyledBorder, Priority.ALWAYS);
 
         vBoxStyledBorder.getChildren().addAll(scrollPane);
@@ -343,7 +338,6 @@ public class PDialogExtra extends PDialog {
     private void initBorderSmall() {
         VBox vBoxStyledBorder = new VBox();
         vBoxStyledBorder.getStyleClass().add("dialog-border-small");
-//        vBoxStyledBorder.setSpacing(10);
         VBox.setVgrow(vBoxStyledBorder, Priority.ALWAYS);
 
         vBoxStyledBorder.getChildren().addAll(scrollPane);

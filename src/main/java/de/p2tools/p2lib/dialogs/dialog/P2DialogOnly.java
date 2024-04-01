@@ -28,71 +28,71 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-public class PDialogOnly extends PDialog {
-    private static final ArrayList<PDialog> dialogList = new ArrayList<>();
+public class P2DialogOnly extends P2Dialog {
+    private static final ArrayList<P2Dialog> dialogList = new ArrayList<>();
 
     private final VBox vBoxCompleteDialog = new VBox(); // ist der gesamte Dialog
     private P2MaskerPane maskerPane = null;
     private boolean masker = false;
 
-    public PDialogOnly() {
+    public P2DialogOnly() {
         super(P2LibConst.primaryStage, null, "", true, true);
         initDialog();
     }
 
-    public PDialogOnly(StringProperty conf, String title) {
+    public P2DialogOnly(StringProperty conf, String title) {
         // ist nur ein einfacher Dialog, zentral über dem Hauptfenster
         super(P2LibConst.primaryStage, conf, title, true, true);
         initDialog();
     }
 
-    public PDialogOnly(Stage ownerForCenteringDialog, StringProperty conf, String title) {
+    public P2DialogOnly(Stage ownerForCenteringDialog, StringProperty conf, String title) {
         super(ownerForCenteringDialog, conf, title, true, true);
         initDialog();
     }
 
-    public PDialogOnly(Stage ownerForCenteringDialog, StringProperty conf,
-                       String title, boolean modal, boolean setOnlySize) {
+    public P2DialogOnly(Stage ownerForCenteringDialog, StringProperty conf,
+                        String title, boolean modal, boolean setOnlySize) {
         super(ownerForCenteringDialog, conf, title, modal, setOnlySize);
         initDialog();
     }
 
-    public PDialogOnly(Stage ownerForCenteringDialog, StringProperty conf,
-                       String title, boolean modal, boolean setOnlySize, boolean masker) {
+    public P2DialogOnly(Stage ownerForCenteringDialog, StringProperty conf,
+                        String title, boolean modal, boolean setOnlySize, boolean masker) {
         super(ownerForCenteringDialog, conf, title, modal, setOnlySize);
         this.masker = masker;
         maskerPane = new P2MaskerPane();
         initDialog();
     }
 
-    private static synchronized void addDialog(PDialog pDialog) {
+    private static synchronized void addDialog(P2Dialog p2Dialog) {
         boolean found = false;
-        for (PDialog dialog : dialogList) {
-            if (dialog.equals(pDialog)) {
+        for (P2Dialog dialog : dialogList) {
+            if (dialog.equals(p2Dialog)) {
                 found = true;
             }
         }
         if (!found) {
-            dialogList.add(pDialog);
+            dialogList.add(p2Dialog);
         }
     }
 
-    private static synchronized void removeDialog(PDialog pDialog) {
-        dialogList.remove(pDialog);
+    private static synchronized void removeDialog(P2Dialog p2Dialog) {
+        dialogList.remove(p2Dialog);
     }
 
     public static void closeAllDialog() {
-        dialogList.stream().forEach(pDialog -> {
+        dialogList.stream().forEach(p2Dialog -> {
             Platform.runLater(() -> {
-                pDialog.hide();
+                p2Dialog.hide();
             });
         });
     }
 
     public static void showAllDialog() {
-        dialogList.stream().forEach(pDialog -> {
+        dialogList.stream().forEach(p2Dialog -> {
             Platform.runLater(() -> {
-                pDialog.showDialog();
+                p2Dialog.showDialog();
             });
         });
     }

@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.dialogs;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.dialogs.dialog.PDialogExtra;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ClipBoardContext;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
@@ -43,7 +43,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-public class WhatsNewDialog extends PDialogExtra {
+public class WhatsNewDialog extends P2DialogExtra {
 
     private final Button btnOk = new Button("_Ok");
 
