@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.mtdownload;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.net.P2UrlConnectionFactory;
 import de.p2tools.p2lib.tools.net.PUrlTools;
 
@@ -54,7 +54,7 @@ public class MTSubtitle {
             path = Paths.get(getSubtitleStr(urlSubtitle, fileNameWithoutSuffix));
         } catch (Exception ex) {
             path = null;
-            PLog.errorLog(951245412, "SubtitlePath");
+            P2Log.errorLog(951245412, "SubtitlePath");
         }
         return path;
     }
@@ -93,7 +93,7 @@ public class MTSubtitle {
             while ((n = in.read(buffer)) != -1) {
                 fos.write(buffer, 0, n);
             }
-            PLog.sysLog(new String[]{"Untertitel", "  geschrieben"});
+            P2Log.sysLog(new String[]{"Untertitel", "  geschrieben"});
         }
     }
 
@@ -115,7 +115,7 @@ public class MTSubtitle {
         }
 
         try {
-            PLog.sysLog(new String[]{"Untertitel: ", urlSubtitle,
+            P2Log.sysLog(new String[]{"Untertitel: ", urlSubtitle,
                     "schreiben nach: ", destPath});
 
             Files.createDirectories(Paths.get(destPath));
@@ -133,11 +133,11 @@ public class MTSubtitle {
 
             } else {
                 // keine Verbindung
-                PLog.errorLog(752301248, "url: " + urlSubtitle);
+                P2Log.errorLog(752301248, "url: " + urlSubtitle);
             }
 
         } catch (final Exception ignored) {
-            PLog.errorLog(461203210, ignored, "SubtitelUrl: " + urlSubtitle);
+            P2Log.errorLog(461203210, ignored, "SubtitelUrl: " + urlSubtitle);
         } finally {
             try {
                 if (in != null) {

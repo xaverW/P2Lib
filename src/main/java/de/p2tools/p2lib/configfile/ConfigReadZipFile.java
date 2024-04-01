@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.configfile;
 
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -71,7 +71,7 @@ public class ConfigReadZipFile {
                 }
             }
         } catch (IOException ex) {
-            PLog.errorLog(956301247, ex);
+            P2Log.errorLog(956301247, ex);
             ret = false;
         }
 

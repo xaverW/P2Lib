@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.tools.date;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -62,7 +62,7 @@ public class P2DateFactory {
             ret = Integer.parseInt(year);
         } catch (Exception ex) {
             ret = 0;
-            PLog.errorLog(621212154, "Jahr: " + year);
+            P2Log.errorLog(621212154, "Jahr: " + year);
         }
 
         return ret;

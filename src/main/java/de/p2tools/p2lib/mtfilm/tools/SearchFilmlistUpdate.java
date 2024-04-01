@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.mtfilm.tools;
 
 import de.p2tools.p2lib.mtdownload.MLHttpClientProxy;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import okhttp3.HttpUrl;
@@ -65,17 +65,17 @@ public class SearchFilmlistUpdate {
         if (countTimer > COUNT_MAX) {
             countTimer = 0;
             //alle 15 Min.
-            PLog.sysLog("Gibt es eine neue Filmliste?");
+            P2Log.sysLog("Gibt es eine neue Filmliste?");
             searchNewList(id);
         }
     }
 
     private void searchNewList(String id) {
         if (hasNewRemoteFilmlistID(id)) {
-            PLog.sysLog("Es gibt *eine* neue Filmliste");
+            P2Log.sysLog("Es gibt *eine* neue Filmliste");
             foundNewList.setValue(true);
         } else {
-            PLog.sysLog("Es gibt *keine* neue Filmliste");
+            P2Log.sysLog("Es gibt *keine* neue Filmliste");
             foundNewList.setValue(false);
         }
     }
@@ -95,7 +95,7 @@ public class SearchFilmlistUpdate {
                     result = true; // we have an update...
             }
         } catch (final Exception ex) {
-            PLog.errorLog(895012478, ex);
+            P2Log.errorLog(895012478, ex);
         }
 
         return result;

@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.logging.LogRecord;
 import java.util.logging.SimpleFormatter;
 
-public class PFormatter extends SimpleFormatter {
+public class P2Formatter extends SimpleFormatter {
 
     private static final FastDateFormat HHmmss = FastDateFormat.getInstance("HH:mm:ss");
     private static final int MSG_SIZE = 14;
@@ -118,6 +118,4 @@ public class PFormatter extends SimpleFormatter {
         }
         sb.append(P2LibConst.LINE_SEPARATOR);
     }
-
-
 }

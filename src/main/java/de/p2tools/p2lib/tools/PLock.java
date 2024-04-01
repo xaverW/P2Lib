@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.tools;
 
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.application.Platform;
 
 import java.io.File;
@@ -37,7 +37,7 @@ public class PLock {
 
             if (fileLock == null) {
                 //dann läuft das Programm bereits
-                PLog.sysLog("PLock: Das Programm läuft bereits");
+                P2Log.sysLog("PLock: Das Programm läuft bereits");
                 exit = ask(file);
 
             } else {
@@ -48,12 +48,12 @@ public class PLock {
                         randomAccessFile.close();
                         file.delete();
                     } catch (Exception e) {
-                        PLog.errorLog(956230478, e, "Unable to remove lock file: " + lockFile);
+                        P2Log.errorLog(956230478, e, "Unable to remove lock file: " + lockFile);
                     }
                 }));
             }
         } catch (Exception e) {
-            PLog.errorLog(784512965, e, "Unable to create and/or lock file: " + lockFile);
+            P2Log.errorLog(784512965, e, "Unable to create and/or lock file: " + lockFile);
         }
 
         if (exit) {
@@ -70,14 +70,14 @@ public class PLock {
                 "Das Programm läuft bereits, soll es nochmal gestartet werden?");
         exit = btn == PAlert.BUTTON.NO;
         if (exit) {
-            PLog.sysLog("PLock: Das Programm läuft bereits - nicht nochmal starten");
+            P2Log.sysLog("PLock: Das Programm läuft bereits - nicht nochmal starten");
         } else {
             //dann versuchen, das Lock auch vorsichtshalber zu löschen
-            PLog.sysLog("PLock: Das Programm läuft bereits - nochmal starten");
+            P2Log.sysLog("PLock: Das Programm läuft bereits - nochmal starten");
             try {
                 file.delete();
             } catch (Exception e) {
-                PLog.errorLog(963569896, e, "Unable to delete the lock file: " + file);
+                P2Log.errorLog(963569896, e, "Unable to delete the lock file: " + file);
             }
         }
         return exit;

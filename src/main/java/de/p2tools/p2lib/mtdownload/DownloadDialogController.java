@@ -19,7 +19,7 @@ package de.p2tools.p2lib.mtdownload;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.ProgIconsP2Lib;
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.dialogs.PDirFileChooser;
+import de.p2tools.p2lib.dialogs.P2DirFileChooser;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.tools.file.P2FileUtils;
@@ -109,7 +109,7 @@ public class DownloadDialogController extends P2DialogExtra {
         btnDest.setGraphic(ProgIconsP2Lib.IMAGE_FILE_OPEN.getImageView());
         btnDest.setTooltip(new Tooltip("Einen Ordner zum Speichern der Datei auswählen"));
         btnDest.setOnAction(event -> {
-            PDirFileChooser.DirChooser(stage, txtDestPath);
+            P2DirFileChooser.DirChooser(stage, txtDestPath);
             final boolean nc = nameChanged;
             this.fileName.setValue(getFileName(filePath.getValueSafe(), fileName.getValueSafe()));
             nameChanged = nc;

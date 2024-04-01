@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.mtdownload;
 
 import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.net.P2UrlConnectionFactory;
 import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
@@ -41,7 +41,7 @@ public class DownloadFactory {
 
         if (downloadDialogController.getOk()) {
             ret = true;
-            PLog.sysLog("Download wird gestartet");
+            P2Log.sysLog("Download wird gestartet");
 
             final Thread download = new HttpDownload(stage, url, downloadDialogController.getDestPath(), downloadDialogController.getDestName());
             try {
@@ -52,7 +52,7 @@ public class DownloadFactory {
             download.start();
 
         } else {
-            PLog.sysLog("Download wird nicht gestartet");
+            P2Log.sysLog("Download wird nicht gestartet");
         }
 
         return ret;
@@ -63,7 +63,7 @@ public class DownloadFactory {
             URL url = new URL(urlStr);
             return getConn(url, userAgent, timeOutSec, downloaded, sslAlways);
         } catch (Exception ex) {
-            PLog.errorLog(451214789, ex, "DownloadFactory.getConn");
+            P2Log.errorLog(451214789, ex, "DownloadFactory.getConn");
         }
         return null;
     }
@@ -89,7 +89,7 @@ public class DownloadFactory {
             conn.setDoInput(true);
             conn.setDoOutput(true);
         } catch (Exception ex) {
-            PLog.errorLog(959868547, ex, "DownloadFactory.getConn");
+            P2Log.errorLog(959868547, ex, "DownloadFactory.getConn");
         }
         return conn;
     }
@@ -107,7 +107,7 @@ public class DownloadFactory {
                 sizeStr = "1";
             }
         } catch (Exception ex) {
-            PLog.errorLog(102589746, ex, "DownloadFactory.getFileSizeFromUrl");
+            P2Log.errorLog(102589746, ex, "DownloadFactory.getFileSizeFromUrl");
         }
         return sizeStr;
     }
@@ -143,7 +143,7 @@ public class DownloadFactory {
             }
         } catch (final Exception ex) {
             ret = -1;
-            PLog.errorLog(643298301, ex, "URL: " + url);
+            P2Log.errorLog(643298301, ex, "URL: " + url);
         } finally {
             if (connection != null) {
                 connection.disconnect();

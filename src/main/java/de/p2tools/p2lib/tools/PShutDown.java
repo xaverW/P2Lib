@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.tools;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 public class PShutDown {
     public static final String SHUT_DOWN_LINUX = "shutdown -h now";
@@ -48,7 +48,7 @@ public class PShutDown {
             try {
                 Runtime.getRuntime().exec(shutDown);
             } catch (Exception ex) {
-                PLog.errorLog(953696974, ex.getMessage());
+                P2Log.errorLog(953696974, ex.getMessage());
             }
         }
     }
@@ -60,7 +60,7 @@ public class PShutDown {
             try {
                 Runtime.getRuntime().exec(shutdownCommand);
             } catch (Exception ex) {
-                PLog.errorLog(457892014, ex.getMessage());
+                P2Log.errorLog(457892014, ex.getMessage());
             }
         }
     }

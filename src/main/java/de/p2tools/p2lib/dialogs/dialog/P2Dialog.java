@@ -22,7 +22,7 @@ import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2lib.tools.IoReadWriteStyle;
 import de.p2tools.p2lib.tools.PException;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.StringProperty;
@@ -133,7 +133,7 @@ public class P2Dialog {
             }
 
         } catch (final Exception exc) {
-            PLog.errorLog(152030145, exc);
+            P2Log.errorLog(152030145, exc);
         }
     }
 
@@ -148,7 +148,7 @@ public class P2Dialog {
                     P2LibConst.WINDOW_ICON_WIDTH, P2LibConst.WINDOW_ICON_HEIGHT, true, true);
             stage.getIcons().add(0, icon);
         } catch (Exception ex) {
-            PLog.errorLog(204503978, ex);
+            P2Log.errorLog(204503978, ex);
             P2WindowIcon.addWindowP2Icon(stage);
         }
     }

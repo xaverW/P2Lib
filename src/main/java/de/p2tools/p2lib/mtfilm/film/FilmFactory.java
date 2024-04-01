@@ -20,7 +20,7 @@ package de.p2tools.p2lib.mtfilm.film;
 import de.p2tools.p2lib.mtdownload.DownloadFactory;
 import de.p2tools.p2lib.tools.DiacriticFactory;
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.SimpleListProperty;
 
 import java.text.NumberFormat;
@@ -70,7 +70,7 @@ public class FilmFactory {
         for (Map.Entry<Character, Integer> entry : counterMap.entrySet()) {
             Character key = entry.getKey();
             Integer value = entry.getValue();
-            PLog.sysLog("Key: " + (int) key + "  Key: " + key + "  Anz: " + value);
+            P2Log.sysLog("Key: " + (int) key + "  Key: " + key + "  Anz: " + value);
         }
 
         PDuration.counterStop("cleanFaultyCharacterFilmlist");

@@ -16,7 +16,7 @@
 
 package de.p2tools.p2lib.tools.date;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.SimpleObjectProperty;
 import org.apache.commons.lang3.time.FastDateFormat;
 
@@ -64,7 +64,7 @@ public class P2DateProperty extends SimpleObjectProperty<P2Date> {
             this.setValue(new P2Date(lToday));
         } catch (final Exception ex) {
             this.setValue(new P2Date(0));
-            PLog.errorLog(915263630, ex);
+            P2Log.errorLog(915263630, ex);
         }
     }
 

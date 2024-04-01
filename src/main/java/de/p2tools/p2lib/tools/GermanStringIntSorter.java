@@ -16,7 +16,7 @@
 
 package de.p2tools.p2lib.tools;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.text.Collator;
 import java.util.Comparator;
@@ -133,7 +133,7 @@ public class GermanStringIntSorter implements Comparator<String> {
                 return collator.compare(o1, o2);
             }
         } catch (Exception ex) {
-            PLog.errorLog(915247789, ex, new String[]{"GermanStringSorter:", o1, o2});
+            P2Log.errorLog(915247789, ex, new String[]{"GermanStringSorter:", o1, o2});
         }
 
         return 0;

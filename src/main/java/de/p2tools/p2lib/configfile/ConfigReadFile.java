@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.configfile;
 
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.net.P2UrlConnectionFactory;
 import de.p2tools.p2lib.tools.net.PUrlTools;
 
@@ -43,13 +43,13 @@ public class ConfigReadFile {
     public static boolean readConfig(ConfigFile configFile) {
         // todo-> kann zu unterschiedlichen Versionsständen kommen!
         if (readConfiguration(configFile)) {
-            PLog.sysLog("Config laden OK, geladen von: " + configFile.getFilePath());
+            P2Log.sysLog("Config laden OK, geladen von: " + configFile.getFilePath());
             return true;
         }
 
         if (!configFile.isBackup()) {
-            PLog.sysLog("Config laden hat nicht geklappt: " + configFile.getFilePath());
-            PLog.sysLog("Es soll kein Backup geladen werden." + configFile.getFilePath());
+            P2Log.sysLog("Config laden hat nicht geklappt: " + configFile.getFilePath());
+            P2Log.sysLog("Es soll kein Backup geladen werden." + configFile.getFilePath());
             return false;
         }
 
@@ -57,7 +57,7 @@ public class ConfigReadFile {
                 loadBackup(configFile.getBackupHeader(), configFile.getBackupText());
         if (pathList == null) {
             // dann gibts keine Backups
-            PLog.sysLog("Es gibt keine Backups.");
+            P2Log.sysLog("Es gibt keine Backups.");
             return false;
         }
 
@@ -65,11 +65,11 @@ public class ConfigReadFile {
             configFile.clearConfigFile();
             configFile.setFilePath(p.toString());
             if (readConfiguration(configFile)) {
-                PLog.sysLog("Config aus Backup geladen: " + p.toFile().getAbsolutePath());
+                P2Log.sysLog("Config aus Backup geladen: " + p.toFile().getAbsolutePath());
                 return true;
             }
         }
-        PLog.sysLog("Config-Backup laden hat nicht geklappt: " + configFile.getFilePath());
+        P2Log.sysLog("Config-Backup laden hat nicht geklappt: " + configFile.getFilePath());
         return false;
     }
 
@@ -82,7 +82,7 @@ public class ConfigReadFile {
             try {
                 ret = new ConfigRead(configFile).read(configFile.getIsr());
             } catch (Exception ex) {
-                PLog.errorLog(956301247, ex);
+                P2Log.errorLog(956301247, ex);
                 ret = false;
             }
 
@@ -95,16 +95,16 @@ public class ConfigReadFile {
                 conn.setConnectTimeout(5000);
                 conn.setReadTimeout(5000);
             } catch (final MalformedURLException ex) {
-                PLog.errorLog(965312078, ex);
+                P2Log.errorLog(965312078, ex);
             } catch (final Exception ex) {
-                PLog.errorLog(159487302, ex);
+                P2Log.errorLog(159487302, ex);
             }
             try (InputStream is = conn.getInputStream();
                  InputStreamReader in = new InputStreamReader(is, StandardCharsets.UTF_8)) {
                 ret = new ConfigRead(configFile).read(in);
             } catch (final Exception ex) {
                 ret = false;
-                PLog.errorLog(825414789, ex);
+                P2Log.errorLog(825414789, ex);
             }
 
         } else if (configFile.getFilePath().endsWith(".zip")) {
@@ -127,7 +127,7 @@ public class ConfigReadFile {
                     }
                 }
             } catch (IOException ex) {
-                PLog.errorLog(956301247, ex);
+                P2Log.errorLog(956301247, ex);
                 ret = false;
             }
 
@@ -141,7 +141,7 @@ public class ConfigReadFile {
                 ret = new ConfigRead(configFile).read(in);
             } catch (final Exception ex) {
                 ret = false;
-                PLog.errorLog(454102598, ex);
+                P2Log.errorLog(454102598, ex);
             }
         }
         PDuration.counterStop("readConfiguration");

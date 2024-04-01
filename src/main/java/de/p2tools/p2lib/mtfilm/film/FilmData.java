@@ -20,7 +20,7 @@ import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.configfile.pdata.PData;
 import de.p2tools.p2lib.mtfilm.tools.FilmDate;
 import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -140,21 +140,21 @@ public class FilmData extends FilmDataProps implements PData {
                 final String online = "/online/";
                 url = uurl.substring(uurl.indexOf(online) + online.length());
                 if (!url.contains("/")) {
-                    PLog.errorLog(915230478, "Url: " + uurl);
+                    P2Log.errorLog(915230478, "Url: " + uurl);
                     return "";
                 }
                 url = url.substring(url.indexOf('/') + 1);
                 if (!url.contains("/")) {
-                    PLog.errorLog(915230478, "Url: " + uurl);
+                    P2Log.errorLog(915230478, "Url: " + uurl);
                     return "";
                 }
                 url = url.substring(url.indexOf('/') + 1);
                 if (url.isEmpty()) {
-                    PLog.errorLog(915230478, "Url: " + uurl);
+                    P2Log.errorLog(915230478, "Url: " + uurl);
                     return "";
                 }
             } catch (final Exception ex) {
-                PLog.errorLog(915230478, ex, "Url: " + uurl);
+                P2Log.errorLog(915230478, ex, "Url: " + uurl);
             }
             return LoadFactoryConst.ORF + "----" + url;
         } else {
@@ -220,7 +220,7 @@ public class FilmData extends FilmDataProps implements PData {
 
         } catch (final Exception ex) {
             setDur(0);
-            PLog.errorLog(468912049, "Dauer: " + arr[FILM_DURATION]);
+            P2Log.errorLog(468912049, "Dauer: " + arr[FILM_DURATION]);
         }
     }
 
@@ -256,7 +256,7 @@ public class FilmData extends FilmDataProps implements PData {
                     filmDate = new FilmDate(l * 1000 /* sind SEKUNDEN!! */);
                 }
             } catch (final Exception ex) {
-                PLog.errorLog(915236701, ex, new String[]{"Datum: " + arr[FILM_DATE], "Zeit: " + arr[FILM_TIME]});
+                P2Log.errorLog(915236701, ex, new String[]{"Datum: " + arr[FILM_DATE], "Zeit: " + arr[FILM_TIME]});
                 filmDate = new FilmDate(0);
                 arr[FILM_DATE] = "";
                 arr[FILM_TIME] = "";

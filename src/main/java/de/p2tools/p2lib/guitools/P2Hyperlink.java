@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.guitools;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.ContextMenu;
@@ -101,7 +101,7 @@ public class P2Hyperlink extends Hyperlink {
             try {
                 P2Open.openURL(stage, url, prog, imageView);
             } catch (Exception e) {
-                PLog.errorLog(974125469, e);
+                P2Log.errorLog(974125469, e);
             }
         });
         setOnMousePressed(m -> {

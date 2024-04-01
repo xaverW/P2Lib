@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.checkforactinfos;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.net.P2UrlConnectionFactory;
 
 import java.io.BufferedReader;
@@ -65,7 +65,7 @@ public class FoundFactory {
             }
 
         } catch (final IOException ex) {
-            PLog.errorLog(951254670, ex);
+            P2Log.errorLog(951254670, ex);
         }
         return ret;
     }

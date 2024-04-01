@@ -32,7 +32,7 @@ import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 import de.p2tools.p2lib.mtfilm.tools.ProgressMonitorInputStream;
 import de.p2tools.p2lib.tools.PStringUtils;
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -76,7 +76,7 @@ public class ReadFilmlist {
         filmsPerDaysBlocked.clear();
         filmsPerDurationBlocked.clear();
 
-        logList.add("## " + PLog.LILNE2);
+        logList.add("## " + P2Log.LILNE2);
         try {
             progress = 0; // für die Progressanzeige
             filmlist.clear();
@@ -106,11 +106,11 @@ public class ReadFilmlist {
                 countFoundChannel(logList, filmlist);
             }
         } catch (final MalformedURLException ex) {
-            PLog.errorLog(945120201, ex);
+            P2Log.errorLog(945120201, ex);
         } catch (final Exception ex) {
-            PLog.errorLog(965412378, ex);
+            P2Log.errorLog(965412378, ex);
         }
-        logList.add("## " + PLog.LILNE2);
+        logList.add("## " + P2Log.LILNE2);
         notifyLoaded();
 
         PDuration.counterStop("readFilmlistWebOrLocal");
@@ -153,7 +153,7 @@ public class ReadFilmlist {
 
             }
         } catch (final Exception ex) {
-            PLog.errorLog(820147395, ex, "FilmListe: " + source);
+            P2Log.errorLog(820147395, ex, "FilmListe: " + source);
             filmlist.clear();
         }
     }
@@ -170,10 +170,10 @@ public class ReadFilmlist {
              JsonParser jp = new JsonFactory().createParser(in)) {
             readData(jp, filmlist);
         } catch (final FileNotFoundException ex) {
-            PLog.errorLog(894512369, "FilmListe existiert nicht: " + source);
+            P2Log.errorLog(894512369, "FilmListe existiert nicht: " + source);
             filmlist.clear();
         } catch (final Exception ex) {
-            PLog.errorLog(945123641, ex, "FilmListe: " + source);
+            P2Log.errorLog(945123641, ex, "FilmListe: " + source);
             filmlist.clear();
         }
     }
@@ -282,7 +282,7 @@ public class ReadFilmlist {
 
         PDuration.counterStart("countFoundChannel");
         if (!filmsPerChannelFoundCompleteList.isEmpty()) {
-            logList.add("## " + PLog.LILNE3);
+            logList.add("## " + P2Log.LILNE3);
             logList.add("##");
             logList.add("## == Filme pro Sender in der Gesamtliste ==");
 
@@ -304,7 +304,7 @@ public class ReadFilmlist {
         }
 
         if (!filmsPerChannelUsed.isEmpty()) {
-            logList.add("## " + PLog.LILNE3);
+            logList.add("## " + P2Log.LILNE3);
             logList.add("##  ");
             logList.add("## == Filme pro Sender verwendet ==");
 
@@ -320,7 +320,7 @@ public class ReadFilmlist {
         }
 
         if (!filmsPerChannelBlocked.isEmpty()) {
-            logList.add("## " + PLog.LILNE3);
+            logList.add("## " + P2Log.LILNE3);
             logList.add("## ");
             logList.add("## == nach Sender geblockte Filme ==");
 
@@ -336,7 +336,7 @@ public class ReadFilmlist {
         }
 
         if (!filmsPerDaysBlocked.isEmpty()) {
-            logList.add("## " + PLog.LILNE3);
+            logList.add("## " + P2Log.LILNE3);
             logList.add("## ");
             final int maxDays = LoadFactoryConst.SYSTEM_LOAD_FILMLIST_MAX_DAYS;
             logList.add("## == nach max. Tage geblockte Filme (max. " + maxDays + " Tage) ==");
@@ -353,7 +353,7 @@ public class ReadFilmlist {
         }
 
         if (!filmsPerDurationBlocked.isEmpty()) {
-            logList.add("## " + PLog.LILNE3);
+            logList.add("## " + P2Log.LILNE3);
             logList.add("## ");
             final int dur = LoadFactoryConst.SYSTEM_LOAD_FILMLIST_MIN_DURATION;
             logList.add("## == nach Filmlänge geblockte Filme (mind. " + dur + " min.) ==");
@@ -475,7 +475,7 @@ public class ReadFilmlist {
                 }
             }
         } catch (final Exception ex) {
-            PLog.errorLog(495623014, ex);
+            P2Log.errorLog(495623014, ex);
         }
         return true;
     }
@@ -490,7 +490,7 @@ public class ReadFilmlist {
                 }
             }
         } catch (final Exception ex) {
-            PLog.errorLog(495623014, ex);
+            P2Log.errorLog(495623014, ex);
         }
         return true;
     }

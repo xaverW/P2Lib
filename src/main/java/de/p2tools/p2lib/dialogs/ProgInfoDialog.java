@@ -22,7 +22,7 @@ import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.tools.ProgramToolsFactory;
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -68,7 +68,7 @@ public class ProgInfoDialog extends P2DialogExtra {
             list.add(line);
             list.add(" ");
             list.add(" ");
-            PLog.sysLog(list);
+            P2Log.sysLog(list);
         });
         final GridPane gridPane = new GridPane();
         gridPane.setHgap(5);

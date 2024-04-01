@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.tools;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.text.Normalizer;
 import java.util.regex.Pattern;
@@ -80,7 +80,7 @@ public class DiacriticFactory {
             return String.valueOf(t);
 
         } catch (Exception ex) {
-            PLog.errorLog(987451254, ex);
+            P2Log.errorLog(987451254, ex);
         }
         return string;
     }

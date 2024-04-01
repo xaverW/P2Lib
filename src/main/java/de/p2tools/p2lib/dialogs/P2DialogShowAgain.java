@@ -27,14 +27,14 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class PDialogShowAgain extends P2DialogExtra {
+public class P2DialogShowAgain extends P2DialogExtra {
 
     private final Button btnOk = new Button("_Ok");
     private final BooleanProperty showAgain;
     private final String text;
 
-    public PDialogShowAgain(Stage ownerForCenteringDialog, StringProperty conf,
-                            String title, String text, BooleanProperty showAgain) {
+    public P2DialogShowAgain(Stage ownerForCenteringDialog, StringProperty conf,
+                             String title, String text, BooleanProperty showAgain) {
         super(ownerForCenteringDialog, conf, title, true, false, DECO.NO_BORDER, true);
         this.showAgain = showAgain;
         this.text = text;

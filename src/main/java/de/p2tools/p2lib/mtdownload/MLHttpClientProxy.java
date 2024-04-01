@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.mtdownload;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import okhttp3.Authenticator;
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
@@ -40,21 +40,21 @@ public class MLHttpClientProxy {
             if (!P2LibConst.useProxy.getValue()) {
                 // dann wills der User nicht
                 setupNonProxyClients();
-                PLog.debugLog("Keinen Proxy setzen");
+                P2Log.debugLog("Keinen Proxy setzen");
 
             } else if (!proxyHost.isEmpty() && !proxyPort.isEmpty()) {
                 final Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, Integer.parseInt(proxyPort)));
                 setupProxyClients(proxy);
-                PLog.debugLog("Proxy verwenden: :\n" + proxyHost + " - " + proxyPort);
+                P2Log.debugLog("Proxy verwenden: :\n" + proxyHost + " - " + proxyPort);
 
             } else {
                 // dann halt keinen
                 setupNonProxyClients();
-                PLog.debugLog("Keinen Proxy setzen, Vorgaben nicht vollständig:\n" + proxyHost + " - " + proxyPort);
+                P2Log.debugLog("Keinen Proxy setzen, Vorgaben nicht vollständig:\n" + proxyHost + " - " + proxyPort);
             }
         } catch (NumberFormatException ex) {
             setupNonProxyClients();
-            PLog.debugLog("Keinen Proxy setzen, Fehler:\n" + proxyHost + " - " + proxyPort);
+            P2Log.debugLog("Keinen Proxy setzen, Fehler:\n" + proxyHost + " - " + proxyPort);
         }
     }
 
@@ -97,7 +97,7 @@ public class MLHttpClientProxy {
 
         if (!prxUser.isEmpty() && !prxPassword.isEmpty()) {
             proxyAuthenticator = createAuthenticator(prxUser, prxPassword);
-            PLog.debugLog("Authenticator setzen");
+            P2Log.debugLog("Authenticator setzen");
         }
         return proxyAuthenticator;
     }

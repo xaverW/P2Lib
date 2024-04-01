@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.mtfilm.loadfilmlist;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.application.Platform;
 
 import javax.swing.event.EventListenerList;
@@ -38,7 +38,7 @@ public class P2LoadNotifier {
                 }
             });
         } catch (final Exception ex) {
-            PLog.errorLog(912045120, ex);
+            P2Log.errorLog(912045120, ex);
         }
     }
 
@@ -48,12 +48,12 @@ public class P2LoadNotifier {
 
     public void addListenerLoadFilmlist(P2LoadListener listener) {
         listeners.add(P2LoadListener.class, listener);
-        PLog.debugLogCount("addListenerLoadFilmlist: " + listeners.getListenerCount());
+        P2Log.debugLogCount("addListenerLoadFilmlist: " + listeners.getListenerCount());
     }
 
     public void removeListenerLoadFilmlist(P2LoadListener listener) {
         listeners.remove(P2LoadListener.class, listener);
-        PLog.debugLogCount("removeListenerLoadFilmlist: " + listeners.getListenerCount());
+        P2Log.debugLogCount("removeListenerLoadFilmlist: " + listeners.getListenerCount());
     }
 
     public enum NOTIFY {START, PROGRESS, LOADED, FINISHED}

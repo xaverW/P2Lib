@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.tools.duration;
 
 import de.p2tools.p2lib.tools.PStringUtils;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.text.DecimalFormat;
 import java.time.Duration;
@@ -99,7 +99,7 @@ public class PDuration {
         final Instant now = Instant.now();
 
         ArrayList<String> list = new ArrayList<>();
-        list.add(PLog.LILNE3);
+        list.add(P2Log.LILNE3);
         list.add(kind + " " + sum++ + ":  " + text + "  [" + roundDuration(Duration.between(onlyPingTime, now)) + "]");
         list.add("Klasse:  " + className);
 
@@ -111,10 +111,10 @@ public class PDuration {
             extraText.stream().forEach(txt -> list.add("  " + txt));
         }
 
-        list.add(PLog.LILNE3);
+        list.add(P2Log.LILNE3);
 
         PStringUtils.appendString(list, "|  ", "-");
-        PLog.durationLog(list);
+        P2Log.durationLog(list);
 
         onlyPingTime = now;
     }

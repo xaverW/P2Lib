@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.checkforactinfos;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -61,7 +61,7 @@ public class FoundAllFiles {
                     FoundFactory.isNewFound(foundSearchData.getLastDailyDate(), foundSearchData.getProgBuildDate(), log)) {
                 foundSearchData.setLastDailyDate(foundSearchData.getProgBuildDate());
             }
-            PLog.sysLog(log);
+            P2Log.sysLog(log);
 
             String strLine;
             while ((strLine = br.readLine()) != null) {
@@ -86,7 +86,7 @@ public class FoundAllFiles {
                 }
             }
         } catch (final IOException ex) {
-            PLog.errorLog(201312587, ex);
+            P2Log.errorLog(201312587, ex);
         }
     }
 
@@ -161,7 +161,7 @@ public class FoundAllFiles {
 
             if (fileName.endsWith(".txt")) {
                 //Infofile
-                PLog.debugLog("Infofile laden: "+ foundFile.getFileName() + "  --  " + foundFile.getFileUrl());
+                P2Log.debugLog("Infofile laden: " + foundFile.getFileName() + "  --  " + foundFile.getFileUrl());
                 foundSearchData.setNewVersionText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
 
             } else if ((foundSearchData.isShowAlways() &&
@@ -218,10 +218,10 @@ public class FoundAllFiles {
             if (fileName.endsWith(".txt")) {
                 //Infofile
                 if (beta) {
-                    PLog.debugLog("Infofile beta laden: "+ foundFile.getFileName() + "  --  " + foundFile.getFileUrl());
+                    P2Log.debugLog("Infofile beta laden: " + foundFile.getFileName() + "  --  " + foundFile.getFileUrl());
                     foundSearchData.setNewBetaText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
                 } else {
-                    PLog.debugLog("Infofile daily laden: "+ foundFile.getFileName() + "  --  " + foundFile.getFileUrl());
+                    P2Log.debugLog("Infofile daily laden: " + foundFile.getFileName() + "  --  " + foundFile.getFileUrl());
                     foundSearchData.setNewDailyText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
                 }
 

@@ -16,7 +16,7 @@
 
 package de.p2tools.p2lib.tools.date;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -38,7 +38,7 @@ public class P2LDateFactory {
             ret = Integer.parseInt(year);
         } catch (Exception ex) {
             ret = 0;
-            PLog.errorLog(980214963, "Jahr: " + year);
+            P2Log.errorLog(980214963, "Jahr: " + year);
         }
 
         return ret;

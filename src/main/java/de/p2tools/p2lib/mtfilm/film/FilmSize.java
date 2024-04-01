@@ -16,7 +16,7 @@
 
 package de.p2tools.p2lib.mtfilm.film;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 public class FilmSize implements Comparable<FilmSize> {
 
@@ -39,7 +39,7 @@ public class FilmSize implements Comparable<FilmSize> {
                 l = Long.parseLong(film.arr[FilmDataXml.FILM_SIZE]);
             }
         } catch (final Exception ex) {
-            PLog.errorLog(649891025, ex, "String: " + film.arr[FilmDataXml.FILM_SIZE]);
+            P2Log.errorLog(649891025, ex, "String: " + film.arr[FilmDataXml.FILM_SIZE]);
             l = 0L;
             s = "";
         }

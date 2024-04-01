@@ -19,8 +19,8 @@ package de.p2tools.p2lib.configfile;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.dialogs.PDialogFileChooser;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.dialogs.P2DialogFileChooser;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -53,7 +53,7 @@ class ConfigBackupFile {
         }
 
         ArrayList<String> list = new ArrayList<>();
-        list.add(PLog.LILNE3);
+        list.add(P2Log.LILNE3);
         list.add("BackupConfigFile sichern");
 
         try {
@@ -87,27 +87,27 @@ class ConfigBackupFile {
             }
         } catch (final IOException e) {
             list.add("Die Einstellungen konnten nicht komplett gesichert werden!");
-            PLog.errorLog(795623147, e);
+            P2Log.errorLog(795623147, e);
         }
 
         alreadyMadeBackup = true;
-        list.add(PLog.LILNE3);
-        PLog.sysLog(list);
+        list.add(P2Log.LILNE3);
+        P2Log.sysLog(list);
     }
 
     ArrayList<Path> loadBackup(String header, String text) {
         final ArrayList<Path> pathList = new ArrayList<>();
         getXmlCopyFilePath(pathList);
         if (pathList.isEmpty()) {
-            PLog.sysLog("Es gibt kein Backup");
+            P2Log.sysLog("Es gibt kein Backup");
             return null;
         }
 
         // dann gibts ein Backup
-        PLog.sysLog("Es gibt ein Backup");
+        P2Log.sysLog("Es gibt ein Backup");
         //stage bzw. scene gibts noch nicht
         //ist ja meist der Programmstart!!!
-        if (PAlert.BUTTON.YES != new PDialogFileChooser().showAlert_yes_no(null, "Gesicherte Einstellungen laden?",
+        if (PAlert.BUTTON.YES != new P2DialogFileChooser().showAlert_yes_no(null, "Gesicherte Einstellungen laden?",
 
                 header.isEmpty() ? "Die Einstellungen sind beschädigt" + P2LibConst.LINE_SEPARATOR +
                         "und können nicht geladen werden." : header,
@@ -118,7 +118,7 @@ class ConfigBackupFile {
                                 + "(ansonsten startet das Programm mit" + P2LibConst.LINE_SEPARATOR
                                 + "Standardeinstellungen)" : text)) {
 
-            PLog.sysLog("User will kein Backup laden.");
+            P2Log.sysLog("User will kein Backup laden.");
             return null;
         }
 

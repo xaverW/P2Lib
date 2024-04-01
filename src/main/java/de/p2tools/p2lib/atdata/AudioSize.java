@@ -16,7 +16,7 @@
 
 package de.p2tools.p2lib.atdata;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 public class AudioSize implements Comparable<AudioSize> {
 
@@ -39,7 +39,7 @@ public class AudioSize implements Comparable<AudioSize> {
                 l = Long.parseLong(audioSize);
             }
         } catch (final Exception ex) {
-            PLog.errorLog(649891025, ex, "String: " + audioSize);
+            P2Log.errorLog(649891025, ex, "String: " + audioSize);
             l = 0L;
             s = "";
         }

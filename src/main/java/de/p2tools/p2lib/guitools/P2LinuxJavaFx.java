@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.guitools;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.awt.*;
 
@@ -40,7 +40,7 @@ public class P2LinuxJavaFx {
             return true;
 
         } catch (final ClassNotFoundException e) {
-            PLog.errorLog(487651240, new String[]{TEXT_LINE, ERROR_NO_JAVAFX_INSTALLED, TEXT_LINE});
+            P2Log.errorLog(487651240, new String[]{TEXT_LINE, ERROR_NO_JAVAFX_INSTALLED, TEXT_LINE});
             return false;
         }
     }

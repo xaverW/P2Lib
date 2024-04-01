@@ -21,7 +21,7 @@ import de.p2tools.p2lib.alert.PAlert;
 import de.p2tools.p2lib.guitools.pnotification.P2Notification;
 import de.p2tools.p2lib.tools.file.P2FileSize;
 import de.p2tools.p2lib.tools.file.P2FileUtils;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.net.P2UrlConnectionFactory;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -72,7 +72,7 @@ public class HttpDownload extends Thread {
 
     @Override
     public synchronized void run() {
-        PLog.sysLog("Download von: " + url + P2LibConst.LINE_SEPARATOR + "nach: " + destDirFile);
+        P2Log.sysLog("Download von: " + url + P2LibConst.LINE_SEPARATOR + "nach: " + destDirFile);
         ++downloadRunning;
 
         try {
@@ -109,7 +109,7 @@ public class HttpDownload extends Thread {
                         text.add("Timeout, Restarts: " + restartCount);
                         text.add("Ziel: " + destDirFile);
                         text.add("URL: " + url);
-                        PLog.sysLog(text.toArray(new String[text.size()]));
+                        P2Log.sysLog(text.toArray(new String[text.size()]));
                     }
 
                     restartCount++;
@@ -117,7 +117,7 @@ public class HttpDownload extends Thread {
                 } else {
                     // dann weiß der Geier!
                     exMessage = ex.getMessage();
-                    PLog.errorLog(974512037, ex, "Fehler");
+                    P2Log.errorLog(974512037, ex, "Fehler");
                     error = true;
                 }
             }
@@ -178,7 +178,7 @@ public class HttpDownload extends Thread {
                     // ==================================
                     // dann wars das
                     responseCode = "Responsecode: " + conn.getResponseCode() + P2LibConst.LINE_SEPARATOR + conn.getResponseMessage();
-                    PLog.errorLog(989895658, "HTTP-Fehler: " + conn.getResponseCode() + ' ' + conn.getResponseMessage());
+                    P2Log.errorLog(989895658, "HTTP-Fehler: " + conn.getResponseCode() + ' ' + conn.getResponseMessage());
                     closeConn(conn);
                 }
             }
@@ -264,7 +264,7 @@ public class HttpDownload extends Thread {
 
         final File file = new File(destDirFile);
         if (!file.exists()) {
-            PLog.errorLog(951203473, "Download fehlgeschlagen: Datei existiert nicht: " + destDirFile);
+            P2Log.errorLog(951203473, "Download fehlgeschlagen: Datei existiert nicht: " + destDirFile);
         } else {
             ret = true;
         }
@@ -285,13 +285,13 @@ public class HttpDownload extends Thread {
             if (file.exists() && (error || file.length() == 0)) {
                 error = true;
                 // zum Wiederstarten/Aufräumen die leer/zu kleine Datei löschen, alles auf Anfang
-                PLog.sysLog(new String[]{"Fehler oder leere Datei: löschen", file.getAbsolutePath()});
+                P2Log.sysLog(new String[]{"Fehler oder leere Datei: löschen", file.getAbsolutePath()});
                 if (!file.delete()) {
                     throw new Exception();
                 }
             }
         } catch (final Exception ex) {
-            PLog.errorLog(316704568, "Fehler beim löschen" + file.getAbsolutePath());
+            P2Log.errorLog(316704568, "Fehler beim löschen" + file.getAbsolutePath());
         }
     }
 }

@@ -19,7 +19,7 @@ package de.p2tools.p2lib.atdata;
 import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.configfile.pdata.PData;
 import de.p2tools.p2lib.mtfilm.tools.FilmDate;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 public class AudioData extends AudioDataProps implements PData {
 
@@ -88,7 +88,7 @@ public class AudioData extends AudioDataProps implements PData {
             setDur(durSecond);
         } catch (final Exception ex) {
             setDur(0);
-            PLog.errorLog(201659701, "Dauer: " + arr[AUDIO_DURATION]);
+            P2Log.errorLog(201659701, "Dauer: " + arr[AUDIO_DURATION]);
         }
     }
 
@@ -117,7 +117,7 @@ public class AudioData extends AudioDataProps implements PData {
                     date = new FilmDate(l * 1000 /* sind SEKUNDEN!! */);
                 }
             } catch (final Exception ex) {
-                PLog.errorLog(915236701, ex, new String[]{"Datum: " + arr[AUDIO_DATE]});
+                P2Log.errorLog(915236701, ex, new String[]{"Datum: " + arr[AUDIO_DATE]});
                 date = new FilmDate(0);
                 arr[AUDIO_DATE] = "";
             }

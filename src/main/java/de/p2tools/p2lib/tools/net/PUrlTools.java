@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.tools.net;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.net.HttpURLConnection;
 
@@ -59,7 +59,7 @@ public class PUrlTools {
             ret = ret.substring(0, ret.indexOf('&'));
         }
         if (ret.isEmpty()) {
-            PLog.errorLog(395019631, path);
+            P2Log.errorLog(395019631, path);
         }
         return ret;
     }
@@ -74,7 +74,7 @@ public class PUrlTools {
             }
         }
         if (ret.isEmpty()) {
-            PLog.errorLog(969871236, path);
+            P2Log.errorLog(969871236, path);
         }
         if (ret.contains("?")) {
             ret = ret.substring(0, ret.indexOf('?'));
@@ -82,7 +82,7 @@ public class PUrlTools {
         if (ret.length() > 5) {
             // dann ist was faul
             ret = "---";
-            PLog.errorLog(821397046, "no Suffix for URL: " + path);
+            P2Log.errorLog(821397046, "no Suffix for URL: " + path);
         }
         return ret;
     }
@@ -99,7 +99,7 @@ public class PUrlTools {
         }
         if (ret.isEmpty()) {
             ret = path;
-            PLog.errorLog(945123647, path);
+            P2Log.errorLog(945123647, path);
         }
         return ret;
     }

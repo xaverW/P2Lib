@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.mtdownload;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -29,7 +29,7 @@ public class MTInfoFile {
                                      String url, String downloadSize,
                                      String channel, String theme, String title, String date, String time,
                                      String duration, String urlWebsite, String description) {
-        PLog.sysLog(new String[]{"Infofile schreiben nach: ", destPath});
+        P2Log.sysLog(new String[]{"Infofile schreiben nach: ", destPath});
 
         new File(destPath).mkdirs();
         // final Path path = Paths.get(download.getFileNameWithoutSuffix() + ".txt");
@@ -78,9 +78,9 @@ public class MTInfoFile {
             }
             br.write(P2LibConst.LINE_SEPARATORx2);
             br.flush();
-            PLog.sysLog(new String[]{"Infofile", "  geschrieben"});
+            P2Log.sysLog(new String[]{"Infofile", "  geschrieben"});
         } catch (final IOException ex) {
-            PLog.errorLog(975410369, destPathFile);
+            P2Log.errorLog(975410369, destPathFile);
         }
     }
 
@@ -90,7 +90,7 @@ public class MTInfoFile {
             path = Paths.get(getInfoFileStr(fileNameWithoutSuffix));
         } catch (Exception ex) {
             path = null;
-            PLog.errorLog(987451202, "InfofilePath");
+            P2Log.errorLog(987451202, "InfofilePath");
         }
         return path;
     }

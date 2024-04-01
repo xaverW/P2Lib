@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.dialogs;
 
 import de.p2tools.p2lib.tools.file.P2FileName;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
@@ -28,7 +28,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class PDirFileChooser {
+public class P2DirFileChooser {
 
     public static String FileChooserSelect(Stage stage) {
         return FileChooserSelect(stage, "", "");
@@ -57,7 +57,7 @@ public class PDirFileChooser {
             try {
                 ret = selectedFile.getAbsolutePath();
             } catch (final Exception ex) {
-                PLog.errorLog(912030654, ex);
+                P2Log.errorLog(912030654, ex);
             }
         }
 
@@ -87,7 +87,7 @@ public class PDirFileChooser {
             try {
                 ret = selectedFile.getAbsolutePath();
             } catch (final Exception ex) {
-                PLog.errorLog(912030654, ex);
+                P2Log.errorLog(912030654, ex);
             }
         }
 
@@ -210,7 +210,7 @@ public class PDirFileChooser {
                 cbPath.getSelectionModel().select(ret);
 
             } catch (final Exception ex) {
-                PLog.errorLog(912030201, ex);
+                P2Log.errorLog(912030201, ex);
             }
         }
 
@@ -259,7 +259,7 @@ public class PDirFileChooser {
                 cbPath.getSelectionModel().select(ret);
 
             } catch (final Exception ex) {
-                PLog.errorLog(912030201, ex);
+                P2Log.errorLog(912030201, ex);
             }
         }
 
@@ -347,7 +347,7 @@ public class PDirFileChooser {
                 cbPath.getSelectionModel().select(ret);
 
             } catch (final Exception ex) {
-                PLog.errorLog(912365478, ex);
+                P2Log.errorLog(912365478, ex);
             }
         }
 

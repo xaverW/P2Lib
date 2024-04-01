@@ -16,7 +16,7 @@
 
 package de.p2tools.p2lib.tools;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.util.ArrayList;
@@ -104,7 +104,7 @@ public class ProgramToolsFactory {
                 msg = rb.getString(propToken);
             }
         } catch (final Exception e) {
-            PLog.errorLog(807293847, e);
+            P2Log.errorLog(807293847, e);
         }
         return msg;
     }
@@ -118,7 +118,7 @@ public class ProgramToolsFactory {
                 return rb.getString(TOKEN_VERSION);
             }
         } catch (final Exception e) {
-            PLog.errorLog(936251478, e);
+            P2Log.errorLog(936251478, e);
         }
         return "";
     }
@@ -127,7 +127,7 @@ public class ProgramToolsFactory {
         try {
             return Integer.parseInt(getProgVersion());
         } catch (final Exception e) {
-            PLog.errorLog(951203647, e);
+            P2Log.errorLog(951203647, e);
         }
         return 0;
     }
@@ -141,7 +141,7 @@ public class ProgramToolsFactory {
                 return rb.getString(TOKEN_VERSION);
             }
         } catch (final Exception e) {
-            PLog.errorLog(987012549, e);
+            P2Log.errorLog(987012549, e);
         }
         return "0";
     }
@@ -150,7 +150,7 @@ public class ProgramToolsFactory {
         try {
             return Integer.parseInt(getBuild());
         } catch (final Exception e) {
-            PLog.errorLog(951203647, e);
+            P2Log.errorLog(951203647, e);
         }
         return 0;
     }

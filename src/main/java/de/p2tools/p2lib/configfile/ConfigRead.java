@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.configfile;
 
 import de.p2tools.p2lib.configfile.pdata.PData;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.configfile.config.Config_pData;
 import de.p2tools.p2lib.configfile.config.Config_pDataList;
@@ -67,7 +67,7 @@ class ConfigRead implements AutoCloseable {
 
         } catch (final Exception ex) {
             ret = false;
-            PLog.errorLog(915263478, ex);
+            P2Log.errorLog(915263478, ex);
         } finally {
             try {
                 if (parser != null) {
@@ -129,7 +129,7 @@ class ConfigRead implements AutoCloseable {
             return getConfig(parser, (Config) o);
 
         } else {
-            PLog.sysLog("Fehler beim Lesen: " + o.getClass().toString());
+            P2Log.sysLog("Fehler beim Lesen: " + o.getClass().toString());
             return false;
         }
 
@@ -164,7 +164,7 @@ class ConfigRead implements AutoCloseable {
             }
         } catch (final Exception ex) {
             ret = false;
-            PLog.errorLog(975102305, ex);
+            P2Log.errorLog(975102305, ex);
         }
         return ret;
     }
@@ -199,7 +199,7 @@ class ConfigRead implements AutoCloseable {
             ret = true;
 
         } catch (final Exception ex) {
-            PLog.errorLog(102365494, ex);
+            P2Log.errorLog(102365494, ex);
         }
 
         return ret;
@@ -225,7 +225,7 @@ class ConfigRead implements AutoCloseable {
                 config.setActValue(n);
             }
         } catch (final Exception ex) {
-            PLog.errorLog(302104587, ex);
+            P2Log.errorLog(302104587, ex);
             return false;
         }
 

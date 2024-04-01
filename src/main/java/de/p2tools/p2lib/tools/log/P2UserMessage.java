@@ -26,7 +26,7 @@ import java.util.ArrayList;
  * diese Meldungen können in einem Tab "Meldungen" angesehen werden
  * und sind für die User gedacht (werden aber auch im PLog eingetragen)
  */
-public class UserMessage {
+public class P2UserMessage {
 
     public static ObservableList<String> msgList = FXCollections.observableArrayList();
 
@@ -95,5 +95,4 @@ public class UserMessage {
         // wegen synchronized hier
         return String.join("", msgList);
     }
-
 }

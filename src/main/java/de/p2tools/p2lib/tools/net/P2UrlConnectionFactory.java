@@ -1,7 +1,7 @@
 package de.p2tools.p2lib.tools.net;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -35,7 +35,7 @@ public class P2UrlConnectionFactory {
                 httpURLConn = (HttpURLConnection) url.openConnection(proxy);
             } catch (Exception ex) {
                 // dann eben ohne proxy
-                PLog.errorLog(701208613, "Kann die Proxy-Verbindung nicht aufbauen:\n" + host + " - " + port);
+                P2Log.errorLog(701208613, "Kann die Proxy-Verbindung nicht aufbauen:\n" + host + " - " + port);
                 httpURLConn = (HttpURLConnection) url.openConnection();
             }
         }

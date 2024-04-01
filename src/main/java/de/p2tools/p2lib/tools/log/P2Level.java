@@ -19,12 +19,12 @@ package de.p2tools.p2lib.tools.log;
 
 import java.util.logging.Level;
 
-public class PLevel extends Level {
-    public static final Level DURATION = new PLevel("DURATION", Level.INFO.intValue() + 1);
-    public static final Level DEBUG = new PLevel("DEBUG", Level.INFO.intValue() + 2);
-    public static final Level EXT_TOOL_MSG = new PLevel("EXT_TOOL", Level.INFO.intValue() + 3);
+public class P2Level extends Level {
+    public static final Level DURATION = new P2Level("DURATION", Level.INFO.intValue() + 1);
+    public static final Level DEBUG = new P2Level("DEBUG", Level.INFO.intValue() + 2);
+    public static final Level EXT_TOOL_MSG = new P2Level("EXT_TOOL", Level.INFO.intValue() + 3);
 
-    public PLevel(String name, int value) {
+    public P2Level(String name, int value) {
         super(name, value);
     }
 }

@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.configfile;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -57,7 +57,7 @@ public class ConfigWriteFile {
             }
             zipOut.close();
         } catch (Exception ex) {
-            PLog.errorLog(784512589, ex);
+            P2Log.errorLog(784512589, ex);
             ret = false;
         }
         return ret;
@@ -90,7 +90,7 @@ public class ConfigWriteFile {
                 }
             }
         } catch (IOException ex) {
-            PLog.errorLog(602035789, ex);
+            P2Log.errorLog(602035789, ex);
             ret = false;
         }
         return ret;

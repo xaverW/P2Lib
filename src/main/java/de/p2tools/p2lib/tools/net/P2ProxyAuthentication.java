@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.tools.net;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
@@ -42,15 +42,15 @@ public class P2ProxyAuthentication {
                         return authenticator;
                     }
                 });
-                PLog.sysLog(String.format(LOG_TEXT_PROXY_AUTHENTICATION_SUCCESSFUL, prxUser));
+                P2Log.sysLog(String.format(LOG_TEXT_PROXY_AUTHENTICATION_SUCCESSFUL, prxUser));
             } else if (prxUser != null && prxPassword == null) {
-                PLog.sysLog(LOG_TEXT_PROXY_PASSWORD_NOT_SET);
+                P2Log.sysLog(LOG_TEXT_PROXY_PASSWORD_NOT_SET);
             } else {
-                PLog.sysLog(LOG_TEXT_PROXY_AUTHENTICATION_NOT_CONFIGURED);
+                P2Log.sysLog(LOG_TEXT_PROXY_AUTHENTICATION_NOT_CONFIGURED);
             }
 
         } catch (final SecurityException se) {
-            PLog.sysLog(LOG_TEXT_PROXY_AUTHENTICATION_CANNOT_ACCESS_PROXY_USER_PROXY_PW + se.toString());
+            P2Log.sysLog(LOG_TEXT_PROXY_AUTHENTICATION_CANNOT_ACCESS_PROXY_USER_PROXY_PW + se.toString());
         }
     }
 }

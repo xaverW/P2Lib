@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.configfile;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.configfile.config.Config_comment;
 import de.p2tools.p2lib.configfile.config.Config_pData;
@@ -51,13 +51,13 @@ class ConfigWrite {
             xmlWriteEnd();
             return true;
         } catch (final Exception ex) {
-            PLog.errorLog(912014085, ex);
+            P2Log.errorLog(912014085, ex);
             return false;
         }
     }
 
     private void xmlWriteStart(OutputStream outputStream) throws XMLStreamException {
-        PLog.sysLog("Start Schreiben nach: " + configFile.getFilePath());
+        P2Log.sysLog("Start Schreiben nach: " + configFile.getFilePath());
         outputStreamWriter = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
         final XMLOutputFactory outFactory = XMLOutputFactory.newInstance();
         xmlStreamWriter = outFactory.createXMLStreamWriter(outputStreamWriter);
@@ -89,7 +89,7 @@ class ConfigWrite {
         xmlStreamWriter.writeEndElement();
         xmlStreamWriter.writeEndDocument();
         xmlStreamWriter.flush();
-        PLog.sysLog("geschrieben!");
+        P2Log.sysLog("geschrieben!");
     }
 
 
@@ -119,7 +119,7 @@ class ConfigWrite {
         } else if (o instanceof Config) {
             writeConfig((Config) o, tab);
         } else {
-            PLog.sysLog("Fehler beim Schreiben von: " + o.getClass().toString());
+            P2Log.sysLog("Fehler beim Schreiben von: " + o.getClass().toString());
         }
     }
 

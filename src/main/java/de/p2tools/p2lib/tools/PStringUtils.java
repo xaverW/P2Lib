@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.tools;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -78,7 +78,7 @@ public class PStringUtils {
             // remove NUL character from conversion...
             ret = ret.replaceAll("\\u0000", "");
         } catch (CharacterCodingException ex) {
-            PLog.errorLog(945120201, ex);
+            P2Log.errorLog(945120201, ex);
         }
 
         return ret;

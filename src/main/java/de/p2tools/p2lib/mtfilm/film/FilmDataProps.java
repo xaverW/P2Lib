@@ -19,7 +19,7 @@ package de.p2tools.p2lib.mtfilm.film;
 import de.p2tools.p2lib.mtfilm.tools.FilmDate;
 import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 import de.p2tools.p2lib.tools.date.P2Date;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 public class FilmDataProps extends FilmDataXml {
 
@@ -87,7 +87,7 @@ public class FilmDataProps extends FilmDataXml {
                 inFuture = false;
             }
         } catch (final Exception ex) {
-            PLog.errorLog(915236478, ex);
+            P2Log.errorLog(915236478, ex);
             inFuture = false;
         }
     }

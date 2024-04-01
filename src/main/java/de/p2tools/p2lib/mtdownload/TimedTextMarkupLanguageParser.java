@@ -16,7 +16,7 @@
 
 package de.p2tools.p2lib.mtdownload;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -206,7 +206,7 @@ public class TimedTextMarkupLanguageParser {
             buildFilmList();
             ret = true;
         } catch (Exception ex) {
-            PLog.errorLog(715289308, new String[]{ex.getLocalizedMessage(), "File: " + ttmlFilePath});
+            P2Log.errorLog(715289308, new String[]{ex.getLocalizedMessage(), "File: " + ttmlFilePath});
             ret = false;
         }
         return ret;
@@ -275,7 +275,7 @@ public class TimedTextMarkupLanguageParser {
             buildFilmListFlash();
             ret = true;
         } catch (Exception ex) {
-            PLog.errorLog(46231470, new String[]{ex.getLocalizedMessage(), "File: " + ttmlFilePath});
+            P2Log.errorLog(46231470, new String[]{ex.getLocalizedMessage(), "File: " + ttmlFilePath});
             ret = false;
         }
         return ret;
@@ -306,7 +306,7 @@ public class TimedTextMarkupLanguageParser {
                 counter++;
             }
         } catch (Exception ex) {
-            PLog.errorLog(201036470, ex, "File: " + srtFile);
+            P2Log.errorLog(201036470, ex, "File: " + srtFile);
         }
     }
 

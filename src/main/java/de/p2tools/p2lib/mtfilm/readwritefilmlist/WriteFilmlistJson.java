@@ -24,7 +24,7 @@ import de.p2tools.p2lib.mtfilm.film.FilmData;
 import de.p2tools.p2lib.mtfilm.film.FilmDataXml;
 import de.p2tools.p2lib.mtfilm.film.Filmlist;
 import de.p2tools.p2lib.mtfilm.film.FilmlistXml;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -144,7 +144,7 @@ public class WriteFilmlistJson {
             }
             jg.writeEndObject();
         } catch (Exception ex) {
-            PLog.errorLog(846930145, ex, "nach: " + file);
+            P2Log.errorLog(846930145, ex, "nach: " + file);
         }
     }
 

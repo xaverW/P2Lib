@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.tools;
 
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.scene.Scene;
 
 import java.io.BufferedWriter;
@@ -39,14 +39,14 @@ public class IoReadWriteStyle {
 
     public static boolean readStyle(Path filePath, Scene scene) {
         boolean ret = readData(filePath, scene);
-        PLog.sysLog(list);
+        P2Log.sysLog(list);
         list.clear();
         return ret;
     }
 
     public static synchronized void writeStyle(Path filePath, int size) {
         writeData(filePath, size);
-        PLog.sysLog(list);
+        P2Log.sysLog(list);
         list.clear();
     }
 
@@ -61,7 +61,7 @@ public class IoReadWriteStyle {
                 scene.getStylesheets().add(filePath.toUri().toString());
                 ret = true;
             } catch (NullPointerException ex) {
-                PLog.errorLog(987549987, "style.css not found");
+                P2Log.errorLog(987549987, "style.css not found");
             }
         }
 
@@ -83,7 +83,7 @@ public class IoReadWriteStyle {
             bufferedWriter.write(style);
             list.add("geschrieben!");
         } catch (final Exception ex) {
-            PLog.errorLog(987010268, ex);
+            P2Log.errorLog(987010268, ex);
         }
     }
 }

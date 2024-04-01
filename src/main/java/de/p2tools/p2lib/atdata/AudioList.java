@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.atdata;
 
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
@@ -33,7 +33,7 @@ public class AudioList extends SimpleListProperty<AudioData> {
 
     public static int META_GMT = 0;
     public static int META_LOCAL = 1;
-    
+
     public int nr = 1;
     public String[] metaData = new String[]{"GMT", "LocalDate"}; // AudioDataXml.AUDIO_LIST_META_MAX_ELEM
     public String[] sender = {""};
@@ -70,7 +70,7 @@ public class AudioList extends SimpleListProperty<AudioData> {
     }
 
     public synchronized void filteredListSetPred(Predicate<AudioData> predicate) {
-        PLog.debugLog("=================> Filter: " + ++count);
+        P2Log.debugLog("=================> Filter: " + ++count);
         PDuration.counterStart("FilmList.filteredListSetPred");
         getFilteredList().setPredicate(predicate);
         PDuration.counterStop("FilmList.filteredListSetPred");

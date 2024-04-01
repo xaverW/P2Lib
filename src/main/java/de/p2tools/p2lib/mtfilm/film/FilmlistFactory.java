@@ -19,7 +19,7 @@ package de.p2tools.p2lib.mtfilm.film;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 import de.p2tools.p2lib.tools.duration.PDuration;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.ListProperty;
 import org.apache.commons.lang3.time.FastDateFormat;
 
@@ -165,7 +165,7 @@ public class FilmlistFactory {
             });
 
         } catch (Exception ex) {
-            PLog.errorLog(951024789, ex);
+            P2Log.errorLog(951024789, ex);
         }
         PDuration.counterStop("markFilms");
 
@@ -300,13 +300,13 @@ public class FilmlistFactory {
         }
         if (strAge.isEmpty()) {
             //dann ist das Alter nicht gesetzt
-            PLog.sysLog("Die Filmliste hat kein Alter gespeichert -> Neue laden");
+            P2Log.sysLog("Die Filmliste hat kein Alter gespeichert -> Neue laden");
             return true;
         }
         int age = getAge(strAge);
         if (age == P2LibConst.NUMBER_NULL) {
             //dann ist das Alter nicht gesetzt
-            PLog.sysLog("Die Filmliste hat kein Alter gespeichert -> Neue laden");
+            P2Log.sysLog("Die Filmliste hat kein Alter gespeichert -> Neue laden");
             return true;
         }
         return isOlderThan(age, LoadFactoryConst.ALTER_FILMLISTE_SEKUNDEN_FUER_AUTOUPDATE);
@@ -344,7 +344,7 @@ public class FilmlistFactory {
         }
         if (strDate.isEmpty()) {
             //dann ist das Alter nicht gesetzt
-            PLog.sysLog("Die Filmliste hat kein Alter gespeichert -> Neue laden");
+            P2Log.sysLog("Die Filmliste hat kein Alter gespeichert -> Neue laden");
             return true;
         }
 
@@ -376,7 +376,7 @@ public class FilmlistFactory {
     public static boolean isOlderThan(String[] metaData, int second) {
         final int ret = getAge(metaData);
         if (ret != 0) {
-            PLog.sysLog("Die Filmliste ist " + ret / 60 + " Minuten alt");
+            P2Log.sysLog("Die Filmliste ist " + ret / 60 + " Minuten alt");
         }
         return ret > second;
     }
@@ -389,7 +389,7 @@ public class FilmlistFactory {
      */
     public static boolean isOlderThan(int age, int second) {
         if (age != 0) {
-            PLog.sysLog("Die Filmliste ist " + age / 60 + " Minuten alt");
+            P2Log.sysLog("Die Filmliste ist " + age / 60 + " Minuten alt");
         }
         return age > second;
     }

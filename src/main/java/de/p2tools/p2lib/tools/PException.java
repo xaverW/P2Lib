@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.tools;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 public class PException extends IllegalStateException {
 
@@ -47,12 +47,12 @@ public class PException extends IllegalStateException {
     }
 
     public static void throwPException(int no, String message) {
-        PLog.errorLog(no, message);
+        P2Log.errorLog(no, message);
         throw new PException(message);
     }
 
     public static void throwPException(String message, Exception cause) {
-        PLog.errorLog(000000000, message);
+        P2Log.errorLog(000000000, message);
         throw new PException(message, cause);
     }
 

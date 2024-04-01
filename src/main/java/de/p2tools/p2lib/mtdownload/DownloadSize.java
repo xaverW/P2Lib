@@ -16,7 +16,7 @@
 
 package de.p2tools.p2lib.mtdownload;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.ObjectPropertyBase;
 
 public class DownloadSize extends ObjectPropertyBase<DownloadSizeData> implements Comparable<DownloadSize> {
@@ -73,7 +73,7 @@ public class DownloadSize extends ObjectPropertyBase<DownloadSizeData> implement
                 targetSize = Long.valueOf(size);
                 targetSize = targetSize * 1000 * 1000;
             } catch (final Exception ex) {
-                PLog.errorLog(978745320, ex, "String: " + size);
+                P2Log.errorLog(978745320, ex, "String: " + size);
                 targetSize = 0L;
             }
         }

@@ -16,7 +16,7 @@
 
 package de.p2tools.p2lib.mtdownload;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 
@@ -47,11 +47,11 @@ public class MLBandwidthTokenBucket {
 
         setBucketCapacityByte(getBandwidth());
         this.bandwidthValueByte.addListener(l -> {
-            PLog.sysLog("change bucketCapacity: " + getBandwidth() + " bytesPerSecond");
+            P2Log.sysLog("change bucketCapacity: " + getBandwidth() + " bytesPerSecond");
             setBucketCapacityByte(getBandwidth());
         });
         this.pauseDownloadCapacity.addListener(l -> {
-            PLog.sysLog("change bucketCapacity: " + getBandwidth() + " bytesPerSecond");
+            P2Log.sysLog("change bucketCapacity: " + getBandwidth() + " bytesPerSecond");
             setBucketCapacityByte(getBandwidth());
         });
     }
@@ -139,7 +139,7 @@ public class MLBandwidthTokenBucket {
         try {
             bytesPerSecond = bandwidthValueByte.get();
         } catch (final Exception ex) {
-            PLog.errorLog(612547803, ex, "reset Bandwidth");
+            P2Log.errorLog(612547803, ex, "reset Bandwidth");
             bytesPerSecond = BANDWIDTH_RUN_FREE;
             bandwidthValueByte.set(BANDWIDTH_RUN_FREE);
         }

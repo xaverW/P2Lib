@@ -18,8 +18,8 @@ package de.p2tools.p2lib.guitools;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.dialogs.PDialogFileChooser;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.dialogs.P2DialogFileChooser;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.ImageView;
@@ -141,7 +141,7 @@ public class P2Open {
         File filmFile;
         filmFile = new File(file);
         if (!filmFile.exists()) {
-            new PDialogFileChooser().showErrorAlert("Fehler", "Kein Film", "Film existiert noch nicht!");
+            new P2DialogFileChooser().showErrorAlert("Fehler", "Kein Film", "Film existiert noch nicht!");
             return;
         }
 
@@ -308,7 +308,7 @@ public class P2Open {
         }
 
         try {
-            program = PDialogFileChooser.showFileChooser(stage, title, header,
+            program = P2DialogFileChooser.showFileChooser(stage, title, header,
                     cont, false, getProgIcon);
 
             if (!program.isEmpty()) {
@@ -323,7 +323,7 @@ public class P2Open {
 
         } catch (final Exception eex) {
             ok = false;
-            PLog.errorLog(912030654, eex, new String[]{"Kann nicht öffnen,", "Programm: " + program,
+            P2Log.errorLog(912030654, eex, new String[]{"Kann nicht öffnen,", "Programm: " + program,
                     "File/Url: " + fileUrl});
         }
 

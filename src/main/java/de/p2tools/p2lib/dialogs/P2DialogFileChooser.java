@@ -30,7 +30,7 @@ import javafx.stage.Stage;
 
 import java.util.Optional;
 
-public class PDialogFileChooser extends PAlert {
+public class P2DialogFileChooser extends PAlert {
 
     //todo deprecated
     public static String showFileChooser(Stage stage, String title, String header, String content, boolean dir, ImageView imageView) {
@@ -78,9 +78,9 @@ public class PDialogFileChooser extends PAlert {
         }
         btnDest.setOnAction(event -> {
             if (dir) {
-                PDirFileChooser.DirChooser(stage, txtFile);
+                P2DirFileChooser.DirChooser(stage, txtFile);
             } else {
-                PDirFileChooser.FileChooserOpenFile(stage, txtFile);
+                P2DirFileChooser.FileChooserOpenFile(stage, txtFile);
             }
         });
 
@@ -111,5 +111,4 @@ public class PDialogFileChooser extends PAlert {
 
         return txtFile.getText();
     }
-
 }

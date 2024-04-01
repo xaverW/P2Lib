@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.hash;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,7 +35,7 @@ public class WriteHashFile {
             out.write(hash + " " + "*" + fileHash + P2LibConst.LINE_SEPARATOR);
 
         } catch (Exception ex) {
-            PLog.errorLog(620120124, ex, "Fehler beim Schreiben der Hashdatei!");
+            P2Log.errorLog(620120124, ex, "Fehler beim Schreiben der Hashdatei!");
         }
     }
 

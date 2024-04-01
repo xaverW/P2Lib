@@ -28,9 +28,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.*;
 
-public class PLogger {
+public class P2Logger {
 
-    private static final Logger LOGGER = Logger.getLogger(PLogger.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(P2Logger.class.getName());
     private static Handler fileHandler = null;
     private static String handlerDir = "";
 
@@ -40,7 +40,7 @@ public class PLogger {
         Handler consoleHandler = new ConsoleHandler();
         LOGGER.addHandler(consoleHandler);
         consoleHandler.setLevel(Level.ALL);
-        consoleHandler.setFormatter(new PFormatter());
+        consoleHandler.setFormatter(new P2Formatter());
 
         LOGGER.setLevel(Level.ALL);
     }
@@ -50,15 +50,15 @@ public class PLogger {
     }
 
     public static void LogDebug(String info) {
-        LOGGER.log(PLevel.DEBUG, info);
+        LOGGER.log(P2Level.DEBUG, info);
     }
 
     public static void LogDuration(String info) {
-        LOGGER.log(PLevel.DURATION, info);
+        LOGGER.log(P2Level.DURATION, info);
     }
 
     public static void LogExtToolMsg(String info) {
-        LOGGER.log(PLevel.EXT_TOOL_MSG, info);
+        LOGGER.log(P2Level.EXT_TOOL_MSG, info);
     }
 
     public static void LogWarning(String info) {
@@ -79,7 +79,7 @@ public class PLogger {
 
     public static void removeFileHandler() {
         if (fileHandler != null) {
-            PLog.sysLog("kein Logfile anlegen und handler schließen");
+            P2Log.sysLog("kein Logfile anlegen und handler schließen");
             fileHandler.close();
             LOGGER.removeHandler(fileHandler);
             fileHandler = null;
@@ -115,7 +115,7 @@ public class PLogger {
 
         removeFileHandler();
         handlerDir = logDir;
-        PLog.sysLog("Logfile anlegen: " + handlerDir);
+        P2Log.sysLog("Logfile anlegen: " + handlerDir);
 
         try {
             File dir = new File(handlerDir);
@@ -126,7 +126,7 @@ public class PLogger {
 
             LOGGER.addHandler(fileHandler);
             fileHandler.setLevel(Level.ALL);
-            fileHandler.setFormatter(new PFormatter());
+            fileHandler.setFormatter(new P2Formatter());
         } catch (IOException exception) {
             LOGGER.log(Level.SEVERE, "Error occur in FileHandler.", exception);
             if (withGui) {

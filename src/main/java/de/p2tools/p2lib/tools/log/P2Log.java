@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PLog {
+public class P2Log {
 
     public static int COUNT = 0;
     public static final String LILNE1 = "############################################################";
@@ -38,7 +38,7 @@ public class PLog {
 
     //Externe Tools Infos
     public static synchronized void extToolLog(String text) {
-        PLogger.LogExtToolMsg(text);
+        P2Logger.LogExtToolMsg(text);
         resetProgress();
     }
 
@@ -51,13 +51,13 @@ public class PLog {
 
         if (P2LibConst.duration) {
             // nur dann sollen sie mit ausgegeben werden
-            PLogger.LogDuration(log);
+            P2Logger.LogDuration(log);
         }
     }
 
     //empty line
     public static synchronized void emptyLine() {
-        PLogger.LogInfo("");
+        P2Logger.LogInfo("");
     }
 
     public static synchronized void progress(String text) {
@@ -69,12 +69,12 @@ public class PLog {
 
     //Fehlermeldungen
     public static synchronized void errorLog(int errorNumber, Exception ex) {
-        PLogger.LogSevere(addErrNr(errorNumber, ""), ex);
+        P2Logger.LogSevere(addErrNr(errorNumber, ""), ex);
         error(errorNumber, ex, new String[]{});
     }
 
     public static synchronized void errorLog(int errorNumber, String text) {
-        PLogger.LogSevere(addErrNr(errorNumber, text));
+        P2Logger.LogSevere(addErrNr(errorNumber, text));
         error(errorNumber, null, new String[]{text});
     }
 
@@ -84,12 +84,12 @@ public class PLog {
             return;
         }
         log = errorNumber + P2LibConst.LINE_SEPARATOR + log;
-        PLogger.LogSevere(log);
+        P2Logger.LogSevere(log);
         error(errorNumber, null, text);
     }
 
     public static synchronized void errorLog(int errorNumber, Exception ex, String text) {
-        PLogger.LogSevere(addErrNr(errorNumber, text), ex);
+        P2Logger.LogSevere(addErrNr(errorNumber, text), ex);
         error(errorNumber, ex, new String[]{text});
     }
 
@@ -99,13 +99,13 @@ public class PLog {
             return;
         }
         log = errorNumber + P2LibConst.LINE_SEPARATOR + log;
-        PLogger.LogSevere(log, ex);
+        P2Logger.LogSevere(log, ex);
         error(errorNumber, ex, text);
     }
 
     //Systeminfos
     public static synchronized void sysLog(String text) {
-        PLogger.LogInfo(text);
+        P2Logger.LogInfo(text);
         resetProgress();
     }
 
@@ -114,7 +114,7 @@ public class PLog {
         if (log.isEmpty()) {
             return;
         }
-        PLogger.LogInfo(log);
+        P2Logger.LogInfo(log);
         resetProgress();
     }
 
@@ -123,7 +123,7 @@ public class PLog {
         if (log.isEmpty()) {
             return;
         }
-        PLogger.LogInfo(log);
+        P2Logger.LogInfo(log);
         resetProgress();
     }
 
@@ -132,7 +132,7 @@ public class PLog {
         if (!P2LibConst.debug) {
             return;
         }
-        PLogger.LogDebug("<==: " + ++COUNT + " :==> " + " - " + text);
+        P2Logger.LogDebug("<==: " + ++COUNT + " :==> " + " - " + text);
         resetProgress();
     }
 
@@ -140,7 +140,7 @@ public class PLog {
         if (!P2LibConst.debug) {
             return;
         }
-        PLogger.LogDebug(text);
+        P2Logger.LogDebug(text);
         resetProgress();
     }
 
@@ -152,7 +152,7 @@ public class PLog {
         if (log.isEmpty()) {
             return;
         }
-        PLogger.LogDebug(log);
+        P2Logger.LogDebug(log);
         resetProgress();
     }
 
@@ -164,7 +164,7 @@ public class PLog {
         if (log.isEmpty()) {
             return;
         }
-        PLogger.LogDebug(log);
+        P2Logger.LogDebug(log);
         resetProgress();
     }
 

@@ -20,7 +20,7 @@ package de.p2tools.p2lib.configfile;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
 import de.p2tools.p2lib.tools.PException;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.IOException;
@@ -78,12 +78,12 @@ public class SettingsDirectory {
                         //set hidden attribute on windows
                         Files.setAttribute(path, "dos:hidden", Boolean.TRUE, LinkOption.NOFOLLOW_LINKS);
                     } catch (IOException ex) {
-                        PLog.errorLog(795412365, ex);
+                        P2Log.errorLog(795412365, ex);
                     }
                 }
 
             } catch (final IOException ioException) {
-                PLog.errorLog(912030306, ioException, "Ordner anlegen: " + path);
+                P2Log.errorLog(912030306, ioException, "Ordner anlegen: " + path);
                 PAlert.showErrorAlert("Ordner anlegen", " Der Ordner " + path +
                         " konnte nicht angelegt werden." + P2LibConst.LINE_SEPARATOR +
                         "Bitte prüfen Sie die Dateirechte.");

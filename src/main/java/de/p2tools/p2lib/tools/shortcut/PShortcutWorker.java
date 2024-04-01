@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.tools.shortcut;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -39,7 +39,7 @@ public class PShortcutWorker {
             shortcut.resetShortcut();
             final KeyCombination keyComb = KeyCodeCombination.valueOf(shortcut.getActShortcut());
             menuItem.setAccelerator(keyComb);
-            PLog.errorLog(915252687, ex);
+            P2Log.errorLog(915252687, ex);
         }
     }
 }

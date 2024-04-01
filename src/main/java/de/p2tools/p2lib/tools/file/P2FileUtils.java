@@ -18,8 +18,8 @@ package de.p2tools.p2lib.tools.file;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.dialogs.PDialogFileChooser;
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.dialogs.P2DialogFileChooser;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.stage.Stage;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -53,7 +53,7 @@ public class P2FileUtils {
                 }
             }
         } catch (IOException ex) {
-            PLog.errorLog(645120789, ex.getLocalizedMessage());
+            P2Log.errorLog(645120789, ex.getLocalizedMessage());
         }
 
         return false;
@@ -83,7 +83,7 @@ public class P2FileUtils {
             f = f.getParentFile();
             return f.getAbsolutePath();
         } catch (Exception ex) {
-            PLog.errorLog(310245789, ex, path);
+            P2Log.errorLog(310245789, ex, path);
             new PAlert().showErrorAlert("Elternverzeichnis", "Das Elternverzeichnis von:" + P2LibConst.LINE_SEPARATOR +
                     path + P2LibConst.LINE_SEPARATORx2 +
                     "kann nicht gefunden werden.");
@@ -99,10 +99,10 @@ public class P2FileUtils {
         try {
             ret = Paths.get(path1).resolve(path2).toString();
             if (ret.isEmpty()) {
-                PLog.errorLog(283946015, path1 + " - " + path2);
+                P2Log.errorLog(283946015, path1 + " - " + path2);
             }
         } catch (Exception ex) {
-            PLog.errorLog(375341950, ex, path1 + " - " + path2);
+            P2Log.errorLog(375341950, ex, path1 + " - " + path2);
         }
         return ret;
     }
@@ -171,7 +171,7 @@ public class P2FileUtils {
 
             org.apache.commons.io.FileUtils.moveDirectory(src.toFile(), dest.toFile());
         } catch (IOException ex) {
-            PLog.errorLog(645121047, "move path: " + from + " to " + to);
+            P2Log.errorLog(645121047, "move path: " + from + " to " + to);
             return false;
         }
         return true;
@@ -225,7 +225,7 @@ public class P2FileUtils {
 
             org.apache.commons.io.FileUtils.copyFile(from.toFile(), dest.toFile());
         } catch (IOException ex) {
-            PLog.errorLog(978451203, "copy file: " + from.toString() + " to " + dest.toString());
+            P2Log.errorLog(978451203, "copy file: " + from.toString() + " to " + dest.toString());
             return false;
         }
         return true;
@@ -273,19 +273,19 @@ public class P2FileUtils {
 
             if ((pathName[0].length() + 10) > WIN_MAX_PATH_LENGTH) {
                 // es sollen für den Dateinamen mind. 10 Zeichen bleiben
-                PLog.errorLog(102036598, "Pfad zu lang: " + pathName[0]);
+                P2Log.errorLog(102036598, "Pfad zu lang: " + pathName[0]);
                 pathName[0] = getHomePath();
             }
 
             if ((pathName[0].length() + pathName[1].length()) > WIN_MAX_PATH_LENGTH) {
-                PLog.errorLog(902367369, "Name zu lang: " + pathName[0]);
+                P2Log.errorLog(902367369, "Name zu lang: " + pathName[0]);
                 final int maxNameL = WIN_MAX_PATH_LENGTH - pathName[0].length();
                 pathName[1] = cutName(pathName[1], maxNameL);
             }
 
         } else // für X-Systeme
             if ((pathName[1].length()) > X_MAX_NAME_LENGTH) {
-                PLog.errorLog(823012012, "Name zu lang: " + pathName[1]);
+                P2Log.errorLog(823012012, "Name zu lang: " + pathName[1]);
                 pathName[1] = cutName(pathName[1], X_MAX_NAME_LENGTH);
             }
     }
@@ -384,7 +384,7 @@ public class P2FileUtils {
         }
         if (ret.isEmpty()) {
             ret = path;
-            PLog.errorLog(915201236, path);
+            P2Log.errorLog(915201236, path);
         }
         return ret;
     }
@@ -415,15 +415,15 @@ public class P2FileUtils {
         try {
             File file = new File(strFile);
             if (!file.exists()) {
-                new PDialogFileChooser().showErrorAlert("Datei löschen", "", "Die Datei existiert nicht!");
+                new P2DialogFileChooser().showErrorAlert("Datei löschen", "", "Die Datei existiert nicht!");
                 return false;
             }
 
-            if (new PDialogFileChooser().showAlertOkCancel("Datei Löschen?", "",
+            if (new P2DialogFileChooser().showAlertOkCancel("Datei Löschen?", "",
                     "Die Datei löschen:" + P2LibConst.LINE_SEPARATORx2 + strFile)) {
 
                 // und jetzt die Datei löschen
-                PLog.sysLog(new String[]{"Datei löschen: ", file.getAbsolutePath()});
+                P2Log.sysLog(new String[]{"Datei löschen: ", file.getAbsolutePath()});
                 if (!file.delete()) {
                     throw new Exception();
                 }
@@ -431,10 +431,10 @@ public class P2FileUtils {
             }
         } catch (Exception ex) {
             ret = false;
-            new PDialogFileChooser().showErrorAlert("Datei löschen",
+            new P2DialogFileChooser().showErrorAlert("Datei löschen",
                     "Konnte die Datei nicht löschen!", "Fehler beim löschen von:" + P2LibConst.LINE_SEPARATORx2 +
                             strFile);
-            PLog.errorLog(987451206, "Fehler beim löschen: " + strFile);
+            P2Log.errorLog(987451206, "Fehler beim löschen: " + strFile);
         }
         return ret;
     }
@@ -444,12 +444,12 @@ public class P2FileUtils {
         try {
             File file = new File(strFile);
             if (!file.exists()) {
-                new PDialogFileChooser().showErrorAlert("Datei löschen", "", "Die Datei existiert nicht!");
+                new P2DialogFileChooser().showErrorAlert("Datei löschen", "", "Die Datei existiert nicht!");
                 return false;
             }
 
             // und jetzt die Datei löschen
-            PLog.sysLog(new String[]{"Datei löschen: ", file.getAbsolutePath()});
+            P2Log.sysLog(new String[]{"Datei löschen: ", file.getAbsolutePath()});
             if (!file.delete()) {
                 throw new Exception();
             }
@@ -457,10 +457,10 @@ public class P2FileUtils {
 
         } catch (Exception ex) {
             ret = false;
-            new PDialogFileChooser().showErrorAlert("Datei löschen",
+            new P2DialogFileChooser().showErrorAlert("Datei löschen",
                     "Konnte die Datei nicht löschen!", "Fehler beim löschen von:" + P2LibConst.LINE_SEPARATORx2 +
                             strFile);
-            PLog.errorLog(302015478, "Fehler beim löschen: " + strFile);
+            P2Log.errorLog(302015478, "Fehler beim löschen: " + strFile);
         }
         return ret;
     }

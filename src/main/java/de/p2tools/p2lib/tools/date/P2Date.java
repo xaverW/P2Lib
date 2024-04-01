@@ -16,7 +16,7 @@
 
 package de.p2tools.p2lib.tools.date;
 
-import de.p2tools.p2lib.tools.log.PLog;
+import de.p2tools.p2lib.tools.log.P2Log;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.time.LocalDate;
@@ -110,7 +110,7 @@ public class P2Date extends Date {
             }
             return;
         } catch (final Exception ex) {
-            PLog.errorLog(952103654, ex, new String[]{"Datum: " + strDate, "Zeit: " + strTime});
+            P2Log.errorLog(952103654, ex, new String[]{"Datum: " + strDate, "Zeit: " + strTime});
         }
 
         setTime(0);
@@ -144,7 +144,7 @@ public class P2Date extends Date {
             setTime(lToday);
         } catch (final Exception ex) {
             setTime(0);
-            PLog.errorLog(915263630, ex);
+            P2Log.errorLog(915263630, ex);
         }
     }
 
@@ -153,7 +153,7 @@ public class P2Date extends Date {
             setTime(new P2Date().getTime());
         } catch (final Exception ex) {
             setTime(0);
-            PLog.errorLog(915263630, ex);
+            P2Log.errorLog(915263630, ex);
         }
     }
 
