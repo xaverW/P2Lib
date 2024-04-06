@@ -16,6 +16,7 @@
 
 package de.p2tools.p2lib.tools.date;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -33,12 +34,13 @@ public class P2LDateTimeFactory {
 
         try {
             if (strTime.isEmpty()) {
-                localDateTime = LocalDateTime.parse(strDate, P2DateConst.DT_FORMATTER_dd_MM_yyyy);
+                LocalDate ld = LocalDate.parse(strDate, P2DateConst.DT_FORMATTER_dd_MM_yyyy);
+                localDateTime = ld.atStartOfDay();
             } else {
-                localDateTime = LocalDateTime.parse(strDate + strTime, P2DateConst.DT_FORMATTER_dd_MM_yyyy___HH__mm__ss);
+                localDateTime = LocalDateTime.parse(strDate + " " + strTime, P2DateConst.DT_FORMATTER_dd_MM_yyyy___HH__mm__ss);
             }
             return localDateTime;
-        } catch (final Exception ex) {
+        } catch (final Exception ignored) {
         }
 
         localDateTime = LocalDateTime.MIN;

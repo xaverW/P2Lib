@@ -89,8 +89,12 @@ public class P2TimePicker extends ComboBox<LocalTime> {
         this.setValue(null);
     }
 
+//    public String getTime() {
+//        return P2LTimeFactory.toString(getValue());
+//    }
+
     public String getTime() {
-        return P2LTimeFactory.toString(getValue());
+        return P2LTimeFactory.toString_HM(getValue());
     }
 
     public void setTime(LocalTime localTime) {
@@ -100,8 +104,16 @@ public class P2TimePicker extends ComboBox<LocalTime> {
     public void setTime(String stringDate) {
         if (stringDate == null || stringDate.isEmpty()) {
             this.setValue(null);
+
         } else {
-            LocalTime pLocalTime = P2LTimeFactory.fromString(stringDate);
+            final LocalTime pLocalTime;
+            if (stringDate.length() == 5) {
+                // 12:30
+                pLocalTime = P2LTimeFactory.fromString_HM(stringDate);
+            } else {
+                // 12:30:00
+                pLocalTime = P2LTimeFactory.fromString(stringDate);
+            }
             this.getSelectionModel().select(pLocalTime);
         }
     }
