@@ -18,8 +18,8 @@
 package de.p2tools.p2lib.guitools;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.ProgIconsP2Lib;
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.P2ProgIcons;
+import de.p2tools.p2lib.alert.P2Alert;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
@@ -50,7 +50,7 @@ public class P2Button {
         final Button btnHelp = new Button("");
         btnHelp.setTooltip(new Tooltip("Hilfe anzeigen"));
         btnHelp.setGraphic(imageView);
-        btnHelp.setOnAction(a -> PAlert.showHelpAlert(stage, header, helpText));
+        btnHelp.setOnAction(a -> P2Alert.showHelpAlert(stage, header, helpText));
         return btnHelp;
     }
 
@@ -62,13 +62,13 @@ public class P2Button {
         final Button btnHelp = new Button("");
         btnHelp.setTooltip(new Tooltip("Hilfe anzeigen"));
         if (hlpImage == null) {
-            btnHelp.setGraphic(ProgIconsP2Lib.IMAGE_HELP.getImageView()); //neues ImageView!
+            btnHelp.setGraphic(P2ProgIcons.IMAGE_HELP.getImageView()); //neues ImageView!
         } else {
             btnHelp.setGraphic(new ImageView(hlpImage)); //neues ImageView!
         }
 
 
-        btnHelp.setOnAction(a -> PAlert.showHelpAlert(stage, header, helpText));
+        btnHelp.setOnAction(a -> P2Alert.showHelpAlert(stage, header, helpText));
         return btnHelp;
     }
 
@@ -76,12 +76,12 @@ public class P2Button {
         final Button btnHelp = new Button("");
         btnHelp.setTooltip(new Tooltip("Hilfe anzeigen"));
         if (hlpImage == null) {
-            btnHelp.setGraphic(ProgIconsP2Lib.IMAGE_HELP.getImageView()); //neues ImageView!
+            btnHelp.setGraphic(P2ProgIcons.IMAGE_HELP.getImageView()); //neues ImageView!
         } else {
             btnHelp.setGraphic(new ImageView(hlpImage)); //neues ImageView!
         }
 
-        btnHelp.setOnAction(a -> PAlert.showHelpAlert(stageProp.getValue(), header, helpText));
+        btnHelp.setOnAction(a -> P2Alert.showHelpAlert(stageProp.getValue(), header, helpText));
         return btnHelp;
     }
 

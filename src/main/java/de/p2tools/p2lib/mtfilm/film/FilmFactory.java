@@ -19,7 +19,7 @@ package de.p2tools.p2lib.mtfilm.film;
 
 import de.p2tools.p2lib.mtdownload.DownloadFactory;
 import de.p2tools.p2lib.tools.DiacriticFactory;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.SimpleListProperty;
 
@@ -51,7 +51,7 @@ public class FilmFactory {
         // gibt da einen Java-Bug
         // https://github.com/javafxports/openjdk-jfx/issues/287
 
-        PDuration.counterStart("cleanFaultyCharacterFilmlist");
+        P2Duration.counterStart("cleanFaultyCharacterFilmlist");
 
         filmlist.stream().forEach(film -> {
 
@@ -73,7 +73,7 @@ public class FilmFactory {
             P2Log.sysLog("Key: " + (int) key + "  Key: " + key + "  Anz: " + value);
         }
 
-        PDuration.counterStop("cleanFaultyCharacterFilmlist");
+        P2Duration.counterStop("cleanFaultyCharacterFilmlist");
     }
 
     public static void flattenDiacritic(FilmData filmData) {
@@ -102,11 +102,11 @@ public class FilmFactory {
 
     public static void flattenDiacritic(SimpleListProperty<? extends FilmData> filmlist) {
         //dann sollen die Diacritic *nicht* angezeigt werden!!
-        PDuration.counterStart("flattenDiacritic");
+        P2Duration.counterStart("flattenDiacritic");
         filmlist.stream().forEach(film -> {
             FilmFactory.flattenDiacritic(film);
         });
-        PDuration.counterStop("flattenDiacritic");
+        P2Duration.counterStop("flattenDiacritic");
     }
 
     public static String cleanUnicode(String ret) {

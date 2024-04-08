@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.tools.log;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.P2Open;
 import javafx.application.Platform;
 
@@ -130,7 +130,7 @@ public class P2Logger {
         } catch (IOException exception) {
             LOGGER.log(Level.SEVERE, "Error occur in FileHandler.", exception);
             if (withGui) {
-                Platform.runLater(() -> PAlert.showErrorAlert("Logfile anlegen", "Das Logfile kann icht angelegt werden, " +
+                Platform.runLater(() -> P2Alert.showErrorAlert("Logfile anlegen", "Das Logfile kann icht angelegt werden, " +
                         "bitte Pfad zum Logfile prüfen."));
             }
         }

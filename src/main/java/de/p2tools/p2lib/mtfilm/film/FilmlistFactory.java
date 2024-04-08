@@ -18,7 +18,7 @@ package de.p2tools.p2lib.mtfilm.film;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.ListProperty;
 import org.apache.commons.lang3.time.FastDateFormat;
@@ -149,7 +149,7 @@ public class FilmlistFactory {
         final HashSet<String> urlHashSet = new HashSet<>(filmList.size(), 0.75F);
 
         // todo exception parallel?? Unterschied ~10ms (bei Gesamt: 110ms)
-        PDuration.counterStart("markFilms");
+        P2Duration.counterStart("markFilms");
         try {
             countDouble = 0;
             filmList.forEach((FilmData f) -> {
@@ -167,7 +167,7 @@ public class FilmlistFactory {
         } catch (Exception ex) {
             P2Log.errorLog(951024789, ex);
         }
-        PDuration.counterStop("markFilms");
+        P2Duration.counterStop("markFilms");
 
         urlHashSet.clear();
         return countDouble;

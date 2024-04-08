@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.guitools.ptipofday;
 
-import de.p2tools.p2lib.ProgIconsP2Lib;
+import de.p2tools.p2lib.P2ProgIcons;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
@@ -105,11 +105,11 @@ public class P2TipOfDayDialog extends P2DialogExtra {
             super.close();
         });
 
-        btnNext = P2Button.getButton(ProgIconsP2Lib.ICON_BUTTON_NEXT.getImageView(), "nächste Seite");
+        btnNext = P2Button.getButton(P2ProgIcons.ICON_BUTTON_NEXT.getImageView(), "nächste Seite");
         btnNext.setOnAction(event -> {
             selectActToolTip(true);
         });
-        btnPrev = P2Button.getButton(ProgIconsP2Lib.ICON_BUTTON_PREV.getImageView(), "vorherige Seite");
+        btnPrev = P2Button.getButton(P2ProgIcons.ICON_BUTTON_PREV.getImageView(), "vorherige Seite");
         btnPrev.setOnAction(event -> {
             selectActToolTip(false);
         });

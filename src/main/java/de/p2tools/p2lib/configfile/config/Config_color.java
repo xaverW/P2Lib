@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.configfile.config;
 
-import de.p2tools.p2lib.tools.PColorFactory;
+import de.p2tools.p2lib.tools.P2ColorFactory;
 import javafx.scene.paint.Color;
 
 public abstract class Config_color extends Config {
@@ -62,7 +62,7 @@ public abstract class Config_color extends Config {
 
     @Override
     public String getActValueString() {
-        return PColorFactory.getColorToWeb(actValue);
+        return P2ColorFactory.getColorToWeb(actValue);
     }
 
     public abstract void setUsedValue(Color value);

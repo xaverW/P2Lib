@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.configfile.config;
 
-import de.p2tools.p2lib.configfile.pdata.PData;
+import de.p2tools.p2lib.configfile.pdata.P2Data;
 
 /**
  * its a pseudo CONFIG, it contains a CONFIGDATA, also
@@ -25,11 +25,11 @@ import de.p2tools.p2lib.configfile.pdata.PData;
  */
 public class Config_pData extends Config {
 
-    private PData actValue;
+    private P2Data actValue;
 
-    public Config_pData(PData pData) {
-        super(pData.getTag());
-        this.actValue = pData;
+    public Config_pData(P2Data p2Data) {
+        super(p2Data.getTag());
+        this.actValue = p2Data;
     }
 
 //    public Config_pData(String key, PData pData) {
@@ -39,16 +39,16 @@ public class Config_pData extends Config {
 //    }
 
     @Override
-    public PData getActValue() {
+    public P2Data getActValue() {
         return actValue;
     }
 
     @Override
     public void setActValue(Object act) {
-        actValue = (PData) act;
+        actValue = (P2Data) act;
     }
 
-    public void setActValue(PData act) {
+    public void setActValue(P2Data act) {
         actValue = act;
     }
 }

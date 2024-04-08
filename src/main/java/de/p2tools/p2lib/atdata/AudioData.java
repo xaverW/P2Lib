@@ -17,11 +17,11 @@
 package de.p2tools.p2lib.atdata;
 
 import de.p2tools.p2lib.configfile.config.Config;
-import de.p2tools.p2lib.configfile.pdata.PData;
+import de.p2tools.p2lib.configfile.pdata.P2Data;
 import de.p2tools.p2lib.mtfilm.tools.FilmDate;
 import de.p2tools.p2lib.tools.log.P2Log;
 
-public class AudioData extends AudioDataProps implements PData {
+public class AudioData extends AudioDataProps implements P2Data {
 
     public AudioData() {
     }

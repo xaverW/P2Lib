@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.guitools;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.ProgIconsP2Lib;
+import de.p2tools.p2lib.P2ProgIcons;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -31,7 +31,7 @@ public class P2WindowIcon {
 
     public static void addWindowP2Icon(Stage stage) {
         try {
-            stage.getIcons().add(0, ProgIconsP2Lib.P2_WINDOW_ICON.getImage());
+            stage.getIcons().add(0, P2ProgIcons.P2_WINDOW_ICON.getImage());
         } catch (Exception ex) {
             P2Log.errorLog(945720146, "Kann Window-Icon nicht setzen");
         }

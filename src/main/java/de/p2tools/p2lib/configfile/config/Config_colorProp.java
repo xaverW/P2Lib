@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.configfile.config;
 
-import de.p2tools.p2lib.tools.PColorFactory;
+import de.p2tools.p2lib.tools.P2ColorFactory;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.paint.Color;
 
@@ -55,7 +55,7 @@ public class Config_colorProp extends Config {
 
     @Override
     public String getActValueString() {
-        return PColorFactory.getColorToWeb(actValue.getValue());
+        return P2ColorFactory.getColorToWeb(actValue.getValue());
     }
 
     @Override

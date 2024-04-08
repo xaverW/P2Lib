@@ -17,13 +17,13 @@
 
 package de.p2tools.p2lib.configfile;
 
-import de.p2tools.p2lib.configfile.pdata.PData;
-import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.configfile.config.Config_pData;
 import de.p2tools.p2lib.configfile.config.Config_pDataList;
 import de.p2tools.p2lib.configfile.configlist.ConfigList;
-import de.p2tools.p2lib.configfile.pdata.PDataList;
+import de.p2tools.p2lib.configfile.pdata.P2Data;
+import de.p2tools.p2lib.configfile.pdata.P2DataList;
+import de.p2tools.p2lib.tools.log.P2Log;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -81,22 +81,22 @@ class ConfigRead implements AutoCloseable {
 
     private boolean get(XMLStreamReader parser, String xmlElem) {
         if (configFile.getpDataList() != null) {
-            for (PDataList pDataList : configFile.getpDataList()) {
+            for (P2DataList p2DataList : configFile.getpDataList()) {
 
                 //if (pDataList.getTag().equals(xmlElem)) {
-                if (checkTag(pDataList.getTag(), xmlElem)) {
-                    getConf(parser, pDataList);
+                if (checkTag(p2DataList.getTag(), xmlElem)) {
+                    getConf(parser, p2DataList);
                     return true;
                 }
             }
         }
 
         if (configFile.getpData() != null) {
-            for (PData pData : configFile.getpData()) {
+            for (P2Data p2Data : configFile.getpData()) {
 
                 //if (pdata.getTag().equals(xmlElem)) {
-                if (checkTag(pData.getTag(), xmlElem)) {
-                    getConf(parser, pData);
+                if (checkTag(p2Data.getTag(), xmlElem)) {
+                    getConf(parser, p2Data);
                     return true;
                 }
             }
@@ -106,19 +106,19 @@ class ConfigRead implements AutoCloseable {
 
     private boolean getConf(XMLStreamReader parser, Object o) {
         //Standard-Daten
-        if (o instanceof PData) {
-            return getPData(parser, (PData) o);
+        if (o instanceof P2Data) {
+            return getPData(parser, (P2Data) o);
 
-        } else if (o instanceof PDataList) {
-            return getPDataList(parser, (PDataList) o);
+        } else if (o instanceof P2DataList) {
+            return getPDataList(parser, (P2DataList) o);
 
             //spezielle configs
         } else if (o instanceof Config_pDataList) {
-            PDataList<? extends PData> actValue = ((Config_pDataList) o).getActValue();
+            P2DataList<? extends P2Data> actValue = ((Config_pDataList) o).getActValue();
             return getPDataList(parser, actValue);
 
         } else if (o instanceof Config_pData) {
-            PData cd = ((Config_pData) o).getActValue();
+            P2Data cd = ((Config_pData) o).getActValue();
             return getPData(parser, cd);
 
             //sind jetzt dann die configs zum Einlesen der Daten
@@ -135,15 +135,15 @@ class ConfigRead implements AutoCloseable {
 
     }
 
-    private boolean getPDataList(XMLStreamReader parser, PDataList pDataList) {
+    private boolean getPDataList(XMLStreamReader parser, P2DataList p2DataList) {
         boolean ret = false;
         try {
-            PData pData = pDataList.getNewItem();
+            P2Data p2Data = p2DataList.getNewItem();
             while (parser.hasNext()) {
                 final int event = parser.next();
 
                 //if (event == XMLStreamConstants.END_ELEMENT && parser.getLocalName().equals(pDataList.getTag())) {
-                if (event == XMLStreamConstants.END_ELEMENT && checkTag(pDataList.getTag(), parser.getLocalName())) {
+                if (event == XMLStreamConstants.END_ELEMENT && checkTag(p2DataList.getTag(), parser.getLocalName())) {
                     break;
                 }
 
@@ -152,14 +152,14 @@ class ConfigRead implements AutoCloseable {
                 }
 
                 //if (!pdata.getTag().equals(parser.getLocalName())) {
-                if (!checkTag(pData.getTag(), parser.getLocalName())) {
+                if (!checkTag(p2Data.getTag(), parser.getLocalName())) {
                     continue;
                 }
 
-                if (getConf(parser, pData)) {
+                if (getConf(parser, p2Data)) {
                     ret = true;
-                    pDataList.addNewItem(pData);
-                    pData = pDataList.getNewItem();
+                    p2DataList.addNewItem(p2Data);
+                    p2Data = p2DataList.getNewItem();
                 }
             }
         } catch (final Exception ex) {
@@ -169,11 +169,11 @@ class ConfigRead implements AutoCloseable {
         return ret;
     }
 
-    private boolean getPData(XMLStreamReader parser, PData pData) {
+    private boolean getPData(XMLStreamReader parser, P2Data p2Data) {
         boolean ret = false;
         String xmlElem = parser.getLocalName();//von der "Umrandung"
         try {
-            Config[] configs = pData.getConfigsArr();
+            Config[] configs = p2Data.getConfigsArr();
             while (parser.hasNext()) {
                 final int event = parser.next();
 
@@ -244,7 +244,7 @@ class ConfigRead implements AutoCloseable {
     }
 
     private boolean checkTag(String checkTag, String xmlElem) {
-        for (String s : checkTag.split(PData.TAGGER)) {
+        for (String s : checkTag.split(P2Data.TAGGER)) {
             if (s.equals(xmlElem)) {
                 return true;
             }

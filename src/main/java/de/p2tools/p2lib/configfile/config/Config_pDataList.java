@@ -17,8 +17,8 @@
 
 package de.p2tools.p2lib.configfile.config;
 
-import de.p2tools.p2lib.configfile.pdata.PData;
-import de.p2tools.p2lib.configfile.pdata.PDataList;
+import de.p2tools.p2lib.configfile.pdata.P2Data;
+import de.p2tools.p2lib.configfile.pdata.P2DataList;
 
 /**
  * its a pseudo CONFIG, it contains a
@@ -27,7 +27,7 @@ import de.p2tools.p2lib.configfile.pdata.PDataList;
  */
 public class Config_pDataList extends Config {
 
-    private PDataList actValue;
+    private P2DataList actValue;
 
 //    public Config_pDataList(String key, PDataList<? extends PData> pDataList) {
     // --> key wird beim schreiben NICHT verwendet!!!
@@ -35,22 +35,22 @@ public class Config_pDataList extends Config {
 //        this.actValue = pDataList;
 //    }
 
-    public Config_pDataList(PDataList<? extends PData> pDataList) {
-        super(pDataList.getTag());
-        this.actValue = pDataList;
+    public Config_pDataList(P2DataList<? extends P2Data> p2DataList) {
+        super(p2DataList.getTag());
+        this.actValue = p2DataList;
     }
 
     @Override
     public void setActValue(Object act) {
-        actValue.addAll((PDataList) act);
+        actValue.addAll((P2DataList) act);
     }
 
-    public void setActValue(PDataList act) {
+    public void setActValue(P2DataList act) {
         actValue.addAll(act);
     }
 
     @Override
-    public PDataList getActValue() {
+    public P2DataList getActValue() {
         return actValue;
     }
 

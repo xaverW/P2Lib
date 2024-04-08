@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.mtfilm.loadfilmlist;
 
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 import javafx.application.Platform;
 
@@ -59,7 +59,7 @@ public class LoadFactory {
         }
 
         if (allSender) {
-            Platform.runLater(() -> PAlert.showErrorAlert(LoadFactoryConst.primaryStage,
+            Platform.runLater(() -> P2Alert.showErrorAlert(LoadFactoryConst.primaryStage,
                     "Sender laden",
                     "Es werden keine Filme geladen. Alle Sender " +
                             "sind vom Laden ausgenommen!" +

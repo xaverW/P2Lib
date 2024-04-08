@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.tools;
 
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.scene.Scene;
 
@@ -51,7 +51,7 @@ public class IoReadWriteStyle {
     }
 
     private static boolean readData(Path filePath, Scene scene) {
-        PDuration.counterStart("Style lesen");
+        P2Duration.counterStart("Style lesen");
         list.add("Start Lesen von: " + filePath.toAbsolutePath());
         boolean ret = false;
 
@@ -66,7 +66,7 @@ public class IoReadWriteStyle {
         }
 
         list.add("gelesen!");
-        PDuration.counterStop("Style lesen");
+        P2Duration.counterStop("Style lesen");
         return ret;
     }
 

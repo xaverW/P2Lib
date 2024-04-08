@@ -17,8 +17,8 @@
 package de.p2tools.p2lib.mtdownload;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.ProgIconsP2Lib;
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.P2ProgIcons;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.dialogs.P2DirFileChooser;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
@@ -106,7 +106,7 @@ public class DownloadDialogController extends P2DialogExtra {
             nameChanged = true;
         });
         final Button btnDest = new Button();
-        btnDest.setGraphic(ProgIconsP2Lib.IMAGE_FILE_OPEN.getImageView());
+        btnDest.setGraphic(P2ProgIcons.IMAGE_FILE_OPEN.getImageView());
         btnDest.setTooltip(new Tooltip("Einen Ordner zum Speichern der Datei auswählen"));
         btnDest.setOnAction(event -> {
             P2DirFileChooser.DirChooser(stage, txtDestPath);
@@ -178,11 +178,11 @@ public class DownloadDialogController extends P2DialogExtra {
         final String file = P2FileUtils.addsPath(destDir, destName);
         if (P2FileUtils.fileExist(file)) {
             ret = false;
-            final PAlert.BUTTON button = PAlert.showAlert_yes_no("Hinweis", "Datei speichern",
+            final P2Alert.BUTTON button = P2Alert.showAlert_yes_no("Hinweis", "Datei speichern",
                     "Die Zieldatei exisiert bereits:" + P2LibConst.LINE_SEPARATORx2 +
                             destName + P2LibConst.LINE_SEPARATORx2 +
                             "Soll die Datei überschrieben werden?");
-            if (button.equals(PAlert.BUTTON.YES)) {
+            if (button.equals(P2Alert.BUTTON.YES)) {
                 ret = true;
             }
         } else {

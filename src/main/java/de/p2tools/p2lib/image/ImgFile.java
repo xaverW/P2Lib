@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.image;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.application.Platform;
 
@@ -189,7 +189,7 @@ public class ImgFile {
         } catch (Exception e) {
             P2Log.errorLog(784520369, e, ImgFile.class.toString());
             Platform.runLater(() ->
-                    PAlert.showErrorAlert("Speichern", "Das Bild konnte nicht gespeichert werden." +
+                    P2Alert.showErrorAlert("Speichern", "Das Bild konnte nicht gespeichert werden." +
                             P2LibConst.LINE_SEPARATORx2)
             );
         } finally {

@@ -18,9 +18,9 @@
 package de.p2tools.p2lib.tools.log;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.tools.PStringUtils;
-import de.p2tools.p2lib.tools.ProgramToolsFactory;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.P2StringUtils;
+import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -64,8 +64,8 @@ public class P2LogMessage {
         list.add("");
 
         // Programmversion
-        list.add(progName + ProgramToolsFactory.getProgVersionString());
-        String compile = ProgramToolsFactory.getCompileDate();
+        list.add(progName + P2ToolsFactory.getProgVersionString());
+        String compile = P2ToolsFactory.getCompileDate();
         if (!compile.isEmpty()) {
             list.add("Compiled: " + compile);
         }
@@ -88,7 +88,7 @@ public class P2LogMessage {
 
         // Javaversion
         list.add("Java");
-        final String[] java = ProgramToolsFactory.getJavaVersion();
+        final String[] java = P2ToolsFactory.getJavaVersion();
         for (String ja : java) {
             list.add(ja);
         }
@@ -105,7 +105,7 @@ public class P2LogMessage {
         list.add("");
         list.add(P2Log.LILNE1);
 
-        PStringUtils.appendString(list, "#  ", "#");
+        P2StringUtils.appendString(list, "#  ", "#");
 
         P2Log.sysLog("");
         P2Log.sysLog(list);
@@ -144,7 +144,7 @@ public class P2LogMessage {
 
         // jetzt noch die Durations
         list.add(P2Log.LILNE2);
-        list.addAll(PDuration.getCounter());
+        list.addAll(P2Duration.getCounter());
         list.add(P2Log.LILNE2);
 
         list.add("");
@@ -153,7 +153,7 @@ public class P2LogMessage {
         list.add("");
         list.add(P2Log.LILNE1);
 
-        PStringUtils.appendString(list, "#  ", "#");
+        P2StringUtils.appendString(list, "#  ", "#");
 
         P2Log.sysLog("");
         P2Log.sysLog(list);

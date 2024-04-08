@@ -21,8 +21,8 @@
 package de.p2tools.p2lib.guitools.pnotification;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.ProgIconsP2Lib;
-import de.p2tools.p2lib.tools.PException;
+import de.p2tools.p2lib.P2ProgIcons;
+import de.p2tools.p2lib.tools.P2Exception;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
@@ -36,7 +36,7 @@ public class P2Notification {
         Platform.runLater(() -> {
             Stage stage = P2LibConst.primaryStage;
             if (stage == null) {
-                PException.throwPException(912036447, "PNotification: stage not set");
+                P2Exception.throwPException(912036447, "PNotification: stage not set");
             }
             P2Notify.stage = stage;
         });
@@ -53,10 +53,10 @@ public class P2Notification {
     public static void addNotification(String title, String text, STATE state) {
         Platform.runLater(() -> {
             final Image image = switch (state) {
-                case INFO -> ProgIconsP2Lib.INFO_ICON.getImage();
-                case WARNING -> ProgIconsP2Lib.WARNING_ICON.getImage();
-                case SUCCESS -> ProgIconsP2Lib.SUCCESS_ICON.getImage();
-                default -> ProgIconsP2Lib.ERROR_ICON.getImage();
+                case INFO -> P2ProgIcons.INFO_ICON.getImage();
+                case WARNING -> P2ProgIcons.WARNING_ICON.getImage();
+                case SUCCESS -> P2ProgIcons.SUCCESS_ICON.getImage();
+                default -> P2ProgIcons.ERROR_ICON.getImage();
             };
             final P2Notify notification = new P2Notify(title, text, image);
             notification.notify(notification);
@@ -66,10 +66,10 @@ public class P2Notification {
     public static void addNotification(String title, String text, STATE state, HBox hBoxBottom) {
         Platform.runLater(() -> {
             final Image image = switch (state) {
-                case INFO -> ProgIconsP2Lib.INFO_ICON.getImage();
-                case WARNING -> ProgIconsP2Lib.WARNING_ICON.getImage();
-                case SUCCESS -> ProgIconsP2Lib.SUCCESS_ICON.getImage();
-                default -> ProgIconsP2Lib.ERROR_ICON.getImage();
+                case INFO -> P2ProgIcons.INFO_ICON.getImage();
+                case WARNING -> P2ProgIcons.WARNING_ICON.getImage();
+                case SUCCESS -> P2ProgIcons.SUCCESS_ICON.getImage();
+                default -> P2ProgIcons.ERROR_ICON.getImage();
             };
             final P2Notify notification = new P2Notify(title, text, image, hBoxBottom);
             notification.notify(notification);

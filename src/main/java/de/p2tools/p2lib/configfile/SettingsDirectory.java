@@ -18,8 +18,8 @@
 package de.p2tools.p2lib.configfile;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.alert.PAlert;
-import de.p2tools.p2lib.tools.PException;
+import de.p2tools.p2lib.alert.P2Alert;
+import de.p2tools.p2lib.tools.P2Exception;
 import de.p2tools.p2lib.tools.log.P2Log;
 import org.apache.commons.lang3.SystemUtils;
 
@@ -84,11 +84,11 @@ public class SettingsDirectory {
 
             } catch (final IOException ioException) {
                 P2Log.errorLog(912030306, ioException, "Ordner anlegen: " + path);
-                PAlert.showErrorAlert("Ordner anlegen", " Der Ordner " + path +
+                P2Alert.showErrorAlert("Ordner anlegen", " Der Ordner " + path +
                         " konnte nicht angelegt werden." + P2LibConst.LINE_SEPARATOR +
                         "Bitte prüfen Sie die Dateirechte.");
 
-                throw new PException(" Der Ordner " + path +
+                throw new P2Exception(" Der Ordner " + path +
                         " konnte nicht angelegt werden." + P2LibConst.LINE_SEPARATOR +
                         "Bitte prüfen Sie die Dateirechte.", ioException);
             }

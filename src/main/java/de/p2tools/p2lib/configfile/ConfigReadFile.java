@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.configfile;
 
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.net.P2UrlConnectionFactory;
 import de.p2tools.p2lib.tools.net.PUrlTools;
@@ -74,7 +74,7 @@ public class ConfigReadFile {
     }
 
     private static boolean readConfiguration(ConfigFile configFile) {
-        PDuration.counterStart("readConfiguration");
+        P2Duration.counterStart("readConfiguration");
         boolean ret;
 
         if (configFile.getIsr() != null) {
@@ -144,7 +144,7 @@ public class ConfigReadFile {
                 P2Log.errorLog(454102598, ex);
             }
         }
-        PDuration.counterStop("readConfiguration");
+        P2Duration.counterStop("readConfiguration");
         return ret;
     }
 }

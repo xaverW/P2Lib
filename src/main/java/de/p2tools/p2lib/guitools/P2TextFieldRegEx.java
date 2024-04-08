@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.guitools;
 
-import de.p2tools.p2lib.tools.PRegEx;
+import de.p2tools.p2lib.tools.P2RegEx;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.TextField;
@@ -54,12 +54,12 @@ public class P2TextFieldRegEx extends TextField {
     }
 
     public P2TextFieldRegEx(String regEx) {
-        this.pattern = PRegEx.makePattern(regEx);
+        this.pattern = P2RegEx.makePattern(regEx);
         init();
     }
 
     public P2TextFieldRegEx(String regEx, boolean stateLabel) {
-        this.pattern = PRegEx.makePattern(regEx);
+        this.pattern = P2RegEx.makePattern(regEx);
         this.stateLabel = stateLabel;
         setStateLabel();
         init();
@@ -88,7 +88,7 @@ public class P2TextFieldRegEx extends TextField {
     }
 
     public void setRegEx(String regEx) {
-        pattern = PRegEx.makePattern(regEx);
+        pattern = P2RegEx.makePattern(regEx);
     }
 
     public void bindBidirectional(StringProperty property) {
@@ -121,7 +121,7 @@ public class P2TextFieldRegEx extends TextField {
     }
 
     private void check() {
-        if (PRegEx.check(stringProperty.getValue(), pattern)) {
+        if (P2RegEx.check(stringProperty.getValue(), pattern)) {
             setStyle(stateLabel ? P2Styles.PTEXTFIELD_LABEL : "");
 
         } else {

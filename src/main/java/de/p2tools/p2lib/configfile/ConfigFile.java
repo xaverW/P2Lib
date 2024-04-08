@@ -18,8 +18,8 @@
 package de.p2tools.p2lib.configfile;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.configfile.pdata.PData;
-import de.p2tools.p2lib.configfile.pdata.PDataList;
+import de.p2tools.p2lib.configfile.pdata.P2Data;
+import de.p2tools.p2lib.configfile.pdata.P2DataList;
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -31,15 +31,15 @@ public class ConfigFile {
     private String xmlStart = P2LibConst.CONFIG_XML_START;
     private final boolean backup;//Backup laden / Backup speichern
     private String backupHeader = "", backupText = "";//Text der angezeigt wird, wenn das Backup geladen werden soll
-    private final ArrayList<PData> pData;
-    private final ArrayList<PDataList> pDataList;
+    private final ArrayList<P2Data> p2Data;
+    private final ArrayList<P2DataList> p2DataList;
 
     public ConfigFile(String filePath, boolean backup) {
         this.filePath = filePath;
         this.isr = null;
         this.backup = backup;
-        this.pDataList = new ArrayList<>();
-        this.pData = new ArrayList<>();
+        this.p2DataList = new ArrayList<>();
+        this.p2Data = new ArrayList<>();
     }
 
     public ConfigFile(String filePath, String xmlStart, boolean backup) {
@@ -49,15 +49,15 @@ public class ConfigFile {
         }
         this.isr = null;
         this.backup = backup;
-        this.pDataList = new ArrayList<>();
-        this.pData = new ArrayList<>();
+        this.p2DataList = new ArrayList<>();
+        this.p2Data = new ArrayList<>();
     }
 
     public ConfigFile(InputStreamReader isr, boolean backup) {
         this.isr = isr;
         this.backup = backup;
-        this.pDataList = new ArrayList<>();
-        this.pData = new ArrayList<>();
+        this.p2DataList = new ArrayList<>();
+        this.p2Data = new ArrayList<>();
     }
 
     public void clearConfigFile() {
@@ -96,20 +96,20 @@ public class ConfigFile {
         return backupText;
     }
 
-    public void addConfigs(PData pData) {
-        this.pData.add(pData);
+    public void addConfigs(P2Data p2Data) {
+        this.p2Data.add(p2Data);
     }
 
-    public void addConfigs(PDataList configsData) {
-        pDataList.add(configsData);
+    public void addConfigs(P2DataList configsData) {
+        p2DataList.add(configsData);
     }
 
-    public ArrayList<PDataList> getpDataList() {
-        return pDataList;
+    public ArrayList<P2DataList> getpDataList() {
+        return p2DataList;
     }
 
-    public ArrayList<PData> getpData() {
-        return pData;
+    public ArrayList<P2Data> getpData() {
+        return p2Data;
     }
 
     public void setXmlStart(String xmlStart) {

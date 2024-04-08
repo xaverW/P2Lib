@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.configfile;
 
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.io.IOException;
@@ -37,7 +37,7 @@ public class ConfigReadZipFile {
 
     public static boolean readConfig(Path zipFilePath, ArrayList<ConfigFile> cFileList) {
         //ist ein lokales ZIP-File
-        PDuration.counterStart("readConfiguration");
+        P2Duration.counterStart("readConfiguration");
         boolean ret;
 
         if (!Files.exists(zipFilePath)) {
@@ -75,7 +75,7 @@ public class ConfigReadZipFile {
             ret = false;
         }
 
-        PDuration.counterStop("readConfiguration");
+        P2Duration.counterStop("readConfiguration");
         return ret;
     }
 }

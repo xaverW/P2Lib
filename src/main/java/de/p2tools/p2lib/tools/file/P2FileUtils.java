@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.tools.file;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.dialogs.P2DialogFileChooser;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.stage.Stage;
@@ -84,7 +84,7 @@ public class P2FileUtils {
             return f.getAbsolutePath();
         } catch (Exception ex) {
             P2Log.errorLog(310245789, ex, path);
-            new PAlert().showErrorAlert("Elternverzeichnis", "Das Elternverzeichnis von:" + P2LibConst.LINE_SEPARATOR +
+            new P2Alert().showErrorAlert("Elternverzeichnis", "Das Elternverzeichnis von:" + P2LibConst.LINE_SEPARATOR +
                     path + P2LibConst.LINE_SEPARATORx2 +
                     "kann nicht gefunden werden.");
         }
@@ -134,14 +134,14 @@ public class P2FileUtils {
 
     public static boolean movePath(String from, String to) {
         if (from.isEmpty()) {
-            new PAlert().showErrorAlert("Verzeichnis verschieben", "Das Quellverzeichnis:" + P2LibConst.LINE_SEPARATOR +
+            new P2Alert().showErrorAlert("Verzeichnis verschieben", "Das Quellverzeichnis:" + P2LibConst.LINE_SEPARATOR +
                     from + P2LibConst.LINE_SEPARATORx2 +
                     "ist kein Verzeichnis");
             return false;
         }
 
         if (to.isEmpty()) {
-            new PAlert().showErrorAlert("Verzeichnis verschieben", "Das Zielverzeichnis:" + P2LibConst.LINE_SEPARATOR +
+            new P2Alert().showErrorAlert("Verzeichnis verschieben", "Das Zielverzeichnis:" + P2LibConst.LINE_SEPARATOR +
                     to + P2LibConst.LINE_SEPARATORx2 +
                     "ist kein Verzeichnis");
             return false;
@@ -152,14 +152,14 @@ public class P2FileUtils {
             Path dest = Paths.get(to);
 
             if (dest.toFile().exists() && !dest.toFile().isDirectory()) {
-                new PAlert().showErrorAlert("Verzeichnis verschieben", "Das Zielverzeichnis:" + P2LibConst.LINE_SEPARATOR +
+                new P2Alert().showErrorAlert("Verzeichnis verschieben", "Das Zielverzeichnis:" + P2LibConst.LINE_SEPARATOR +
                         to + P2LibConst.LINE_SEPARATORx2 +
                         "ist kein Verzeichnis");
                 return false;
             }
 
             if (dest.toFile().exists() && dest.toFile().isDirectory() && dest.toFile().list().length > 0) {
-                new PAlert().showErrorAlert("Verzeichnis verschieben",
+                new P2Alert().showErrorAlert("Verzeichnis verschieben",
                         "Das Zielverzeichnis:" + P2LibConst.LINE_SEPARATOR + to + P2LibConst.LINE_SEPARATORx2 +
                                 "existiert bereits und ist nicht leer!");
                 return false;
@@ -185,36 +185,36 @@ public class P2FileUtils {
         try {
 
             if (from.toString().isEmpty()) {
-                new PAlert().showErrorAlert("Datei kopieren", "Es wurde keine Quelldatei angegeben.");
+                new P2Alert().showErrorAlert("Datei kopieren", "Es wurde keine Quelldatei angegeben.");
                 return false;
             }
 
             if (dest.toString().isEmpty()) {
-                new PAlert().showErrorAlert("Datei kopieren", "Es wurde keine Zieldatei angegeben.");
+                new P2Alert().showErrorAlert("Datei kopieren", "Es wurde keine Zieldatei angegeben.");
                 return false;
             }
 
             if (!from.toFile().exists()) {
-                new PAlert().showErrorAlert("Datei kopieren", "Die Quelldatei:" + P2LibConst.LINE_SEPARATOR +
+                new P2Alert().showErrorAlert("Datei kopieren", "Die Quelldatei:" + P2LibConst.LINE_SEPARATOR +
                         from.toString() + P2LibConst.LINE_SEPARATORx2 +
                         "existiert nicht.");
                 return false;
             }
 
             if (dest.toFile().isDirectory()) {
-                new PAlert().showErrorAlert("Datei kopieren", "Die Zieldatei:" + P2LibConst.LINE_SEPARATOR +
+                new P2Alert().showErrorAlert("Datei kopieren", "Die Zieldatei:" + P2LibConst.LINE_SEPARATOR +
                         dest.toString() + P2LibConst.LINE_SEPARATORx2 +
                         "ist ein Verzeichnis.");
                 return false;
             }
 
             if (ask && dest.toFile().exists()) {
-                PAlert.BUTTON button = PAlert.showAlert_yes_no("Hinweis", "Datei kopieren",
+                P2Alert.BUTTON button = P2Alert.showAlert_yes_no("Hinweis", "Datei kopieren",
                         "Die Zieldatei existiert bereits:" + P2LibConst.LINE_SEPARATOR +
                                 dest.toString() +
                                 P2LibConst.LINE_SEPARATORx2 +
                                 "Soll die Datei überschrieben werden?");
-                if (!button.equals(PAlert.BUTTON.YES)) {
+                if (!button.equals(P2Alert.BUTTON.YES)) {
                     return false;
                 }
             }
@@ -234,29 +234,29 @@ public class P2FileUtils {
     public static boolean checkFileToCreate(Stage stage, Path pathToCheck) {
 
         if (pathToCheck.toString().isEmpty()) {
-            new PAlert().showErrorAlert(stage, "Datei anlegen", "Es wurde keine Datei angegeben.");
+            new P2Alert().showErrorAlert(stage, "Datei anlegen", "Es wurde keine Datei angegeben.");
             return false;
         }
 
         if (pathToCheck.toFile().exists()) {
-            PAlert.BUTTON button = PAlert.showAlert_yes_no(stage, "Hinweis", "Datei anlegen",
+            P2Alert.BUTTON button = P2Alert.showAlert_yes_no(stage, "Hinweis", "Datei anlegen",
                     "Die Datei exisiert bereits:" + P2LibConst.LINE_SEPARATOR +
                             pathToCheck.toString() +
                             P2LibConst.LINE_SEPARATORx2 +
                             "Soll die Datei überschrieben werden?");
-            if (!button.equals(PAlert.BUTTON.YES)) {
+            if (!button.equals(P2Alert.BUTTON.YES)) {
                 return false;
             }
 
             if (!pathToCheck.toFile().delete()) {
-                new PAlert().showErrorAlert(stage, "Datei löschen", "Die Datei: \n" +
+                new P2Alert().showErrorAlert(stage, "Datei löschen", "Die Datei: \n" +
                         pathToCheck.toFile() + "\n" +
                         "kann nicht gelöscht werden.");
                 return false;
             }
             if (pathToCheck.toFile().exists()) {
                 // dann konnte die Datei nicht gelöscht werden
-                PAlert.showErrorAlert(stage, "Fehler",
+                P2Alert.showErrorAlert(stage, "Fehler",
                         "Zieldatei existiert bereits!",
                         "Die Zieldatei kann nicht überschrieben werden.");
                 return false;

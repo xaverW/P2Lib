@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.guitools.prange;
 
-import de.p2tools.p2lib.tools.PException;
+import de.p2tools.p2lib.tools.P2Exception;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
@@ -79,13 +79,13 @@ public class P2RangeBox_ extends VBox {
 
     private void checkValues(int min, int max) {
         if (max <= min) {
-            PException.throwPException(951207534, "PRangeBox: max <= min");
+            P2Exception.throwPException(951207534, "PRangeBox: max <= min");
         }
         if (min % MIN_DIST > 0) {
-            PException.throwPException(978451236, "PRangeBox: min % MIN_DIST > 0");
+            P2Exception.throwPException(978451236, "PRangeBox: min % MIN_DIST > 0");
         }
         if (max % MIN_DIST > 0) {
-            PException.throwPException(987451036, "PRangeBox: max % MIN_DIST > 0");
+            P2Exception.throwPException(987451036, "PRangeBox: max % MIN_DIST > 0");
         }
     }
 

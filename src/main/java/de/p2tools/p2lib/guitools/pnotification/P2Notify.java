@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.guitools.pnotification;
 
 import de.p2tools.p2lib.guitools.P2GuiTools;
-import de.p2tools.p2lib.tools.PException;
+import de.p2tools.p2lib.tools.P2Exception;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -74,7 +74,7 @@ public class P2Notify {
         this.message = message;
         this.image = image;
         if (stage == null) {
-            PException.throwPException(912036478, "Notification: stage not set");
+            P2Exception.throwPException(912036478, "Notification: stage not set");
         }
         if (scene == null) {
             scene = stage.getScene();
@@ -87,7 +87,7 @@ public class P2Notify {
         this.image = image;
         this.hBoxBottom = hBoxBottom;
         if (stage == null) {
-            PException.throwPException(912036478, "Notification: stage not set");
+            P2Exception.throwPException(912036478, "Notification: stage not set");
         }
         if (scene == null) {
             scene = stage.getScene();

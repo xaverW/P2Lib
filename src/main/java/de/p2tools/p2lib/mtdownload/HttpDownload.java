@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.mtdownload;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.pnotification.P2Notification;
 import de.p2tools.p2lib.tools.file.P2FileSize;
 import de.p2tools.p2lib.tools.file.P2FileUtils;
@@ -129,7 +129,7 @@ public class HttpDownload extends Thread {
         if (error) {
             // dann hat der Download nicht geklappt
             Platform.runLater(() ->
-                    PAlert.showErrorAlert(stage, "Download fehlgeschlagen",
+                    P2Alert.showErrorAlert(stage, "Download fehlgeschlagen",
                             "Download von: " + destDirFile + P2LibConst.LINE_SEPARATORx2 +
                                     "Der Download hat nicht geklappt." +
                                     (exMessage != null ? (P2LibConst.LINE_SEPARATORx2 + exMessage) : "")

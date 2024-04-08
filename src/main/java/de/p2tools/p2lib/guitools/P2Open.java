@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.guitools;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.alert.PAlert;
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.dialogs.P2DialogFileChooser;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.application.Platform;
@@ -55,7 +55,7 @@ public class P2Open {
                     }
                 }
             } catch (Exception ex) {
-                new PAlert().showErrorAlert(stage,
+                new P2Alert().showErrorAlert(stage,
                         "Fehler beim öffnen der Datei", "Kann die Datei nicht öffnen!");
             }
         });
@@ -329,7 +329,7 @@ public class P2Open {
 
         if (!ok) {
             stringProperty.set("");
-            new PAlert().showErrorAlert("Fehler beim öffnen des Programms", "Kann das Programm nicht öffnen!");
+            new P2Alert().showErrorAlert("Fehler beim öffnen des Programms", "Kann das Programm nicht öffnen!");
         }
     }
 
@@ -356,7 +356,7 @@ public class P2Open {
                 break;
         }
 
-        PAlert.showErrorAlert(header, cont);
+        P2Alert.showErrorAlert(header, cont);
     }
 
     enum TEXT {FILM, DIR, URL, EXTERN}

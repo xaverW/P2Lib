@@ -30,8 +30,8 @@ import de.p2tools.p2lib.mtfilm.loadfilmlist.P2LoadListener;
 import de.p2tools.p2lib.mtfilm.tools.InputStreamProgressMonitor;
 import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 import de.p2tools.p2lib.mtfilm.tools.ProgressMonitorInputStream;
-import de.p2tools.p2lib.tools.PStringUtils;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.P2StringUtils;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -67,7 +67,7 @@ public class ReadFilmlist {
 
     //Hier wird die Filmliste tatsächlich geladen: lokal von Datei, oder aus dem Web mit URL
     public void readFilmlistWebOrLocal(List<String> logList, final Filmlist filmlist, String sourceFileOrUrl) {
-        PDuration.counterStart("readFilmlistWebOrLocal");
+        P2Duration.counterStart("readFilmlistWebOrLocal");
 
         countAll = 0;
         filmsPerChannelFoundCompleteList.clear();
@@ -113,7 +113,7 @@ public class ReadFilmlist {
         logList.add("## " + P2Log.LILNE2);
         notifyLoaded();
 
-        PDuration.counterStop("readFilmlistWebOrLocal");
+        P2Duration.counterStop("readFilmlistWebOrLocal");
     }
 
     /**
@@ -280,7 +280,7 @@ public class ReadFilmlist {
     private void countFoundChannel(List<String> logList, Filmlist filmlist) {
         final int KEYSIZE = 12;
 
-        PDuration.counterStart("countFoundChannel");
+        P2Duration.counterStart("countFoundChannel");
         if (!filmsPerChannelFoundCompleteList.isEmpty()) {
             logList.add("## " + P2Log.LILNE3);
             logList.add("##");
@@ -290,10 +290,10 @@ public class ReadFilmlist {
             filmsPerChannelFoundCompleteList.keySet().stream().forEach(key -> {
                 int found = filmsPerChannelFoundCompleteList.get(key);
                 sumFilms += found;
-                logList.add("## " + PStringUtils.increaseString(KEYSIZE, key) + ": " + found);
+                logList.add("## " + P2StringUtils.increaseString(KEYSIZE, key) + ": " + found);
             });
             logList.add("## --");
-            logList.add("## " + PStringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
+            logList.add("## " + P2StringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
             logList.add("##");
         }
 
@@ -312,10 +312,10 @@ public class ReadFilmlist {
             filmsPerChannelUsed.keySet().stream().forEach(key -> {
                 int found = filmsPerChannelUsed.get(key);
                 sumFilms += found;
-                logList.add("## " + PStringUtils.increaseString(KEYSIZE, key) + ": " + found);
+                logList.add("## " + P2StringUtils.increaseString(KEYSIZE, key) + ": " + found);
             });
             logList.add("## --");
-            logList.add("## " + PStringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
+            logList.add("## " + P2StringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
             logList.add("## ");
         }
 
@@ -328,10 +328,10 @@ public class ReadFilmlist {
             filmsPerChannelBlocked.keySet().stream().forEach(key -> {
                 int found = filmsPerChannelBlocked.get(key);
                 sumFilms += found;
-                logList.add("## " + PStringUtils.increaseString(KEYSIZE, key) + ": " + found);
+                logList.add("## " + P2StringUtils.increaseString(KEYSIZE, key) + ": " + found);
             });
             logList.add("## --");
-            logList.add("## " + PStringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
+            logList.add("## " + P2StringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
             logList.add("## ");
         }
 
@@ -345,10 +345,10 @@ public class ReadFilmlist {
             filmsPerDaysBlocked.keySet().stream().forEach(key -> {
                 int found = filmsPerDaysBlocked.get(key);
                 sumFilms += found;
-                logList.add("## " + PStringUtils.increaseString(KEYSIZE, key) + ": " + found);
+                logList.add("## " + P2StringUtils.increaseString(KEYSIZE, key) + ": " + found);
             });
             logList.add("## --");
-            logList.add("## " + PStringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
+            logList.add("## " + P2StringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
             logList.add("## ");
         }
 
@@ -362,13 +362,13 @@ public class ReadFilmlist {
             filmsPerDurationBlocked.keySet().stream().forEach(key -> {
                 int found = filmsPerDurationBlocked.get(key);
                 sumFilms += found;
-                logList.add("## " + PStringUtils.increaseString(KEYSIZE, key) + ": " + found);
+                logList.add("## " + P2StringUtils.increaseString(KEYSIZE, key) + ": " + found);
             });
             logList.add("## --");
-            logList.add("## " + PStringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
+            logList.add("## " + P2StringUtils.increaseString(KEYSIZE, "=> Summe") + ": " + sumFilms);
             logList.add("## ");
         }
-        PDuration.counterStop("countFoundChannel");
+        P2Duration.counterStop("countFoundChannel");
     }
 
     private InputStream selectDecompressor(String source, InputStream in) throws Exception {

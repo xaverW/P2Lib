@@ -17,8 +17,8 @@
 
 package de.p2tools.p2lib.guitools.pcheckcombobox;
 
-import de.p2tools.p2lib.tools.PException;
-import de.p2tools.p2lib.tools.PStringUtils;
+import de.p2tools.p2lib.tools.P2Exception;
+import de.p2tools.p2lib.tools.P2StringUtils;
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,7 +45,7 @@ public class P2CheckComboBox extends HBox {
     public void addItem(String item, String toolTip, BooleanProperty property) {
         Optional<String> otp = items.stream().filter(p -> p.equals(item)).findAny();
         if (otp.isPresent()) {
-            PException.throwPException(912032014, "Item exists already");
+            P2Exception.throwPException(912032014, "Item exists already");
             return;
         }
 
@@ -57,7 +57,7 @@ public class P2CheckComboBox extends HBox {
     public void addItem(String item, String shortText, String toolTip, BooleanProperty property) {
         Optional<String> otp = items.stream().filter(p -> p.equals(item)).findAny();
         if (otp.isPresent()) {
-            PException.throwPException(912032014, "Item exists already");
+            P2Exception.throwPException(912032014, "Item exists already");
             return;
         }
 
@@ -98,7 +98,7 @@ public class P2CheckComboBox extends HBox {
         if (list.isEmpty()) {
             menuButton.setText(emptyText);
         } else {
-            menuButton.setText(PStringUtils.appendList(list, ", "));
+            menuButton.setText(P2StringUtils.appendList(list, ", "));
         }
     }
 

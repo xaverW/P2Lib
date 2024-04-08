@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.mtdownload;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.ProgIconsP2Lib;
+import de.p2tools.p2lib.P2ProgIcons;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2ProgressBar;
@@ -71,7 +71,7 @@ public class DownloadProgressDialog extends P2DialogExtra {
         gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcComputedSizeAndHgrow(),
                 P2ColumnConstraints.getCcPrefSize());
 
-        btnCancel.setGraphic(ProgIconsP2Lib.IMAGE_STOP.getImageView());
+        btnCancel.setGraphic(P2ProgIcons.IMAGE_STOP.getImageView());
         btnCancel.setTooltip(new Tooltip("Den Download abbrechen"));
         btnCancel.setOnAction(event -> {
             isCanceled = true;

@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.guitools;
 
-import de.p2tools.p2lib.tools.PException;
+import de.p2tools.p2lib.tools.P2Exception;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2lib.tools.date.P2LDateProperty;
 import javafx.beans.value.ChangeListener;
@@ -38,7 +38,7 @@ public class P2LDatePropertyPicker extends DatePicker {
 
     public P2LDatePropertyPicker(P2LDateProperty pDateProperty) {
         if (pDateProperty == null) {
-            PException.throwPException(978450201, this.getClass().toString());
+            P2Exception.throwPException(978450201, this.getClass().toString());
         }
         genChangeListener();
         bindPDateProperty(pDateProperty);
@@ -81,7 +81,7 @@ public class P2LDatePropertyPicker extends DatePicker {
 
     public void bindPDateProperty(P2LDateProperty pDateProperty) {
         if (pDateProperty == null) {
-            PException.throwPException(978450201, this.getClass().toString());
+            P2Exception.throwPException(978450201, this.getClass().toString());
         }
         if (boundPLocalDateProperty != null) {
             //todo

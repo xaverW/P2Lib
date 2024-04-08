@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.mtfilm.film;
 
 import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -76,9 +76,9 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
 
     public synchronized void filteredListSetPred(Predicate<FilmData> predicate) {
         P2Log.debugLog("=================> Filter: " + ++count);
-        PDuration.counterStart("FilmList.filteredListSetPred");
+        P2Duration.counterStart("FilmList.filteredListSetPred");
         getFilteredList().setPredicate(predicate);
-        PDuration.counterStop("FilmList.filteredListSetPred");
+        P2Duration.counterStop("FilmList.filteredListSetPred");
     }
 
     public String getFilmlistId() {
@@ -235,7 +235,7 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
      * für die Filterfelder in GuiFilme.
      */
     public synchronized void loadSender() {
-        PDuration.counterStart("loadSender");
+        P2Duration.counterStart("loadSender");
 
         final LinkedHashSet<String> senderSet = new LinkedHashSet<>(21);
         // der erste Sender ist ""
@@ -244,7 +244,7 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
         stream().forEach((film) -> senderSet.add(film.getChannel()));
         sender = senderSet.toArray(new String[senderSet.size()]);
 
-        PDuration.counterStop("loadSender");
+        P2Duration.counterStop("loadSender");
 //        loadUrls();
     }
 

@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.guitools;
 
 import de.p2tools.p2lib.tools.GermanStringSorter;
-import de.p2tools.p2lib.tools.PRegEx;
+import de.p2tools.p2lib.tools.P2RegEx;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ListChangeListener;
@@ -49,7 +49,7 @@ public class P2ComboBoxString extends ComboBox<String> {
     public P2ComboBoxString(String regEx) {
         super();
         this.setEditable(true);
-        pattern = PRegEx.makePattern(regEx);
+        pattern = P2RegEx.makePattern(regEx);
     }
 
     public void init(ObservableList<String> dataList) {
@@ -74,7 +74,7 @@ public class P2ComboBoxString extends ComboBox<String> {
     }
 
     public void setRegEx(String regEx) {
-        pattern = PRegEx.makePattern(regEx);
+        pattern = P2RegEx.makePattern(regEx);
     }
 
     public void bindSelValueProperty(StringProperty stringProperty) {
@@ -253,7 +253,7 @@ public class P2ComboBoxString extends ComboBox<String> {
         }
 
         if (/*!PRegEx.check(valueProperty().getValue(), pattern) ||*/
-                PRegEx.check(getEditor().textProperty().getValue(), pattern)) {
+                P2RegEx.check(getEditor().textProperty().getValue(), pattern)) {
             this.getEditor().setStyle("");
 //            this.setStyle("");
         } else {

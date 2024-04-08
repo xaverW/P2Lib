@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.tools.log;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.tools.PStringUtils;
+import de.p2tools.p2lib.tools.P2StringUtils;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class P2Log {
 
     //Meldungen zur Zeitmessung
     public static synchronized void durationLog(ArrayList<String> list) {
-        String log = PStringUtils.appendList(list, P2LibConst.LINE_SEPARATOR);
+        String log = P2StringUtils.appendList(list, P2LibConst.LINE_SEPARATOR);
         if (log.isEmpty()) {
             return;
         }
@@ -79,7 +79,7 @@ public class P2Log {
     }
 
     public static synchronized void errorLog(int errorNumber, String[] text) {
-        String log = PStringUtils.appendArray(text, P2LibConst.LINE_SEPARATOR);
+        String log = P2StringUtils.appendArray(text, P2LibConst.LINE_SEPARATOR);
         if (log.isEmpty()) {
             return;
         }
@@ -94,7 +94,7 @@ public class P2Log {
     }
 
     public static synchronized void errorLog(int errorNumber, Exception ex, String text[]) {
-        String log = PStringUtils.appendArray(text, P2LibConst.LINE_SEPARATOR);
+        String log = P2StringUtils.appendArray(text, P2LibConst.LINE_SEPARATOR);
         if (log.isEmpty()) {
             return;
         }
@@ -110,7 +110,7 @@ public class P2Log {
     }
 
     public static synchronized void sysLog(String text[]) {
-        String log = PStringUtils.appendArray(text, P2LibConst.LINE_SEPARATOR);
+        String log = P2StringUtils.appendArray(text, P2LibConst.LINE_SEPARATOR);
         if (log.isEmpty()) {
             return;
         }
@@ -119,7 +119,7 @@ public class P2Log {
     }
 
     public static synchronized void sysLog(List<String> list) {
-        String log = PStringUtils.appendList(list, P2LibConst.LINE_SEPARATOR);
+        String log = P2StringUtils.appendList(list, P2LibConst.LINE_SEPARATOR);
         if (log.isEmpty()) {
             return;
         }
@@ -148,7 +148,7 @@ public class P2Log {
         if (!P2LibConst.debug) {
             return;
         }
-        String log = PStringUtils.appendArray(text, P2LibConst.LINE_SEPARATOR);
+        String log = P2StringUtils.appendArray(text, P2LibConst.LINE_SEPARATOR);
         if (log.isEmpty()) {
             return;
         }
@@ -160,7 +160,7 @@ public class P2Log {
         if (!P2LibConst.debug) {
             return;
         }
-        String log = PStringUtils.appendList(list, P2LibConst.LINE_SEPARATOR);
+        String log = P2StringUtils.appendList(list, P2LibConst.LINE_SEPARATOR);
         if (log.isEmpty()) {
             return;
         }

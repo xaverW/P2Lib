@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.mtfilm.film;
 
 import de.p2tools.p2lib.configfile.config.Config;
-import de.p2tools.p2lib.configfile.pdata.PData;
+import de.p2tools.p2lib.configfile.pdata.P2Data;
 import de.p2tools.p2lib.mtfilm.tools.FilmDate;
 import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 import de.p2tools.p2lib.tools.log.P2Log;
@@ -25,7 +25,7 @@ import de.p2tools.p2lib.tools.log.P2Log;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class FilmData extends FilmDataProps implements PData {
+public class FilmData extends FilmDataProps implements P2Data {
 
     public String FILM_CHANNEL_STR = "";
     public String FILM_THEME_STR = "";

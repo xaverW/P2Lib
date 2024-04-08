@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.mtfilter;
 
-import de.p2tools.p2lib.data.PColorData;
+import de.p2tools.p2lib.data.P2ColorData;
 import javafx.application.Platform;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.paint.Color;
@@ -25,9 +25,9 @@ import javafx.scene.paint.Color;
 public class FilterCheckRegEx {
     private final int COUNTER_MAX = 2_500;
 
-    public static PColorData COLOR_ERROR = new PColorData("COLOR_FILTER_REGEX_ERROR",
+    public static P2ColorData COLOR_ERROR = new P2ColorData("COLOR_FILTER_REGEX_ERROR",
             Color.rgb(255, 230, 230), Color.rgb(170, 0, 0));
-    public static PColorData COLOR_OK = new PColorData("COLOR_FILTER_REGEX",
+    public static P2ColorData COLOR_OK = new P2ColorData("COLOR_FILTER_REGEX",
             Color.rgb(225, 255, 225), Color.rgb(128, 179, 213));
 
     private TextInputControl tf;

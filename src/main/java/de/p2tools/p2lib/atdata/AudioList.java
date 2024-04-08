@@ -16,7 +16,7 @@
 
 package de.p2tools.p2lib.atdata;
 
-import de.p2tools.p2lib.tools.duration.PDuration;
+import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -71,9 +71,9 @@ public class AudioList extends SimpleListProperty<AudioData> {
 
     public synchronized void filteredListSetPred(Predicate<AudioData> predicate) {
         P2Log.debugLog("=================> Filter: " + ++count);
-        PDuration.counterStart("FilmList.filteredListSetPred");
+        P2Duration.counterStart("FilmList.filteredListSetPred");
         getFilteredList().setPredicate(predicate);
-        PDuration.counterStop("FilmList.filteredListSetPred");
+        P2Duration.counterStop("FilmList.filteredListSetPred");
     }
 
     public synchronized void importFilmOnlyWithNr(AudioData film) {
@@ -115,7 +115,7 @@ public class AudioList extends SimpleListProperty<AudioData> {
      * für die Filterfelder in GuiAudio.
      */
     public synchronized void loadSenderAndGenre() {
-        PDuration.counterStart("loadSenderAndGenre");
+        P2Duration.counterStart("loadSenderAndGenre");
 
         final LinkedHashSet<String> setSender = new LinkedHashSet<>(21);
         // der erste Sender ist ""
@@ -128,7 +128,7 @@ public class AudioList extends SimpleListProperty<AudioData> {
         this.forEach((audioData) -> setGenre.add(audioData.getGenre()));
         genre = setGenre.toArray(new String[0]);
 
-        PDuration.counterStop("loadSenderAndGenre");
+        P2Duration.counterStop("loadSenderAndGenre");
     }
 
     /**
