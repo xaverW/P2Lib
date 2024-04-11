@@ -122,7 +122,7 @@ public class LoadFilmlist {
         }).start();
     }
 
-    public void loadNewFilmlistFromWeb(boolean alwaysLoadNew, String localFilmListFile) {
+    public void loadNewFilmlistFromWeb(boolean alwaysLoadNew/*, String localFilmListFile*/) {
         if (LoadFactory.checkAllSenderSelectedNotToLoad()) {
             // alle Sender sind vom Laden ausgenommen
             P2Log.sysLog("Filmliste laden: Es sind keine Sender eingeschaltet!!");
@@ -147,7 +147,8 @@ public class LoadFilmlist {
             logList.add("##            Anzahl  Neue: " + LoadFactoryConst.filmlist.countNewFilms());
             logList.add("##");
 
-            loadNewFilmlistFromWeb(logList, alwaysLoadNew, false, localFilmListFile);
+            //loadNewFilmlistFromWeb(logList, alwaysLoadNew, false, localFilmListFile);
+            loadNewFilmlistFromWeb(logList, alwaysLoadNew, false, LoadFactoryConst.localFilmListFile);
             afterLoading(logList);
 
             logList.add("## Filmliste aus dem Web laden - ende");
