@@ -28,6 +28,8 @@ import java.util.List;
 public class P2LibConst {
     public static final int NUMBER_NOT_STARTED = Integer.MAX_VALUE;
     public static final int NUMBER_NULL = 0;
+    public static final int NUMBER_ALL_OR_MIN = 0;
+
 
     public static final int WINDOW_ICON_WIDTH = 58;
     public static final int WINDOW_ICON_HEIGHT = 58;
