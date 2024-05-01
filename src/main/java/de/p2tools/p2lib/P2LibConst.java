@@ -46,7 +46,7 @@ public class P2LibConst {
     public static String logfile = "P2Tools_%g.log";
     public static String logfile_0 = "P2Tools_0.log";
     public static String logdir = "Log";
-    public static String styleFile = "";
+    public static String styleFile = ""; // zb. für die Anpassung der Schriftgröße
     public static int MIN_BUTTON_WIDTH = 100;
     //sind die Einstellungen des Programms
     public static Stage primaryStage = null;

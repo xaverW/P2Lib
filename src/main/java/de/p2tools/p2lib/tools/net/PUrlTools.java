@@ -67,6 +67,7 @@ public class PUrlTools {
     public static String getSuffixFromUrl(String path) {
         // Suffix einer URL extrahieren
         // "http://ios-ondemand.swr.de/i/swr-fernsehen/bw-extra/20130202/601676.,m,s,l,.mp4.csmil/index_2_av.m3u8?e=b471643725c47acd"
+        // https://api.ardmediathek.de/player-service/subtitle/ebutt/urn:ard:subtitle:9f1824d580b624fb
         String ret = "";
         if (path != null) {
             if (!path.isEmpty() && path.contains(".")) {
@@ -82,7 +83,7 @@ public class PUrlTools {
         if (ret.length() > 5) {
             // dann ist was faul
             ret = "---";
-            P2Log.errorLog(821397046, "no Suffix for URL: " + path);
+            P2Log.debugLog("no Suffix for URL: " + path);
         }
         return ret;
     }
