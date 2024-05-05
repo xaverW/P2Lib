@@ -37,6 +37,7 @@ public class FilmData extends FilmDataProps implements P2Data {
     public static final String RESOLUTION_SMALL = "small";
     public static final int FILM_TIME_EMPTY = -1;
     public static final String GEO_DE = "DE";
+    public static final String GEO_FR = "FR";
     public static final String GEO_AT = "AT";
     public static final String GEO_CH = "CH";
     public static final String GEO_EU = "EU";
