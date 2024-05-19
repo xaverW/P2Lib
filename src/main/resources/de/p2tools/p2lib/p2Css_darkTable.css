@@ -8,6 +8,7 @@
 .table-view .table-cell{
     -fx-border-color: #9a9a9a;
 }
+
 .table-row-cell:odd{
     -fx-background-color: derive(-fx-control-inner-background, 20%);
 }
@@ -16,32 +17,16 @@
 }
 
 .table-row-cell:hover {
-    -fx-background-color: derive(-fx-control-inner-background, 50%);
-    -fx-background-insets: 0;
-    -fx-padding: 0;
+    -fx-background-color: derive(-fx-control-inner-background, 75%);
 }
 .table-row-cell:selected{
-    -fx-background-color: derive(-fx-control-inner-background, 80%);
-    -fx-background-insets: 0;
-    -fx-padding: 0;
+    /*-fx-background-color: derive(-fx-control-inner-background, 150%);*/
+    -fx-background-color: #8ebae1;
 }
 .table-row-cell:selected:hover{
-    -fx-background-color: derive(-fx-control-inner-background, 150%);
-    -fx-background-insets: 0;
-    -fx-padding: 0;
+    -fx-background-color: derive(-fx-control-inner-background, 200%);
+    -fx-text-background-color: black;
 }
-/*
-.table-row-cell:selected:hover{
-    -fx-background-color: #b2d8ff;
-    -fx-background-insets: 0;
-    -fx-padding: 0;
-}
-.table-row-cell:focused:hover{
-    -fx-background-color: #585858;
-    -fx-background-insets: 0, 1;
-    -fx-text-background-color: #a1caff;
-}
-*/
 
 /* damit leere Tabellenzeilen nicht angezeigt werden */
 .table-row-cell:empty {
@@ -50,6 +35,7 @@
 .table-row-cell:empty .table-cell {
     -fx-border-width: 0px;
  }
+
 
 
 /* tabs of the tabpane*/

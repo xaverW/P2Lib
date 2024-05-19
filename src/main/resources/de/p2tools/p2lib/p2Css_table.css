@@ -18,21 +18,13 @@
 /* Tabelle */
 .table-row-cell:hover {
     -fx-background-color: #e2e2e2;
-    /*-fx-background-color: derive(-fx-control-inner-background, 100%);*/
-    -fx-text-background-color: black;
-    -fx-background-insets: 0;
+}
+.table-row-cell:selected{
+    -fx-background-color: #0099ff;
 }
 .table-row-cell:hover:selected{
     -fx-background-color: #989898;
 }
-
-/*
-.table-row-cell:focused:hover{
-    -fx-background-color: #a2a2a2;
-    -fx-background-insets: 0, 1;
-    -fx-text-background-color: blue;
-}
-*/
 
 /* damit leere Tabellenzeilen nicht angezeigt werden */
 .table-row-cell:empty {
@@ -44,7 +36,8 @@
 
 
 
-/* damit leere Treetable-Zeilen nicht angezeigt werden */
+
+/* damit leere TreeTable-Zeilen nicht angezeigt werden */
  .tree-table-row-cell:empty {
      -fx-border-width: 0;
      -fx-background-color: transparent;
