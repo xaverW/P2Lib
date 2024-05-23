@@ -286,6 +286,25 @@ public abstract class AboutDialog extends P2DialogExtra {
         text.setFill(PROG_COLOR);
         gridPane.add(text, c + 1, row);
         txtContext.append("\n").append("JavaFX: ").append(text.getText());
+
+        long totalMem = Runtime.getRuntime().totalMemory();
+        String totalMemStr = totalMem / 1000000L + "";
+        long maxMem = Runtime.getRuntime().maxMemory();
+        String maxMemStr = maxMem / 1000000L + "";
+        long freeMem = Runtime.getRuntime().freeMemory();
+        String freeMemStr = freeMem / 1000000L + "";
+
+        text = new Text("Speicher [MB]:");
+        text.setFont(new Font(15));
+        text.setFill(PROG_COLOR);
+        gridPane.add(text, c, ++row);
+
+        text = new Text(totalMemStr + ",  max: " + maxMemStr + ",  frei: " + freeMemStr);
+        text.setFont(new Font(15));
+        text.setFill(PROG_COLOR);
+        gridPane.add(text, c + 1, row);
+        txtContext.append("\n").append("Speicher (max / frei): ").append(text.getText());
+
         P2ClipBoardContext.addMenu("Java-Infos kopieren", txtContext.toString(), gridPane);
 
         //====================
