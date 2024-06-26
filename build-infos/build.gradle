@@ -1,0 +1,50 @@
+plugins {
+    id 'java-library'
+    id "org.openjfx.javafxplugin" version "0.1.0"
+}
+javafx {
+    version = "21.0.3"
+    modules = ['javafx.controls']
+}
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+def programName = 'P2Lib'
+def jarName = 'p2lib.jar'
+def fatJarDir = layout.buildDirectory.get().toString() + "/fatJar" + "/"
+
+// ===========================================
+// build project
+// ===========================================
+group 'de.p2tools'
+
+dependencies {
+    implementation ':controlsfx-11.1.3'
+    implementation ':commons-io-2.12.0'
+    implementation ':commons-lang3-3.12.0'
+    implementation ':jackson-core-2.15.2'
+    implementation ':xz-1.9'
+
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    destinationDirectory.set(file(fatJarDir))
+    archiveFileName = jarName
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
