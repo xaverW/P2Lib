@@ -134,6 +134,11 @@ public class P2MenuButton extends MenuButton {
             CustomMenuItem cmi = new CustomMenuItem(hBox);
             cmi.getStyleClass().add("cbo-menu-item");
             getItems().add(cmi);
+
+            cmi.setOnAction(e -> {
+//                System.out.println("CustomMenuItem");
+                setChannelCheckBoxAndMenuText(menuItemClass);
+            });
         }
     }
 
