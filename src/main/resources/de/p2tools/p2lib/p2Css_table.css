@@ -20,7 +20,7 @@
     -fx-background-color: #e2e2e2;
 }
 .table-row-cell:selected{
-    -fx-background-color: #0099ff;
+    -fx-background-color: #18c1ff;
 }
 .table-row-cell:hover:selected{
     -fx-background-color: #989898;
