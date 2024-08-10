@@ -17,6 +17,7 @@
 package de.p2tools.p2lib.dialogs;
 
 import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.P2ProgIcons;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ClipBoardContext;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
@@ -50,14 +51,13 @@ public abstract class AboutDialog extends P2DialogExtra {
     private final String progName;
     private final String URL_WEBSITE;
     private final String URL_WEBSITE_HELP;
-    private final ImageView imageView; //ist nur für Fehlermeldungen
     private final StringProperty urlOpenProg;
     private final String[] listName;
     private final String[] listValue;
 
 
     public AboutDialog(Stage stage, String progName, String URL_WEBSITE, String URL_WEBSITE_HELP,
-                       String imgPath, StringProperty urlOpenProg,
+                       StringProperty urlOpenProg,
                        boolean dark, String[] listName, String[] listValue, boolean masker) {
         super(stage, null, "Über das Programm", true, false, DECO.BORDER_SMALL, masker);
 
@@ -69,8 +69,6 @@ public abstract class AboutDialog extends P2DialogExtra {
         ImageView imageView = new ImageView();
         imageView.setSmooth(true);
         imageView.setCache(true);
-        imageView.setImage(new Image(imgPath, 128, 128, false, true));
-        this.imageView = imageView;
 
         if (dark) {
             this.PROG_COLOR_MARK = Color.rgb(244, 244, 255);
@@ -113,7 +111,7 @@ public abstract class AboutDialog extends P2DialogExtra {
         getVBoxCont().getChildren().add(hBox);
 
         ImageView iv = new ImageView();
-        Image im = getImage();
+        Image im = P2ProgIcons.P2_ABOUT_ICON.getImage(128, 128);
         iv.setSmooth(true);
         iv.setCache(true);
         iv.setImage(im);
@@ -182,13 +180,13 @@ public abstract class AboutDialog extends P2DialogExtra {
 
         gridPane.add(text, c, row, 2, 1);
         P2Hyperlink hyperlinkWeb = new P2Hyperlink(URL_WEBSITE,
-                urlOpenProg, imageView);
+                urlOpenProg);
         P2Hyperlink hyperlinkHelp = new P2Hyperlink(URL_WEBSITE_HELP,
-                urlOpenProg, imageView);
+                urlOpenProg);
         P2Hyperlink hyperlinkForum = new P2Hyperlink(P2LibConst.URL_WEBSITE_FORUM,
-                urlOpenProg, imageView);
+                urlOpenProg);
         P2Hyperlink hyperlinkDonate = new P2Hyperlink(P2LibConst.URL_WEBSITE_DONATE,
-                urlOpenProg, imageView);
+                urlOpenProg);
 
         txtContext.append("\n").append("Website: ").append(hyperlinkWeb.getText()).append("\n")
                 .append("Anleitung: ").append(hyperlinkHelp.getText()).append("\n")
@@ -317,11 +315,6 @@ public abstract class AboutDialog extends P2DialogExtra {
         text.setFont(Font.font(null, FontWeight.BOLD, 15));
         text.setFill(PROG_COLOR_MARK);
         gridPane.add(text, c, row, 2, 1);
-    }
-
-    private Image getImage() {
-        final String path = "/de/p2tools/p2lib/icons/P2.png";
-        return new Image(path, 128, 128, false, true);
     }
 
     private GridPane getGridPane() {

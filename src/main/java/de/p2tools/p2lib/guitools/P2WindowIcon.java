@@ -31,7 +31,7 @@ public class P2WindowIcon {
 
     public static void addWindowP2Icon(Stage stage) {
         try {
-            stage.getIcons().add(0, P2ProgIcons.P2_WINDOW_ICON.getImage());
+            stage.getIcons().add(0, P2ProgIcons.P2_STAGE_ICON.getImage());
         } catch (Exception ex) {
             P2Log.errorLog(945720146, "Kann Window-Icon nicht setzen");
         }

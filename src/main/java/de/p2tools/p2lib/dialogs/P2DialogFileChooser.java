@@ -21,7 +21,6 @@ import de.p2tools.p2lib.alert.P2Alert;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -33,13 +32,13 @@ import java.util.Optional;
 public class P2DialogFileChooser extends P2Alert {
 
     //todo deprecated
-    public static String showFileChooser(Stage stage, String title, String header, String content, boolean dir, ImageView imageView) {
-        return showFileChooser(stage, title, header, content, dir, true, "", imageView);
+    public static String showFileChooser(Stage stage, String title, String header, String content, boolean dir) {
+        return showFileChooser(stage, title, header, content, dir, true, "");
     }
 
     public static String showFileChooser(Stage stage, String title, String header,
                                          String content, boolean dir, boolean txtArea,
-                                         String startFile, ImageView imageView) {
+                                         String startFile) {
 
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle(title);
@@ -71,11 +70,8 @@ public class P2DialogFileChooser extends P2Alert {
         GridPane.setVgrow(txtFile, Priority.ALWAYS);
 
         Button btnDest = new Button("");
-        if (imageView != null) {
-            btnDest.setGraphic(imageView);
-        } else {
-            btnDest.setGraphic(P2ProgIcons.IMAGE_FILE_OPEN.getImageView());
-        }
+        btnDest.setGraphic(P2ProgIcons.IMAGE_FILE_OPEN.getImageView());
+
         btnDest.setOnAction(event -> {
             if (dir) {
                 P2DirFileChooser.DirChooser(stage, txtFile);

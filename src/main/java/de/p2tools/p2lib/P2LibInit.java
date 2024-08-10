@@ -27,11 +27,12 @@ import java.util.List;
 public class P2LibInit {
 
     public static void initLib(Stage primaryStage, String progName, String userAgent,
-                               BooleanProperty darkMode, boolean debug, boolean duration) {
+                               BooleanProperty darkMode, BooleanProperty blackWhite, boolean debug, boolean duration) {
         P2LibConst.primaryStage = primaryStage;
         P2LibConst.progName = progName;
         P2LibConst.userAgent = userAgent;
         P2LibConst.darkMode = darkMode == null ? new SimpleBooleanProperty(false) : darkMode;
+        P2LibConst.blackWhite = blackWhite == null ? new SimpleBooleanProperty(false) : blackWhite;
         P2LibConst.debug = debug;
         P2LibConst.duration = duration;
     }

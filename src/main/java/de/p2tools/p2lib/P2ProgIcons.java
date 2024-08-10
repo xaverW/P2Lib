@@ -30,10 +30,11 @@ public class P2ProgIcons {
     public static P2IconP2Lib IMAGE_HELP = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "button-help.png");
     public static P2IconP2Lib IMAGE_FILE_OPEN = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "button-file-open.png");
     public static P2IconP2Lib IMAGE_STOP = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "button-stop.png");
-    public static P2IconP2Lib P2_ICON_16 = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "P2_16.png");
-    public static P2IconP2Lib P2_ICON_24 = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "P2_24.png");
-    public static P2IconP2Lib P2_ICON_32 = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "P2_32.png");
-    public static P2IconP2Lib P2_WINDOW_ICON = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "P2_32.png", 58, 58);
+    //    public static P2IconP2Lib P2_ICON_16 = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "P2_16.png");
+//    public static P2IconP2Lib P2_ICON_24 = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "P2_24.png");
+//    public static P2IconP2Lib P2_ICON_32 = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "P2_32.png");
+    public static P2IconP2Lib P2_STAGE_ICON = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "P2_Stage_Icon.png");
+    public static P2IconP2Lib P2_ABOUT_ICON = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "P2_About_Icon.png");
 
 
     public static final P2IconP2Lib ICON_BUTTON_NEXT = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "button-next.png");

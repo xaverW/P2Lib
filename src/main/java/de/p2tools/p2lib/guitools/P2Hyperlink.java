@@ -25,7 +25,6 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseButton;
@@ -36,25 +35,14 @@ import java.util.Optional;
 public class P2Hyperlink extends Hyperlink {
     private String url;
     private final StringProperty prog;
-    private final ImageView imageView;
     private final Stage stage;
     private boolean changeAble = false;
 
-    public P2Hyperlink(Stage stage, String url, StringProperty prog, ImageView imageView) {
+    public P2Hyperlink(Stage stage, String url, StringProperty prog) {
         super(url);
         this.stage = stage;
         this.url = url;
         this.prog = prog;
-        this.imageView = imageView;
-        init();
-    }
-
-    public P2Hyperlink(String url, StringProperty prog, ImageView imageView) {
-        super(url);
-        stage = P2LibConst.primaryStage;
-        this.url = url;
-        this.prog = prog;
-        this.imageView = imageView;
         init();
     }
 
@@ -63,16 +51,6 @@ public class P2Hyperlink extends Hyperlink {
         stage = P2LibConst.primaryStage;
         this.url = url;
         this.prog = prog;
-        this.imageView = null;
-        init();
-    }
-
-    public P2Hyperlink(String url, ImageView imageView) {
-        super(url);
-        stage = P2LibConst.primaryStage;
-        this.url = url;
-        this.prog = null;
-        this.imageView = imageView;
         init();
     }
 
@@ -81,7 +59,6 @@ public class P2Hyperlink extends Hyperlink {
         stage = P2LibConst.primaryStage;
         this.url = url;
         this.prog = null;
-        this.imageView = null;
         init();
     }
 
@@ -99,7 +76,7 @@ public class P2Hyperlink extends Hyperlink {
         setStyle("-fx-font-size: 15px;");
         setOnAction(a -> {
             try {
-                P2Open.openURL(stage, url, prog, imageView);
+                P2Open.openURL(stage, url, prog);
             } catch (Exception e) {
                 P2Log.errorLog(974125469, e);
             }

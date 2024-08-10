@@ -97,7 +97,7 @@ public class P2Open {
                 final String[] arrProgCallArray = {program, directory.getAbsolutePath()};
                 Runtime.getRuntime().exec(arrProgCallArray);
             } catch (final Exception ex) {
-                Platform.runLater(() -> afterPlay(stage, TEXT.DIR, prog, directory.getAbsolutePath(), getProgIcon));
+                Platform.runLater(() -> afterPlay(stage, TEXT.DIR, prog, directory.getAbsolutePath()));
             }
 
 
@@ -111,7 +111,7 @@ public class P2Open {
                         }
                     }
                 } catch (Exception ex) {
-                    Platform.runLater(() -> afterPlay(stage, TEXT.DIR, prog, directory.getAbsolutePath(), getProgIcon));
+                    Platform.runLater(() -> afterPlay(stage, TEXT.DIR, prog, directory.getAbsolutePath()));
                 }
             });
             th.setName("openDir");
@@ -152,7 +152,7 @@ public class P2Open {
                 final String[] cmd = {program, filmFile.getAbsolutePath()};
                 Runtime.getRuntime().exec(cmd);
             } catch (final Exception ex) {
-                Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file, getProgIcon));
+                Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file));
             }
 
         } else {
@@ -166,7 +166,7 @@ public class P2Open {
                         }
                     }
                 } catch (Exception ex) {
-                    Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file, getProgIcon));
+                    Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file));
                 }
             });
             th.setName("playStoredFilm");
@@ -188,7 +188,7 @@ public class P2Open {
             try {
                 Runtime.getRuntime().exec(arrProgCallArray);
             } catch (final Exception ex) {
-                Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file, getProgIcon));
+                Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file));
             }
 
         } else {
@@ -202,7 +202,7 @@ public class P2Open {
                         }
                     }
                 } catch (Exception ex) {
-                    Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file, getProgIcon));
+                    Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file));
                 }
             });
             th.setName("playStoredFilm");
@@ -215,14 +215,14 @@ public class P2Open {
     }
 
     public static void openURL(Stage primaryStage, String url) {
-        openURL(primaryStage, url, null, null);
+        openURL(primaryStage, url, null);
     }
 
     public static void openURL(String url, StringProperty prog, ImageView getProgIcon) {
-        openURL(P2LibConst.primaryStage, url, prog, getProgIcon);
+        openURL(P2LibConst.primaryStage, url, prog);
     }
 
-    public static void openURL(Stage stage, String url, StringProperty prog, ImageView getProgIcon) {
+    public static void openURL(Stage stage, String url, StringProperty prog) {
         if (url.isEmpty()) {
             return;
         }
@@ -234,7 +234,7 @@ public class P2Open {
                 final String[] cmd = {program, url};
                 Runtime.getRuntime().exec(cmd);
             } catch (final Exception ex) {
-                afterPlay(stage, TEXT.URL, prog, url, getProgIcon);
+                afterPlay(stage, TEXT.URL, prog, url);
             }
 
         } else {
@@ -252,7 +252,7 @@ public class P2Open {
                     }
 
                 } catch (Exception ex) {
-                    Platform.runLater(() -> afterPlay(stage, TEXT.URL, prog, url, getProgIcon));
+                    Platform.runLater(() -> afterPlay(stage, TEXT.URL, prog, url));
                 }
             });
 
@@ -262,18 +262,18 @@ public class P2Open {
 
     }
 
-    public static void openExternProgram(Stage stage, StringProperty prog, ImageView getProgIcon) {
+    public static void openExternProgram(Stage stage, StringProperty prog) {
         if (prog != null && !prog.getValueSafe().isEmpty()) {
             try {
                 final String program = prog.getValueSafe();
                 Runtime.getRuntime().exec(program);
             } catch (final Exception ex) {
-                Platform.runLater(() -> afterPlay(stage, TEXT.EXTERN, prog, "", getProgIcon));
+                Platform.runLater(() -> afterPlay(stage, TEXT.EXTERN, prog, ""));
             }
         }
     }
 
-    private static void afterPlay(Stage stage, TEXT t, StringProperty stringProperty, String fileUrl, ImageView getProgIcon) {
+    private static void afterPlay(Stage stage, TEXT t, StringProperty stringProperty, String fileUrl) {
         if (stringProperty == null) {
             afterPlay(t);
             return;
@@ -309,7 +309,7 @@ public class P2Open {
 
         try {
             program = P2DialogFileChooser.showFileChooser(stage, title, header,
-                    cont, false, getProgIcon);
+                    cont, false);
 
             if (!program.isEmpty()) {
                 final String[] cmd = {program, fileUrl};

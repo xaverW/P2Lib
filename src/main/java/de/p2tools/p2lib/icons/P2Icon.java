@@ -17,8 +17,15 @@
 
 package de.p2tools.p2lib.icons;
 
+import de.p2tools.p2lib.P2LibConst;
+import javafx.scene.CacheHint;
+import javafx.scene.effect.Blend;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.ColorInput;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 import java.net.URL;
 
@@ -121,6 +128,38 @@ public abstract class P2Icon {
     }
 
     public ImageView getImageView() {
+        Image img = getImage();
+        if (img == null) {
+            return new ImageView();
+        }
+
+        ImageView imageView = new ImageView(img);
+        imageView.setClip(new ImageView(img));
+
+        if (P2LibConst.blackWhite.get()) {
+            ColorAdjust monochrome = new ColorAdjust();
+            monochrome.setSaturation(-1.0);
+
+            Blend blush = new Blend(
+                    BlendMode.MULTIPLY,
+                    monochrome,
+                    new ColorInput(
+                            0,
+                            0,
+                            imageView.getImage().getWidth(),
+                            imageView.getImage().getHeight(),
+                            Color.DARKGRAY
+                    )
+            );
+            imageView.setEffect(blush);
+            imageView.setCache(true);
+            imageView.setCacheHint(CacheHint.SPEED);
+        }
+
+        return imageView;
+    }
+
+    public ImageView getImageView_() {
         Image img = getImage();
         if (img == null) {
             return new ImageView();

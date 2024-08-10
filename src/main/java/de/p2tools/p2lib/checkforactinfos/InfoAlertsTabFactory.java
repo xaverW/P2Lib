@@ -122,23 +122,23 @@ public class InfoAlertsTabFactory {
         txtVersion.setPadding(new Insets(VERSION_PADDING_T, 0, VERSION_PADDING_B, 0));
 
         final HBox pane1 = new HBox();
-        pane1.getStyleClass().add("update-grid-cell");
+//        pane1.getStyleClass().add("update-grid-cell");
         pane1.getChildren().add(lblActVersion);
         pane1.setAlignment(Pos.CENTER_LEFT);
 
 
         final HBox pane2 = new HBox();
-        pane2.getStyleClass().add("update-grid-cell");
+//        pane2.getStyleClass().add("update-grid-cell");
         pane2.getChildren().add(txtActVersion);
         pane2.setAlignment(Pos.CENTER_LEFT);
 
         final HBox pane3 = new HBox();
-        pane3.getStyleClass().add("update-grid-cell");
+//        pane3.getStyleClass().add("update-grid-cell");
         pane3.getChildren().add(lblVersion);
         pane3.setAlignment(Pos.CENTER_LEFT);
 
         final HBox pane4 = new HBox();
-        pane4.getStyleClass().add("update-grid-cell");
+//        pane4.getStyleClass().add("update-grid-cell");
         pane4.getChildren().add(txtVersion);
         pane4.setAlignment(Pos.CENTER_LEFT);
 
@@ -263,22 +263,22 @@ public class InfoAlertsTabFactory {
         final Label lblRel = new Label("Änderungen:");
 
         final HBox pane1 = new HBox();
-        pane1.getStyleClass().add("update-grid-cell");
+//        pane1.getStyleClass().add("update-grid-cell");
         pane1.getChildren().add(lblActVersion);
         pane1.setAlignment(Pos.CENTER_LEFT);
 
         final HBox pane2 = new HBox();
-        pane2.getStyleClass().add("update-grid-cell");
+//        pane2.getStyleClass().add("update-grid-cell");
         pane2.getChildren().add(txtActVersion);
         pane2.setAlignment(Pos.CENTER_LEFT);
 
         final HBox pane3 = new HBox();
-        pane3.getStyleClass().add("update-grid-cell");
+//        pane3.getStyleClass().add("update-grid-cell");
         pane3.getChildren().add(lblVersion);
         pane3.setAlignment(Pos.CENTER_LEFT);
 
         final HBox pane4 = new HBox();
-        pane4.getStyleClass().add("update-grid-cell");
+//        pane4.getStyleClass().add("update-grid-cell");
         pane4.getChildren().add(txtVersion);
         pane4.setAlignment(Pos.CENTER_LEFT);
 

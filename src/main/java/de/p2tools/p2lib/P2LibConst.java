@@ -52,7 +52,8 @@ public class P2LibConst {
     public static Stage primaryStage = null;
     public static String progName = "P2Tools";
     public static String userAgent = "";
-    public static BooleanProperty darkMode = new SimpleBooleanProperty();
+    public static BooleanProperty darkMode = new SimpleBooleanProperty(false);
+    public static BooleanProperty blackWhite = new SimpleBooleanProperty(false);
 
     public static BooleanProperty useProxy = new SimpleBooleanProperty(false);
     public static StringProperty proxyHost = new SimpleStringProperty("");
