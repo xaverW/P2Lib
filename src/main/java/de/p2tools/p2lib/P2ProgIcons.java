@@ -15,60 +15,26 @@ package de.p2tools.p2lib;/*
  */
 
 
-import de.p2tools.p2lib.icons.P2Icon;
-
-import java.util.ArrayList;
-import java.util.List;
+import de.p2tools.p2lib.icons.P2Image;
 
 public class P2ProgIcons {
 
-    public static String ICON_PATH = "icons/";
-    public static String ICON_PATH_LONG = "de/p2tools/p2lib/icons/";
+    public static String ICON_PATH_LONG = "de/p2tools/p2lib/p2icons/";
 
-    private static final List<P2IconP2Lib> iconList = new ArrayList<>();
-    public static P2IconP2Lib ICON_BUTTON_CLEAR_FILTER = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "button-clear-filter.png", 21, 21);
-    public static P2IconP2Lib IMAGE_HELP = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "button-help.png");
-    public static P2IconP2Lib IMAGE_FILE_OPEN = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "button-file-open.png");
-    public static P2IconP2Lib IMAGE_STOP = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "button-stop.png");
-    //    public static P2IconP2Lib P2_ICON_16 = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "P2_16.png");
-//    public static P2IconP2Lib P2_ICON_24 = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "P2_24.png");
-//    public static P2IconP2Lib P2_ICON_32 = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "P2_32.png");
-    public static P2IconP2Lib P2_STAGE_ICON = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "P2_Stage_Icon.png");
-    public static P2IconP2Lib P2_ABOUT_ICON = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "P2_About_Icon.png");
+    public final static P2Image ICON_BUTTON_CLEAR_FILTER = new P2Image(ICON_PATH_LONG, "button-clear-filter.png", 21, 21);
+    public final static P2Image IMAGE_HELP = new P2Image(ICON_PATH_LONG, "button-help.png");
+    public final static P2Image IMAGE_FILE_OPEN = new P2Image(ICON_PATH_LONG, "button-file-open.png");
+    public final static P2Image IMAGE_STOP = new P2Image(ICON_PATH_LONG, "button-stop.png");
+    public final static P2Image ICON_BUTTON_NEXT = new P2Image(ICON_PATH_LONG, "button-next.png");
+    public final static P2Image ICON_BUTTON_PREV = new P2Image(ICON_PATH_LONG, "button-prev.png");
+    public final static P2Image ICON_BUTTON_CLOSE = new P2Image(ICON_PATH_LONG, "button-close.png");
 
+    public static P2Image P2_STAGE_ICON = new P2Image(ICON_PATH_LONG, "P2_Stage_Icon.png");
+    public static P2Image P2_ABOUT_ICON = new P2Image(ICON_PATH_LONG, "P2_About_Icon.png");
 
-    public static final P2IconP2Lib ICON_BUTTON_NEXT = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "button-next.png");
-    public static final P2IconP2Lib ICON_BUTTON_PREV = new P2IconP2Lib(ICON_PATH_LONG, ICON_PATH, "button-prev.png");
-
-
-    public static String ICON_PATH_NOTIFICATION = "guitools/pnotification/";
     public static String ICON_PATH_NOTIFICATION_LONG = "de/p2tools/p2lib/guitools/pnotification/";
-
-    public static final P2IconP2Lib INFO_ICON = new P2IconP2Lib(ICON_PATH_NOTIFICATION, ICON_PATH_NOTIFICATION_LONG, "info.png", 25, 24);
-    public static final P2IconP2Lib WARNING_ICON = new P2IconP2Lib(ICON_PATH_NOTIFICATION, ICON_PATH_NOTIFICATION_LONG, "warning.png", 25, 24);
-    public static final P2IconP2Lib SUCCESS_ICON = new P2IconP2Lib(ICON_PATH_NOTIFICATION, ICON_PATH_NOTIFICATION_LONG, "success.png", 25, 24);
-    public static final P2IconP2Lib ERROR_ICON = new P2IconP2Lib(ICON_PATH_NOTIFICATION, ICON_PATH_NOTIFICATION_LONG, "error.png", 25, 24);
-
-
-    public static void initIcons() {
-        iconList.forEach(p -> {
-            String url = p.genUrl(P2LibInit.class, P2LibConst.class, P2ProgIcons.class);
-            if (url.isEmpty()) {
-                // dann wurde keine gefunden
-                System.out.println("ProgIconsP2Lib: keine URL, icon: " + p.getPathFileNameDark() + " - " + p.getFileName());
-            }
-        });
-    }
-
-    public static class P2IconP2Lib extends P2Icon {
-        public P2IconP2Lib(String longPath, String path, String fileName) {
-            super(longPath, path, fileName, 0, 0);
-            iconList.add(this);
-        }
-
-        public P2IconP2Lib(String longPath, String path, String fileName, int w, int h) {
-            super(longPath, path, fileName, w, h);
-            iconList.add(this);
-        }
-    }
+    public static final P2Image INFO_ICON = new P2Image(ICON_PATH_NOTIFICATION_LONG, "info.png", 25, 24);
+    public static final P2Image WARNING_ICON = new P2Image(ICON_PATH_NOTIFICATION_LONG, "warning.png", 25, 24);
+    public static final P2Image SUCCESS_ICON = new P2Image(ICON_PATH_NOTIFICATION_LONG, "success.png", 25, 24);
+    public static final P2Image ERROR_ICON = new P2Image(ICON_PATH_NOTIFICATION_LONG, "error.png", 25, 24);
 }

@@ -84,6 +84,14 @@ public class P2LibInit {
             list.add("de/p2tools/p2lib/p2Css_darkTable.css");
         }
 
+        if (P2LibConst.blackWhite.getValue()) {
+            if (P2LibConst.darkMode.getValue()) {
+                list.add("de/p2tools/p2lib/p2Css_bw_b.css");
+            } else {
+                list.add("de/p2tools/p2lib/p2Css_bw_w.css");
+            }
+        }
+
         //und dann noch die vom Programm
         list.addAll(P2LibConst.cssFileList);
 
