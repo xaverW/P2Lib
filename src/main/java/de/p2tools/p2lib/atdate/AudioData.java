@@ -48,6 +48,7 @@ public class AudioData extends AudioDataProps implements P2Data {
 
     public void init() {
         setNewAudio(Boolean.parseBoolean(arr[AUDIO_NEW]));
+        setPodcast(Boolean.parseBoolean(arr[AUDIO_PODCAST]));
         preserveMemory();
         // Dateigröße
         audioSize.setAudioSize(arr[AUDIO_SIZE_MB]);

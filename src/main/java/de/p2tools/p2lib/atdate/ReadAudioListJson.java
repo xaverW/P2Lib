@@ -125,6 +125,9 @@ public class ReadAudioListJson {
                 case AudioDataXml.JSON_AUDIO_NEW:
                     audioData.arr[AudioDataXml.AUDIO_NEW] = str;
                     break;
+                case AudioDataXml.JSON_AUDIO_PODCAST:
+                    audioData.arr[AudioDataXml.AUDIO_PODCAST] = str;
+                    break;
             }
         }
     }

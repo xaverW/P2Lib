@@ -35,7 +35,8 @@ public class AudioDataXml extends Data<AudioDataXml> {
     public static final int JSON_AUDIO_URL = 9;
     public static final int JSON_AUDIO_WEBSITE = 10;
     public static final int JSON_AUDIO_NEW = 11;
-    public static final int JSON_MAX_ELEM = 12;
+    public static final int JSON_AUDIO_PODCAST = 12;
+    public static final int JSON_MAX_ELEM = 13;
 
     public static final String JSON_TAG = "Audios";
     public static final String[] JSON_COLUMN_NAMES = {
@@ -51,6 +52,7 @@ public class AudioDataXml extends Data<AudioDataXml> {
             "Url",
             "Website",
             "Neu",
+            "Podcast",
     };
 
     // für die Tabelle der Audios
@@ -69,8 +71,9 @@ public class AudioDataXml extends Data<AudioDataXml> {
     public static final int AUDIO_URL = 12;
     public static final int AUDIO_WEBSITE = 13;
     public static final int AUDIO_NEW = 14;
-    public static final int AUDIO_DATE_LONG = 15;
-    public static final int MAX_ELEM = 16;
+    public static final int AUDIO_PODCAST = 15;
+    public static final int AUDIO_DATE_LONG = 16;
+    public static final int MAX_ELEM = 17;
 
     public static final String[] COLUMN_NAMES = {
             "Nr",
@@ -88,6 +91,7 @@ public class AudioDataXml extends Data<AudioDataXml> {
             "Url",
             "Website",
             "Neu",
+            "Podcast",
             "DatumL",
     };
 
@@ -107,6 +111,6 @@ public class AudioDataXml extends Data<AudioDataXml> {
             "",
             "",
             "",
+            "",
             ""}; // ist einen Tick schneller, hoffentlich :)
-
 }

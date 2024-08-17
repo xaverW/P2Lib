@@ -48,7 +48,8 @@ public class WriteAudioListJson {
         //=======================================
         //Audios schreiben
         for (AudioData audioData : audioList) {
-            audioData.arr[AudioDataXml.AUDIO_NEW] = Boolean.toString(audioData.isNewAudio()); // damit wirs beim nächsten Programmstart noch wissen
+            audioData.arr[AudioDataXml.AUDIO_NEW] = Boolean.toString(audioData.isNewAudio()); // damit wirds beim nächsten Programmstart noch wissen
+            audioData.arr[AudioDataXml.AUDIO_PODCAST] = Boolean.toString(audioData.isPodcast()); // damit wirds beim nächsten Programmstart noch wissen
 
             jg.writeArrayFieldStart(AudioDataXml.JSON_TAG);
             for (int i = 0; i < AudioDataXml.JSON_MAX_ELEM; ++i) {
@@ -105,6 +106,9 @@ public class WriteAudioListJson {
                         break;
                     case AudioDataXml.JSON_AUDIO_NEW:
                         jg.writeString(audioData.arr[AudioDataXml.AUDIO_NEW]);
+                        break;
+                    case AudioDataXml.JSON_AUDIO_PODCAST:
+                        jg.writeString(audioData.arr[AudioDataXml.AUDIO_PODCAST]);
                         break;
                 }
             }

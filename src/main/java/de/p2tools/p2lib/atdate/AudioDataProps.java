@@ -26,6 +26,7 @@ public class AudioDataProps extends AudioDataXml {
 
     private int durationMinute = 0;
     private boolean newAudio = false;
+    private boolean podcast = false;
     private boolean shown = false;
     private boolean bookmark = false;
     private boolean blackBlocked = false;
@@ -96,6 +97,14 @@ public class AudioDataProps extends AudioDataXml {
 
     public void setNewAudio(final boolean newAudio) {
         this.newAudio = newAudio;
+    }
+
+    public boolean isPodcast() {
+        return podcast;
+    }
+
+    public void setPodcast(boolean podcast) {
+        this.podcast = podcast;
     }
 
     public String getFilmDateLong() {
