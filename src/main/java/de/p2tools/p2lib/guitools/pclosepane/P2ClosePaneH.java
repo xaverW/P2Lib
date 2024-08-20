@@ -61,6 +61,7 @@ public class P2ClosePaneH extends HBox {
         if (ripProperty != null) {
             Button buttonRip = new Button();
             buttonRip.getStyleClass().add("rip-button");
+            buttonRip.setGraphic(P2ProgIcons.ICON_BUTTON_RIP.getImageView());
             buttonRip.setOnAction(a -> ripProperty.setValue(!ripProperty.get()));
             vBox.getChildren().addAll(button, P2GuiTools.getVBoxGrower(), buttonRip);
         } else {

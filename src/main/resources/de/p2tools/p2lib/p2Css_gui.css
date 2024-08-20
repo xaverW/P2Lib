@@ -129,7 +129,7 @@
 
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
-    -fx-background-image: url("/de/p2tools/p2lib/icons/button-rip.png");
+    /*-fx-background-image: url("/de/p2tools/p2lib/icons/button-rip.png");*/
 }
 .rip-button:hover {
     -fx-effect: innershadow(gaussian, #646464, 15, 0, 0, 0);
