@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2lib.atdate;
+package de.p2tools.p2lib.atdata;
 
 import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.configfile.pdata.P2Data;
@@ -49,6 +49,7 @@ public class AudioData extends AudioDataProps implements P2Data {
     public void init() {
         setNewAudio(Boolean.parseBoolean(arr[AUDIO_NEW]));
         setPodcast(Boolean.parseBoolean(arr[AUDIO_PODCAST]));
+        setDoubleUrl(Boolean.parseBoolean(arr[AUDIO_DOUBLE]));
         preserveMemory();
         // Dateigröße
         audioSize.setAudioSize(arr[AUDIO_SIZE_MB]);

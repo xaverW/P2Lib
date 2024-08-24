@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2lib.atdate;
+package de.p2tools.p2lib.atdata;
 
 import de.p2tools.p2lib.mtfilm.tools.FilmDate;
 
@@ -30,6 +30,7 @@ public class AudioDataProps extends AudioDataXml {
     private boolean shown = false;
     private boolean bookmark = false;
     private boolean blackBlocked = false;
+    private boolean doubleUrl = false;
 
     public int getDurationMinute() {
         return durationMinute;
@@ -105,6 +106,14 @@ public class AudioDataProps extends AudioDataXml {
 
     public void setPodcast(boolean podcast) {
         this.podcast = podcast;
+    }
+
+    public boolean isDoubleUrl() {
+        return doubleUrl;
+    }
+
+    public void setDoubleUrl(boolean doubleUrl) {
+        this.doubleUrl = doubleUrl;
     }
 
     public String getFilmDateLong() {

@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License along with this program. If
  * not, see <http://www.gnu.org/licenses/>.
  */
-package de.p2tools.p2lib.atdate;
+package de.p2tools.p2lib.atdata;
 
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
@@ -50,6 +50,7 @@ public class WriteAudioListJson {
         for (AudioData audioData : audioList) {
             audioData.arr[AudioDataXml.AUDIO_NEW] = Boolean.toString(audioData.isNewAudio()); // damit wirds beim nächsten Programmstart noch wissen
             audioData.arr[AudioDataXml.AUDIO_PODCAST] = Boolean.toString(audioData.isPodcast()); // damit wirds beim nächsten Programmstart noch wissen
+            audioData.arr[AudioDataXml.AUDIO_DOUBLE] = Boolean.toString(audioData.isDoubleUrl()); // damit wirds beim nächsten Programmstart noch wissen
 
             jg.writeArrayFieldStart(AudioDataXml.JSON_TAG);
             for (int i = 0; i < AudioDataXml.JSON_MAX_ELEM; ++i) {
@@ -109,6 +110,9 @@ public class WriteAudioListJson {
                         break;
                     case AudioDataXml.JSON_AUDIO_PODCAST:
                         jg.writeString(audioData.arr[AudioDataXml.AUDIO_PODCAST]);
+                        break;
+                    case AudioDataXml.JSON_AUDIO_DOUBLE:
+                        jg.writeString(audioData.arr[AudioDataXml.AUDIO_DOUBLE]);
                         break;
                 }
             }

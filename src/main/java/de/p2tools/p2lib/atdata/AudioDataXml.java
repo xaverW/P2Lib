@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2lib.atdate;
+package de.p2tools.p2lib.atdata;
 
 import de.p2tools.p2lib.mtfilm.film.Data;
 import org.apache.commons.lang3.time.FastDateFormat;
@@ -36,7 +36,8 @@ public class AudioDataXml extends Data<AudioDataXml> {
     public static final int JSON_AUDIO_WEBSITE = 10;
     public static final int JSON_AUDIO_NEW = 11;
     public static final int JSON_AUDIO_PODCAST = 12;
-    public static final int JSON_MAX_ELEM = 13;
+    public static final int JSON_AUDIO_DOUBLE = 13;
+    public static final int JSON_MAX_ELEM = 14;
 
     public static final String JSON_TAG = "Audios";
     public static final String[] JSON_COLUMN_NAMES = {
@@ -53,6 +54,7 @@ public class AudioDataXml extends Data<AudioDataXml> {
             "Website",
             "Neu",
             "Podcast",
+            "Doppelt",
     };
 
     // für die Tabelle der Audios
@@ -72,8 +74,9 @@ public class AudioDataXml extends Data<AudioDataXml> {
     public static final int AUDIO_WEBSITE = 13;
     public static final int AUDIO_NEW = 14;
     public static final int AUDIO_PODCAST = 15;
-    public static final int AUDIO_DATE_LONG = 16;
-    public static final int MAX_ELEM = 17;
+    public static final int AUDIO_DOUBLE = 16;
+    public static final int AUDIO_DATE_LONG = 17;
+    public static final int MAX_ELEM = 18;
 
     public static final String[] COLUMN_NAMES = {
             "Nr",
@@ -92,10 +95,12 @@ public class AudioDataXml extends Data<AudioDataXml> {
             "Website",
             "Neu",
             "Podcast",
+            "Doppelt",
             "DatumL",
     };
 
     public final String[] arr = new String[]{
+            "",
             "",
             "",
             "",

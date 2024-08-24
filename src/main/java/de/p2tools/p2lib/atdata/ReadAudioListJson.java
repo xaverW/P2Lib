@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License along with this program. If
  * not, see <http://www.gnu.org/licenses/>.
  */
-package de.p2tools.p2lib.atdate;
+package de.p2tools.p2lib.atdata;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -127,6 +127,9 @@ public class ReadAudioListJson {
                     break;
                 case AudioDataXml.JSON_AUDIO_PODCAST:
                     audioData.arr[AudioDataXml.AUDIO_PODCAST] = str;
+                    break;
+                case AudioDataXml.JSON_AUDIO_DOUBLE:
+                    audioData.arr[AudioDataXml.AUDIO_DOUBLE] = str;
                     break;
             }
         }

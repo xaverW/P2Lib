@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2lib.atdate;
+package de.p2tools.p2lib.atdata;
 
 import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 import org.tukaani.xz.XZInputStream;
