@@ -20,3 +20,20 @@
 .pToggleSwitch .check-box:selected .box{
     -fx-background-color: #ffffff;
 }
+
+
+.btnTabTop, .btnTabTopSmall{
+    -fx-background-color: #666666;
+    -fx-effect: dropshadow(three-pass-box, #777777, 3, 0.2 , 2 , 2);
+}
+.btnTabTop:hover, .btnTabTopSmall:hover{
+    -fx-effect: dropshadow(three-pass-box, #888888, 10, 0.2 , 3 , 3);
+}
+
+.btnTabTop-sel, .btnTabTopSmall-sel{
+    -fx-background-color: #999999;
+    -fx-effect: dropshadow(three-pass-box, #aaaaaa, 3, 0.2 , 2 , 2);
+}
+.btnTabTop-sel:hover, .btnTabTopSmall-sel:hover{
+    -fx-effect: dropshadow(three-pass-box, #aaaaaa, 6, 0.2 , 3 , 3);
+}
