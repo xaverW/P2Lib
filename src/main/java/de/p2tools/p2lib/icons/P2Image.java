@@ -19,12 +19,17 @@ package de.p2tools.p2lib.icons;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.tools.log.P2Log;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import java.util.ArrayList;
 
 public class P2Image {
     public static String BW_WHITE = "__bw_w";
     public static String BW_BLACK = "__bw_b";
+    private static boolean checkDone = false;
     private final String longPath;
     private final String fileName;
     private final String fileNameDark;
@@ -35,6 +40,7 @@ public class P2Image {
         this.longPath = longPath;
         this.fileName = fileName;
         this.fileNameDark = "";
+        check();
     }
 
     public P2Image(String longPath, String fileName, int w, int h) {
@@ -43,6 +49,7 @@ public class P2Image {
         this.fileNameDark = "";
         this.w = w;
         this.h = h;
+        check();
     }
 
     public P2Image(String longPath, String fileName, String fileNameDark, int w, int h) {
@@ -51,6 +58,7 @@ public class P2Image {
         this.fileNameDark = fileNameDark;
         this.w = w;
         this.h = h;
+        check();
     }
 
     public String getLongPath() {
@@ -119,34 +127,76 @@ public class P2Image {
         return getImage();
     }
 
+    public ImageView getImageView(int w, int h) {
+        Image img = getImage(w, h);
+        if (img == null) {
+            return new ImageView();
+        }
+
+        return new P2ImageView(this, img);
+    }
+
     public ImageView getImageView() {
         Image img = getImage();
         if (img == null) {
             return new ImageView();
         }
 
-        if (P2LibConst.blackWhite.get()) {
-            Image imgBw = getBwImage();
-            if (imgBw == null) {
-                return new ImageView();
-            }
-            ImageView imageView = new ImageView(imgBw);
-            imageView.setClip(new ImageView(imgBw));
-            return imageView;
-        }
-
-        ImageView imageView = new ImageView(img);
-        imageView.setClip(new ImageView(img));
-        return imageView;
+        return new P2ImageView(this, img);
     }
 
-    public ImageView getImageView(int w, int h) {
-        setW(w);
-        setH(h);
-        Image img = getImage();
-        if (img == null) {
-            return new ImageView();
+//    public P2ImageView getImageView() {
+//        Image img = getImage();
+//        if (img == null) {
+//            return new P2ImageView(this);
+//        }
+//
+//        if (P2LibConst.blackWhite.get()) {
+//            Image imgBw = getBwImage();
+//            if (imgBw == null) {
+//                return new P2ImageView();
+//            }
+//            P2ImageView imageView = new P2ImageView(this, imgBw);
+//            imageView.setClip(new P2ImageView(this, imgBw));
+//            return imageView;
+//        }
+//
+//        P2ImageView imageView = new P2ImageView(this,img);
+//        imageView.setClip(new P2ImageView(this, img));
+//        return imageView;
+//    }
+
+    public static void check() {
+        if (checkDone) {
+            return;
         }
-        return new ImageView(img);
+        checkDone = true;
+        P2LibConst.darkMode.addListener((u, o, n) -> {
+            getAllNodes(P2LibConst.primaryStage.getScene().getRoot());
+        });
+        P2LibConst.blackWhite.addListener((u, o, n) -> {
+            getAllNodes(P2LibConst.primaryStage.getScene().getRoot());
+        });
+    }
+
+    public static void getAllNodes(Parent root) {
+        ArrayList<Node> nodes = new ArrayList<>();
+        add(root, nodes);
+        int i = 0;
+        for (Node node : nodes) {
+            if (node.getClass().equals(P2ImageView.class)) {
+                ((P2ImageView) node).setColor();
+                ++i;
+            }
+        }
+        P2Log.sysLog("Image von --> " + i + " <-- Nodes geändert");
+    }
+
+    private static void add(Parent parent, ArrayList<Node> nodes) {
+        for (Node node : parent.getChildrenUnmodifiable()) {
+            nodes.add(node);
+            if (node instanceof Parent)
+                add((Parent) node, nodes);
+        }
     }
 }
