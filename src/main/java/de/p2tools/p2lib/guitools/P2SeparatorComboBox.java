@@ -67,6 +67,9 @@ public class P2SeparatorComboBox<T> extends ComboBox<T> {
 
             @Override
             protected T getModelItem(int index) {
+                if (index < 0 || getItems().isEmpty()) {
+                    return null;
+                }
                 return getItems().get(index);
             }
         };
