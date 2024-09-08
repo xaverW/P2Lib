@@ -25,7 +25,7 @@
     -style-tab-border-color-1: #003ca0;
     -style-tab-border-color-2: #003cff;
 
-    -style-extra-pane-color: derive(-fx-base, 40%);
+    -style-extra-pane-color: derive(-fx-base, 50%);
 
     -lblSelectedLines-color-1: derive(-fx-base, 70%);
     -lblSelectedLines-color-2: derive(-fx-base, 40%);

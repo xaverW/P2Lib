@@ -30,7 +30,7 @@
     -style-tab-border-color-1: #4169E1; /*royalblue*/
     -style-tab-border-color-2: #4a77ff;
 
-    -style-extra-pane-color: derive(-fx-base,-5%);
+    -style-extra-pane-color: derive(-fx-base,-10%);
 
     -lblSelectedLines-color-1: derive(-fx-base, -40%);
     -lblSelectedLines-color-2: derive(-fx-base, -10%);
