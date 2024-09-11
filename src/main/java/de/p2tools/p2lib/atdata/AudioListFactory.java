@@ -29,23 +29,30 @@ public class AudioListFactory {
     }
 
     public static int getAge(String[] metaData) {
-        int ret = getAgeAsDate(metaData);
+        int ret = get(metaData);
         if (ret < 0) {
             ret = 0;
         }
         return ret;
     }
 
-    public static int getAgeAsDate(String[] metaData) {
+    private static int get(String[] metaData) {
         if (!metaData[AudioList.META_GMT].isEmpty()) {
-            LocalDateTime localDateTime = P2DateGmtFactory.getLocalDateTimeFromGmt(metaData[AudioList.META_GMT]);
-            Duration dur = Duration.between(localDateTime, LocalDateTime.now());
+            Duration dur = Duration.between(getDate(metaData), LocalDateTime.now());
             return (int) dur.toSeconds();
 
         } else {
-            LocalDateTime localDateTime = P2DateGmtFactory.getLocalDateTimeFromGmt(metaData[AudioList.META_LOCAL]);
-            Duration dur = Duration.between(localDateTime, LocalDateTime.now());
+            Duration dur = Duration.between(getDate(metaData), LocalDateTime.now());
             return (int) dur.toSeconds();
+        }
+    }
+
+    public static LocalDateTime getDate(String[] metaData) {
+        if (!metaData[AudioList.META_GMT].isEmpty()) {
+            return P2DateGmtFactory.getLocalDateTimeFromGmt(metaData[AudioList.META_GMT]);
+
+        } else {
+            return P2DateGmtFactory.getLocalDateTimeFromGmt(metaData[AudioList.META_LOCAL]);
         }
     }
 
