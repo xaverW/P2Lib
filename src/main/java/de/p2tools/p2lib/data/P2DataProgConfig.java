@@ -22,6 +22,7 @@ import de.p2tools.p2lib.configfile.configlist.ConfigStringList;
 import de.p2tools.p2lib.configfile.configlist.ConfigStringPropList;
 import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import de.p2tools.p2lib.tools.date.*;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,6 +32,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Its a "PData" for the program configuration, also a list of "Config"
@@ -39,7 +41,7 @@ import java.util.ArrayList;
  */
 public class P2DataProgConfig extends P2DataSample<P2DataProgConfig> {
 
-    public String TAG = "progConfig";
+    public String TAG = "ProgConfig";
     private static final ArrayList<Config> arrayList = new ArrayList<>();
 
     public P2DataProgConfig() {
@@ -47,6 +49,49 @@ public class P2DataProgConfig extends P2DataSample<P2DataProgConfig> {
 
     public P2DataProgConfig(String TAG) {
         this.TAG = TAG;
+    }
+
+    @Override
+    public String getTag() {
+        return TAG;
+    }
+
+    @Override
+    public String getComment() {
+        return "Programmeinstellungen";
+    }
+
+    @Override
+    public Config[] getConfigsArr() {
+        return arrayList.toArray(new Config[]{});
+    }
+
+    public void init(String TAG) {
+        this.TAG = TAG;
+    }
+
+    public void writeConfigs() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add(P2Log.LILNE2);
+        list.add("Programmeinstellungen");
+        list.add("===========================");
+        Arrays.stream(getConfigsArr()).forEach(c -> {
+            StringBuilder s = new StringBuilder(c.getKey());
+            if (s.toString().startsWith("_")) {
+                while (s.length() < 55) {
+                    s.append(" ");
+                }
+            } else {
+                while (s.length() < 35) {
+                    s.append(" ");
+                }
+            }
+
+            list.add(s + "  " + c.getActValueString());
+        });
+        list.add(P2Log.LILNE2);
+        list.add("\n");
+        P2Log.sysLog(list);
     }
 
     //========================================================================================================
@@ -273,24 +318,5 @@ public class P2DataProgConfig extends P2DataSample<P2DataProgConfig> {
         });
 
         return objP;
-    }
-
-    @Override
-    public String getTag() {
-        return TAG;
-    }
-
-    @Override
-    public String getComment() {
-        return "Programmeinstellungen";
-    }
-
-    @Override
-    public Config[] getConfigsArr() {
-        return arrayList.toArray(new Config[]{});
-    }
-
-    public void init(String TAG) {
-        this.TAG = TAG;
     }
 }
