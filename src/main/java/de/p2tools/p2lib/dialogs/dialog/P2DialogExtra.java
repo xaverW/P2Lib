@@ -18,6 +18,8 @@ package de.p2tools.p2lib.dialogs.dialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
+import de.p2tools.p2lib.icons.P2Image;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
@@ -52,6 +54,10 @@ public class P2DialogExtra extends P2Dialog {
     private P2MaskerPane maskerPane = null;
     private boolean masker = false;
     private DECO deco = DECO.BORDER;
+
+    public enum DECO {
+        BORDER_BIG, BORDER, BORDER_SMALL, NO_BORDER
+    }
 
     public enum STATE {
         STATE_OK,
@@ -103,6 +109,7 @@ public class P2DialogExtra extends P2Dialog {
         for (P2Dialog dialog : dialogList) {
             if (dialog.equals(p2Dialog)) {
                 found = true;
+                break;
             }
         }
         if (!found) {
@@ -116,17 +123,13 @@ public class P2DialogExtra extends P2Dialog {
 
     public static void closeAllDialog() {
         dialogList.forEach(p2Dialog -> {
-            Platform.runLater(() -> {
-                p2Dialog.hide();
-            });
+            Platform.runLater(p2Dialog::hide);
         });
     }
 
     public static void showAllDialog() {
         dialogList.forEach(p2Dialog -> {
-            Platform.runLater(() -> {
-                p2Dialog.showDialog();
-            });
+            Platform.runLater(p2Dialog::showDialog);
         });
     }
 
@@ -286,6 +289,12 @@ public class P2DialogExtra extends P2Dialog {
         }
 
         addBottom();
+
+        P2LibConst.themeChanged.addListener((u, o, n) -> {
+            P2Log.debugLog("P2DialogExtra: updateCss");
+            super.updateCss();
+            P2Image.getAllNodes(getStage().getScene().getRoot());
+        });
     }
 
     private void initBefore() {
@@ -356,9 +365,5 @@ public class P2DialogExtra extends P2Dialog {
         HBox.setHgrow(hBoxLeft, Priority.ALWAYS);
         hButton.getChildren().addAll(hBoxLeft, buttonBar, hBoxRight);
         vBoxCompleteDialog.getChildren().addAll(hBoxOverButtons, hButton);
-    }
-
-    public enum DECO {
-        BORDER_BIG, BORDER, BORDER_SMALL, NO_BORDER
     }
 }

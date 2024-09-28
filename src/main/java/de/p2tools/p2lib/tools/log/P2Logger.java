@@ -92,7 +92,7 @@ public class P2Logger {
         }
 
         // wenn logfile existiert, dann das öffnen, ansonsten den Ordner
-        Path path = Paths.get(handlerDir, P2LibConst.logfile_0);
+        Path path = Paths.get(handlerDir, P2LibConst.logFile_0);
         if (path.toFile().exists()) {
             P2Open.openFile(path.toString());
         } else {
@@ -106,7 +106,7 @@ public class P2Logger {
     }
 
     public static void setFileHandler(String path, boolean withGui) {
-        String logDir = path.isEmpty() ? P2LibConst.logdir : path;
+        String logDir = path.isEmpty() ? P2LibConst.logDir : path;
 
         if (handlerDir.equals(logDir) && fileHandler != null) {
             // dann stimmts schon
@@ -121,7 +121,7 @@ public class P2Logger {
             File dir = new File(handlerDir);
             dir.mkdirs();
 
-            fileHandler = new FileHandler(handlerDir + File.separator + P2LibConst.logfile,
+            fileHandler = new FileHandler(handlerDir + File.separator + P2LibConst.logFile,
                     5_000_000, 5, false);
 
             LOGGER.addHandler(fileHandler);

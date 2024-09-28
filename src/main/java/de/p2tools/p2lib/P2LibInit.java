@@ -17,7 +17,9 @@
 package de.p2tools.p2lib;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -27,43 +29,45 @@ import java.util.List;
 public class P2LibInit {
 
     public static void initLib(Stage primaryStage, String progName, String userAgent,
-                               BooleanProperty darkMode, BooleanProperty blackWhite, boolean debug, boolean duration) {
+                               BooleanProperty darkMode, BooleanProperty blackWhite, BooleanProperty themeChanged,
+                               String cssFile, String cssFileDark, IntegerProperty fontSize,
+                               boolean debug, boolean duration) {
         P2LibConst.primaryStage = primaryStage;
         P2LibConst.progName = progName;
         P2LibConst.userAgent = userAgent;
+
         P2LibConst.darkMode = darkMode == null ? new SimpleBooleanProperty(false) : darkMode;
         P2LibConst.blackWhite = blackWhite == null ? new SimpleBooleanProperty(false) : blackWhite;
+        P2LibConst.fontSize = fontSize == null ? new SimpleIntegerProperty(0) : fontSize;
+        P2LibConst.themeChanged = themeChanged == null ? new SimpleBooleanProperty(false) : themeChanged; // ist eine Info
+
+        P2LibConst.cssFile = cssFile;
+        P2LibConst.cssFileDark = cssFileDark;
+
         P2LibConst.debug = debug;
         P2LibConst.duration = duration;
+
+        P2LibConst.darkMode.addListener((u, o, n) -> {
+            addP2CssToScene(primaryStage.getScene());
+            P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
+        });
+        P2LibConst.blackWhite.addListener((u, o, n) -> {
+            addP2CssToScene(primaryStage.getScene());
+            P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
+        });
+        P2LibConst.fontSize.addListener((u, o, n) -> {
+            addP2CssToScene(primaryStage.getScene());
+            P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
+        });
     }
 
-    public static void initProxy(boolean useProxy,
-                                 String proxyHost, String proxyPort, String proxyUser, String proxyPwd) {
+    public static void initProxy(boolean useProxy, String proxyHost, String proxyPort,
+                                 String proxyUser, String proxyPwd) {
         P2LibConst.useProxy.setValue(useProxy);
         P2LibConst.proxyHost.setValue(proxyHost);
         P2LibConst.proxyPort.setValue(proxyPort);
         P2LibConst.proxyUser.setValue(proxyUser);
         P2LibConst.proxyPwd.setValue(proxyPwd);
-    }
-
-    public static void setPrimaryStage(Stage primaryStage) {
-        P2LibConst.primaryStage = primaryStage;
-    }
-
-    public static void setStyleFile(String styleFile) {
-        //z.B. für die Anpassung der Schriftgröße
-        P2LibConst.styleFile = styleFile;
-    }
-
-    public static void addCssFile(String cssFile) {
-        //ist für die css des Programms
-        if (!P2LibConst.cssFileList.contains(cssFile)) {
-            P2LibConst.cssFileList.add(cssFile);
-        }
-    }
-
-    public static void removeCssFile(String cssFile) {
-        P2LibConst.cssFileList.removeIf(cssF -> cssF.equals(cssFile));
     }
 
     public static void addP2CssToScene(Scene scene) {
@@ -92,11 +96,17 @@ public class P2LibInit {
             }
         }
 
-        //und dann noch die vom Programm
-        list.addAll(P2LibConst.cssFileList);
+        // und die vom Programm
+        list.add(P2LibConst.cssFile);
+        if (P2LibConst.darkMode.getValue()) {
+            list.add(P2LibConst.cssFileDark);
+        }
 
         if (scene != null) {
             scene.getStylesheets().setAll(list);
+
+            // entweder Größe oder 0 zum löschen
+            scene.getRoot().setStyle("-fx-font-size: " + P2LibConst.fontSize.get() + " ;"); // .root { -fx-font-size: 12pt ;}
         }
     }
 }

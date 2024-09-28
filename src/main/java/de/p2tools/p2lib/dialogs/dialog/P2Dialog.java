@@ -20,8 +20,6 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.P2LibInit;
 import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.guitools.P2WindowIcon;
-import de.p2tools.p2lib.tools.IoReadWriteStyle;
-import de.p2tools.p2lib.tools.P2Exception;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -35,7 +33,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.nio.file.Path;
 
 
 public class P2Dialog {
@@ -48,7 +45,7 @@ public class P2Dialog {
     private Scene scene = null;
     private Stage stage = null;
     private ObjectProperty<Stage> stageProp = new SimpleObjectProperty<>(null);
-    private Pane pane;
+    private Pane pane = new Pane();
 
     P2Dialog(Stage ownerForCenteringDialog, StringProperty sizeConfiguration,
              String title, boolean modal, boolean setOnlySize) {
@@ -86,15 +83,6 @@ public class P2Dialog {
     void init(boolean show) {
         try {
             scene = new Scene(pane);
-            if (scene == null) {
-                P2Exception.throwPException(912012458, "no scene");
-            }
-            scene.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
-                if (keyEvent.getCode() == KeyCode.ESCAPE) {
-                    close();
-                }
-            });
-
             stage = new Stage();
             stageProp.setValue(stage);
             stage.setScene(scene);
@@ -102,11 +90,17 @@ public class P2Dialog {
             if (modal) {
                 stage.initModality(Modality.APPLICATION_MODAL);
             }
+
+            scene.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
+                if (keyEvent.getCode() == KeyCode.ESCAPE) {
+                    close();
+                }
+            });
             stage.setOnCloseRequest(e -> {
                 e.consume();
                 close();
             });
-            //brauchts zwar nicht 2x, der Dialog "springt" dann aber weniger
+            //braucht's zwar nicht 2x, der Dialog "springt" dann aber weniger
             stage.setOnShowing(e -> {
                 if (setOnlySize) {
                     P2GuiSize.setOnlySize(sizeConfiguration, stage, ownerForCenteringDialog);
@@ -126,15 +120,17 @@ public class P2Dialog {
             setIcon();
             make();
 
-            P2DialogFactory.addSizeListener(stage, sizeConfiguration);
-
             if (show) {
                 showDialog();
             }
-
+            P2DialogFactory.addSizeListener(stage, sizeConfiguration);
         } catch (final Exception exc) {
             P2Log.errorLog(152030145, exc);
         }
+    }
+
+    public void updateCss() {
+        P2LibInit.addP2CssToScene(scene);
     }
 
     public void setIcon() {
@@ -150,14 +146,6 @@ public class P2Dialog {
         } catch (Exception ex) {
             P2Log.errorLog(204503978, ex);
             P2WindowIcon.addWindowP2Icon(stage);
-        }
-    }
-
-    public void updateCss() {
-        P2LibInit.addP2CssToScene(scene);
-        if (P2LibConst.styleFile != null && !P2LibConst.styleFile.isEmpty() && scene != null) {
-            final Path path = Path.of(P2LibConst.styleFile);
-            IoReadWriteStyle.readStyle(path, scene);
         }
     }
 

@@ -170,7 +170,7 @@ public class P2Image {
         if (checkDone) {
             return;
         }
-        checkDone = true;
+        checkDone = true; // damit's nur einmal gesetzt wird
         P2LibConst.darkMode.addListener((u, o, n) -> {
             getAllNodes(P2LibConst.primaryStage.getScene().getRoot());
         });
