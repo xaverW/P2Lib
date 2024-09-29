@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.dialogs.dialog;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
+import de.p2tools.p2lib.guitools.pmask.P2MaskerPaneMin;
 import de.p2tools.p2lib.icons.P2Image;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.application.Platform;
@@ -51,7 +51,7 @@ public class P2DialogExtra extends P2Dialog {
 
     private static ArrayList<P2Dialog> dialogList = new ArrayList<>();
     private final ScrollPane scrollPane = new ScrollPane();
-    private P2MaskerPane maskerPane = null;
+    private P2MaskerPaneMin maskerPane = null;
     private boolean masker = false;
     private DECO deco = DECO.BORDER;
 
@@ -100,7 +100,7 @@ public class P2DialogExtra extends P2Dialog {
         super(ownerForCenteringDialog, conf, title, modal, setOnlySize);
         this.deco = deco;
         this.masker = masker;
-        maskerPane = new P2MaskerPane();
+        maskerPane = new P2MaskerPaneMin();
         initDialog();
     }
 
@@ -252,18 +252,11 @@ public class P2DialogExtra extends P2Dialog {
     public void setMaskerVisible(boolean visible) {
         if (masker) {
             //ist nur dann, enthalten
-            maskerPane.setMaskerVisible(visible, false, false);
+            maskerPane.setMaskerVisible(visible);
         }
     }
 
-    public void setMaskerVisible(boolean visible, boolean button) {
-        if (masker) {
-            //ist nur dann, enthalten
-            maskerPane.setMaskerVisible(visible, button, button);
-        }
-    }
-
-    public P2MaskerPane getMaskerPane() {
+    public P2MaskerPaneMin getMaskerPane() {
         return maskerPane;
     }
 

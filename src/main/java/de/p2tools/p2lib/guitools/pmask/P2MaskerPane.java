@@ -19,6 +19,7 @@ package de.p2tools.p2lib.guitools.pmask;
 
 import de.p2tools.p2lib.P2LibConst;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -46,6 +47,14 @@ public class P2MaskerPane extends BorderPane {
         setVBoxCont();
         this.setCenter(vBoxCont);
         this.setVisible(false);
+    }
+
+    public BooleanProperty getVisibleProperty() {
+        return this.visibleProperty();
+    }
+
+    public void bindVisibleProperty(BooleanProperty visible) {
+        this.visibleProperty().bind(visible);
     }
 
     public Button getButton() {

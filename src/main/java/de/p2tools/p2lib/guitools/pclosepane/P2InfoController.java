@@ -68,7 +68,8 @@ public class P2InfoController extends VBox {
         new P2ClosePaneDialog(infoDTO.infoPane, infoDTO.textDialog,
                 infoDTO.DIALOG_INFO_SIZE,
                 infoDTO.PANE_INFO_IS_RIP,
-                infoDTO.tabOn);
+                infoDTO.tabOn,
+                infoDTO.maskerVis);
     }
 
     private void setTabs() {

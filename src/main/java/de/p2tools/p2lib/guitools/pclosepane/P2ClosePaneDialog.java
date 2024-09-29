@@ -38,14 +38,19 @@ public class P2ClosePaneDialog extends P2DialogExtra {
     public P2ClosePaneDialog(Pane pane, String title,
                              StringProperty sizeProperty,
                              BooleanProperty dialogIsRip,
-                             BooleanProperty tabIsShowing) {
+                             BooleanProperty tabIsShowing,
+                             BooleanProperty maskerVisible) {
 
         super(P2LibConst.primaryStage, sizeProperty, title,
-                false, false, DECO.NO_BORDER);
+                false, false, DECO.NO_BORDER, true);
 
         this.pane = pane;
         this.dialogIsRip = dialogIsRip; // zeigt an, ob Dialog zu sehen
         this.tabIsShowing = tabIsShowing;
+
+        if (maskerVisible != null) {
+            getMaskerPane().visibleProperty().bind(maskerVisible);
+        }
 
         init(this.tabIsShowing.get());
         this.tabIsShowing.addListener(tabListener);
