@@ -172,10 +172,10 @@ public class P2Image {
         }
         checkDone = true; // damit's nur einmal gesetzt wird
         P2LibConst.darkMode.addListener((u, o, n) -> {
-            getAllNodes(P2LibConst.primaryStage.getScene().getRoot());
+            getAllNodes(P2LibConst.primaryStage.getScene().getRoot()); // todo actStage??
         });
         P2LibConst.blackWhite.addListener((u, o, n) -> {
-            getAllNodes(P2LibConst.primaryStage.getScene().getRoot());
+            getAllNodes(P2LibConst.primaryStage.getScene().getRoot()); // todo actStage??
         });
     }
 

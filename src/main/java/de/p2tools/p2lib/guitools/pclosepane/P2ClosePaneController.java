@@ -24,13 +24,13 @@ import javafx.scene.layout.VBox;
 
 import java.util.List;
 
-public class P2InfoController extends VBox {
+public class P2ClosePaneController extends VBox {
 
     private final TabPane tabPane = new TabPane();
     private final BooleanProperty INFO_IS_SHOWING;
-    private final List<P2InfoDto> infoDTOList;
+    private final List<P2ClosePaneDto> infoDTOList;
 
-    public P2InfoController(List<P2InfoDto> infoDTOList, BooleanProperty INFO_IS_SHOWING) {
+    public P2ClosePaneController(List<P2ClosePaneDto> infoDTOList, BooleanProperty INFO_IS_SHOWING) {
         this.INFO_IS_SHOWING = INFO_IS_SHOWING;
         this.infoDTOList = infoDTOList;
         initInfoPane();
@@ -38,7 +38,7 @@ public class P2InfoController extends VBox {
 
     public boolean arePanesShowing() {
         // dann wird wenigsten eins angezeigt
-        for (P2InfoDto infoDTO : infoDTOList) {
+        for (P2ClosePaneDto infoDTO : infoDTOList) {
             if (!infoDTO.PANE_INFO_IS_RIP.get()) {
                 return true;
             }
@@ -47,7 +47,7 @@ public class P2InfoController extends VBox {
     }
 
     private void initInfoPane() {
-        for (P2InfoDto infoDTO : infoDTOList) {
+        for (P2ClosePaneDto infoDTO : infoDTOList) {
             if (infoDTO.PANE_INFO_IS_RIP.get()) {
                 dialogInfo(infoDTO);
             }
@@ -64,7 +64,7 @@ public class P2InfoController extends VBox {
         setTabs();
     }
 
-    private void dialogInfo(P2InfoDto infoDTO) {
+    private void dialogInfo(P2ClosePaneDto infoDTO) {
         new P2ClosePaneDialog(infoDTO.infoPane, infoDTO.textDialog,
                 infoDTO.DIALOG_INFO_SIZE,
                 infoDTO.PANE_INFO_IS_RIP,
@@ -76,7 +76,7 @@ public class P2InfoController extends VBox {
         tabPane.getTabs().clear();
 
 
-        for (P2InfoDto infoDTO : infoDTOList) {
+        for (P2ClosePaneDto infoDTO : infoDTOList) {
             if (!infoDTO.PANE_INFO_IS_RIP.get()) {
                 tabPane.getTabs().add(infoDTO.vertical ?
                         P2ClosePaneFactory.makeTabV(infoDTO.infoPane, infoDTO.textInfo,

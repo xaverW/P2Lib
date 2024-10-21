@@ -51,7 +51,7 @@ public class P2ClosePaneFactory {
     }
 
     public static void setSplit(BooleanProperty bound, SplitPane splitPane,
-                                P2InfoController p2InfoController, boolean infoFirst,
+                                P2ClosePaneController p2ClosePaneController, boolean infoFirst,
                                 Region pane, DoubleProperty divider, BooleanProperty isShowing) {
         // hier wird der Filter ein- ausgeblendet
         if (bound.get() && splitPane.getItems().size() > 1) {
@@ -60,7 +60,7 @@ public class P2ClosePaneFactory {
         }
 
         splitPane.getItems().clear();
-        if (!p2InfoController.arePanesShowing()) {
+        if (!p2ClosePaneController.arePanesShowing()) {
             // dann wird nix angezeigt
             splitPane.getItems().add(pane);
             isShowing.set(false);
@@ -70,11 +70,11 @@ public class P2ClosePaneFactory {
         if (isShowing.getValue()) {
             bound.set(true);
             if (infoFirst) {
-                splitPane.getItems().addAll(p2InfoController, pane);
+                splitPane.getItems().addAll(p2ClosePaneController, pane);
             } else {
-                splitPane.getItems().addAll(pane, p2InfoController);
+                splitPane.getItems().addAll(pane, p2ClosePaneController);
             }
-            SplitPane.setResizableWithParent(p2InfoController, false);
+            SplitPane.setResizableWithParent(p2ClosePaneController, false);
             splitPane.getDividers().get(0).positionProperty().bindBidirectional(divider);
 
         } else {

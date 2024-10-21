@@ -32,7 +32,7 @@ import java.net.URI;
 public class P2Open {
 
     public static void openFile(String path) {
-        openFile(P2LibConst.primaryStage, path);
+        openFile(P2LibConst.actStage, path);
     }
 
     public static void openFile(Stage stage, String fileStr) {
@@ -64,7 +64,7 @@ public class P2Open {
     }
 
     public static void openDir(String path) {
-        openDir(P2LibConst.primaryStage, path, null, null);
+        openDir(P2LibConst.actStage, path, null, null);
     }
 
     public static void openDir(Stage primaryStage, String path) {
@@ -72,7 +72,7 @@ public class P2Open {
     }
 
     public static void openDir(String path, StringProperty prog, ImageView getProgIcon) {
-        openDir(P2LibConst.primaryStage, path, prog, getProgIcon);
+        openDir(P2LibConst.actStage, path, prog, getProgIcon);
     }
 
     public static void openDir(Stage stage, String path, StringProperty prog, ImageView getProgIcon) {
@@ -122,7 +122,7 @@ public class P2Open {
     }
 
     public static void playStoredFilm(String file) {
-        playStoredFilm(P2LibConst.primaryStage, file, null, null);
+        playStoredFilm(P2LibConst.actStage, file, null, null);
     }
 
     public static void playStoredFilm(Stage primaryStage, String file) {
@@ -130,7 +130,7 @@ public class P2Open {
     }
 
     public static void playStoredFilm(String file, StringProperty prog, ImageView getProgIcon) {
-        playStoredFilm(P2LibConst.primaryStage, file, prog, getProgIcon);
+        playStoredFilm(P2LibConst.actStage, file, prog, getProgIcon);
     }
 
     public static void playStoredFilm(Stage stage, String file, StringProperty prog, ImageView getProgIcon) {
@@ -175,7 +175,7 @@ public class P2Open {
     }
 
     public static void playStoredFilm(String[] arrProgCallArray, StringProperty prog, String file, ImageView getProgIcon) {
-        playStoredFilm(P2LibConst.primaryStage, arrProgCallArray, prog, file, getProgIcon);
+        playStoredFilm(P2LibConst.actStage, arrProgCallArray, prog, file, getProgIcon);
     }
 
     private static void playStoredFilm(Stage stage, String[] arrProgCallArray, StringProperty prog, String file, ImageView getProgIcon) {
@@ -211,7 +211,7 @@ public class P2Open {
     }
 
     public static void openURL(String url) {
-        openURL(P2LibConst.primaryStage, url);
+        openURL(P2LibConst.actStage, url);
     }
 
     public static void openURL(Stage primaryStage, String url) {
@@ -219,7 +219,7 @@ public class P2Open {
     }
 
     public static void openURL(String url, StringProperty prog, ImageView getProgIcon) {
-        openURL(P2LibConst.primaryStage, url, prog);
+        openURL(P2LibConst.actStage, url, prog);
     }
 
     public static void openURL(Stage stage, String url, StringProperty prog) {

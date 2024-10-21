@@ -28,11 +28,16 @@ import java.util.List;
 
 public class P2LibInit {
 
-    public static void initLib(Stage primaryStage, String progName, String userAgent,
+    public static void setActStage(Stage stage) {
+        P2LibConst.actStage = stage;
+    }
+
+    public static void initLib(Stage stage, String progName, String userAgent,
                                BooleanProperty darkMode, BooleanProperty blackWhite, BooleanProperty themeChanged,
                                String cssFile, String cssFileDark, IntegerProperty fontSize,
                                boolean debug, boolean duration) {
-        P2LibConst.primaryStage = primaryStage;
+        P2LibConst.primaryStage = stage;
+        P2LibConst.actStage = stage;
         P2LibConst.progName = progName;
         P2LibConst.userAgent = userAgent;
 
@@ -48,15 +53,15 @@ public class P2LibInit {
         P2LibConst.duration = duration;
 
         P2LibConst.darkMode.addListener((u, o, n) -> {
-            addP2CssToScene(primaryStage.getScene());
+            addP2CssToScene(stage.getScene());
             P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
         });
         P2LibConst.blackWhite.addListener((u, o, n) -> {
-            addP2CssToScene(primaryStage.getScene());
+            addP2CssToScene(stage.getScene());
             P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
         });
         P2LibConst.fontSize.addListener((u, o, n) -> {
-            addP2CssToScene(primaryStage.getScene());
+            addP2CssToScene(stage.getScene());
             P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
         });
     }
