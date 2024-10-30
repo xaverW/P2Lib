@@ -119,11 +119,11 @@ public class P2Dialog {
             updateCss();
             setIcon();
             make();
+            P2DialogFactory.addSizeListener(stage, sizeConfiguration);
 
             if (show) {
                 showDialog();
             }
-            P2DialogFactory.addSizeListener(stage, sizeConfiguration);
         } catch (final Exception exc) {
             P2Log.errorLog(152030145, exc);
         }
