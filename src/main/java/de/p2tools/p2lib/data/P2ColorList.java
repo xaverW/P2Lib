@@ -37,7 +37,13 @@ public class P2ColorList extends SimpleListProperty<P2ColorData> implements P2Da
     }
 
     public static void resetAllColor() {
-        getInst().stream().forEach(c -> c.resetColor());
+        // die aktuell eingestellten Farben: dark oder light
+        getInst().forEach(P2ColorData::resetColor);
+    }
+
+    public static void resetAllColorDarkLight() {
+        // alle Farben: dark UND light
+        getInst().forEach(P2ColorData::resetColorDarkLight);
     }
 
     public static P2ColorData get(String key) {

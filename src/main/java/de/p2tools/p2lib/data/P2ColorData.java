@@ -139,6 +139,12 @@ public class P2ColorData extends P2ColorDataProps {
         changeMyColor();
     }
 
+    public void resetColorDarkLight() {
+        super.setColorDark(resetColorDark);
+        super.setColorLight(resetColorLight);
+        changeMyColor();
+    }
+
     public String getText() {
         return text;
     }

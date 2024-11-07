@@ -42,6 +42,7 @@ public class P2LibConst {
     public static BooleanProperty darkMode = new SimpleBooleanProperty(false);
     public static BooleanProperty blackWhite = new SimpleBooleanProperty(false);
     public static IntegerProperty fontSize = new SimpleIntegerProperty(0); // für die Anpassung der Schriftgröße
+    // zuerst wird dark/black/font geändert, dann werden die CSS angepasst und dann wird theme geändert
     public static BooleanProperty themeChanged = new SimpleBooleanProperty(false); // eine Info nach Änderungen
     public static String cssFile = "";
     public static String cssFileDark = "";
