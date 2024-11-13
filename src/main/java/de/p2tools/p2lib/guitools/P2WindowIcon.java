@@ -37,8 +37,15 @@ public class P2WindowIcon {
 
         } else {
             try {
-                P2LibConst.STAGE_ICON = new Image(new File(imagePath).toURI().toString(),
-                        P2LibConst.WINDOW_ICON_WIDTH, P2LibConst.WINDOW_ICON_HEIGHT, true, true);
+                File file = new File(imagePath);
+                if (file.exists()) {
+                    P2LibConst.STAGE_ICON = new Image(file.toURI().toString(),
+                            P2LibConst.WINDOW_ICON_WIDTH, P2LibConst.WINDOW_ICON_HEIGHT, true, true);
+
+                } else {
+                    P2Log.sysLog("Das vorgegebene Programm-Icon gibt es nicht");
+                    P2LibConst.STAGE_ICON = P2LibConst.STAGE_ICON_ORG;
+                }
             } catch (Exception ex) {
                 P2Log.errorLog(987545412, ex, "Kann das vorgegebene Programm-Icon nicht setzen");
                 P2LibConst.STAGE_ICON = P2LibConst.STAGE_ICON_ORG;
