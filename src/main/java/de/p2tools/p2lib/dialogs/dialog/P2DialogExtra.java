@@ -17,6 +17,7 @@
 package de.p2tools.p2lib.dialogs.dialog;
 
 import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPaneMin;
 import de.p2tools.p2lib.icons.P2Image;
 import de.p2tools.p2lib.tools.log.P2Log;
@@ -130,6 +131,12 @@ public class P2DialogExtra extends P2Dialog {
     public static void showAllDialog() {
         dialogList.forEach(p2Dialog -> {
             Platform.runLater(p2Dialog::showDialog);
+        });
+    }
+
+    public static void setIconForAllDialog() {
+        dialogList.forEach(p2Dialog -> {
+            P2WindowIcon.addWindowIcon(p2Dialog.getStage());
         });
     }
 

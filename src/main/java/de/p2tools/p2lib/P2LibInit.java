@@ -16,6 +16,7 @@
 
 package de.p2tools.p2lib;
 
+import de.p2tools.p2lib.guitools.P2WindowIcon;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -27,14 +28,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class P2LibInit {
-
-    public static void setActStage(Stage stage) {
-        P2LibConst.actStage = stage;
-    }
+    private static final String PATH_CSS = "de/p2tools/p2lib/css/";
 
     public static void initLib(Stage stage, String progName, String userAgent,
                                BooleanProperty darkMode, BooleanProperty blackWhite, BooleanProperty themeChanged,
                                String cssFile, String cssFileDark, IntegerProperty fontSize,
+                               String orgIcon /* de/p2tools/p2lib/icons/icon.png */,
+                               String ownIcon /* /tmp/path/icon.png */,
                                boolean debug, boolean duration) {
         P2LibConst.primaryStage = stage;
         P2LibConst.actStage = stage;
@@ -52,6 +52,9 @@ public class P2LibInit {
         P2LibConst.debug = debug;
         P2LibConst.duration = duration;
 
+        P2WindowIcon.setOrgIcon(orgIcon);
+        P2WindowIcon.setStageIcon(ownIcon);
+
         P2LibConst.darkMode.addListener((u, o, n) -> {
             addP2CssToScene(stage.getScene());
             P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
@@ -66,6 +69,10 @@ public class P2LibInit {
         });
     }
 
+    public static void setActStage(Stage stage) {
+        P2LibConst.actStage = stage;
+    }
+
     public static void initProxy(boolean useProxy, String proxyHost, String proxyPort,
                                  String proxyUser, String proxyPwd) {
         P2LibConst.useProxy.setValue(useProxy);
@@ -77,27 +84,27 @@ public class P2LibInit {
 
     public static void addP2CssToScene(Scene scene) {
         List<String> list = new ArrayList<>();
-        list.add("de/p2tools/p2lib/p2Css_button.css");
-        list.add("de/p2tools/p2lib/p2Css_maskerPane.css");
-        list.add("de/p2tools/p2lib/p2Css_toggleSwitch.css");
-        list.add("de/p2tools/p2lib/p2Css_p2Notify.css");
-        list.add("de/p2tools/p2lib/p2Css_table.css");
-        list.add("de/p2tools/p2lib/p2Css.css");
-        list.add("de/p2tools/p2lib/p2Css_toolButton.css");
-        list.add("de/p2tools/p2lib/p2Css_smallGui.css");
-        list.add("de/p2tools/p2lib/p2Css_dialog.css");
-        list.add("de/p2tools/p2lib/p2Css_gui.css");
+        list.add(PATH_CSS + "p2Css_button.css");
+        list.add(PATH_CSS + "p2Css_maskerPane.css");
+        list.add(PATH_CSS + "p2Css_toggleSwitch.css");
+        list.add(PATH_CSS + "p2Css_p2Notify.css");
+        list.add(PATH_CSS + "p2Css_table.css");
+        list.add(PATH_CSS + "p2Css.css");
+        list.add(PATH_CSS + "p2Css_toolButton.css");
+        list.add(PATH_CSS + "p2Css_smallGui.css");
+        list.add(PATH_CSS + "p2Css_dialog.css");
+        list.add(PATH_CSS + "p2Css_gui.css");
 
         if (P2LibConst.darkMode.getValue()) {
-            list.add("de/p2tools/p2lib/p2Css_dark.css");
-            list.add("de/p2tools/p2lib/p2Css_darkTable.css");
+            list.add(PATH_CSS + "p2Css_dark.css");
+            list.add(PATH_CSS + "p2Css_darkTable.css");
         }
 
         if (P2LibConst.blackWhite.getValue()) {
             if (P2LibConst.darkMode.getValue()) {
-                list.add("de/p2tools/p2lib/p2Css_bw_b.css");
+                list.add(PATH_CSS + "p2Css_bw_b.css");
             } else {
-                list.add("de/p2tools/p2lib/p2Css_bw_w.css");
+                list.add(PATH_CSS + "p2Css_bw_w.css");
             }
         }
 

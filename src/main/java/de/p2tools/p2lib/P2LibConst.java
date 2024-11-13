@@ -17,6 +17,7 @@
 package de.p2tools.p2lib;
 
 import javafx.beans.property.*;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class P2LibConst {
@@ -46,6 +47,9 @@ public class P2LibConst {
     public static BooleanProperty themeChanged = new SimpleBooleanProperty(false); // eine Info nach Änderungen
     public static String cssFile = "";
     public static String cssFileDark = "";
+
+    public static Image STAGE_ICON = null;
+    public static Image STAGE_ICON_ORG = null;
 
     public static BooleanProperty useProxy = new SimpleBooleanProperty(false);
     public static StringProperty proxyHost = new SimpleStringProperty("");

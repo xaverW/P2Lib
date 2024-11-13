@@ -19,7 +19,8 @@ import de.p2tools.p2lib.icons.P2Image;
 
 public class P2ProgIcons {
 
-    public static String ICON_PATH_LONG = "de/p2tools/p2lib/p2icons/";
+    public static String ICON_PATH_LONG = "de/p2tools/p2lib/icons/";
+    public static String P2ICON_PATH_LONG = "de/p2tools/p2lib/p2icons/";
 
     public final static P2Image ICON_BUTTON_CLEAR_FILTER = new P2Image(ICON_PATH_LONG, "button-clear-filter.png", 21, 21);
     public final static P2Image IMAGE_HELP = new P2Image(ICON_PATH_LONG, "button-help.png");
@@ -31,12 +32,14 @@ public class P2ProgIcons {
     public final static P2Image ICON_BUTTON_RIP = new P2Image(ICON_PATH_LONG, "button-rip.png");
     public final static P2Image ICON_BUTTON_DEL_SW = new P2Image(ICON_PATH_LONG, "button-del-sw.png", 12, 12);
 
-    public static P2Image P2_STAGE_ICON = new P2Image(ICON_PATH_LONG, "P2_Stage_Icon.png");
-    public static P2Image P2_ABOUT_ICON = new P2Image(ICON_PATH_LONG, "P2_About_Icon.png");
+    public final static P2Image P2_STAGE_ICON = new P2Image(P2ICON_PATH_LONG, "p2_stage_icon.png");
+    public final static P2Image P2_ABOUT_ICON = new P2Image(P2ICON_PATH_LONG, "p2_about_icon.png");
 
-    public static String ICON_PATH_NOTIFICATION_LONG = "de/p2tools/p2lib/guitools/pnotification/";
-    public static final P2Image INFO_ICON = new P2Image(ICON_PATH_NOTIFICATION_LONG, "info.png", 25, 24);
+    public final static String ICON_PATH_NOTIFICATION_LONG = "de/p2tools/p2lib/icons/notification/";
+    public final static P2Image INFO_ICON = new P2Image(ICON_PATH_NOTIFICATION_LONG, "info.png", 25, 24);
     public static final P2Image WARNING_ICON = new P2Image(ICON_PATH_NOTIFICATION_LONG, "warning.png", 25, 24);
     public static final P2Image SUCCESS_ICON = new P2Image(ICON_PATH_NOTIFICATION_LONG, "success.png", 25, 24);
     public static final P2Image ERROR_ICON = new P2Image(ICON_PATH_NOTIFICATION_LONG, "error.png", 25, 24);
+
+    public static String ICON_TOOLTIP_WEBSITE = "/de/p2tools/p2lib/icons/tooltips/website.png";
 }

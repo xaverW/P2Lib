@@ -18,6 +18,7 @@
 package de.p2tools.p2lib.guitools.ptipofday;
 
 import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.P2ProgIcons;
 import javafx.beans.property.StringProperty;
 
 public class P2TipOfDay {
@@ -54,8 +55,7 @@ public class P2TipOfDay {
                 "Fragen zum Programm und\n" +
                 "Ideen gerne auch per Mail.\n\n";
 
-        String image = "/de/p2tools/p2lib/tooltips/Website.png";
-        return new P2TipOfDay(text, image, URL_WEBSITE, progOpenUrl);
+        return new P2TipOfDay(text, P2ProgIcons.ICON_TOOLTIP_WEBSITE, URL_WEBSITE, progOpenUrl);
     }
 
     public String getText() {

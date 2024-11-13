@@ -19,6 +19,7 @@ package de.p2tools.p2lib.guitools;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.P2ProgIcons;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -29,27 +30,55 @@ public class P2WindowIcon {
     private P2WindowIcon() {
     }
 
-    public static void addWindowP2Icon(Stage stage) {
-        try {
-            stage.getIcons().add(0, P2ProgIcons.P2_STAGE_ICON.getImage());
-        } catch (Exception ex) {
-            P2Log.errorLog(945720146, "Kann Window-Icon nicht setzen");
+    public static void setStageIcon(String imagePath) {
+        // /tmp/path/icon.png
+        if (imagePath.isEmpty()) {
+            P2LibConst.STAGE_ICON = P2LibConst.STAGE_ICON_ORG;
+
+        } else {
+            try {
+                P2LibConst.STAGE_ICON = new Image(new File(imagePath).toURI().toString(),
+                        P2LibConst.WINDOW_ICON_WIDTH, P2LibConst.WINDOW_ICON_HEIGHT, true, true);
+            } catch (Exception ex) {
+                P2Log.errorLog(987545412, ex, "Kann das vorgegebene Programm-Icon nicht setzen");
+                P2LibConst.STAGE_ICON = P2LibConst.STAGE_ICON_ORG;
+            }
         }
+
+        P2WindowIcon.addWindowIcon();
     }
 
-    public static void setWindowIcon(Stage stage, String iconPath) {
-        if (iconPath.isEmpty() || !new File(iconPath).exists()) {
-            addWindowP2Icon(stage);
+    public static void setOrgIcon(String imagePath) {
+        // de/p2tools/p2lib/icons/icon.png
+        // Ist das Icon wenn der User kein eigenes vorgibt
+        if (imagePath.isEmpty()) {
+            P2LibConst.STAGE_ICON_ORG = P2ProgIcons.P2_STAGE_ICON.getImage();
             return;
         }
 
         try {
-            Image icon = new Image(new File(iconPath).toURI().toString(),
+            Image image = new Image(ClassLoader.getSystemResource(imagePath).toURI().toString(),
                     P2LibConst.WINDOW_ICON_WIDTH, P2LibConst.WINDOW_ICON_HEIGHT, true, true);
-            stage.getIcons().add(0, icon);
+            P2LibConst.STAGE_ICON_ORG = image;
         } catch (Exception ex) {
-            P2Log.errorLog(204503978, ex);
-            addWindowP2Icon(stage);
+            P2Log.errorLog(987545412, ex, "Kann das vorgegebene Programm-Icon nicht setzen");
+            P2LibConst.STAGE_ICON_ORG = P2ProgIcons.P2_STAGE_ICON.getImage();
+        }
+    }
+
+    public static void addWindowIcon() {
+        addWindowIcon(P2LibConst.actStage);
+        P2DialogExtra.setIconForAllDialog();
+    }
+
+    public static void addWindowIcon(Stage stage) {
+        try {
+            stage.getIcons().clear();
+            stage.getIcons().add(0, P2LibConst.STAGE_ICON);
+        } catch (Exception ex) {
+            // passiert beim StartDialog
+            P2Log.errorLog(945720146, "Kann Window-Icon nicht setzen");
+            stage.getIcons().add(0, P2ProgIcons.P2_STAGE_ICON.getImage());
         }
     }
 }

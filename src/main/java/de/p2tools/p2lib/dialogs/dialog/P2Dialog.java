@@ -135,17 +135,18 @@ public class P2Dialog {
 
     public void setIcon() {
         if (iconPath.isEmpty() || !new File(iconPath).exists()) {
-            P2WindowIcon.addWindowP2Icon(stage);
+            P2WindowIcon.addWindowIcon(stage);
             return;
         }
 
         try {
             Image icon = new Image(new File(iconPath).toURI().toString(),
                     P2LibConst.WINDOW_ICON_WIDTH, P2LibConst.WINDOW_ICON_HEIGHT, true, true);
+            stage.getIcons().clear();
             stage.getIcons().add(0, icon);
         } catch (Exception ex) {
             P2Log.errorLog(204503978, ex);
-            P2WindowIcon.addWindowP2Icon(stage);
+            P2WindowIcon.addWindowIcon(stage);
         }
     }
 
