@@ -32,7 +32,7 @@ public class P2ProgIcons {
     public final static P2Image ICON_BUTTON_RIP = new P2Image(ICON_PATH_LONG, "button-rip.png");
     public final static P2Image ICON_BUTTON_DEL_SW = new P2Image(ICON_PATH_LONG, "button-del-sw.png", 12, 12);
 
-    public final static P2Image P2_STAGE_ICON = new P2Image(P2ICON_PATH_LONG, "p2_stage_icon.png");
+    public final static P2Image P2_STAGE_ICON = new P2Image(P2ICON_PATH_LONG, "p2_logo_32.png");
     public final static P2Image P2_ABOUT_ICON = new P2Image(P2ICON_PATH_LONG, "p2_about_icon.png");
 
     public final static String ICON_PATH_NOTIFICATION_LONG = "de/p2tools/p2lib/icons/notification/";
