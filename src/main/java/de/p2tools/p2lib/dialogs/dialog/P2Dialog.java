@@ -82,11 +82,18 @@ public class P2Dialog {
 
     void init(boolean show) {
         try {
-            scene = new Scene(pane);
+            if (sizeConfiguration == null) {
+                scene = new Scene(pane);
+            } else {
+                scene = new Scene(pane,
+                        P2GuiSize.getWidth(sizeConfiguration),
+                        P2GuiSize.getHeight(sizeConfiguration));
+            }
             stage = new Stage();
             stageProp.setValue(stage);
             stage.setScene(scene);
             stage.setTitle(title);
+            stage.sizeToScene(); // GNOME machts sonst nicht richtig!!
             if (modal) {
                 stage.initModality(Modality.APPLICATION_MODAL);
             }
@@ -100,7 +107,9 @@ public class P2Dialog {
                 e.consume();
                 close();
             });
-            //braucht's zwar nicht 2x, der Dialog "springt" dann aber weniger
+
+            // braucht's zwar nicht 2x, der Dialog "springt" dann aber weniger
+            // und GNOME machts sonst nicht richtig!!
             stage.setOnShowing(e -> {
                 if (setOnlySize) {
                     P2GuiSize.setOnlySize(sizeConfiguration, stage, ownerForCenteringDialog);
@@ -119,7 +128,7 @@ public class P2Dialog {
             updateCss();
             setIcon();
             make();
-            P2DialogFactory.addSizeListener(stage, sizeConfiguration);
+            P2DialogFactory.addSizeListener(stage, scene, sizeConfiguration); // sonst werden Dialoge beim Ein/Ausschalten nicht  angepasst
 
             if (show) {
                 showDialog();
@@ -156,19 +165,20 @@ public class P2Dialog {
     }
 
     public void close() {
+        // P2GuiSize.getSizeScene(sizeConfiguration, stage, scene);
         stage.close();
     }
 
     public void showDialog() {
         if (!stage.isShowing()) {
+            stage.requestFocus();
+            stage.toFront();
             if (modal) {
                 stage.showAndWait();
             } else {
                 stage.show();
             }
         }
-        stage.requestFocus();
-        stage.toFront();
     }
 
     public StringProperty getSizeConfiguration() {

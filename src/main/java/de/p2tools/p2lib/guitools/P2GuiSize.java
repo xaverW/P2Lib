@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 public class P2GuiSize {
 
     public static void getSizeStage(StringProperty property, Stage stage) {
+        // Größe und Pos der Stage setzen
         if (stage != null && property != null) {
             property.set((int) stage.getWidth() + ":"
                     + (int) stage.getHeight()
@@ -34,7 +35,8 @@ public class P2GuiSize {
     }
 
     public static void getSizeScene(StringProperty property, Stage stage, Scene scene) {
-        if (scene != null && property != null) {
+        // Größe der Scene und Pos der Stage setzen
+        if (stage != null && scene != null && property != null) {
             property.set((int) scene.getWidth() + ":"
                     + (int) scene.getHeight()
                     + ':'
