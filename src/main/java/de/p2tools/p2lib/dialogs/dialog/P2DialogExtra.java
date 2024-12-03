@@ -134,6 +134,10 @@ public class P2DialogExtra extends P2Dialog {
         });
     }
 
+    public static void saveAllDialog() {
+        dialogList.forEach(P2Dialog::saveDialog);
+    }
+
     public static void setIconForAllDialog() {
         dialogList.forEach(p2Dialog -> {
             P2WindowIcon.addWindowIcon(p2Dialog.getStage());

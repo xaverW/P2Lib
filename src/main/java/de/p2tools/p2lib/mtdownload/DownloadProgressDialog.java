@@ -93,6 +93,6 @@ public class DownloadProgressDialog extends P2DialogExtra {
 
     @Override
     public void close() {
-        Platform.runLater(() -> super.close());
+        Platform.runLater(super::close);
     }
 }

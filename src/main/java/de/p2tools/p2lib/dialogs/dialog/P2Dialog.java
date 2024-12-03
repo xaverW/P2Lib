@@ -82,18 +82,22 @@ public class P2Dialog {
 
     void init(boolean show) {
         try {
+            // geht beides
+//            scene = new Scene(pane);
             if (sizeConfiguration == null) {
                 scene = new Scene(pane);
             } else {
                 scene = new Scene(pane,
-                        P2GuiSize.getWidth(sizeConfiguration),
-                        P2GuiSize.getHeight(sizeConfiguration));
+                        P2GuiSize.getSceneSize(sizeConfiguration, true),
+                        P2GuiSize.getSceneSize(sizeConfiguration, false));
             }
+
             stage = new Stage();
             stageProp.setValue(stage);
             stage.setScene(scene);
+            // stage.sizeToScene(); // macht Probleme
             stage.setTitle(title);
-            stage.sizeToScene(); // GNOME machts sonst nicht richtig!!
+
             if (modal) {
                 stage.initModality(Modality.APPLICATION_MODAL);
             }
@@ -108,18 +112,17 @@ public class P2Dialog {
                 close();
             });
 
-            // braucht's zwar nicht 2x, der Dialog "springt" dann aber weniger
-            // und GNOME machts sonst nicht richtig!!
+            //braucht's zwar nicht 2x, der Dialog "springt" dann aber weniger
             stage.setOnShowing(e -> {
                 if (setOnlySize) {
-                    P2GuiSize.setOnlySize(sizeConfiguration, stage, ownerForCenteringDialog);
+                    P2GuiSize.setSize(sizeConfiguration, stage);
                 } else {
                     P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
                 }
             });
             stage.setOnShown(e -> {
                 if (setOnlySize) {
-                    P2GuiSize.setOnlySize(sizeConfiguration, stage, ownerForCenteringDialog);
+                    P2GuiSize.setSize(sizeConfiguration, stage);
                 } else {
                     P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
                 }
@@ -128,7 +131,7 @@ public class P2Dialog {
             updateCss();
             setIcon();
             make();
-            P2DialogFactory.addSizeListener(stage, scene, sizeConfiguration); // sonst werden Dialoge beim Ein/Ausschalten nicht  angepasst
+            P2DialogFactory.addSizeListener(stage, sizeConfiguration);
 
             if (show) {
                 showDialog();
@@ -165,8 +168,12 @@ public class P2Dialog {
     }
 
     public void close() {
-        // P2GuiSize.getSizeScene(sizeConfiguration, stage, scene);
+        saveDialog();
         stage.close();
+    }
+
+    public void saveDialog() {
+        P2GuiSize.getSize(sizeConfiguration, stage);
     }
 
     public void showDialog() {

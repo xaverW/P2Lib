@@ -16,130 +16,204 @@
 
 package de.p2tools.p2lib.guitools;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class P2GuiSize {
 
-    public static void getSizeStage(StringProperty property, Stage stage) {
-        // Größe und Pos der Stage setzen
-        if (stage != null && property != null) {
-            property.set((int) stage.getWidth() + ":"
-                    + (int) stage.getHeight()
-                    + ':'
-                    + (int) stage.getX()
-                    + ':'
-                    + (int) stage.getY());
-        }
-    }
-
-    public static void getSizeScene(StringProperty property, Stage stage, Scene scene) {
+    public static void getSize(StringProperty property, Stage stage) {
         // Größe der Scene und Pos der Stage setzen
-        if (stage != null && scene != null && property != null) {
-            property.set((int) scene.getWidth() + ":"
-                    + (int) scene.getHeight()
-                    + ':'
-                    + (int) stage.getX()
-                    + ':'
-                    + (int) stage.getY());
+        if (stage != null && stage.getScene() != null && property != null) {
+            property.set(
+                    (int) stage.getWidth() + ":"
+                            + (int) stage.getHeight() + ':'
+                            + (int) stage.getX() + ':'
+                            + (int) stage.getY() + ':'
+
+                            + (int) (stage.getScene().getWidth()) + ':'
+                            + (int) (stage.getScene().getHeight()) + ':'
+                            + (int) (stage.getScene().getX()) + ':'
+                            + (int) (stage.getScene().getY())
+            );
         }
     }
 
-    public static int getWidth(StringProperty property) {
-        int width = 0;
-        final String[] arr = property.getValue().split(":");
+//    public static void getSizeStage(StringProperty property, Stage stage) {
+//        if (stage != null && property != null) {
+//            property.set((int) stage.getWidth() + ":"
+//                    + (int) stage.getHeight()
+//                    + ':'
+//                    + (int) stage.getX()
+//                    + ':'
+//                    + (int) stage.getY());
+//        }
+//        System.out.println(property.getValueSafe());
+//    }
+//
+//    public static void getSizeScene(StringProperty property, Stage stage, Scene scene) {
+//        if (scene != null && property != null) {
+//            property.set((int) scene.getWidth() + ":"
+//                    + (int) scene.getHeight()
+//                    + ':'
+//                    + (int) stage.getX()
+//                    + ':'
+//                    + (int) stage.getY());
+//        }
+//    }
 
+//    public static int getWidth(StringProperty property) {
+//        int width = 0;
+//        final String[] arr = property.getValue().split(":");
+//
+//        try {
+//            if (arr.length >= 2) {
+//                width = Integer.parseInt(arr[0]);
+//            }
+//        } catch (final Exception ex) {
+//            width = 0;
+//        }
+//
+//        return width;
+//    }
+//
+//    public static int getHeight(StringProperty property) {
+//        int height = 0;
+//        final String[] arr = property.getValue().split(":");
+//
+//        try {
+//            if (arr.length >= 2) {
+//                height = Integer.parseInt(arr[1]);
+//            }
+//        } catch (final Exception ex) {
+//            height = 0;
+//        }
+//
+//        return height;
+//    }
+//
+//    public static int getPosX(StringProperty property) {
+//        int posX = 0;
+//        final String[] arr = property.getValue().split(":");
+//
+//        try {
+//            if (arr.length >= 4) {
+//                posX = Integer.parseInt(arr[2]);
+//            }
+//        } catch (final Exception ex) {
+//            posX = 0;
+//        }
+//
+//        return posX;
+//    }
+//
+//    public static int getPosY(StringProperty property) {
+//        int posY = 0;
+//        final String[] arr = property.getValue().split(":");
+//
+//        try {
+//            if (arr.length >= 4) {
+//                posY = Integer.parseInt(arr[3]);
+//            }
+//        } catch (final Exception ex) {
+//            posY = 0;
+//        }
+//
+//        return posY;
+//    }
+
+    public static int getStageSize(StringProperty property, boolean width) {
+        int value = 0;
+        final String[] arr = property.getValue().split(":");
         try {
-            if (arr.length == 4 || arr.length == 2) {
-                width = Integer.parseInt(arr[0]);
+            if (arr.length >= 2) {
+                if (width) {
+                    value = Integer.parseInt(arr[0]);
+                } else {
+                    value = Integer.parseInt(arr[1]);
+                }
             }
         } catch (final Exception ex) {
-            width = 0;
+            value = 0;
         }
-
-        return width;
+        return value;
     }
 
-    public static int getHeight(StringProperty property) {
-        int height = 0;
+    public static int getStagePos(StringProperty property, boolean posX) {
+        int value = 0;
         final String[] arr = property.getValue().split(":");
-
         try {
-            if (arr.length == 4 || arr.length == 2) {
-                height = Integer.parseInt(arr[1]);
+            if (arr.length >= 4) {
+                if (posX) {
+                    value = Integer.parseInt(arr[2]);
+                } else {
+                    value = Integer.parseInt(arr[3]);
+                }
             }
         } catch (final Exception ex) {
-            height = 0;
+            value = 0;
         }
-
-        return height;
+        return value;
     }
 
-    public static int getPosX(StringProperty property) {
-        int posX = 0;
+    public static int getSceneSize(StringProperty property, boolean width) {
+        int value = 0;
         final String[] arr = property.getValue().split(":");
-
         try {
-            if (arr.length == 4) {
-                posX = Integer.parseInt(arr[2]);
+            if (arr.length >= 6) {
+                if (width) {
+                    value = Integer.parseInt(arr[4]);
+                } else {
+                    value = Integer.parseInt(arr[5]);
+                }
+
+            } else {
+                // für neue Dialoge und die Übergangszeit
+                value = getStageSize(property, width);
             }
         } catch (final Exception ex) {
-            posX = 0;
+            value = 0;
         }
-
-        return posX;
+        return value;
     }
 
-    public static int getPosY(StringProperty property) {
-        int posY = 0;
+    public static int getScenePos(StringProperty property, boolean posX) {
+        int value = 0;
         final String[] arr = property.getValue().split(":");
-
         try {
-            if (arr.length == 4) {
-                posY = Integer.parseInt(arr[3]);
+            if (arr.length >= 8) {
+                if (posX) {
+                    value = Integer.parseInt(arr[6]);
+                } else {
+                    value = Integer.parseInt(arr[7]);
+                }
             }
         } catch (final Exception ex) {
-            posY = 0;
+            value = 0;
         }
-
-        return posY;
+        return value;
     }
 
     public static void setSizePos(StringProperty sizeConfiguration, Stage stage, Stage ownerForCenteringDialog) {
-        setSizePos(sizeConfiguration, stage, ownerForCenteringDialog, true, true);
+        StringProperty s = sizeConfiguration == null ?
+                null : new SimpleStringProperty(sizeConfiguration.getValueSafe()); // sonst wird er schon während dem geändert
+        setSize(s, stage);
+        setPos(s, stage, ownerForCenteringDialog);
     }
 
     public static void setSizePos(StringProperty sizeConfiguration, Stage stage) {
-        setSizePos(sizeConfiguration, stage, null, true, true);
+        StringProperty s = new SimpleStringProperty(sizeConfiguration.getValueSafe()); // sonst wird er schon während dem geändert
+        setSize(s, stage);
+        setPos(s, stage, null);
     }
 
-    public static void setOnlySize(StringProperty sizeConfiguration, Stage stage, Stage ownerForCenteringDialog) {
-        setSizePos(sizeConfiguration, stage, ownerForCenteringDialog, false, true);
+    public static void setPos(StringProperty sizeConfiguration, Stage newStage) {
+        setPos(sizeConfiguration, newStage, null);
     }
 
-    public static void setOnlySize(StringProperty sizeConfiguration, Stage stage) {
-        //nur die Größe setzen
-        setSizePos(sizeConfiguration, stage, null, false, true);
-    }
-
-    public static void setOnlyPos(StringProperty sizeConfiguration, Stage newStage, Stage ownerForCenteringDialog) {
-        //nur die Größe setzen
-        setSizePos(sizeConfiguration, newStage, ownerForCenteringDialog, true, false);
-    }
-
-    public static void setOnlyPos(StringProperty sizeConfiguration, Stage newStage) {
-        //nur die Größe setzen
-        setSizePos(sizeConfiguration, newStage, null, true, false);
-    }
-
-    private static void setSizePos(StringProperty sizeConfiguration,
-                                   Stage newStage, Stage ownerForCenteringDialog,
-                                   boolean setPos,
-                                   boolean setSize) {
-
-        int h = 0, w = 0, posX = 0, posY = 0;
-        boolean size = false, pos = false;
+    public static void setSize(StringProperty sizeConfiguration, Stage newStage) {
+        int h = 0, w = 0;
+        boolean size = false;
 
         String[] arr = {""};
         if (sizeConfiguration != null && !sizeConfiguration.getValueSafe().isEmpty()) {
@@ -149,19 +223,14 @@ public class P2GuiSize {
         if (arr.length >= 2) {
             //dann gibts zumindest die Größe
             size = true;
-            w = P2GuiSize.getWidth(sizeConfiguration);
-            h = P2GuiSize.getHeight(sizeConfiguration);
+//            w = P2GuiSize.getWidth(sizeConfiguration);
+//            h = P2GuiSize.getHeight(sizeConfiguration);
+            w = getStageSize(sizeConfiguration, true);
+            h = getStageSize(sizeConfiguration, false);
         }
-        if (arr.length == 4) {
-            //und auch die Pos
-            pos = true;
-            posX = P2GuiSize.getPosX(sizeConfiguration);
-            posY = P2GuiSize.getPosY(sizeConfiguration);
-        }
-
 
         //Größe setzen
-        if (setSize && size) {
+        if (size) {
             if (w <= 25 || h <= 25) {
                 //dann stimmt was nicht, => einpassen
                 newStage.sizeToScene();
@@ -169,14 +238,33 @@ public class P2GuiSize {
                 newStage.setWidth(w);
                 newStage.setHeight(h);
             }
-        } else if (setSize) {
+        } else {
             //dann wenigstens einpassen
             newStage.sizeToScene();
         }
+    }
 
+    public static void setPos(StringProperty sizeConfiguration,
+                              Stage newStage, Stage ownerForCenteringDialog) {
+        int posX = 0, posY = 0;
+        boolean pos = false;
+
+        String[] arr = {""};
+        if (sizeConfiguration != null && !sizeConfiguration.getValueSafe().isEmpty()) {
+            arr = sizeConfiguration.getValue().split(":");
+        }
+
+        if (arr.length >= 4) {
+            //und auch die Pos
+            pos = true;
+//            posX = P2GuiSize.getPosX(sizeConfiguration);
+//            posY = P2GuiSize.getPosY(sizeConfiguration);
+            posX = getStagePos(sizeConfiguration, true);
+            posY = getStagePos(sizeConfiguration, false);
+        }
 
         //Pos setzen
-        if (setPos && pos) {
+        if (pos) {
             if (posX < 0) {
                 //sonst wäre das Fenster "möglicherweise außerhalb" des sichtbaren Bereichs
                 //das kann Windows nicht abfangen :(, Linux(KDE) machts richtig!!!

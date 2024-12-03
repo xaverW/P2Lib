@@ -79,6 +79,11 @@ public class P2WindowIcon {
     }
 
     public static void addWindowIcon(Stage stage) {
+        if (stage == null) {
+            // z.B.: atserver
+            return;
+        }
+
         try {
             stage.getIcons().clear();
             stage.getIcons().add(0, P2LibConst.STAGE_ICON);
