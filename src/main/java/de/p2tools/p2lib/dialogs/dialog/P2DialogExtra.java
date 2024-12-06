@@ -50,7 +50,7 @@ public class P2DialogExtra extends P2Dialog {
     private final HBox hBoxRight = new HBox(10); // ist nach der ButtonBar
     private final ButtonBar buttonBar = new ButtonBar();
 
-    private static ArrayList<P2Dialog> dialogList = new ArrayList<>();
+    private static final ArrayList<P2Dialog> dialogList = new ArrayList<>();
     private final ScrollPane scrollPane = new ScrollPane();
     private P2MaskerPaneMin maskerPane = null;
     private boolean masker = false;
@@ -120,6 +120,10 @@ public class P2DialogExtra extends P2Dialog {
 
     private static synchronized void removeDialog(P2Dialog p2Dialog) {
         dialogList.remove(p2Dialog);
+    }
+
+    public static ArrayList<P2Dialog> getDialogList() {
+        return dialogList;
     }
 
     public static void closeAllDialog() {
