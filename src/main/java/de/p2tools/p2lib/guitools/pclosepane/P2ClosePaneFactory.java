@@ -50,9 +50,14 @@ public class P2ClosePaneFactory {
         return tab;
     }
 
-    public static void setSplit(BooleanProperty bound, SplitPane splitPane,
-                                P2ClosePaneController p2ClosePaneController, boolean infoFirst,
-                                Region pane, DoubleProperty divider, BooleanProperty isShowing) {
+    public static void setSplit(BooleanProperty bound /* divider ist "bind" */,
+                                SplitPane splitPane /* pane in dem alles liegt */,
+                                P2ClosePaneController p2ClosePaneController /* VBox in der die Tabs liegen */,
+                                boolean infoFirst /* ClosePane kommt zuerst */,
+                                Region pane /* ist die Pane die über den Infos liegt */,
+                                DoubleProperty divider /* divider der splitPane */,
+                                BooleanProperty isShowing /* Infos sollen angezeigt werden */) {
+
         // hier wird der Filter ein- ausgeblendet
         if (bound.get() && splitPane.getItems().size() > 1) {
             bound.set(false);

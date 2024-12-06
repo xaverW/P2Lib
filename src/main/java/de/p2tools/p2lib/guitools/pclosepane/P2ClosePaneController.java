@@ -37,7 +37,7 @@ public class P2ClosePaneController extends VBox {
     }
 
     public boolean arePanesShowing() {
-        // dann wird wenigsten eins angezeigt
+        // dann wird wenigstens eins angezeigt
         for (P2ClosePaneDto infoDTO : infoDTOList) {
             if (!infoDTO.PANE_INFO_IS_RIP.get()) {
                 return true;
@@ -74,7 +74,6 @@ public class P2ClosePaneController extends VBox {
 
     private void setTabs() {
         tabPane.getTabs().clear();
-
 
         for (P2ClosePaneDto infoDTO : infoDTOList) {
             if (!infoDTO.PANE_INFO_IS_RIP.get()) {
