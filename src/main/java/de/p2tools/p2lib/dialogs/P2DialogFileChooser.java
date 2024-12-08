@@ -41,6 +41,9 @@ public class P2DialogFileChooser extends P2Alert {
                                          String startFile) {
 
         Dialog<ButtonType> dialog = new Dialog<>();
+        if (stage != null) {
+            dialog.initOwner(stage);
+        }
         dialog.setTitle(title);
         dialog.setHeaderText(header);
         dialog.setResizable(true);
