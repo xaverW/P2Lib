@@ -22,35 +22,31 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
 
-public class FoundSearchData {
+public class FoundSearchDataDTO {
     private Stage stage;
 
     public String searchUrl;
     public String searchUrlDownload;
 
-    private final BooleanProperty searchAct;//Act/Info sollen gesucht werden
-    private final BooleanProperty searchBeta;//auch beta soll gesucht werden
-    private final BooleanProperty searchDaily;//und Daily auch noch
+    private final BooleanProperty searchUpdate; // soll überhaupt gesucht werden, kann im Dialog ausgeschaltet werden
+    private final BooleanProperty searchBeta; // auch beta soll gesucht werden
+    private final BooleanProperty searchDaily; // und Daily auch noch
 
-    private final BooleanProperty searchActAgain = new SimpleBooleanProperty(false);//gefundenes Act soll nochmal angezeigt werden
+    private final BooleanProperty searchActAgain = new SimpleBooleanProperty(false); // gefundenes Act soll nochmal angezeigt werden
+    private final StringProperty lastSearchDate; // Datum letzter Suche
 
-    private final StringProperty lastInfoDate;//letzte angezeigte Info
-    private final StringProperty lastActDate;//letztes angezeigtes Act
-    private final StringProperty lastBetaDate;//letzte angezeigte Beta
-    private final StringProperty lastDailyDate;//letzte angezeigtes Daily
+    private final BooleanProperty foundNewInfo = new SimpleBooleanProperty(false); // neue Info wurde gefunden
+    private final BooleanProperty foundNewVersion = new SimpleBooleanProperty(false); // neues Act wurde gefunden
+    private final BooleanProperty foundNewBeta = new SimpleBooleanProperty(false); // neues Beta wurde gefunden
+    private final BooleanProperty foundNewDaily = new SimpleBooleanProperty(false); // neues Daily wurde gefunden
 
-    private final BooleanProperty foundNewInfo = new SimpleBooleanProperty(false);//neue Info wurde gefunden
-    private final BooleanProperty foundNewVersion = new SimpleBooleanProperty(false);//neues Act wurde gefunden
-    private final BooleanProperty foundNewBeta = new SimpleBooleanProperty(false);//neues Beta wurde gefunden
-    private final BooleanProperty foundNewDaily = new SimpleBooleanProperty(false);//neues Daily wurde gefunden
+    private FoundFileList foundFileListInfo = new FoundFileList(); // Liste der gefundenen neuen Infos
+    private FoundFileList foundFileListAct = new FoundFileList(); // Liste der gefundenen neuen Acts
+    private FoundFileList foundFileListBeta = new FoundFileList(); // Liste der gefundenen neuen Betas
+    private FoundFileList foundFileListDaily = new FoundFileList(); // Liste der gefundenen neuen Dailys
 
-    private FoundFileList foundFileListInfo = new FoundFileList();//Liste der gefundenen neuen Infos
-    private FoundFileList foundFileListAct = new FoundFileList();//Liste der gefundenen neuen Acts
-    private FoundFileList foundFileListBeta = new FoundFileList();//Liste der gefundenen neuen Betas
-    private FoundFileList foundFileListDaily = new FoundFileList();//Liste der gefundenen neuen Dailys
-
-    private String newInfoText = "";//Text der neuen Infos
-    private String newInfoDate = "";//neue Nummer der neuen Infos, Datum: 2021.05.01 oder 2021.05.01_1
+    private String newInfoText = ""; // Text der neuen Infos
+    private String newInfoDate = ""; // neue Nummer der neuen Infos, Datum: 2021.05.01 oder 2021.05.01_1
 
     private String newVersionText = "";
     private String newVersionDate = "";
@@ -68,50 +64,44 @@ public class FoundSearchData {
 
     private String urlWebsite;
     private String urlDownload;
-    private String progName;
-    private String progVersion;//aktuelle Programmversion
+    private String progName; // Name im Downloadverzeichnis!!
+    private String progVersion; // aktuelle Programmversion
     private String progBuildNo;
     private String progBuildDate;
 
     private final StringProperty downloadDir;
 
-    private boolean showAlways;
+    private boolean showAlways; // dann wird das Ergebnis immer angezeigt: gibt/gibt kein Update
+    private boolean showAllDownloads; // dann werden alle Downloads/Infos angezeigt, IMMER
 
-    public FoundSearchData(final Stage stage,
-                           final String searchUrl,
-                           final String searchUrlDownload,
+    public FoundSearchDataDTO(final Stage stage,
+                              final String searchUrl,
+                              final String searchUrlDownload,
 
-                           final BooleanProperty searchAct,
-                           final BooleanProperty searchBeta, final BooleanProperty searchDaily,
+                              final StringProperty lastSearchDate,
+                              final BooleanProperty searchUpdate,
+                              final BooleanProperty searchBeta,
+                              final BooleanProperty searchDaily,
 
-                           final StringProperty lastInfoDate,
-                           final StringProperty lastActDate,
-                           final StringProperty lastBetaDate,
-                           final StringProperty lastDailyDate,
-
-                           final String urlWebsite,
-                           final String urlDownload,
-                           final String progName,
-                           final String progVersion,
-                           final String progBuildNo,
-                           final String progBuildDate,
-                           final StringProperty downloadDir,
-                           final boolean showAlways
+                              final String urlWebsite,
+                              final String urlDownload,
+                              final String progName,
+                              final String progVersion,
+                              final String progBuildNo,
+                              final String progBuildDate,
+                              final StringProperty downloadDir,
+                              final boolean showAlways,
+                              final boolean showAllDownloads
     ) {
-
         this.stage = stage;
 
         this.searchUrl = searchUrl;
         this.searchUrlDownload = searchUrlDownload;
 
-        this.searchAct = searchAct;
+        this.lastSearchDate = lastSearchDate;
+        this.searchUpdate = searchUpdate;
         this.searchBeta = searchBeta;
         this.searchDaily = searchDaily;
-
-        this.lastInfoDate = lastInfoDate;
-        this.lastActDate = lastActDate;
-        this.lastBetaDate = lastBetaDate;
-        this.lastDailyDate = lastDailyDate;
 
         this.urlWebsite = urlWebsite;
         this.urlDownload = urlDownload;
@@ -120,19 +110,12 @@ public class FoundSearchData {
         this.progBuildNo = progBuildNo;
         this.progBuildDate = progBuildDate;
         this.downloadDir = downloadDir;
-        if (this.lastActDate.getValue().isEmpty()) {
-            //das ist die aktuelle Programmversion die läuft
-            this.lastActDate.setValue(this.progBuildDate);
-        }
-        if (this.lastBetaDate.getValue().isEmpty()) {
-            //das ist die aktuelle Programmversion die läuft
-            this.lastBetaDate.setValue(this.progBuildDate);
-        }
-        if (this.lastDailyDate.getValue().isEmpty()) {
-            //das ist die aktuelle Programmversion die läuft
-            this.lastDailyDate.setValue(this.progBuildDate);
-        }
         this.showAlways = showAlways;
+        this.showAllDownloads = showAllDownloads;
+
+        if (this.lastSearchDate.getValue().isEmpty()) {
+            this.lastSearchDate.setValue(this.progBuildDate);
+        }
     }
 
     public Stage getStage() {
@@ -159,16 +142,12 @@ public class FoundSearchData {
         this.searchUrlDownload = searchUrlDownload;
     }
 
-    public boolean isSearchAct() {
-        return searchAct.get();
+    public boolean getSearchUpdate() {
+        return searchUpdate.get();
     }
 
-    public BooleanProperty searchActProperty() {
-        return searchAct;
-    }
-
-    public void setSearchAct(final boolean searchAct) {
-        this.searchAct.set(searchAct);
+    public BooleanProperty searchUpdateProperty() {
+        return searchUpdate;
     }
 
     public boolean isSearchBeta() {
@@ -207,52 +186,17 @@ public class FoundSearchData {
         this.searchActAgain.set(searchActAgain);
     }
 
-    public String getLastInfoDate() {
-        return lastInfoDate.get();
+
+    public String getLastSearchDate() {
+        return lastSearchDate.get();
     }
 
-    public StringProperty lastInfoDateProperty() {
-        return lastInfoDate;
+    public StringProperty lastSearchDateProperty() {
+        return lastSearchDate;
     }
 
-    public void setLastInfoDate(final String lastInfoDate) {
-        this.lastInfoDate.set(lastInfoDate);
-    }
-
-    public String getLastActDate() {
-        return lastActDate.get();
-    }
-
-    public StringProperty lastActDateProperty() {
-        return lastActDate;
-    }
-
-    public void setLastActDate(final String lastActDate) {
-        this.lastActDate.set(lastActDate);
-    }
-
-    public String getLastBetaDate() {
-        return lastBetaDate.get();
-    }
-
-    public StringProperty lastBetaDateProperty() {
-        return lastBetaDate;
-    }
-
-    public void setLastBetaDate(final String lastBetaDate) {
-        this.lastBetaDate.set(lastBetaDate);
-    }
-
-    public String getLastDailyDate() {
-        return lastDailyDate.get();
-    }
-
-    public StringProperty lastDailyDateProperty() {
-        return lastDailyDate;
-    }
-
-    public void setLastDailyDate(final String lastDailyDate) {
-        this.lastDailyDate.set(lastDailyDate);
+    public void setLastSearchDate(final String lastSearchDate) {
+        this.lastSearchDate.set(lastSearchDate);
     }
 
     public boolean isFoundNewInfo() {
@@ -505,5 +449,13 @@ public class FoundSearchData {
 
     public void setShowAlways(final boolean showAlways) {
         this.showAlways = showAlways;
+    }
+
+    public boolean isShowAllDownloads() {
+        return showAllDownloads;
+    }
+
+    public void setShowAllDownloads(boolean showAllDownloads) {
+        this.showAllDownloads = showAllDownloads;
     }
 }

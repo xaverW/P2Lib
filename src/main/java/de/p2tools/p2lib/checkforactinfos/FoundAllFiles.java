@@ -30,37 +30,22 @@ public class FoundAllFiles {
     private FoundAllFiles() {
     }
 
-    public static void found(FoundSearchData foundSearchData) {
+    static void found(FoundSearchDataDTO foundSearchDataDTO) {
+        // hier wird gesucht und das Datum "letzte Suche" gesetzt
+        // Datum immer: "2024.12.25"
         try (InputStreamReader in = new InputStreamReader(
-                FoundFactory.connectToServer(foundSearchData.getSearchUrlDownload()), StandardCharsets.UTF_8);
+                FoundFactory.connectToServer(foundSearchDataDTO.getSearchUrlDownload()), StandardCharsets.UTF_8);
              BufferedReader br = new BufferedReader(in)) {
 
-            foundSearchData.setFoundNewInfo(false);
-            foundSearchData.setFoundNewVersion(false);
-            foundSearchData.setFoundNewBeta(false);
-            foundSearchData.setFoundNewDaily(false);
+            foundSearchDataDTO.setFoundNewInfo(false);
+            foundSearchDataDTO.setFoundNewVersion(false);
+            foundSearchDataDTO.setFoundNewBeta(false);
+            foundSearchDataDTO.setFoundNewDaily(false);
 
             ArrayList<String> log = new ArrayList<>();
             log.add("=====================================");
-            log.add("Updatesuche: " + foundSearchData.searchUrlDownload);
-            log.add("erst mal Programmversionen auf build-date dieser laufenden Version heben");
-            log.add("Aktuelle Version: " + foundSearchData.getLastActDate());
-            if (foundSearchData.getLastActDate().isEmpty() ||
-                    FoundFactory.isNewFound(foundSearchData.getLastActDate(), foundSearchData.getProgBuildDate(), log)) {
-                foundSearchData.setLastActDate(foundSearchData.getProgBuildDate());
-            }
-
-            log.add("Beta-Version: " + foundSearchData.getLastBetaDate());
-            if (foundSearchData.getLastBetaDate().isEmpty() ||
-                    FoundFactory.isNewFound(foundSearchData.getLastBetaDate(), foundSearchData.getProgBuildDate(), log)) {
-                foundSearchData.setLastBetaDate(foundSearchData.getProgBuildDate());
-            }
-
-            log.add("Daily: " + foundSearchData.getLastDailyDate());
-            if (foundSearchData.getLastDailyDate().isEmpty() ||
-                    FoundFactory.isNewFound(foundSearchData.getLastDailyDate(), foundSearchData.getProgBuildDate(), log)) {
-                foundSearchData.setLastDailyDate(foundSearchData.getProgBuildDate());
-            }
+            log.add("Update-Suche: " + foundSearchDataDTO.searchUrlDownload);
+            log.add("Letzte Suche war: " + foundSearchDataDTO.getLastSearchDate());
             P2Log.sysLog(log);
 
             String strLine;
@@ -68,21 +53,21 @@ public class FoundAllFiles {
                 if (!strLine.contains("<a href=\"/download/")) {
                     continue; //nur Downloads
                 }
-                if (!strLine.contains(foundSearchData.getProgName())) {
+                if (!strLine.contains(foundSearchDataDTO.getProgName())) {
                     continue; //und nur vom verwendetem Programm
                 }
 
                 if (strLine.contains("info")) {
-                    addInfo(foundSearchData, strLine);
+                    addInfo(foundSearchDataDTO, strLine);
 
                 } else if (strLine.contains("act")) {
-                    addAct(foundSearchData, strLine);
+                    addAct(foundSearchDataDTO, strLine);
 
                 } else if (strLine.contains("beta")) {
-                    addBeta(true, foundSearchData, strLine);
+                    addBetaDaily(true, foundSearchDataDTO, strLine);
 
                 } else if (strLine.contains("daily")) {
-                    addBeta(false, foundSearchData, strLine);
+                    addBetaDaily(false, foundSearchDataDTO, strLine);
                 }
             }
         } catch (final IOException ex) {
@@ -90,58 +75,67 @@ public class FoundAllFiles {
         }
     }
 
-    private static void addInfo(FoundSearchData foundSearchData, String strLine) {
+    private static boolean checkInfo(FoundSearchDataDTO foundSearchDataDTO, FoundFile foundFile) {
+        return foundSearchDataDTO.isShowAllDownloads() || /* immer! */
+                foundSearchDataDTO.isShowAlways() || /* dann auch immer */
+                (!foundSearchDataDTO.isShowAlways() && /* sonst nur, wenn vorhanden */
+                        FoundFactory.isNewFound(foundSearchDataDTO.getLastSearchDate(), foundFile.getFileDate()));
+    }
+
+    private static boolean checkFile(FoundSearchDataDTO foundSearchDataDTO, FoundFile foundFile) {
+        return foundSearchDataDTO.isShowAllDownloads() /* immer! */ ||
+                (foundSearchDataDTO.isShowAlways() && /* immer, wenn was vorhanden ist */
+                        FoundFactory.isNewFound(foundSearchDataDTO.getProgBuildDate(), foundFile.getFileDate())) ||
+                (!foundSearchDataDTO.isShowAlways() && /* dann nur, wenn ein neues vorhanden */
+                        FoundFactory.isNewFound(foundSearchDataDTO.getLastSearchDate(), foundFile.getFileDate()));
+    }
+
+    private static void addInfo(FoundSearchDataDTO foundSearchDataDTO, String strLine) {
         // <p><a href="/download/mtplayer/info/MTPlayer-Info__2023.03.07.txt">MTPlayer-Info__2023.03.07.txt</a></p>
 
         int idx1 = strLine.indexOf("href=\"");
         int idx2 = strLine.indexOf("\">");
-
         int idx3 = strLine.indexOf("\">");
         int idx4 = strLine.indexOf("</a>");
-
         if (idx1 >= 0 && idx2 >= 0 && idx3 >= 0 && idx4 >= 0) {
             idx1 += "href=\"".length();
             idx3 += "\">".length();
 
             FoundFile foundFile = new FoundFile();
-            foundFile.setFileUrl(foundSearchData.getSearchUrl() + strLine.substring(idx1, idx2));
+            foundFile.setFileUrl(foundSearchDataDTO.getSearchUrl() + strLine.substring(idx1, idx2));
 
             String fileName = strLine.substring(idx3, idx4);
             foundFile.setFileName(fileName);
             foundFile.setFileDate(fileName.
                     substring(fileName.indexOf("__") + "__".length(), fileName.lastIndexOf(".")));
 
-            if (foundSearchData.isShowAlways() ||
-                    (!foundSearchData.isShowAlways() &&
-                            FoundFactory.isNewFound(foundSearchData.getLastInfoDate(), foundFile.getFileDate()))) {
 
+            if (checkInfo(foundSearchDataDTO, foundFile)) {
                 //Infos sind vorhanden
                 //-> die noch nicht angezeigt wurde ODER
                 //-> soll immer angezeigt werden, alle!
-
-                foundSearchData.setFoundNewInfo(true);
-                foundSearchData.setNewInfoDate(foundFile.getFileDate());
+                foundSearchDataDTO.setFoundNewInfo(true);
+                foundSearchDataDTO.setNewInfoDate(foundFile.getFileDate());
                 foundFile.setFileText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
-                foundSearchData.getFoundFileListInfo().add(foundFile);
+                foundSearchDataDTO.getFoundFileListInfo().add(foundFile);
             }
         }
     }
 
-    private static void addAct(FoundSearchData foundSearchData, String strLine) {
+    private static void addAct(FoundSearchDataDTO foundSearchDataDTO, String strLine) {
         //<p><a href="/download/p2info/act/P2Radio-3__2021.07.14.zip">P2Radio-3__2021.07.14.zip</a></p>
         //<p><a href="/download/p2info/act/P2Radio-3__Linux+Java__2021.07.14.zip">P2Radio-3__Linux+Java__2021.07.14.zip</a></p>
+
         int idx1 = strLine.indexOf("href=\"");
         int idx2 = strLine.indexOf("\">");
-
         int idx3 = strLine.indexOf("\">");
         int idx4 = strLine.indexOf("</a>");
-
         if (idx1 >= 0 && idx2 >= 0 && idx3 >= 0 && idx4 >= 0) {
             idx1 += "href=\"".length();
             idx3 += "\">".length();
 
             FoundFile foundFile = new FoundFile();
-            foundFile.setFileUrl(foundSearchData.getSearchUrl() + strLine.substring(idx1, idx2));
+            foundFile.setFileUrl(foundSearchDataDTO.getSearchUrl() + strLine.substring(idx1, idx2));
 
             String fileName = strLine.substring(idx3, idx4);
             foundFile.setFileName(fileName);
@@ -162,40 +156,34 @@ public class FoundAllFiles {
             if (fileName.endsWith(".txt")) {
                 //Infofile
                 P2Log.debugLog("Infofile laden: " + foundFile.getFileName() + "  --  " + foundFile.getFileUrl());
-                foundSearchData.setNewVersionText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
+                foundSearchDataDTO.setNewVersionText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
 
-            } else if ((foundSearchData.isShowAlways() &&
-                    FoundFactory.isNewFound(foundSearchData.getProgBuildDate(), foundFile.getFileDate())) ||
-                    (!foundSearchData.isShowAlways() &&
-                            FoundFactory.isNewFound(foundSearchData.getLastActDate(), foundFile.getFileDate()))) {
-
+            } else if (checkFile(foundSearchDataDTO, foundFile)) {
                 //ist eine neue Version
                 //-> die noch nicht angezeigt wurde ODER
                 //-> soll immer angezeigt werden
-
-                foundSearchData.setNewVersionNo(foundFile.getFileVersion());
-                foundSearchData.setFoundNewVersion(true);
-                foundSearchData.setNewVersionDate(foundFile.getFileDate());
-                foundSearchData.getFoundFileListAct().add(foundFile);
+                foundSearchDataDTO.setNewVersionNo(foundFile.getFileVersion());
+                foundSearchDataDTO.setFoundNewVersion(true);
+                foundSearchDataDTO.setNewVersionDate(foundFile.getFileDate());
+                foundSearchDataDTO.getFoundFileListAct().add(foundFile);
             }
         }
     }
 
-    private static void addBeta(boolean beta, FoundSearchData foundSearchData, String strLine) {
+    private static void addBetaDaily(boolean beta, FoundSearchDataDTO foundSearchDataDTO, String strLine) {
         // <p><a href="/download/mtplayer/daily/MTPlayer-13-142__2023.05.02.txt">MTPlayer-13-142__2023.05.02.txt</a></p>
         // <p><a href="/download/mtplayer/daily/MTPlayer-13-142__2023.05.02.zip">MTPlayer-13-142__2023.05.02.zip</a></p>
+
         int idx1 = strLine.indexOf("href=\"");
         int idx2 = strLine.indexOf("\">");
-
         int idx3 = strLine.indexOf("\">");
         int idx4 = strLine.indexOf("</a>");
-
         if (idx1 >= 0 && idx2 >= 0 && idx3 >= 0 && idx4 >= 0) {
             idx1 += "href=\"".length();
             idx3 += "\">".length();
 
             FoundFile foundFile = new FoundFile();
-            foundFile.setFileUrl(foundSearchData.getSearchUrl() + strLine.substring(idx1, idx2));
+            foundFile.setFileUrl(foundSearchDataDTO.getSearchUrl() + strLine.substring(idx1, idx2));
 
             //MTPlayer-13-142__2023.05.02.zip
             //MTInfo-11-1__Linux+Java__2021.10.09.zip
@@ -219,46 +207,38 @@ public class FoundAllFiles {
                 //Infofile
                 if (beta) {
                     P2Log.debugLog("Infofile beta laden: " + foundFile.getFileName() + "  --  " + foundFile.getFileUrl());
-                    foundSearchData.setNewBetaText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
+                    foundSearchDataDTO.setNewBetaText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
                 } else {
                     P2Log.debugLog("Infofile daily laden: " + foundFile.getFileName() + "  --  " + foundFile.getFileUrl());
-                    foundSearchData.setNewDailyText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
+                    foundSearchDataDTO.setNewDailyText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
                 }
 
             } else {
                 //Programmdatei
                 if (beta) {
                     //beta
-                    if ((foundSearchData.isShowAlways() &&
-                            FoundFactory.isNewFound(foundSearchData.getProgBuildDate(), foundFile.getFileDate())) ||
-                            (!foundSearchData.isShowAlways() &&
-                                    FoundFactory.isNewFound(foundSearchData.getLastBetaDate(), foundFile.getFileDate()))) {
+                    if (checkFile(foundSearchDataDTO, foundFile)) {
                         //ist eine neue Version
                         //-> die noch nicht angezeigt wurde ODER
                         //-> soll immer angezeigt werden
-
-                        foundSearchData.setFoundNewBeta(true);
-                        foundSearchData.setNewBetaVersion(foundFile.getFileVersion());
-                        foundSearchData.setNewBetaBuildNo(foundFile.getFileBuildNo());
-                        foundSearchData.setNewBetaDate(foundFile.getFileDate());
-                        foundSearchData.getFoundFileListBeta().add(foundFile);
+                        foundSearchDataDTO.setFoundNewBeta(true);
+                        foundSearchDataDTO.setNewBetaVersion(foundFile.getFileVersion());
+                        foundSearchDataDTO.setNewBetaBuildNo(foundFile.getFileBuildNo());
+                        foundSearchDataDTO.setNewBetaDate(foundFile.getFileDate());
+                        foundSearchDataDTO.getFoundFileListBeta().add(foundFile);
                     }
 
                 } else {
                     //daily
-                    if ((foundSearchData.isShowAlways() &&
-                            FoundFactory.isNewFound(foundSearchData.getProgBuildDate(), foundFile.getFileDate())) ||
-                            (!foundSearchData.isShowAlways() &&
-                                    FoundFactory.isNewFound(foundSearchData.getLastDailyDate(), foundFile.getFileDate()))) {
+                    if (checkFile(foundSearchDataDTO, foundFile)) {
                         //ist eine neue Version
                         //-> die noch nicht angezeigt wurde ODER
                         //-> soll immer angezeigt werden
-
-                        foundSearchData.setFoundNewDaily(true);
-                        foundSearchData.setNewDailyVersion(foundFile.getFileVersion());
-                        foundSearchData.setNewDailyBuild(foundFile.getFileBuildNo());
-                        foundSearchData.setNewDailyDate(foundFile.getFileDate());
-                        foundSearchData.getFoundFileListDaily().add(foundFile);
+                        foundSearchDataDTO.setFoundNewDaily(true);
+                        foundSearchDataDTO.setNewDailyVersion(foundFile.getFileVersion());
+                        foundSearchDataDTO.setNewDailyBuild(foundFile.getFileBuildNo());
+                        foundSearchDataDTO.setNewDailyDate(foundFile.getFileDate());
+                        foundSearchDataDTO.getFoundFileListDaily().add(foundFile);
                     }
                 }
             }

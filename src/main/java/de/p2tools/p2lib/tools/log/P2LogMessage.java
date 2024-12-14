@@ -65,7 +65,7 @@ public class P2LogMessage {
 
         // Programmversion
         list.add(progName + P2ToolsFactory.getProgVersionString());
-        String compile = P2ToolsFactory.getCompileDate();
+        String compile = P2ToolsFactory.getBuildDate();
         if (!compile.isEmpty()) {
             list.add("Compiled: " + compile);
         }

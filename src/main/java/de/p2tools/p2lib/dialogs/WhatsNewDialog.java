@@ -101,8 +101,8 @@ public class WhatsNewDialog extends P2DialogExtra {
         text2.setFill(PROG_COLOR);
         gridPane.add(text2, 1, row);
 
-        Text text3 = new Text("[ Build: " + P2ToolsFactory.getBuild() + " vom " +
-                P2ToolsFactory.getCompileDate() + " ]");
+        Text text3 = new Text("[ Build: " + P2ToolsFactory.getBuildNo() + " vom " +
+                P2ToolsFactory.getBuildDate() + " ]");
         text3.setFill(PROG_COLOR);
         gridPane.add(text3, 0, ++row, 2, 1);
 

@@ -131,8 +131,8 @@ public abstract class AboutDialog extends P2DialogExtra {
         gridPane.add(text2, 1, ++row);
         GridPane.setHalignment(text2, HPos.CENTER);
 
-        Text text3 = new Text("[ Build: " + P2ToolsFactory.getBuild() + " vom " +
-                P2ToolsFactory.getCompileDate() + " ]");
+        Text text3 = new Text("[ Build: " + P2ToolsFactory.getBuildNo() + " vom " +
+                P2ToolsFactory.getBuildDate() + " ]");
         text3.setFont(new Font(15));
         text3.setFill(PROG_COLOR);
         gridPane.add(text3, 1, ++row);

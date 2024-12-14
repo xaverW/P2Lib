@@ -31,16 +31,16 @@ import java.util.List;
 import java.util.Optional;
 
 public class InfoAlert {
-    FoundSearchData foundSearchData;
+    FoundSearchDataDTO foundSearchDataDTO;
 
-    public InfoAlert(FoundSearchData foundSearchData) {
-        this.foundSearchData = foundSearchData;
+    public InfoAlert(FoundSearchDataDTO foundSearchDataDTO) {
+        this.foundSearchDataDTO = foundSearchDataDTO;
     }
 
     public boolean showInfoAlert(String header) {
         final Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        if (foundSearchData.getStage() != null) {
-            alert.initOwner(foundSearchData.getStage());
+        if (foundSearchDataDTO.getStage() != null) {
+            alert.initOwner(foundSearchDataDTO.getStage());
         }
         alert.setTitle("Updates");
         alert.setHeaderText(header);
@@ -50,10 +50,10 @@ public class InfoAlert {
         vBox.setAlignment(Pos.CENTER_RIGHT);
         alert.getDialogPane().setContent(vBox);
 
-        Tab tabInfos = InfoAlertsTabFactory.addTabInfo(foundSearchData);
-        Tab tabVersion = InfoAlertsTabFactory.addTabVersion(foundSearchData);
-        Tab tabBeta = InfoAlertsTabFactory.addTabBeta(foundSearchData, true);
-        Tab tabDaily = InfoAlertsTabFactory.addTabBeta(foundSearchData, false);
+        Tab tabInfos = InfoAlertsTabFactory.addTabInfo(foundSearchDataDTO);
+        Tab tabVersion = InfoAlertsTabFactory.addTabVersion(foundSearchDataDTO);
+        Tab tabBeta = InfoAlertsTabFactory.addTabBeta(foundSearchDataDTO, true);
+        Tab tabDaily = InfoAlertsTabFactory.addTabBeta(foundSearchDataDTO, false);
 
         List<Tab> tabList = new ArrayList<>();
         if (tabInfos != null) {

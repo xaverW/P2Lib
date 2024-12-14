@@ -16,6 +16,7 @@
 
 package de.p2tools.p2lib.tools;
 
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
 import org.apache.commons.lang3.SystemUtils;
 
@@ -27,8 +28,10 @@ public class P2ToolsFactory {
     private static final String VERSION = "version"; //ist der Name des Propertyfile: version.properties
 
     public enum OperatingSystemType {
-
-        UNKNOWN(""), WIN("Windows"), WIN32("Windows"), WIN64("Windows"), LINUX("Linux"), MAC("Mac");
+        UNKNOWN(""),
+        WIN("Windows"), WIN32("Windows"), WIN64("Windows"),
+        LINUX("Linux"),
+        MAC("Mac");
         private final String name;
 
         OperatingSystemType(String name) {
@@ -75,7 +78,7 @@ public class P2ToolsFactory {
     }
 
     public static String getProgVersionString() {
-        return " [Vers.: " + getProgVersion() + " - " + getBuild() + " ]";
+        return " [Vers.: " + getProgVersion() + " - " + getBuildNo() + " ]";
     }
 
     public static String[] getJavaVersion() {
@@ -94,7 +97,27 @@ public class P2ToolsFactory {
         return list.toArray(new String[0]);
     }
 
-    public static String getCompileDate() {
+    public static String getBuildDate() {
+        // Datum umdrehen
+        // DATE=2024.12.14
+        final String propToken = "DATE";
+        String msg = "";
+        try {
+            ResourceBundle.clearCache();
+            final ResourceBundle rb = ResourceBundle.getBundle(VERSION);
+            if (rb.containsKey(propToken)) {
+                msg = rb.getString(propToken);
+                msg = P2LDateFactory.toString(P2LDateFactory.fromStringR(msg));
+            }
+        } catch (final Exception e) {
+            P2Log.errorLog(807293847, e);
+        }
+        return msg;
+    }
+
+    public static String getBuildDateR() {
+        // so ist es gespeichert
+        // DATE=2024.12.14
         final String propToken = "DATE";
         String msg = "";
         try {
@@ -110,6 +133,7 @@ public class P2ToolsFactory {
     }
 
     public static String getProgVersion() {
+        // VERSION=17
         final String TOKEN_VERSION = "VERSION";
         try {
             ResourceBundle.clearCache();
@@ -132,7 +156,8 @@ public class P2ToolsFactory {
         return 0;
     }
 
-    public static String getBuild() {
+    public static String getBuildNo() {
+        // BUILD=15
         final String TOKEN_VERSION = "BUILD";
         try {
             ResourceBundle.clearCache();
@@ -146,13 +171,12 @@ public class P2ToolsFactory {
         return "0";
     }
 
-    public static int getBuildInt() {
+    public static int getBuildNoInt() {
         try {
-            return Integer.parseInt(getBuild());
+            return Integer.parseInt(getBuildNo());
         } catch (final Exception e) {
             P2Log.errorLog(951203647, e);
         }
         return 0;
     }
-
 }

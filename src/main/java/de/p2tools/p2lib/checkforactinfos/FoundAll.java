@@ -17,59 +17,54 @@
 
 package de.p2tools.p2lib.checkforactinfos;
 
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import javafx.application.Platform;
+
+import java.time.LocalDate;
 
 public class FoundAll {
 
     private FoundAll() {
     }
 
-    public static void foundAll(FoundSearchData foundSearchData) {
-        FoundAllFiles.found(foundSearchData);
-        if (foundSearchData.isShowAlways() ||
+    public static void foundAll(FoundSearchDataDTO foundSearchDataDTO) {
+        // ist der Start der Suche
+        FoundAllFiles.found(foundSearchDataDTO);
 
-                foundSearchData.isFoundNewInfo() && !foundSearchData.getFoundFileListInfo().isEmpty() ||
-                foundSearchData.isFoundNewVersion() && !foundSearchData.getFoundFileListAct().isEmpty() ||
+        if (foundSearchDataDTO.isShowAlways() ||
 
-                //searchAct ist immer an, sonst wird das gar nicht aufgerufen aber BETA/DALY nicht
-                foundSearchData.isSearchBeta() && foundSearchData.isFoundNewBeta() && !foundSearchData.getFoundFileListBeta().isEmpty() ||
-                foundSearchData.isSearchBeta() && foundSearchData.isSearchDaily() && foundSearchData.isFoundNewDaily() && !foundSearchData.getFoundFileListDaily().isEmpty()) {
+                // info, act
+                foundSearchDataDTO.isFoundNewInfo() && !foundSearchDataDTO.getFoundFileListInfo().isEmpty() ||
+                foundSearchDataDTO.isFoundNewVersion() && !foundSearchDataDTO.getFoundFileListAct().isEmpty() ||
+
+                //beta ist nicht immer angeschaltet
+                foundSearchDataDTO.isSearchBeta() && foundSearchDataDTO.isFoundNewBeta() &&
+                        !foundSearchDataDTO.getFoundFileListBeta().isEmpty() ||
+
+                //daily ist nicht immer angeschaltet, muss auch beta angeschaltet sein
+                foundSearchDataDTO.isSearchBeta() &&
+                        foundSearchDataDTO.isSearchDaily() &&
+                        foundSearchDataDTO.isFoundNewDaily() && !foundSearchDataDTO.getFoundFileListDaily().isEmpty()) {
 
             Platform.runLater(() -> {
-                runInfoAlert(foundSearchData);
+                showInfoAlert(foundSearchDataDTO);
             });
         }
     }
 
-    private static void runInfoAlert(FoundSearchData foundSearchData) {
+    private static void showInfoAlert(FoundSearchDataDTO foundSearchDataDTO) {
         // die Infos über Updates anzeigen
-        InfoAlert infoAlert = new InfoAlert(foundSearchData);
+        InfoAlert infoAlert = new InfoAlert(foundSearchDataDTO);
         infoAlert.showInfoAlert("");
 
         // und merken was schon angezeigt wurde
-        if (foundSearchData.isFoundNewVersion() && !foundSearchData.searchActAgainProperty().getValue()) {
-            //dann die angezeigte neue Version merken
-            foundSearchData.lastActDateProperty().setValue(foundSearchData.getNewVersionDate());
+        if (foundSearchDataDTO.isSearchActAgain()) {
+            //dann wieder auf das build-date setzen, um alles danach wieder anzuzeigen
+            foundSearchDataDTO.setLastSearchDate(foundSearchDataDTO.getProgBuildDate());
 
-        } else if (foundSearchData.isFoundNewVersion() && foundSearchData.searchActAgainProperty().getValue()) {
-            //dann die neue Version nochmal anzeigen und lastAct wieder auf das build-date setzen
-            foundSearchData.lastActDateProperty().setValue(foundSearchData.getProgBuildDate());
+        } else {
+            //dann merken bis wann, alles angezeigt wurde
+            foundSearchDataDTO.setLastSearchDate(P2LDateFactory.toStringR(LocalDate.now()));
         }
-
-        if (foundSearchData.isFoundNewInfo()) {
-            //dann die angezeigte neue Version merken
-            foundSearchData.lastInfoDateProperty().setValue(foundSearchData.getNewInfoDate());
-        }
-
-        if (foundSearchData.isFoundNewBeta()) {
-            //dann die angezeigte neue Version merken
-            foundSearchData.lastBetaDateProperty().setValue(foundSearchData.getNewBetaDate());
-        }
-
-        if (foundSearchData.isFoundNewDaily()) {
-            //dann die angezeigte neue Version merken
-            foundSearchData.lastDailyDateProperty().setValue(foundSearchData.getNewDailyDate());
-        }
-
     }
 }

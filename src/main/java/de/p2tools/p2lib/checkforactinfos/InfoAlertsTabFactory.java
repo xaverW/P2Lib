@@ -33,12 +33,12 @@ public class InfoAlertsTabFactory {
     private static final int VERSION_PADDING_T = 5;
     private static final int VERSION_PADDING_B = 10;
 
-    public static Tab addTabInfo(final FoundSearchData foundSearchData) {
-        if (!foundSearchData.isFoundNewInfo() || foundSearchData.getFoundFileListInfo().isEmpty()) {
+    public static Tab addTabInfo(final FoundSearchDataDTO foundSearchDataDTO) {
+        if (!foundSearchDataDTO.isFoundNewInfo() || foundSearchDataDTO.getFoundFileListInfo().isEmpty()) {
             return null;
         }
 
-        return makeTabInfos(foundSearchData.getFoundFileListInfo());
+        return makeTabInfos(foundSearchDataDTO.getFoundFileListInfo());
     }
 
     private static Tab makeTabInfos(final FoundFileList foundFileList) {
@@ -65,14 +65,14 @@ public class InfoAlertsTabFactory {
         return tabInfos;
     }
 
-    public static Tab addTabVersion(final FoundSearchData foundSearchData) {
+    public static Tab addTabVersion(final FoundSearchDataDTO foundSearchDataDTO) {
         //der wird immer angezeigt
-        return makeTabVersion(foundSearchData.getStage(), foundSearchData);
+        return makeTabVersion(foundSearchDataDTO.getStage(), foundSearchDataDTO);
     }
 
-    private static Tab makeTabVersion(final Stage stage, final FoundSearchData foundSearchData) {
+    private static Tab makeTabVersion(final Stage stage, final FoundSearchDataDTO foundSearchDataDTO) {
         final Tab tabVersion = new Tab("neue Version");
-        if (!foundSearchData.isFoundNewVersion()) {
+        if (!foundSearchDataDTO.isFoundNewVersion()) {
             tabVersion.setText("aktuelle Version");
         }
         tabVersion.setClosable(false);
@@ -92,9 +92,9 @@ public class InfoAlertsTabFactory {
         textArea.setEditable(false);
         GridPane.setVgrow(textArea, Priority.ALWAYS);
 
-        if (foundSearchData.isFoundNewVersion()) {
+        if (foundSearchDataDTO.isFoundNewVersion()) {
             //gibt eine aktuellere Version
-            textArea.setText(foundSearchData.getNewVersionText());
+            textArea.setText(foundSearchDataDTO.getNewVersionText());
         } else {
             //keine neue Version
             textArea.setText("Sie benutzen die aktuelle Version.");
@@ -105,15 +105,15 @@ public class InfoAlertsTabFactory {
         final Label lblWeb = new Label("Webseite:");
         final Label lblDown = new Label("Download:");
 
-        final Label lblRel = new Label(foundSearchData.isFoundNewVersion() ? "Änderungen:" : "");
-        final Label txtActVersion = new Label(foundSearchData.getProgVersion() +
-                "  vom: " + P2LDateFactory.getDate_yMd(foundSearchData.getProgBuildDate()));
+        final Label lblRel = new Label(foundSearchDataDTO.isFoundNewVersion() ? "Änderungen:" : "");
+        final Label txtActVersion = new Label(foundSearchDataDTO.getProgVersion() +
+                "  vom: " + P2LDateFactory.getDate_yMd(foundSearchDataDTO.getProgBuildDate()));
 
-        final Label txtVersion = new Label(foundSearchData.getNewVersionNo() +
-                "  vom: " + P2LDateFactory.getDate_yMd(foundSearchData.getNewVersionDate()));
+        final Label txtVersion = new Label(foundSearchDataDTO.getNewVersionNo() +
+                "  vom: " + P2LDateFactory.getDate_yMd(foundSearchDataDTO.getNewVersionDate()));
 
-        final Hyperlink hyperlinkUrl = new P2Hyperlink(foundSearchData.getUrlWebsite());
-        final Hyperlink hyperlinkDownUrl = new P2Hyperlink(foundSearchData.getUrlDownload());
+        final Hyperlink hyperlinkUrl = new P2Hyperlink(foundSearchDataDTO.getUrlWebsite());
+        final Hyperlink hyperlinkDownUrl = new P2Hyperlink(foundSearchDataDTO.getUrlDownload());
 
         int row = 0;
         lblActVersion.setPadding(new Insets(VERSION_PADDING_T, 0, VERSION_PADDING_B, 0));
@@ -146,7 +146,7 @@ public class InfoAlertsTabFactory {
         gridPane.add(pane1, 0, row);
         gridPane.add(pane2, 1, row);
 
-        if (foundSearchData.isFoundNewVersion()) {
+        if (foundSearchDataDTO.isFoundNewVersion()) {
             gridPane.add(pane3, 0, ++row);
             gridPane.add(pane4, 1, row);
         }
@@ -157,7 +157,7 @@ public class InfoAlertsTabFactory {
         gridPane.add(lblDown, 0, ++row);
         gridPane.add(hyperlinkDownUrl, 1, row);
 
-        row = getButton(foundSearchData, foundSearchData.getFoundFileListAct(), gridPane, row);
+        row = getButton(foundSearchDataDTO, foundSearchDataDTO.getFoundFileListAct(), gridPane, row);
 
         gridPane.add(new Label(" "), 0, ++row);
         gridPane.add(lblRel, 0, ++row);
@@ -172,15 +172,15 @@ public class InfoAlertsTabFactory {
 
         final HBox hBox = new HBox(10);
         hBox.setAlignment(Pos.CENTER_RIGHT);
-        if (foundSearchData.isFoundNewVersion()) {
-            final CheckBox chkShowUpdateAgain = new CheckBox("dieses Update nochmal anzeigen");
-            chkShowUpdateAgain.selectedProperty().bindBidirectional(foundSearchData.searchActAgainProperty());
+        if (foundSearchDataDTO.isFoundNewVersion()) {
+            final CheckBox chkShowUpdateAgain = new CheckBox("Dieses Update nochmal anzeigen");
+            chkShowUpdateAgain.selectedProperty().bindBidirectional(foundSearchDataDTO.searchActAgainProperty());
             final HBox hB = new HBox();
             HBox.setHgrow(hB, Priority.ALWAYS);
             hBox.getChildren().addAll(chkShowUpdateAgain, hB);
         }
         final CheckBox chkSearchUpdate = new CheckBox("beim Programmstart nach Updates suchen");
-        chkSearchUpdate.selectedProperty().bindBidirectional(foundSearchData.searchActProperty());
+        chkSearchUpdate.selectedProperty().bindBidirectional(foundSearchDataDTO.searchUpdateProperty());
         hBox.getChildren().add(chkSearchUpdate);
 
         vBox.getChildren().addAll(hBox);
@@ -189,35 +189,35 @@ public class InfoAlertsTabFactory {
         return tabVersion;
     }
 
-    public static Tab addTabBeta(final FoundSearchData foundSearchData, final boolean isBetaTab) {
-        if (!foundSearchData.searchBetaProperty().getValue()) {
+    public static Tab addTabBeta(final FoundSearchDataDTO foundSearchDataDTO, final boolean isBetaTab) {
+        if (!foundSearchDataDTO.searchBetaProperty().getValue()) {
             //Beta oder Daily: danach soll nicht gesucht werden
             return null;
         }
 
-        if (!isBetaTab && !foundSearchData.searchDailyProperty().getValue()) {
+        if (!isBetaTab && !foundSearchDataDTO.searchDailyProperty().getValue()) {
             //Daily: danach soll nicht gesucht werden
             return null;
         }
 
         if (isBetaTab) {
             //beta
-            if (!foundSearchData.isFoundNewBeta() || foundSearchData.getFoundFileListBeta().isEmpty()) {
+            if (!foundSearchDataDTO.isFoundNewBeta() || foundSearchDataDTO.getFoundFileListBeta().isEmpty()) {
                 //beta: nichts gefunden oder Liste leer
                 return null;
             }
         } else {
             //daily
-            if (!foundSearchData.isFoundNewDaily() || foundSearchData.getFoundFileListDaily().isEmpty()) {
+            if (!foundSearchDataDTO.isFoundNewDaily() || foundSearchDataDTO.getFoundFileListDaily().isEmpty()) {
                 //daily: nichts gefunden oder Liste leer
                 return null;
             }
         }
 
-        return makeTabBeta(foundSearchData, isBetaTab);
+        return makeTabBeta(foundSearchDataDTO, isBetaTab);
     }
 
-    private static Tab makeTabBeta(final FoundSearchData foundSearchData, final boolean beta) {
+    private static Tab makeTabBeta(final FoundSearchDataDTO foundSearchDataDTO, final boolean beta) {
         final Tab tabVersion = new Tab(beta ? "neue Beta" : "neues Daily");
         tabVersion.setClosable(false);
 
@@ -236,26 +236,26 @@ public class InfoAlertsTabFactory {
         textArea.setEditable(false);
         GridPane.setVgrow(textArea, Priority.ALWAYS);
 
-        textArea.setText(beta ? foundSearchData.getNewBetaText() : foundSearchData.getNewDailyText());
+        textArea.setText(beta ? foundSearchDataDTO.getNewBetaText() : foundSearchDataDTO.getNewDailyText());
 
 
-        final Label txtActVersion = new Label(foundSearchData.getProgVersion() +
-                "   [Build: " + foundSearchData.getProgBuildNo() +
-                "  vom: " + P2LDateFactory.getDate_yMd(foundSearchData.getProgBuildDate()) + "]");
+        final Label txtActVersion = new Label(foundSearchDataDTO.getProgVersion() +
+                "   [Build: " + foundSearchDataDTO.getProgBuildNo() +
+                "  vom: " + P2LDateFactory.getDate_yMd(foundSearchDataDTO.getProgBuildDate()) + "]");
 
         final Label txtVersion = new Label();
         if (beta) {
-            txtVersion.setText(foundSearchData.getNewBetaVersion() +
-                    "   [Build: " + foundSearchData.getNewBetaBuildNo()
-                    + "  vom: " + P2LDateFactory.getDate_yMd(foundSearchData.getNewBetaDate()) + "]");
+            txtVersion.setText(foundSearchDataDTO.getNewBetaVersion() +
+                    "   [Build: " + foundSearchDataDTO.getNewBetaBuildNo()
+                    + "  vom: " + P2LDateFactory.getDate_yMd(foundSearchDataDTO.getNewBetaDate()) + "]");
         } else {
-            txtVersion.setText(foundSearchData.getNewDailyVersion() +
-                    "   [Build: " + foundSearchData.getNewDailyBuild()
-                    + "  vom: " + P2LDateFactory.getDate_yMd(foundSearchData.getNewDailyDate()) + "]");
+            txtVersion.setText(foundSearchDataDTO.getNewDailyVersion() +
+                    "   [Build: " + foundSearchDataDTO.getNewDailyBuild()
+                    + "  vom: " + P2LDateFactory.getDate_yMd(foundSearchDataDTO.getNewDailyDate()) + "]");
         }
 
-        final Hyperlink hyperlinkUrl = new P2Hyperlink(foundSearchData.getUrlWebsite());
-        final Hyperlink hyperlinkDownUrl = new P2Hyperlink(foundSearchData.getUrlDownload());
+        final Hyperlink hyperlinkUrl = new P2Hyperlink(foundSearchDataDTO.getUrlWebsite());
+        final Hyperlink hyperlinkDownUrl = new P2Hyperlink(foundSearchDataDTO.getUrlDownload());
         final Label lblActVersion = new Label("Aktuelle Version:");
         final Label lblVersion = new Label("Neue Version:");
         final Label lblWeb = new Label("Webseite:");
@@ -300,8 +300,8 @@ public class InfoAlertsTabFactory {
         gridPane.add(lblDown, 0, ++row);
         gridPane.add(hyperlinkDownUrl, 1, row);
 
-        row = getButton(foundSearchData,
-                beta ? foundSearchData.getFoundFileListBeta() : foundSearchData.getFoundFileListDaily(),
+        row = getButton(foundSearchDataDTO,
+                beta ? foundSearchDataDTO.getFoundFileListBeta() : foundSearchDataDTO.getFoundFileListDaily(),
                 gridPane, row);
 
         gridPane.add(new Label(" "), 0, ++row);
@@ -325,7 +325,7 @@ public class InfoAlertsTabFactory {
         return tabVersion;
     }
 
-    private static int getButton(final FoundSearchData foundSearchData, final FoundFileList foundFileList, final GridPane gridPane, int row) {
+    private static int getButton(final FoundSearchDataDTO foundSearchDataDTO, final FoundFileList foundFileList, final GridPane gridPane, int row) {
         boolean done = false;
         for (final FoundFile foundFile : foundFileList) {
 
@@ -335,8 +335,8 @@ public class InfoAlertsTabFactory {
             button.setText(text);
             button.setTooltip(new Tooltip(foundFile.getFileUrl()));
             button.setOnAction(a -> {
-                DownloadFactory.downloadFile(foundSearchData.getStage(), foundFile.getFileUrl(),
-                        foundSearchData.downloadDirProperty(), "");
+                DownloadFactory.downloadFile(foundSearchDataDTO.getStage(), foundFile.getFileUrl(),
+                        foundSearchDataDTO.downloadDirProperty(), "");
             });
             gridPane.add(button, 1, ++row);
             if (!done) {
