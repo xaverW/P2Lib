@@ -190,26 +190,27 @@ public class InfoAlertsTabFactory {
     }
 
     public static Tab addTabBeta(final FoundSearchDataDTO foundSearchDataDTO, final boolean isBetaTab) {
-        if (!foundSearchDataDTO.searchBetaProperty().getValue()) {
-            //Beta oder Daily: danach soll nicht gesucht werden
+        if (isBetaTab && foundSearchDataDTO.getFoundFileListBeta().isEmpty()) {
+            // dann gibts eh nix
             return null;
         }
-
-        if (!isBetaTab && !foundSearchDataDTO.searchDailyProperty().getValue()) {
-            //Daily: danach soll nicht gesucht werden
+        if (!isBetaTab && foundSearchDataDTO.getFoundFileListDaily().isEmpty()) {
+            // dann gibts eh nix
             return null;
         }
 
         if (isBetaTab) {
-            //beta
-            if (!foundSearchDataDTO.isFoundNewBeta() || foundSearchDataDTO.getFoundFileListBeta().isEmpty()) {
-                //beta: nichts gefunden oder Liste leer
+            if (!foundSearchDataDTO.isShowAllDownloads() &&
+                    !foundSearchDataDTO.isSearchBeta()) {
+                // dann kein beta anzeigen
                 return null;
             }
+
         } else {
-            //daily
-            if (!foundSearchDataDTO.isFoundNewDaily() || foundSearchDataDTO.getFoundFileListDaily().isEmpty()) {
-                //daily: nichts gefunden oder Liste leer
+            if (!foundSearchDataDTO.isShowAllDownloads() &&
+                    !foundSearchDataDTO.isSearchBeta() &&
+                    !foundSearchDataDTO.isSearchDaily()) {
+                // dann kein daily anzeigen
                 return null;
             }
         }

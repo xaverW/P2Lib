@@ -114,6 +114,7 @@ public class FoundAllFiles {
                 //Infos sind vorhanden
                 //-> die noch nicht angezeigt wurde ODER
                 //-> soll immer angezeigt werden, alle!
+                P2Log.debugLog("Infofile gefunden: " + foundFile.getFileName() + "  --  " + foundFile.getFileUrl());
                 foundSearchDataDTO.setFoundNewInfo(true);
                 foundSearchDataDTO.setNewInfoDate(foundFile.getFileDate());
                 foundFile.setFileText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
@@ -162,6 +163,7 @@ public class FoundAllFiles {
                 //ist eine neue Version
                 //-> die noch nicht angezeigt wurde ODER
                 //-> soll immer angezeigt werden
+                P2Log.debugLog("Act gefunden: " + foundFile.getFileName() + "  --  " + foundFile.getFileUrl());
                 foundSearchDataDTO.setNewVersionNo(foundFile.getFileVersion());
                 foundSearchDataDTO.setFoundNewVersion(true);
                 foundSearchDataDTO.setNewVersionDate(foundFile.getFileDate());
@@ -206,10 +208,8 @@ public class FoundAllFiles {
             if (fileName.endsWith(".txt")) {
                 //Infofile
                 if (beta) {
-                    P2Log.debugLog("Infofile beta laden: " + foundFile.getFileName() + "  --  " + foundFile.getFileUrl());
                     foundSearchDataDTO.setNewBetaText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
                 } else {
-                    P2Log.debugLog("Infofile daily laden: " + foundFile.getFileName() + "  --  " + foundFile.getFileUrl());
                     foundSearchDataDTO.setNewDailyText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
                 }
 
@@ -221,6 +221,7 @@ public class FoundAllFiles {
                         //ist eine neue Version
                         //-> die noch nicht angezeigt wurde ODER
                         //-> soll immer angezeigt werden
+                        P2Log.debugLog("Beta gefunden: " + foundFile.getFileName() + "  --  " + foundFile.getFileUrl());
                         foundSearchDataDTO.setFoundNewBeta(true);
                         foundSearchDataDTO.setNewBetaVersion(foundFile.getFileVersion());
                         foundSearchDataDTO.setNewBetaBuildNo(foundFile.getFileBuildNo());
@@ -234,6 +235,7 @@ public class FoundAllFiles {
                         //ist eine neue Version
                         //-> die noch nicht angezeigt wurde ODER
                         //-> soll immer angezeigt werden
+                        P2Log.debugLog("Daily gefunden: " + foundFile.getFileName() + "  --  " + foundFile.getFileUrl());
                         foundSearchDataDTO.setFoundNewDaily(true);
                         foundSearchDataDTO.setNewDailyVersion(foundFile.getFileVersion());
                         foundSearchDataDTO.setNewDailyBuild(foundFile.getFileBuildNo());
