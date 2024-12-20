@@ -33,7 +33,7 @@ public class FilmDataProps extends FilmDataXml {
     private boolean small = false; // Film hat "small"-URL
     private boolean hd = false; // Film hat HD-URL
     private boolean ut = false;
-    private boolean signLanguage = false;
+    private boolean mark = false;
     private boolean geoBlocked = false;
     private boolean inFuture = false;
     private boolean doubleUrl = false;
@@ -165,12 +165,12 @@ public class FilmDataProps extends FilmDataXml {
         ut = b;
     }
 
-    public boolean isSignLanguage() {
-        return signLanguage;
+    public boolean isMark() {
+        return mark;
     }
 
-    public void setSignLanguage(boolean signLanguage) {
-        this.signLanguage = signLanguage;
+    public void setMark(boolean mark) {
+        this.mark = mark;
     }
 
     public String getDescription() {
