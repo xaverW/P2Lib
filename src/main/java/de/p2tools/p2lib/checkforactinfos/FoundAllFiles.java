@@ -76,18 +76,61 @@ public class FoundAllFiles {
     }
 
     private static boolean checkInfo(FoundSearchDataDTO foundSearchDataDTO, FoundFile foundFile) {
-        return foundSearchDataDTO.isShowAllDownloads() || /* immer! */
-                foundSearchDataDTO.isShowAlways() || /* dann auch immer */
+        if (foundSearchDataDTO.isShowAllDownloads()) {
+            // dann immer anzeigen
+            return true;
+        }
+
+        return foundSearchDataDTO.isShowAlways() || /* dann auch immer */
                 (!foundSearchDataDTO.isShowAlways() && /* sonst nur, wenn vorhanden */
                         FoundFactory.isNewFound(foundSearchDataDTO.getLastSearchDate(), foundFile.getFileDate()));
     }
 
     private static boolean checkFile(FoundSearchDataDTO foundSearchDataDTO, FoundFile foundFile) {
-        return foundSearchDataDTO.isShowAllDownloads() /* immer! */ ||
-                (foundSearchDataDTO.isShowAlways() && /* immer, wenn was vorhanden ist */
-                        FoundFactory.isNewFound(foundSearchDataDTO.getProgBuildDate(), foundFile.getFileDate())) ||
-                (!foundSearchDataDTO.isShowAlways() && /* dann nur, wenn ein neues vorhanden */
+        if (foundSearchDataDTO.isShowAllDownloads()) {
+            // dann immer anzeigen
+            return true;
+        }
+
+        boolean ret = (foundSearchDataDTO.isShowAlways() && /* immer, wenn was vorhanden ist */
+                FoundFactory.isNewFound(foundSearchDataDTO.getProgBuildDate(), foundFile.getFileDate())) ||
+                (!foundSearchDataDTO.isShowAlways() && /* dann nur, wenn noch nicht angezeigt */
                         FoundFactory.isNewFound(foundSearchDataDTO.getLastSearchDate(), foundFile.getFileDate()));
+
+        if (ret) {
+            // dann gibts eins das noch nicht angezeigt wurde, noch version/release prüfen
+            try {
+                int actVersion = Integer.parseInt(foundSearchDataDTO.getProgVersion());
+                int fileVersion = Integer.parseInt(foundFile.getFileVersion());
+
+                if (foundFile.getFileBuildNo().isEmpty()) {
+                    // dann ist ein act
+                    if (actVersion >= fileVersion) {
+                        // dann ist es gleich oder aktueller
+                        ret = false;
+                    }
+
+                } else {
+                    // beta/daily
+                    int actBuild = Integer.parseInt(foundSearchDataDTO.getProgBuildNo());
+                    int fileBuild = Integer.parseInt(foundFile.getFileBuildNo());
+                    if (actVersion > fileVersion) {
+                        // dann ist es aktueller
+                        ret = false;
+                    }
+
+                    if (actVersion == fileVersion &&
+                            actBuild >= fileBuild) {
+                        // dann ist es gleich oder aktueller
+                        ret = false;
+                    }
+                }
+            } catch (Exception ignore) {
+                ret = true;
+            }
+        }
+
+        return ret;
     }
 
     private static void addInfo(FoundSearchDataDTO foundSearchDataDTO, String strLine) {

@@ -65,6 +65,7 @@ public class FoundSearchDataDTO {
     private String urlWebsite;
     private String urlDownload;
     private String progName; // Name im Downloadverzeichnis!!
+
     private String progVersion; // aktuelle Programmversion
     private String progBuildNo;
     private String progBuildDate;
