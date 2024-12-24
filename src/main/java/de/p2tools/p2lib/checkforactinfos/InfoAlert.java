@@ -17,10 +17,9 @@
 
 package de.p2tools.p2lib.checkforactinfos;
 
-import javafx.geometry.Pos;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Priority;
@@ -28,27 +27,20 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-public class InfoAlert {
+public class InfoAlert extends P2DialogExtra {
     FoundSearchDataDTO foundSearchDataDTO;
 
     public InfoAlert(FoundSearchDataDTO foundSearchDataDTO) {
+        super(foundSearchDataDTO.getStage(), null,
+                "Updates", true, false, DECO.BORDER_SMALL);
         this.foundSearchDataDTO = foundSearchDataDTO;
+        buildDialog();
+        init(true);
     }
 
-    public boolean showInfoAlert(String header) {
-        final Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        if (foundSearchDataDTO.getStage() != null) {
-            alert.initOwner(foundSearchDataDTO.getStage());
-        }
-        alert.setTitle("Updates");
-        alert.setHeaderText(header);
-        alert.setResizable(true);
-
-        VBox vBox = new VBox(10);
-        vBox.setAlignment(Pos.CENTER_RIGHT);
-        alert.getDialogPane().setContent(vBox);
+    private void buildDialog() {
+        VBox vBox = getVBoxCont();
 
         Tab tabInfos = InfoAlertsTabFactory.addTabInfo(foundSearchDataDTO);
         Tab tabVersion = InfoAlertsTabFactory.addTabVersion(foundSearchDataDTO);
@@ -59,9 +51,7 @@ public class InfoAlert {
         if (tabInfos != null) {
             tabList.add(tabInfos);
         }
-        if (tabVersion != null) {
-            tabList.add(tabVersion);
-        }
+        tabList.add(tabVersion);
         if (tabBeta != null) {
             tabList.add(tabBeta);
         }
@@ -69,10 +59,7 @@ public class InfoAlert {
             tabList.add(tabDaily);
         }
 
-        if (tabList.isEmpty()) {
-            return false;
-
-        } else if (tabList.size() == 1) {
+        if (tabList.size() == 1) {
             Node cont = tabList.get(0).getContent();
             vBox.getChildren().add(cont);
             VBox.setVgrow(cont, Priority.ALWAYS);
@@ -87,10 +74,8 @@ public class InfoAlert {
             VBox.setVgrow(tabPane, Priority.ALWAYS);
         }
 
-        final Optional<ButtonType> bt = alert.showAndWait();
-        if (bt.isPresent() && bt.get() == ButtonType.OK) {
-            return true;
-        }
-        return false;
+        Button btnOk = new Button("OK");
+        addOkButton(btnOk);
+        btnOk.setOnAction(a -> close());
     }
 }

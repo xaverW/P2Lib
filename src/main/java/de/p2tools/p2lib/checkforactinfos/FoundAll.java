@@ -57,8 +57,7 @@ public class FoundAll {
 
     private static void showInfoAlert(FoundSearchDataDTO foundSearchDataDTO) {
         // die Infos über Updates anzeigen
-        InfoAlert infoAlert = new InfoAlert(foundSearchDataDTO);
-        infoAlert.showInfoAlert("");
+        new InfoAlert(foundSearchDataDTO);
 
         // und merken was schon angezeigt wurde
         if (foundSearchDataDTO.isSearchActAgain()) {
