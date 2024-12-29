@@ -33,9 +33,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.ArrayList;
 
 
 public class P2Dialog {
+    static final ArrayList<P2Dialog> dialogList = new ArrayList<>();
     private static String iconPath = "";
     private StringProperty sizeConfiguration;
     private final boolean modal;
@@ -80,8 +82,9 @@ public class P2Dialog {
         this.pane = pane;
     }
 
-    void init(boolean show) {
+    public void init(boolean show) {
         try {
+            addDialog(this);
             // geht beides
 //            scene = new Scene(pane);
             if (sizeConfiguration == null) {
@@ -163,12 +166,15 @@ public class P2Dialog {
     }
 
     public void hide() {
-        // close/hide are the same
-        close();
+        // wiederkehrender Dialog
+        stage.hide();
     }
 
     public void close() {
+        // endgültig schließen und Größe merken
         saveDialog();
+        dialogList.remove(this);
+        P2Log.debugLog("Anzahl Dialoge: " + dialogList.size());
         stage.close();
     }
 
@@ -209,5 +215,19 @@ public class P2Dialog {
     }
 
     protected void make() {
+    }
+
+    private static synchronized void addDialog(P2Dialog p2Dialog) {
+        boolean found = false;
+        for (P2Dialog dialog : dialogList) {
+            if (dialog.equals(p2Dialog)) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            dialogList.add(p2Dialog);
+        }
+        P2Log.debugLog("Anzahl Dialoge: " + dialogList.size());
     }
 }

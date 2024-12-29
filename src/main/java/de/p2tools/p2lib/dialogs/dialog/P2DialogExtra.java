@@ -50,7 +50,6 @@ public class P2DialogExtra extends P2Dialog {
     private final HBox hBoxRight = new HBox(10); // ist nach der ButtonBar
     private final ButtonBar buttonBar = new ButtonBar();
 
-    private static final ArrayList<P2Dialog> dialogList = new ArrayList<>();
     private final ScrollPane scrollPane = new ScrollPane();
     private P2MaskerPaneMin maskerPane = null;
     private boolean masker = false;
@@ -105,30 +104,20 @@ public class P2DialogExtra extends P2Dialog {
         initDialog();
     }
 
-    private static synchronized void addDialog(P2Dialog p2Dialog) {
-        boolean found = false;
-        for (P2Dialog dialog : dialogList) {
-            if (dialog.equals(p2Dialog)) {
-                found = true;
-                break;
-            }
-        }
-        if (!found) {
-            dialogList.add(p2Dialog);
-        }
-    }
-
-    private static synchronized void removeDialog(P2Dialog p2Dialog) {
-        dialogList.remove(p2Dialog);
-    }
 
     public static ArrayList<P2Dialog> getDialogList() {
         return dialogList;
     }
 
-    public static void closeAllDialog() {
+    public static void hideAllDialog() {
         dialogList.forEach(p2Dialog -> {
             Platform.runLater(p2Dialog::hide);
+        });
+    }
+
+    public static void closeAllDialog() {
+        dialogList.forEach(p2Dialog -> {
+            Platform.runLater(p2Dialog::close);
         });
     }
 
@@ -146,30 +135,6 @@ public class P2DialogExtra extends P2Dialog {
         dialogList.forEach(p2Dialog -> {
             P2WindowIcon.addWindowIcon(p2Dialog.getStage());
         });
-    }
-
-    @Override
-    public void hide() {
-        // close/hide are the same
-        super.close();
-    }
-
-    @Override
-    public void close() {
-        //bei wiederkehrenden Dialogen: die pos/size merken
-        removeDialog(this);
-        super.close();
-    }
-
-    @Override
-    public void init(boolean show) {
-        addDialog(this);
-        super.init(show);
-    }
-
-    @Override
-    public void showDialog() {
-        super.showDialog();
     }
 
     //== getBoxes ==

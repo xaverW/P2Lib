@@ -18,7 +18,6 @@ package de.p2tools.p2lib.dialogs.dialog;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
-import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -26,11 +25,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-
 public class P2DialogOnly extends P2Dialog {
-    private static final ArrayList<P2Dialog> dialogList = new ArrayList<>();
-
     private final VBox vBoxCompleteDialog = new VBox(); // ist der gesamte Dialog
     private P2MaskerPane maskerPane = null;
     private boolean masker = false;
@@ -63,65 +58,6 @@ public class P2DialogOnly extends P2Dialog {
         this.masker = masker;
         maskerPane = new P2MaskerPane();
         initDialog();
-    }
-
-    private static synchronized void addDialog(P2Dialog p2Dialog) {
-        boolean found = false;
-        for (P2Dialog dialog : dialogList) {
-            if (dialog.equals(p2Dialog)) {
-                found = true;
-            }
-        }
-        if (!found) {
-            dialogList.add(p2Dialog);
-        }
-    }
-
-    private static synchronized void removeDialog(P2Dialog p2Dialog) {
-        dialogList.remove(p2Dialog);
-    }
-
-    public static void closeAllDialog() {
-        dialogList.stream().forEach(p2Dialog -> {
-            Platform.runLater(() -> {
-                p2Dialog.hide();
-            });
-        });
-    }
-
-    public static void showAllDialog() {
-        dialogList.stream().forEach(p2Dialog -> {
-            Platform.runLater(() -> {
-                p2Dialog.showDialog();
-            });
-        });
-    }
-
-    @Override
-    public void hide() {
-        // close/hide are the same
-        super.close();
-    }
-
-    @Override
-    public void close() {
-        //bei wiederkehrenden Dialogen: die pos/size merken
-        removeDialog(this);
-        super.close();
-    }
-
-    @Override
-    public void init(boolean show) {
-        if (show) {
-            addDialog(this);
-        }
-        super.init(show);
-    }
-
-    @Override
-    public void showDialog() {
-        addDialog(this);
-        super.showDialog();
     }
 
     public VBox getVBoxCompleteDialog() {
