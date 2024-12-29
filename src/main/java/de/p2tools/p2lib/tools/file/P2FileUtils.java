@@ -291,6 +291,10 @@ public class P2FileUtils {
     }
 
     public static String cutName(String name, int length) {
+        if (length < 10) {
+            // mind. 6 Zeichen + "." + suffix
+            length = 10;
+        }
         if (name.length() > length) {
             name = name.substring(0, length - 4) + name.substring(name.length() - 4);
         }
