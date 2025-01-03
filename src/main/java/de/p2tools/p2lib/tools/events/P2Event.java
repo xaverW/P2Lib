@@ -20,15 +20,26 @@ package de.p2tools.p2lib.tools.events;
 public class P2Event {
     private int eventNo = 0;
     private String text = "";
+    private int number = 0;
 
     public P2Event(int eventNo) {
         this.eventNo = eventNo;
-        this.text = "";
     }
 
     public P2Event(int eventNo, String text) {
         this.eventNo = eventNo;
         this.text = text;
+    }
+
+    public P2Event(int eventNo, int number) {
+        this.eventNo = eventNo;
+        this.number = number;
+    }
+
+    public P2Event(int eventNo, String text, int number) {
+        this.eventNo = eventNo;
+        this.text = text;
+        this.number = number;
     }
 
     public int getEventNo() {
@@ -45,5 +56,13 @@ public class P2Event {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 }
