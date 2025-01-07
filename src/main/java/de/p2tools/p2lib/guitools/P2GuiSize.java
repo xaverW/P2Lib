@@ -244,6 +244,21 @@ public class P2GuiSize {
         }
     }
 
+    public static void setMinSize(StringProperty sizeConfiguration, Stage newStage) {
+        String[] arr = {""};
+        if (sizeConfiguration != null && !sizeConfiguration.getValueSafe().isEmpty()) {
+            arr = sizeConfiguration.getValueSafe().split(":");
+        }
+
+        if (arr.length >= 2) {
+            //dann gibts zumindest die Größe
+            int w = getStageSize(sizeConfiguration, true);
+            int h = getStageSize(sizeConfiguration, false);
+            newStage.setMinWidth(w);
+            newStage.setMinHeight(h);
+        }
+    }
+
     public static void setPos(StringProperty sizeConfiguration,
                               Stage newStage, Stage ownerForCenteringDialog) {
         int posX = 0, posY = 0;
@@ -251,7 +266,7 @@ public class P2GuiSize {
 
         String[] arr = {""};
         if (sizeConfiguration != null && !sizeConfiguration.getValueSafe().isEmpty()) {
-            arr = sizeConfiguration.getValue().split(":");
+            arr = sizeConfiguration.getValueSafe().split(":");
         }
 
         if (arr.length >= 4) {

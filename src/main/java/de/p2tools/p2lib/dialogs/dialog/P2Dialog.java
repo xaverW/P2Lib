@@ -20,6 +20,7 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.P2LibInit;
 import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.guitools.P2WindowIcon;
+import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -115,6 +116,27 @@ public class P2Dialog {
                 close();
             });
 
+            if (P2ToolsFactory.getOs() == P2ToolsFactory.OperatingSystemType.LINUX) {
+                // brauchts bei aktuellem GNOME
+                P2GuiSize.setMinSize(sizeConfiguration, stage);
+                if (!setOnlySize) {
+                    P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
+                }
+
+                scene.widthProperty().addListener((u, o, n) -> {
+                    stage.setMinHeight(0);
+                    stage.setMinWidth(0);
+                });
+                scene.heightProperty().addListener((u, o, n) -> {
+                    stage.setMinHeight(0);
+                    stage.setMinWidth(0);
+                });
+                scene.setOnMouseEntered(mouseEvent -> {
+                    stage.setMinHeight(0);
+                    stage.setMinWidth(0);
+                });
+            }
+
             //braucht's zwar nicht 2x, der Dialog "springt" dann aber weniger
             stage.setOnShowing(e -> {
                 if (setOnlySize) {
@@ -183,9 +205,9 @@ public class P2Dialog {
     }
 
     public void showDialog() {
+        stage.requestFocus();
+        stage.toFront();
         if (!stage.isShowing()) {
-            stage.requestFocus();
-            stage.toFront();
             if (modal) {
                 stage.showAndWait();
             } else {

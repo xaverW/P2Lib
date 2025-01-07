@@ -3,6 +3,10 @@
 .alignCenter {
   -fx-alignment: center;
 }
+.alignCenterPadding_10 {
+  -fx-alignment: center;
+  -fx-padding: 0 10 0 10;
+}
 .alignCenterRight {
   -fx-alignment: center-right;
 }
