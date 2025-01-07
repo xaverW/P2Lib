@@ -7,6 +7,10 @@
   -fx-alignment: center;
   -fx-padding: 0 10 0 10;
 }
+.alignCenterPadding_5 {
+  -fx-alignment: center;
+  -fx-padding: 0 5 0 5;
+}
 .alignCenterRight {
   -fx-alignment: center-right;
 }
