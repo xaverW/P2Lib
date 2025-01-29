@@ -73,7 +73,7 @@ public class P2Hyperlink extends Hyperlink {
 
     private void init() {
         setPadding(new Insets(0));
-        setStyle("-fx-font-size: 15px;");
+        setStyle("-fx-font-size: 1.1em;");
         setOnAction(a -> {
             try {
                 P2Open.openURL(stage, url, prog);
