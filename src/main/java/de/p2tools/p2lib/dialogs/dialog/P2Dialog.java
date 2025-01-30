@@ -117,7 +117,7 @@ public class P2Dialog {
             });
 
             if (P2ToolsFactory.getOs() == P2ToolsFactory.OperatingSystemType.LINUX) {
-                // brauchts bei aktuellem GNOME
+                // braucht's bei aktuellem GNOME
                 P2GuiSize.setMinSize(sizeConfiguration, stage);
                 if (!setOnlySize) {
                     P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
