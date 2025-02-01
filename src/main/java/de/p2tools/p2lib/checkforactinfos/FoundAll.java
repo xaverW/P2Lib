@@ -20,8 +20,6 @@ package de.p2tools.p2lib.checkforactinfos;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import javafx.application.Platform;
 
-import java.time.LocalDate;
-
 public class FoundAll {
 
     private FoundAll() {
@@ -31,8 +29,8 @@ public class FoundAll {
         // ist der Start der Suche
         FoundAllFiles.found(foundSearchDataDTO);
 
-        //dann merken bis wann, alles angezeigt wurde
-        foundSearchDataDTO.setLastSearchDate(P2LDateFactory.toStringR(LocalDate.now()));
+        // dann merken bis wann, alles angezeigt wurde
+        foundSearchDataDTO.setLastSearchDate(P2LDateFactory.toStringR(FoundAllFiles.maxFoundDate));
 
         if (foundSearchDataDTO.isShowAlways() ||
 
@@ -40,11 +38,11 @@ public class FoundAll {
                 foundSearchDataDTO.isFoundNewInfo() && !foundSearchDataDTO.getFoundFileListInfo().isEmpty() ||
                 foundSearchDataDTO.isFoundNewVersion() && !foundSearchDataDTO.getFoundFileListAct().isEmpty() ||
 
-                //beta ist nicht immer angeschaltet
+                // beta ist nicht immer angeschaltet
                 foundSearchDataDTO.isSearchBeta() && foundSearchDataDTO.isFoundNewBeta() &&
                         !foundSearchDataDTO.getFoundFileListBeta().isEmpty() ||
 
-                //daily ist nicht immer angeschaltet, muss auch beta angeschaltet sein
+                // daily ist nicht immer angeschaltet, muss auch beta angeschaltet sein
                 foundSearchDataDTO.isSearchBeta() &&
                         foundSearchDataDTO.isSearchDaily() &&
                         foundSearchDataDTO.isFoundNewDaily() && !foundSearchDataDTO.getFoundFileListDaily().isEmpty()) {
@@ -61,7 +59,7 @@ public class FoundAll {
 
         // und merken was schon angezeigt wurde
         if (foundSearchDataDTO.isSearchActAgain()) {
-            //dann wieder auf das build-date setzen, um alles danach wieder anzuzeigen
+            // dann wieder auf das build-date setzen, um alles danach wieder anzuzeigen
             foundSearchDataDTO.setLastSearchDate(foundSearchDataDTO.getProgBuildDate());
         }
     }

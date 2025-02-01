@@ -191,15 +191,16 @@ public class InfoAlertsTabFactory {
 
     public static Tab addTabBeta(final FoundSearchDataDTO foundSearchDataDTO, final boolean isBetaTab) {
         if (isBetaTab && foundSearchDataDTO.getFoundFileListBeta().isEmpty()) {
-            // dann gibts eh nix
+            // BETA: dann gibts eh nix
             return null;
         }
         if (!isBetaTab && foundSearchDataDTO.getFoundFileListDaily().isEmpty()) {
-            // dann gibts eh nix
+            // DAILY: dann gibts eh nix
             return null;
         }
 
         if (isBetaTab) {
+            // BETA
             if (!foundSearchDataDTO.isShowAllDownloads() &&
                     !foundSearchDataDTO.isSearchBeta()) {
                 // dann kein beta anzeigen
@@ -207,8 +208,9 @@ public class InfoAlertsTabFactory {
             }
 
         } else {
+            // DALY
             if (!foundSearchDataDTO.isShowAllDownloads() &&
-                    !foundSearchDataDTO.isSearchBeta() &&
+                    // !foundSearchDataDTO.isSearchBeta() &&
                     !foundSearchDataDTO.isSearchDaily()) {
                 // dann kein daily anzeigen
                 return null;

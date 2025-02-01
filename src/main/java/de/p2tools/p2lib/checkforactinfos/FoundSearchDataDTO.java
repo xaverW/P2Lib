@@ -17,10 +17,13 @@
 
 package de.p2tools.p2lib.checkforactinfos;
 
+import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
+
+import java.time.LocalDate;
 
 public class FoundSearchDataDTO {
     private Stage stage;
@@ -115,7 +118,9 @@ public class FoundSearchDataDTO {
         this.showAllDownloads = showAllDownloads;
 
         if (this.lastSearchDate.getValue().isEmpty()) {
-            this.lastSearchDate.setValue(this.progBuildDate);
+            // damit Infos auf jeden Fall (auch beim ersten Start) angezeigt werden
+            // this.lastSearchDate.setValue(this.progBuildDate);
+            this.lastSearchDate.setValue(P2LDateFactory.toStringR(LocalDate.EPOCH));
         }
     }
 
