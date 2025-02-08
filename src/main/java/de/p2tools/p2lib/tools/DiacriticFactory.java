@@ -30,7 +30,7 @@ public class DiacriticFactory {
     }
 
     public static String flattenDiacritic(String string) {
-        // todo, unterschiedlich lang!!!
+        // todo, unterschiedlich lang!!! und kommt zu Fehlern -> aä
         // Weil wir aber f̶̶a̶̶u̶̶l̶̶ ̶̶s̶̶i̶̶n̶̶d̶̶ ̶̶u̶̶n̶̶d̶̶ ̶̶n̶̶i̶̶c̶̶h̶̶t̶̶ ̶̶i̶̶n̶̶ ̶̶d̶̶e̶̶r̶̶ ̶̶k̶̶ä̶̶l̶̶t̶̶e̶̶ ̶̶r̶̶u̶̶m̶̶s̶̶t̶̶e̶̶h̶̶e̶̶n̶̶ ̶̶m̶̶ö̶̶c̶̶h̶̶t̶̶e̶̶n̶ sparen müssen
         // Weil wir aber faul sind und nicht in der kalte rumstehen mochten sparen mussen
 

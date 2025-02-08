@@ -19,6 +19,7 @@ package de.p2tools.p2lib.mtfilm.film;
 
 import de.p2tools.p2lib.mtdownload.DownloadFactory;
 import de.p2tools.p2lib.tools.DiacriticFactory;
+import de.p2tools.p2lib.tools.DiacriticFactory3;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.SimpleListProperty;
@@ -102,9 +103,49 @@ public class FilmFactory {
 
     public static void flattenDiacritic(SimpleListProperty<? extends FilmData> filmlist) {
         //dann sollen die Diacritic *nicht* angezeigt werden!!
+        final String test = "f̶̶a̶̶u̶̶l̶̶ Wer \"You´ll -ä-ö-ü- alone\".......................................";
+
         P2Duration.counterStart("flattenDiacritic");
-        filmlist.stream().forEach(film -> {
-            FilmFactory.flattenDiacritic(film);
+        filmlist.forEach(filmData -> {
+
+            filmData.arr[FilmData.FILM_TITLE] = DiacriticFactory3.flattenDiacritic(filmData.getTitle());
+            filmData.arr[FilmData.FILM_THEME] = DiacriticFactory3.flattenDiacritic(filmData.getTheme());
+            filmData.arr[FilmData.FILM_DESCRIPTION] = DiacriticFactory3.flattenDiacritic(filmData.getDescription());
+
+//            String org = filmData.getTitle();
+//            String s1 = DiacriticFactory.flattenDiacritic(filmData.getTitle());
+//            String s2 = DiacriticFactory2.flattenDiacritic(filmData.getTitle());
+//            filmData.arr[FilmData.FILM_TITLE] = DiacriticFactory3.flattenDiacritic(filmData.getTitle());
+//            if (!s1.equals(filmData.getTitle())) {
+//                System.out.println("Mist");
+//            }
+//            if (!org.equals(filmData.getTitle())) {
+//                System.out.println("Mist");
+//            }
+//
+//            org = filmData.getTheme();
+//            s1 = DiacriticFactory.flattenDiacritic(filmData.getTheme());
+//            s2 = DiacriticFactory2.flattenDiacritic(filmData.getTheme());
+//            filmData.arr[FilmData.FILM_THEME] = DiacriticFactory3.flattenDiacritic(filmData.getTheme());
+//            if (!s1.equals(filmData.getTheme())) {
+//                System.out.println("Mist");
+//            }
+//            if (!org.equals(filmData.getTheme())) {
+//                System.out.println("Mist");
+//            }
+//
+//            org = filmData.getDescription();
+//            s1 = DiacriticFactory.flattenDiacritic(filmData.getDescription());
+//            s2 = DiacriticFactory2.flattenDiacritic(filmData.getDescription());
+//            filmData.arr[FilmData.FILM_DESCRIPTION] = DiacriticFactory3.flattenDiacritic(filmData.getDescription());
+//            if (!s1.equals(filmData.getDescription())) {
+//                System.out.println("Mist");
+//            }
+//            if (!org.equals(filmData.getDescription())) {
+//                System.out.println("Mist");
+//            }
+
+
         });
         P2Duration.counterStop("flattenDiacritic");
     }
