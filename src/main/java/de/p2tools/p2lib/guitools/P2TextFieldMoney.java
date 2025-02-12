@@ -105,8 +105,10 @@ public class P2TextFieldMoney extends TextField {
         if (!onlyLabel) {
             // kann man sich dann sparen
             dChangeListener = (observable, oldValue, newValue) -> {
-                Double d = doubleProperty.get() * 100;
-                longProperty.set(d.longValue());
+                // -75,07 € liefert den falschen Wert: -75,06
+                final double d = doubleProperty.get() * 100;
+                // longProperty.set(d.longValue());
+                longProperty.set(Math.round(d));
             };
             doubleProperty.addListener(dChangeListener);
         }
