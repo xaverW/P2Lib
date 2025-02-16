@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.mtfilter;
 
-import de.p2tools.p2lib.data.P2ColorData;
+import de.p2tools.p2lib.colordata.P2ColorData;
 import javafx.application.Platform;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.paint.Color;

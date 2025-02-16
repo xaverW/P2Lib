@@ -15,12 +15,11 @@
  */
 
 
-package de.p2tools.p2lib.data;
+package de.p2tools.p2lib.configfile.pdata;
 
 import de.p2tools.p2lib.configfile.config.*;
 import de.p2tools.p2lib.configfile.configlist.ConfigStringList;
 import de.p2tools.p2lib.configfile.configlist.ConfigStringPropList;
-import de.p2tools.p2lib.configfile.pdata.P2DataSample;
 import de.p2tools.p2lib.tools.date.*;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.*;
@@ -102,6 +101,11 @@ public class P2DataProgConfig extends P2DataSample<P2DataProgConfig> {
             Config_comment c = new Config_comment(comment);
             arrayList.add(c);
         }
+    }
+
+    public static synchronized void addEmptyLine() {
+        Config_comment c = new Config_comment("");
+        arrayList.add(c);
     }
 
     //========================================================================================================

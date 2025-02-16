@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2lib.data;
+package de.p2tools.p2lib.colordata;
 
 import de.p2tools.p2lib.configfile.pdata.P2Data;
 import de.p2tools.p2lib.configfile.pdata.P2DataList;

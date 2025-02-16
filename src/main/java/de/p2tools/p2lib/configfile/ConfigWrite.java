@@ -197,9 +197,18 @@ class ConfigWrite {
     }
 
     private void writeComment(Config config, int tab) throws XMLStreamException {
-        if (config.getActValue() != null && !config.getActValueString().isEmpty()) {
+        if (config.getActValue() == null) {
+            return;
+        }
+
+        if (config.getActValueString().isEmpty()) {
+            // dann nur eine Leerzeile
+            xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR);
+
+        } else {
+            // ein Kommentar
             writeTab(tab);
-            xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATORx2);
+            xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR);
             xmlStreamWriter.writeComment("  " + config.getActValueString() + "  ");
             xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR);
         }

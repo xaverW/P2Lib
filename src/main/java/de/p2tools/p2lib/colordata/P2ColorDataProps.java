@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2lib.data;
+package de.p2tools.p2lib.colordata;
 
 import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.configfile.config.Config_boolProp;
