@@ -259,6 +259,11 @@ public class P2GuiSize {
         }
     }
 
+    public static void resetMinSize(Stage stage) {
+        stage.setMinWidth(0);
+        stage.setMinHeight(0);
+    }
+
     public static void setPos(StringProperty sizeConfiguration,
                               Stage newStage, Stage ownerForCenteringDialog) {
         int posX = 0, posY = 0;

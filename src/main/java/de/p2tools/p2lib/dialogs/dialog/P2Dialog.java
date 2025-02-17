@@ -22,6 +22,7 @@ import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2lib.tools.P2ToolsFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.StringProperty;
@@ -49,6 +50,7 @@ public class P2Dialog {
     private Stage stage = null;
     private ObjectProperty<Stage> stageProp = new SimpleObjectProperty<>(null);
     private Pane pane = new Pane();
+    private boolean done = false;
 
     P2Dialog(Stage ownerForCenteringDialog, StringProperty sizeConfiguration,
              String title, boolean modal, boolean setOnlySize) {
@@ -87,7 +89,7 @@ public class P2Dialog {
         try {
             addDialog(this);
             // geht beides
-//            scene = new Scene(pane);
+            // scene = new Scene(pane);
             if (sizeConfiguration == null) {
                 scene = new Scene(pane);
             } else {
@@ -99,9 +101,8 @@ public class P2Dialog {
             stage = new Stage();
             stageProp.setValue(stage);
             stage.setScene(scene);
-            // stage.sizeToScene(); // macht Probleme
             stage.setTitle(title);
-
+            // stage.sizeToScene(); // macht Probleme
             if (modal) {
                 stage.initModality(Modality.APPLICATION_MODAL);
             }
@@ -118,45 +119,91 @@ public class P2Dialog {
 
             if (P2ToolsFactory.getOs() == P2ToolsFactory.OperatingSystemType.LINUX) {
                 // braucht's bei aktuellem GNOME
-                P2GuiSize.setMinSize(sizeConfiguration, stage);
-                if (!setOnlySize) {
+
+                // P2GuiSize.setMinSize(sizeConfiguration, stage);
+                stage.setResizable(false);
+                if (setOnlySize) {
+                    P2GuiSize.setSize(sizeConfiguration, stage);
+                } else {
                     P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
                 }
 
-                scene.widthProperty().addListener((u, o, n) -> {
-                    stage.setMinHeight(0);
-                    stage.setMinWidth(0);
-                });
-                scene.heightProperty().addListener((u, o, n) -> {
-                    stage.setMinHeight(0);
-                    stage.setMinWidth(0);
-                });
+                // scene.widthProperty().addListener((u, o, n) -> {
+                //   P2GuiSize.resetMinSize(stage);
+                // });
+                // scene.heightProperty().addListener((u, o, n) -> {
+                //   P2GuiSize.resetMinSize(stage);
+                // });
                 scene.setOnMouseEntered(mouseEvent -> {
-                    stage.setMinHeight(0);
-                    stage.setMinWidth(0);
+                    Platform.runLater(() -> {
+                        // P2GuiSize.resetMinSize(stage);
+                        if (!done) {
+                            done = true;
+                            if (setOnlySize) {
+                                P2GuiSize.setSize(sizeConfiguration, stage);
+                            } else {
+                                P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
+                            }
+                            P2DialogFactory.addSizeListener(stage, sizeConfiguration);
+                            stage.setResizable(true);
+                        }
+                    });
                 });
+
+            } else {
+                // Windows
+                if (setOnlySize) {
+                    P2GuiSize.setSize(sizeConfiguration, stage);
+                } else {
+                    P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
+                }
+                P2DialogFactory.addSizeListener(stage, sizeConfiguration);
             }
 
             //braucht's zwar nicht 2x, der Dialog "springt" dann aber weniger
-            stage.setOnShowing(e -> {
-                if (setOnlySize) {
-                    P2GuiSize.setSize(sizeConfiguration, stage);
-                } else {
-                    P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
-                }
-            });
-            stage.setOnShown(e -> {
-                if (setOnlySize) {
-                    P2GuiSize.setSize(sizeConfiguration, stage);
-                } else {
-                    P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
-                }
-            });
+//            stage.setOnShowing(e -> {
+//                if (setOnlySize) {
+//                    P2GuiSize.setSize(sizeConfiguration, stage);
+//                } else {
+//                    P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
+//                }
+//            });
+//            stage.setOnShown(e -> {
+//                if (setOnlySize) {
+//                    P2GuiSize.setSize(sizeConfiguration, stage);
+//                } else {
+//                    P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
+//                }
+//            });
+
+
+//            stage.setOnShown(e -> {
+//                new Thread(new Task<Void>() {
+//                    @Override
+//                    protected Void call() {
+//                        try {
+//                            wait(1_000);
+//                        } catch (Exception ignore) {
+//                        }
+//                        Platform.runLater(() -> {
+////                            if (setOnlySize) {
+////                                P2GuiSize.setSize(sizeConfiguration, stage);
+////                            } else {
+////                                P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
+////                            }
+//                            stage.setResizable(true);
+//                            P2DialogFactory.addSizeListener(stage, sizeConfiguration);
+//                        });
+//                        return null;
+//                    }
+//                }).start();
+//            });
+
 
             updateCss();
             setIcon();
             make();
-            P2DialogFactory.addSizeListener(stage, sizeConfiguration);
+            // P2DialogFactory.addSizeListener(stage, sizeConfiguration);
 
             if (show) {
                 showDialog();
