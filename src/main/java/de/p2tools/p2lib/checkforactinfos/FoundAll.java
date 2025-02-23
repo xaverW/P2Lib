@@ -30,9 +30,9 @@ public class FoundAll {
         FoundAllFiles.found(foundSearchDataDTO);
 
         // dann merken bis wann, alles angezeigt wurde
-        foundSearchDataDTO.setLastSearchDate(P2LDateFactory.toStringR(FoundAllFiles.maxFoundDate));
+        foundSearchDataDTO.setLastFoundDate(P2LDateFactory.toStringR(FoundAllFiles.maxFoundDate));
 
-        if (foundSearchDataDTO.isShowAlways() ||
+        if (foundSearchDataDTO.isShowDialogAlways() ||
 
                 // info, act
                 foundSearchDataDTO.isFoundNewInfo() && !foundSearchDataDTO.getFoundFileListInfo().isEmpty() ||
@@ -60,7 +60,7 @@ public class FoundAll {
         // und merken was schon angezeigt wurde
         if (foundSearchDataDTO.isSearchActAgain()) {
             // dann wieder auf das build-date setzen, um alles danach wieder anzuzeigen
-            foundSearchDataDTO.setLastSearchDate(foundSearchDataDTO.getProgBuildDate());
+            foundSearchDataDTO.setLastFoundDate(foundSearchDataDTO.getProgBuildDate());
         }
     }
 }

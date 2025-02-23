@@ -36,7 +36,7 @@ public class FoundSearchDataDTO {
     private final BooleanProperty searchDaily; // und Daily auch noch
 
     private final BooleanProperty searchActAgain = new SimpleBooleanProperty(false); // gefundenes Act soll nochmal angezeigt werden
-    private final StringProperty lastSearchDate; // Datum letzter Suche
+    private final StringProperty lastFoundDate; // Datum des letzten Fundes, bis dahin wurde es angezeigt
 
     private final BooleanProperty foundNewInfo = new SimpleBooleanProperty(false); // neue Info wurde gefunden
     private final BooleanProperty foundNewVersion = new SimpleBooleanProperty(false); // neues Act wurde gefunden
@@ -75,34 +75,35 @@ public class FoundSearchDataDTO {
 
     private final StringProperty downloadDir;
 
-    private boolean showAlways; // dann wird das Ergebnis immer angezeigt: gibt/gibt kein Update
+    private boolean showDialogAlways; // dann wird das Ergebnis (Dialog) immer angezeigt: egal obs Updates gibt oder nicht
     private boolean showAllDownloads; // dann werden alle Downloads/Infos angezeigt, IMMER
 
     public FoundSearchDataDTO(final Stage stage,
-                              final String searchUrl,
-                              final String searchUrlDownload,
+                              final String searchUrl, // https://www.p2tools.de
+                              final String searchUrlDownload, // https://www.p2tools.de/download/
 
-                              final StringProperty lastSearchDate,
-                              final BooleanProperty searchUpdate,
-                              final BooleanProperty searchBeta,
-                              final BooleanProperty searchDaily,
+                              final StringProperty lastFoundDate, // Datum des letzten Fundes: aktuellster Info/Download
+                              final BooleanProperty searchUpdate, // einmal am Tag soll nach einem Update gesucht werden
+                              final BooleanProperty searchBeta, // auch nach BETA suchen
+                              final BooleanProperty searchDaily, // auch nach DAILY suchen
 
-                              final String urlWebsite,
-                              final String urlDownload,
+                              final String urlWebsite, // https://www.p2tools.de/mtplayer/
+                              final String urlDownload, // z.B.: https://www.p2tools.de/mtplayer/download/
                               final String progName,
                               final String progVersion,
                               final String progBuildNo,
                               final String progBuildDate,
-                              final StringProperty downloadDir,
-                              final boolean showAlways,
-                              final boolean showAllDownloads
+
+                              final StringProperty downloadDir,  // wird beim Download auf das gewählte, gesetzt
+                              final boolean showDialogAlways,
+                              final boolean showAllDownloads // immer alles anzeigen -> DEBUG
     ) {
         this.stage = stage;
 
         this.searchUrl = searchUrl;
         this.searchUrlDownload = searchUrlDownload;
 
-        this.lastSearchDate = lastSearchDate;
+        this.lastFoundDate = lastFoundDate;
         this.searchUpdate = searchUpdate;
         this.searchBeta = searchBeta;
         this.searchDaily = searchDaily;
@@ -114,13 +115,13 @@ public class FoundSearchDataDTO {
         this.progBuildNo = progBuildNo;
         this.progBuildDate = progBuildDate;
         this.downloadDir = downloadDir;
-        this.showAlways = showAlways;
+        this.showDialogAlways = showDialogAlways; // wenn manuell gestartet: true, beim Programmstart: false
         this.showAllDownloads = showAllDownloads;
 
-        if (this.lastSearchDate.getValue().isEmpty()) {
+        if (this.lastFoundDate.getValue().isEmpty()) {
             // damit Infos auf jeden Fall (auch beim ersten Start) angezeigt werden
             // this.lastSearchDate.setValue(this.progBuildDate);
-            this.lastSearchDate.setValue(P2LDateFactory.toStringR(LocalDate.EPOCH));
+            this.lastFoundDate.setValue(P2LDateFactory.toStringR(LocalDate.EPOCH));
         }
     }
 
@@ -193,16 +194,16 @@ public class FoundSearchDataDTO {
     }
 
 
-    public String getLastSearchDate() {
-        return lastSearchDate.get();
+    public String getLastFoundDate() {
+        return lastFoundDate.get();
     }
 
-    public StringProperty lastSearchDateProperty() {
-        return lastSearchDate;
+    public StringProperty lastFoundDateProperty() {
+        return lastFoundDate;
     }
 
-    public void setLastSearchDate(final String lastSearchDate) {
-        this.lastSearchDate.set(lastSearchDate);
+    public void setLastFoundDate(final String lastFoundDate) {
+        this.lastFoundDate.set(lastFoundDate);
     }
 
     public boolean isFoundNewInfo() {
@@ -449,12 +450,12 @@ public class FoundSearchDataDTO {
         this.downloadDir.set(downloadDir);
     }
 
-    public boolean isShowAlways() {
-        return showAlways;
+    public boolean isShowDialogAlways() {
+        return showDialogAlways;
     }
 
-    public void setShowAlways(final boolean showAlways) {
-        this.showAlways = showAlways;
+    public void setShowDialogAlways(final boolean showDialogAlways) {
+        this.showDialogAlways = showDialogAlways;
     }
 
     public boolean isShowAllDownloads() {

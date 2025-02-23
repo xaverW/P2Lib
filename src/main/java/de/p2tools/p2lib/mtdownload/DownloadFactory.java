@@ -20,8 +20,6 @@ package de.p2tools.p2lib.mtdownload;
 import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.net.P2UrlConnectionFactory;
-import javafx.beans.property.StringProperty;
-import javafx.stage.Stage;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.net.HttpURLConnection;
@@ -31,32 +29,32 @@ public class DownloadFactory {
     private DownloadFactory() {
     }
 
-    public static boolean downloadFile(final Stage stage, final String url) {
-        return downloadFile(stage, url, null, "");
-    }
-
-    public static boolean downloadFile(final Stage stage, final String url, final StringProperty path, final String fileName) {
-        boolean ret = false; // true if started
-        final DownloadDialogController downloadDialogController = new DownloadDialogController(stage, url, path, fileName);
-
-        if (downloadDialogController.getOk()) {
-            ret = true;
-            P2Log.sysLog("Download wird gestartet");
-
-            final Thread download = new HttpDownload(stage, url, downloadDialogController.getDestPath(), downloadDialogController.getDestName());
-            try {
-                //verhindert das Aufpoppen des startenden Dialogs etwas
-                Thread.sleep(500);
-            } catch (final Exception ignore) {
-            }
-            download.start();
-
-        } else {
-            P2Log.sysLog("Download wird nicht gestartet");
-        }
-
-        return ret;
-    }
+//    public static boolean downloadFile(final Stage stage, final String url) {
+//        return downloadFile(stage, url, null, "");
+//    }
+//
+//    public static boolean downloadFile(final Stage stage, final String url, final StringProperty path, final String fileName) {
+//        boolean ret = false; // true if started
+//        final DownloadDialogController downloadDialogController = new DownloadDialogController(stage, url, path, fileName);
+//
+//        if (downloadDialogController.getOk()) {
+//            ret = true;
+//            P2Log.sysLog("Download wird gestartet");
+//
+//            final Thread download = new HttpDownload(stage, url, downloadDialogController.getDestPath(), downloadDialogController.getDestName());
+//            try {
+//                //verhindert das Aufpoppen des startenden Dialogs etwas
+//                Thread.sleep(500);
+//            } catch (final Exception ignore) {
+//            }
+//            download.start();
+//
+//        } else {
+//            P2Log.sysLog("Download wird nicht gestartet");
+//        }
+//
+//        return ret;
+//    }
 
     public static HttpURLConnection getConn(String urlStr, String userAgent, int timeOutSec, long downloaded, boolean sslAlways) {
         try {
