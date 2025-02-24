@@ -17,17 +17,19 @@
 
 package de.p2tools.p2lib.checkforactinfos;
 
+import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
-import de.p2tools.p2lib.mtdownload.DownloadFactory;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
+import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.net.PUrlTools;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
 
 public class InfoAlertsTabFactory {
     private static final int VERSION_PADDING_T = 5;
@@ -67,10 +69,10 @@ public class InfoAlertsTabFactory {
 
     public static Tab addTabVersion(final FoundSearchDataDTO foundSearchDataDTO) {
         //der wird immer angezeigt
-        return makeTabVersion(foundSearchDataDTO.getStage(), foundSearchDataDTO);
+        return makeTabVersion(foundSearchDataDTO);
     }
 
-    private static Tab makeTabVersion(final Stage stage, final FoundSearchDataDTO foundSearchDataDTO) {
+    private static Tab makeTabVersion(final FoundSearchDataDTO foundSearchDataDTO) {
         final Tab tabVersion = new Tab("neue Version");
         if (!foundSearchDataDTO.isFoundNewVersion()) {
             tabVersion.setText("aktuelle Version");
@@ -122,23 +124,19 @@ public class InfoAlertsTabFactory {
         txtVersion.setPadding(new Insets(VERSION_PADDING_T, 0, VERSION_PADDING_B, 0));
 
         final HBox pane1 = new HBox();
-//        pane1.getStyleClass().add("update-grid-cell");
         pane1.getChildren().add(lblActVersion);
         pane1.setAlignment(Pos.CENTER_LEFT);
 
 
         final HBox pane2 = new HBox();
-//        pane2.getStyleClass().add("update-grid-cell");
         pane2.getChildren().add(txtActVersion);
         pane2.setAlignment(Pos.CENTER_LEFT);
 
         final HBox pane3 = new HBox();
-//        pane3.getStyleClass().add("update-grid-cell");
         pane3.getChildren().add(lblVersion);
         pane3.setAlignment(Pos.CENTER_LEFT);
 
         final HBox pane4 = new HBox();
-//        pane4.getStyleClass().add("update-grid-cell");
         pane4.getChildren().add(txtVersion);
         pane4.setAlignment(Pos.CENTER_LEFT);
 
@@ -180,7 +178,7 @@ public class InfoAlertsTabFactory {
             hBox.getChildren().addAll(chkShowUpdateAgain, hB);
         }
         final CheckBox chkSearchUpdate = new CheckBox("beim Programmstart nach Updates suchen");
-        chkSearchUpdate.selectedProperty().bindBidirectional(foundSearchDataDTO.searchUpdateProperty());
+        chkSearchUpdate.selectedProperty().bindBidirectional(foundSearchDataDTO.searchUpdateEveryDayProperty());
         hBox.getChildren().add(chkSearchUpdate);
 
         vBox.getChildren().addAll(hBox);
@@ -266,22 +264,18 @@ public class InfoAlertsTabFactory {
         final Label lblRel = new Label("Änderungen:");
 
         final HBox pane1 = new HBox();
-//        pane1.getStyleClass().add("update-grid-cell");
         pane1.getChildren().add(lblActVersion);
         pane1.setAlignment(Pos.CENTER_LEFT);
 
         final HBox pane2 = new HBox();
-//        pane2.getStyleClass().add("update-grid-cell");
         pane2.getChildren().add(txtActVersion);
         pane2.setAlignment(Pos.CENTER_LEFT);
 
         final HBox pane3 = new HBox();
-//        pane3.getStyleClass().add("update-grid-cell");
         pane3.getChildren().add(lblVersion);
         pane3.setAlignment(Pos.CENTER_LEFT);
 
         final HBox pane4 = new HBox();
-//        pane4.getStyleClass().add("update-grid-cell");
         pane4.getChildren().add(txtVersion);
         pane4.setAlignment(Pos.CENTER_LEFT);
 
@@ -328,25 +322,76 @@ public class InfoAlertsTabFactory {
         return tabVersion;
     }
 
-    private static int getButton(final FoundSearchDataDTO foundSearchDataDTO, final FoundFileList foundFileList, final GridPane gridPane, int row) {
-        boolean done = false;
-        for (final FoundFile foundFile : foundFileList) {
+    private static int getButton(final FoundSearchDataDTO foundSearchDataDTO,
+                                 final FoundFileList foundFileList, final GridPane gridPane, int row) {
 
+        if (foundFileList.isEmpty()) {
+            // dann gibts keine Downloads
+            return row;
+        }
+
+        final BooleanProperty showAll = new SimpleBooleanProperty(false);
+        VBox vBox = new VBox(P2LibConst.SPACING_VBOX);
+        Label lbl = new Label("Update laden:");
+        GridPane.setValignment(lbl, VPos.TOP);
+        gridPane.add(lbl, 0, ++row);
+        gridPane.add(vBox, 1, row);
+
+        for (final FoundFile foundFile : foundFileList) {
             final Button button = new Button();
+
+            if (foundSearchDataDTO.getBsSearch().length == 0) {
+                P2Log.sysLog("Updatesuche BS: Unbekannt, alles anzeigen");
+
+            } else {
+                boolean showAlways = false;
+                for (String bsSearch : foundSearchDataDTO.getBsSearch()) {
+                    if (getSearch(foundFile.getFileName()).contains(bsSearch)) {
+                        // dann immer anzeigen
+                        showAlways = true;
+                    }
+                }
+                if (!showAlways) {
+                    button.visibleProperty().bind(showAll);
+                    button.managedProperty().bind(showAll);
+                }
+            }
+
             button.setMaxWidth(Double.MAX_VALUE);
             final String text = PUrlTools.getFileName(foundFile.getFileUrl());
             button.setText(text);
+            button.setMnemonicParsing(false);
             button.setTooltip(new Tooltip(foundFile.getFileUrl()));
-            button.setOnAction(a -> {
-                DownloadFactory.downloadFile(foundSearchDataDTO.getStage(), foundFile.getFileUrl(),
-                        foundSearchDataDTO.downloadDirProperty(), "");
-            });
-            gridPane.add(button, 1, ++row);
-            if (!done) {
-                done = true;
-                gridPane.add(new Label("Update laden:"), 0, row);
-            }
+            button.setOnAction(a ->
+                    FoundFactory.downloadFile(foundSearchDataDTO, foundFile.getFileUrl()));
+            vBox.getChildren().add(button);
         }
+
+        CheckBox chkShowAll = new CheckBox("Alle Anzeigen");
+        chkShowAll.selectedProperty().bindBidirectional(showAll);
+        gridPane.add(chkShowAll, 0, ++row);
+
         return row;
+    }
+
+    private static String getSearch(String fileName) {
+        // MTPlayer-18__2025.02.23.txt
+        // MTPlayer-18__2025.02.23.zip
+        // MTPlayer-18__Linux=mit=Java__2025.02.23.zip
+        // MTPlayer-18__Windows=mit=Java__2025.02.23.zip
+        // MTPlayer-18__Raspberry__2025.02.23.zip
+        try {
+            String search = fileName.substring(fileName.indexOf("__") + 2);
+            if (!search.contains("__")) {
+                // MTPlayer-18__2025.02.23.zip
+                // dann ists für Linux und Win
+                return "linux-windows";
+            }
+
+            search = search.substring(0, search.lastIndexOf("__"));
+            return search.toLowerCase();
+        } catch (Exception ignore) {
+            return "linux-windows";
+        }
     }
 }

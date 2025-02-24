@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2lib.mtdownload;
+package de.p2tools.p2lib.checkforactinfos;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.P2ProgIcons;
@@ -31,7 +31,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class DownloadProgressDialog extends P2DialogExtra {
+public class FoundDownloadProgressDialog extends P2DialogExtra {
 
     private final VBox vBoxCont;
     private final Button btnCancel = new Button("");
@@ -41,7 +41,7 @@ public class DownloadProgressDialog extends P2DialogExtra {
     private boolean isCanceled = false;
     private String startText = "";
 
-    DownloadProgressDialog(Stage stage, String fileName, String text) {
+    FoundDownloadProgressDialog(Stage stage, String fileName, String text) {
         super(stage, null, "Download", false, false, DECO.NO_BORDER);
 
         this.lblName.setText(fileName);

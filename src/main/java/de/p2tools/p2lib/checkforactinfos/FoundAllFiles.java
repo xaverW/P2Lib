@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class FoundAllFiles {
 
@@ -46,12 +45,6 @@ public class FoundAllFiles {
             foundSearchDataDTO.setFoundNewBeta(false);
             foundSearchDataDTO.setFoundNewDaily(false);
 
-            ArrayList<String> log = new ArrayList<>();
-            log.add("=====================================");
-            log.add("Update-Suche: " + foundSearchDataDTO.searchUrlDownload);
-            log.add("Letzte Suche war: " + foundSearchDataDTO.getLastSearchDate());
-            P2Log.sysLog(log);
-
             String strLine;
             while ((strLine = br.readLine()) != null) {
                 if (!strLine.contains("<a href=\"/download/")) {
@@ -60,18 +53,21 @@ public class FoundAllFiles {
                 if (!strLine.contains(foundSearchDataDTO.getProgName())) {
                     continue; //und nur vom verwendetem Programm
                 }
+                try {
+                    if (strLine.contains("info")) {
+                        addInfo(foundSearchDataDTO, strLine);
 
-                if (strLine.contains("info")) {
-                    addInfo(foundSearchDataDTO, strLine);
+                    } else if (strLine.contains("act")) {
+                        addAct(foundSearchDataDTO, strLine);
 
-                } else if (strLine.contains("act")) {
-                    addAct(foundSearchDataDTO, strLine);
+                    } else if (strLine.contains("beta")) {
+                        addBetaDaily(true, foundSearchDataDTO, strLine);
 
-                } else if (strLine.contains("beta")) {
-                    addBetaDaily(true, foundSearchDataDTO, strLine);
-
-                } else if (strLine.contains("daily")) {
-                    addBetaDaily(false, foundSearchDataDTO, strLine);
+                    } else if (strLine.contains("daily")) {
+                        addBetaDaily(false, foundSearchDataDTO, strLine);
+                    }
+                } catch (Exception ex) {
+                    P2Log.errorLog(102548790, ex);
                 }
             }
         } catch (final IOException ex) {
@@ -108,11 +104,12 @@ public class FoundAllFiles {
                 foundFile.setFileText(FoundFactory.getInfoFile(foundFile.getFileUrl()));
                 foundSearchDataDTO.getFoundFileListInfo().add(foundFile);
             }
-            setLastSearchDate(foundSearchDataDTO, foundFile); // und erst danach LastSearchDate setzen
+            setLastFoundDate(foundSearchDataDTO, foundFile); // und erst danach LastSearchDate setzen
         }
     }
 
     private static void addAct(FoundSearchDataDTO foundSearchDataDTO, String strLine) {
+        // BETA haben schon die V-Nummer!!
         //<p><a href="/download/p2info/act/P2Radio-3__2021.07.14.zip">P2Radio-3__2021.07.14.zip</a></p>
         //<p><a href="/download/p2info/act/P2Radio-3__Linux+Java__2021.07.14.zip">P2Radio-3__Linux+Java__2021.07.14.zip</a></p>
 
@@ -160,7 +157,7 @@ public class FoundAllFiles {
                     foundSearchDataDTO.setNewVersionDate(foundFile.getFileDate());
                     foundSearchDataDTO.getFoundFileListAct().add(foundFile);
                 }
-                setLastSearchDate(foundSearchDataDTO, foundFile); // und erst danach LastSearchDate setzen
+                setLastFoundDate(foundSearchDataDTO, foundFile); // und erst danach LastSearchDate setzen
             }
         }
     }
@@ -231,12 +228,12 @@ public class FoundAllFiles {
                         foundSearchDataDTO.getFoundFileListDaily().add(foundFile);
                     }
                 }
-                setLastSearchDate(foundSearchDataDTO, foundFile); // und erst danach LastSearchDate setzen
+                setLastFoundDate(foundSearchDataDTO, foundFile); // und erst danach LastSearchDate setzen
             }
         }
     }
 
-    private static void setLastSearchDate(FoundSearchDataDTO foundSearchDataDTO, FoundFile foundFile) {
+    private static void setLastFoundDate(FoundSearchDataDTO foundSearchDataDTO, FoundFile foundFile) {
         // LocalDate lDate = P2LDateFactory.fromStringR(foundSearchDataDTO.getLastSearchDate());
         LocalDate ld = P2LDateFactory.fromStringR(foundFile.getFileDate());
         if (ld.isAfter(maxFoundDate)) {
@@ -251,9 +248,9 @@ public class FoundAllFiles {
             return true;
         }
 
-        return foundSearchDataDTO.isShowAlways() || /* dann auch immer */
-                (!foundSearchDataDTO.isShowAlways() && /* sonst nur, wenn vorhanden */
-                        FoundFactory.isNewFound(foundSearchDataDTO.getLastSearchDate(), foundFile.getFileDate()));
+        return foundSearchDataDTO.isShowDialogAlways() || /* dann auch immer */
+                (!foundSearchDataDTO.isShowDialogAlways() && /* sonst nur, wenn vorhanden */
+                        FoundFactory.isNewFound(foundSearchDataDTO.getLastFoundDate(), foundFile.getFileDate()));
     }
 
     private static boolean checkFile(FoundSearchDataDTO foundSearchDataDTO, FoundFile foundFile) {
@@ -263,42 +260,42 @@ public class FoundAllFiles {
             return true;
         }
 
-        boolean ret = (foundSearchDataDTO.isShowAlways() && /* immer, wenn was vorhanden ist */
+        boolean ret = (foundSearchDataDTO.isShowDialogAlways() && /* immer, wenn was vorhanden ist */
                 FoundFactory.isNewFound(foundSearchDataDTO.getProgBuildDate(), foundFile.getFileDate())) ||
-                (!foundSearchDataDTO.isShowAlways() && /* dann nur, wenn noch nicht angezeigt */
-                        FoundFactory.isNewFound(foundSearchDataDTO.getLastSearchDate(), foundFile.getFileDate()));
+                (!foundSearchDataDTO.isShowDialogAlways() && /* dann nur, wenn noch nicht angezeigt */
+                        FoundFactory.isNewFound(foundSearchDataDTO.getLastFoundDate(), foundFile.getFileDate()));
 
         if (ret) {
-            // dann gibts eins das noch nicht angezeigt wurde, noch version/release prüfen
-            try {
-                int actVersion = Integer.parseInt(foundSearchDataDTO.getProgVersion());
-                int fileVersion = Integer.parseInt(foundFile.getFileVersion());
-
-                if (foundFile.getFileBuildNo().isEmpty()) {
-                    // dann ist ein act
-                    if (actVersion >= fileVersion) {
-                        // dann ist es gleich oder aktueller
-                        ret = false;
-                    }
-
-                } else {
-                    // beta/daily
-                    int actBuild = Integer.parseInt(foundSearchDataDTO.getProgBuildNo());
-                    int fileBuild = Integer.parseInt(foundFile.getFileBuildNo());
-                    if (actVersion > fileVersion) {
-                        // dann ist es aktueller
-                        ret = false;
-                    }
-
-                    if (actVersion == fileVersion &&
-                            actBuild >= fileBuild) {
-                        // dann ist es gleich oder aktueller
-                        ret = false;
-                    }
-                }
-            } catch (Exception ignore) {
-                ret = true;
-            }
+//            // dann gibts eins das noch nicht angezeigt wurde, noch version/release prüfen -> warum???
+//            try {
+//                int actVersion = Integer.parseInt(foundSearchDataDTO.getProgVersion());
+//                int fileVersion = Integer.parseInt(foundFile.getFileVersion());
+//
+//                if (foundFile.getFileBuildNo().isEmpty()) {
+//                    // dann ist ein act
+//                    if (actVersion >= fileVersion) {
+//                        // dann ist es gleich oder aktueller
+//                        ret = false;
+//                    }
+//
+//                } else {
+//                    // beta/daily
+//                    int actBuild = Integer.parseInt(foundSearchDataDTO.getProgBuildNo());
+//                    int fileBuild = Integer.parseInt(foundFile.getFileBuildNo());
+//                    if (actVersion > fileVersion) {
+//                        // dann ist es aktueller
+//                        ret = false;
+//                    }
+//
+//                    if (actVersion == fileVersion &&
+//                            actBuild >= fileBuild) {
+//                        // dann ist es gleich oder aktueller
+//                        ret = false;
+//                    }
+//                }
+//            } catch (Exception ignore) {
+//                ret = true;
+//            }
         }
 
         return ret;

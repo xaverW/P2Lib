@@ -17,13 +17,12 @@
 
 package de.p2tools.p2lib.checkforactinfos;
 
-import de.p2tools.p2lib.tools.date.P2LDateFactory;
+import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
-
-import java.time.LocalDate;
 
 public class FoundSearchDataDTO {
     private Stage stage;
@@ -31,7 +30,7 @@ public class FoundSearchDataDTO {
     public String searchUrl;
     public String searchUrlDownload;
 
-    private final BooleanProperty searchUpdate; // soll überhaupt gesucht werden, kann im Dialog ausgeschaltet werden
+    private final BooleanProperty searchUpdateEveryDay; // soll überhaupt gesucht werden, kann im Dialog ausgeschaltet werden
     private final BooleanProperty searchBeta; // auch beta soll gesucht werden
     private final BooleanProperty searchDaily; // und Daily auch noch
 
@@ -48,8 +47,8 @@ public class FoundSearchDataDTO {
     private FoundFileList foundFileListBeta = new FoundFileList(); // Liste der gefundenen neuen Betas
     private FoundFileList foundFileListDaily = new FoundFileList(); // Liste der gefundenen neuen Dailys
 
-    private String newInfoText = ""; // Text der neuen Infos
-    private String newInfoDate = ""; // neue Nummer der neuen Infos, Datum: 2021.05.01 oder 2021.05.01_1
+    private String newInfoText = ""; // Text der neuen Info
+    private String newInfoDate = ""; // Datum der Info: 2021.05.01 oder 2021.05.01_1
 
     private String newVersionText = "";
     private String newVersionDate = "";
@@ -65,17 +64,18 @@ public class FoundSearchDataDTO {
     private String newDailyBuild = "";
     private String newDailyDate = "";
 
-    private String urlWebsite;
-    private String urlDownload;
+    private String urlWebsite;  // https://www.p2tools.de/mtplayer/
+    private String urlDownload;  // z.B.: https://www.p2tools.de/mtplayer/download/
     private String progName; // Name im Downloadverzeichnis!!
 
-    private String progVersion; // aktuelle Programmversion
-    private String progBuildNo;
-    private String progBuildDate;
+    private String progVersion; // aktuelle Programmversion vom aktuell verwendeten Programm
+    private String progBuildNo; // dito
+    private String progBuildDate; // dito
 
-    private final StringProperty downloadDir;
+    private String[] bsSearch = {""}; // {"raspberry", "und"}; Name im Filename, dient zur Auswahl, welche Downloads angezeigt werden sollen
+    private final StringProperty downloadDir; // wird beim Download auf das gewählte, gesetzt
 
-    private boolean showDialogAlways; // dann wird das Ergebnis (Dialog) immer angezeigt: egal obs Updates gibt oder nicht
+    private boolean showDialogAlways; // wenn manuell gestartet: true, beim Programmstart: false, dann wird das Ergebnis (Dialog) immer angezeigt: egal obs Updates gibt oder nicht
     private boolean showAllDownloads; // dann werden alle Downloads/Infos angezeigt, IMMER
 
     public FoundSearchDataDTO(final Stage stage,
@@ -83,7 +83,7 @@ public class FoundSearchDataDTO {
                               final String searchUrlDownload, // https://www.p2tools.de/download/
 
                               final StringProperty lastFoundDate, // Datum des letzten Fundes: aktuellster Info/Download
-                              final BooleanProperty searchUpdate, // einmal am Tag soll nach einem Update gesucht werden
+                              final BooleanProperty searchUpdateEveryDay, // einmal am Tag soll nach einem Update gesucht werden
                               final BooleanProperty searchBeta, // auch nach BETA suchen
                               final BooleanProperty searchDaily, // auch nach DAILY suchen
 
@@ -93,6 +93,7 @@ public class FoundSearchDataDTO {
                               final String progVersion,
                               final String progBuildNo,
                               final String progBuildDate,
+                              final String[] bsSearch,
 
                               final StringProperty downloadDir,  // wird beim Download auf das gewählte, gesetzt
                               final boolean showDialogAlways,
@@ -104,7 +105,7 @@ public class FoundSearchDataDTO {
         this.searchUrlDownload = searchUrlDownload;
 
         this.lastFoundDate = lastFoundDate;
-        this.searchUpdate = searchUpdate;
+        this.searchUpdateEveryDay = searchUpdateEveryDay;
         this.searchBeta = searchBeta;
         this.searchDaily = searchDaily;
 
@@ -114,14 +115,36 @@ public class FoundSearchDataDTO {
         this.progVersion = progVersion;
         this.progBuildNo = progBuildNo;
         this.progBuildDate = progBuildDate;
-        this.downloadDir = downloadDir;
+        this.bsSearch = bsSearch;
+
+        this.downloadDir = downloadDir; // wird beim Download auf das gewählte, gesetzt
         this.showDialogAlways = showDialogAlways; // wenn manuell gestartet: true, beim Programmstart: false
         this.showAllDownloads = showAllDownloads;
 
         if (this.lastFoundDate.getValue().isEmpty()) {
+            this.lastFoundDate.setValue(this.progBuildDate); // sonst wirds beim ersten Start nochmal als Update angezeigt
             // damit Infos auf jeden Fall (auch beim ersten Start) angezeigt werden
-            // this.lastSearchDate.setValue(this.progBuildDate);
-            this.lastFoundDate.setValue(P2LDateFactory.toStringR(LocalDate.EPOCH));
+            // this.lastFoundDate.setValue(P2LDateFactory.toStringR(LocalDate.EPOCH));
+        }
+        if (bsSearch.length == 0) {
+            // wenn leer, dann mit BS füllen
+            P2Log.sysLog("===========================");
+            P2Log.sysLog("Update-Suche: BS ist leer");
+            switch (P2ToolsFactory.getOs()) {
+                case LINUX:
+                    this.bsSearch = new String[]{"linux"};
+                    P2Log.sysLog("Update-Suche: Linux");
+                    break;
+                case WIN32:
+                case WIN64:
+                    this.bsSearch = new String[]{"windows"};
+                    P2Log.sysLog("Update-Suche: Windows");
+                    break;
+                default:
+                    P2Log.sysLog("Update-Suche: Unbekannt");
+                    // weiß der Geier
+            }
+            P2Log.sysLog("===========================");
         }
     }
 
@@ -149,12 +172,12 @@ public class FoundSearchDataDTO {
         this.searchUrlDownload = searchUrlDownload;
     }
 
-    public boolean getSearchUpdate() {
-        return searchUpdate.get();
+    public boolean getSearchUpdateEveryDay() {
+        return searchUpdateEveryDay.get();
     }
 
-    public BooleanProperty searchUpdateProperty() {
-        return searchUpdate;
+    public BooleanProperty searchUpdateEveryDayProperty() {
+        return searchUpdateEveryDay;
     }
 
     public boolean isSearchBeta() {
@@ -440,6 +463,14 @@ public class FoundSearchDataDTO {
 
     public String getDownloadDir() {
         return downloadDir.get();
+    }
+
+    public String[] getBsSearch() {
+        return bsSearch;
+    }
+
+    public void setBsSearch(String[] bsSearch) {
+        this.bsSearch = bsSearch;
     }
 
     public StringProperty downloadDirProperty() {

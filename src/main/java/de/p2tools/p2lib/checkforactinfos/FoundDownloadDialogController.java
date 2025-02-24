@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2lib.mtdownload;
+package de.p2tools.p2lib.checkforactinfos;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.P2ProgIcons;
@@ -33,9 +33,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
-public class DownloadDialogController extends P2DialogExtra {
+public class FoundDownloadDialogController extends P2DialogExtra {
 
     private final VBox vBoxCont;
 
@@ -51,18 +50,18 @@ public class DownloadDialogController extends P2DialogExtra {
     private final String url;
     private final String urlFile;
     private final String orgFileName;
-    private final Stage stage;
+    private final FoundSearchDataDTO foundSearchDataDTO;
     StringProperty path;
     private boolean nameChanged = false;
     private boolean ok = false;
 
-    public DownloadDialogController(final Stage stage, final String url, final StringProperty path, final String orgFileName) {
-        super(stage, null, "Download", true, false, DECO.BORDER_SMALL);
+    public FoundDownloadDialogController(final FoundSearchDataDTO foundSearchDataDTO, final String url, final StringProperty path) {
+        super(foundSearchDataDTO.getStage(), null, "Download", true, false, DECO.BORDER_SMALL);
 
-        this.stage = stage;
+        this.foundSearchDataDTO = foundSearchDataDTO;
         this.url = url;
         this.urlFile = PUrlTools.getFileName(url);
-        this.orgFileName = orgFileName.isEmpty() ? urlFile : orgFileName;
+        this.orgFileName = urlFile;
         this.path = path;
 
         if (path == null || path.getValueSafe().isEmpty()) {
@@ -109,7 +108,7 @@ public class DownloadDialogController extends P2DialogExtra {
         btnDest.setGraphic(P2ProgIcons.IMAGE_FILE_OPEN.getImageView());
         btnDest.setTooltip(new Tooltip("Einen Ordner zum Speichern der Datei auswählen"));
         btnDest.setOnAction(event -> {
-            P2DirFileChooser.DirChooser(stage, txtDestPath);
+            P2DirFileChooser.DirChooser(foundSearchDataDTO.getStage(), txtDestPath);
             final boolean nc = nameChanged;
             this.fileName.setValue(getFileName(filePath.getValueSafe(), fileName.getValueSafe()));
             nameChanged = nc;

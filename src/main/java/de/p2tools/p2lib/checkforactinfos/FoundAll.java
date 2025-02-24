@@ -17,8 +17,12 @@
 
 package de.p2tools.p2lib.checkforactinfos;
 
+import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.application.Platform;
+
+import java.util.ArrayList;
 
 public class FoundAll {
 
@@ -27,7 +31,24 @@ public class FoundAll {
 
     public static void foundAll(FoundSearchDataDTO foundSearchDataDTO) {
         // ist der Start der Suche
-        FoundAllFiles.found(foundSearchDataDTO);
+
+        ArrayList<String> log = new ArrayList<>();
+        log.add("=====================================");
+        log.add("Update-Suche: " + foundSearchDataDTO.searchUrlDownload);
+        log.add("Letzte Suche war: " + foundSearchDataDTO.getLastFoundDate());
+        P2Log.sysLog(log);
+
+        try {
+            FoundAllFiles.found(foundSearchDataDTO);
+        } catch (Exception ex) {
+            P2Log.errorLog(956201210, ex, "URL: " + foundSearchDataDTO.getSearchUrlDownload());
+            Platform.runLater(() -> {
+                if (foundSearchDataDTO.isShowDialogAlways()) {
+                    P2Alert.showErrorAlert("Update-Suche", "Die Suche nach einem Programmupdate hat nicht geklappt.");
+                }
+            });
+            return;
+        }
 
         // dann merken bis wann, alles angezeigt wurde
         foundSearchDataDTO.setLastFoundDate(P2LDateFactory.toStringR(FoundAllFiles.maxFoundDate));
@@ -47,9 +68,13 @@ public class FoundAll {
                         foundSearchDataDTO.isSearchDaily() &&
                         foundSearchDataDTO.isFoundNewDaily() && !foundSearchDataDTO.getFoundFileListDaily().isEmpty()) {
 
-            Platform.runLater(() -> {
-                showInfoAlert(foundSearchDataDTO);
-            });
+            Platform.runLater(() -> showInfoAlert(foundSearchDataDTO));
+
+        } else {
+            log.clear();
+            log.add("gibt kein Update");
+            log.add("=====================================");
+            P2Log.sysLog(log);
         }
     }
 

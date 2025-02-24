@@ -31,6 +31,26 @@ import java.util.ArrayList;
 
 public class FoundFactory {
 
+    public static void downloadFile(FoundSearchDataDTO foundSearchDataDTO, final String url) {
+        final FoundDownloadDialogController downloadDialogController =
+                new FoundDownloadDialogController(foundSearchDataDTO, url, foundSearchDataDTO.downloadDirProperty());
+
+        if (downloadDialogController.getOk()) {
+            P2Log.sysLog("Download wird gestartet");
+
+            final Thread download = new FoundHttpDownload(foundSearchDataDTO.getStage(), url,
+                    downloadDialogController.getDestPath(), downloadDialogController.getDestName());
+            try {
+                //verhindert das Aufpoppen des startenden Dialogs etwas
+                Thread.sleep(500);
+            } catch (final Exception ignore) {
+            }
+            download.start();
+
+        } else {
+            P2Log.sysLog("Download wird nicht gestartet");
+        }
+    }
 
     public static boolean isNewFound(String old, String newValue) {
         return isNewFound(old, newValue, null);
