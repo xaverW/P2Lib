@@ -18,6 +18,7 @@
 package de.p2tools.p2lib.checkforactinfos;
 
 import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.P2ToolsRaspberry;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -130,20 +131,28 @@ public class FoundSearchDataDTO {
             // wenn leer, dann mit BS füllen
             P2Log.sysLog("===========================");
             P2Log.sysLog("Update-Suche: BS ist leer");
-            switch (P2ToolsFactory.getOs()) {
-                case LINUX:
-                    this.bsSearch = new String[]{"linux"};
-                    P2Log.sysLog("Update-Suche: Linux");
-                    break;
-                case WIN32:
-                case WIN64:
-                    this.bsSearch = new String[]{"windows"};
-                    P2Log.sysLog("Update-Suche: Windows");
-                    break;
-                default:
-                    P2Log.sysLog("Update-Suche: Unbekannt");
-                    // weiß der Geier
+
+            if (P2ToolsRaspberry.isRaspberry()) {
+                P2Log.sysLog("Update-Suche: Raspberry");
+                this.bsSearch = new String[]{"raspberry"};
+
+            } else {
+                switch (P2ToolsFactory.getOs()) {
+                    case LINUX:
+                        P2Log.sysLog("Update-Suche: Linux");
+                        this.bsSearch = new String[]{"linux"};
+                        break;
+                    case WIN32:
+                    case WIN64:
+                        P2Log.sysLog("Update-Suche: Windows");
+                        this.bsSearch = new String[]{"windows"};
+                        break;
+                    default:
+                        P2Log.sysLog("Update-Suche: Unbekannt");
+                        // weiß der Geier
+                }
             }
+
             P2Log.sysLog("===========================");
         }
     }
