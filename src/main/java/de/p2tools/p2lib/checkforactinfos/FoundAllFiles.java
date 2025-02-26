@@ -262,41 +262,9 @@ public class FoundAllFiles {
 
         boolean ret = (foundSearchDataDTO.isShowDialogAlways() && /* immer, wenn was vorhanden ist */
                 FoundFactory.isNewFound(foundSearchDataDTO.getProgBuildDate(), foundFile.getFileDate())) ||
+
                 (!foundSearchDataDTO.isShowDialogAlways() && /* dann nur, wenn noch nicht angezeigt */
                         FoundFactory.isNewFound(foundSearchDataDTO.getLastFoundDate(), foundFile.getFileDate()));
-
-        if (ret) {
-//            // dann gibts eins das noch nicht angezeigt wurde, noch version/release prüfen -> warum???
-//            try {
-//                int actVersion = Integer.parseInt(foundSearchDataDTO.getProgVersion());
-//                int fileVersion = Integer.parseInt(foundFile.getFileVersion());
-//
-//                if (foundFile.getFileBuildNo().isEmpty()) {
-//                    // dann ist ein act
-//                    if (actVersion >= fileVersion) {
-//                        // dann ist es gleich oder aktueller
-//                        ret = false;
-//                    }
-//
-//                } else {
-//                    // beta/daily
-//                    int actBuild = Integer.parseInt(foundSearchDataDTO.getProgBuildNo());
-//                    int fileBuild = Integer.parseInt(foundFile.getFileBuildNo());
-//                    if (actVersion > fileVersion) {
-//                        // dann ist es aktueller
-//                        ret = false;
-//                    }
-//
-//                    if (actVersion == fileVersion &&
-//                            actBuild >= fileBuild) {
-//                        // dann ist es gleich oder aktueller
-//                        ret = false;
-//                    }
-//                }
-//            } catch (Exception ignore) {
-//                ret = true;
-//            }
-        }
 
         return ret;
     }

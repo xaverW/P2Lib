@@ -58,7 +58,7 @@ public class FoundFactory {
 
     public static boolean isNewFound(String old, String newValue, ArrayList<String> log) {
         if (newValue.compareTo(old) <= 0) {
-            //dann war schon mal da oder gibt nix
+            //dann wars schon mal da oder gibt nix
             if (log != null) {
                 log.add("  old: " + old + "  isNewFound: " + newValue);
                 log.add("  -> gibt nichts oder schon mal angezeigt");

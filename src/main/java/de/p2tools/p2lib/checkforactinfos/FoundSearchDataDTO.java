@@ -36,7 +36,7 @@ public class FoundSearchDataDTO {
     private final BooleanProperty searchDaily; // und Daily auch noch
 
     private final BooleanProperty searchActAgain = new SimpleBooleanProperty(false); // gefundenes Act soll nochmal angezeigt werden
-    private final StringProperty lastFoundDate; // Datum des letzten Fundes, bis dahin wurde es angezeigt
+    private final StringProperty lastFoundDate; // Datum des letzten Fundes, bis dahin wurde es angezeigt, mind. aber ProgBuildDate!
 
     private final BooleanProperty foundNewInfo = new SimpleBooleanProperty(false); // neue Info wurde gefunden
     private final BooleanProperty foundNewVersion = new SimpleBooleanProperty(false); // neues Act wurde gefunden
@@ -123,10 +123,15 @@ public class FoundSearchDataDTO {
         this.showAllDownloads = showAllDownloads;
 
         if (this.lastFoundDate.getValue().isEmpty()) {
-            this.lastFoundDate.setValue(this.progBuildDate); // sonst wirds beim ersten Start nochmal als Update angezeigt
-            // damit Infos auf jeden Fall (auch beim ersten Start) angezeigt werden
-            // this.lastFoundDate.setValue(P2LDateFactory.toStringR(LocalDate.EPOCH));
+            // sonst wirds beim ersten Start nochmal als Update angezeigt
+            this.lastFoundDate.setValue(this.progBuildDate);
         }
+
+        if (FoundFactory.isNewFound(this.lastFoundDate.getValue(), this.progBuildDate)) {
+            // sonst wirds beim ersten Start nochmal als Update angezeigt
+            this.lastFoundDate.setValue(this.progBuildDate);
+        }
+
         if (bsSearch.length == 0) {
             // wenn leer, dann mit BS füllen
             P2Log.sysLog("===========================");
