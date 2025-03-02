@@ -15,15 +15,24 @@
  */
 
 
-package de.p2tools.p2lib.tools.events;
+package de.p2tools.p2lib.p2event;
+
+import de.p2tools.p2lib.tools.duration.P2Duration;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 
 public class P2EventHandler {
 
     private final ArrayList<P2Listener> listeners = new ArrayList<>();
+    public static long countRunningTimeSeconds = 0; // Gesamtzeit die das Programm läuft
+    private boolean oneSecond = false;
 
     public P2EventHandler() {
+        startTimer();
     }
 
     public void addListener(P2Listener listener) {
@@ -39,4 +48,32 @@ public class P2EventHandler {
                 .filter(p2Listener -> p2Listener.getEventNo() == event.getEventNo())
                 .forEach(p2Listener -> p2Listener.notify(event));
     }
+
+    public void startTimer() {
+        // extra starten, damit er im Einrichtungsdialog nicht dazwischen funkt
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(500), ae -> {
+
+            oneSecond = !oneSecond;
+            if (oneSecond) {
+                doTimerWorkOneSecond();
+            }
+            doTimerWorkHalfSecond();
+
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.setDelay(Duration.seconds(5));
+        timeline.play();
+        P2Duration.onlyPing("Timer gestartet");
+    }
+
+    private void doTimerWorkOneSecond() {
+        ++countRunningTimeSeconds;
+        notifyListener(new P2Event(P2Events.EVENT_TIMER_SECOND));
+    }
+
+    private void doTimerWorkHalfSecond() {
+        notifyListener(new P2Event(P2Events.EVENT_TIMER_HALF_SECOND));
+    }
+
 }

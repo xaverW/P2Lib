@@ -20,7 +20,7 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.P2LibInit;
 import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.guitools.P2WindowIcon;
-import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
@@ -117,7 +117,7 @@ public class P2Dialog {
                 close();
             });
 
-            if (P2ToolsFactory.getOs() == P2ToolsFactory.OperatingSystemType.LINUX) {
+            if (P2InfoFactory.getOs() == P2InfoFactory.OperatingSystemType.LINUX) {
                 // braucht's bei aktuellem GNOME
 
                 // P2GuiSize.setMinSize(sizeConfiguration, stage); // damit etwas besser, klappt aber nicht immer

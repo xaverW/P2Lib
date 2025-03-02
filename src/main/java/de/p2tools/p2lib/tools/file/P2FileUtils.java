@@ -19,6 +19,7 @@ package de.p2tools.p2lib.tools.file;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.dialogs.P2DialogFileChooser;
+import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.stage.Stage;
 import org.apache.commons.io.FilenameUtils;
@@ -31,15 +32,6 @@ import java.nio.file.*;
 public class P2FileUtils {
     private final static int WIN_MAX_PATH_LENGTH = 250;
     private final static int X_MAX_NAME_LENGTH = 250;
-
-    /**
-     * Return the path to the user´s home directory.
-     *
-     * @return String to the user´s home directory.
-     */
-    public static String getHomePath() {
-        return System.getProperty("user.home");
-    }
 
     public static boolean pathIsEmpty(String path) {
         return pathIsEmpty(Path.of(path));
@@ -274,7 +266,7 @@ public class P2FileUtils {
             if ((pathName[0].length() + 10) > WIN_MAX_PATH_LENGTH) {
                 // es sollen für den Dateinamen mind. 10 Zeichen bleiben
                 P2Log.errorLog(102036598, "Pfad zu lang: " + pathName[0]);
-                pathName[0] = getHomePath();
+                pathName[0] = P2InfoFactory.getHomePath();
             }
 
             if ((pathName[0].length() + pathName[1].length()) > WIN_MAX_PATH_LENGTH) {

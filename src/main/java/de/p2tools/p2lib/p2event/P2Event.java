@@ -15,12 +15,17 @@
  */
 
 
-package de.p2tools.p2lib.tools.events;
+package de.p2tools.p2lib.p2event;
 
 public class P2Event {
+
     private int eventNo = 0;
     private String text = "";
-    private int number = 0;
+    public boolean error = false;
+
+    public double min = 0;
+    public double act = 0;
+    public double max = 0;
 
     public P2Event(int eventNo) {
         this.eventNo = eventNo;
@@ -31,15 +36,24 @@ public class P2Event {
         this.text = text;
     }
 
-    public P2Event(int eventNo, int number) {
+    public P2Event(int eventNo, double act) {
         this.eventNo = eventNo;
-        this.number = number;
+        this.act = act;
     }
 
-    public P2Event(int eventNo, String text, int number) {
+    public P2Event(int eventNo, String text, boolean error) {
         this.eventNo = eventNo;
         this.text = text;
-        this.number = number;
+        this.error = error;
+    }
+
+    public P2Event(int eventNo, String text, double min, double act, double max, boolean error) {
+        this.eventNo = eventNo;
+        this.text = text;
+        this.min = min;
+        this.act = act;
+        this.max = max;
+        this.error = error;
     }
 
     public int getEventNo() {
@@ -58,11 +72,35 @@ public class P2Event {
         this.text = text;
     }
 
-    public int getNumber() {
-        return number;
+    public double getMin() {
+        return min;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setMin(double min) {
+        this.min = min;
+    }
+
+    public double getAct() {
+        return act;
+    }
+
+    public void setAct(double act) {
+        this.act = act;
+    }
+
+    public double getMax() {
+        return max;
+    }
+
+    public void setMax(double max) {
+        this.max = max;
+    }
+
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean error) {
+        this.error = error;
     }
 }

@@ -22,6 +22,7 @@ import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.dialogs.P2DirFileChooser;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2lib.tools.file.P2FileUtils;
 import de.p2tools.p2lib.tools.net.PUrlTools;
 import javafx.beans.property.SimpleStringProperty;
@@ -65,7 +66,7 @@ public class FoundDownloadDialogController extends P2DialogExtra {
         this.path = path;
 
         if (path == null || path.getValueSafe().isEmpty()) {
-            this.filePath.set(P2FileUtils.getHomePath());
+            this.filePath.set(P2InfoFactory.getHomePath());
         } else {
             this.filePath.set(path.getValue());
         }

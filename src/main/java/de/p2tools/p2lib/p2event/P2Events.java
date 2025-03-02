@@ -1,5 +1,5 @@
 /*
- * P2Tools Copyright (C) 2023 W. Xaver W.Xaver[at]googlemail.com
+ * P2tools Copyright (C) 2022 W. Xaver W.Xaver[at]googlemail.com
  * https://www.p2tools.de/
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
@@ -15,26 +15,11 @@
  */
 
 
-package de.p2tools.p2lib.tools;
+package de.p2tools.p2lib.p2event;
 
-import de.p2tools.p2lib.tools.file.P2FileUtils;
-
-import java.awt.*;
-import java.awt.datatransfer.StringSelection;
-
-public class P2SystemUtils {
-
-    public static void copyToClipboard(String s) {
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(s), null);
-    }
-
-
-    /**
-     * Liefert den Standardpfad für Downloads.
-     *
-     * @return Standardpfad zu den Downloads.
-     */
-    public static String getStandardDownloadPath() {
-        return P2FileUtils.addsPath(P2FileUtils.getHomePath(), "Downloads");
-    }
+public class P2Events {
+    // P2Lib zählt zurück
+    private static int count = 0;
+    public static final int EVENT_TIMER_SECOND = --count;
+    public static final int EVENT_TIMER_HALF_SECOND = --count;
 }

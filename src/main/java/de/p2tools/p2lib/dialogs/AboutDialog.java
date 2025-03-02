@@ -22,7 +22,7 @@ import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ClipBoardContext;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
-import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.P2InfoFactory;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -125,14 +125,14 @@ public abstract class AboutDialog extends P2DialogExtra {
         GridPane.setValignment(text1, VPos.TOP);
         GridPane.setHalignment(text1, HPos.CENTER);
 
-        Text text2 = new Text(P2LibConst.LINE_SEPARATOR + "Version: " + P2ToolsFactory.getProgVersion());
+        Text text2 = new Text(P2LibConst.LINE_SEPARATOR + "Version: " + P2InfoFactory.getProgVersion());
         text2.setFont(new Font(18));
         text2.setFill(PROG_COLOR);
         gridPane.add(text2, 1, ++row);
         GridPane.setHalignment(text2, HPos.CENTER);
 
-        Text text3 = new Text("[ Build: " + P2ToolsFactory.getBuildNo() + " vom " +
-                P2ToolsFactory.getBuildDate() + " ]");
+        Text text3 = new Text("[ Build: " + P2InfoFactory.getBuildNo() + " vom " +
+                P2InfoFactory.getBuildDate() + " ]");
         text3.setFont(new Font(15));
         text3.setFill(PROG_COLOR);
         gridPane.add(text3, 1, ++row);

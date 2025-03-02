@@ -21,7 +21,7 @@ import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ClipBoardContext;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
-import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.P2InfoFactory;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -97,12 +97,12 @@ public class WhatsNewDialog extends P2DialogExtra {
         text1.setFill(PROG_COLOR_MARK);
         gridPane.add(text1, 0, row);
 
-        Text text2 = new Text("Version: " + P2ToolsFactory.getProgVersion());
+        Text text2 = new Text("Version: " + P2InfoFactory.getProgVersion());
         text2.setFill(PROG_COLOR);
         gridPane.add(text2, 1, row);
 
-        Text text3 = new Text("[ Build: " + P2ToolsFactory.getBuildNo() + " vom " +
-                P2ToolsFactory.getBuildDate() + " ]");
+        Text text3 = new Text("[ Build: " + P2InfoFactory.getBuildNo() + " vom " +
+                P2InfoFactory.getBuildDate() + " ]");
         text3.setFill(PROG_COLOR);
         gridPane.add(text3, 0, ++row, 2, 1);
 

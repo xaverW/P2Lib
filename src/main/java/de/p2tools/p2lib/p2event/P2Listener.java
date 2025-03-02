@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2lib.tools.events;
+package de.p2tools.p2lib.p2event;
 
 import javafx.application.Platform;
 
@@ -34,15 +34,9 @@ public class P2Listener {
         Platform.runLater(() -> pingGui(event));
     }
 
-    /**
-     * @param event
-     */
     public <T extends P2Event> void ping(T event) {
     }
 
-    /**
-     * @param event
-     */
     public <T extends P2Event> void pingGui(T event) {
     }
 }

@@ -16,7 +16,7 @@
 
 package de.p2tools.p2lib.mtfilm.tools;
 
-import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.P2InfoFactory;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.File;
@@ -294,7 +294,7 @@ public class FileNameUtils {
     public static String removeIllegalCharacters(final String input, boolean isPath) {
         String ret = input;
 
-        switch (P2ToolsFactory.getOs()) {
+        switch (P2InfoFactory.getOs()) {
             case MAC:
             case LINUX:
                 //On OSX the VFS take care of writing correct filenames to FAT filesystems...

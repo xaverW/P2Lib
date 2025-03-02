@@ -16,7 +16,7 @@
 
 package de.p2tools.p2lib.mtdownload;
 
-import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.P2InfoFactory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class GetProgramStandardPath {
         final String PATH_WIN = "bin\\ffmpeg.exe";
         String path = "";
         try {
-            switch (P2ToolsFactory.getOs()) {
+            switch (P2InfoFactory.getOs()) {
                 case LINUX:
                     if (System.getProperty("os.name").toLowerCase().contains("freebsd")) {
                         path = PATH_FREEBSD;
@@ -59,7 +59,7 @@ public class GetProgramStandardPath {
         final String PATH_WIN = "\\VideoLAN\\VLC\\vlc.exe";
         String path = "";
         try {
-            switch (P2ToolsFactory.getOs()) {
+            switch (P2InfoFactory.getOs()) {
                 case LINUX:
                     if (System.getProperty("os.name").toLowerCase().contains("freebsd")) {
                         path = PATH_FREEBSD;

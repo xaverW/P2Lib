@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.checkforactinfos;
 
-import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2lib.tools.P2ToolsRaspberry;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.BooleanProperty;
@@ -142,7 +142,7 @@ public class FoundSearchDataDTO {
                 this.bsSearch = new String[]{"raspberry"};
 
             } else {
-                switch (P2ToolsFactory.getOs()) {
+                switch (P2InfoFactory.getOs()) {
                     case LINUX:
                         P2Log.sysLog("Update-Suche: Linux");
                         this.bsSearch = new String[]{"linux"};
