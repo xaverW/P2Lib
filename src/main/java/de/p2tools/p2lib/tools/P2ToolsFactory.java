@@ -19,7 +19,7 @@ public class P2ToolsFactory {
         try {
             Thread.sleep(ms);
         } catch (InterruptedException ex) {
-            P2Log.errorLog(105897874, ex);
+            P2Log.errorLog(105897874, "P2ToolsFactory.pause: Interrupted");
         }
     }
 
