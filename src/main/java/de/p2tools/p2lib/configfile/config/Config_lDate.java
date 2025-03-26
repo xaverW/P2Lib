@@ -37,6 +37,11 @@ public abstract class Config_lDate extends Config {
         this.actValue = P2LDateFactory.fromString(actValue);
     }
 
+    public Config_lDate(String key, LocalDate actValue) {
+        super(key);
+        this.actValue = actValue;
+    }
+
     public Config_lDate(String key, String name, LocalDate actValue) {
         super(key, name);
         this.actValue = actValue;
