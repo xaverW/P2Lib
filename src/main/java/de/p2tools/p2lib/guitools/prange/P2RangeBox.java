@@ -133,6 +133,10 @@ public class P2RangeBox extends VBox {
         slider.setBlockIncrement(10);
     }
 
+    public RangeSlider getSlider() {
+        return slider;
+    }
+
     public void set24h() {
         unitSuffix = "Uhr";
         hourPerDay = true;
