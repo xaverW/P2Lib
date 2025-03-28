@@ -30,11 +30,19 @@ public class P2Listener {
     }
 
     public synchronized <T extends P2Event> void notify(T event) {
+        ping();
         ping(event);
+        Platform.runLater(this::pingGui);
         Platform.runLater(() -> pingGui(event));
     }
 
+    public void ping() {
+    }
+
     public <T extends P2Event> void ping(T event) {
+    }
+
+    public void pingGui() {
     }
 
     public <T extends P2Event> void pingGui(T event) {

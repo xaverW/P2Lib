@@ -35,6 +35,12 @@ public class P2EventHandler {
         startTimer();
     }
 
+    public P2EventHandler(boolean startTimer) {
+        if (startTimer) {
+            startTimer();
+        }
+    }
+
     public void addListener(P2Listener listener) {
         listeners.add(listener);
     }
@@ -44,6 +50,13 @@ public class P2EventHandler {
     }
 
     public <T extends P2Event> void notifyListener(T event) {
+        listeners.stream()
+                .filter(p2Listener -> p2Listener.getEventNo() == event.getEventNo())
+                .forEach(p2Listener -> p2Listener.notify(event));
+    }
+
+    public void notifyListener(int eventNo) {
+        P2Event event = new P2Event(eventNo);
         listeners.stream()
                 .filter(p2Listener -> p2Listener.getEventNo() == event.getEventNo())
                 .forEach(p2Listener -> p2Listener.notify(event));
@@ -69,11 +82,10 @@ public class P2EventHandler {
 
     private void doTimerWorkOneSecond() {
         ++countRunningTimeSeconds;
-        notifyListener(new P2Event(P2Events.EVENT_TIMER_SECOND));
+        notifyListener(P2Events.EVENT_TIMER_SECOND);
     }
 
     private void doTimerWorkHalfSecond() {
-        notifyListener(new P2Event(P2Events.EVENT_TIMER_HALF_SECOND));
+        notifyListener(P2Events.EVENT_TIMER_HALF_SECOND);
     }
-
 }
