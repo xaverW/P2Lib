@@ -21,11 +21,11 @@ public class P2Event {
 
     private int eventNo = 0;
     private String text = "";
-    public boolean error = false;
+    private boolean error = false;
 
-    public double min = 0;
-    public double act = 0;
-    public double max = 0;
+    private double min = 0;
+    private double act = 0;
+    private double max = 0;
 
     public P2Event(int eventNo) {
         this.eventNo = eventNo;
@@ -36,15 +36,25 @@ public class P2Event {
         this.text = text;
     }
 
-    public P2Event(int eventNo, double act) {
+    public P2Event(int eventNo, String text, double act) {
         this.eventNo = eventNo;
+        this.text = text;
         this.act = act;
     }
 
-    public P2Event(int eventNo, String text, boolean error) {
+    public P2Event(int eventNo, String text, double act, double max) {
         this.eventNo = eventNo;
         this.text = text;
-        this.error = error;
+        this.act = act;
+        this.max = max;
+    }
+
+    public P2Event(int eventNo, String text, double min, double act, double max) {
+        this.eventNo = eventNo;
+        this.text = text;
+        this.min = min;
+        this.act = act;
+        this.max = max;
     }
 
     public P2Event(int eventNo, String text, double min, double act, double max, boolean error) {

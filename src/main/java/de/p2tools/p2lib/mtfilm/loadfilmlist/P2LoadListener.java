@@ -16,6 +16,8 @@
 
 package de.p2tools.p2lib.mtfilm.loadfilmlist;
 
+import de.p2tools.p2lib.p2event.P2Event;
+
 import java.util.EventListener;
 
 public class P2LoadListener implements EventListener {
@@ -24,15 +26,15 @@ public class P2LoadListener implements EventListener {
     public static final double PROGRESS_MAX = 1.0;
     public static final double PROGRESS_INDETERMINATE = -1.0;
 
-    public void start(P2LoadEvent e) {
+    public void start(P2Event e) {
     }
 
-    public void progress(P2LoadEvent e) {
+    public void progress(P2Event e) {
     }
 
-    public void loaded(P2LoadEvent e) {
+    public void loaded(P2Event e) {
     }
 
-    public void finished(P2LoadEvent e) {
+    public void finished(P2Event e) {
     }
 }

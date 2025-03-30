@@ -22,4 +22,9 @@ public class P2Events {
     private static int count = 0;
     public static final int EVENT_TIMER_SECOND = --count;
     public static final int EVENT_TIMER_HALF_SECOND = --count;
+
+    public static final int EVENT_FILMLIST_LOAD_START = --count;
+    public static final int EVENT_FILMLIST_LOAD_PROGRESS = --count;
+    public static final int EVENT_FILMLIST_LOAD_LOADED = --count;
+    public static final int EVENT_FILMLIST_LOAD_FINISHED = --count;
 }

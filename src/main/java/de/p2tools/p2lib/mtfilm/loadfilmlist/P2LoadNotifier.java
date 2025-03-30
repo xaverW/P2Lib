@@ -17,6 +17,8 @@
 
 package de.p2tools.p2lib.mtfilm.loadfilmlist;
 
+import de.p2tools.p2lib.p2event.P2Event;
+import de.p2tools.p2lib.p2event.P2Events;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.application.Platform;
 
@@ -25,7 +27,7 @@ import javax.swing.event.EventListenerList;
 public class P2LoadNotifier {
     public final EventListenerList listeners = new EventListenerList();
 
-    public void notifyEvent(NOTIFY notify, P2LoadEvent event) {
+    public void notifyEvent(NOTIFY notify, P2Event event) {
         try {
             Platform.runLater(() -> {
                 for (final P2LoadListener l : listeners.getListeners(P2LoadListener.class)) {
@@ -43,7 +45,9 @@ public class P2LoadNotifier {
     }
 
     public void notifyFinishedOk() {
-        notifyEvent(P2LoadNotifier.NOTIFY.FINISHED, P2LoadEvent.getEmptyEvent());
+        // notifyEvent(P2LoadNotifier.NOTIFY.FINISHED, P2LoadEvent.getEmptyEvent());
+        notifyEvent(P2LoadNotifier.NOTIFY.FINISHED, new P2Event(P2Events.EVENT_FILMLIST_LOAD_FINISHED));
+
     }
 
     public void addListenerLoadFilmlist(P2LoadListener listener) {
