@@ -501,14 +501,14 @@ public class ReadFilmlist {
         if (progress > LoadFilmlist.PROGRESS_MAX) {
             progress = LoadFilmlist.PROGRESS_MAX;
         }
-        LoadFactoryConst.loadFilmlist.setProgress(
-                new P2Event(P2Events.EVENT_FILMLIST_LOAD_PROGRESS, "Filmliste laden", progress));
+        LoadFactoryConst.loadFilmlist.getP2EventHandler()
+                .notifyListener(new P2Event(P2Events.EVENT_FILMLIST_LOAD_PROGRESS, "Filmliste laden", progress));
     }
 
     private void notifyLoaded() {
         // Laden ist durch
-        LoadFactoryConst.loadFilmlist.setLoaded(
-                new P2Event(P2Events.EVENT_FILMLIST_LOAD_LOADED, "Filme verarbeiten",
+        LoadFactoryConst.loadFilmlist.getP2EventHandler()
+                .notifyListener(new P2Event(P2Events.EVENT_FILMLIST_LOAD_LOADED, "Filme verarbeiten",
                         LoadFilmlist.PROGRESS_INDETERMINATE));
     }
 }
