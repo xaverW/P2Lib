@@ -39,6 +39,11 @@ public abstract class Config_lTime extends Config {
         this.actValue = P2LTimeFactory.fromString(actValue);
     }
 
+    public Config_lTime(String key, LocalTime localTime) {
+        super(key);
+        this.actValue = localTime;
+    }
+
     public Config_lTime(String key, String name, LocalTime localTime) {
         super(key, name);
         this.actValue = localTime;

@@ -39,6 +39,11 @@ public abstract class Config_lDateTime extends Config {
 //        this.actValue = P2LDateTimeFactory.setDate(actValue, "");
     }
 
+    public Config_lDateTime(String key, LocalDateTime localDateTime) {
+        super(key);
+        this.actValue = localDateTime;
+    }
+
     public Config_lDateTime(String key, String name, LocalDateTime localDateTime) {
         super(key, name);
         this.actValue = localDateTime;

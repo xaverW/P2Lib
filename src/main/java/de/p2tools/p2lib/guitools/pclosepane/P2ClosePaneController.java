@@ -22,6 +22,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class P2ClosePaneController extends VBox {
@@ -29,6 +30,13 @@ public class P2ClosePaneController extends VBox {
     private final TabPane tabPane = new TabPane();
     private final BooleanProperty INFO_IS_SHOWING;
     private final List<P2ClosePaneDto> infoDTOList;
+
+    public P2ClosePaneController(P2ClosePaneDto infoDTO, BooleanProperty INFO_IS_SHOWING) {
+        this.INFO_IS_SHOWING = INFO_IS_SHOWING;
+        this.infoDTOList = new ArrayList<>(1);
+        this.infoDTOList.add(infoDTO);
+        initInfoPane();
+    }
 
     public P2ClosePaneController(List<P2ClosePaneDto> infoDTOList, BooleanProperty INFO_IS_SHOWING) {
         this.INFO_IS_SHOWING = INFO_IS_SHOWING;
