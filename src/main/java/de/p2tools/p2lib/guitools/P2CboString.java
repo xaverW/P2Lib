@@ -66,6 +66,14 @@ public class P2CboString extends ComboBox<P2CboString.P2CboLabel> {
         getEditor().setText(add);
     }
 
+    public StringProperty getStrSearchProperty() {
+        return strSearchProperty;
+    }
+
+    public ObservableList<String> getStoredFilterList() {
+        return storedFilterList;
+    }
+
     private void start() {
         storedFilterList.forEach(s -> {
             if (!s.isEmpty()) {

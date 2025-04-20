@@ -40,6 +40,8 @@ public class P2TableFactory {
 
     public static final KeyCombination SPACE = new KeyCodeCombination(KeyCode.SPACE);
     public static final KeyCombination SPACE_SHIFT = new KeyCodeCombination(KeyCode.SPACE, KeyCombination.SHIFT_DOWN);
+    public static final KeyCombination SPACE_ALT = new KeyCodeCombination(KeyCode.SPACE, KeyCombination.ALT_DOWN);
+    public static final KeyCombination SPACE_STRG = new KeyCodeCombination(KeyCode.SPACE, KeyCombination.CONTROL_DOWN);
 
     public static void refreshTable(TableView table) {
         Platform.runLater(() -> {

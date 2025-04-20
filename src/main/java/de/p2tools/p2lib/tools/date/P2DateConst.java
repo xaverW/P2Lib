@@ -51,6 +51,7 @@ public class P2DateConst {
     public static final DateTimeFormatter DT_FORMATTER_dd_MM = DateTimeFormatter.ofPattern("dd.MM");
     public static final DateTimeFormatter DT_FORMATTER_dd = DateTimeFormatter.ofPattern("dd");
     public static final DateTimeFormatter DT_FORMATTER_yyyy_MM_dd = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+    public static final DateTimeFormatter DT_FORMATTER_yyyyMMdd = DateTimeFormatter.ofPattern("yyyyMMdd");
     public static final DateTimeFormatter DT_FORMATTER_HH__mm__ss = DateTimeFormatter.ofPattern("HH:mm:ss");
     public static final DateTimeFormatter DT_FORMATTER_HH__mm = DateTimeFormatter.ofPattern("HH:mm");
     public static final DateTimeFormatter DT_FORMATTER_yyyy = DateTimeFormatter.ofPattern("yyyy");

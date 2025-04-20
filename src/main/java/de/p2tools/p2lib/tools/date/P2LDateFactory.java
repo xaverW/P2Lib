@@ -200,6 +200,16 @@ public class P2LDateFactory {
         }
     }
 
+    public static String toStringYYYYMMdd(LocalDate localDate) {
+        if (localDate == null) {
+            return "";
+        } else if (localDate.isEqual(LocalDate.MIN)) {
+            return "";
+        } else {
+            return localDate.format(P2DateConst.DT_FORMATTER_yyyyMMdd);
+        }
+    }
+
     public static String getNowString() {
         return LocalDate.now().format(P2DateConst.DT_FORMATTER_dd_MM_yyyy);
     }
