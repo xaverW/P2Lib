@@ -22,13 +22,13 @@ import de.p2tools.p2lib.guitools.P2ClipBoardContext;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.tools.P2InfoFactory;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -56,7 +56,7 @@ public class WhatsNewDialog extends P2DialogExtra {
 
     public WhatsNewDialog(Stage stage, String PROGRAM_NAME, String URL_WEBSITE, StringProperty SYSTEM_PROG_OPEN_URL,
                           boolean darkMode, ArrayList<WhatsNewInfo> list) {
-        super(stage, null, "Was gibt's neues", true, true, DECO.NO_BORDER, true);
+        super(stage, new SimpleStringProperty("600:800"), "Was gibt's neues", true, true, DECO.NO_BORDER, true);
 
         this.progName = PROGRAM_NAME;
         this.URL_WEBSITE = URL_WEBSITE;
@@ -93,7 +93,8 @@ public class WhatsNewDialog extends P2DialogExtra {
 
         int row = 0;
         Text text1 = new Text(progName);
-        text1.setFont(Font.font(null, FontWeight.BOLD, -1));
+        final double size = Font.getDefault().getSize() * 1.2;
+        text1.setFont(Font.font(null, FontWeight.BOLD, size));
         text1.setFill(PROG_COLOR_MARK);
         gridPane.add(text1, 0, row);
 
@@ -117,14 +118,12 @@ public class WhatsNewDialog extends P2DialogExtra {
         VBox vBox = new VBox();
         vBox.setPadding(new Insets(5));
         vBox.setSpacing(10);
-        // vBox.getStyleClass().add("dialog-whats-new-list");
 
         final ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
         scrollPane.setContent(vBox);
         scrollPane.setPrefHeight(400);
-        // scrollPane.getStyleClass().add("dialog-whats-new-list");
 
         getVBoxCont().getChildren().add(scrollPane);
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
@@ -138,9 +137,15 @@ public class WhatsNewDialog extends P2DialogExtra {
             }
 
             Text text = new Text(whatsNewInfo.getHeader());
-            text.setFont(Font.font(null, FontWeight.BOLD, -1));
+            final double size = Font.getDefault().getSize() * 1.1;
+            text.setFont(Font.font(null, FontWeight.BOLD, size));
             text.setFill(PROG_COLOR_MARK);
-            vBox.getChildren().add(text);
+
+            VBox vBoxCont = new VBox(P2LibConst.SPACING_VBOX);
+            vBoxCont.setAlignment(Pos.CENTER);
+            vBoxCont.getChildren().add(text);
+            vBox.getChildren().add(vBoxCont);
+
             if (!whatsNewInfo.getImage().isEmpty()) {
                 ImageView imageView = new ImageView(new Image(whatsNewInfo.getImage()));
                 imageView.setFitWidth(500);
@@ -151,12 +156,19 @@ public class WhatsNewDialog extends P2DialogExtra {
                 vBox.getChildren().add(hBox);
             }
 
-            TextArea ta = new TextArea(whatsNewInfo.getText());
-            ta.setEditable(false);
-            ta.setWrapText(true);
-            ta.setMinHeight(whatsNewInfo.getTaHeight());
-            ta.setMaxHeight(whatsNewInfo.getTaHeight());
-            vBox.getChildren().add(ta);
+            Label lbl = new Label(whatsNewInfo.getText());
+            lbl.setWrapText(true);
+            lbl.setMinHeight(whatsNewInfo.getTaHeight());
+            lbl.setMaxHeight(whatsNewInfo.getTaHeight());
+            vBox.getChildren().add(lbl);
+
+//            TextArea ta = new TextArea(whatsNewInfo.getText());
+//            ta.setEditable(false);
+//            ta.setWrapText(true);
+//            ta.setBorder(null);
+//            ta.setMinHeight(whatsNewInfo.getTaHeight());
+//            ta.setMaxHeight(whatsNewInfo.getTaHeight());
+//            vBox.getChildren().add(ta);
         }
     }
 
