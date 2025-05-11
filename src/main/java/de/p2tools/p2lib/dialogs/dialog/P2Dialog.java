@@ -81,21 +81,24 @@ public class P2Dialog {
         P2Dialog.iconPath = iconPath;
     }
 
-    void setPane(Pane pane) {
+    public void setPane(Pane pane) {
         this.pane = pane;
     }
 
     public void init(boolean show) {
         try {
             addDialog(this);
-            // geht beides
-            // scene = new Scene(pane);
             if (sizeConfiguration == null) {
                 scene = new Scene(pane);
+
             } else {
-                scene = new Scene(pane,
-                        P2GuiSize.getSceneSize(sizeConfiguration, true),
-                        P2GuiSize.getSceneSize(sizeConfiguration, false));
+                int width = P2GuiSize.getSceneSize(sizeConfiguration, true);
+                int height = P2GuiSize.getSceneSize(sizeConfiguration, false);
+                if (width > 0 && height > 0) {
+                    scene = new Scene(pane, width, height);
+                } else {
+                    scene = new Scene(pane);
+                }
             }
 
             stage = new Stage();

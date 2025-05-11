@@ -308,7 +308,7 @@ public class P2GuiSize {
         }
     }
 
-    private static void setInFrontOfPrimaryStage(Stage newStage, Stage ownerForCenteringDialog) {
+    public static void setInFrontOfPrimaryStage(Stage newStage, Stage ownerForCenteringDialog) {
         // vor Primärfenster des Programms zentrieren
         if (ownerForCenteringDialog == null) {
             newStage.centerOnScreen();

@@ -17,16 +17,20 @@
 package de.p2tools.p2lib.dialogs.dialog;
 
 import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.guitools.P2SmallGuiFactory;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class P2DialogOnly extends P2Dialog {
-    private final VBox vBoxCompleteDialog = new VBox(); // ist der gesamte Dialog
+    private final VBox vBoxDialog = new VBox(); // ist der gesamte Dialog
+    private final VBox vBoxCompleteDialog = new VBox(); // ist der nutzbare Dialog
     private P2MaskerPane maskerPane = null;
     private boolean masker = false;
 
@@ -60,6 +64,18 @@ public class P2DialogOnly extends P2Dialog {
         initDialog();
     }
 
+    public void init(boolean start) {
+        super.init(false);
+
+        P2SmallGuiFactory.addBorderListener(getStage());
+        getStage().initStyle(StageStyle.TRANSPARENT);
+        vBoxDialog.getStyleClass().add("smallGui");
+
+        if (start) {
+            showDialog();
+        }
+    }
+
     public VBox getVBoxCompleteDialog() {
         return vBoxCompleteDialog;
     }
@@ -76,23 +92,21 @@ public class P2DialogOnly extends P2Dialog {
     }
 
     private void initDialog() {
-        initBefore();
-    }
-
-    private void initBefore() {
         if (masker) {
             StackPane.setAlignment(maskerPane, Pos.CENTER);
             maskerPane.setPadding(new Insets(4, 1, 1, 1));
 
             final StackPane stackPane = new StackPane(); // ist der gesamte Dialog
             super.setPane(stackPane);
-            stackPane.getChildren().addAll(vBoxCompleteDialog, maskerPane);
+            stackPane.getChildren().addAll(vBoxDialog, maskerPane);
 
         } else {
-            super.setPane(vBoxCompleteDialog);
+            super.setPane(vBoxDialog);
         }
 
-        vBoxCompleteDialog.setSpacing(10);
-        vBoxCompleteDialog.setPadding(new Insets(10));
+        vBoxDialog.setPadding(new Insets(20));
+        vBoxDialog.getChildren().add(vBoxCompleteDialog);
+        vBoxCompleteDialog.setSpacing(P2LibConst.SPACING_VBOX);
+        VBox.setVgrow(vBoxCompleteDialog, Priority.ALWAYS);
     }
 }

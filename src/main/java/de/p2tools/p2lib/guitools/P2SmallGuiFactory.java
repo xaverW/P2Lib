@@ -18,6 +18,7 @@
 package de.p2tools.p2lib.guitools;
 
 import javafx.scene.Cursor;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -37,6 +38,17 @@ public class P2SmallGuiFactory {
 
     // up - down - left - right macht Probleme unter Linux
     public static void addBorderListener(Stage stage) {
+        stage.getScene().setOnMouseClicked(m -> {
+            if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {
+                stage.setWidth(stage.getWidth() * 1.1);
+                stage.setHeight(stage.getHeight() * 1.1);
+            }
+            if (m.getButton().equals(MouseButton.SECONDARY) && m.getClickCount() == 2) {
+                stage.setWidth(stage.getWidth() * 0.9);
+                stage.setHeight(stage.getHeight() * 0.9);
+            }
+        });
+
         stage.getScene().setOnMousePressed(event -> {
             xOffset = event.getSceneX(); //Pos im Fenster von links
             yOffset = event.getSceneY(); //Pos im Fenster von oben
