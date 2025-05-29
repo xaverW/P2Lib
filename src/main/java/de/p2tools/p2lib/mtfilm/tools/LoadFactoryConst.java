@@ -24,40 +24,70 @@ import javafx.stage.Stage;
 
 public class LoadFactoryConst {
     public static final String DREI_SAT = "3Sat";
+    public static final String DREI_SAT_ = "3sat.Online";
     public static final String ARD = "ARD";
+    public static final String ARD_ = "Arbeitsgemeinschaft der öffentlich-rechtlichen Rundfunkanstalten der Bundesrepublik Deutschland";
 
     private static final String ARTE_DE = "ARTE.DE";
+    private static final String ARTE_DE_ = "Association Relative à la Télévision Européenne";
     private static final String ARTE_EN = "ARTE.EN";
+    private static final String ARTE_EN_ = "Association Relative à la Télévision Européenne";
     private static final String ARTE_ES = "ARTE.ES";
+    private static final String ARTE_ES_ = "Association Relative à la Télévision Européenne";
     private static final String ARTE_FR = "ARTE.FR";
+    private static final String ARTE_FR_ = "Association Relative à la Télévision Européenne";
     private static final String ARTE_IT = "ARTE.IT";
+    private static final String ARTE_IT_ = "Association Relative à la Télévision Européenne";
     private static final String ARTE_PL = "ARTE.PL";
+    private static final String ARTE_PL_ = "Association Relative à la Télévision Européenne";
 
     private static final String BR = "BR";
+    private static final String BR_ = "Bayerischer Rundfunk";
     private static final String DW = "DW";
+    private static final String DW_ = "Deutsche Welle";
     private static final String FUNK_NET = "Funk.net";
+    private static final String FUNK_NET_ = "Online-Content-Netzwerk der ARD und des ZDF";
 
     private static final String HR = "HR";
+    private static final String HR_ = "Hessischer Rundfunk";
     public static final String KIKA = "KiKA"; // wird bein Einsortieren eine updateFilmListe gebraucht
+    public static final String KIKA_ = "Kinderkanal von ARD und ZDF"; // wird bein Einsortieren eine updateFilmListe gebraucht
     private static final String MDR = "MDR";
+    private static final String MDR_ = "Mitteldeutscher Rundfunk";
     private static final String NDR = "NDR";
+    private static final String NDR_ = "Norddeutscher Rundfunk";
     public static final String ORF = "ORF"; // wird bein Einsortieren eine updateFilmListe gebraucht
+    public static final String ORF_ = "Österreichischer Rundfunk"; // wird bein Einsortieren eine updateFilmListe gebraucht
     private static final String PHOENIX = "PHOENIX";
+    private static final String PHOENIX_ = "Arbeitsgemeinschaft der Rundfunkanstalten der Bundesrepublik Deutschland (ARD) und des Zweiten Deutschen Fernsehens (ZDF)";
     private static final String RBB = "RBB";
+    private static final String RBB_ = "Rundfunk Berlin-Brandenburg";
     private static final String RBB_TV = "RBTV"; // "rbtv" und "Radio Bremen TV" werden darauf abgebildet
+    private static final String RBB_TV_ = "Radio Bremen TV"; // "rbtv" und "Radio Bremen TV" werden darauf abgebildet
 
     private static final String SR = "SR";
+    private static final String SR_ = "Saarländischer Rundfunk";
     private static final String SRF = "SRF";
+    private static final String SRF_ = "Schweizer Radio und Fernsehen";
     private static final String SWR = "SWR";
+    private static final String SWR_ = "Südwestrundfunk";
     private static final String WDR = "WDR";
+    private static final String WDR_ = "Westdeutscher Rundfunk Köln";
     private static final String ZDF = "ZDF";
+    private static final String ZDF_ = "Zweites Deutsches Fernsehen";
     private static final String ZDF_TIVI = "ZDF-tivi";
+    private static final String ZDF_TIVI_ = "Kinder- und Jugend-Programmfenster des ZDF";
 
     // das wird in den Einstellungen "Sender nicht laden" angezeigt
     public static final String[] SENDER = {DREI_SAT, ARD,
             ARTE_DE, ARTE_EN, ARTE_ES, ARTE_FR, ARTE_IT, ARTE_PL,
             BR, DW, FUNK_NET, HR, KIKA, MDR, NDR, ORF, PHOENIX, RBB, RBB_TV, SR,
             SRF, SWR, WDR, ZDF, ZDF_TIVI};
+
+    public static final String[] SENDER_ = {DREI_SAT_, ARD_,
+            ARTE_DE_, ARTE_EN_, ARTE_ES_, ARTE_FR_, ARTE_IT_, ARTE_PL_,
+            BR_, DW_, FUNK_NET_, HR_, KIKA_, MDR_, NDR_, ORF_, PHOENIX_, RBB_, RBB_TV_, SR_,
+            SRF_, SWR_, WDR_, ZDF_, ZDF_TIVI_};
 
 
     // beim Programmstart wird die Liste geladen wenn sie älter ist als ..
