@@ -32,8 +32,8 @@ public class FilmDataXml extends Data<FilmDataXml> {
     public static final int FILM_SIZE = 9;
     public static final int FILM_HD = 10;
     public static final int FILM_UT = 11;
-    public static final int FILM_DESCRIPTION = 12;
-    public static final int FILM_GEO = 13;
+    public static final int FILM_GEO = 12;
+    public static final int FILM_DESCRIPTION = 13;
     public static final int FILM_URL = 14;
     public static final int FILM_WEBSITE = 15;
     public static final int FILM_ABO_NAME = 16; //dient nur der Anzeige in der Tabelle Filme!!!
@@ -58,8 +58,8 @@ public class FilmDataXml extends Data<FilmDataXml> {
             "Größe [MB]",
             "HD",
             "UT",
-            "Beschreibung",
             "Geo",
+            "Beschreibung",
             "Url",
             "Website",
             "Abo",

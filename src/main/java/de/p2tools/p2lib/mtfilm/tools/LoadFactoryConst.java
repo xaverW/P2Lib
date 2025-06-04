@@ -19,7 +19,7 @@ package de.p2tools.p2lib.mtfilm.tools;
 
 import de.p2tools.p2lib.mtfilm.film.FilmData;
 import de.p2tools.p2lib.mtfilm.film.Filmlist;
-import de.p2tools.p2lib.mtfilm.loadfilmlist.LoadFilmlist;
+import de.p2tools.p2lib.mtfilm.loadfilmlist.P2LoadFilmlist;
 import javafx.stage.Stage;
 
 public class LoadFactoryConst {
@@ -118,7 +118,7 @@ public class LoadFactoryConst {
     public static Filmlist filmlist;
 
     public static String userAgent = "";
-    public static LoadFilmlist loadFilmlist;
+    public static P2LoadFilmlist p2LoadFilmlist;
     public static Stage primaryStage = null;
     public static String filmListUrl = "";
 

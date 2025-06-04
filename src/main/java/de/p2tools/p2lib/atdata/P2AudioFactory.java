@@ -22,14 +22,14 @@ import org.tukaani.xz.XZInputStream;
 import java.io.InputStream;
 import java.util.zip.ZipInputStream;
 
-public class AudioFactory {
+public class P2AudioFactory {
 
     // Dateien/Verzeichnisse
     public static final String AUDIOLIST_URL = "https://atlist.de/audios.xz";
     public static final String AUDIO_LIST_FILE_JSON = "audios.json";
     public static final String AUDIO_LIST_FILE_JSON_XZ = "audios.xz";
 
-    private AudioFactory() {
+    private P2AudioFactory() {
     }
 
     public static InputStream selectDecompressor(String source, InputStream in) throws Exception {

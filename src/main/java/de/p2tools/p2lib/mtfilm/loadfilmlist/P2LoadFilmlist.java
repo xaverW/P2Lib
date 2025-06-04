@@ -17,6 +17,7 @@
 package de.p2tools.p2lib.mtfilm.loadfilmlist;
 
 
+import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.mtfilm.film.FilmData;
 import de.p2tools.p2lib.mtfilm.film.FilmFactory;
 import de.p2tools.p2lib.mtfilm.film.Filmlist;
@@ -38,7 +39,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
-public class LoadFilmlist {
+public class P2LoadFilmlist {
 
     public static final double PROGRESS_MIN = 0.0;
     public static final double PROGRESS_MAX = 1.0;
@@ -48,26 +49,26 @@ public class LoadFilmlist {
     private final HashSet<String> hashSet;
     private final Filmlist filmListDiff;
     private final Filmlist filmListNew;
-    private final ImportNewFilmlistFromServer importNewFilmlisteFromServer;
+    private final P2ImportNewFilmlistFromServer importNewFilmlisteFromServer;
     //    public final P2LoadNotifier p2LoadNotifier = new P2LoadNotifier();
     private final P2EventHandler p2EventHandler;
     private BooleanProperty propLoadFilmlist = new SimpleBooleanProperty(false);
     private boolean filmlistTooOld = false;
 
-    public LoadFilmlist(P2EventHandler p2EventHandler) {
+    public P2LoadFilmlist(P2EventHandler p2EventHandler) {
         this.p2EventHandler = p2EventHandler;
         this.filmListDiff = new Filmlist();
         this.filmListNew = new Filmlist();
         hashSet = new HashSet<>();
-        importNewFilmlisteFromServer = new ImportNewFilmlistFromServer();
+        importNewFilmlisteFromServer = new P2ImportNewFilmlistFromServer();
     }
 
-    public LoadFilmlist(P2EventHandler p2EventHandler, Filmlist filmlistNew, Filmlist filmlistDiff) {
+    public P2LoadFilmlist(P2EventHandler p2EventHandler, Filmlist filmlistNew, Filmlist filmlistDiff) {
         this.p2EventHandler = p2EventHandler;
         this.filmListDiff = filmlistDiff;
         this.filmListNew = filmlistNew;
         hashSet = new HashSet<>();
-        importNewFilmlisteFromServer = new ImportNewFilmlistFromServer();
+        importNewFilmlisteFromServer = new P2ImportNewFilmlistFromServer();
     }
 
     public P2EventHandler getP2EventHandler() {
@@ -86,7 +87,7 @@ public class LoadFilmlist {
      * Filmliste beim Programmstart laden
      */
     public void loadFilmlistProgStart() {
-        if (LoadFactory.checkAllSenderSelectedNotToLoad()) {
+        if (P2LoadFactory.checkAllSenderSelectedNotToLoad(P2LibConst.actStage)) {
             // alle Sender sind vom Laden ausgenommen
             P2Log.sysLog("Filmliste laden: Es sind keine Sender eingeschaltet!!");
             return;
@@ -95,7 +96,7 @@ public class LoadFilmlist {
         // Start des Ladens, gibts keine Fortschrittsanzeige und kein Abbrechen
         setPropLoadFilmlist(true);
         p2EventHandler.notifyListener(new P2Event(P2Events.EVENT_FILMLIST_LOAD_START, "Programmstart, Filmliste laden",
-                LoadFilmlist.PROGRESS_INDETERMINATE));
+                P2LoadFilmlist.PROGRESS_INDETERMINATE));
 
         new Thread(() -> {
             final List<String> logList = new ArrayList<>();
@@ -116,7 +117,7 @@ public class LoadFilmlist {
     }
 
     public void loadNewFilmlistFromWeb(boolean alwaysLoadNew/*, String localFilmListFile*/) {
-        if (LoadFactory.checkAllSenderSelectedNotToLoad()) {
+        if (P2LoadFactory.checkAllSenderSelectedNotToLoad(P2LibConst.actStage)) {
             // alle Sender sind vom Laden ausgenommen
             P2Log.sysLog("Filmliste laden: Es sind keine Sender eingeschaltet!!");
             //todo Dialog anzeigen
@@ -125,7 +126,7 @@ public class LoadFilmlist {
 
         setPropLoadFilmlist(true);
         p2EventHandler.notifyListener(new P2Event(P2Events.EVENT_FILMLIST_LOAD_START, "Filmliste aus dem Web laden",
-                LoadFilmlist.PROGRESS_INDETERMINATE));
+                P2LoadFilmlist.PROGRESS_INDETERMINATE));
 
         new Thread(() -> {
             final List<String> logList = new ArrayList<>();
@@ -233,7 +234,7 @@ public class LoadFilmlist {
                     //dann war sie zu alt oder ist leer
                     filmlistTooOld = false;//dann gleich wieder ausschalten
                     p2EventHandler.notifyListener(new P2Event(P2Events.EVENT_FILMLIST_LOAD_PROGRESS, "Filmliste ist zu alt, eine neue laden",
-                            LoadFilmlist.PROGRESS_INDETERMINATE));
+                            P2LoadFilmlist.PROGRESS_INDETERMINATE));
 
                     logList.add("## Programmstart: Neue Liste aus dem Web laden");
                     loadNewFilmlistFromWeb(logList, false, true, LoadFactoryConst.localFilmListFile);
@@ -242,7 +243,7 @@ public class LoadFilmlist {
             }
         }
         getP2EventHandler().notifyListener(new P2Event(P2Events.EVENT_FILMLIST_LOAD_LOADED, "Filme verarbeiten",
-                LoadFilmlist.PROGRESS_INDETERMINATE));
+                P2LoadFilmlist.PROGRESS_INDETERMINATE));
         afterLoading(logList);
     }
 
@@ -260,16 +261,16 @@ public class LoadFilmlist {
         logList.add("##");
 
         getP2EventHandler().notifyListener(new P2Event(P2Events.EVENT_FILMLIST_LOAD_LOADED, "Filme markieren, Themen suchen",
-                LoadFilmlist.PROGRESS_INDETERMINATE));
+                P2LoadFilmlist.PROGRESS_INDETERMINATE));
         logList.add("## Filme markieren");
         final int count = filmListNew.markFilms();
         logList.add("## Anzahl doppelte Filme: " + count);
 
         filmListNew.loadSender();
 
-        getP2EventHandler().notifyListener(new P2Event(P2Events.EVENT_FILMLIST_LOAD_LOADED, "Filme in Downloads eingetragen",
-                LoadFilmlist.PROGRESS_INDETERMINATE));
-        logList.add("## Filme in Downloads eingetragen");
+//        getP2EventHandler().notifyListener(new P2Event(P2Events.EVENT_FILMLIST_LOAD_LOADED, "Filme in Downloads eingetragen",
+//                LoadFilmlist.PROGRESS_INDETERMINATE));
+//        logList.add("## Filme in Downloads eingetragen");
 
         //die FilmList wieder füllen
         logList.add("## ==> und jetzt die Filmliste wieder füllen :)");
@@ -316,7 +317,7 @@ public class LoadFilmlist {
             //dann wars fehlerhaft
             logList.add("## " + P2Log.LILNE3);
             logList.add("## Das Laden hat nicht geklappt, alte Liste wieder laden");
-            LoadFactoryConst.loadFilmlist.setStop(false);
+            LoadFactoryConst.p2LoadFilmlist.setStop(false);
             loadStoredList(logList, filmListNew, localFilmListFile);
             logList.add("##");
         }

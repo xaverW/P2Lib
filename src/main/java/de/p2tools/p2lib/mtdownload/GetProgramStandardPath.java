@@ -25,23 +25,30 @@ public class GetProgramStandardPath {
     private static final ArrayList<String> winPath = new ArrayList<>();
 
     public static String getTemplatePathFFmpeg() {
-        //liefert den Standardpfad für das entsprechende BS,
-        //Programm muss auf dem Rechner installiert sein
-        final String PATH_LINUX_VLC = "/usr/bin/ffmpeg";
-        final String PATH_FREEBSD = "/usr/local/bin/ffmpeg";
-        final String PATH_WIN = "bin\\ffmpeg.exe";
+        // Startdialog und ProgConfig als init
+
+        // liefert den Standardpfad für das entsprechende BS
+        // bei Win wird das Programm mitgeliefert und liegt
+        // im Ordner "bin" der mit dem Programm mitgeliefert wird
+        // bei Linux muss das Programm auf dem Rechner installiert sein
+        final String PATH_LINUX_FFMPEG = "/usr/bin/ffmpeg";
+        final String PATH_FREEBSD_FFMPEG = "/usr/local/bin/ffmpeg";
+        final String PATH_WINDOWS_FFMPEG = "bin\\ffmpeg.exe";
         String path = "";
         try {
             switch (P2InfoFactory.getOs()) {
                 case LINUX:
                     if (System.getProperty("os.name").toLowerCase().contains("freebsd")) {
-                        path = PATH_FREEBSD;
+                        path = PATH_FREEBSD_FFMPEG;
                     } else {
-                        path = PATH_LINUX_VLC;
+                        path = PATH_LINUX_FFMPEG;
                     }
                     break;
                 default:
-                    path = PATH_WIN; //wird mitgeliefert
+                    path = PATH_WINDOWS_FFMPEG;
+            }
+            if (!new File(path).exists() && System.getenv("PATH_FFMPEG") != null) {
+                path = System.getenv("PATH_FFMPEG");
             }
             if (!new File(path).exists()) {
                 path = "";
@@ -52,8 +59,10 @@ public class GetProgramStandardPath {
     }
 
     public static String getTemplatePathVlc() {
+        // Startdialog und ProgConfig als init
+
         // liefert den Standardpfad für das entsprechende BS
-        // Programm muss auf dem Rechner installiert sein
+        // Programm muss auf dem Rechner instelliert sein
         final String PATH_LINUX_VLC = "/usr/bin/vlc";
         final String PATH_FREEBSD = "/usr/local/bin/vlc";
         final String PATH_WIN = "\\VideoLAN\\VLC\\vlc.exe";
@@ -68,7 +77,7 @@ public class GetProgramStandardPath {
                     }
                     break;
                 default:
-                    setWinProgPath();
+                    setWinProgPathVLC();
                     for (final String s : winPath) {
                         path = s + PATH_WIN;
                         if (new File(path).exists()) {
@@ -87,7 +96,7 @@ public class GetProgramStandardPath {
         return path;
     }
 
-    private static void setWinProgPath() {
+    private static void setWinProgPathVLC() {
         String pfad;
         if (System.getenv("ProgramFiles") != null) {
             pfad = System.getenv("ProgramFiles");

@@ -20,11 +20,11 @@ import com.fasterxml.jackson.core.JsonToken;
 
 import java.io.IOException;
 
-public class ReadAudioListJson {
+public class P2ReadAudioListJson {
 
     private String channel = "", genre = "", theme = "";
 
-    public ReadAudioListJson() {
+    public P2ReadAudioListJson() {
     }
 
     public void readData(JsonParser jp, AudioList audioList) throws IOException {

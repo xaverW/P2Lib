@@ -22,7 +22,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class WriteAudioListJson {
+public class P2WriteAudioListJson {
 
     public void writeJson(JsonGenerator jg, AudioList audioList) throws IOException {
         String sender = "", genre = "", theme = "";

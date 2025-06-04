@@ -22,10 +22,10 @@ import de.p2tools.p2lib.tools.date.P2DateGmtFactory;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class AudioListFactory {
+public class P2AudioListFactory {
     public static final String DATE_TIME_FORMAT = "dd.MM.yyyy HH:mm:ss";
 
-    private AudioListFactory() {
+    private P2AudioListFactory() {
     }
 
     public static int getAge(String[] metaData) {

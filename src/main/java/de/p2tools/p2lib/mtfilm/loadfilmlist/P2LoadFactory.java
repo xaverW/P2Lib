@@ -20,14 +20,15 @@ package de.p2tools.p2lib.mtfilm.loadfilmlist;
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 import javafx.application.Platform;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
-public class LoadFactory {
+public class P2LoadFactory {
 
-    private LoadFactory() {
+    private P2LoadFactory() {
     }
 
     /**
@@ -45,13 +46,14 @@ public class LoadFactory {
      *
      * @return
      */
-    public static boolean checkAllSenderSelectedNotToLoad() {
+    public static boolean checkAllSenderSelectedNotToLoad(Stage stage) {
+        // die Einstellung _alle Sender nicht laden_,  wird ja sonst nix geladen, ist ein Fehler des Nutzers
+        // und das ist nur ein Hinweis darauf!
         ArrayList<String> aListSenderNotToLoad = getSenderListNotToLoad();
-
         boolean allSender = true;
         for (String sender : LoadFactoryConst.SENDER) {
             Optional<String> optional = aListSenderNotToLoad.stream().filter(aktSender -> aktSender.equals(sender)).findAny();
-            if (!optional.isPresent()) {
+            if (optional.isEmpty()) {
                 // mindestens einer fehlt :)
                 allSender = false;
                 break;
@@ -59,13 +61,14 @@ public class LoadFactory {
         }
 
         if (allSender) {
-            Platform.runLater(() -> P2Alert.showErrorAlert(LoadFactoryConst.primaryStage,
+            Platform.runLater(() -> P2Alert.showErrorAlert(stage,
                     "Sender laden",
                     "Es werden keine Filme geladen. Alle Sender " +
                             "sind vom Laden ausgenommen!" +
                             "\n\n" +
                             "Einstellungen -> Filmliste laden"));
         }
+
         return allSender;
     }
 }

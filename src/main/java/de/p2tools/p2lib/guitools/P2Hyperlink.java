@@ -37,12 +37,32 @@ public class P2Hyperlink extends Hyperlink {
     private final StringProperty prog;
     private final Stage stage;
     private boolean changeAble = false;
+    private final boolean size11;
+
+    public P2Hyperlink(Stage stage, String url, StringProperty prog, boolean size11) {
+        super(url);
+        this.stage = stage;
+        this.url = url;
+        this.prog = prog;
+        this.size11 = size11;
+        init();
+    }
+
+    public P2Hyperlink(String url, StringProperty prog, boolean size11) {
+        super(url);
+        stage = P2LibConst.primaryStage;
+        this.url = url;
+        this.prog = prog;
+        this.size11 = size11;
+        init();
+    }
 
     public P2Hyperlink(Stage stage, String url, StringProperty prog) {
         super(url);
         this.stage = stage;
         this.url = url;
         this.prog = prog;
+        this.size11 = true;
         init();
     }
 
@@ -51,6 +71,7 @@ public class P2Hyperlink extends Hyperlink {
         stage = P2LibConst.primaryStage;
         this.url = url;
         this.prog = prog;
+        this.size11 = true;
         init();
     }
 
@@ -59,6 +80,7 @@ public class P2Hyperlink extends Hyperlink {
         stage = P2LibConst.primaryStage;
         this.url = url;
         this.prog = null;
+        this.size11 = true;
         init();
     }
 
@@ -73,7 +95,9 @@ public class P2Hyperlink extends Hyperlink {
 
     private void init() {
         setPadding(new Insets(0));
-        setStyle("-fx-font-size: 1.1em;");
+        if (size11) {
+            setStyle("-fx-font-size: 1.1em;");
+        }
         setOnAction(a -> {
             try {
                 P2Open.openURL(stage, url, prog);

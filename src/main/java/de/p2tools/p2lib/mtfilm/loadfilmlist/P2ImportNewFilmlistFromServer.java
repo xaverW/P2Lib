@@ -26,9 +26,9 @@ enum STATE {
     COMPLETE, DIFF
 }
 
-public class ImportNewFilmlistFromServer {
+public class P2ImportNewFilmlistFromServer {
 
-    public ImportNewFilmlistFromServer() {
+    public P2ImportNewFilmlistFromServer() {
     }
 
     // #########################################################
@@ -75,7 +75,7 @@ public class ImportNewFilmlistFromServer {
 
         new ReadFilmlist().readFilmlistWebOrLocal(logList, list, updateUrl);
 
-        if (LoadFactoryConst.loadFilmlist.isStop()) {
+        if (LoadFactoryConst.p2LoadFilmlist.isStop()) {
             // wenn abgebrochen wurde, nicht weitermachen
             return false;
         }

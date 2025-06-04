@@ -24,8 +24,8 @@ import de.p2tools.p2lib.mtfilm.film.FilmData;
 import de.p2tools.p2lib.mtfilm.film.FilmDataXml;
 import de.p2tools.p2lib.mtfilm.film.Filmlist;
 import de.p2tools.p2lib.mtfilm.film.FilmlistXml;
-import de.p2tools.p2lib.mtfilm.loadfilmlist.LoadFactory;
-import de.p2tools.p2lib.mtfilm.loadfilmlist.LoadFilmlist;
+import de.p2tools.p2lib.mtfilm.loadfilmlist.P2LoadFactory;
+import de.p2tools.p2lib.mtfilm.loadfilmlist.P2LoadFilmlist;
 import de.p2tools.p2lib.mtfilm.tools.InputStreamProgressMonitor;
 import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 import de.p2tools.p2lib.mtfilm.tools.ProgressMonitorInputStream;
@@ -96,7 +96,7 @@ public class ReadFilmlist {
                 processFromFile(sourceFileOrUrl, filmlist);
             }
 
-            if (LoadFactoryConst.loadFilmlist.isStop()) {
+            if (LoadFactoryConst.p2LoadFilmlist.isStop()) {
                 logList.add("## -> Filmliste laden abgebrochen");
                 filmlist.clear();
 
@@ -166,7 +166,7 @@ public class ReadFilmlist {
      * @param filmlist the list to read to
      */
     private void processFromFile(String source, Filmlist filmlist) {
-        notifyProgress(LoadFilmlist.PROGRESS_INDETERMINATE);
+        notifyProgress(P2LoadFilmlist.PROGRESS_INDETERMINATE);
         try (InputStream in = selectDecompressor(source, new FileInputStream(source));
              JsonParser jp = new JsonFactory().createParser(in)) {
             readData(jp, filmlist);
@@ -181,7 +181,7 @@ public class ReadFilmlist {
 
     private void readData(JsonParser jp, Filmlist filmlist) throws IOException {
         JsonToken jsonToken;
-        ArrayList listChannel = LoadFactory.getSenderListNotToLoad();
+        ArrayList listChannel = P2LoadFactory.getSenderListNotToLoad();
         final long loadFilmsMaxMilliSeconds = getDaysLoadingFilms();
         final int loadFilmsMinDuration = LoadFactoryConst.SYSTEM_LOAD_FILMLIST_MIN_DURATION;
         final LoadFactoryConst.FilmChecker checker = LoadFactoryConst.checker;
@@ -214,7 +214,7 @@ public class ReadFilmlist {
         }
 
         final boolean listChannelIsEmpty = listChannel.isEmpty();
-        while (!LoadFactoryConst.loadFilmlist.isStop() && (jsonToken = jp.nextToken()) != null) {
+        while (!LoadFactoryConst.p2LoadFilmlist.isStop() && (jsonToken = jp.nextToken()) != null) {
             if (jsonToken == JsonToken.END_OBJECT) {
                 break;
             }
@@ -498,17 +498,17 @@ public class ReadFilmlist {
 
     private void notifyProgress(double iProgress) {
         progress = iProgress;
-        if (progress > LoadFilmlist.PROGRESS_MAX) {
-            progress = LoadFilmlist.PROGRESS_MAX;
+        if (progress > P2LoadFilmlist.PROGRESS_MAX) {
+            progress = P2LoadFilmlist.PROGRESS_MAX;
         }
-        LoadFactoryConst.loadFilmlist.getP2EventHandler()
+        LoadFactoryConst.p2LoadFilmlist.getP2EventHandler()
                 .notifyListener(new P2Event(P2Events.EVENT_FILMLIST_LOAD_PROGRESS, "Filmliste laden", progress));
     }
 
     private void notifyLoaded() {
         // Laden ist durch
-        LoadFactoryConst.loadFilmlist.getP2EventHandler()
+        LoadFactoryConst.p2LoadFilmlist.getP2EventHandler()
                 .notifyListener(new P2Event(P2Events.EVENT_FILMLIST_LOAD_LOADED, "Filme verarbeiten",
-                        LoadFilmlist.PROGRESS_INDETERMINATE));
+                        P2LoadFilmlist.PROGRESS_INDETERMINATE));
     }
 }

@@ -30,6 +30,7 @@ public class P2ProgIcons {
     public final static P2Image ICON_BUTTON_PREV = new P2Image(ICON_PATH_LONG, "button-prev.png");
     public final static P2Image ICON_BUTTON_CLOSE = new P2Image(ICON_PATH_LONG, "button-close.png");
     public final static P2Image ICON_BUTTON_RIP = new P2Image(ICON_PATH_LONG, "button-rip.png");
+    public final static P2Image ICON_BUTTON_FOLD = new P2Image(ICON_PATH_LONG, "button-fold.png");
     public final static P2Image ICON_BUTTON_DEL_SW = new P2Image(ICON_PATH_LONG, "button-del-sw.png", 12, 12);
 
     public final static P2Image P2_STAGE_ICON = new P2Image(P2ICON_PATH_LONG, "p2_logo_32.png");
