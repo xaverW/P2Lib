@@ -30,6 +30,7 @@ public class P2DateConst {
 
     public static final String STR__dd_MM_yyyy___HH__mm__ss = "dd.MM.yyyy HH:mm:ss";
 
+    public static final DateTimeFormatter DT_FORMATTER__FILMLIST = DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm"); // "05.06.2025, 12:32"
 
     public static final FastDateFormat F_FORMAT_dd_MM_yyyy = FastDateFormat.getInstance("dd.MM.yyyy");
     public static final FastDateFormat F_FORMAT_yyyy_MM_dd = FastDateFormat.getInstance("yyyy.MM.dd");

@@ -30,7 +30,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class WriteFilmlistJson {
+public class P2WriteFilmlistJson {
 
     public void write(String file, Filmlist<FilmData> filmlist) {
         String sender = "", theme = "";
@@ -51,8 +51,8 @@ public class WriteFilmlistJson {
             //=======================================
             // Infos der Felder in der Filmliste
             jg.writeArrayFieldStart(FilmlistXml.FILMLIST);
-            for (int i = 0; i < ReadWriteFactory.JSON_NAMES.length; ++i) {
-                jg.writeString(ReadWriteFactory.JSON_NAMES[i]);
+            for (int i = 0; i < P2ReadWriteFactory.JSON_NAMES.length; ++i) {
+                jg.writeString(P2ReadWriteFactory.JSON_NAMES[i]);
             }
             jg.writeEndArray();
 
@@ -61,10 +61,10 @@ public class WriteFilmlistJson {
             for (FilmData film : filmlist) {
                 film.arr[FilmDataXml.FILM_NEW] = Boolean.toString(film.isNewFilm()); // damit wirs beim nächsten Programmstart noch wissen
 
-                jg.writeArrayFieldStart(ReadWriteFactory.TAG_JSON_LIST);
-                for (int i = 0; i < ReadWriteFactory.MAX_JSON_NAMES; ++i) {
+                jg.writeArrayFieldStart(P2ReadWriteFactory.TAG_JSON_LIST);
+                for (int i = 0; i < P2ReadWriteFactory.MAX_JSON_NAMES; ++i) {
                     switch (i) {
-                        case ReadWriteFactory.JSON_NAMES_CHANNEL:
+                        case P2ReadWriteFactory.JSON_NAMES_CHANNEL:
                             if (film.arr[FilmDataXml.FILM_CHANNEL].equals(sender)) {
                                 jg.writeString("");
                             } else {
@@ -72,7 +72,7 @@ public class WriteFilmlistJson {
                                 jg.writeString(film.arr[FilmDataXml.FILM_CHANNEL]);
                             }
                             break;
-                        case ReadWriteFactory.JSON_NAMES_THEME:
+                        case P2ReadWriteFactory.JSON_NAMES_THEME:
                             if (film.arr[FilmDataXml.FILM_THEME].equals(theme)) {
                                 jg.writeString("");
                             } else {
@@ -80,62 +80,62 @@ public class WriteFilmlistJson {
                                 jg.writeString(film.arr[FilmDataXml.FILM_THEME]);
                             }
                             break;
-                        case ReadWriteFactory.JSON_NAMES_TITLE:
+                        case P2ReadWriteFactory.JSON_NAMES_TITLE:
                             jg.writeString(film.arr[FilmDataXml.FILM_TITLE]);
                             break;
 
 
-                        case ReadWriteFactory.JSON_NAMES_DATE:
+                        case P2ReadWriteFactory.JSON_NAMES_DATE:
                             jg.writeString(film.arr[FilmDataXml.FILM_DATE]);
                             break;
-                        case ReadWriteFactory.JSON_NAMES_TIME:
+                        case P2ReadWriteFactory.JSON_NAMES_TIME:
                             jg.writeString(film.arr[FilmDataXml.FILM_TIME]);
                             break;
-                        case ReadWriteFactory.JSON_NAMES_DURATION:
+                        case P2ReadWriteFactory.JSON_NAMES_DURATION:
                             jg.writeString(film.arr[FilmDataXml.FILM_DURATION]);
                             break;
-                        case ReadWriteFactory.JSON_NAMES_SIZE:
+                        case P2ReadWriteFactory.JSON_NAMES_SIZE:
                             jg.writeString(film.arr[FilmDataXml.FILM_SIZE]);
                             break;
 
 
-                        case ReadWriteFactory.JSON_NAMES_DESCRIPTION:
+                        case P2ReadWriteFactory.JSON_NAMES_DESCRIPTION:
                             jg.writeString(film.arr[FilmDataXml.FILM_DESCRIPTION]);
                             break;
-                        case ReadWriteFactory.JSON_NAMES_URL:
+                        case P2ReadWriteFactory.JSON_NAMES_URL:
                             jg.writeString(film.arr[FilmDataXml.FILM_URL]);
                             break;
-                        case ReadWriteFactory.JSON_NAMES_WEBSITE:
+                        case P2ReadWriteFactory.JSON_NAMES_WEBSITE:
                             jg.writeString(film.arr[FilmDataXml.FILM_WEBSITE]);
                             break;
-                        case ReadWriteFactory.JSON_NAMES_URL_SUBTITLE:
+                        case P2ReadWriteFactory.JSON_NAMES_URL_SUBTITLE:
                             jg.writeString(film.arr[FilmDataXml.FILM_URL_SUBTITLE]);
                             break;
 
 
-                        case ReadWriteFactory.JSON_NAMES_URL_SMALL:
+                        case P2ReadWriteFactory.JSON_NAMES_URL_SMALL:
                             jg.writeString(film.arr[FilmDataXml.FILM_URL_SMALL]);
                             break;
-                        case ReadWriteFactory.JSON_NAMES_URL_HD:
+                        case P2ReadWriteFactory.JSON_NAMES_URL_HD:
                             jg.writeString(film.arr[FilmDataXml.FILM_URL_HD]);
                             break;
 
 
-                        case ReadWriteFactory.JSON_NAMES_DATE_LONG:
+                        case P2ReadWriteFactory.JSON_NAMES_DATE_LONG:
                             jg.writeString(film.arr[FilmDataXml.FILM_DATE_LONG]);
                             break;
-                        case ReadWriteFactory.JSON_NAMES_GEO:
+                        case P2ReadWriteFactory.JSON_NAMES_GEO:
                             jg.writeString(film.arr[FilmDataXml.FILM_GEO]);
                             break;
-                        case ReadWriteFactory.JSON_NAMES_NEW:
+                        case P2ReadWriteFactory.JSON_NAMES_NEW:
                             jg.writeString(film.arr[FilmDataXml.FILM_NEW]);
                             break;
 
 
-                        case ReadWriteFactory.JSON_NAMES_URL_RTMP_SMALL:
-                        case ReadWriteFactory.JSON_NAMES_URL_RTMP:
-                        case ReadWriteFactory.JSON_NAMES_URL_RTMP_HD:
-                        case ReadWriteFactory.JSON_NAMES_URL_HISTORY:
+                        case P2ReadWriteFactory.JSON_NAMES_URL_RTMP_SMALL:
+                        case P2ReadWriteFactory.JSON_NAMES_URL_RTMP:
+                        case P2ReadWriteFactory.JSON_NAMES_URL_RTMP_HD:
+                        case P2ReadWriteFactory.JSON_NAMES_URL_HISTORY:
                             jg.writeString("");
                             break;
                     }

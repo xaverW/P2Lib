@@ -27,7 +27,7 @@ package de.p2tools.p2lib.mtfilm.readwritefilmlist;
 // "Url RTMP","Url Klein","Url RTMP Klein","Url HD","Url RTMP HD",
 // "DatumL","Url History","Geo","neu"]
 
-public class ReadWriteFactory {
+public class P2ReadWriteFactory {
     public static final int JSON_NAMES_CHANNEL = 0;
     public static final int JSON_NAMES_THEME = 1;
     public static final int JSON_NAMES_TITLE = 2;
@@ -78,6 +78,6 @@ public class ReadWriteFactory {
             "neu",
     };
 
-    private ReadWriteFactory() {
+    private P2ReadWriteFactory() {
     }
 }

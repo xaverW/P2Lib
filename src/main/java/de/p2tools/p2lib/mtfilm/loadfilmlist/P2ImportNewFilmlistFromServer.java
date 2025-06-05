@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.mtfilm.loadfilmlist;
 
 import de.p2tools.p2lib.mtfilm.film.Filmlist;
-import de.p2tools.p2lib.mtfilm.readwritefilmlist.ReadFilmlist;
+import de.p2tools.p2lib.mtfilm.readwritefilmlist.P2ReadFilmlist;
 import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 
 import java.util.List;
@@ -73,7 +73,7 @@ public class P2ImportNewFilmlistFromServer {
             updateUrl = LoadFactoryConst.filmListUrl;
         }
 
-        new ReadFilmlist().readFilmlistWebOrLocal(logList, list, updateUrl);
+        new P2ReadFilmlist().readFilmlistWebOrLocal(logList, list, updateUrl);
 
         if (LoadFactoryConst.p2LoadFilmlist.isStop()) {
             // wenn abgebrochen wurde, nicht weitermachen

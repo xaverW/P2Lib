@@ -52,7 +52,7 @@ import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipInputStream;
 
-public class ReadFilmlist {
+public class P2ReadFilmlist {
 
     int sumFilms = 0;
     String channel = "", theme = "";
@@ -384,74 +384,74 @@ public class ReadFilmlist {
     }
 
     private void addValue(FilmData film, JsonParser jp) throws IOException {
-        for (int i = 0; i < ReadWriteFactory.MAX_JSON_NAMES; ++i) {
+        for (int i = 0; i < P2ReadWriteFactory.MAX_JSON_NAMES; ++i) {
             String str = jp.nextTextValue();
 
             switch (i) {
-                case ReadWriteFactory.JSON_NAMES_CHANNEL:
+                case P2ReadWriteFactory.JSON_NAMES_CHANNEL:
                     if (!str.isEmpty()) {
                         channel = str.intern();
                     }
                     film.arr[FilmDataXml.FILM_CHANNEL] = channel;
                     break;
-                case ReadWriteFactory.JSON_NAMES_THEME:
+                case P2ReadWriteFactory.JSON_NAMES_THEME:
                     if (!str.isEmpty()) {
                         theme = str.intern();
                     }
                     film.arr[FilmDataXml.FILM_THEME] = theme;
                     break;
-                case ReadWriteFactory.JSON_NAMES_TITLE:
+                case P2ReadWriteFactory.JSON_NAMES_TITLE:
                     film.arr[FilmDataXml.FILM_TITLE] = str;
                     break;
 
-                case ReadWriteFactory.JSON_NAMES_DATE:
+                case P2ReadWriteFactory.JSON_NAMES_DATE:
                     film.arr[FilmDataXml.FILM_DATE] = str;
                     break;
-                case ReadWriteFactory.JSON_NAMES_TIME:
+                case P2ReadWriteFactory.JSON_NAMES_TIME:
                     film.arr[FilmDataXml.FILM_TIME] = str;
                     break;
-                case ReadWriteFactory.JSON_NAMES_DURATION:
+                case P2ReadWriteFactory.JSON_NAMES_DURATION:
                     film.arr[FilmDataXml.FILM_DURATION] = str;
                     break;
-                case ReadWriteFactory.JSON_NAMES_SIZE:
+                case P2ReadWriteFactory.JSON_NAMES_SIZE:
                     film.arr[FilmDataXml.FILM_SIZE] = str;
                     break;
 
-                case ReadWriteFactory.JSON_NAMES_DESCRIPTION:
+                case P2ReadWriteFactory.JSON_NAMES_DESCRIPTION:
                     film.arr[FilmDataXml.FILM_DESCRIPTION] = str;
                     break;
-                case ReadWriteFactory.JSON_NAMES_URL:
+                case P2ReadWriteFactory.JSON_NAMES_URL:
                     film.arr[FilmDataXml.FILM_URL] = str;
                     break;
-                case ReadWriteFactory.JSON_NAMES_WEBSITE:
+                case P2ReadWriteFactory.JSON_NAMES_WEBSITE:
                     film.arr[FilmDataXml.FILM_WEBSITE] = str;
                     break;
-                case ReadWriteFactory.JSON_NAMES_URL_SUBTITLE:
+                case P2ReadWriteFactory.JSON_NAMES_URL_SUBTITLE:
                     film.arr[FilmDataXml.FILM_URL_SUBTITLE] = str;
                     break;
 
-                case ReadWriteFactory.JSON_NAMES_URL_SMALL:
+                case P2ReadWriteFactory.JSON_NAMES_URL_SMALL:
                     film.arr[FilmDataXml.FILM_URL_SMALL] = str;
                     break;
-                case ReadWriteFactory.JSON_NAMES_URL_HD:
+                case P2ReadWriteFactory.JSON_NAMES_URL_HD:
                     film.arr[FilmDataXml.FILM_URL_HD] = str;
                     break;
-                case ReadWriteFactory.JSON_NAMES_DATE_LONG:
+                case P2ReadWriteFactory.JSON_NAMES_DATE_LONG:
                     film.arr[FilmDataXml.FILM_DATE_LONG] = str;
                     break;
 
-                case ReadWriteFactory.JSON_NAMES_GEO:
+                case P2ReadWriteFactory.JSON_NAMES_GEO:
                     film.arr[FilmDataXml.FILM_GEO] = str;
                     break;
-                case ReadWriteFactory.JSON_NAMES_NEW:
+                case P2ReadWriteFactory.JSON_NAMES_NEW:
                     film.arr[FilmDataXml.FILM_NEW] = str;
                     film.setNewFilm(Boolean.parseBoolean(str));
                     break;
 
-                case ReadWriteFactory.JSON_NAMES_URL_RTMP:
-                case ReadWriteFactory.JSON_NAMES_URL_RTMP_SMALL:
-                case ReadWriteFactory.JSON_NAMES_URL_RTMP_HD:
-                case ReadWriteFactory.JSON_NAMES_URL_HISTORY:
+                case P2ReadWriteFactory.JSON_NAMES_URL_RTMP:
+                case P2ReadWriteFactory.JSON_NAMES_URL_RTMP_SMALL:
+                case P2ReadWriteFactory.JSON_NAMES_URL_RTMP_HD:
+                case P2ReadWriteFactory.JSON_NAMES_URL_HISTORY:
                     break;
             }
         }
