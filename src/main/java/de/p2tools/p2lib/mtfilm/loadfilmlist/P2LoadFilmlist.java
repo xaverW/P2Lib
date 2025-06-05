@@ -102,14 +102,21 @@ public class P2LoadFilmlist {
             final List<String> logList = new ArrayList<>();
             P2Duration.counterStart("loadFilmlistProgStart");
 
-            logList.add("");
             logList.add("## " + P2Log.LILNE1);
+            logList.add("## " + P2Log.LILNE1);
+            logList.add("## Filmliste laden");
             logList.add("## Filmliste beim **Programmstart** laden - start");
+
             loadFilmlistProgStart(logList);
+
             logList.add("## Filmliste beim Programmstart laden - ende");
             logList.add("## " + P2Log.LILNE1);
+            logList.add("## " + P2Log.LILNE1);
             logList.add("");
+
+            P2Log.emptyLine();
             P2Log.sysLog(logList);
+            P2Log.emptyLine();
 
             setPropLoadFilmlist(false);
             P2Duration.counterStop("loadFilmlistProgStart");
@@ -133,8 +140,9 @@ public class P2LoadFilmlist {
             P2Duration.counterStart("loadNewFilmlistFromWeb");
 
             //damit wird eine neue Filmliste (Web) geladen UND auch gleich im Config-Ordner gespeichert
-            logList.add("");
             logList.add("## " + P2Log.LILNE1);
+            logList.add("## " + P2Log.LILNE1);
+            logList.add("## Filmliste laden");
             logList.add("## Filmliste aus dem Web laden - start");
             logList.add("## Alte Liste erstellt  am: " + LoadFactoryConst.filmlist.genDate());
             logList.add("##            Anzahl Filme: " + LoadFactoryConst.filmlist.size());
@@ -146,8 +154,12 @@ public class P2LoadFilmlist {
 
             logList.add("## Filmliste aus dem Web laden - ende");
             logList.add("## " + P2Log.LILNE1);
+            logList.add("## " + P2Log.LILNE1);
             logList.add("");
+
+            P2Log.emptyLine();
             P2Log.sysLog(logList);
+            P2Log.emptyLine();
 
             setPropLoadFilmlist(false);
             P2Duration.counterStop("loadNewFilmlistFromWeb");
