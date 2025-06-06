@@ -41,7 +41,7 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
         super(FXCollections.observableArrayList());
     }
 
-    public <T extends FilmData> FilmData getNewElement() {
+    public FilmData getNewElement() {
         return new FilmData();
     }
 
