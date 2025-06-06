@@ -60,11 +60,11 @@ public class P2ReadFilmlist {
     private int countAll = 0;
     private boolean loadFromWeb = false;//nur dann müssen die Filme gefiltert werden
 
-    private Map<String, Integer> filmsPerChannelFoundCompleteList = new TreeMap<>();
-    private Map<String, Integer> filmsPerChannelUsed = new TreeMap<>();
-    private Map<String, Integer> filmsPerChannelBlocked = new TreeMap<>();
-    private Map<String, Integer> filmsPerDaysBlocked = new TreeMap<>();
-    private Map<String, Integer> filmsPerDurationBlocked = new TreeMap<>();
+    private final Map<String, Integer> filmsPerChannelFoundCompleteList = new TreeMap<>();
+    private final Map<String, Integer> filmsPerChannelUsed = new TreeMap<>();
+    private final Map<String, Integer> filmsPerChannelBlocked = new TreeMap<>();
+    private final Map<String, Integer> filmsPerDaysBlocked = new TreeMap<>();
+    private final Map<String, Integer> filmsPerDurationBlocked = new TreeMap<>();
 
     //Hier wird die Filmliste tatsächlich geladen: lokal von Datei, oder aus dem Web mit URL
     public void readFilmlistWebOrLocal(List<String> logList, final Filmlist filmlist, String sourceFileOrUrl) {
@@ -181,7 +181,7 @@ public class P2ReadFilmlist {
 
     private void readData(JsonParser jp, Filmlist filmlist) throws IOException {
         JsonToken jsonToken;
-        ArrayList listChannel = P2LoadFactory.getSenderListNotToLoad();
+        ArrayList<String> listChannel = P2LoadFactory.getSenderListNotToLoad();
         final long loadFilmsMaxMilliSeconds = getDaysLoadingFilms();
         final int loadFilmsMinDuration = LoadFactoryConst.SYSTEM_LOAD_FILMLIST_MIN_DURATION;
         final LoadFactoryConst.FilmChecker checker = LoadFactoryConst.checker;
@@ -288,7 +288,7 @@ public class P2ReadFilmlist {
             logList.add("## == Filme pro Sender in der Gesamtliste ==");
 
             sumFilms = 0;
-            filmsPerChannelFoundCompleteList.keySet().stream().forEach(key -> {
+            filmsPerChannelFoundCompleteList.keySet().forEach(key -> {
                 int found = filmsPerChannelFoundCompleteList.get(key);
                 sumFilms += found;
                 logList.add("## " + P2StringUtils.increaseString(KEYSIZE, key) + ": " + found);
@@ -310,7 +310,7 @@ public class P2ReadFilmlist {
             logList.add("## == Filme pro Sender verwendet ==");
 
             sumFilms = 0;
-            filmsPerChannelUsed.keySet().stream().forEach(key -> {
+            filmsPerChannelUsed.keySet().forEach(key -> {
                 int found = filmsPerChannelUsed.get(key);
                 sumFilms += found;
                 logList.add("## " + P2StringUtils.increaseString(KEYSIZE, key) + ": " + found);
@@ -326,7 +326,7 @@ public class P2ReadFilmlist {
             logList.add("## == nach Sender geblockte Filme ==");
 
             sumFilms = 0;
-            filmsPerChannelBlocked.keySet().stream().forEach(key -> {
+            filmsPerChannelBlocked.keySet().forEach(key -> {
                 int found = filmsPerChannelBlocked.get(key);
                 sumFilms += found;
                 logList.add("## " + P2StringUtils.increaseString(KEYSIZE, key) + ": " + found);
@@ -343,7 +343,7 @@ public class P2ReadFilmlist {
             logList.add("## == nach max. Tage geblockte Filme (max. " + maxDays + " Tage) ==");
 
             sumFilms = 0;
-            filmsPerDaysBlocked.keySet().stream().forEach(key -> {
+            filmsPerDaysBlocked.keySet().forEach(key -> {
                 int found = filmsPerDaysBlocked.get(key);
                 sumFilms += found;
                 logList.add("## " + P2StringUtils.increaseString(KEYSIZE, key) + ": " + found);
@@ -360,7 +360,7 @@ public class P2ReadFilmlist {
             logList.add("## == nach Filmlänge geblockte Filme (mind. " + dur + " min.) ==");
 
             sumFilms = 0;
-            filmsPerDurationBlocked.keySet().stream().forEach(key -> {
+            filmsPerDurationBlocked.keySet().forEach(key -> {
                 int found = filmsPerDurationBlocked.get(key);
                 sumFilms += found;
                 logList.add("## " + P2StringUtils.increaseString(KEYSIZE, key) + ": " + found);
