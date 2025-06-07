@@ -32,7 +32,7 @@ import java.io.OutputStream;
 
 public class P2WriteFilmlistJson {
 
-    public void write(String file, Filmlist<FilmData> filmlist) {
+    public void write(String file, Filmlist<? extends FilmData> filmlist) {
         String sender = "", theme = "";
 
         try (FileOutputStream fos = new FileOutputStream(file);

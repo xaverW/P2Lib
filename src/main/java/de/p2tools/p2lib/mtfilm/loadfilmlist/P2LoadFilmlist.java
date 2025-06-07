@@ -47,23 +47,23 @@ public class P2LoadFilmlist {
 
     private static final AtomicBoolean stop = new AtomicBoolean(false); // damit kann das Laden gestoppt werden kann
     private final HashSet<String> hashSet;
-    private final Filmlist filmListDiff;
-    private final Filmlist filmListNew;
+    private final Filmlist<? extends FilmData> filmListDiff;
+    private final Filmlist<? extends FilmData> filmListNew;
     private final P2ImportNewFilmlistFromServer importNewFilmlisteFromServer;
     //    public final P2LoadNotifier p2LoadNotifier = new P2LoadNotifier();
     private final P2EventHandler p2EventHandler;
-    private BooleanProperty propLoadFilmlist = new SimpleBooleanProperty(false);
+    private final BooleanProperty propLoadFilmlist = new SimpleBooleanProperty(false);
     private boolean filmlistTooOld = false;
 
     public P2LoadFilmlist(P2EventHandler p2EventHandler) {
         this.p2EventHandler = p2EventHandler;
-        this.filmListDiff = new Filmlist();
-        this.filmListNew = new Filmlist();
+        this.filmListDiff = new Filmlist<>();
+        this.filmListNew = new Filmlist<>();
         hashSet = new HashSet<>();
         importNewFilmlisteFromServer = new P2ImportNewFilmlistFromServer();
     }
 
-    public P2LoadFilmlist(P2EventHandler p2EventHandler, Filmlist filmlistNew, Filmlist filmlistDiff) {
+    public P2LoadFilmlist(P2EventHandler p2EventHandler, Filmlist<? extends FilmData> filmlistNew, Filmlist<? extends FilmData> filmlistDiff) {
         this.p2EventHandler = p2EventHandler;
         this.filmListDiff = filmlistDiff;
         this.filmListNew = filmlistNew;
@@ -376,7 +376,7 @@ public class P2LoadFilmlist {
         logList.add("##");
     }
 
-    private void fillHash(List<String> logList, Filmlist<FilmData> filmlist) {
+    private void fillHash(List<String> logList, Filmlist<? extends FilmData> filmlist) {
         //alle historyURLs in den hash schreiben
         logList.add("## " + P2Log.LILNE3);
         logList.add("## Hash füllen, Größe vorher: " + hashSet.size());
@@ -386,7 +386,7 @@ public class P2LoadFilmlist {
         logList.add("## " + P2Log.LILNE3);
     }
 
-    private void findAndMarkNewFilms(List<String> logList, Filmlist<FilmData> filmlist) {
+    private void findAndMarkNewFilms(List<String> logList, Filmlist<? extends FilmData> filmlist) {
         filmlist.stream() //genauso schnell wie "parallel": ~90ms
                 .peek(film -> film.setNewFilm(false))
                 .filter(film -> !hashSet.contains(film.getUrlHistory()))

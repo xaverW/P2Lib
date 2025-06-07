@@ -222,12 +222,15 @@ public class P2ReadFilmlist {
             if (jp.isExpectedStartArrayToken()) {
                 final FilmData film = filmlist.getNewElement();
                 addValue(film, jp);
+
+
                 if (LoadFactoryConst.filmInitNecessary) {
                     //sonst muss eh die ganze Liste geladen werden und es wird dann nur die URL für den Hash gebraucht
                     ++countAll;
                     countFilm(filmsPerChannelFoundCompleteList, film);
                     film.init(); // damit wird auch das Datum! gesetzt
                 }
+
 
                 //=========================
                 //Filter
