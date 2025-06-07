@@ -84,14 +84,14 @@ public class P2ReadFilmlist {
             if (sourceFileOrUrl.startsWith("http")) {
                 //dann aus dem Web mit der URL laden
                 logList.add("## Filmliste aus URL laden: " + sourceFileOrUrl);
-                logList.add("## FilmInit wird gemacht: " + LoadFactoryConst.filmInitNecessary);
+//                logList.add("## FilmInit wird gemacht: " + LoadFactoryConst.filmInitNecessary);
                 loadFromWeb = true;
                 processFromWeb(new URL(sourceFileOrUrl), filmlist);
 
             } else {
                 //dann lokale Datei laden
                 logList.add("## Filmliste aus Datei laden: " + sourceFileOrUrl);
-                logList.add("## FilmInit wird gemacht: " + LoadFactoryConst.filmInitNecessary);
+//                logList.add("## FilmInit wird gemacht: " + LoadFactoryConst.filmInitNecessary);
                 loadFromWeb = false;
                 processFromFile(sourceFileOrUrl, filmlist);
             }
@@ -224,12 +224,12 @@ public class P2ReadFilmlist {
                 addValue(film, jp);
 
 
-                if (LoadFactoryConst.filmInitNecessary) {
-                    //sonst muss eh die ganze Liste geladen werden und es wird dann nur die URL für den Hash gebraucht
-                    ++countAll;
-                    countFilm(filmsPerChannelFoundCompleteList, film);
-                    film.init(); // damit wird auch das Datum! gesetzt
-                }
+//                if (LoadFactoryConst.filmInitNecessary) {
+                //sonst muss eh die ganze Liste geladen werden und es wird dann nur die URL für den Hash gebraucht
+                ++countAll;
+                countFilm(filmsPerChannelFoundCompleteList, film);
+//                    film.init(); // damit wird auch das Datum! gesetzt
+//                }
 
 
                 //=========================

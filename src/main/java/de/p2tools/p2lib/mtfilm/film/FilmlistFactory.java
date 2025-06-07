@@ -278,10 +278,10 @@ public class FilmlistFactory {
      * @return true if too old or if the list is empty.
      */
     public static boolean isTooOldOrEmpty(ListProperty<? extends FilmData> filmList, String[] metaData) {
-        if (LoadFactoryConst.debug) {
-            //im Debugmodus nie automatisch laden
-            return false;
-        }
+//        if (LoadFactoryConst.debug) {
+//            //im Debugmodus nie automatisch laden
+//            return false;
+//        }
         if (filmList.isEmpty()) {
             return true;
         }
@@ -294,10 +294,10 @@ public class FilmlistFactory {
      * @return true if too old or if the list is empty.
      */
     public static boolean isTooOld(String strAge) {
-        if (LoadFactoryConst.debug) {
-            //im Debugmodus nie automatisch laden
-            return false;
-        }
+//        if (LoadFactoryConst.debug) {
+//            //im Debugmodus nie automatisch laden
+//            return false;
+//        }
         if (strAge.isEmpty()) {
             //dann ist das Alter nicht gesetzt
             P2Log.sysLog("Die Filmliste hat kein Alter gespeichert -> Neue laden");
@@ -338,10 +338,10 @@ public class FilmlistFactory {
     }
 
     public static boolean isTooOldForDiff(String strDate) {
-        if (LoadFactoryConst.debug) {
-            //im Debugmodus nie automatisch laden
-            return false;
-        }
+//        if (LoadFactoryConst.debug) {
+//            //im Debugmodus nie automatisch laden
+//            return false;
+//        }
         if (strDate.isEmpty()) {
             //dann ist das Alter nicht gesetzt
             P2Log.sysLog("Die Filmliste hat kein Alter gespeichert -> Neue laden");

@@ -49,7 +49,7 @@ public class P2LoadFilmlist {
     private final HashSet<String> hashSet;
     private final Filmlist<? extends FilmData> filmListDiff;
     private final Filmlist<? extends FilmData> filmListNew;
-    private final P2ImportNewFilmlistFromServer importNewFilmlisteFromServer;
+    private final P2ImportFilmlistFromServer p2ImportFilmlistFromServer;
     //    public final P2LoadNotifier p2LoadNotifier = new P2LoadNotifier();
     private final P2EventHandler p2EventHandler;
     private final BooleanProperty propLoadFilmlist = new SimpleBooleanProperty(false);
@@ -60,7 +60,7 @@ public class P2LoadFilmlist {
         this.filmListDiff = new Filmlist<>();
         this.filmListNew = new Filmlist<>();
         hashSet = new HashSet<>();
-        importNewFilmlisteFromServer = new P2ImportNewFilmlistFromServer();
+        p2ImportFilmlistFromServer = new P2ImportFilmlistFromServer();
     }
 
     public P2LoadFilmlist(P2EventHandler p2EventHandler, Filmlist<? extends FilmData> filmlistNew, Filmlist<? extends FilmData> filmlistDiff) {
@@ -68,7 +68,7 @@ public class P2LoadFilmlist {
         this.filmListDiff = filmlistDiff;
         this.filmListNew = filmlistNew;
         hashSet = new HashSet<>();
-        importNewFilmlisteFromServer = new P2ImportNewFilmlistFromServer();
+        p2ImportFilmlistFromServer = new P2ImportFilmlistFromServer();
     }
 
     public P2EventHandler getP2EventHandler() {
@@ -108,6 +108,7 @@ public class P2LoadFilmlist {
             logList.add("## Filmliste beim **Programmstart** laden - start");
 
             loadFilmlistProgStart(logList);
+            afterLoading(logList);
 
             logList.add("## Filmliste beim Programmstart laden - ende");
             logList.add("## " + P2Log.LILNE1);
@@ -202,7 +203,7 @@ public class P2LoadFilmlist {
                 //dann wird keine neue Liste aus dem Web beim Programmstart geladen, immer gespeicherte Liste laden
                 logList.add("## Beim Programmstart soll keine neue Liste geladen werden");
                 logList.add("## Programmstart: Gespeicherte Liste aus laden");
-                LoadFactoryConst.filmInitNecessary = true;
+//                LoadFactoryConst.filmInitNecessary = true;
                 loadStoredList(logList, filmListNew, LoadFactoryConst.localFilmListFile);
                 logList.add("## Programmstart: Gespeicherte Liste aus geladen");
 
@@ -216,21 +217,21 @@ public class P2LoadFilmlist {
                     //und jetzt noch schauen, ob ein diff reicht
                     if (FilmlistFactory.isTooOldForDiff(LoadFactoryConst.dateStoredFilmlist)) {
                         logList.add("## Gespeicherte Filmliste zu alt für ein DIFF, kein FILM_INIT");
-                        LoadFactoryConst.filmInitNecessary = false;
+//                        LoadFactoryConst.filmInitNecessary = false;
 
                     } else {
                         logList.add("## Gespeicherte Filmliste zu alt, DIFF reicht, FILM_INIT wird gemacht");
-                        LoadFactoryConst.filmInitNecessary = true;
+//                        LoadFactoryConst.filmInitNecessary = true;
                     }
                 } else {
                     logList.add("## Gespeicherte Filmliste ist nicht zu alt: " + LoadFactoryConst.dateStoredFilmlist);
-                    LoadFactoryConst.filmInitNecessary = true;
+//                    LoadFactoryConst.filmInitNecessary = true;
                 }
 
                 P2Duration.counterStart("loadStoredList");
                 logList.add("## Programmstart: Gespeicherte Liste laden");
                 loadStoredList(logList, filmListNew, LoadFactoryConst.localFilmListFile);
-                LoadFactoryConst.filmInitNecessary = true;//!! jetzt gleich wieder setzen, sonst klappt das weitere Laden nicht mehr
+//                LoadFactoryConst.filmInitNecessary = true;//!! jetzt gleich wieder setzen, sonst klappt das weitere Laden nicht mehr
 
                 logList.add("## Programmstart: Gespeicherte Liste geladen");
                 P2Log.debugLog("## loadStoredList: " + P2Duration.counterStop("loadStoredList"));
@@ -256,7 +257,6 @@ public class P2LoadFilmlist {
         }
         getP2EventHandler().notifyListener(new P2Event(P2Events.EVENT_FILMLIST_LOAD_LOADED, "Filme verarbeiten",
                 P2LoadFilmlist.PROGRESS_INDETERMINATE));
-        afterLoading(logList);
     }
 
     // #######################################
@@ -264,6 +264,8 @@ public class P2LoadFilmlist {
 
 
     private void afterLoading(List<String> logList) {
+        filmListNew.forEach(FilmData::init); // damit wird auch das Datum! gesetzt
+
         logList.add("##");
         logList.add("## Jetzige Liste erstellt am: " + filmListNew.genDate());
         logList.add("##   Anzahl Filme: " + filmListNew.size());
@@ -297,8 +299,8 @@ public class P2LoadFilmlist {
         new P2ReadFilmlist().readFilmlistWebOrLocal(logList, filmlist, localFilmListFile);
     }
 
-    private void loadNewFilmlistFromWeb(List<String> logList, boolean alwaysLoadNew, boolean intern, String
-            localFilmListFile) {
+    private void loadNewFilmlistFromWeb(List<String> logList, boolean alwaysLoadNew,
+                                        boolean intern, String localFilmListFile) {
         // einer der ZWEI Einstiegspunkte zum Laden: ProgStart / sofort Web
         if (intern) {
             //dann ist die lokale Liste schon geladen und zu alt
@@ -321,7 +323,7 @@ public class P2LoadFilmlist {
         setStop(false);
         logList.add("## Filmliste laden (auto)");
         // Filmliste laden und Url automatisch ermitteln
-        boolean wasOk = importNewFilmlisteFromServer.importFilmListFromWebAuto(logList, filmListNew, filmListDiff);
+        boolean wasOk = p2ImportFilmlistFromServer.importFilmListFromWebAuto(logList, filmListNew, filmListDiff);
         if (wasOk) {
             //dann hats geklappt
             afterLoadingNewFilmlistFromServer(logList, localFilmListFile);
@@ -358,7 +360,7 @@ public class P2LoadFilmlist {
 
         //Unicode-Zeichen korrigieren
         P2Duration.counterStart("cleanFaultyCharacter");
-        FilmFactory.cleanFaultyCharacterFilmlist(filmListNew);
+        FilmFactory.cleanFaultyCharacterFilmlist(logList, filmListNew);
         P2Log.debugLog("## Unicode-Zeichen korrigieren: " + P2Duration.counterStop("cleanFaultyCharacter"));
 
         logList.add("## Diakritika setzen/ändern, Diakritika suchen");

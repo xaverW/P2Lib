@@ -21,11 +21,11 @@ import de.p2tools.p2lib.mtdownload.DownloadFactory;
 import de.p2tools.p2lib.tools.DiacriticFactory;
 import de.p2tools.p2lib.tools.DiacriticFactory3;
 import de.p2tools.p2lib.tools.duration.P2Duration;
-import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.SimpleListProperty;
 
 import java.text.NumberFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -47,14 +47,14 @@ public class FilmFactory {
         }
     }
 
-    public static void cleanFaultyCharacterFilmlist(SimpleListProperty<? extends FilmData> filmlist) {
+    public static void cleanFaultyCharacterFilmlist(List<String> logList, SimpleListProperty<? extends FilmData> filmlist) {
         // damit werden Unicode-Zeichen korrigiert
         // gibt da einen Java-Bug
         // https://github.com/javafxports/openjdk-jfx/issues/287
 
         P2Duration.counterStart("cleanFaultyCharacterFilmlist");
 
-        filmlist.stream().forEach(film -> {
+        filmlist.forEach(film -> {
 
             film.arr[FilmData.FILM_TITLE] = clean_1(film.getTitle(), true);
             film.arr[FilmData.FILM_THEME] = clean_1(film.getTheme(), true);
@@ -68,10 +68,11 @@ public class FilmFactory {
             // das hat die Probleme gemacht, Film: Weltbilder
         });
 
+        logList.add("## Remove faulty character");
         for (Map.Entry<Character, Integer> entry : counterMap.entrySet()) {
             Character key = entry.getKey();
             Integer value = entry.getValue();
-            P2Log.sysLog("Key: " + (int) key + "  Key: " + key + "  Anz: " + value);
+            logList.add("## Key: " + (int) key + "  Key: " + key + "  Anz: " + value);
         }
 
         P2Duration.counterStop("cleanFaultyCharacterFilmlist");
@@ -156,7 +157,7 @@ public class FilmFactory {
 
     private static String clean_1(String ret, boolean alsoNewLine) {
         // damit werden Unicode-Zeichen korrigiert
-        // gibt da eine Java-Bug
+        // gibt da einen Java-Bug
         // https://github.com/javafxports/openjdk-jfx/issues/287
 
         if (alsoNewLine) {
@@ -170,7 +171,7 @@ public class FilmFactory {
 
     private static String clean_2(String test) {
         // damit werden Unicode-Zeichen korrigiert
-        // gibt da eine Java-Bug, auch Probleme bei Linux mit fehlenden Zeichen in den code tablen
+        // gibt da einen Java-Bug, auch Probleme bei Linux mit fehlenden Zeichen in den code tabellen
         // https://github.com/javafxports/openjdk-jfx/issues/287
 
         char[] c = test.toCharArray();

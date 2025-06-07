@@ -22,17 +22,16 @@ import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 
 import java.util.List;
 
-enum STATE {
-    COMPLETE, DIFF
-}
+public class P2ImportFilmlistFromServer {
+    enum STATE {
+        COMPLETE, DIFF
+    }
 
-public class P2ImportNewFilmlistFromServer {
-
-    public P2ImportNewFilmlistFromServer() {
+    public P2ImportFilmlistFromServer() {
     }
 
     // #########################################################
-    // Filmliste importieren, URL automatisch wählen
+    // URL automatisch wählen und Filmliste laden
     // #########################################################
     public boolean importFilmListFromWebAuto(List<String> logList, Filmlist filmlist, Filmlist filmListDiff) {
         STATE state;
@@ -79,7 +78,6 @@ public class P2ImportNewFilmlistFromServer {
             // wenn abgebrochen wurde, nicht weitermachen
             return false;
         }
-        boolean ret = !list.isEmpty();
-        return ret;
+        return !list.isEmpty();
     }
 }
