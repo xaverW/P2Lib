@@ -18,13 +18,15 @@
 package de.p2tools.p2lib.mtfilm.loadfilmlist;
 
 import de.p2tools.p2lib.alert.P2Alert;
-import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import org.tukaani.xz.XZInputStream;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.zip.ZipInputStream;
 
 public class P2LoadFactory {
 
@@ -37,7 +39,7 @@ public class P2LoadFactory {
      * @return
      */
     public static ArrayList<String> getSenderListNotToLoad() {
-        return new ArrayList(Arrays.asList(LoadFactoryConst.SYSTEM_LOAD_NOT_SENDER.split(",")));
+        return new ArrayList(Arrays.asList(P2LoadConst.SYSTEM_LOAD_NOT_SENDER.split(",")));
     }
 
     /**
@@ -51,7 +53,7 @@ public class P2LoadFactory {
         // und das ist nur ein Hinweis darauf!
         ArrayList<String> aListSenderNotToLoad = getSenderListNotToLoad();
         boolean allSender = true;
-        for (String sender : LoadFactoryConst.SENDER) {
+        for (String sender : P2LoadConst.SENDER) {
             Optional<String> optional = aListSenderNotToLoad.stream().filter(aktSender -> aktSender.equals(sender)).findAny();
             if (optional.isEmpty()) {
                 // mindestens einer fehlt :)
@@ -70,5 +72,16 @@ public class P2LoadFactory {
         }
 
         return allSender;
+    }
+
+    public static InputStream selectDecompressor(String source, InputStream in) throws Exception {
+        if (source.endsWith(P2LoadConst.FORMAT_XZ)) {
+            in = new XZInputStream(in);
+        } else if (source.endsWith(P2LoadConst.FORMAT_ZIP)) {
+            final ZipInputStream zipInputStream = new ZipInputStream(in);
+            zipInputStream.getNextEntry();
+            in = zipInputStream;
+        }
+        return in;
     }
 }

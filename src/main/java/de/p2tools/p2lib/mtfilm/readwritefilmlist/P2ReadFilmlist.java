@@ -24,12 +24,13 @@ import de.p2tools.p2lib.mtfilm.film.FilmData;
 import de.p2tools.p2lib.mtfilm.film.FilmDataXml;
 import de.p2tools.p2lib.mtfilm.film.Filmlist;
 import de.p2tools.p2lib.mtfilm.film.FilmlistXml;
+import de.p2tools.p2lib.mtfilm.loadfilmlist.P2LoadConst;
 import de.p2tools.p2lib.mtfilm.loadfilmlist.P2LoadFactory;
 import de.p2tools.p2lib.mtfilm.loadfilmlist.P2LoadFilmlist;
 import de.p2tools.p2lib.mtfilm.tools.InputStreamProgressMonitor;
-import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 import de.p2tools.p2lib.mtfilm.tools.ProgressMonitorInputStream;
 import de.p2tools.p2lib.p2event.P2Event;
+import de.p2tools.p2lib.p2event.P2EventHandler;
 import de.p2tools.p2lib.p2event.P2Events;
 import de.p2tools.p2lib.tools.P2StringUtils;
 import de.p2tools.p2lib.tools.duration.P2Duration;
@@ -37,7 +38,6 @@ import de.p2tools.p2lib.tools.log.P2Log;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import org.tukaani.xz.XZInputStream;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -50,7 +50,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
-import java.util.zip.ZipInputStream;
 
 public class P2ReadFilmlist {
 
@@ -60,11 +59,33 @@ public class P2ReadFilmlist {
     private int countAll = 0;
     private boolean loadFromWeb = false;//nur dann müssen die Filme gefiltert werden
 
+    private final P2EventHandler p2EventHandler;
+    private final int eventProcess;
+    private final int eventLoaded;
+
     private final Map<String, Integer> filmsPerChannelFoundCompleteList = new TreeMap<>();
     private final Map<String, Integer> filmsPerChannelUsed = new TreeMap<>();
     private final Map<String, Integer> filmsPerChannelBlocked = new TreeMap<>();
     private final Map<String, Integer> filmsPerDaysBlocked = new TreeMap<>();
     private final Map<String, Integer> filmsPerDurationBlocked = new TreeMap<>();
+
+    public P2ReadFilmlist() {
+        this.p2EventHandler = P2LoadConst.p2EventHandler;
+        this.eventProcess = P2Events.EVENT_FILMLIST_LOAD_PROGRESS;
+        this.eventLoaded = P2Events.EVENT_FILMLIST_LOAD_LOADED;
+    }
+
+    public P2ReadFilmlist(boolean film) {
+        this.p2EventHandler = P2LoadConst.p2EventHandler;
+        if (film) {
+            this.eventProcess = P2Events.EVENT_FILMLIST_LOAD_PROGRESS;
+            this.eventLoaded = P2Events.EVENT_FILMLIST_LOAD_LOADED;
+
+        } else {
+            this.eventProcess = P2Events.LOAD_AUDIO_LIST_PROGRESS;
+            this.eventLoaded = P2Events.LOAD_AUDIO_LIST_LOADED;
+        }
+    }
 
     //Hier wird die Filmliste tatsächlich geladen: lokal von Datei, oder aus dem Web mit URL
     public void readFilmlistWebOrLocal(List<String> logList, final Filmlist filmlist, String sourceFileOrUrl) {
@@ -84,19 +105,19 @@ public class P2ReadFilmlist {
             if (sourceFileOrUrl.startsWith("http")) {
                 //dann aus dem Web mit der URL laden
                 logList.add("## Filmliste aus URL laden: " + sourceFileOrUrl);
-//                logList.add("## FilmInit wird gemacht: " + LoadFactoryConst.filmInitNecessary);
+                logList.add("## FilmInit wird gemacht: " + P2LoadConst.filmInitNecessary);
                 loadFromWeb = true;
                 processFromWeb(new URL(sourceFileOrUrl), filmlist);
 
             } else {
                 //dann lokale Datei laden
                 logList.add("## Filmliste aus Datei laden: " + sourceFileOrUrl);
-//                logList.add("## FilmInit wird gemacht: " + LoadFactoryConst.filmInitNecessary);
+                logList.add("## FilmInit wird gemacht: " + P2LoadConst.filmInitNecessary);
                 loadFromWeb = false;
                 processFromFile(sourceFileOrUrl, filmlist);
             }
 
-            if (LoadFactoryConst.p2LoadFilmlist.isStop()) {
+            if (P2LoadConst.stop.get()) {
                 logList.add("## -> Filmliste laden abgebrochen");
                 filmlist.clear();
 
@@ -125,7 +146,7 @@ public class P2ReadFilmlist {
      */
     private void processFromWeb(URL source, Filmlist filmlist) {
         final Request.Builder builder = new Request.Builder().url(source);
-        builder.addHeader("User-Agent", LoadFactoryConst.userAgent);
+        builder.addHeader("User-Agent", P2LoadConst.userAgent);
 
         // our progress monitor callback
         final InputStreamProgressMonitor monitor = new InputStreamProgressMonitor() {
@@ -146,7 +167,7 @@ public class P2ReadFilmlist {
             if (body != null && response.isSuccessful()) {
 
                 try (InputStream input = new ProgressMonitorInputStream(body.byteStream(), body.contentLength(), monitor)) {
-                    try (InputStream is = selectDecompressor(source.toString(), input);
+                    try (InputStream is = P2LoadFactory.selectDecompressor(source.toString(), input);
                          JsonParser jp = new JsonFactory().createParser(is)) {
                         readData(jp, filmlist);
                     }
@@ -167,7 +188,7 @@ public class P2ReadFilmlist {
      */
     private void processFromFile(String source, Filmlist filmlist) {
         notifyProgress(P2LoadFilmlist.PROGRESS_INDETERMINATE);
-        try (InputStream in = selectDecompressor(source, new FileInputStream(source));
+        try (InputStream in = P2LoadFactory.selectDecompressor(source, new FileInputStream(source));
              JsonParser jp = new JsonFactory().createParser(in)) {
             readData(jp, filmlist);
         } catch (final FileNotFoundException ex) {
@@ -183,8 +204,8 @@ public class P2ReadFilmlist {
         JsonToken jsonToken;
         ArrayList<String> listChannel = P2LoadFactory.getSenderListNotToLoad();
         final long loadFilmsMaxMilliSeconds = getDaysLoadingFilms();
-        final int loadFilmsMinDuration = LoadFactoryConst.SYSTEM_LOAD_FILMLIST_MIN_DURATION;
-        final LoadFactoryConst.FilmChecker checker = LoadFactoryConst.checker;
+        final int loadFilmsMinDuration = P2LoadConst.SYSTEM_LOAD_FILMLIST_MIN_DURATION;
+        final P2LoadConst.FilmChecker checker = P2LoadConst.checker;
 
 
         if (jp.nextToken() != JsonToken.START_OBJECT) {
@@ -214,7 +235,7 @@ public class P2ReadFilmlist {
         }
 
         final boolean listChannelIsEmpty = listChannel.isEmpty();
-        while (!LoadFactoryConst.p2LoadFilmlist.isStop() && (jsonToken = jp.nextToken()) != null) {
+        while (!P2LoadConst.stop.get() && (jsonToken = jp.nextToken()) != null) {
             if (jsonToken == JsonToken.END_OBJECT) {
                 break;
             }
@@ -223,14 +244,12 @@ public class P2ReadFilmlist {
                 final FilmData film = filmlist.getNewElement();
                 addValue(film, jp);
 
-
-//                if (LoadFactoryConst.filmInitNecessary) {
-                //sonst muss eh die ganze Liste geladen werden und es wird dann nur die URL für den Hash gebraucht
-                ++countAll;
-                countFilm(filmsPerChannelFoundCompleteList, film);
-//                    film.init(); // damit wird auch das Datum! gesetzt
-//                }
-
+                if (P2LoadConst.filmInitNecessary) {
+                    //sonst muss eh die ganze Liste geladen werden und es wird dann nur die URL für den Hash gebraucht
+                    ++countAll;
+                    countFilm(filmsPerChannelFoundCompleteList, film);
+                    film.init(); // damit wird auch das Datum! gesetzt
+                }
 
                 //=========================
                 //Filter
@@ -342,7 +361,7 @@ public class P2ReadFilmlist {
         if (!filmsPerDaysBlocked.isEmpty()) {
             logList.add("## " + P2Log.LILNE3);
             logList.add("## ");
-            final int maxDays = LoadFactoryConst.SYSTEM_LOAD_FILMLIST_MAX_DAYS;
+            final int maxDays = P2LoadConst.SYSTEM_LOAD_FILMLIST_MAX_DAYS;
             logList.add("## == nach max. Tage geblockte Filme (max. " + maxDays + " Tage) ==");
 
             sumFilms = 0;
@@ -359,7 +378,7 @@ public class P2ReadFilmlist {
         if (!filmsPerDurationBlocked.isEmpty()) {
             logList.add("## " + P2Log.LILNE3);
             logList.add("## ");
-            final int dur = LoadFactoryConst.SYSTEM_LOAD_FILMLIST_MIN_DURATION;
+            final int dur = P2LoadConst.SYSTEM_LOAD_FILMLIST_MIN_DURATION;
             logList.add("## == nach Filmlänge geblockte Filme (mind. " + dur + " min.) ==");
 
             sumFilms = 0;
@@ -373,17 +392,6 @@ public class P2ReadFilmlist {
             logList.add("## ");
         }
         P2Duration.counterStop("countFoundChannel");
-    }
-
-    private InputStream selectDecompressor(String source, InputStream in) throws Exception {
-        if (source.endsWith(LoadFactoryConst.FORMAT_XZ)) {
-            in = new XZInputStream(in);
-        } else if (source.endsWith(LoadFactoryConst.FORMAT_ZIP)) {
-            final ZipInputStream zipInputStream = new ZipInputStream(in);
-            zipInputStream.getNextEntry();
-            in = zipInputStream;
-        }
-        return in;
     }
 
     private void addValue(FilmData film, JsonParser jp) throws IOException {
@@ -461,7 +469,7 @@ public class P2ReadFilmlist {
     }
 
     private long getDaysLoadingFilms() {
-        final long days = LoadFactoryConst.SYSTEM_LOAD_FILMLIST_MAX_DAYS;
+        final long days = P2LoadConst.SYSTEM_LOAD_FILMLIST_MAX_DAYS;
         if (days > 0) {
             return System.currentTimeMillis() - TimeUnit.MILLISECONDS.convert(days, TimeUnit.DAYS);
         } else {
@@ -504,14 +512,12 @@ public class P2ReadFilmlist {
         if (progress > P2LoadFilmlist.PROGRESS_MAX) {
             progress = P2LoadFilmlist.PROGRESS_MAX;
         }
-        LoadFactoryConst.p2LoadFilmlist.getP2EventHandler()
-                .notifyListener(new P2Event(P2Events.EVENT_FILMLIST_LOAD_PROGRESS, "Filmliste laden", progress));
+        p2EventHandler.notifyListener(new P2Event(eventProcess, "Filmliste laden", progress));
     }
 
     private void notifyLoaded() {
         // Laden ist durch
-        LoadFactoryConst.p2LoadFilmlist.getP2EventHandler()
-                .notifyListener(new P2Event(P2Events.EVENT_FILMLIST_LOAD_LOADED, "Filme verarbeiten",
-                        P2LoadFilmlist.PROGRESS_INDETERMINATE));
+        p2EventHandler.notifyListener(new P2Event(eventLoaded, "Filme verarbeiten",
+                P2LoadFilmlist.PROGRESS_INDETERMINATE));
     }
 }

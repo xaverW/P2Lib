@@ -18,8 +18,8 @@ package de.p2tools.p2lib.mtfilm.film;
 
 import de.p2tools.p2lib.configfile.config.Config;
 import de.p2tools.p2lib.configfile.pdata.P2Data;
+import de.p2tools.p2lib.mtfilm.loadfilmlist.P2LoadConst;
 import de.p2tools.p2lib.mtfilm.tools.FilmDate;
-import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.time.LocalTime;
@@ -135,7 +135,7 @@ public class FilmData extends FilmDataProps implements P2Data {
     public String getUrlForHash() {
         // liefert die URL zum VERGLEICHEN!!
         String url = "";
-        if (arr[FILM_CHANNEL].equals(LoadFactoryConst.ORF)) {
+        if (arr[FILM_CHANNEL].equals(P2LoadConst.ORF)) {
             final String uurl = arr[FILM_URL];
             try {
                 final String online = "/online/";
@@ -157,7 +157,7 @@ public class FilmData extends FilmDataProps implements P2Data {
             } catch (final Exception ex) {
                 P2Log.errorLog(915230478, ex, "Url: " + uurl);
             }
-            return LoadFactoryConst.ORF + "----" + url;
+            return P2LoadConst.ORF + "----" + url;
         } else {
             return arr[FILM_URL];
         }

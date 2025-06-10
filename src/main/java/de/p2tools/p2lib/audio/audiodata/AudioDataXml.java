@@ -14,7 +14,7 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2lib.atdata;
+package de.p2tools.p2lib.audio.audiodata;
 
 import de.p2tools.p2lib.mtfilm.film.Data;
 import org.apache.commons.lang3.time.FastDateFormat;

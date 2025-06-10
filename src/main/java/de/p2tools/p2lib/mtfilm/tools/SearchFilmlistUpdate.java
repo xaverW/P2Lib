@@ -18,6 +18,7 @@
 package de.p2tools.p2lib.mtfilm.tools;
 
 import de.p2tools.p2lib.mtdownload.MLHttpClientProxy;
+import de.p2tools.p2lib.mtfilm.loadfilmlist.P2LoadConst;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -83,7 +84,7 @@ public class SearchFilmlistUpdate {
     private boolean hasNewRemoteFilmlistID(String oldId) {
         boolean result = false;
 
-        HttpUrl filmListUrl = HttpUrl.parse(LoadFactoryConst.FILMLIST_ID);
+        HttpUrl filmListUrl = HttpUrl.parse(P2LoadConst.FILMLIST_ID);
         final Request request = new Request.Builder().url(Objects.requireNonNull(filmListUrl)).build();
 
         try (Response response = MLHttpClientProxy.getInstance().getHttpClient().newCall(request).execute();

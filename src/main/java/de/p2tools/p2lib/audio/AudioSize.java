@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License along with this program. If
  * not, see <http://www.gnu.org/licenses/>.
  */
-package de.p2tools.p2lib.atdata;
+package de.p2tools.p2lib.audio;
 
 import de.p2tools.p2lib.tools.log.P2Log;
 
@@ -25,7 +25,7 @@ public class AudioSize implements Comparable<AudioSize> {
     public AudioSize() {
     }
 
-    void setAudioSize(String audioSize) {
+    public void setAudioSize(String audioSize) {
         if (audioSize.equals("<1")) {
             audioSize = "1";
         }

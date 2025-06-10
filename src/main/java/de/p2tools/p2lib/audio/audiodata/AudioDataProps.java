@@ -14,8 +14,9 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2lib.atdata;
+package de.p2tools.p2lib.audio.audiodata;
 
+import de.p2tools.p2lib.audio.AudioSize;
 import de.p2tools.p2lib.mtfilm.tools.FilmDate;
 
 public class AudioDataProps extends AudioDataXml {

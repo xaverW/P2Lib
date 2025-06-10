@@ -15,14 +15,21 @@
  */
 
 
-package de.p2tools.p2lib.mtfilm.tools;
+package de.p2tools.p2lib.mtfilm.loadfilmlist;
 
 import de.p2tools.p2lib.mtfilm.film.FilmData;
 import de.p2tools.p2lib.mtfilm.film.Filmlist;
-import de.p2tools.p2lib.mtfilm.loadfilmlist.P2LoadFilmlist;
+import de.p2tools.p2lib.p2event.P2EventHandler;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
 
-public class LoadFactoryConst {
+import java.util.concurrent.atomic.AtomicBoolean;
+
+public class P2LoadConst {
+
     public static final String DREI_SAT = "3Sat";
     public static final String DREI_SAT_ = "3sat.Online";
     public static final String ARD = "ARD";
@@ -78,6 +85,7 @@ public class LoadFactoryConst {
     private static final String ZDF_TIVI = "ZDF-tivi";
     private static final String ZDF_TIVI_ = "Kinder- und Jugend-Programmfenster des ZDF";
 
+
     // das wird in den Einstellungen "Sender nicht laden" angezeigt
     public static final String[] SENDER = {DREI_SAT, ARD,
             ARTE_DE, ARTE_EN, ARTE_ES, ARTE_FR, ARTE_IT, ARTE_PL,
@@ -92,35 +100,57 @@ public class LoadFactoryConst {
 
     // beim Programmstart wird die Liste geladen wenn sie älter ist als ..
     public static final int ALTER_FILMLISTE_SEKUNDEN_FUER_AUTOUPDATE = 4 * 60 * 60;
+
     // Uhrzeit ab der die Diffliste alle Änderungen abdeckt, die Filmliste darf also nicht vor xx erstellt worden sein
     public static final String TIME_MAX_AGE_FOR_DIFF = "09:00:00";
+
+
+    // URLs
     public static final String FORMAT_ZIP = ".zip";
     public static final String FORMAT_XZ = ".xz";
-    // MediathekView URLs
+
     public static String FILMLIST_URL_AKT = "https://liste.mediathekview.de/Filmliste-akt.xz";
     public static String FILMLIST_URL_DIFF = "https://liste.mediathekview.de/Filmliste-diff.xz";
     public static String FILMLIST_ID = "https://liste.mediathekview.de/filmliste.id";
+
+    public static final String AUDIOLIST_URL = "https://atlist.de/audios.xz";
+    public static final String AUDIO_LIST_FILE_JSON = "audios.json";
+    public static final String AUDIO_LIST_FILE_JSON_XZ = "audios.xz";
+
+
     public static String GEO_HOME_PLACE = "";
     public static boolean debug = false;
     public static String SYSTEM_LOAD_NOT_SENDER = "";
-    public static String dateStoredFilmlist = "";
+    public static StringProperty dateStoredFilmlist = new SimpleStringProperty("");
+    public static StringProperty dateStoredAudiolist = new SimpleStringProperty("");
     public static boolean firstProgramStart = false;
     public static String localFilmListFile = "";
+    public static String localAudioListFile = "";
+
+
     public static boolean loadNewFilmlistOnProgramStart = true;
 
     public static int SYSTEM_LOAD_FILMLIST_MAX_DAYS = 0;
     public static int SYSTEM_LOAD_FILMLIST_MIN_DURATION = 0;
+    public static IntegerProperty SYSTEM_AUDIOLIST_COUNT_DOUBLE = new SimpleIntegerProperty(0);
+    public static boolean SYSTEM_FILMLIST_REMOVE_DOUBLE = false;
+
+
     public static boolean removeDiacritic = false;
-//    public static boolean filmInitNecessary = true;
+    public static boolean filmInitNecessary = true;
+    public static boolean audioInitNecessary = true;
 
     public static FilmChecker checker = null;//0,2s schneller als mit checker->true
 
-    public static Filmlist filmlist;
+    public static Filmlist filmlistLocal;
+    public static Filmlist<FilmData> audioListLocal;
 
     public static String userAgent = "";
-    public static P2LoadFilmlist p2LoadFilmlist;
     public static Stage primaryStage = null;
     public static String filmListUrl = "";
+
+    public static P2EventHandler p2EventHandler;
+    public static final AtomicBoolean stop = new AtomicBoolean(false); // damit kann das Laden gestoppt werden kann
 
     public interface FilmChecker {
         boolean check(FilmData film);

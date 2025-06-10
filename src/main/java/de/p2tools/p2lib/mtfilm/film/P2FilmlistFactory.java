@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.mtfilm.film;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
+import de.p2tools.p2lib.mtfilm.loadfilmlist.P2LoadConst;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.ListProperty;
@@ -31,11 +31,11 @@ import java.util.Iterator;
 import java.util.SimpleTimeZone;
 
 @SuppressWarnings("serial")
-public class FilmlistFactory {
+public class P2FilmlistFactory {
     public static final String DATE_TIME_FORMAT = "dd.MM.yyyy, HH:mm";
     private static int countDouble = 0;
 
-    private FilmlistFactory() {
+    private P2FilmlistFactory() {
     }
 
     public static String genDate(String[] metaData) {
@@ -85,7 +85,7 @@ public class FilmlistFactory {
             final Iterator<? extends FilmData> it = filmList.iterator();
             while (it.hasNext()) {
                 final FilmData f = it.next();
-                if (f.arr[FilmDataXml.FILM_CHANNEL].equals(LoadFactoryConst.KIKA)) {
+                if (f.arr[FilmDataXml.FILM_CHANNEL].equals(P2LoadConst.KIKA)) {
                     // beim KIKA ändern sich die URLs laufend
                     if (hash.contains(f.arr[FilmDataXml.FILM_THEME] + f.arr[FilmDataXml.FILM_TITLE])) {
                         it.remove();
@@ -105,7 +105,7 @@ public class FilmlistFactory {
             filmList.forEach(f -> addHash(f, hash, index));
 
             for (final FilmData f : addList) {
-                if (f.arr[FilmDataXml.FILM_CHANNEL].equals(LoadFactoryConst.KIKA)) {
+                if (f.arr[FilmDataXml.FILM_CHANNEL].equals(P2LoadConst.KIKA)) {
                     if (!hash.contains(f.arr[FilmDataXml.FILM_THEME] + f.arr[FilmDataXml.FILM_TITLE])) {
                         addInit(filmList, f);
                     }
@@ -131,7 +131,7 @@ public class FilmlistFactory {
     }
 
     private static void addHash(FilmData f, HashSet<String> hash, boolean index) {
-        if (f.arr[FilmDataXml.FILM_CHANNEL].equals(LoadFactoryConst.KIKA)) {
+        if (f.arr[FilmDataXml.FILM_CHANNEL].equals(P2LoadConst.KIKA)) {
             // beim KIKA ändern sich die URLs laufend
             hash.add(f.arr[FilmDataXml.FILM_THEME] + f.arr[FilmDataXml.FILM_TITLE]);
         } else if (index) {
@@ -242,7 +242,7 @@ public class FilmlistFactory {
      */
     public static String getAgeAsStringDate(String[] metaData) {
         String ret = "";
-        Date date = FilmlistFactory.getAgeAsDate(metaData);
+        Date date = P2FilmlistFactory.getAgeAsDate(metaData);
         final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);
         final SimpleDateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
         sdfUtc.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
@@ -285,7 +285,7 @@ public class FilmlistFactory {
         if (filmList.isEmpty()) {
             return true;
         }
-        return isOlderThan(metaData, LoadFactoryConst.ALTER_FILMLISTE_SEKUNDEN_FUER_AUTOUPDATE);
+        return isOlderThan(metaData, P2LoadConst.ALTER_FILMLISTE_SEKUNDEN_FUER_AUTOUPDATE);
     }
 
     /**
@@ -309,7 +309,7 @@ public class FilmlistFactory {
             P2Log.sysLog("Die Filmliste hat kein Alter gespeichert -> Neue laden");
             return true;
         }
-        return isOlderThan(age, LoadFactoryConst.ALTER_FILMLISTE_SEKUNDEN_FUER_AUTOUPDATE);
+        return isOlderThan(age, P2LoadConst.ALTER_FILMLISTE_SEKUNDEN_FUER_AUTOUPDATE);
     }
 
     /**
@@ -323,7 +323,7 @@ public class FilmlistFactory {
         }
         try {
             final String dateMaxDiff_str = new SimpleDateFormat("yyyy.MM.dd__").format(new Date()) +
-                    LoadFactoryConst.TIME_MAX_AGE_FOR_DIFF;//2023.02.10__09:00:00
+                    P2LoadConst.TIME_MAX_AGE_FOR_DIFF;//2023.02.10__09:00:00
             final Date dateMaxDiff = new SimpleDateFormat("yyyy.MM.dd__HH:mm:ss").parse(dateMaxDiff_str);
 
             final Date dateFilmlist = getAgeAsDate(metaData);
@@ -350,7 +350,7 @@ public class FilmlistFactory {
 
         try {
             final String dateMaxDiff_str = new SimpleDateFormat("yyyy.MM.dd__").format(new Date()) +
-                    LoadFactoryConst.TIME_MAX_AGE_FOR_DIFF;//2023.02.10__09:00:00
+                    P2LoadConst.TIME_MAX_AGE_FOR_DIFF;//2023.02.10__09:00:00
             final Date dateMaxDiff = new SimpleDateFormat("yyyy.MM.dd__HH:mm:ss").parse(dateMaxDiff_str);
 
             final SimpleDateFormat sdfUtc = new SimpleDateFormat(DATE_TIME_FORMAT);

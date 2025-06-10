@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.mtdownload;
 
-import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
+import de.p2tools.p2lib.mtfilm.loadfilmlist.P2LoadConst;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.net.P2UrlConnectionFactory;
 
@@ -128,7 +128,7 @@ public class DownloadFactory {
         try {
             // connection = (HttpURLConnection) url.openConnection();
             connection = P2UrlConnectionFactory.getUrlConnection(url);
-            connection.setRequestProperty("User-Agent", LoadFactoryConst.userAgent);
+            connection.setRequestProperty("User-Agent", P2LoadConst.userAgent);
             connection.setReadTimeout(TIMEOUT_LENGTH);
             connection.setConnectTimeout(TIMEOUT_LENGTH);
             if (connection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST) {

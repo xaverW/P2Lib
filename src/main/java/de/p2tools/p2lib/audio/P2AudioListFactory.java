@@ -14,9 +14,11 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2lib.atdata;
+package de.p2tools.p2lib.audio;
 
 
+import de.p2tools.p2lib.audio.audiodata.AudioData;
+import de.p2tools.p2lib.audio.audiodata.AudioList;
 import de.p2tools.p2lib.tools.date.P2DateGmtFactory;
 
 import java.time.Duration;

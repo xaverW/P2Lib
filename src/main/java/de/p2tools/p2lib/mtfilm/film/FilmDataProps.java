@@ -16,8 +16,8 @@
 
 package de.p2tools.p2lib.mtfilm.film;
 
+import de.p2tools.p2lib.mtfilm.loadfilmlist.P2LoadConst;
 import de.p2tools.p2lib.mtfilm.tools.FilmDate;
-import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 import de.p2tools.p2lib.tools.date.P2Date;
 import de.p2tools.p2lib.tools.log.P2Log;
 
@@ -68,7 +68,7 @@ public class FilmDataProps extends FilmDataXml {
     }
 
     public void setGeoBlocked() {
-        geoBlocked = !getGeo().isEmpty() && !getGeo().contains(LoadFactoryConst.GEO_HOME_PLACE);
+        geoBlocked = !getGeo().isEmpty() && !getGeo().contains(P2LoadConst.GEO_HOME_PLACE);
     }
 
     public boolean isInFuture() {

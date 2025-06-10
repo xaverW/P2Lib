@@ -18,7 +18,6 @@ package de.p2tools.p2lib.mtfilm.loadfilmlist;
 
 import de.p2tools.p2lib.mtfilm.film.Filmlist;
 import de.p2tools.p2lib.mtfilm.readwritefilmlist.P2ReadFilmlist;
-import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
 
 import java.util.List;
 
@@ -64,17 +63,17 @@ public class P2ImportFilmlistFromServer {
 
     private boolean loadList(List<String> logList, Filmlist list, STATE state) {
         String updateUrl;
-        if (LoadFactoryConst.filmListUrl.isEmpty()) {
+        if (P2LoadConst.filmListUrl.isEmpty()) {
             //dann die Standard-URLs verwenden
-            updateUrl = state == STATE.COMPLETE ? LoadFactoryConst.FILMLIST_URL_AKT : LoadFactoryConst.FILMLIST_URL_DIFF;
+            updateUrl = state == STATE.COMPLETE ? P2LoadConst.FILMLIST_URL_AKT : P2LoadConst.FILMLIST_URL_DIFF;
         } else {
             //dann soll nur die URL verwendet werden
-            updateUrl = LoadFactoryConst.filmListUrl;
+            updateUrl = P2LoadConst.filmListUrl;
         }
 
         new P2ReadFilmlist().readFilmlistWebOrLocal(logList, list, updateUrl);
 
-        if (LoadFactoryConst.p2LoadFilmlist.isStop()) {
+        if (P2LoadConst.stop.get()) {
             // wenn abgebrochen wurde, nicht weitermachen
             return false;
         }

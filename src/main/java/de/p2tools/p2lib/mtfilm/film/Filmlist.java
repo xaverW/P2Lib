@@ -16,7 +16,7 @@
 
 package de.p2tools.p2lib.mtfilm.film;
 
-import de.p2tools.p2lib.mtfilm.tools.LoadFactoryConst;
+import de.p2tools.p2lib.mtfilm.loadfilmlist.P2LoadConst;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.SimpleListProperty;
@@ -48,7 +48,7 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
     public static synchronized String genDate(String[] metaData) {
         // Tag, Zeit in lokaler Zeit wann die Filmliste erstellt wurde
         // in der Form "dd.MM.yyyy, HH:mm"
-        return FilmlistFactory.genDate(metaData);
+        return P2FilmlistFactory.genDate(metaData);
     }
 
     public void clearFilteredList() {
@@ -93,7 +93,7 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
     }
 
     private void addHash(FilmData f, HashSet<String> hash, boolean index) {
-        if (f.arr[FilmDataXml.FILM_CHANNEL].equals(LoadFactoryConst.KIKA)) {
+        if (f.arr[FilmDataXml.FILM_CHANNEL].equals(P2LoadConst.KIKA)) {
             // beim KIKA ändern sich die URLs laufend
             hash.add(f.arr[FilmDataXml.FILM_THEME] + f.arr[FilmDataXml.FILM_TITLE]);
         } else if (index) {
@@ -109,7 +109,7 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
         // in eine vorhandene Liste soll eine andere Filmliste einsortiert werden
         // es werden nur Filme, die noch nicht vorhanden sind, einsortiert
         // "ersetzen": true: dann werden gleiche (index/URL) in der Liste durch neue ersetzt
-        FilmlistFactory.updateList(this, addList, index, replace);
+        P2FilmlistFactory.updateList(this, addList, index, replace);
     }
 
     public synchronized void markGeoBlocked() {
@@ -121,7 +121,11 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
         // läuft direkt nach dem Laden der Filmliste!
         // doppelte Filme (URL), Geo, InFuture markieren
         // viele Filme sind bei mehreren Sendern vorhanden
-        return FilmlistFactory.markFilms(this);
+        return P2FilmlistFactory.markFilms(this);
+    }
+
+    public synchronized int markFilms(List<String> logList) {
+        return P2FilmlistFactory.markFilms(this);
     }
 
     @Override
@@ -177,7 +181,7 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
      * @return Age in seconds.
      */
     public int getAge() {
-        return FilmlistFactory.getAge(metaData);
+        return P2FilmlistFactory.getAge(metaData);
     }
 
     /**
@@ -186,7 +190,7 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
      * @return Age as a {@link java.util.Date} object.
      */
     public static Date getAgeAsDate(String[] metaData) {
-        return FilmlistFactory.getAgeAsDate(metaData);
+        return P2FilmlistFactory.getAgeAsDate(metaData);
     }
 
     /**
@@ -195,7 +199,7 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
      * @return Age as a {@link java.util.Date} object.
      */
     public static String getAgeAsStringDate(String[] metaData) {
-        return FilmlistFactory.getAgeAsStringDate(metaData);
+        return P2FilmlistFactory.getAgeAsStringDate(metaData);
     }
 
     /**
@@ -204,7 +208,7 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
      * @return true if too old or if the list is empty.
      */
     public synchronized boolean isTooOldOrEmpty() {
-        return FilmlistFactory.isTooOldOrEmpty(this, metaData);
+        return P2FilmlistFactory.isTooOldOrEmpty(this, metaData);
     }
 
     /**
@@ -213,7 +217,7 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
      * @return true if empty or too old.
      */
     public synchronized boolean isTooOldForDiffOrEmpty() {
-        return FilmlistFactory.isTooOldForDiffOrEmpty(this, metaData);
+        return P2FilmlistFactory.isTooOldForDiffOrEmpty(this, metaData);
     }
 
     /**
@@ -223,7 +227,7 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
      * @return true if older.
      */
     public boolean isOlderThan(int second) {
-        return FilmlistFactory.isOlderThan(metaData, second);
+        return P2FilmlistFactory.isOlderThan(metaData, second);
     }
 
     public synchronized long countNewFilms() {
