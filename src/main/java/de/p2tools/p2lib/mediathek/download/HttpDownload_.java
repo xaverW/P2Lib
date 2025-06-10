@@ -14,12 +14,11 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2lib.checkforactinfos;
+package de.p2tools.p2lib.mediathek.download;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.guitools.pnotification.P2Notification;
-import de.p2tools.p2lib.mediathek.download.DownloadFactory;
 import de.p2tools.p2lib.tools.file.P2FileSize;
 import de.p2tools.p2lib.tools.file.P2FileUtils;
 import de.p2tools.p2lib.tools.log.P2Log;
@@ -39,9 +38,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 
-public class FoundHttpDownload extends Thread {
+public class HttpDownload_ extends Thread {
     public static final int DEFAULT_BUFFER_SIZE = 4 * 1024; // default byte buffer size
-    public static int downloadRunning = 0; // wird beim Beenden abgefragt, ob noch was läuft
+    public static int downloadRunning = 0;
     private final int DOWNLOAD_MAX_RESTART_HTTP = 4;
     private final Stage stage;
     private long downloaded = 0;
@@ -54,10 +53,10 @@ public class FoundHttpDownload extends Thread {
     private String userAgent = "";
     private long fileSize = 0;
     private boolean error = false;
-    private FoundDownloadProgressDialog foundDownloadProgressDialog = null;
+    private DownloadProgressDialog_ downloadProgressDialog = null;
 
 
-    public FoundHttpDownload(Stage stage, String url, String destDir, String destName) {
+    public HttpDownload_(Stage stage, String url, String destDir, String destName) {
         super();
         this.stage = stage;
         this.url = url;
@@ -201,14 +200,14 @@ public class FoundHttpDownload extends Thread {
         CountDownLatch countDownLatch = new CountDownLatch(1);
         Platform.runLater(() -> {
             //wenn der Download zu schnell ist, kommt der Dialog erst danach und beendet sich nicht mehr :)
-            foundDownloadProgressDialog = new FoundDownloadProgressDialog(stage, destName, getText());
+            downloadProgressDialog = new DownloadProgressDialog_(stage, destName, getText());
             countDownLatch.countDown();
         });
         countDownLatch.await();
 
         while ((len = inputStream.read(buffer)) != -1) {
             date1 = new Date().getTime();
-            if (foundDownloadProgressDialog != null && foundDownloadProgressDialog.isCanceled()) {
+            if (downloadProgressDialog != null && downloadProgressDialog.isCanceled()) {
                 error = true;
                 break;
             }
@@ -216,7 +215,7 @@ public class FoundHttpDownload extends Thread {
             downloaded += len;
             fileOutputStream.write(buffer, 0, len);
 
-            if (downloaded > 0 && date1 - date2 > 500 && foundDownloadProgressDialog != null) {
+            if (downloaded > 0 && date1 - date2 > 500 && downloadProgressDialog != null) {
                 date2 = new Date().getTime();
 
                 p = 1.0 * downloaded / fileSize;
@@ -225,13 +224,13 @@ public class FoundHttpDownload extends Thread {
                 if (p != pp) {
                     // Fortschritt anzeigen
                     pp = p;
-                    foundDownloadProgressDialog.setProgress(p, getText());
+                    downloadProgressDialog.setProgress(p, getText());
                 }
             }
         }
 
-        if (foundDownloadProgressDialog != null) {
-            foundDownloadProgressDialog.close();
+        if (downloadProgressDialog != null) {
+            downloadProgressDialog.close();
         }
 
         if (check()) {

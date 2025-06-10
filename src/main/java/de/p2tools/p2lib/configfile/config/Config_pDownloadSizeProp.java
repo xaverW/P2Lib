@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.configfile.config;
 
 
-import de.p2tools.p2lib.mtdownload.DownloadSize;
+import de.p2tools.p2lib.mediathek.download.DownloadSize;
 
 public class Config_pDownloadSizeProp extends Config {
 

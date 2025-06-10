@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.guitools;
 
 import de.p2tools.p2lib.P2ProgIcons;
-import de.p2tools.p2lib.mtfilter.FilterCheckRegEx;
+import de.p2tools.p2lib.mediathek.filter.FilterCheckRegEx;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;

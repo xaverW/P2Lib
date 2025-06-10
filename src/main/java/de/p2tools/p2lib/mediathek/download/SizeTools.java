@@ -14,13 +14,13 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.p2tools.p2lib.guitools;
+package de.p2tools.p2lib.mediathek.download;
 
-public class P2SizeTools {  // todo 2x
+public class SizeTools {
 
     public static String getSize(long l) {
         if (l > 1000 * 1000) {
-            //größer als 1MB sonst kann ich mirs sparen
+            // größer als 1MB sonst kann ich mirs sparen
             return String.valueOf(l / (1000 * 1000));
         } else if (l > 0) {
             return "1";
@@ -40,9 +40,7 @@ public class P2SizeTools {  // todo 2x
         if (bytes < unit) {
             return bytes + " B";
         }
-
         final int exp = (int) (Math.log(bytes) / Math.log(unit));
-
         final String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1) + (si ? "" : "i");
         return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
