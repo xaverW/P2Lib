@@ -19,7 +19,7 @@ package de.p2tools.p2lib.mediathek.filmlistreadwrite;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import de.p2tools.p2lib.mediathek.download.MLHttpClientProxy;
+import de.p2tools.p2lib.mediathek.download.MtHttpClientProxy;
 import de.p2tools.p2lib.mediathek.filmdata.FilmData;
 import de.p2tools.p2lib.mediathek.filmdata.FilmDataXml;
 import de.p2tools.p2lib.mediathek.filmdata.Filmlist;
@@ -27,8 +27,8 @@ import de.p2tools.p2lib.mediathek.filmdata.FilmlistXml;
 import de.p2tools.p2lib.mediathek.filmlistload.P2LoadConst;
 import de.p2tools.p2lib.mediathek.filmlistload.P2LoadFactory;
 import de.p2tools.p2lib.mediathek.filmlistload.P2LoadFilmlist;
-import de.p2tools.p2lib.mediathek.tools.InputStreamProgressMonitor;
-import de.p2tools.p2lib.mediathek.tools.ProgressMonitorInputStream;
+import de.p2tools.p2lib.mediathek.tools.P2InputStreamProgressMonitor;
+import de.p2tools.p2lib.mediathek.tools.P2ProgressMonitorInputStream;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2EventHandler;
 import de.p2tools.p2lib.p2event.P2Events;
@@ -149,7 +149,7 @@ public class P2ReadFilmlist {
         builder.addHeader("User-Agent", P2LoadConst.userAgent);
 
         // our progress monitor callback
-        final InputStreamProgressMonitor monitor = new InputStreamProgressMonitor() {
+        final P2InputStreamProgressMonitor monitor = new P2InputStreamProgressMonitor() {
             private int oldProgress = 0;
 
             @Override
@@ -162,11 +162,11 @@ public class P2ReadFilmlist {
             }
         };
 
-        try (Response response = MLHttpClientProxy.getInstance().getHttpClient().newCall(builder.build()).execute();
+        try (Response response = MtHttpClientProxy.getInstance().getHttpClient().newCall(builder.build()).execute();
              ResponseBody body = response.body()) {
             if (body != null && response.isSuccessful()) {
 
-                try (InputStream input = new ProgressMonitorInputStream(body.byteStream(), body.contentLength(), monitor)) {
+                try (InputStream input = new P2ProgressMonitorInputStream(body.byteStream(), body.contentLength(), monitor)) {
                     try (InputStream is = P2LoadFactory.selectDecompressor(source.toString(), input);
                          JsonParser jp = new JsonFactory().createParser(is)) {
                         readData(jp, filmlist);

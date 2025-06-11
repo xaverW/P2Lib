@@ -27,7 +27,7 @@ import java.util.concurrent.Semaphore;
  * selected bandwidth limit will not be exceeded for all concurrent direct downloads. Bandwidth
  * throttling based on http://en.wikipedia.org/wiki/Token_bucket
  */
-public class MLBandwidthTokenBucket {
+public class MtBandwidthTokenBucket {
 
     public static final int DEFAULT_BUFFER_SIZE = 4 * 1024; // default byte buffer size
     private final Semaphore bucketSize = new Semaphore(0, false);
@@ -41,7 +41,7 @@ public class MLBandwidthTokenBucket {
     private final IntegerProperty bandwidthValueByte;
     private final BooleanProperty pauseDownloadCapacity;
 
-    public MLBandwidthTokenBucket(IntegerProperty bandwidthValueByte, BooleanProperty pauseDownloadCapacity) {
+    public MtBandwidthTokenBucket(IntegerProperty bandwidthValueByte, BooleanProperty pauseDownloadCapacity) {
         this.bandwidthValueByte = bandwidthValueByte; // ist der eingestellte Wert der max. Bandbreite
         this.pauseDownloadCapacity = pauseDownloadCapacity; // true, wenn die Filmliste geladen wird
 

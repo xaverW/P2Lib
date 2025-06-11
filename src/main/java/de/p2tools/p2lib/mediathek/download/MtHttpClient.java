@@ -21,12 +21,12 @@ import okhttp3.OkHttpClient;
 
 import java.util.concurrent.TimeUnit;
 
-public class MLHttpClient {
-    private final static MLHttpClient ourInstance = new MLHttpClient();
+public class MtHttpClient {
+    private final static MtHttpClient ourInstance = new MtHttpClient();
     private final OkHttpClient httpClient;
     private final OkHttpClient copyClient;
 
-    private MLHttpClient() {
+    private MtHttpClient() {
         httpClient = new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
@@ -41,7 +41,7 @@ public class MLHttpClient {
                 .writeTimeout(2, TimeUnit.SECONDS).build();
     }
 
-    public static MLHttpClient getInstance() {
+    public static MtHttpClient getInstance() {
         return ourInstance;
     }
 

@@ -24,7 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class MTInfoFile {
+public class P2InfoFile {
     public static void writeInfoFile(String destPath, String destPathFile, String fileNameWithoutSuffix,
                                      String url, String downloadSize,
                                      String channel, String theme, String title, String date, String time,

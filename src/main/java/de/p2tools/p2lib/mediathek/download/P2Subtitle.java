@@ -32,7 +32,7 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
 
-public class MTSubtitle {
+public class P2Subtitle {
     private static final int TIMEOUT = 10_000;
     private static final String SUFFIX_TTML = "ttml";
     private static final String SUFFIX_SRT = "srt";

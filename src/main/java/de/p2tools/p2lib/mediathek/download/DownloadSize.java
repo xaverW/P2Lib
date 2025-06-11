@@ -16,6 +16,7 @@
 
 package de.p2tools.p2lib.mediathek.download;
 
+import de.p2tools.p2lib.mediathek.tools.P2SizeTools;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.ObjectPropertyBase;
 
@@ -99,7 +100,7 @@ public class DownloadSize extends ObjectPropertyBase<DownloadSizeData> implement
     }
 
     public String getTargetSizeMBStr() {
-        return SizeTools.getSize(targetSize);
+        return P2SizeTools.getSize(targetSize);
     }
 
     public void setActuallySize(long l) {
@@ -137,7 +138,7 @@ public class DownloadSize extends ObjectPropertyBase<DownloadSizeData> implement
     private String getString() {
         if (actuallySize <= 0) {
             if (targetSize > 0) {
-                return SizeTools.getSize(targetSize);
+                return P2SizeTools.getSize(targetSize);
             } else {
                 return "";
             }
@@ -146,13 +147,13 @@ public class DownloadSize extends ObjectPropertyBase<DownloadSizeData> implement
         // dann gibts eine aktSize > 0
         if (targetSize == actuallySize) {
             // ist bei m3u8-URLs so, die wachsen
-            return SizeTools.getSize(targetSize);
+            return P2SizeTools.getSize(targetSize);
         }
 
         if (targetSize > 0) {
-            return SizeTools.getSize(actuallySize) + " von " + SizeTools.getSize(targetSize);
+            return P2SizeTools.getSize(actuallySize) + " von " + P2SizeTools.getSize(targetSize);
         }
 
-        return SizeTools.getSize(actuallySize);
+        return P2SizeTools.getSize(actuallySize);
     }
 }

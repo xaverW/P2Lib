@@ -16,6 +16,6 @@
 
 package de.p2tools.p2lib.mediathek.tools;
 
-public interface InputStreamProgressMonitor {
+public interface P2InputStreamProgressMonitor {
     void progress(long bytesRead, long size);
 }

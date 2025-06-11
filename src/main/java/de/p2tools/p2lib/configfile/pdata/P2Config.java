@@ -15,49 +15,49 @@
  */
 
 
-package de.p2tools.p2lib.mediathek.tools;
+package de.p2tools.p2lib.configfile.pdata;
 
 import de.p2tools.p2lib.tools.GermanStringSorter;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 
-public class MLConfig {
+public class P2Config {
 
-    private static final HashMap<String, MLConfigs> HASHMAP = new HashMap<>();
+    private static final HashMap<String, P2Configs> HASHMAP = new HashMap<>();
 
-    public static MLConfigs get(String key) {
+    public static P2Configs get(String key) {
         return HASHMAP.get(key);
     }
 
-    public static synchronized void check(MLConfigs mlConfigs, int min, int max) {
-        final int v = mlConfigs.getInt();
+    public static synchronized void check(P2Configs p2Configs, int min, int max) {
+        final int v = p2Configs.getInt();
         if (v < min || v > max) {
-            mlConfigs.setValue(mlConfigs.getInitValue());
+            p2Configs.setValue(p2Configs.getInitValue());
         }
     }
 
-    public static synchronized MLConfigs addNewKey(String key) {
-        MLConfigs c = new MLConfigs(key);
+    public static synchronized P2Configs addNewKey(String key) {
+        P2Configs c = new P2Configs(key);
         HASHMAP.put(key, c);
         return c;
     }
 
-    public static synchronized MLConfigs addNewKey(String key, String value) {
-        MLConfigs c = new MLConfigs(key, value == null ? "" : value);
+    public static synchronized P2Configs addNewKey(String key, String value) {
+        P2Configs c = new P2Configs(key, value == null ? "" : value);
         HASHMAP.put(key, c);
         return c;
     }
 
-    public static synchronized MLConfigs addNewKey(String key, int value) {
-        MLConfigs c = new MLConfigs(key, value);
+    public static synchronized P2Configs addNewKey(String key, int value) {
+        P2Configs c = new P2Configs(key, value);
         HASHMAP.put(key, c);
         return c;
     }
 
     public static synchronized String[][] getAll() {
         final LinkedList<String[]> list = new LinkedList<>();
-        for (MLConfigs c : HASHMAP.values()) {
+        for (P2Configs c : HASHMAP.values()) {
             list.add(new String[]{c.getKey(), c.getActValue().getValueSafe()});
         }
 

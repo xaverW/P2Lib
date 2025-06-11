@@ -20,8 +20,8 @@ import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class ProgressMonitorInputStream extends FilterInputStream {
-    private InputStreamProgressMonitor monitor = null;
+public class P2ProgressMonitorInputStream extends FilterInputStream {
+    private P2InputStreamProgressMonitor monitor = null;
     /**
      * The number of bytes that can be read from the InputStream.
      */
@@ -40,7 +40,7 @@ public class ProgressMonitorInputStream extends FilterInputStream {
      * @param in the underlying input stream, or <code>null</code> if
      *           this instance is to be created without an underlying stream.
      */
-    public ProgressMonitorInputStream(InputStream in, long maxSize, InputStreamProgressMonitor mon) throws IOException {
+    public P2ProgressMonitorInputStream(InputStream in, long maxSize, P2InputStreamProgressMonitor mon) throws IOException {
         super(in);
         monitor = mon;
         this.size = maxSize;

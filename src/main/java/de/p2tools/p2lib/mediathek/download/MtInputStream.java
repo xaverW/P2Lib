@@ -16,6 +16,7 @@
 
 package de.p2tools.p2lib.mediathek.download;
 
+import de.p2tools.p2lib.mediathek.tools.P2SizeTools;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 
@@ -24,18 +25,18 @@ import java.io.InputStream;
 import java.util.TimerTask;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class MLInputStream extends InputStream {
+public class MtInputStream extends InputStream {
 
     private final InputStream iStream;
-    private MLBandwidthTokenBucket bucket = null;
+    private MtBandwidthTokenBucket bucket = null;
     private final BandwidthCalculationTask calculationTask;
 
-    public MLInputStream(InputStream in,
+    public MtInputStream(InputStream in,
                          java.util.Timer calculationTimer,
                          IntegerProperty bucketCapacityByte,
                          BooleanProperty pauseDownloadCapacity) {
         iStream = in;
-        bucket = new MLBandwidthTokenBucket(bucketCapacityByte, pauseDownloadCapacity);
+        bucket = new MtBandwidthTokenBucket(bucketCapacityByte, pauseDownloadCapacity);
         bucket.ensureBucketThreadIsRunning();
 
         //start bandwidth calculation
@@ -110,15 +111,15 @@ public class MLInputStream extends InputStream {
     public String toString() {
         final long bytesRead = calculationTask.getTotalBytesRead();
         final long b = getSumBandwidth();
-        final String s = SizeTools.humanReadableByteCount(bytesRead, true);
-        return "Download: Bytes gelesen: " + s + "  Bandbreite: " + SizeTools.humanReadableByteCount(b, true);
+        final String s = P2SizeTools.humanReadableByteCount(bytesRead, true);
+        return "Download: Bytes gelesen: " + s + "  Bandbreite: " + P2SizeTools.humanReadableByteCount(b, true);
     }
 
     public String[] getMsg() {
         final long bytesRead = calculationTask.getTotalBytesRead();
         final long b = getSumBandwidth();
-        final String s = SizeTools.humanReadableByteCount(bytesRead, true);
-        return new String[]{"Download", "Bytes gelesen: " + s, "Bandbreite: " + SizeTools.humanReadableByteCount(b, true)};
+        final String s = P2SizeTools.humanReadableByteCount(bytesRead, true);
+        return new String[]{"Download", "Bytes gelesen: " + s, "Bandbreite: " + P2SizeTools.humanReadableByteCount(b, true)};
     }
 
     /**

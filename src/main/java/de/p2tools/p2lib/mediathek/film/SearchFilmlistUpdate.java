@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.mediathek.film;
 
-import de.p2tools.p2lib.mediathek.download.MLHttpClientProxy;
+import de.p2tools.p2lib.mediathek.download.MtHttpClientProxy;
 import de.p2tools.p2lib.mediathek.filmlistload.P2LoadConst;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.BooleanProperty;
@@ -87,7 +87,7 @@ public class SearchFilmlistUpdate {
         HttpUrl filmListUrl = HttpUrl.parse(P2LoadConst.FILMLIST_ID);
         final Request request = new Request.Builder().url(Objects.requireNonNull(filmListUrl)).build();
 
-        try (Response response = MLHttpClientProxy.getInstance().getHttpClient().newCall(request).execute();
+        try (Response response = MtHttpClientProxy.getInstance().getHttpClient().newCall(request).execute();
              ResponseBody body = response.body()) {
             if (body != null && response.isSuccessful()) {
 

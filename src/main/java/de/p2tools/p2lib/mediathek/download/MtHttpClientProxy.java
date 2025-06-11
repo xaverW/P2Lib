@@ -26,13 +26,13 @@ import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.concurrent.TimeUnit;
 
-public class MLHttpClientProxy {
-    private final static MLHttpClientProxy ourInstance = new MLHttpClientProxy();
+public class MtHttpClientProxy {
+    private final static MtHttpClientProxy ourInstance = new MtHttpClientProxy();
     private static final String HTTP_PROXY_AUTHORIZATION = "Proxy-Authorization";
     private OkHttpClient httpClient;
     private OkHttpClient copyClient;
 
-    private MLHttpClientProxy() {
+    private MtHttpClientProxy() {
         String proxyHost = P2LibConst.proxyHost.getValueSafe();
         String proxyPort = P2LibConst.proxyPort.getValueSafe();
 
@@ -123,7 +123,7 @@ public class MLHttpClientProxy {
         return builder;
     }
 
-    public static MLHttpClientProxy getInstance() {
+    public static MtHttpClientProxy getInstance() {
         return ourInstance;
     }
 

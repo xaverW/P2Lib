@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2lib.mediathek.tools;
+package de.p2tools.p2lib.configfile.pdata;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
@@ -27,31 +27,31 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class MLConfigs {
+public class P2Configs {
 
     private final String key;
     private final String initValue;
     private final StringProperty actValue;
 
-    public MLConfigs(String key) {
+    public P2Configs(String key) {
         this.key = key;
         initValue = "";
         actValue = new SimpleStringProperty(initValue);
     }
 
-    public MLConfigs(String key, String init) {
+    public P2Configs(String key, String init) {
         this.key = key;
         initValue = init;
         actValue = new SimpleStringProperty(initValue);
     }
 
-    public MLConfigs(String key, int init) {
+    public P2Configs(String key, int init) {
         this.key = key;
         initValue = String.valueOf(init);
         actValue = new SimpleStringProperty(initValue);
     }
 
-    public MLConfigs(String key, boolean init) {
+    public P2Configs(String key, boolean init) {
         this.key = key;
         initValue = String.valueOf(init);
         actValue = new SimpleStringProperty(initValue);

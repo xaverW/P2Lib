@@ -27,7 +27,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.nio.charset.CodingErrorAction;
 
-public class FileNameUtils {
+public class P2FileNameUtils {
     /**
      * Valid characters for Windows in file names:
      * Based on http://msdn.microsoft.com/en-us/library/windows/desktop/aa365247(v=vs.85).aspx
