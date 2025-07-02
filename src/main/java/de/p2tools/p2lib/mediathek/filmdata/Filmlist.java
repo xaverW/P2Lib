@@ -118,14 +118,17 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
         this.parallelStream().forEach((FilmData f) -> f.setGeoBlocked());
     }
 
-    public synchronized int markFilms() {
+//    public synchronized int markFilms() {
+//        // läuft direkt nach dem Laden der Filmliste!
+//        // doppelte Filme (URL), Geo, InFuture markieren
+//        // viele Filme sind bei mehreren Sendern vorhanden
+//        return P2FilmlistFactory.markFilms(this);
+//    }
+
+    public synchronized int markFilms(List<String> logList) {
         // läuft direkt nach dem Laden der Filmliste!
         // doppelte Filme (URL), Geo, InFuture markieren
         // viele Filme sind bei mehreren Sendern vorhanden
-        return P2FilmlistFactory.markFilms(this);
-    }
-
-    public synchronized int markFilms(List<String> logList) {
         return P2FilmlistFactory.markFilms(this);
     }
 
