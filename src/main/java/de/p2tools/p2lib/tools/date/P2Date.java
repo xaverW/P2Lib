@@ -21,6 +21,7 @@ import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class P2Date extends Date {
 
@@ -187,8 +188,18 @@ public class P2Date extends Date {
      * @return Differenz in Sekunden.
      */
     public int diffInSeconds() {
-        final int ret = (int) (1L * (this.getTime() - new P2Date().getTime()) / 1000L);
+        final int ret = (int) ((this.getTime() - new P2Date().getTime()) / 1000L);
         return Math.abs(ret);
+    }
+
+    public int diffInDays() {
+        try {
+            long diff = new Date().getTime() - getTime();
+            return (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        } catch (Exception e) {
+            P2Log.errorLog(235648794, e);
+        }
+        return 0;
     }
 
     /**
