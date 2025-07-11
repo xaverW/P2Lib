@@ -109,7 +109,7 @@ public class P2Log {
         resetProgress();
     }
 
-    public static synchronized void sysLog(String text[]) {
+    public static synchronized void sysLog(String[] text) {
         String log = P2StringUtils.appendArray(text, P2LibConst.LINE_SEPARATOR);
         if (log.isEmpty()) {
             return;

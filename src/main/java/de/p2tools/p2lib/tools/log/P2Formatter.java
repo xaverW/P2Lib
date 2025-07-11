@@ -29,7 +29,7 @@ import java.util.logging.SimpleFormatter;
 
 public class P2Formatter extends SimpleFormatter {
 
-    private static final FastDateFormat HHmmss = FastDateFormat.getInstance("HH:mm:ss");
+    private static final FastDateFormat HHmmss = FastDateFormat.getInstance("dd.MM.yy  HH:mm:ss");
     private static final int MSG_SIZE = 14;
     private static final int INDENT = 11 + MSG_SIZE;
     private static final int ADD_INFO = INDENT;
