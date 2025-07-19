@@ -27,6 +27,7 @@ import de.p2tools.p2lib.mediathek.filmdata.FilmlistXml;
 import de.p2tools.p2lib.mediathek.filmlistload.P2LoadConst;
 import de.p2tools.p2lib.mediathek.filmlistload.P2LoadFactory;
 import de.p2tools.p2lib.mediathek.filmlistreadwrite.P2WriteFilmlistJson;
+import de.p2tools.p2lib.mediathek.storedaudiolist.StoredAudioDataFactory;
 import de.p2tools.p2lib.mediathek.tools.P2InputStreamProgressMonitor;
 import de.p2tools.p2lib.mediathek.tools.P2ProgressMonitorInputStream;
 import de.p2tools.p2lib.p2event.P2Event;
@@ -74,8 +75,9 @@ public class P2ReadWebAudioList {
             audioListNew.clear();
 
             //dann aus dem Web mit der URL laden
-            logList.add("## Audioliste aus URL laden: " + P2LoadConst.AUDIOLIST_URL);
-            processFromWeb(new URL(P2LoadConst.AUDIOLIST_URL), audioListNew);
+            String url = StoredAudioDataFactory.getStoredAudioList();
+            logList.add("## Audioliste aus URL laden: " + url);
+            processFromWeb(new URL(url), audioListNew);
 
             if (audioListNew.isEmpty()) {
                 // dann hats nicht geklappt

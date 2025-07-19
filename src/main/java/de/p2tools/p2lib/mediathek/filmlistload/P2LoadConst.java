@@ -113,9 +113,13 @@ public class P2LoadConst {
     public static String FILMLIST_URL_DIFF = "https://liste.mediathekview.de/Filmliste-diff.xz";
     public static String FILMLIST_ID = "https://liste.mediathekview.de/filmliste.id";
 
-    public static final String AUDIOLIST_URL = "https://atlist.de/audios.xz";
-    public static final String AUDIO_LIST_FILE_JSON = "audios.json";
-    public static final String AUDIO_LIST_FILE_JSON_XZ = "audios.xz";
+
+    public static final String AUDIOLIST_URL_1 = "https://atlist.de/audios.xz";
+    public static final String AUDIOLIST_URL_2 = "https://p2atlist.de/audios.xz";
+
+    public static final String STORED_AUDIO_LIST = "https://p2tools.de/download/storedAtList.xml";
+    public static final String AUDIO_LIST_FILE_JSON = "audios.json"; // ATServer, MTViewer
+    public static final String AUDIO_LIST_FILE_JSON_XZ = "audios.xz"; // ATServer
 
 
     public static String GEO_HOME_PLACE = "";
