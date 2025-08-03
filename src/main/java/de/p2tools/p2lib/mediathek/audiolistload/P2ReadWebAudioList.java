@@ -105,7 +105,7 @@ public class P2ReadWebAudioList {
             logList.add("##   Audioliste lesen hat nicht geklappt");
             P2Log.errorLog(645891204, ex);
             P2LoadConst.p2EventHandler.notifyListener(
-                    new P2Event(P2Events.LOAD_AUDIO_LIST_FINISHED, "Laden hat nicht geklappt", P2LoadAudioFactory.PROGRESS_INDETERMINATE));
+                    new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_FINISHED, "Laden hat nicht geklappt", P2LoadAudioFactory.PROGRESS_INDETERMINATE));
             ret = false;
         }
 

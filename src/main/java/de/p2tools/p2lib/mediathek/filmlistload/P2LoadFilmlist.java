@@ -51,14 +51,6 @@ public class P2LoadFilmlist {
     private final BooleanProperty propLoadFilmlist = new SimpleBooleanProperty(false);
     private boolean filmlistTooOld = false;
 
-    public P2LoadFilmlist(P2EventHandler p2EventHandler) {
-        this.p2EventHandler = p2EventHandler;
-        this.filmListDiff = null;
-        this.filmListNew = null;
-        hashSet = new HashSet<>();
-        p2ImportFilmlistFromServer = new P2ImportFilmlistFromServer();
-    }
-
     public P2LoadFilmlist(P2EventHandler p2EventHandler, Filmlist<? extends FilmData> filmlistNew, Filmlist<? extends FilmData> filmlistDiff) {
         // Filmlist: Damit die evtl. überschriebene Version verwendet wird
         this.p2EventHandler = p2EventHandler;

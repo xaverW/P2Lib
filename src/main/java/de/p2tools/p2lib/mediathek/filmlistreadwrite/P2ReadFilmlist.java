@@ -82,8 +82,8 @@ public class P2ReadFilmlist {
             this.eventLoaded = P2Events.EVENT_FILMLIST_LOAD_LOADED;
 
         } else {
-            this.eventProcess = P2Events.LOAD_AUDIO_LIST_PROGRESS;
-            this.eventLoaded = P2Events.LOAD_AUDIO_LIST_LOADED;
+            this.eventProcess = P2Events.EVENT_AUDIO_LIST_LOAD_PROGRESS;
+            this.eventLoaded = P2Events.EVENT_AUDIO_LIST_LOAD_LOADED;
         }
     }
 

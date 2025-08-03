@@ -28,8 +28,8 @@ public class P2Events {
     public static final int EVENT_FILMLIST_LOAD_LOADED = --count;
     public static final int EVENT_FILMLIST_LOAD_FINISHED = --count;
 
-    public static final int LOAD_AUDIO_LIST_START = --count;
-    public static final int LOAD_AUDIO_LIST_PROGRESS = --count;
-    public static final int LOAD_AUDIO_LIST_LOADED = --count;
-    public static final int LOAD_AUDIO_LIST_FINISHED = --count;
+    public static final int EVENT_AUDIO_LIST_LOAD_START = --count;
+    public static final int EVENT_AUDIO_LIST_LOAD_PROGRESS = --count;
+    public static final int EVENT_AUDIO_LIST_LOAD_LOADED = --count;
+    public static final int EVENT_AUDIO_LIST_LOAD_FINISHED = --count;
 }
