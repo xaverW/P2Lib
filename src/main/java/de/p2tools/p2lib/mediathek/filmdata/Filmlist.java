@@ -27,24 +27,36 @@ import javafx.collections.transformation.SortedList;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
 
     public int nr = 1;
     public String[] metaData = new String[]{"", "", "", "", ""};
     public String[] sender = {""};
+    public String[][] themePerChannel = {{""}};
     int count = 0;
     int countDouble = 0;
-    FilteredList<T> filteredList = null;
-    SortedList<T> sortedList = null;
+    private FilteredList<T> filteredList = null;
+    private SortedList<T> sortedList = null;
+    private Supplier<T> supplier;
 
-    public Filmlist() {
+//    public Filmlist() {
+//        super(FXCollections.observableArrayList());
+//    }
+
+    public Filmlist(Supplier<T> supplier) {
         super(FXCollections.observableArrayList());
+        this.supplier = supplier;
     }
 
-    public FilmData getNewElement() {
-        return new FilmData();
+    public T getNewElement() {
+        return supplier.get();
     }
+
+//    public FilmData getNewElement() {
+//        return new FilmData();
+//    }
 
     public static synchronized String genDate(String[] metaData) {
         // Tag, Zeit in lokaler Zeit wann die Filmliste erstellt wurde
@@ -58,12 +70,12 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
         sortedList.clear();
     }
 
-    public SortedList<? extends FilmData> getSortedList() {
+    public SortedList<T> getSortedList() {
         initFilterdList();
         return sortedList;
     }
 
-    public FilteredList<? extends FilmData> getFilteredList() {
+    public FilteredList<T> getFilteredList() {
         initFilterdList();
         return filteredList;
     }
@@ -163,7 +175,7 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
                 .forEach(film -> list.add(film.arr[FilmDataXml.FILM_THEME]));
     }
 
-    public synchronized FilmData getFilmByUrl_small_high_hd(String url) {
+    public synchronized T getFilmByUrl_small_high_hd(String url) {
         // Problem wegen gleicher URLs
         // wird versucht, einen Film mit einer kleinen/Hoher/HD-URL zu finden
         return parallelStream().filter(f ->
@@ -191,7 +203,7 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
     /**
      * Get the age of the film list.
      *
-     * @return Age as a {@link java.util.Date} object.
+     * @return Age as a {@link Date} object.
      */
     public static Date getAgeAsDate(String[] metaData) {
         return P2FilmlistFactory.getAgeAsDate(metaData);
@@ -200,7 +212,7 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
     /**
      * Get the age of the film list.
      *
-     * @return Age as a {@link java.util.Date} object.
+     * @return Age as a {@link Date} object.
      */
     public static String getAgeAsStringDate(String[] metaData) {
         return P2FilmlistFactory.getAgeAsStringDate(metaData);
@@ -253,41 +265,64 @@ public class Filmlist<T extends FilmData> extends SimpleListProperty<T> {
         sender = senderSet.toArray(new String[senderSet.size()]);
 
         P2Duration.counterStop("loadSender");
-//        loadUrls();
     }
 
-//    public synchronized void loadUrls() {
-//        PDuration.counterStart("Filmlist.loadUrls");
-//
-//        HashMap<String, Integer> urls = new HashMap<String, Integer>();
-//        stream().forEach((film) -> {
-//            final String u = film.getUrl();
-//            String s = u.substring(0, u.indexOf("/")) + "  -  " + u.substring(u.lastIndexOf("."));
-//            Integer i = urls.get(s);
-//            if (i == null) {
-//                urls.put(s, 1);
-//            } else {
-//                urls.replace(s, Integer.valueOf(++i));
-//            }
-//        });
-//
-//        System.out.println("====================================================");
-//        System.out.println("====================================================");
-//        System.out.println("====================================================");
-//        urls.entrySet()
-//                .stream()
-//                .sorted(Map.Entry.<String, Integer>comparingByValue())
-//                .forEach(e -> {
-//                    String va = e.getValue() + "";
-//                    while (va.length() < 8) {
-//                        va = " " + va;
-//                    }
-//
-//                    System.out.println(" value: " + va + "   -    " + "key: " + e.getKey());
-//                });
-//        System.out.println("====================================================");
-//        System.out.println("====================================================");
-//        System.out.println("====================================================");
-//        PDuration.counterStop("Filmlist.loadUrls");
-//    }
+    /**
+     * Erstellt ein StringArray der Themen eines Senders oder wenn "sender" leer, aller Sender. Ist
+     * für die Filterfelder in GuiFilme.
+     */
+    public synchronized void loadTheme() {
+        P2Duration.counterStart("loadTheme");
+        final LinkedHashSet<String> senderSet = new LinkedHashSet<>(21);
+        // der erste Sender ist ""
+        senderSet.add("");
+        this.forEach(film -> senderSet.add(film.getChannel()));
+
+        sender = senderSet.toArray(new String[0]);
+
+        // für den Sender "" sind alle Themen im themenPerSender[0]
+        final int senderLength = sender.length;
+        themePerChannel = new String[senderLength][];
+
+        final TreeSet<String>[] tree = (TreeSet<String>[]) new TreeSet<?>[senderLength];
+        final HashSet<String>[] hashSet = (HashSet<String>[]) new HashSet<?>[senderLength]; // wäre nicht nötig ist aber so fast doppelt so schnell
+        for (int i = 0; i < tree.length; ++i) {
+            // tree[i] = new TreeSet<>(GermanStringSorter.getInstance());
+            // das Sortieren passt nicht richtig zum Filter!
+            // oder die Sortierung passt nicht zum User
+            // ist so nicht optimal aber ist 10x !! schneller
+
+            tree[i] = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+            tree[i].add("");
+            hashSet[i] = new HashSet<>();
+        }
+
+        // alle Themen
+        String filmTheme, filmChannel;
+        for (final FilmData film : this) {
+            filmChannel = film.arr[FilmDataXml.FILM_CHANNEL];
+            filmTheme = film.arr[FilmDataXml.FILM_THEME];
+            // hinzufügen
+            if (!hashSet[0].contains(filmTheme)) {
+                hashSet[0].add(filmTheme);
+                tree[0].add(filmTheme);
+            }
+
+            for (int i = 1; i < senderLength; ++i) {
+                if (filmChannel.equals(sender[i])) {
+                    if (!hashSet[i].contains(filmTheme)) {
+                        hashSet[i].add(filmTheme);
+                        tree[i].add(filmTheme);
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < themePerChannel.length; ++i) {
+            themePerChannel[i] = tree[i].toArray(new String[0]);
+            tree[i].clear();
+            hashSet[i].clear();
+        }
+        P2Duration.counterStop("loadTheme");
+    }
 }

@@ -33,9 +33,9 @@ import java.util.List;
 public class P2LoadAudioList {
 
     private final P2EventHandler p2EventHandler;
-    public final Filmlist<FilmData> audioListNew;
+    public final Filmlist audioListNew;
 
-    public P2LoadAudioList(P2EventHandler p2EventHandler, Filmlist<FilmData> audioListNew) {
+    public P2LoadAudioList(P2EventHandler p2EventHandler, Filmlist<? extends FilmData> audioListNew) {
         // Filmlist: Damit die evtl. überschriebene Version verwendet wird
         this.p2EventHandler = p2EventHandler;
         this.audioListNew = audioListNew;

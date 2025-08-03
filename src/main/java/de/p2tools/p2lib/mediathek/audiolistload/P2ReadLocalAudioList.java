@@ -36,7 +36,7 @@ public class P2ReadLocalAudioList {
     public Filmlist<FilmData> audioListNew;
 
 
-    public P2ReadLocalAudioList(List<String> logList, Filmlist<FilmData> audioListNew) {
+    public P2ReadLocalAudioList(List<String> logList, Filmlist audioListNew) {
         this.logList = logList;
         this.audioListNew = audioListNew;
     }

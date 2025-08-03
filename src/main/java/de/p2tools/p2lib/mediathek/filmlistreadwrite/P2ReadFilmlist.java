@@ -287,6 +287,7 @@ public class P2ReadFilmlist {
                 }
 
                 countFilm(filmsPerChannelUsed, film);
+
                 filmlist.importFilmOnlyWithNr(film);
             }
         }

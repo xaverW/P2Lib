@@ -53,8 +53,8 @@ public class P2LoadFilmlist {
 
     public P2LoadFilmlist(P2EventHandler p2EventHandler) {
         this.p2EventHandler = p2EventHandler;
-        this.filmListDiff = new Filmlist();
-        this.filmListNew = new Filmlist();
+        this.filmListDiff = null;
+        this.filmListNew = null;
         hashSet = new HashSet<>();
         p2ImportFilmlistFromServer = new P2ImportFilmlistFromServer();
     }

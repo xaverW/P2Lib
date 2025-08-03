@@ -35,7 +35,7 @@ public class P2ReadWebAudioToFilmListJson {
     public P2ReadWebAudioToFilmListJson() {
     }
 
-    public void readAudioData(JsonParser jp, Filmlist<FilmData> filmList) throws IOException {
+    public void readAudioData(JsonParser jp, Filmlist filmList) throws IOException {
 
         final long loadFilmsMaxMilliSeconds = getDaysLoadingFilms();
         final int loadFilmsMinDuration = P2LoadConst.SYSTEM_LOAD_FILMLIST_MIN_DURATION;
@@ -90,7 +90,7 @@ public class P2ReadWebAudioToFilmListJson {
                         continue;
                     }
 
-                    filmList.add(audioData);
+                    filmList.importFilmOnlyWithNr(audioData);
                 } catch (Exception ex) {
                     System.out.println(ex);
                 }

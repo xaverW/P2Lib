@@ -144,6 +144,7 @@ public class P2Dialog {
                             done = true;
                             if (setOnlySize) {
                                 P2GuiSize.setSize(sizeConfiguration, stage);
+                                P2GuiSize.setInFrontOfPrimaryStage(stage, ownerForCenteringDialog);
                             } else {
                                 P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
                             }
@@ -157,6 +158,7 @@ public class P2Dialog {
                 // Windows
                 if (setOnlySize) {
                     P2GuiSize.setSize(sizeConfiguration, stage);
+                    P2GuiSize.setInFrontOfPrimaryStage(stage, ownerForCenteringDialog);
                 } else {
                     P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
                 }
@@ -174,6 +176,7 @@ public class P2Dialog {
             stage.setOnShown(e -> {
                 if (setOnlySize) {
                     P2GuiSize.setSize(sizeConfiguration, stage);
+                    P2GuiSize.setInFrontOfPrimaryStage(stage, ownerForCenteringDialog);
                 } else {
                     P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
                 }

@@ -55,9 +55,9 @@ public class P2ReadWebAudioList {
     private final List<String> logList;
     private static int countDouble = 0;
     private HashSet<String> hashSet = new HashSet<>();
-    public Filmlist<FilmData> audioListNew;
+    public Filmlist audioListNew;
 
-    public P2ReadWebAudioList(List<String> logList, Filmlist<FilmData> audioListNew) {
+    public P2ReadWebAudioList(List<String> logList, Filmlist audioListNew) {
         this.logList = logList;
         this.audioListNew = audioListNew;
     }
@@ -68,8 +68,9 @@ public class P2ReadWebAudioList {
 
         try {
             // Hash füllen
-            hashSet.addAll(P2LoadConst.audioListLocal.stream().map(FilmData::getUrlHistory).toList());
-            hashSet.addAll(audioListNew.stream().map(FilmData::getUrlHistory).toList());
+            hashSet.addAll(((Filmlist<? extends FilmData>) P2LoadConst.audioListLocal)
+                    .stream().map(FilmData::getUrlHistory).toList());
+            hashSet.addAll(((Filmlist<? extends FilmData>) audioListNew).stream().map(FilmData::getUrlHistory).toList());
 
             P2LoadConst.audioListLocal.clear();
             audioListNew.clear();
@@ -119,7 +120,7 @@ public class P2ReadWebAudioList {
         P2LoadConst.dateStoredAudiolist.set(dateStr);
     }
 
-    private void processFromWeb(URL source, Filmlist<FilmData> audioList) {
+    private void processFromWeb(URL source, Filmlist audioList) {
         final Request.Builder builder = new Request.Builder().url(source);
         builder.addHeader("User-Agent", P2LoadConst.userAgent);
 
@@ -189,7 +190,7 @@ public class P2ReadWebAudioList {
         }
     }
 
-    private void flattenDiacritic(List<String> logList, Filmlist<FilmData> audioList) {
+    private void flattenDiacritic(List<String> logList, Filmlist<? extends FilmData> audioList) {
         logList.add("## Diakritika setzen/ändern, Diakritika suchen");
         if (P2LoadConst.removeDiacritic) {
             FilmFactory.flattenDiacritic(audioList);
@@ -198,7 +199,7 @@ public class P2ReadWebAudioList {
         }
     }
 
-    private void markNewFilms(List<String> logList, Filmlist<FilmData> audioList) {
+    private void markNewFilms(List<String> logList, Filmlist<? extends FilmData> audioList) {
         logList.add("## neue Audios markieren");
         audioList.stream() //genauso schnell wie "parallel": ~90ms
                 .peek(film -> film.setNewFilm(false))
@@ -210,7 +211,7 @@ public class P2ReadWebAudioList {
         hashSet.clear();
     }
 
-    public void markDoubleAudios(List<String> logList, Filmlist<FilmData> audioList) {
+    public void markDoubleAudios(List<String> logList, Filmlist<? extends FilmData> audioList) {
         // läuft direkt nach dem Laden der Filmliste!
         // doppelte Filme (URL)
         P2Duration.counterStart("markDoubleAudios");

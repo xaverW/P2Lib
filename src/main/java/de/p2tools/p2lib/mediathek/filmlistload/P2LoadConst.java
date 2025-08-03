@@ -147,7 +147,7 @@ public class P2LoadConst {
     public static FilmChecker checker = null;//0,2s schneller als mit checker->true
 
     public static Filmlist filmlistLocal;
-    public static Filmlist<FilmData> audioListLocal;
+    public static Filmlist audioListLocal;
 
     public static String userAgent = "";
     public static Stage primaryStage = null;
