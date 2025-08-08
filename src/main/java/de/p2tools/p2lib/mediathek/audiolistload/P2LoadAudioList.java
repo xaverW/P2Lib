@@ -19,6 +19,7 @@ package de.p2tools.p2lib.mediathek.audiolistload;
 import de.p2tools.p2lib.mediathek.filmdata.FilmData;
 import de.p2tools.p2lib.mediathek.filmdata.Filmlist;
 import de.p2tools.p2lib.mediathek.filmlistload.P2LoadConst;
+import de.p2tools.p2lib.mediathek.filmlistload.P2LoadFilmlist;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2EventHandler;
 import de.p2tools.p2lib.p2event.P2Events;
@@ -219,8 +220,11 @@ public class P2LoadAudioList {
 
         p2EventHandler.notifyListener(
                 new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_LOADED, "Audios markieren, Themen suchen", P2LoadAudioFactory.PROGRESS_INDETERMINATE));
+        logList.add("## Audios markieren");
+        final int count = audioListNew.markFilms(logList);
+        logList.add("## Anzahl doppelte Filme: " + count);
 
-        //die List wieder füllen
+        //die Liste wieder füllen
         logList.add("## ==> und jetzt die Audioliste wieder füllen :)");
         Platform.runLater(() -> {
             P2LoadConst.audioListLocal.sender = audioListNew.sender;
