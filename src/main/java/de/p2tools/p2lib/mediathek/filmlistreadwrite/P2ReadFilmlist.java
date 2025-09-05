@@ -202,11 +202,11 @@ public class P2ReadFilmlist {
 
     private void readData(JsonParser jp, Filmlist filmlist) throws IOException {
         JsonToken jsonToken;
-        ArrayList<String> listChannel = P2LoadFactory.getSenderListNotToLoad();
+        final ArrayList<String> listChannel = P2LoadFactory.getSenderListNotToLoad();
+        final boolean listChannelIsEmpty = listChannel.isEmpty();
         final long loadFilmsMaxMilliSeconds = getDaysLoadingFilms();
         final int loadFilmsMinDuration = P2LoadConst.SYSTEM_LOAD_FILMLIST_MIN_DURATION;
-        final P2LoadConst.FilmChecker checker = P2LoadConst.checker;
-
+        final P2LoadConst.FilmChecker checkerFilm = P2LoadConst.checkerFilm;
 
         if (jp.nextToken() != JsonToken.START_OBJECT) {
             throw new IllegalStateException("Expected data to start with an Object");
@@ -234,7 +234,6 @@ public class P2ReadFilmlist {
             }
         }
 
-        final boolean listChannelIsEmpty = listChannel.isEmpty();
         while (!P2LoadConst.stop.get() && (jsonToken = jp.nextToken()) != null) {
             if (jsonToken == JsonToken.END_OBJECT) {
                 break;
@@ -279,8 +278,8 @@ public class P2ReadFilmlist {
                     }
 
                     //und jetzt noch evtl. gegen eine Blacklist prüfen
-                    if (checker != null) {
-                        if (checker.check(film)) {
+                    if (checkerFilm != null) {
+                        if (checkerFilm.check(film)) {
                             continue;
                         }
                     }

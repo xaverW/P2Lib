@@ -30,13 +30,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class P2ReadLocalAudioList {
+public class P2ReadAudio_localFromToFilmList {
+    // es wird in eine FILMLIST geladen
 
     private final List<String> logList;
     public Filmlist<FilmData> audioListNew;
 
-
-    public P2ReadLocalAudioList(List<String> logList, Filmlist audioListNew) {
+    public P2ReadAudio_localFromToFilmList(List<String> logList, Filmlist audioListNew) {
         this.logList = logList;
         this.audioListNew = audioListNew;
     }
@@ -68,7 +68,7 @@ public class P2ReadLocalAudioList {
             logList.add("##   Audioliste lesen hat nicht geklappt");
             P2Log.errorLog(645891204, ex);
             P2LoadConst.p2EventHandler.notifyListener(
-                    new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_FINISHED, "Laden hat nicht geklappt", P2LoadAudioFactory.PROGRESS_INDETERMINATE));
+                    new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_FINISHED, "Laden hat nicht geklappt", P2ReadAudioFactory.PROGRESS_INDETERMINATE));
             ret = false;
         }
         return ret;

@@ -50,14 +50,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.SimpleTimeZone;
 
-public class P2ReadWebAudioList {
+public class P2ReadAudio_WebToFilmList {
+    // es wird in eine FILMLIST geladen
 
     private final List<String> logList;
     private static int countDouble = 0;
     private HashSet<String> hashSet = new HashSet<>();
     public Filmlist audioListNew;
 
-    public P2ReadWebAudioList(List<String> logList, Filmlist audioListNew) {
+    public P2ReadAudio_WebToFilmList(List<String> logList, Filmlist audioListNew) {
         this.logList = logList;
         this.audioListNew = audioListNew;
     }
@@ -105,7 +106,7 @@ public class P2ReadWebAudioList {
             logList.add("##   Audioliste lesen hat nicht geklappt");
             P2Log.errorLog(645891204, ex);
             P2LoadConst.p2EventHandler.notifyListener(
-                    new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_FINISHED, "Laden hat nicht geklappt", P2LoadAudioFactory.PROGRESS_INDETERMINATE));
+                    new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_FINISHED, "Laden hat nicht geklappt", P2ReadAudioFactory.PROGRESS_INDETERMINATE));
             ret = false;
         }
 
@@ -144,7 +145,7 @@ public class P2ReadWebAudioList {
                 try (InputStream input = new P2ProgressMonitorInputStream(body.byteStream(), body.contentLength(), monitor)) {
                     try (InputStream is = P2LoadFactory.selectDecompressor(source.toString(), input);
                          JsonParser jp = new JsonFactory().createParser(is)) {
-                        new P2ReadWebAudioToFilmListJson().readAudioData(jp, audioList);
+                        new P2ReadAudio_WebToFilmListJasonParser().readAudioData(jp, audioList);
                     }
                 }
             }

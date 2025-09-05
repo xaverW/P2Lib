@@ -144,7 +144,8 @@ public class P2LoadConst {
     public static boolean filmInitNecessary = true;
     public static boolean audioInitNecessary = true;
 
-    public static FilmChecker checker = null;//0,2s schneller als mit checker->true
+    public static FilmChecker checkerFilm = null;//0,2s schneller als mit checker->true
+    public static FilmChecker checkerAudio = null;//0,2s schneller als mit checker->true
 
     public static Filmlist filmlistLocal;
     public static Filmlist audioListLocal;

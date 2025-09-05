@@ -23,24 +23,30 @@ import de.p2tools.p2lib.mediathek.filmdata.FilmData;
 import de.p2tools.p2lib.mediathek.filmdata.FilmDataXml;
 import de.p2tools.p2lib.mediathek.filmdata.Filmlist;
 import de.p2tools.p2lib.mediathek.filmlistload.P2LoadConst;
+import de.p2tools.p2lib.mediathek.filmlistload.P2LoadFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-public class P2ReadWebAudioToFilmListJson {
+public class P2ReadAudio_WebToFilmListJasonParser {
+    // es wird in eine FILMLIST geladen
 
     private String channel = "", genre = "", theme = "";
 
-    public P2ReadWebAudioToFilmListJson() {
+    public P2ReadAudio_WebToFilmListJasonParser() {
     }
 
     public void readAudioData(JsonParser jp, Filmlist filmList) throws IOException {
 
+        JsonToken jsonToken;
+        final ArrayList<String> listChannel = P2LoadFactory.getSenderListNotToLoad();
+        final boolean listChannelIsEmpty = listChannel.isEmpty();
         final long loadFilmsMaxMilliSeconds = getDaysLoadingFilms();
         final int loadFilmsMinDuration = P2LoadConst.SYSTEM_LOAD_FILMLIST_MIN_DURATION;
+        final P2LoadConst.FilmChecker checkerAudio = P2LoadConst.checkerAudio;
 
-        JsonToken jsonToken;
         if (jp.nextToken() != JsonToken.START_OBJECT) {
             throw new IllegalStateException("Expected data to start with an Object");
         }
@@ -80,7 +86,12 @@ public class P2ReadWebAudioToFilmListJson {
                     // aus dem Web muss das immer gemacht werden
                     audioData.init(); // damit wird auch das Datum! gesetzt
 
+                    // ==================================
                     //und jetzt wird gefiltert, wenn aus dem Web
+                    if (!listChannelIsEmpty && listChannel.contains(audioData.getChannel())) {
+                        //diesen Sender nicht laden
+                        continue;
+                    }
                     if (loadFilmsMaxMilliSeconds > 0 && !checkDays(audioData, loadFilmsMaxMilliSeconds)) {
                         //wenn er zu alt ist, nicht laden
                         continue;
@@ -89,6 +100,14 @@ public class P2ReadWebAudioToFilmListJson {
                         //wenn er zu kurz ist, nicht laden
                         continue;
                     }
+
+                    //und jetzt noch evtl. gegen eine Blacklist prüfen
+                    if (checkerAudio != null) {
+                        if (checkerAudio.check(audioData)) {
+                            continue;
+                        }
+                    }
+                    // ====================================
 
                     filmList.importFilmOnlyWithNr(audioData);
                 } catch (Exception ex) {

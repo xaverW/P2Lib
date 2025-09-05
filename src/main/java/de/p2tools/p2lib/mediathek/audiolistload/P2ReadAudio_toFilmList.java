@@ -19,7 +19,6 @@ package de.p2tools.p2lib.mediathek.audiolistload;
 import de.p2tools.p2lib.mediathek.filmdata.FilmData;
 import de.p2tools.p2lib.mediathek.filmdata.Filmlist;
 import de.p2tools.p2lib.mediathek.filmlistload.P2LoadConst;
-import de.p2tools.p2lib.mediathek.filmlistload.P2LoadFilmlist;
 import de.p2tools.p2lib.p2event.P2Event;
 import de.p2tools.p2lib.p2event.P2EventHandler;
 import de.p2tools.p2lib.p2event.P2Events;
@@ -31,18 +30,19 @@ import javafx.application.Platform;
 import java.util.ArrayList;
 import java.util.List;
 
-public class P2LoadAudioList {
+public class P2ReadAudio_toFilmList {
+    // es wird in eine FILMLIST geladen
 
     private final P2EventHandler p2EventHandler;
     public final Filmlist audioListNew;
 
-    public P2LoadAudioList(P2EventHandler p2EventHandler) {
+    public P2ReadAudio_toFilmList(P2EventHandler p2EventHandler) {
         // Filmlist: Damit die evtl. überschriebene Version verwendet wird
         this.p2EventHandler = p2EventHandler;
         this.audioListNew = null;
     }
 
-    public P2LoadAudioList(P2EventHandler p2EventHandler, Filmlist<? extends FilmData> audioListNew) {
+    public P2ReadAudio_toFilmList(P2EventHandler p2EventHandler, Filmlist<? extends FilmData> audioListNew) {
         // Filmlist: Damit die evtl. überschriebene Version verwendet wird
         this.p2EventHandler = p2EventHandler;
         this.audioListNew = audioListNew;
@@ -56,7 +56,7 @@ public class P2LoadAudioList {
         new Thread(() -> {
             P2Duration.counterStart("loadAudioListAtProgStart");
             p2EventHandler.notifyListener(
-                    new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_START, "Programmstart, Liste laden", P2LoadAudioFactory.PROGRESS_INDETERMINATE));
+                    new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_START, "Programmstart, Liste laden", P2ReadAudioFactory.PROGRESS_INDETERMINATE));
             final List<String> logList = new ArrayList<>();
 
             logList.add("## " + P2Log.LILNE1);
@@ -86,7 +86,7 @@ public class P2LoadAudioList {
             //damit wird eine neue Liste (Web) geladen UND auch gleich im Config-Ordner gespeichert
             P2Duration.counterStart("loadNewAudioListFromWeb");
             p2EventHandler.notifyListener(
-                    new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_START, "Audioliste aus dem Web laden", P2LoadAudioFactory.PROGRESS_INDETERMINATE));
+                    new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_START, "Audioliste aus dem Web laden", P2ReadAudioFactory.PROGRESS_INDETERMINATE));
             final List<String> logList = new ArrayList<>();
 
             logList.add("## " + P2Log.LILNE1);
@@ -98,7 +98,7 @@ public class P2LoadAudioList {
             logList.add("##");
 
             P2LoadConst.audioInitNecessary = true;
-            new P2ReadWebAudioList(logList, audioListNew).readWebList(P2LoadConst.localAudioListFile);
+            new P2ReadAudio_WebToFilmList(logList, audioListNew).readWebList(P2LoadConst.localAudioListFile);
             afterLoading(logList);
 
             logList.add("## Audioliste aus dem Web laden - ende");
@@ -127,11 +127,11 @@ public class P2LoadAudioList {
             logList.add("## Erster Programmstart -> Liste aus dem Web laden");
 
             P2LoadConst.audioInitNecessary = true;
-            new P2ReadWebAudioList(logList, audioListNew).readWebList(P2LoadConst.localAudioListFile);
+            new P2ReadAudio_WebToFilmList(logList, audioListNew).readWebList(P2LoadConst.localAudioListFile);
 
             P2Duration.onlyPing("Erster Programmstart: Neu Audioliste aus dem Web geladen");
             p2EventHandler.notifyListener(
-                    new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_LOADED, "Audios verarbeiten", P2LoadAudioFactory.PROGRESS_INDETERMINATE));
+                    new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_LOADED, "Audios verarbeiten", P2ReadAudioFactory.PROGRESS_INDETERMINATE));
             return;
         }
 
@@ -143,11 +143,11 @@ public class P2LoadAudioList {
             logList.add("## dann gespeicherte Liste laden");
 
             P2LoadConst.audioInitNecessary = true;
-            new P2ReadLocalAudioList(logList, audioListNew).readLocalList(P2LoadConst.localAudioListFile);
+            new P2ReadAudio_localFromToFilmList(logList, audioListNew).readLocalList(P2LoadConst.localAudioListFile);
 
             logList.add("## Gespeicherte Liste geladen");
             p2EventHandler.notifyListener(
-                    new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_LOADED, "Audios verarbeiten", P2LoadAudioFactory.PROGRESS_INDETERMINATE));
+                    new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_LOADED, "Audios verarbeiten", P2ReadAudioFactory.PROGRESS_INDETERMINATE));
             return;
         }
 
@@ -156,14 +156,14 @@ public class P2LoadAudioList {
         // laden mit evtl. Web-Update
         boolean loadFromWeb = false;
         //dann soll eine neue Liste beim Programmstart geladen, wenn nötig
-        if (P2LoadAudioFactory.isNotFromToday(P2LoadConst.dateStoredAudiolist.getValueSafe())) {
+        if (P2ReadAudioFactory.isNotFromToday(P2LoadConst.dateStoredAudiolist.getValueSafe())) {
             //gespeicherte Liste zu alt > Hash
             logList.add("## Gespeicherte Audioliste ist zu alt: " + P2LoadConst.dateStoredAudiolist.getValueSafe());
             logList.add("## Zuerst gespeicherte Liste laden");
 
             loadFromWeb = true;
             P2LoadConst.audioInitNecessary = false;
-            new P2ReadLocalAudioList(logList, audioListNew).readLocalList(P2LoadConst.localAudioListFile); // Liste in new laden
+            new P2ReadAudio_localFromToFilmList(logList, audioListNew).readLocalList(P2LoadConst.localAudioListFile); // Liste in new laden
 
             logList.add("## Programmstart: Gespeicherte Liste geladen");
 
@@ -173,7 +173,7 @@ public class P2LoadAudioList {
             logList.add("## Gespeicherte Liste laden");
 
             P2LoadConst.audioInitNecessary = true;
-            new P2ReadLocalAudioList(logList, audioListNew).readLocalList(P2LoadConst.localAudioListFile); // Liste in new laden
+            new P2ReadAudio_localFromToFilmList(logList, audioListNew).readLocalList(P2LoadConst.localAudioListFile); // Liste in new laden
 
             logList.add("## Programmstart: Gespeicherte Liste geladen");
         }
@@ -184,10 +184,10 @@ public class P2LoadAudioList {
             logList.add("## " + P2Log.LILNE3);
             logList.add("## Gespeicherte Audioliste ist leer oder zu alt -> neue Audioliste aus dem Web laden");
             p2EventHandler.notifyListener(
-                    new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_PROGRESS, "Audioliste ist zu alt, eine neue laden", P2LoadAudioFactory.PROGRESS_INDETERMINATE));
+                    new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_PROGRESS, "Audioliste ist zu alt, eine neue laden", P2ReadAudioFactory.PROGRESS_INDETERMINATE));
 
             P2LoadConst.audioInitNecessary = true;
-            new P2ReadWebAudioList(logList, audioListNew).readWebList(P2LoadConst.localAudioListFile);
+            new P2ReadAudio_WebToFilmList(logList, audioListNew).readWebList(P2LoadConst.localAudioListFile);
 
             P2Duration.onlyPing("Programmstart: Neu Audioliste aus dem Web geladen");
         }
@@ -199,13 +199,13 @@ public class P2LoadAudioList {
             logList.add("## Noch ein Versuch: Gespeicherte Liste laden");
 
             P2LoadConst.audioInitNecessary = true;
-            new P2ReadLocalAudioList(logList, audioListNew).readLocalList(P2LoadConst.localAudioListFile);
+            new P2ReadAudio_localFromToFilmList(logList, audioListNew).readLocalList(P2LoadConst.localAudioListFile);
 
             logList.add("## Gespeicherte Liste geladen");
         }
 
         p2EventHandler.notifyListener(
-                new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_LOADED, "Audios verarbeiten", P2LoadAudioFactory.PROGRESS_INDETERMINATE));
+                new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_LOADED, "Audios verarbeiten", P2ReadAudioFactory.PROGRESS_INDETERMINATE));
     }
 
     // #######################################
@@ -219,7 +219,7 @@ public class P2LoadAudioList {
         logList.add("##");
 
         p2EventHandler.notifyListener(
-                new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_LOADED, "Audios markieren, Themen suchen", P2LoadAudioFactory.PROGRESS_INDETERMINATE));
+                new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_LOADED, "Audios markieren, Themen suchen", P2ReadAudioFactory.PROGRESS_INDETERMINATE));
         logList.add("## Audios markieren");
         final int count = audioListNew.markFilms(logList);
         logList.add("## Anzahl doppelte Filme: " + count);
