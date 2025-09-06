@@ -30,12 +30,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-public class P2ReadAudio_WebToFilmListJasonParser {
+public class P2ReadAudioWebToFilmListJasonParser {
     // es wird in eine FILMLIST geladen
 
     private String channel = "", genre = "", theme = "";
 
-    public P2ReadAudio_WebToFilmListJasonParser() {
+    public P2ReadAudioWebToFilmListJasonParser() {
     }
 
     public void readAudioData(JsonParser jp, Filmlist filmList) throws IOException {

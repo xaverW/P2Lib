@@ -25,7 +25,7 @@ import de.p2tools.p2lib.mediathek.audiodata.AudioList;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class P2WriteAudio_AudioListToJson {
+public class P2WriteAudioAudioListToJson {
 
     public void writeJson(JsonGenerator jg, AudioList audioList) throws IOException {
         String sender = "", genre = "", theme = "";

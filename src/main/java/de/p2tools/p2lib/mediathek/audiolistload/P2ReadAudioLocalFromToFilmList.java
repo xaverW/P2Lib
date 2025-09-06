@@ -30,13 +30,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class P2ReadAudio_localFromToFilmList {
+public class P2ReadAudioLocalFromToFilmList {
     // es wird in eine FILMLIST geladen
 
     private final List<String> logList;
     public Filmlist<FilmData> audioListNew;
 
-    public P2ReadAudio_localFromToFilmList(List<String> logList, Filmlist audioListNew) {
+    public P2ReadAudioLocalFromToFilmList(List<String> logList, Filmlist audioListNew) {
         this.logList = logList;
         this.audioListNew = audioListNew;
     }

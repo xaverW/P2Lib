@@ -50,7 +50,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.SimpleTimeZone;
 
-public class P2ReadAudio_WebToFilmList {
+public class P2ReadAudioWebToFilmList {
     // es wird in eine FILMLIST geladen
 
     private final List<String> logList;
@@ -58,7 +58,7 @@ public class P2ReadAudio_WebToFilmList {
     private HashSet<String> hashSet = new HashSet<>();
     public Filmlist audioListNew;
 
-    public P2ReadAudio_WebToFilmList(List<String> logList, Filmlist audioListNew) {
+    public P2ReadAudioWebToFilmList(List<String> logList, Filmlist audioListNew) {
         this.logList = logList;
         this.audioListNew = audioListNew;
     }
@@ -145,7 +145,7 @@ public class P2ReadAudio_WebToFilmList {
                 try (InputStream input = new P2ProgressMonitorInputStream(body.byteStream(), body.contentLength(), monitor)) {
                     try (InputStream is = P2LoadFactory.selectDecompressor(source.toString(), input);
                          JsonParser jp = new JsonFactory().createParser(is)) {
-                        new P2ReadAudio_WebToFilmListJasonParser().readAudioData(jp, audioList);
+                        new P2ReadAudioWebToFilmListJasonParser().readAudioData(jp, audioList);
                     }
                 }
             }

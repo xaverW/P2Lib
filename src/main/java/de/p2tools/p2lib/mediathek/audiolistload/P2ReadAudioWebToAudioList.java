@@ -23,12 +23,12 @@ import de.p2tools.p2lib.mediathek.audiodata.AudioList;
 
 import java.io.IOException;
 
-public class P2ReadAudio_WebToAudioList {
+public class P2ReadAudioWebToAudioList {
     // es wird in eine AUDIOLIST geladen
 
     private String channel = "", genre = "", theme = "";
 
-    public P2ReadAudio_WebToAudioList() {
+    public P2ReadAudioWebToAudioList() {
     }
 
     public void readData(JsonParser jp, AudioList audioList) throws IOException {
