@@ -30,9 +30,9 @@ import okhttp3.ResponseBody;
 import java.util.Objects;
 
 public class SearchFilmlistUpdate {
-    private final int COUNT_MAX = 60 * 15;
-    private int countTimer = COUNT_MAX;//damit beim Programmstart schon mal gesucht wird
-    private BooleanProperty foundNewList = new SimpleBooleanProperty(false);
+    private final int COUNT_MAX = 60 * 15; // alle 15min wird geschaut
+    private int countTimer = 60 * 10; // nach Programmstart nach 5min das erste mal suchen
+    private final BooleanProperty foundNewList = new SimpleBooleanProperty(false);
 
     public SearchFilmlistUpdate() {
     }
