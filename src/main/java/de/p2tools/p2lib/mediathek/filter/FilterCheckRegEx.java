@@ -38,9 +38,16 @@ public class FilterCheckRegEx {
     public FilterCheckRegEx(TextInputControl tf) {
         this.tf = tf;
         checkPattern();
+
+        tf.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                return;
+            }
+            checkPattern();
+        });
     }
 
-    public void checkPattern() {
+    private void checkPattern() {
         // Hintergrund ändern wenn eine RegEx
         final String text = tf.getText();
         if (!Filter.isPattern(text)) {
@@ -91,9 +98,9 @@ public class FilterCheckRegEx {
                         tf.setStyle("");
                     });
                 }
-                colorThread = null;
             } catch (final Exception ignored) {
             }
+            colorThread = null;
         }
     }
 }

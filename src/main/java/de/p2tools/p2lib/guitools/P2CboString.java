@@ -95,9 +95,7 @@ public class P2CboString extends ComboBox<P2CboString.P2CboLabel> {
     }
 
     private void init() {
-        FilterCheckRegEx regEx = new FilterCheckRegEx(getEditor());
-        regEx.checkPattern();
-
+        new FilterCheckRegEx(getEditor());
         getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 return;
