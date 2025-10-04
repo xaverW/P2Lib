@@ -67,13 +67,13 @@ public class Filter {
         }
 
         setValues();
-        if (pattern != null) {
-            filterArr = new String[]{filter};
-
-        } else if (isExact) {
-            // dann gibts nur einen Filtereintrag
+        if (isExact) {
+            // dann gibts nur einen Filtereintrag, toLowerCase->deswegen zuerst!!
             filterArr = new String[]{filter.trim().toLowerCase()};
             isQuick = true;
+
+        } else if (pattern != null) {
+            filterArr = new String[]{filter};
 
         } else {
             if (filter.trim().startsWith("\"") &&
