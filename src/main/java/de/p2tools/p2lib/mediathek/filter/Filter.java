@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 public class Filter {
     public static String FILTER_REG_EX = "#:";
     public static String FILTER_EXCLUDE = "!:";
+    public static boolean REG_EX_ONLY_CONTAIN = false;
 
     public String filter = "";
     public String[] filterArr = {""};

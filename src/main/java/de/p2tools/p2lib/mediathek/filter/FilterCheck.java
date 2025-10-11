@@ -32,7 +32,11 @@ public class FilterCheck {
         // wenn einer passt, dann ists gut
         if (filter.pattern != null) {
             // dann ists eine RegEx
-            return filter.pattern.matcher(checkString).matches();
+            if (Filter.REG_EX_ONLY_CONTAIN) {
+                return filter.pattern.matcher(checkString).find();
+            } else {
+                return filter.pattern.matcher(checkString).matches();
+            }
         }
 
         if (filter.exclude) {
@@ -48,7 +52,11 @@ public class FilterCheck {
         // wenn einer passt, dann ists gut
         if (filter.pattern != null) {
             // dann ists eine RegEx
-            return filter.pattern.matcher(checkString).matches();
+            if (Filter.REG_EX_ONLY_CONTAIN) {
+                return filter.pattern.matcher(checkString).find();
+            } else {
+                return filter.pattern.matcher(checkString).matches();
+            }
         }
 
         if (filter.exclude) {
