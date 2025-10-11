@@ -20,6 +20,7 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ClipBoardContext;
 import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
 import de.p2tools.p2lib.tools.P2InfoFactory;
 import javafx.beans.property.SimpleStringProperty;
@@ -153,11 +154,12 @@ public class WhatsNewDialog extends P2DialogExtra {
                 HBox hBox = new HBox();
                 hBox.getChildren().add(imageView);
                 hBox.setAlignment(Pos.CENTER);
-                vBox.getChildren().add(hBox);
+                vBox.getChildren().addAll(hBox, P2GuiTools.getHDistance(10));
             }
 
             Label lbl = new Label(whatsNewInfo.getText());
             lbl.setWrapText(true);
+            lbl.setAlignment(Pos.TOP_CENTER);
             lbl.setMinHeight(whatsNewInfo.getTaHeight());
             lbl.setMaxHeight(whatsNewInfo.getTaHeight());
             vBox.getChildren().add(lbl);
