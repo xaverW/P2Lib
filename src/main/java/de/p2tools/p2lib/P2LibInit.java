@@ -17,6 +17,7 @@
 package de.p2tools.p2lib;
 
 import de.p2tools.p2lib.guitools.P2WindowIcon;
+import de.p2tools.p2lib.mediathek.filter.Filter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -31,7 +32,10 @@ public class P2LibInit {
     private static final String PATH_CSS = "de/p2tools/p2lib/css/";
 
     public static void initLib(Stage stage, String progName, String userAgent,
-                               BooleanProperty darkMode, BooleanProperty blackWhite, BooleanProperty themeChanged,
+                               BooleanProperty darkMode,
+                               BooleanProperty blackWhite,
+                               BooleanProperty themeChanged,
+                               BooleanProperty regExOnlyCompare,
                                String cssFile, String cssFileDark, IntegerProperty fontSize,
                                String orgIcon /* de/p2tools/p2lib/icons/icon.png */,
                                String ownIcon /* /tmp/path/icon.png */,
@@ -45,6 +49,10 @@ public class P2LibInit {
         P2LibConst.blackWhite = blackWhite == null ? new SimpleBooleanProperty(false) : blackWhite;
         P2LibConst.fontSize = fontSize == null ? new SimpleIntegerProperty(0) : fontSize;
         P2LibConst.themeChanged = themeChanged == null ? new SimpleBooleanProperty(false) : themeChanged; // ist eine Info
+
+        if (regExOnlyCompare != null) {
+            regExOnlyCompare.addListener((u, o, n) -> Filter.REG_EX_ONLY_CONTAIN = regExOnlyCompare.get());
+        }
 
         P2LibConst.cssFile = cssFile;
         P2LibConst.cssFileDark = cssFileDark;
