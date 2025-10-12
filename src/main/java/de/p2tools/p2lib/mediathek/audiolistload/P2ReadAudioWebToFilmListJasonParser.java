@@ -128,18 +128,20 @@ public class P2ReadAudioWebToFilmListJasonParser {
                     }
                     filmData.arr[FilmDataXml.FILM_CHANNEL] = channel;
                     break;
-//                case AudioDataXml.JSON_AUDIO_GENRE:
-//                    if (!str.isEmpty()) {
-//                        genre = str.intern();
-//                    }
-//                    filmData.arr[FilmDataXml.AUDIO_GENRE] = genre;
-//                    break;
-                case AudioDataXml.JSON_AUDIO_THEME:
+
+                case AudioDataXml.JSON_AUDIO_GENRE:
                     if (!str.isEmpty()) {
-                        theme = str.intern();
+                        genre = str.intern();
                     }
-                    filmData.arr[FilmDataXml.FILM_THEME] = theme;
+                    filmData.arr[FilmDataXml.FILM_THEME] = genre;
                     break;
+//                case AudioDataXml.JSON_AUDIO_THEME:
+//                    if (!str.isEmpty()) {
+//                        theme = str.intern();
+//                    }
+//                    filmData.arr[FilmDataXml.FILM_THEME] = theme;
+//                    break;
+
                 case AudioDataXml.JSON_AUDIO_TITLE:
                     filmData.arr[FilmDataXml.FILM_TITLE] = str;
                     break;
