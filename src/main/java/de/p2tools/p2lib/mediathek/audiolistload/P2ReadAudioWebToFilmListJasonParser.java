@@ -130,6 +130,7 @@ public class P2ReadAudioWebToFilmListJasonParser {
                     break;
 
                 case AudioDataXml.JSON_AUDIO_GENRE:
+                    // hat die besseren Infos
                     if (!str.isEmpty()) {
                         genre = str.intern();
                     }
