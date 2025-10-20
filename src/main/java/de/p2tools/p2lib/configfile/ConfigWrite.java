@@ -103,11 +103,11 @@ class ConfigWrite {
 
             //spezielle Configs
         } else if (o instanceof Config_pDataList) {
-            writeConfigPDataList((Config_pDataList) o, tab);
+            writePDataList(((Config_pDataList) o).getActValue(), tab);
+            xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR);
 
         } else if (o instanceof Config_pData) {
-            writeConfigPData((Config_pData) o, tab);
-
+            writePData(((Config_pData) o).getActValue(), tab);
             //sind dann die configs zum Speichern der Daten
             //ab hier wird dann geschrieben
         } else if (o instanceof Config_comment) {
@@ -160,15 +160,19 @@ class ConfigWrite {
         xmlStreamWriter.writeCharacters(P2LibConst.LINE_SEPARATOR); //neue Zeile
     }
 
-    private void writeConfigPDataList(Config_pDataList configPDataList, int tab) throws XMLStreamException {
-        P2DataList<? extends P2Data> list = configPDataList.getActValue();
-        writePDataList(list, tab);
-    }
-
-    private void writeConfigPData(Config_pData configPData, int tab) throws XMLStreamException {
-        P2Data p2Data = configPData.getActValue();
-        writePData(p2Data, tab);
-    }
+//    private void writeConfigPDataList(Config_pDataList configPDataList, int tab) throws XMLStreamException {
+//        P2DataList<? extends P2Data> list = configPDataList.getActValue();
+//        writePDataList(configPDataList.getActValue(), tab);
+//    }
+//
+//    private void writeConfigP2DataList(Config_p2DataList configP2DataList, int tab) throws XMLStreamException {
+//        writePDataList(configP2DataList.getActValue(), tab);
+//    }
+//
+//    private void writeConfigPData(Config_pData configPData, int tab) throws XMLStreamException {
+//        P2Data p2Data = configPData.getActValue();
+//        writePData(configPData.getActValue(), tab);
+//    }
 
     private void writeConfigList(ConfigList config, int tab) throws XMLStreamException {
         if (config.getActValue() != null && !config.getActValue().isEmpty()) {
