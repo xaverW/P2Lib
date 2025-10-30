@@ -67,13 +67,13 @@ public class P2DialogExtra extends P2Dialog {
     }
 
     public P2DialogExtra() {
-        super(P2LibConst.actStage, null, "", true);
+        super(P2LibConst.primaryStage, null, "", true);
         initDialog();
     }
 
     public P2DialogExtra(StringProperty conf, String title) {
         // ist nur ein einfacher Dialog, zentral über dem Hauptfenster
-        super(P2LibConst.actStage, conf, title, true);
+        super(P2LibConst.primaryStage, conf, title, true);
         initDialog();
     }
 

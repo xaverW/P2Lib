@@ -25,7 +25,7 @@ public class P2AlertAppThread {
         AtomicBoolean atomicBoolean = new AtomicBoolean(true);
         BooleanProperty booleanProperty = new SimpleBooleanProperty();
         Platform.runLater(() -> {
-            booleanProperty.set(P2AlertWorker.alertOkCancel(stage == null ? P2LibConst.actStage : stage, title, header, content));
+            booleanProperty.set(P2AlertWorker.alertOkCancel(stage == null ? P2LibConst.primaryStage : stage, title, header, content));
             atomicBoolean.set(false);
         });
         while (atomicBoolean.get()) {
@@ -45,7 +45,7 @@ public class P2AlertAppThread {
         ObjectProperty<P2Alert.BUTTON> property = new SimpleObjectProperty<>();
 
         Platform.runLater(() -> {
-            property.set(P2AlertWorker.alert_yes_no(stage == null ? P2LibConst.actStage : stage, title, header, content));
+            property.set(P2AlertWorker.alert_yes_no(stage == null ? P2LibConst.primaryStage : stage, title, header, content));
             atomicBoolean.set(false);
         });
         while (atomicBoolean.get()) {
@@ -64,7 +64,7 @@ public class P2AlertAppThread {
         AtomicBoolean atomicBoolean = new AtomicBoolean(true);
         BooleanProperty booleanProperty = new SimpleBooleanProperty();
         Platform.runLater(() -> {
-            booleanProperty.set(P2AlertWorker.infoAlert(stage == null ? P2LibConst.actStage : stage, title, header, content, false));
+            booleanProperty.set(P2AlertWorker.infoAlert(stage == null ? P2LibConst.primaryStage : stage, title, header, content, false));
             atomicBoolean.set(false);
         });
         while (atomicBoolean.get()) {
@@ -77,7 +77,7 @@ public class P2AlertAppThread {
     //=======================
     //Ok
     public static boolean showErrorAlert(String header, String content) {
-        return showErrorAlert(P2LibConst.actStage, header, content);
+        return showErrorAlert(P2LibConst.primaryStage, header, content);
     }
 
     public static boolean showErrorAlert(Stage stage, String header, String content) {
@@ -92,7 +92,7 @@ public class P2AlertAppThread {
         AtomicBoolean atomicBoolean = new AtomicBoolean(true);
         BooleanProperty booleanProperty = new SimpleBooleanProperty();
         Platform.runLater(() -> {
-            booleanProperty.set(P2AlertWorker.errorAlert(stage == null ? P2LibConst.actStage : stage, title, header, content));
+            booleanProperty.set(P2AlertWorker.errorAlert(stage == null ? P2LibConst.primaryStage : stage, title, header, content));
             atomicBoolean.set(false);
         });
         while (atomicBoolean.get()) {

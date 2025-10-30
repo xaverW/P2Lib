@@ -74,7 +74,7 @@ public class P2WindowIcon {
     }
 
     public static void addWindowIcon() {
-        addWindowIcon(P2LibConst.actStage);
+        addWindowIcon(P2LibConst.primaryStage);
         P2DialogExtra.setIconForAllDialog();
     }
 

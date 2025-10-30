@@ -68,7 +68,7 @@ public class P2LoadFilmlist {
      * Filmliste beim Programmstart laden
      */
     public void loadFilmlistProgStart() {
-        if (P2LoadFactory.checkAllSenderSelectedNotToLoad(P2LibConst.actStage)) {
+        if (P2LoadFactory.checkAllSenderSelectedNotToLoad(P2LibConst.primaryStage)) {
             // alle Sender sind vom Laden ausgenommen
             P2Log.sysLog("Filmliste laden: Es sind keine Sender eingeschaltet!!");
             return;
@@ -106,7 +106,7 @@ public class P2LoadFilmlist {
     }
 
     public void loadNewFilmlistFromWeb(boolean alwaysLoadNew/*, String localFilmListFile*/) {
-        if (P2LoadFactory.checkAllSenderSelectedNotToLoad(P2LibConst.actStage)) {
+        if (P2LoadFactory.checkAllSenderSelectedNotToLoad(P2LibConst.primaryStage)) {
             // alle Sender sind vom Laden ausgenommen
             P2Log.sysLog("Filmliste laden: Es sind keine Sender eingeschaltet!!");
             //todo Dialog anzeigen

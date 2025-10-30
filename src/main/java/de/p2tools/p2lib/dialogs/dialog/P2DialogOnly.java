@@ -35,13 +35,13 @@ public class P2DialogOnly extends P2Dialog {
     private boolean masker = false;
 
     public P2DialogOnly() {
-        super(P2LibConst.actStage, null, "", true);
+        super(P2LibConst.primaryStage, null, "", true);
         initDialog();
     }
 
     public P2DialogOnly(StringProperty conf, String title) {
         // ist nur ein einfacher Dialog, zentral über dem Hauptfenster
-        super(P2LibConst.actStage, conf, title, true);
+        super(P2LibConst.primaryStage, conf, title, true);
         initDialog();
     }
 

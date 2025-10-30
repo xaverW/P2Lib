@@ -41,7 +41,6 @@ public class P2LibInit {
                                String ownIcon /* /tmp/path/icon.png */,
                                boolean debug, boolean duration) {
         P2LibConst.primaryStage = stage;
-        P2LibConst.actStage = stage;
         P2LibConst.progName = progName;
         P2LibConst.userAgent = userAgent;
 
@@ -78,7 +77,7 @@ public class P2LibInit {
     }
 
     public static void setActStage(Stage stage) {
-        P2LibConst.actStage = stage;
+        P2LibConst.primaryStage = stage;
     }
 
     public static void initProxy(boolean useProxy, String proxyHost, String proxyPort,
