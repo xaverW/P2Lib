@@ -43,7 +43,8 @@ public class P2Dialog {
     private static String iconPath = "";
     private StringProperty sizeConfiguration;
     private final boolean modal;
-    private final boolean setOnlySize; // dann wird nur die Größe nicht aber die Position gesetzt
+    private final boolean setSize; // dann wird nur die Größe gesetzt
+    private final boolean setPos; // dann wird nur die Pos gesetzt
     private final String title;
     private final Stage ownerForCenteringDialog;
     private Scene scene = null;
@@ -53,23 +54,23 @@ public class P2Dialog {
     private boolean done = false;
 
     P2Dialog(Stage ownerForCenteringDialog, StringProperty sizeConfiguration,
-             String title, boolean modal, boolean setOnlySize) {
-
+             String title, boolean modal) {
         this.ownerForCenteringDialog = ownerForCenteringDialog;
         this.sizeConfiguration = sizeConfiguration;
         this.modal = modal;
         this.title = title;
-        this.setOnlySize = setOnlySize;
+        this.setSize = true;
+        this.setPos = true;
     }
 
     P2Dialog(Stage ownerForCenteringDialog, StringProperty sizeConfiguration,
-             String title, boolean modal, boolean setOnlySize, String iconPath) {
-
+             String title, boolean modal, boolean setSize, boolean setPos, String iconPath) {
         this.ownerForCenteringDialog = ownerForCenteringDialog;
         this.sizeConfiguration = sizeConfiguration;
         this.modal = modal;
         this.title = title;
-        this.setOnlySize = setOnlySize;
+        this.setSize = setSize;
+        this.setPos = setPos;
         P2Dialog.iconPath = iconPath;
     }
 
@@ -91,7 +92,7 @@ public class P2Dialog {
             if (sizeConfiguration == null) {
                 scene = new Scene(pane);
 
-            } else {
+            } else if (setSize) {
                 int width = P2GuiSize.getSceneSize(sizeConfiguration, true);
                 int height = P2GuiSize.getSceneSize(sizeConfiguration, false);
                 if (width > 0 && height > 0) {
@@ -99,6 +100,9 @@ public class P2Dialog {
                 } else {
                     scene = new Scene(pane);
                 }
+
+            } else {
+                scene = new Scene(pane);
             }
 
             stage = new Stage();
@@ -106,6 +110,7 @@ public class P2Dialog {
             stage.setScene(scene);
             stage.setTitle(title);
             // stage.sizeToScene(); // macht Probleme
+
             if (modal) {
                 stage.initModality(Modality.APPLICATION_MODAL);
             }
@@ -125,12 +130,7 @@ public class P2Dialog {
 
                 // P2GuiSize.setMinSize(sizeConfiguration, stage); // damit etwas besser, klappt aber nicht immer
                 stage.setResizable(false);
-                if (setOnlySize) {
-                    P2GuiSize.setSize(sizeConfiguration, stage);
-                } else {
-                    P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
-                }
-
+                setSizPos();
                 // scene.widthProperty().addListener((u, o, n) -> {
                 //   P2GuiSize.resetMinSize(stage);
                 // });
@@ -142,12 +142,7 @@ public class P2Dialog {
                         // P2GuiSize.resetMinSize(stage);
                         if (!done) {
                             done = true;
-                            if (setOnlySize) {
-                                P2GuiSize.setSize(sizeConfiguration, stage);
-                                P2GuiSize.setInFrontOfPrimaryStage(stage, ownerForCenteringDialog);
-                            } else {
-                                P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
-                            }
+                            setSizPos();
                             P2DialogFactory.addSizeListener(stage, sizeConfiguration);
                             stage.setResizable(true);
                         }
@@ -156,12 +151,7 @@ public class P2Dialog {
 
             } else {
                 // Windows
-                if (setOnlySize) {
-                    P2GuiSize.setSize(sizeConfiguration, stage);
-                    P2GuiSize.setInFrontOfPrimaryStage(stage, ownerForCenteringDialog);
-                } else {
-                    P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
-                }
+                setSizPos();
                 P2DialogFactory.addSizeListener(stage, sizeConfiguration);
             }
 
@@ -174,12 +164,7 @@ public class P2Dialog {
             //   }
             // });
             stage.setOnShown(e -> {
-                if (setOnlySize) {
-                    P2GuiSize.setSize(sizeConfiguration, stage);
-                    P2GuiSize.setInFrontOfPrimaryStage(stage, ownerForCenteringDialog);
-                } else {
-                    P2GuiSize.setSizePos(sizeConfiguration, stage, ownerForCenteringDialog);
-                }
+                setSizPos();
             });
 
             updateCss();
@@ -190,6 +175,17 @@ public class P2Dialog {
             }
         } catch (final Exception exc) {
             P2Log.errorLog(152030145, exc);
+        }
+    }
+
+    private void setSizPos() {
+        if (setSize) {
+            P2GuiSize.setSize(sizeConfiguration, stage);
+        }
+        if (setPos) {
+            P2GuiSize.setPos(sizeConfiguration, stage, ownerForCenteringDialog);
+        } else {
+            P2GuiSize.setInFrontOfPrimaryStage(stage, ownerForCenteringDialog);
         }
     }
 

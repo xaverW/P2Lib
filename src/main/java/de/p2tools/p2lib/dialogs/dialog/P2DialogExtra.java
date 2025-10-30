@@ -67,37 +67,37 @@ public class P2DialogExtra extends P2Dialog {
     }
 
     public P2DialogExtra() {
-        super(P2LibConst.actStage, null, "", true, true);
+        super(P2LibConst.actStage, null, "", true);
         initDialog();
     }
 
     public P2DialogExtra(StringProperty conf, String title) {
         // ist nur ein einfacher Dialog, zentral über dem Hauptfenster
-        super(P2LibConst.actStage, conf, title, true, true);
+        super(P2LibConst.actStage, conf, title, true);
         initDialog();
     }
 
     public P2DialogExtra(Stage ownerForCenteringDialog, StringProperty conf, String title) {
-        super(ownerForCenteringDialog, conf, title, true, true);
+        super(ownerForCenteringDialog, conf, title, true);
         initDialog();
     }
 
     public P2DialogExtra(Stage ownerForCenteringDialog, StringProperty conf,
-                         String title, boolean modal, boolean setOnlySize) {
-        super(ownerForCenteringDialog, conf, title, modal, setOnlySize);
+                         String title, boolean modal, boolean setSize, boolean setPos) {
+        super(ownerForCenteringDialog, conf, title, modal, setSize, setPos, "");
         initDialog();
     }
 
     public P2DialogExtra(Stage ownerForCenteringDialog, StringProperty conf,
-                         String title, boolean modal, boolean setOnlySize, DECO deco) {
-        super(ownerForCenteringDialog, conf, title, modal, setOnlySize);
+                         String title, boolean modal, boolean setSize, boolean setPos, DECO deco) {
+        super(ownerForCenteringDialog, conf, title, modal, setSize, setPos, "");
         this.deco = deco;
         initDialog();
     }
 
     public P2DialogExtra(Stage ownerForCenteringDialog, StringProperty conf,
-                         String title, boolean modal, boolean setOnlySize, DECO deco, boolean masker) {
-        super(ownerForCenteringDialog, conf, title, modal, setOnlySize);
+                         String title, boolean modal, boolean setSize, boolean setPos, DECO deco, boolean masker) {
+        super(ownerForCenteringDialog, conf, title, modal, setSize, setPos, "");
         this.deco = deco;
         this.masker = masker;
         maskerPane = new P2MaskerPaneMin();

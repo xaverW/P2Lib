@@ -33,7 +33,7 @@ public class InfoAlert extends P2DialogExtra {
 
     public InfoAlert(FoundSearchDataDTO foundSearchDataDTO) {
         super(foundSearchDataDTO.getStage(), null,
-                "Updates", true, false, DECO.BORDER_SMALL);
+                "Updates", true, true, true, DECO.BORDER_SMALL);
         this.foundSearchDataDTO = foundSearchDataDTO;
         buildDialog();
         init(true);

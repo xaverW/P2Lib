@@ -57,7 +57,8 @@ public class FoundDownloadDialogController extends P2DialogExtra {
     private boolean ok = false;
 
     public FoundDownloadDialogController(final FoundSearchDataDTO foundSearchDataDTO, final String url, final StringProperty path) {
-        super(foundSearchDataDTO.getStage(), null, "Download", true, false, DECO.BORDER_SMALL);
+        super(foundSearchDataDTO.getStage(), null, "Download",
+                true, true, true, DECO.BORDER_SMALL);
 
         this.foundSearchDataDTO = foundSearchDataDTO;
         this.url = url;

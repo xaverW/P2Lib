@@ -35,7 +35,7 @@ public class P2DialogShowAgain extends P2DialogExtra {
 
     public P2DialogShowAgain(Stage ownerForCenteringDialog, StringProperty conf,
                              String title, String text, BooleanProperty showAgain) {
-        super(ownerForCenteringDialog, conf, title, true, false, DECO.NO_BORDER, true);
+        super(ownerForCenteringDialog, conf, title, true, true, true, DECO.NO_BORDER, true);
         this.showAgain = showAgain;
         this.text = text;
 

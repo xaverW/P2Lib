@@ -42,7 +42,7 @@ public class P2ClosePaneDialog extends P2DialogExtra {
                              BooleanProperty maskerVisible) {
 
         super(P2LibConst.primaryStage, sizeProperty, title,
-                false, false, DECO.NO_BORDER, true);
+                false, true, true, DECO.NO_BORDER, true);
 
         this.pane = pane;
         this.dialogIsRip = dialogIsRip; // zeigt an, ob Dialog zu sehen
@@ -62,7 +62,7 @@ public class P2ClosePaneDialog extends P2DialogExtra {
                              BooleanProperty dialogIsRip) {
 
         super(P2LibConst.primaryStage, sizeProperty, title,
-                false, false, DECO.NO_BORDER);
+                false, true, true, DECO.NO_BORDER);
 
         this.pane = pane;
         this.dialogIsRip = dialogIsRip; // zeigt an, ob Dialog zu sehen

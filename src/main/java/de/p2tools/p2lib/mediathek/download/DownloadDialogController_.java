@@ -58,7 +58,7 @@ public class DownloadDialogController_ extends P2DialogExtra {
     private boolean ok = false;
 
     public DownloadDialogController_(final Stage stage, final String url, final StringProperty path, final String orgFileName) {
-        super(stage, null, "Download", true, false, DECO.BORDER_SMALL);
+        super(stage, null, "Download", true, true, true, DECO.BORDER_SMALL);
 
         this.stage = stage;
         this.url = url;

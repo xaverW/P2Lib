@@ -39,9 +39,15 @@ public class P2Open {
         File file;
 
         if (fileStr.isEmpty()) {
+            P2Alert.showErrorAlert(stage,
+                    "Fehler beim öffnen der Datei", "Der Pfad der Datei ist leer!");
             return;
         }
         if (!new File(fileStr).exists()) {
+            P2Alert.showErrorAlert(stage,
+                    "Fehler beim öffnen der Datei", "Der Pfad der Datei:\n" +
+                            fileStr +
+                            "\nexistiert nicht!");
             return;
         }
 
@@ -55,7 +61,7 @@ public class P2Open {
                     }
                 }
             } catch (Exception ex) {
-                new P2Alert().showErrorAlert(stage,
+                P2Alert.showErrorAlert(stage,
                         "Fehler beim öffnen der Datei", "Kann die Datei nicht öffnen!");
             }
         });

@@ -42,7 +42,7 @@ public class FoundDownloadProgressDialog extends P2DialogExtra {
     private String startText = "";
 
     FoundDownloadProgressDialog(Stage stage, String fileName, String text) {
-        super(stage, null, "Download", false, false, DECO.NO_BORDER);
+        super(stage, null, "Download", false, true, true, DECO.NO_BORDER);
 
         this.lblName.setText(fileName);
         this.startText = text;

@@ -51,7 +51,8 @@ public class ProgInfoDialog extends P2DialogExtra {
     private static final int MEGABYTE = 1000 * 1000;
 
     public ProgInfoDialog(boolean showDialog) {
-        super(P2LibConst.primaryStage, null, "Speicherverbrauch des Programms", false, false, DECO.NO_BORDER);
+        super(P2LibConst.primaryStage, null, "Speicherverbrauch des Programms",
+                false, false, false, DECO.NO_BORDER);
         addOkButton(btnOk);
         init(showDialog);
     }

@@ -59,7 +59,7 @@ public abstract class AboutDialog extends P2DialogExtra {
     public AboutDialog(Stage stage, String progName, String URL_WEBSITE, String URL_WEBSITE_HELP,
                        StringProperty urlOpenProg,
                        boolean dark, String[] listName, String[] listValue, boolean masker) {
-        super(stage, null, "Über das Programm", true, false, DECO.BORDER_SMALL, masker);
+        super(stage, null, "Über das Programm", true, false, false, DECO.BORDER_SMALL, masker);
 
         this.progName = progName;
         this.URL_WEBSITE = URL_WEBSITE;

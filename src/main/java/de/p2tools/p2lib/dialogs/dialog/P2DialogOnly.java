@@ -35,30 +35,30 @@ public class P2DialogOnly extends P2Dialog {
     private boolean masker = false;
 
     public P2DialogOnly() {
-        super(P2LibConst.actStage, null, "", true, true);
+        super(P2LibConst.actStage, null, "", true);
         initDialog();
     }
 
     public P2DialogOnly(StringProperty conf, String title) {
         // ist nur ein einfacher Dialog, zentral über dem Hauptfenster
-        super(P2LibConst.actStage, conf, title, true, true);
+        super(P2LibConst.actStage, conf, title, true);
         initDialog();
     }
 
     public P2DialogOnly(Stage ownerForCenteringDialog, StringProperty conf, String title) {
-        super(ownerForCenteringDialog, conf, title, true, true);
+        super(ownerForCenteringDialog, conf, title, true);
         initDialog();
     }
 
     public P2DialogOnly(Stage ownerForCenteringDialog, StringProperty conf,
-                        String title, boolean modal, boolean setOnlySize) {
-        super(ownerForCenteringDialog, conf, title, modal, setOnlySize);
+                        String title, boolean modal, boolean setSize, boolean setPos) {
+        super(ownerForCenteringDialog, conf, title, modal, setSize, setPos, "");
         initDialog();
     }
 
     public P2DialogOnly(Stage ownerForCenteringDialog, StringProperty conf,
-                        String title, boolean modal, boolean setOnlySize, boolean masker) {
-        super(ownerForCenteringDialog, conf, title, modal, setOnlySize);
+                        String title, boolean modal, boolean setSize, boolean setPos, boolean masker) {
+        super(ownerForCenteringDialog, conf, title, modal, setSize, setPos, "");
         this.masker = masker;
         maskerPane = new P2MaskerPane();
         initDialog();
