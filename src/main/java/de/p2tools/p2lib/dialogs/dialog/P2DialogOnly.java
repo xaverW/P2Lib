@@ -19,6 +19,8 @@ package de.p2tools.p2lib.dialogs.dialog;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2SmallGuiFactory;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPane;
+import de.p2tools.p2lib.icons.P2Image;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -108,5 +110,11 @@ public class P2DialogOnly extends P2Dialog {
         vBoxDialog.getChildren().add(vBoxCompleteDialog);
         vBoxCompleteDialog.setSpacing(P2LibConst.SPACING_VBOX);
         VBox.setVgrow(vBoxCompleteDialog, Priority.ALWAYS);
+
+        P2LibConst.themeChanged.addListener((u, o, n) -> {
+            P2Log.debugLog("P2DialogOnly: updateCss");
+            super.updateCss();
+            P2Image.getAllNodes(getStage().getScene().getRoot());
+        });
     }
 }

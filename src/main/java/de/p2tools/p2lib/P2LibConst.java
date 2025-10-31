@@ -44,8 +44,8 @@ public class P2LibConst {
     public static IntegerProperty fontSize = new SimpleIntegerProperty(0); // für die Anpassung der Schriftgröße
     // zuerst wird dark/black/font geändert, dann werden die CSS angepasst und dann wird theme geändert
     public static BooleanProperty themeChanged = new SimpleBooleanProperty(false); // eine Info nach Änderungen
-    public static String cssFile = "";
-    public static String cssFileDark = "";
+    public static String[] cssFile = {""};
+    public static String[] cssFileDark = {""};
 
     public static Image STAGE_ICON = null;
     public static Image STAGE_ICON_ORG = null;

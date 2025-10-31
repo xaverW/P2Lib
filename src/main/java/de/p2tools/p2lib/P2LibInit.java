@@ -26,6 +26,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class P2LibInit {
@@ -36,7 +37,7 @@ public class P2LibInit {
                                BooleanProperty blackWhite,
                                BooleanProperty themeChanged,
                                BooleanProperty regExOnlyCompare,
-                               String cssFile, String cssFileDark, IntegerProperty fontSize,
+                               String[] cssFile, String[] cssFileDark, IntegerProperty fontSize,
                                String orgIcon /* de/p2tools/p2lib/icons/icon.png */,
                                String ownIcon /* /tmp/path/icon.png */,
                                boolean debug, boolean duration) {
@@ -116,9 +117,9 @@ public class P2LibInit {
         }
 
         // und die vom Programm
-        list.add(P2LibConst.cssFile);
+        list.addAll(Arrays.asList(P2LibConst.cssFile));
         if (P2LibConst.darkMode.getValue()) {
-            list.add(P2LibConst.cssFileDark);
+            list.addAll(Arrays.asList(P2LibConst.cssFileDark));
         }
 
         if (scene != null) {
