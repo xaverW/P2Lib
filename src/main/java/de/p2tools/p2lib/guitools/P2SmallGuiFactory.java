@@ -18,7 +18,7 @@
 package de.p2tools.p2lib.guitools;
 
 import javafx.scene.Cursor;
-import javafx.scene.input.MouseButton;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -38,16 +38,16 @@ public class P2SmallGuiFactory {
 
     // up - down - left - right macht Probleme unter Linux
     public static void addBorderListener(Stage stage) {
-        stage.getScene().setOnMouseClicked(m -> {
-            if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {
-                stage.setWidth(stage.getWidth() * 1.1);
-                stage.setHeight(stage.getHeight() * 1.1);
-            }
-            if (m.getButton().equals(MouseButton.SECONDARY) && m.getClickCount() == 2) {
-                stage.setWidth(stage.getWidth() * 0.9);
-                stage.setHeight(stage.getHeight() * 0.9);
-            }
-        });
+//        stage.getScene().setOnMouseClicked(m -> {
+//            if (m.getButton().equals(MouseButton.PRIMARY) && m.getClickCount() == 2) {
+//                stage.setWidth(stage.getWidth() * 1.1);
+//                stage.setHeight(stage.getHeight() * 1.1);
+//            }
+//            if (m.getButton().equals(MouseButton.SECONDARY) && m.getClickCount() == 2) {
+//                stage.setWidth(stage.getWidth() * 0.9);
+//                stage.setHeight(stage.getHeight() * 0.9);
+//            }
+//        });
 
         stage.getScene().setOnMousePressed(event -> {
             xOffset = event.getSceneX(); //Pos im Fenster von links
@@ -132,6 +132,67 @@ public class P2SmallGuiFactory {
         });
         stage.initStyle(StageStyle.TRANSPARENT);
     }
+
+
+    // up - down - left - right macht Probleme unter Linux
+    public static void addBorderListener(Stage stage, Node node) {
+        // Nodes stehlen das DRAGGED Event
+        node.setOnMousePressed(event -> {
+            xOffset = event.getSceneX(); //Pos im Fenster von links
+            yOffset = event.getSceneY(); //Pos im Fenster von oben
+            xSize = stage.getWidth(); //Fensterbreite
+            ySize = stage.getHeight(); //Fensterhöhe
+            xPos = event.getScreenX(); //Pos vom Bildschirmrand
+            yPos = event.getScreenY(); //Pos vom Bildschirmrand
+
+            if (isUp() && isLeft()) {
+                //oben links
+                stage.getScene().setCursor(Cursor.NW_RESIZE);
+            } else if (isUp() && isRight()) {
+                //oben rechts
+                stage.getScene().setCursor(Cursor.NE_RESIZE);
+            } else if (isDown() && isRight()) {
+                //unten rechts
+                stage.getScene().setCursor(Cursor.SE_RESIZE);
+            } else if (isDown() && isLeft()) {
+                //unten links
+                stage.getScene().setCursor(Cursor.SW_RESIZE);
+
+            } else {
+                //dann nur schieben
+                stage.getScene().setCursor(Cursor.OPEN_HAND);
+            }
+        });
+        node.setOnMouseReleased(event -> {
+            stage.getScene().setCursor(Cursor.DEFAULT);
+        });
+        node.setOnMouseDragged(event -> {
+            if (isUp() && isLeft()) {
+                //oben links
+                moveUp(stage, event);
+                moveLeft(stage, event);
+            } else if (isUp() && isRight()) {
+                //oben rechts
+                moveUp(stage, event);
+                moveRight(stage, event);
+
+            } else if (isDown() && isLeft()) {
+                //unten links
+                moveDown(stage, event);
+                moveLeft(stage, event);
+            } else if (isDown() && isRight()) {
+                //unten rechts
+                moveDown(stage, event);
+                moveRight(stage, event);
+
+            } else {
+                //dann nur schieben
+                stage.setX(event.getScreenX() - xOffset);
+                stage.setY(event.getScreenY() - yOffset);
+            }
+        });
+    }
+
 
     private static boolean isUp() {
         return yOffset < MOVE_SIZE;

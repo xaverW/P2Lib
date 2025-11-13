@@ -3,16 +3,33 @@ package de.p2tools.p2lib.alert;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.tools.P2ToolsFactory;
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.stage.Stage;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class P2AlertAppThread {
     private P2AlertAppThread() {
+    }
+
+    //=======================
+    // getText
+    public static void getTextAlert(String title, String header,
+                                    String content, String fieldName, StringProperty getText) {
+        getTextAlert(null, title, header, content, fieldName, getText);
+    }
+
+    public static void getTextAlert(Stage stage, String title, String header,
+                                    String content, String fieldName, StringProperty getText) {
+        AtomicBoolean atomicBoolean = new AtomicBoolean(true);
+        Platform.runLater(() -> {
+            P2AlertWorker.getTextAlert(stage == null ? P2LibConst.primaryStage : stage,
+                    title, header, content, fieldName, getText);
+            atomicBoolean.set(false);
+        });
+        while (atomicBoolean.get()) {
+            P2ToolsFactory.pause(500);
+        }
     }
 
     //=======================

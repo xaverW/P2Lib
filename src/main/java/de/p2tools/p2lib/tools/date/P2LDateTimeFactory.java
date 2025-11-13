@@ -85,6 +85,16 @@ public class P2LDateTimeFactory {
         }
     }
 
+    public static String toStringTimeSecond(LocalDateTime localDateTime) {
+        if (localDateTime == null) {
+            return "";
+        } else if (localDateTime.isEqual(LocalDateTime.MIN)) {
+            return "";
+        } else {
+            return localDateTime.format(P2DateConst.DT_FORMATTER_HH__mm__ss);
+        }
+    }
+
     public static LocalDateTime fromString(String strDate) {
         return fromString(strDate, P2DateConst.DT_FORMATTER_dd_MM_yyyy___HH__mm__ss);
     }

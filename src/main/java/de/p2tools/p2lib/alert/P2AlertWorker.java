@@ -17,11 +17,16 @@
 
 package de.p2tools.p2lib.alert;
 
+import de.p2tools.p2lib.P2LibConst;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
@@ -264,6 +269,29 @@ public class P2AlertWorker {
             return true;
         }
         return false;
+    }
+
+    //=======================
+    // getText
+    static void getTextAlert(Stage stage, String title, String header,
+                             String content, String fieldName, StringProperty getText) {
+        final Alert alert = getAlert(stage, Alert.AlertType.INFORMATION, title, header);
+
+
+        Label lbl = new Label(content);
+        lbl.setWrapText(true);
+
+        TextField txtGetText = new TextField();
+        txtGetText.textProperty().bind(getText);
+        HBox.setHgrow(txtGetText, Priority.ALWAYS);
+
+        HBox hBox = new HBox(P2LibConst.SPACING_HBOX);
+        hBox.getChildren().addAll(new Label(fieldName), txtGetText);
+        VBox vBox = new VBox(P2LibConst.SPACING_VBOX);
+        vBox.getChildren().addAll(lbl, hBox);
+        alert.getDialogPane().setContent(vBox);
+
+        alert.showAndWait();
     }
 
     //=======================
