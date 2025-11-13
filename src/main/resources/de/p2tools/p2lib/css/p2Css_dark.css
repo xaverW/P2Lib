@@ -45,15 +45,15 @@
     -fx-text-fill: white;
 }
 .button:focused{
-    -fx-background-color: #4898de, -lin-grad-1, -rad-grad-1;
+/*    -fx-background-color: #4898de, -lin-grad-1, -rad-grad-1;*/
     -fx-text-fill: white;
 }
 .button:hover{
-    -fx-background-color: #005ab0, -lin-grad-1, -rad-grad-1;
+/*    -fx-background-color: #005ab0, -lin-grad-1, -rad-grad-1;*/
     -fx-text-fill: white;
 }
 .button:focused:hover{
-    -fx-background-color: #005ab0, -lin-grad-1, -rad-grad-1;
+/*    -fx-background-color: #005ab0, -lin-grad-1, -rad-grad-1;*/
     -fx-text-fill: white;
 }
 .button:focused:hover:pressed{
