@@ -16,21 +16,16 @@
 
 package de.p2tools.p2lib;
 
+import de.p2tools.p2lib.css.P2CssFactory;
 import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2lib.mediathek.filter.Filter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class P2LibInit {
-    private static final String PATH_CSS = "de/p2tools/p2lib/css/";
 
     public static void initLib(Stage stage, String progName, String userAgent,
                                BooleanProperty darkMode,
@@ -64,15 +59,15 @@ public class P2LibInit {
         P2WindowIcon.setStageIcon(ownIcon);
 
         P2LibConst.darkMode.addListener((u, o, n) -> {
-            addP2CssToScene(stage.getScene());
+            P2CssFactory.addP2CssToScene(stage.getScene());
             P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
         });
         P2LibConst.blackWhite.addListener((u, o, n) -> {
-            addP2CssToScene(stage.getScene());
+            P2CssFactory.addP2CssToScene(stage.getScene());
             P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
         });
         P2LibConst.fontSize.addListener((u, o, n) -> {
-            addP2CssToScene(stage.getScene());
+            P2CssFactory.addP2CssToScene(stage.getScene());
             P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
         });
     }
@@ -90,43 +85,5 @@ public class P2LibInit {
         P2LibConst.proxyPwd.setValue(proxyPwd);
     }
 
-    public static void addP2CssToScene(Scene scene) {
-        List<String> list = new ArrayList<>();
-        list.add(PATH_CSS + "p2Css_button.css");
-        list.add(PATH_CSS + "p2Css_maskerPane.css");
-        list.add(PATH_CSS + "p2Css_toggleSwitch.css");
-        list.add(PATH_CSS + "p2Css_p2Notify.css");
-        list.add(PATH_CSS + "p2Css_table.css");
-        list.add(PATH_CSS + "p2Css.css");
-        list.add(PATH_CSS + "p2Css_toolButton.css");
-        list.add(PATH_CSS + "p2Css_smallGui.css");
-        list.add(PATH_CSS + "p2Css_dialog.css");
-        list.add(PATH_CSS + "p2Css_gui.css");
 
-        if (P2LibConst.darkMode.getValue()) {
-            list.add(PATH_CSS + "p2Css_dark.css");
-            list.add(PATH_CSS + "p2Css_darkTable.css");
-        }
-
-        if (P2LibConst.blackWhite.getValue()) {
-            if (P2LibConst.darkMode.getValue()) {
-                list.add(PATH_CSS + "p2Css_bw_b.css");
-            } else {
-                list.add(PATH_CSS + "p2Css_bw_w.css");
-            }
-        }
-
-        // und die vom Programm
-        list.addAll(Arrays.asList(P2LibConst.cssFile));
-        if (P2LibConst.darkMode.getValue()) {
-            list.addAll(Arrays.asList(P2LibConst.cssFileDark));
-        }
-
-        if (scene != null) {
-            scene.getStylesheets().setAll(list);
-
-            // entweder Größe oder 0 zum löschen
-            scene.getRoot().setStyle("-fx-font-size: " + P2LibConst.fontSize.get() + " ;"); // .root { -fx-font-size: 12pt ;}
-        }
-    }
 }

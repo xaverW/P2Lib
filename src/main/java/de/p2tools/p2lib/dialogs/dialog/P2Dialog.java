@@ -17,7 +17,7 @@
 package de.p2tools.p2lib.dialogs.dialog;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.P2LibInit;
+import de.p2tools.p2lib.css.P2CssFactory;
 import de.p2tools.p2lib.guitools.P2GuiSize;
 import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2lib.tools.P2InfoFactory;
@@ -190,7 +190,7 @@ public class P2Dialog {
     }
 
     public void updateCss() {
-        P2LibInit.addP2CssToScene(scene);
+        P2CssFactory.addP2CssToScene(scene);
     }
 
     public void setIcon() {
