@@ -26,7 +26,7 @@ public class P2CssFactory {
 
 
     public enum CSS {
-        CSS_0("Standard Java", "css_0"),
+        CSS_0("Standard", "css_0"),
         CSS_1("P2-1", "css_1"),
         CSS_2("P2-2", "css_2");
 

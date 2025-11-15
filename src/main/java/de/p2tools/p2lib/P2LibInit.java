@@ -45,7 +45,7 @@ public class P2LibInit {
         P2LibConst.blackWhite = blackWhite == null ? new SimpleBooleanProperty(false) : blackWhite;
 
         P2LibConst.cssProgramPath = cssProgramPath;
-        P2LibConst.cssProp = cssProp == null ? new SimpleObjectProperty<>(P2CssFactory.CSS.CSS_1) : cssProp;
+        P2LibConst.cssProp = cssProp == null ? new SimpleObjectProperty<>(P2CssFactory.CSS.CSS_0) : cssProp;
         P2LibConst.fontSize = fontSize == null ? new SimpleIntegerProperty(0) : fontSize;
 
         if (regExOnlyCompare != null) {
@@ -58,6 +58,10 @@ public class P2LibInit {
         P2WindowIcon.setOrgIcon(orgIcon);
         P2WindowIcon.setStageIcon(ownIcon);
 
+        P2LibConst.cssProp.addListener((u, o, n) -> {
+            P2CssFactory.addP2CssToScene(stage.getScene());
+            P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
+        });
         P2LibConst.darkMode.addListener((u, o, n) -> {
             P2CssFactory.addP2CssToScene(stage.getScene());
             P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
