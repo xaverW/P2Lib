@@ -16,6 +16,7 @@
 
 package de.p2tools.p2lib;
 
+import de.p2tools.p2lib.css.P2CssFactory;
 import javafx.beans.property.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -39,13 +40,15 @@ public class P2LibConst {
     public static String logFile = "P2Tools_%g.log";
     public static String logFile_0 = "P2Tools_0.log";
 
-    public static BooleanProperty darkMode = new SimpleBooleanProperty(false);
-    public static BooleanProperty blackWhite = new SimpleBooleanProperty(false);
+    public static BooleanProperty darkMode = new SimpleBooleanProperty(false); // ist die dunkle Anzeige
+    public static BooleanProperty blackWhite = new SimpleBooleanProperty(false); // sind die Schwarz/Weiß Icons
     public static IntegerProperty fontSize = new SimpleIntegerProperty(0); // für die Anpassung der Schriftgröße
+
+    public static String cssProgramPath = "";
+    public static ObjectProperty<P2CssFactory.CSS> cssProp = new SimpleObjectProperty<>(P2CssFactory.CSS.CSS_1);
+
     // zuerst wird dark/black/font geändert, dann werden die CSS angepasst und dann wird theme geändert
     public static BooleanProperty themeChanged = new SimpleBooleanProperty(false); // eine Info nach Änderungen
-    public static String[] cssFile = {""};
-    public static String[] cssFileDark = {""};
 
     public static Image STAGE_ICON = null;
     public static Image STAGE_ICON_ORG = null;

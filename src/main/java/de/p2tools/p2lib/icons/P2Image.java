@@ -105,9 +105,8 @@ public class P2Image {
     }
 
     public Image getBwImage() {
+        String fn = fileName;
         try {
-            String fn = fileName;
-
             if (P2LibConst.darkMode.get()) {
                 fn = fn.replace(".png", BW_BLACK + ".png");
             } else {
@@ -116,7 +115,7 @@ public class P2Image {
             Image image = new Image(longPath + fn, w, h, false, true);
             return image;
         } catch (Exception ex) {
-            P2Log.errorLog(912547895, ex.getLocalizedMessage());
+            P2Log.errorLog(912547895, fn + "\n" + ex.getLocalizedMessage());
         }
         return null;
     }
