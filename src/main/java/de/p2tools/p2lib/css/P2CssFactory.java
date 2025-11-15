@@ -19,7 +19,6 @@ import java.util.List;
 public class P2CssFactory {
 
     private static final String PATH_CSS = "de/p2tools/p2lib/css/";
-    public static CSS css = CSS.CSS_1;
     public static String CSS_ALL = "/css/";
     public static String CSS_DARK = "/css_d/";
     public static String CSS_WHITE = "/css_bw/";
@@ -56,15 +55,7 @@ public class P2CssFactory {
     private P2CssFactory() {
     }
 
-    public static void setCss(CSS css) {
-        P2CssFactory.css = css;
-    }
-
     public static void addP2CssToScene(Scene scene) {
-        addP2CssToScene(scene, CSS.CSS_1);
-    }
-
-    public static void addP2CssToScene(Scene scene, CSS css) {
 //        list.add(PATH_CSS + "p2Css_button.css");
 //        list.add(PATH_CSS + "p2Css_maskerPane.css");
 //        list.add(PATH_CSS + "p2Css_toggleSwitch.css");
@@ -100,7 +91,7 @@ public class P2CssFactory {
 
         // ================================
         // von der P2Lib
-        cssDir = PATH_CSS + css.getPath();
+        cssDir = PATH_CSS + P2LibConst.cssProp.get().getPath();
         ArrayList<String> setList = new ArrayList<>(getListFromJar(cssDir + CSS_ALL));
 
         if (P2LibConst.darkMode.getValue()) {
