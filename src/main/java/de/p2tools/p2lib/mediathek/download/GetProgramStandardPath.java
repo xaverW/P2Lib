@@ -34,7 +34,7 @@ public class GetProgramStandardPath {
         final String PATH_LINUX_FFMPEG = "/usr/bin/ffmpeg";
         final String PATH_FREEBSD_FFMPEG = "/usr/local/bin/ffmpeg";
         final String PATH_WINDOWS_FFMPEG = "bin\\ffmpeg.exe";
-        final String PATH_MAC_FFMPEG = "../bin/ffmpeg";
+        final String PATH_MAC_FFMPEG = "../Resources/bin/ffmpeg";
         String path = "";
         try {
             switch (P2InfoFactory.getOs()) {
