@@ -1,0 +1,185 @@
+plugins {
+    id 'java-library'
+    id "org.openjfx.javafxplugin" version "0.1.0"
+}
+javafx {
+    version = "21.0.5"
+    modules = ['javafx.controls']
+}
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+//<><><><><><><><><><><><><><><><><><><><>
+def programName = 'P2Lib'
+def jarName = 'p2lib.jar'
+//<><><><><><><><><><><><><><><><><><><><>
+
+def fatJarDir = layout.buildDirectory.get().toString() + "/fatJar" + "/"
+def releaseDir = './release/'
+def distDir = "./dist/"
+
+// ===========================================
+// build project
+// ===========================================
+group 'de.p2tools'
+
+dependencies {
+    implementation ':controlsfx-11.2.1'
+    implementation ':commons-io-2.17.0'
+    implementation ':commons-lang3-3.17.0'
+    implementation ':jackson-core-2.17.2'
+    implementation ':xz-1.10'
+
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    destinationDirectory.set(file(fatJarDir))
+    archiveFileName = jarName
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.register('dist') {
+    dependsOn clean, jlinkZip
+}
+defaultTasks 'dist'
+
+tasks.register('cleanDist', Delete) {
+    delete distDir
+    delete releaseDir
+}
+clean.dependsOn cleanDist
+
+
+// ============================================
+// build distDir
+// ============================================
+tasks.register("copyTask") {
+    dependsOn jar
+    doFirst {
+        copy {
+            from file(fatJarDir + jarName)
+            into file(releaseDir)
+        }
+    }
+
+    doLast {
+        // online progs
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/atplayer/libs/")
+        }
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/atserver/libs/")
+        }
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/filerunner/libs/")
+        }
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/mtplayer/libs/")
+        }
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/mtviewer/libs/")
+        }
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/p2podder/libs/")
+        }
+        
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/p2radio/libs/")
+        }
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/p2radio-mac/libs/")
+        }
+
+        // tools
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/tools/cluborga/libs/")
+        }
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/tools/dirrunner/libs/")
+        }
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/tools/p2backup/libs/")
+        }
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/tools/p2info/libs/")
+        }
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/tools/p2linecounter/libs/")
+        }
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/tools/p2logger/libs/")
+        }
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/tools/p2mathe/libs/")
+        }
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/tools/p2organizer/libs/")
+        }
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/tools/p2regex/libs/")
+        }
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/tools/p2timer/libs/")
+        }
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/tools/p2trainer/libs/")
+        }
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/tools/iconli/libs/")
+        }
+    }
+}
+
+// ============================================
+// build SRC zipFile
+// ============================================
+tasks.register('buildZip_src', Zip) {
+    from projectDir
+    include 'src/**/*'
+    include 'libs/**/*'
+    archiveFileName = programName + '__SRC__' + new Date().format('yyyy.MM.dd') + '.zip'
+    destinationDirectory = file(releaseDir)
+}
+
+// ============================================
+// build
+// ============================================
+tasks.register('onlyDist') {
+    //only the distDir
+    dependsOn copyTask, buildZip_src
+}

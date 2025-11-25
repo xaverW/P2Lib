@@ -43,8 +43,8 @@ public class P2LibConst {
     public static BooleanProperty darkMode = new SimpleBooleanProperty(false); // ist die dunkle Anzeige
     public static BooleanProperty blackWhite = new SimpleBooleanProperty(false); // sind die Schwarz/Weiß Icons
     public static IntegerProperty fontSize = new SimpleIntegerProperty(0); // für die Anpassung der Schriftgröße
-
-    public static String cssProgramPath = "";
+    public static String[] cssFile = {""};
+    public static String[] cssFileDark = {""};
     public static ObjectProperty<P2CssFactory.CSS> cssProp = new SimpleObjectProperty<>(P2CssFactory.CSS.CSS_0);
 
     // zuerst wird dark/black/font geändert, dann werden die CSS angepasst und dann wird theme geändert
