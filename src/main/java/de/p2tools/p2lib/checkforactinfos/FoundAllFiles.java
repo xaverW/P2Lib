@@ -109,9 +109,11 @@ public class FoundAllFiles {
     }
 
     private static void addAct(FoundSearchDataDTO foundSearchDataDTO, String strLine) {
+        // sucht die Version die aktuellen Versionen und das txt-File: sind ohne ReleaseNr.
         // BETA haben schon die V-Nummer!!
-        //<p><a href="/download/p2info/act/P2Radio-3__2021.07.14.zip">P2Radio-3__2021.07.14.zip</a></p>
-        //<p><a href="/download/p2info/act/P2Radio-3__Linux+Java__2021.07.14.zip">P2Radio-3__Linux+Java__2021.07.14.zip</a></p>
+        // <p><a href="/download/p2info/act/P2Radio-3__2021.07.14.zip">P2Radio-3__2021.07.14.zip</a></p>
+        // <p><a href="/download/p2info/act/P2Radio-3__Linux+Java__2021.07.14.zip">P2Radio-3__Linux+Java__2021.07.14.zip</a></p>
+        // MTPlayer-20__Mac=mit=Java__2025.12.13.dmg
 
         int idx1 = strLine.indexOf("href=\"");
         int idx2 = strLine.indexOf("\">");
@@ -260,6 +262,11 @@ public class FoundAllFiles {
             return true;
         }
 
+        /*
+         * wenn immer anzeigen (Start über Dialog) wird über Datum verglichen
+         * wenn nicht immer anzeigen (Programmstart) wird das Release-Datum mit dem zuletzt
+         * geprügten Datum verglichen
+         * */
         boolean ret = (foundSearchDataDTO.isShowDialogAlways() && /* immer, wenn was vorhanden ist */
                 FoundFactory.isNewFound(foundSearchDataDTO.getProgBuildDate(), foundFile.getFileDate())) ||
 

@@ -147,6 +147,10 @@ public class FoundSearchDataDTO {
                         P2Log.sysLog("Update-Suche: Linux");
                         this.bsSearch = new String[]{"linux"};
                         break;
+                    case MAC:
+                        P2Log.sysLog("Update-Suche: Mac");
+                        this.bsSearch = new String[]{"mac"};
+                        break;
                     case WIN32:
                     case WIN64:
                         P2Log.sysLog("Update-Suche: Windows");

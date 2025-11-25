@@ -324,7 +324,10 @@ public class InfoAlertsTabFactory {
 
     private static int getButton(final FoundSearchDataDTO foundSearchDataDTO,
                                  final FoundFileList foundFileList, final GridPane gridPane, int row) {
-
+        /*
+         * wenn das BS in bsSearch im Dateinamen enthalte ist, dann immer anzeigen,
+         * sonst nur wenn CheckBox"alle" geklickt ist
+         * */
         if (foundFileList.isEmpty()) {
             // dann gibts keine Downloads
             return row;
@@ -380,11 +383,15 @@ public class InfoAlertsTabFactory {
         // MTPlayer-18__Linux=mit=Java__2025.02.23.zip
         // MTPlayer-18__Windows=mit=Java__2025.02.23.zip
         // MTPlayer-18__Raspberry__2025.02.23.zip
+        /*
+         * liefert "Windows=mit=Java" wenn "MTPlayer-18__Windows=mit=Java__2025.02.23.zip" oder
+         * "linux-windows" wenn "MTPlayer-18__2025.02.23.zip"
+         * */
         try {
             String search = fileName.substring(fileName.indexOf("__") + 2);
             if (!search.contains("__")) {
                 // MTPlayer-18__2025.02.23.zip
-                // dann ists für Linux und Win
+                // dann ists für Linux und Win (für den Mac fehlen die FXMLs)
                 return "linux-windows";
             }
 

@@ -34,6 +34,7 @@ public class GetProgramStandardPath {
         final String PATH_LINUX_FFMPEG = "/usr/bin/ffmpeg";
         final String PATH_FREEBSD_FFMPEG = "/usr/local/bin/ffmpeg";
         final String PATH_WINDOWS_FFMPEG = "bin\\ffmpeg.exe";
+        final String PATH_MAC_FFMPEG = "../bin/ffmpeg";
         String path = "";
         try {
             switch (P2InfoFactory.getOs()) {
@@ -43,6 +44,9 @@ public class GetProgramStandardPath {
                     } else {
                         path = PATH_LINUX_FFMPEG;
                     }
+                    break;
+                case MAC:
+                    path = PATH_MAC_FFMPEG;
                     break;
                 default:
                     path = PATH_WINDOWS_FFMPEG;
@@ -66,6 +70,7 @@ public class GetProgramStandardPath {
         final String PATH_LINUX_VLC = "/usr/bin/vlc";
         final String PATH_FREEBSD = "/usr/local/bin/vlc";
         final String PATH_WIN = "\\VideoLAN\\VLC\\vlc.exe";
+        final String PATH_MAC = "/Applications/VLC.app/Contents/MacOS/VLC";
         String path = "";
         try {
             switch (P2InfoFactory.getOs()) {
@@ -75,6 +80,9 @@ public class GetProgramStandardPath {
                     } else {
                         path = PATH_LINUX_VLC;
                     }
+                    break;
+                case MAC:
+                    path = PATH_MAC;
                     break;
                 default:
                     setWinProgPathVLC();
