@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2lib.guitools;
+package de.p2tools.p2lib.guitools.pcbo;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -23,17 +23,17 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseButton;
 
-public class P2ComboBoxObject<E> extends ComboBox<E> {
+public class P2CboObject<E> extends ComboBox<E> {
 
 
     private ObservableList<E> itemsList;
     private ObjectProperty<E> selVaueProperty;
 
-    public P2ComboBoxObject() {
+    public P2CboObject() {
         super();
     }
 
-    public P2ComboBoxObject(ObservableList<E> itemsList, ObjectProperty<E> selVaueProperty) {
+    public P2CboObject(ObservableList<E> itemsList, ObjectProperty<E> selVaueProperty) {
         super();
         this.itemsList = itemsList;
         this.selVaueProperty = selVaueProperty;

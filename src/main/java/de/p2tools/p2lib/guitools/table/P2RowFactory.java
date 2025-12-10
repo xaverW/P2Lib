@@ -1,4 +1,4 @@
-package de.p2tools.p2lib.guitools;
+package de.p2tools.p2lib.guitools.table;
 
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;

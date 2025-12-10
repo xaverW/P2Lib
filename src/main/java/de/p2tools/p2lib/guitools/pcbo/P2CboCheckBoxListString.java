@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2lib.guitools;
+package de.p2tools.p2lib.guitools.pcbo;
 
 import de.p2tools.p2lib.P2LibConst;
 import javafx.beans.property.StringProperty;
@@ -33,19 +33,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class P2MenuButton extends MenuButton {
+public class P2CboCheckBoxListString extends MenuButton {
     private final StringProperty filterProperty;
     private final ObservableList<String> allButtonList;
     private final ArrayList<MenuItemClass> menuItemsList = new ArrayList<>();
 
-    public P2MenuButton(StringProperty filterProperty, ObservableList<String> allButtonList) {
+    public P2CboCheckBoxListString(StringProperty filterProperty, ObservableList<String> allButtonList) {
         this.filterProperty = filterProperty;
         this.allButtonList = allButtonList;
 
         initMenuButton();
     }
 
-    public P2MenuButton(StringProperty filterProperty, ObservableList<String> allButtonList, boolean minWidth) {
+    public P2CboCheckBoxListString(StringProperty filterProperty, ObservableList<String> allButtonList, boolean minWidth) {
         this.filterProperty = filterProperty;
         this.allButtonList = allButtonList;
         initMenuButton();

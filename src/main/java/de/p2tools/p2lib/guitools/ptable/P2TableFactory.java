@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2lib.guitools;
+package de.p2tools.p2lib.guitools.ptable;
 
 
 import javafx.application.Platform;

@@ -19,9 +19,9 @@ package de.p2tools.p2lib.dialogs;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ClipBoardContext;
-import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2GuiTools;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
+import de.p2tools.p2lib.guitools.grid.P2GridConstraints;
 import de.p2tools.p2lib.tools.P2InfoFactory;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -178,9 +178,9 @@ public class WhatsNewDialog extends P2DialogExtra {
     private void makeGridBottom() {
         GridPane gridPane = getGridPane();
         gridPane.setPadding(new Insets(10));
-        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
-                P2ColumnConstraints.getCcPrefSize(),
-                P2ColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2GridConstraints.getCcPrefSize(),
+                P2GridConstraints.getCcPrefSize(),
+                P2GridConstraints.getCcComputedSizeAndHgrow());
         getVBoxCont().getChildren().add(gridPane);
         gridPane.getStyleClass().add("dialog-whats-new");
 

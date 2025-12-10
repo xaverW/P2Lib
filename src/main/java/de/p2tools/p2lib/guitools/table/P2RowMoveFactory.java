@@ -1,4 +1,4 @@
-package de.p2tools.p2lib.guitools;
+package de.p2tools.p2lib.guitools.table;
 
 import de.p2tools.p2lib.alert.P2Alert;
 import javafx.beans.property.IntegerProperty;

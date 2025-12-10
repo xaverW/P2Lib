@@ -20,8 +20,8 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.P2ProgIcons;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ClipBoardContext;
-import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
+import de.p2tools.p2lib.guitools.grid.P2GridConstraints;
 import de.p2tools.p2lib.tools.P2InfoFactory;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.HPos;
@@ -140,8 +140,8 @@ public abstract class AboutDialog extends P2DialogExtra {
         GridPane.setHalignment(text3, HPos.CENTER);
 
         HBox.setHgrow(gridPane, Priority.ALWAYS);
-        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
-                P2ColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2GridConstraints.getCcPrefSize(),
+                P2GridConstraints.getCcComputedSizeAndHgrow());
         // Menü
         P2ClipBoardContext.addMenu("Infos kopieren",
                 text1.getText() + "\n" + text2.getText() + "\n" + text3.getText(), gridPane);

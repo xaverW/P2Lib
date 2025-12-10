@@ -15,8 +15,9 @@
  */
 
 
-package de.p2tools.p2lib.guitools;
+package de.p2tools.p2lib.guitools.pcbo;
 
+import de.p2tools.p2lib.guitools.P2NumberStringConverter;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
 
-public class P2ComboBoxInteger extends ComboBox<String> {
+public class P2CboInteger extends ComboBox<String> {
 
     public final int MAX_ELEMENTS = 15;
 
@@ -42,7 +43,7 @@ public class P2ComboBoxInteger extends ComboBox<String> {
     private ObservableList<String> itemsList = null;
     private final Locale locale = Locale.GERMAN;
 
-    public P2ComboBoxInteger() {
+    public P2CboInteger() {
         this.setEditable(true);
     }
 

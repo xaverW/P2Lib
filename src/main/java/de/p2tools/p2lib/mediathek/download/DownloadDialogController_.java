@@ -21,7 +21,7 @@ import de.p2tools.p2lib.P2ProgIcons;
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.dialogs.P2DirFileChooser;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
-import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.grid.P2GridConstraints;
 import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2lib.tools.file.P2FileUtils;
 import de.p2tools.p2lib.tools.net.PUrlTools;
@@ -88,8 +88,8 @@ public class DownloadDialogController_ extends P2DialogExtra {
         gridPane.setPadding(new Insets(10, 10, 10, 10));
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
-                P2ColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2GridConstraints.getCcPrefSize(),
+                P2GridConstraints.getCcComputedSizeAndHgrow());
 
         final Label lblDest = new Label("Speicherziel:");
         lblDest.setStyle("-fx-font-weight: bold;");

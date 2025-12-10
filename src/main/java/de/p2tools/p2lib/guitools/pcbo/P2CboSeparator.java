@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2lib.guitools;
+package de.p2tools.p2lib.guitools.pcbo;
 
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
@@ -24,11 +24,11 @@ import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
-public class P2SeparatorComboBox<T> extends ComboBox<T> {
+public class P2CboSeparator<T> extends ComboBox<T> {
     public static final String SEPARATOR = "=====<>=====";
     public static final String SEPARATOR_OLD = "-----======-----";
 
-    public P2SeparatorComboBox() {
+    public P2CboSeparator() {
         super();
         setup();
     }
@@ -42,7 +42,7 @@ public class P2SeparatorComboBox<T> extends ComboBox<T> {
 
             @Override
             public void select(T item) {
-                if (P2SeparatorComboBox.isSeparator(item.toString())) {
+                if (P2CboSeparator.isSeparator(item.toString())) {
                     return;
                 }
                 super.select(item);
@@ -54,7 +54,7 @@ public class P2SeparatorComboBox<T> extends ComboBox<T> {
                 if (itemCount == 0 || index < 0 || index >= itemCount) return;
 
                 T item = getItems().get(index);
-                if (P2SeparatorComboBox.isSeparator(item.toString())) {
+                if (P2CboSeparator.isSeparator(item.toString())) {
                     return;
                 }
                 super.select(index);
@@ -83,7 +83,7 @@ public class P2SeparatorComboBox<T> extends ComboBox<T> {
                         super.updateItem(item, empty);
                         if (item != null) {
                             setText(item.toString());
-                            if (P2SeparatorComboBox.isSeparator(item.toString())) {
+                            if (P2CboSeparator.isSeparator(item.toString())) {
                                 setTextFill(Color.LIGHTGRAY);
                                 setDisable(true);
                             } else {

@@ -19,7 +19,7 @@ package de.p2tools.p2lib.dialogs;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
-import de.p2tools.p2lib.guitools.P2ColumnConstraints;
+import de.p2tools.p2lib.guitools.grid.P2GridConstraints;
 import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2lib.tools.duration.P2Duration;
 import de.p2tools.p2lib.tools.log.P2Log;
@@ -118,9 +118,9 @@ public class ProgInfoDialog extends P2DialogExtra {
         gridPane.add(btnDuration, 0, ++row);
 
 
-        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
-                P2ColumnConstraints.getCcComputedSizeAndHgrow(),
-                P2ColumnConstraints.getCcPrefSize());
+        gridPane.getColumnConstraints().addAll(P2GridConstraints.getCcPrefSize(),
+                P2GridConstraints.getCcComputedSizeAndHgrow(),
+                P2GridConstraints.getCcPrefSize());
 
         getVBoxCont().getChildren().add(gridPane);
 

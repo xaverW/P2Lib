@@ -15,13 +15,14 @@
  */
 
 
-package de.p2tools.p2lib.guitools.pcheckcombobox;
+package de.p2tools.p2lib.guitools.pcbo;
 
 import de.p2tools.p2lib.tools.P2Exception;
 import de.p2tools.p2lib.tools.P2StringUtils;
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.Tooltip;
@@ -32,13 +33,13 @@ import javafx.scene.layout.Priority;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class P2CheckComboBox extends HBox {
+public class P2CboCheckBoxBool extends HBox {
     private final SplitMenuButton menuButton = new SplitMenuButton();
     private final ObservableList<String> items = FXCollections.observableArrayList();
     private final ArrayList<P2CheckBox> arrayList = new ArrayList<>();
     private String emptyText = "";
 
-    public P2CheckComboBox() {
+    public P2CboCheckBoxBool() {
         init();
     }
 
@@ -122,5 +123,30 @@ public class P2CheckComboBox extends HBox {
                 }
             }
         });
+    }
+
+
+    private static class P2CheckBox extends CheckBox {
+        private String shortText = "";
+
+        public P2CheckBox(String text) {
+            super(text);
+        }
+
+        String getShortText() {
+            return shortText;
+        }
+
+        void setShortText(String shortText) {
+            this.shortText = shortText;
+        }
+
+        String getResText() {
+            if (shortText.isEmpty()) {
+                return super.getText();
+            } else {
+                return shortText;
+            }
+        }
     }
 }

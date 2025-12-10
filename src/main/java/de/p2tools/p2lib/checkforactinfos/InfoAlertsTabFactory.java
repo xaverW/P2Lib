@@ -18,8 +18,8 @@
 package de.p2tools.p2lib.checkforactinfos;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
+import de.p2tools.p2lib.guitools.grid.P2GridConstraints;
 import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
 import de.p2tools.p2lib.tools.net.PUrlTools;
@@ -161,8 +161,8 @@ public class InfoAlertsTabFactory {
         gridPane.add(lblRel, 0, ++row);
         gridPane.add(textArea, 0, ++row, 2, 1);
 
-        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
-                P2ColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2GridConstraints.getCcPrefSize(),
+                P2GridConstraints.getCcComputedSizeAndHgrow());
 
         final VBox vBox = new VBox(10);
         vBox.getChildren().add(gridPane);
@@ -305,8 +305,8 @@ public class InfoAlertsTabFactory {
         gridPane.add(lblRel, 0, ++row);
         gridPane.add(textArea, 0, ++row, 2, 1);
 
-        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcPrefSize(),
-                P2ColumnConstraints.getCcComputedSizeAndHgrow());
+        gridPane.getColumnConstraints().addAll(P2GridConstraints.getCcPrefSize(),
+                P2GridConstraints.getCcComputedSizeAndHgrow());
 
         final RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setValignment(VPos.CENTER);

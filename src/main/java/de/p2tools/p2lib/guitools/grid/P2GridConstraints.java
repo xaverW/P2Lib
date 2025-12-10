@@ -15,7 +15,7 @@
  */
 
 
-package de.p2tools.p2lib.guitools;
+package de.p2tools.p2lib.guitools.grid;
 
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
@@ -24,7 +24,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 
-public class P2ColumnConstraints {
+public class P2GridConstraints {
 
 
     /**
@@ -111,6 +111,15 @@ public class P2ColumnConstraints {
         cc.setMinWidth(Region.USE_COMPUTED_SIZE);
         cc.setHgrow(Priority.ALWAYS);
         cc.setHalignment(HPos.RIGHT);
+        return cc;
+    }
+
+    public static ColumnConstraints getCcComputedSizeAndHgrowLeft() {
+        final ColumnConstraints cc = new ColumnConstraints();
+        cc.setFillWidth(true);
+        cc.setMinWidth(Region.USE_COMPUTED_SIZE);
+        cc.setHgrow(Priority.ALWAYS);
+        cc.setHalignment(HPos.LEFT);
         return cc;
     }
 

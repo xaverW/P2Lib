@@ -20,8 +20,8 @@ package de.p2tools.p2lib.mediathek.download;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.P2ProgIcons;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
-import de.p2tools.p2lib.guitools.P2ColumnConstraints;
 import de.p2tools.p2lib.guitools.P2ProgressBar;
+import de.p2tools.p2lib.guitools.grid.P2GridConstraints;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -68,8 +68,8 @@ public class DownloadProgressDialog_ extends P2DialogExtra {
         gridPane.add(progressBar, 0, 1);
         gridPane.add(btnCancel, 1, 1);
 
-        gridPane.getColumnConstraints().addAll(P2ColumnConstraints.getCcComputedSizeAndHgrow(),
-                P2ColumnConstraints.getCcPrefSize());
+        gridPane.getColumnConstraints().addAll(P2GridConstraints.getCcComputedSizeAndHgrow(),
+                P2GridConstraints.getCcPrefSize());
 
         btnCancel.setGraphic(P2ProgIcons.IMAGE_STOP.getImageView());
         btnCancel.setTooltip(new Tooltip("Den Download abbrechen"));

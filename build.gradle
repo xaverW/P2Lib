@@ -160,7 +160,11 @@ tasks.register("copyTask") {
         }
         copy {
             from file(fatJarDir + jarName)
-            into file("/home/emil/daten/software/java/tools/iconli/libs/")
+            into file("/home/emil/daten/software/java/tools/p2icon/libs/")
+        }
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/tools/p2todo/libs/")
         }
     }
 }

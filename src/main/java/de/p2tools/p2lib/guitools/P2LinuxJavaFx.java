@@ -26,7 +26,7 @@ public class P2LinuxJavaFx {
     private static final String X11_AWT_APP_CLASS_NAME = "awtAppClassName";
     private static final String JAVAFX_CLASSNAME_APPLICATION_PLATFORM = "javafx.application.Platform";
     private static final String ERROR_NO_JAVAFX_INSTALLED = "JavaFX wurde nicht im Klassenpfad gefunden. " + P2LibConst.LINE_SEPARATOR +
-            "Stellen Sie sicher, dass Sie ein Java JRE ab Version 8 benutzen. " + P2LibConst.LINE_SEPARATOR +
+            "Stellen Sie sicher, dass Sie ein Java JRE ab Version 17 benutzen. " + P2LibConst.LINE_SEPARATOR +
             "Falls Sie Linux nutzen, installieren Sie das openjfx-Paket ihres " + P2LibConst.LINE_SEPARATOR +
             "Package-Managers, oder nutzen Sie eine eigene JRE-Installation.";
     private static final String TEXT_LINE = "===========================================";

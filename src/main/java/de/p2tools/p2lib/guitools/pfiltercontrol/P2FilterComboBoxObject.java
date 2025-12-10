@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.guitools.pfiltercontrol;
 
-import de.p2tools.p2lib.guitools.P2ComboBoxObject;
+import de.p2tools.p2lib.guitools.pcbo.P2CboObject;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
@@ -31,7 +31,7 @@ public class P2FilterComboBoxObject<E> extends HBox {
 
     private ObservableList<E> itemsList;
     private ObjectProperty<E> selValueProperty;
-    private P2ComboBoxObject<E> p2ComboBoxObject = new P2ComboBoxObject<>();
+    private P2CboObject<E> p2CboObject = new P2CboObject<>();
     private Button btnClear = new Button("X");
 
     public P2FilterComboBoxObject() {
@@ -66,7 +66,7 @@ public class P2FilterComboBoxObject<E> extends HBox {
     }
 
     public void setEditable(boolean editable) {
-        p2ComboBoxObject.setEditable(editable);
+        p2CboObject.setEditable(editable);
     }
 
     private void addCss() {
@@ -82,42 +82,42 @@ public class P2FilterComboBoxObject<E> extends HBox {
     public void unbindSelValueProperty() {
         unbind();
         this.selValueProperty = null;
-        p2ComboBoxObject.getSelectionModel().clearSelection();
+        p2CboObject.getSelectionModel().clearSelection();
     }
 
     public E getSelValue() {
-        E s = p2ComboBoxObject.getSelectionModel().getSelectedItem();
+        E s = p2CboObject.getSelectionModel().getSelectedItem();
         return s;
     }
 
     public ReadOnlyObjectProperty<E> getSelValueProperty() {
-        ReadOnlyObjectProperty<E> s = p2ComboBoxObject.getSelectionModel().selectedItemProperty();
+        ReadOnlyObjectProperty<E> s = p2CboObject.getSelectionModel().selectedItemProperty();
         return s;
     }
 
     public void selectElement() {
         if (selValueProperty == null) {
-            p2ComboBoxObject.getSelectionModel().clearSelection();
+            p2CboObject.getSelectionModel().clearSelection();
         } else {
-            p2ComboBoxObject.setValue(selValueProperty.getValue());
+            p2CboObject.setValue(selValueProperty.getValue());
         }
     }
 
     public void clearSelection() {
-        p2ComboBoxObject.getSelectionModel().clearSelection();
+        p2CboObject.getSelectionModel().clearSelection();
     }
 
     private void initHBox() {
-        p2ComboBoxObject.setMaxWidth(Double.MAX_VALUE);
-        HBox.setHgrow(p2ComboBoxObject, Priority.ALWAYS);
-        this.getChildren().addAll(p2ComboBoxObject, btnClear);
-        btnClear.setOnAction(a -> p2ComboBoxObject.getSelectionModel().clearSelection());
+        p2CboObject.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(p2CboObject, Priority.ALWAYS);
+        this.getChildren().addAll(p2CboObject, btnClear);
+        btnClear.setOnAction(a -> p2CboObject.getSelectionModel().clearSelection());
     }
 
     private void setCombo() {
         this.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent != null && mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
-                p2ComboBoxObject.getSelectionModel().clearSelection();
+                p2CboObject.getSelectionModel().clearSelection();
             }
         });
 
@@ -125,7 +125,7 @@ public class P2FilterComboBoxObject<E> extends HBox {
             return;
         }
 
-        p2ComboBoxObject.setItems(itemsList);
+        p2CboObject.setItems(itemsList);
         bind();
     }
 
@@ -135,16 +135,16 @@ public class P2FilterComboBoxObject<E> extends HBox {
             return;
         }
 
-        p2ComboBoxObject.valueProperty().bindBidirectional(selValueProperty);
+        p2CboObject.valueProperty().bindBidirectional(selValueProperty);
     }
 
     private void unbind() {
         if (selValueProperty == null) {
-            p2ComboBoxObject.getSelectionModel().clearSelection();
+            p2CboObject.getSelectionModel().clearSelection();
             return;
         }
 
-        p2ComboBoxObject.valueProperty().unbindBidirectional(selValueProperty);
+        p2CboObject.valueProperty().unbindBidirectional(selValueProperty);
     }
 
 }

@@ -21,6 +21,7 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.P2ProgIcons;
 import de.p2tools.p2lib.alert.P2Alert;
 import javafx.beans.property.ObjectProperty;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -42,11 +43,11 @@ public class P2Button {
         P2Button.hlpImage = hlpImage;
     }
 
-    public static Button helpButton(ImageView imageView, String header, String helpText) {
+    public static Button helpButton(Node imageView, String header, String helpText) {
         return helpButton(P2LibConst.primaryStage, imageView, header, helpText);
     }
 
-    public static Button helpButton(Stage stage, ImageView imageView, String header, String helpText) {
+    public static Button helpButton(Stage stage, Node imageView, String header, String helpText) {
         final Button btnHelp = new Button("");
         btnHelp.setTooltip(new Tooltip("Hilfe anzeigen"));
         btnHelp.setGraphic(imageView);
