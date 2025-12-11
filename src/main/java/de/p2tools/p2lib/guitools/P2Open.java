@@ -22,7 +22,7 @@ import de.p2tools.p2lib.dialogs.P2DialogFileChooser;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
-import javafx.scene.image.ImageView;
+import javafx.scene.Node;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -77,11 +77,11 @@ public class P2Open {
         openDir(primaryStage, path, null, null);
     }
 
-    public static void openDir(String path, StringProperty prog, ImageView getProgIcon) {
+    public static void openDir(String path, StringProperty prog, Node getProgIcon) {
         openDir(P2LibConst.primaryStage, path, prog, getProgIcon);
     }
 
-    public static void openDir(Stage stage, String path, StringProperty prog, ImageView getProgIcon) {
+    public static void openDir(Stage stage, String path, StringProperty prog, Node getProgIcon) {
         File directory;
 
         if (path.isEmpty()) {
@@ -135,11 +135,11 @@ public class P2Open {
         playStoredFilm(primaryStage, file, null, null);
     }
 
-    public static void playStoredFilm(String file, StringProperty prog, ImageView getProgIcon) {
+    public static void playStoredFilm(String file, StringProperty prog, Node getProgIcon) {
         playStoredFilm(P2LibConst.primaryStage, file, prog, getProgIcon);
     }
 
-    public static void playStoredFilm(Stage stage, String file, StringProperty prog, ImageView getProgIcon) {
+    public static void playStoredFilm(Stage stage, String file, StringProperty prog, Node getProgIcon) {
         if (file.isEmpty()) {
             return;
         }
@@ -180,11 +180,11 @@ public class P2Open {
         }
     }
 
-    public static void playStoredFilm(String[] arrProgCallArray, StringProperty prog, String file, ImageView getProgIcon) {
+    public static void playStoredFilm(String[] arrProgCallArray, StringProperty prog, String file, Node getProgIcon) {
         playStoredFilm(P2LibConst.primaryStage, arrProgCallArray, prog, file, getProgIcon);
     }
 
-    private static void playStoredFilm(Stage stage, String[] arrProgCallArray, StringProperty prog, String file, ImageView getProgIcon) {
+    private static void playStoredFilm(Stage stage, String[] arrProgCallArray, StringProperty prog, String file, Node getProgIcon) {
         if (file.isEmpty()) {
             return;
         }
@@ -224,7 +224,7 @@ public class P2Open {
         openURL(primaryStage, url, null);
     }
 
-    public static void openURL(String url, StringProperty prog, ImageView getProgIcon) {
+    public static void openURL(String url, StringProperty prog, Node getProgIcon) {
         openURL(P2LibConst.primaryStage, url, prog);
     }
 

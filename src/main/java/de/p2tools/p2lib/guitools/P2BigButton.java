@@ -17,15 +17,15 @@
 package de.p2tools.p2lib.guitools;
 
 
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.TextFlow;
 
 public class P2BigButton extends Button {
 
-    public P2BigButton(ImageView img, String header, String text) {
+    public P2BigButton(Node img, String header, String text) {
         setMaxWidth(Double.MAX_VALUE);
 
         GridPane graphicGrid = new GridPane();
@@ -49,7 +49,7 @@ public class P2BigButton extends Button {
         setGraphic(graphicGrid);
     }
 
-    public P2BigButton(ImageView img, String header, TextFlow text) {
+    public P2BigButton(Node img, String header, TextFlow text) {
         setMaxWidth(Double.MAX_VALUE);
 
         GridPane graphicGrid = new GridPane();

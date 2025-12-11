@@ -86,7 +86,7 @@ public class P2Button {
         return btnHelp;
     }
 
-    public static Button getButton(ImageView imageView, String helpText) {
+    public static Button getButton(Node imageView, String helpText) {
         final Button button = new Button("");
         button.setTooltip(new Tooltip(helpText));
         button.setGraphic(imageView);
