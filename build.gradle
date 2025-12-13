@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id "org.openjfx.javafxplugin" version "0.1.0"
+    id 'com.gradleup.shadow' version '9.3.0'
 }
 javafx {
     version = "21.0.5"
@@ -35,6 +36,12 @@ dependencies {
     implementation ':xz-1.10'
 
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation ':ikonli-core-12.4.0'
+    implementation ':ikonli-javafx-12.4.0'
+    implementation 'org.kordamp.ikonli:ikonli-material-pack:12.4.0'
+    implementation 'org.kordamp.ikonli:ikonli-material2-pack:12.4.0'
+    implementation 'org.kordamp.ikonli:ikonli-materialdesign-pack:12.4.0'
+    implementation 'org.kordamp.ikonli:ikonli-materialdesign2-pack:12.4.0'
 }
 
 java {
@@ -103,7 +110,7 @@ tasks.register("copyTask") {
             from file(fatJarDir + jarName)
             into file("/home/emil/daten/software/java/p2podder/libs/")
         }
-        
+
         copy {
             from file(fatJarDir + jarName)
             into file("/home/emil/daten/software/java/p2radio/libs/")

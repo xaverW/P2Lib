@@ -18,10 +18,10 @@
 package de.p2tools.p2lib.checkforactinfos;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.P2ProgIcons;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2ProgressBar;
 import de.p2tools.p2lib.guitools.grid.P2GridConstraints;
+import de.p2tools.p2lib.ikonli.P2IconFactory;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -71,7 +71,7 @@ public class FoundDownloadProgressDialog extends P2DialogExtra {
         gridPane.getColumnConstraints().addAll(P2GridConstraints.getCcComputedSizeAndHgrow(),
                 P2GridConstraints.getCcPrefSize());
 
-        btnCancel.setGraphic(P2ProgIcons.IMAGE_STOP.getImageView());
+        btnCancel.setGraphic(P2IconFactory.P2ICON.BTN_STOP.getFontIcon());
         btnCancel.setTooltip(new Tooltip("Den Download abbrechen"));
         btnCancel.setOnAction(event -> {
             isCanceled = true;

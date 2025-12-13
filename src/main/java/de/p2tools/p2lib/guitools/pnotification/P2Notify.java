@@ -16,8 +16,8 @@
 
 package de.p2tools.p2lib.guitools.pnotification;
 
-import de.p2tools.p2lib.P2ProgIcons;
 import de.p2tools.p2lib.guitools.P2GuiTools;
+import de.p2tools.p2lib.ikonli.P2IconFactory;
 import de.p2tools.p2lib.tools.P2Exception;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -119,7 +119,7 @@ public class P2Notify {
 
         Button btnClose = new Button();
         btnClose.getStyleClass().add("close-button");
-        btnClose.setGraphic(P2ProgIcons.ICON_BUTTON_CLOSE.getImageView());
+        btnClose.setGraphic(P2IconFactory.P2ICON.BTN_CLOSE.getFontIcon());
         btnClose.setOnAction(a -> {
             closeNotification(popup, p2Notify);
         });

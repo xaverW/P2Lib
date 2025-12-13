@@ -17,10 +17,10 @@
 
 package de.p2tools.p2lib.guitools.ptipofday;
 
-import de.p2tools.p2lib.P2ProgIcons;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2Button;
 import de.p2tools.p2lib.guitools.P2Hyperlink;
+import de.p2tools.p2lib.ikonli.P2IconFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
@@ -105,11 +105,11 @@ public class P2TipOfDayDialog extends P2DialogExtra {
             super.close();
         });
 
-        btnNext = P2Button.getButton(P2ProgIcons.ICON_BUTTON_NEXT.getImageView(), "nächste Seite");
+        btnNext = P2Button.getButton(P2IconFactory.P2ICON.BTN_NEXT.getFontIcon(), "nächste Seite");
         btnNext.setOnAction(event -> {
             selectActToolTip(true);
         });
-        btnPrev = P2Button.getButton(P2ProgIcons.ICON_BUTTON_PREV.getImageView(), "vorherige Seite");
+        btnPrev = P2Button.getButton(P2IconFactory.P2ICON.BTN_PREV.getFontIcon(), "vorherige Seite");
         btnPrev.setOnAction(event -> {
             selectActToolTip(false);
         });

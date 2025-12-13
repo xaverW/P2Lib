@@ -16,8 +16,8 @@
 
 package de.p2tools.p2lib.guitools.pclosepane;
 
-import de.p2tools.p2lib.P2ProgIcons;
 import de.p2tools.p2lib.guitools.P2GuiTools;
+import de.p2tools.p2lib.ikonli.P2IconFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
@@ -77,10 +77,10 @@ public class P2ClosePaneH extends HBox {
 
     private void init() {
         buttonClose.getStyleClass().add("close-button");
-        buttonClose.setGraphic(P2ProgIcons.ICON_BUTTON_CLOSE.getImageView());
+        buttonClose.setGraphic(P2IconFactory.P2ICON.BTN_DIALOG_CLOSE.getFontIcon());
 
         buttonRip.getStyleClass().add("rip-button");
-        buttonRip.setGraphic(P2ProgIcons.ICON_BUTTON_RIP.getImageView());
+        buttonRip.setGraphic(P2IconFactory.P2ICON.BTN_DIALOG_RIP.getFontIcon());
 
         VBox vBox = new VBox();
         vBox.getStyleClass().add("close-pane");

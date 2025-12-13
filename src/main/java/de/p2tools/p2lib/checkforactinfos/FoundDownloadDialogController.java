@@ -17,11 +17,11 @@
 package de.p2tools.p2lib.checkforactinfos;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.P2ProgIcons;
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.dialogs.P2DirFileChooser;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.grid.P2GridConstraints;
+import de.p2tools.p2lib.ikonli.P2IconFactory;
 import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2lib.tools.file.P2FileUtils;
 import de.p2tools.p2lib.tools.net.PUrlTools;
@@ -107,7 +107,7 @@ public class FoundDownloadDialogController extends P2DialogExtra {
             nameChanged = true;
         });
         final Button btnDest = new Button();
-        btnDest.setGraphic(P2ProgIcons.IMAGE_FILE_OPEN.getImageView());
+        btnDest.setGraphic(P2IconFactory.P2ICON.BTN_DIR_OPEN.getFontIcon());
         btnDest.setTooltip(new Tooltip("Einen Ordner zum Speichern der Datei auswählen"));
         btnDest.setOnAction(event -> {
             P2DirFileChooser.DirChooser(foundSearchDataDTO.getStage(), txtDestPath);

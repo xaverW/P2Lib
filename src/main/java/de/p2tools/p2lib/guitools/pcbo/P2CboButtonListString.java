@@ -17,7 +17,7 @@
 
 package de.p2tools.p2lib.guitools.pcbo;
 
-import de.p2tools.p2lib.P2ProgIcons;
+import de.p2tools.p2lib.ikonli.P2IconFactory;
 import de.p2tools.p2lib.mediathek.filter.FilterCheckRegEx;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.StringProperty;
@@ -125,7 +125,7 @@ public class P2CboButtonListString extends ComboBox<P2CboButtonListString.PCboLa
             final Label lblFilter = new Label();
 
             {
-                btnDel.setGraphic(P2ProgIcons.ICON_BUTTON_DEL_SW.getImageView());
+                btnDel.setGraphic(P2IconFactory.P2ICON.BTN_DEL.getFontIcon());
                 btnDel.getStyleClass().add("buttonVerySmall");
                 btnDel.visibleProperty().bind(Bindings.size(itemList).greaterThan(1));
 

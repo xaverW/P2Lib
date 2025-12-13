@@ -18,8 +18,8 @@
 package de.p2tools.p2lib.guitools;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.P2ProgIcons;
 import de.p2tools.p2lib.alert.P2Alert;
+import de.p2tools.p2lib.ikonli.P2IconFactory;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -63,7 +63,7 @@ public class P2Button {
         final Button btnHelp = new Button("");
         btnHelp.setTooltip(new Tooltip("Hilfe anzeigen"));
         if (hlpImage == null) {
-            btnHelp.setGraphic(P2ProgIcons.IMAGE_HELP.getImageView()); //neues ImageView!
+            btnHelp.setGraphic(P2IconFactory.P2ICON.BTN_HELP.getFontIcon()); //neues ImageView!
         } else {
             btnHelp.setGraphic(new ImageView(hlpImage)); //neues ImageView!
         }
@@ -77,11 +77,19 @@ public class P2Button {
         final Button btnHelp = new Button("");
         btnHelp.setTooltip(new Tooltip("Hilfe anzeigen"));
         if (hlpImage == null) {
-            btnHelp.setGraphic(P2ProgIcons.IMAGE_HELP.getImageView()); //neues ImageView!
+            btnHelp.setGraphic(P2IconFactory.P2ICON.BTN_HELP.getFontIcon()); //neues ImageView!
         } else {
             btnHelp.setGraphic(new ImageView(hlpImage)); //neues ImageView!
         }
 
+        btnHelp.setOnAction(a -> P2Alert.showHelpAlert(stageProp.getValue(), header, helpText));
+        return btnHelp;
+    }
+
+    public static Button helpButton(ObjectProperty<Stage> stageProp, Node imageView, String header, String helpText) {
+        final Button btnHelp = new Button("");
+        btnHelp.setTooltip(new Tooltip("Hilfe anzeigen"));
+        btnHelp.setGraphic(imageView);
         btnHelp.setOnAction(a -> P2Alert.showHelpAlert(stageProp.getValue(), header, helpText));
         return btnHelp;
     }

@@ -16,8 +16,8 @@
 
 package de.p2tools.p2lib.dialogs;
 
-import de.p2tools.p2lib.P2ProgIcons;
 import de.p2tools.p2lib.alert.P2Alert;
+import de.p2tools.p2lib.ikonli.P2IconFactory;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -73,7 +73,7 @@ public class P2DialogFileChooser extends P2Alert {
         GridPane.setVgrow(txtFile, Priority.ALWAYS);
 
         Button btnDest = new Button("");
-        btnDest.setGraphic(P2ProgIcons.IMAGE_FILE_OPEN.getImageView());
+        btnDest.setGraphic(P2IconFactory.P2ICON.BTN_DIR_OPEN.getFontIcon());
 
         btnDest.setOnAction(event -> {
             if (dir) {

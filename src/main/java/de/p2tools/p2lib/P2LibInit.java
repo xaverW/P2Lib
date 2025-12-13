@@ -28,6 +28,7 @@ public class P2LibInit {
                                BooleanProperty themeChanged,
                                BooleanProperty darkMode,
                                BooleanProperty blackWhite,
+                               StringProperty iconColor,
 
                                String[] cssFile,
                                String[] cssFileDark,
@@ -45,6 +46,7 @@ public class P2LibInit {
         P2LibConst.themeChanged = themeChanged == null ? new SimpleBooleanProperty(false) : themeChanged; // ist eine Info
         P2LibConst.darkMode = darkMode == null ? new SimpleBooleanProperty(false) : darkMode;
         P2LibConst.blackWhite = blackWhite == null ? new SimpleBooleanProperty(false) : blackWhite;
+        P2LibConst.iconColor = iconColor == null ? new SimpleStringProperty("") : iconColor;
         P2LibConst.cssFile = cssFile;
         P2LibConst.cssFileDark = cssFileDark;
         P2LibConst.cssProp = cssProp == null ? new SimpleObjectProperty<>(P2CssFactory.CSS.CSS_0) : cssProp;
