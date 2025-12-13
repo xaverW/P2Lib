@@ -175,19 +175,19 @@
 }
 
 .btnFuncStartDialog{
-    -fx-padding: 5 20 5 20;
+    -fx-padding: 2 20 2 20;
     -fx-font-weight: bold;
 }
 .btnFuncStartDialogSel{
     -fx-background-color: -text-color-blue, -lin-grad-1, -rad-grad-1;
     -fx-background-insets: -0.8,1,1;
-    -fx-padding: 5 20 5 20;
+    -fx-padding: 2 20 2 20;
     -fx-text-fill: -text-color-blue;
     -fx-font-weight: bold;
 }
 .btnFuncStartDialog:pressed{
-    -fx-padding: 5 20 5 20;
+    -fx-padding: 2 20 2 20;
 }
 .btnFuncStartDialogSel:pressed{
-    -fx-padding: 5 20 5 20;
+    -fx-padding: 2 20 2 20;
 }

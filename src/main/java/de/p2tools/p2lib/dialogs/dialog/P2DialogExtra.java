@@ -56,7 +56,7 @@ public class P2DialogExtra extends P2Dialog {
     private DECO deco = DECO.BORDER;
 
     public enum DECO {
-        BORDER_BIG, BORDER, BORDER_SMALL, NO_BORDER
+        BORDER_BIG, BORDER, BORDER_SMALL, BORDER_VERY_SMALL, NO_BORDER
     }
 
     public enum STATE {
@@ -255,6 +255,9 @@ public class P2DialogExtra extends P2Dialog {
             case BORDER_SMALL:
                 initBorderSmall();
                 break;
+            case BORDER_VERY_SMALL:
+                initBorderVerySmall();
+                break;
             case NO_BORDER:
             default:
                 initNoBorder();
@@ -320,6 +323,15 @@ public class P2DialogExtra extends P2Dialog {
     private void initBorderSmall() {
         VBox vBoxStyledBorder = new VBox();
         vBoxStyledBorder.getStyleClass().add("dialog-border-small");
+        VBox.setVgrow(vBoxStyledBorder, Priority.ALWAYS);
+
+        vBoxStyledBorder.getChildren().addAll(scrollPane);
+        vBoxCompleteDialog.getChildren().addAll(hBoxOverAll, hBoxTitle, vBoxStyledBorder);
+    }
+
+    private void initBorderVerySmall() {
+        VBox vBoxStyledBorder = new VBox();
+        vBoxStyledBorder.getStyleClass().add("dialog-border-very-small");
         VBox.setVgrow(vBoxStyledBorder, Priority.ALWAYS);
 
         vBoxStyledBorder.getChildren().addAll(scrollPane);

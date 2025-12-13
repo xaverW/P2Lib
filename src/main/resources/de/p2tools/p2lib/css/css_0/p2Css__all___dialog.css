@@ -20,6 +20,11 @@
     -fx-border-width: 5, 1;
 }
 
+.dialog-border-very-small {
+    -fx-border-color: gray;
+    -fx-border-width: 2;
+}
+
 .dialog-title {
     -fx-background-color: lightgray;
     -fx-background-insets: 0;
