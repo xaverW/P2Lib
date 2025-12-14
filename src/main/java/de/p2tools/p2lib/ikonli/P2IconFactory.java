@@ -26,15 +26,15 @@ public class P2IconFactory {
 
     public enum P2ICON implements P2Icon {
         BTN_HELP("mdi-help"),
-        BTN_CLEAR_FILTER("mdi-filter-remove-outline"),
+        BTN_CLEAR_FILTER("mdi2f-filter-remove-outline"),
         BTN_DIR_OPEN("mdi2f-folder-open-outline", 18),
         BTN_STOP("gmi-close", 18),
         BTN_DEL("gmi-close", 12),
         BTN_CLOSE("gmi-close", 8),
         BTN_DIALOG_CLOSE("gmi-close", 14),
         BTN_DIALOG_RIP("gmi-arrow-right", 22),
-        BTN_NEXT("mdoal-fast_forward", 18),
-        BTN_PREV("mdoal-fast_rewind", 18),
+        BTN_NEXT("mdi-chevron-double-right", 18),
+        BTN_PREV("mdi-chevron-double-left", 18),
         ATTENTION("mdomz-report_problem", 65);
 
         private final String literal;

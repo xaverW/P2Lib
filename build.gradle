@@ -38,10 +38,6 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation ':ikonli-core-12.4.0'
     implementation ':ikonli-javafx-12.4.0'
-    implementation 'org.kordamp.ikonli:ikonli-material-pack:12.4.0'
-    implementation 'org.kordamp.ikonli:ikonli-material2-pack:12.4.0'
-    implementation 'org.kordamp.ikonli:ikonli-materialdesign-pack:12.4.0'
-    implementation 'org.kordamp.ikonli:ikonli-materialdesign2-pack:12.4.0'
 }
 
 java {
