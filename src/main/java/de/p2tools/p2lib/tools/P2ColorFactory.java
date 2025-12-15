@@ -23,6 +23,13 @@ public class P2ColorFactory {
     private P2ColorFactory() {
     }
 
+    public static String getColor(Color color) {
+        return "#" + colorChanelToHex(color.getRed())
+                + colorChanelToHex(color.getGreen())
+                + colorChanelToHex(color.getBlue()
+        );
+    }
+
     public static String getColorToWeb(Color color) {
         return "#" + colorChanelToHex(color.getRed())
                 + colorChanelToHex(color.getGreen())
