@@ -1,6 +1,7 @@
 package de.p2tools.p2lib.css;
 
 import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.tools.P2ColorFactory;
 import javafx.scene.Scene;
 
 public class P2CssFactory {
@@ -56,11 +57,16 @@ public class P2CssFactory {
             case CSS_2 -> scene.getStylesheets().setAll(P2CssFactory__CSS_2.getList());
         }
 
-        if (P2LibConst.primaryStage != null && P2LibConst.primaryStage.getScene() != null) {
-            P2LibConst.primaryStage.getScene().getRoot().setStyle(P2LibConst.guiColor.getValueSafe());
+        String gui = P2ColorFactory.getColor(P2LibConst.guiColor.getValueSafe());
+        if (!gui.isEmpty()) {
+            gui = "-pGuiColor: " + gui + ";";
+            if (P2LibConst.primaryStage != null && P2LibConst.primaryStage.getScene() != null) {
+                // Gui-Root-Color
+                // -pGuiColor: red;
+                P2LibConst.primaryStage.getScene().getRoot().setStyle(gui);
+            }
+            scene.getRoot().setStyle(gui);
         }
-        scene.getRoot().setStyle(P2LibConst.guiColor.getValueSafe());
-
         // entweder Größe oder 0 zum Löschen
         scene.getRoot().setStyle("-fx-font-size: " + P2LibConst.fontSize.get() + " ;"); // .root { -fx-font-size: 12pt ;}
     }

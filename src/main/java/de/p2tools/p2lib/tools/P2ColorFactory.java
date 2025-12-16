@@ -24,8 +24,12 @@ public class P2ColorFactory {
     }
 
     public static String getColor(String color) {
-        Color c = Color.valueOf(color);
-        return P2ColorFactory.getColor(c);
+        try {
+            Color c = Color.valueOf(color);
+            return P2ColorFactory.getColor(c);
+        } catch (Exception ignore) {
+            return "";
+        }
     }
 
     public static String getColor(Color color) {
