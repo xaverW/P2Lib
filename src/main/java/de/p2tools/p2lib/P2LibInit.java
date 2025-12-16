@@ -27,8 +27,9 @@ public class P2LibInit {
     public static void initLib(Stage stage, String progName, String userAgent,
                                BooleanProperty themeChanged,
                                BooleanProperty darkMode,
-                               BooleanProperty blackWhite,
+                               BooleanProperty guiTheme1,
                                StringProperty iconColor,
+                               StringProperty guiColor,
 
                                String[] cssFile,
                                String[] cssFileDark,
@@ -45,8 +46,9 @@ public class P2LibInit {
 
         P2LibConst.themeChanged = themeChanged == null ? new SimpleBooleanProperty(false) : themeChanged; // ist eine Info
         P2LibConst.darkMode = darkMode == null ? new SimpleBooleanProperty(false) : darkMode;
-        P2LibConst.blackWhite = blackWhite == null ? new SimpleBooleanProperty(false) : blackWhite;
+        P2LibConst.guiTheme1 = guiTheme1 == null ? new SimpleBooleanProperty(false) : guiTheme1;
         P2LibConst.iconColor = iconColor == null ? new SimpleStringProperty("") : iconColor;
+        P2LibConst.guiColor = guiColor == null ? new SimpleStringProperty("") : guiColor;
         P2LibConst.cssFile = cssFile;
         P2LibConst.cssFileDark = cssFileDark;
         P2LibConst.cssProp = cssProp == null ? new SimpleObjectProperty<>(P2CssFactory.CSS.CSS_0) : cssProp;
@@ -63,19 +65,23 @@ public class P2LibInit {
         P2WindowIcon.setStageIcon(ownIcon);
 
         P2LibConst.cssProp.addListener((u, o, n) -> {
-            P2CssFactory.addP2CssToScene(stage.getScene());
+            P2CssFactory.addP2CssToScene();
             P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
         });
         P2LibConst.darkMode.addListener((u, o, n) -> {
-            P2CssFactory.addP2CssToScene(stage.getScene());
+            P2CssFactory.addP2CssToScene();
             P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
         });
-        P2LibConst.blackWhite.addListener((u, o, n) -> {
-            P2CssFactory.addP2CssToScene(stage.getScene());
+        P2LibConst.guiTheme1.addListener((u, o, n) -> {
+            P2CssFactory.addP2CssToScene();
+            P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
+        });
+        P2LibConst.guiColor.addListener((u, o, n) -> {
+            P2CssFactory.addP2CssToScene();
             P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
         });
         P2LibConst.fontSize.addListener((u, o, n) -> {
-            P2CssFactory.addP2CssToScene(stage.getScene());
+            P2CssFactory.addP2CssToScene();
             P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
         });
     }

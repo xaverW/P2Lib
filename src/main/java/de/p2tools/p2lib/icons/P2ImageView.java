@@ -20,7 +20,7 @@ public class P2ImageView extends ImageView {
             return;
         }
 
-        if (P2LibConst.blackWhite.get()) {
+        if (P2LibConst.guiTheme1.get()) {
             Image imgBw = p2Image.getBwImage();
             if (imgBw != null) {
                 setImage(imgBw);

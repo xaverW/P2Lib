@@ -23,12 +23,12 @@ public class P2CssFactory__CSS_0 {
         if (P2LibConst.darkMode.getValue()) {
             setList.addAll(Arrays.asList(getListDark()));
 
-            if (P2LibConst.blackWhite.getValue()) {
+            if (P2LibConst.guiTheme1.getValue()) {
                 setList.addAll(Arrays.asList(getListDarkBlackWhite()));
             }
 
         } else {
-            if (P2LibConst.blackWhite.getValue()) {
+            if (P2LibConst.guiTheme1.getValue()) {
                 setList.addAll(Arrays.asList(getListBlackWhite()));
             }
         }

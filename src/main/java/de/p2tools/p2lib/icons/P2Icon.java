@@ -136,7 +136,7 @@ public abstract class P2Icon {
         ImageView imageView = new ImageView(img);
         imageView.setClip(new ImageView(img));
 
-        if (P2LibConst.blackWhite.get()) {
+        if (P2LibConst.guiTheme1.get()) {
             ColorAdjust monochrome = new ColorAdjust();
             monochrome.setSaturation(-1.0);
 

@@ -38,16 +38,30 @@ public class P2CssFactory {
     private P2CssFactory() {
     }
 
-    public static void addP2CssToScene(Scene scene) {
-        if (scene != null) {
-            switch (P2LibConst.cssProp.get()) {
-                case CSS_0 -> scene.getStylesheets().setAll(P2CssFactory__CSS_0.getList());
-                case CSS_1 -> scene.getStylesheets().setAll(P2CssFactory__CSS_1.getList());
-                case CSS_2 -> scene.getStylesheets().setAll(P2CssFactory__CSS_2.getList());
-            }
-
-            // entweder Größe oder 0 zum löschen
-            scene.getRoot().setStyle("-fx-font-size: " + P2LibConst.fontSize.get() + " ;"); // .root { -fx-font-size: 12pt ;}
+    public static void addP2CssToScene() {
+        if (P2LibConst.primaryStage != null && P2LibConst.primaryStage.getScene() != null) {
+            Scene scene = P2LibConst.primaryStage.getScene();
+            addP2CssToScene(scene);
         }
+    }
+
+    public static void addP2CssToScene(Scene scene) {
+        if (scene == null) {
+            return;
+        }
+
+        switch (P2LibConst.cssProp.get()) {
+            case CSS_0 -> scene.getStylesheets().setAll(P2CssFactory__CSS_0.getList());
+            case CSS_1 -> scene.getStylesheets().setAll(P2CssFactory__CSS_1.getList());
+            case CSS_2 -> scene.getStylesheets().setAll(P2CssFactory__CSS_2.getList());
+        }
+
+        if (P2LibConst.primaryStage != null && P2LibConst.primaryStage.getScene() != null) {
+            P2LibConst.primaryStage.getScene().getRoot().setStyle(P2LibConst.guiColor.getValueSafe());
+        }
+        scene.getRoot().setStyle(P2LibConst.guiColor.getValueSafe());
+
+        // entweder Größe oder 0 zum Löschen
+        scene.getRoot().setStyle("-fx-font-size: " + P2LibConst.fontSize.get() + " ;"); // .root { -fx-font-size: 12pt ;}
     }
 }

@@ -41,8 +41,9 @@ public class P2LibConst {
     public static String logFile_0 = "P2Tools_0.log";
 
     public static BooleanProperty darkMode = new SimpleBooleanProperty(false); // ist die dunkle Anzeige
-    public static BooleanProperty blackWhite = new SimpleBooleanProperty(false); // sind die Schwarz/Weiß Icons
+    public static BooleanProperty guiTheme1 = new SimpleBooleanProperty(false); // sind die zwei Gui und Icon-Themes
     public static StringProperty iconColor = new SimpleStringProperty(""); // ist die Farbe der IkonliIkons
+    public static StringProperty guiColor = new SimpleStringProperty(""); // ist die Farbe des GUI
     public static IntegerProperty fontSize = new SimpleIntegerProperty(0); // für die Anpassung der Schriftgröße
     public static String[] cssFile = {""};
     public static String[] cssFileDark = {""};

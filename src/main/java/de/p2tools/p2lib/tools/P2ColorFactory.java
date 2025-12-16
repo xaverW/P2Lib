@@ -23,6 +23,11 @@ public class P2ColorFactory {
     private P2ColorFactory() {
     }
 
+    public static String getColor(String color) {
+        Color c = Color.valueOf(color);
+        return P2ColorFactory.getColor(c);
+    }
+
     public static String getColor(Color color) {
         return "#" + colorChanelToHex(color.getRed())
                 + colorChanelToHex(color.getGreen())
@@ -46,7 +51,7 @@ public class P2ColorFactory {
         );
     }
 
-    public static String colorChanelToHex(double chanelValue) {
+    private static String colorChanelToHex(double chanelValue) {
         String rtn = Integer.toHexString((int) Math.min(Math.round(chanelValue * 255), 255));
         if (rtn.length() == 1) {
             rtn = "0" + rtn;

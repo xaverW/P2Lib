@@ -173,7 +173,7 @@ public class P2Image {
         P2LibConst.darkMode.addListener((u, o, n) -> {
             getAllNodes(P2LibConst.primaryStage.getScene().getRoot()); // todo actStage??
         });
-        P2LibConst.blackWhite.addListener((u, o, n) -> {
+        P2LibConst.guiTheme1.addListener((u, o, n) -> {
             getAllNodes(P2LibConst.primaryStage.getScene().getRoot()); // todo actStage??
         });
     }
