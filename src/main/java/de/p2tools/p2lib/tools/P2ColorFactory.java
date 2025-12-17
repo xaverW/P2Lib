@@ -23,6 +23,24 @@ public class P2ColorFactory {
     private P2ColorFactory() {
     }
 
+    public static String changeColor(String color, double change) {
+        try {
+            Color c = Color.valueOf(color);
+            double r = c.getRed() * change;
+            double g = c.getGreen() * change;
+            double b = c.getBlue() * change;
+            double opacity = c.getOpacity();
+
+            Color cNew = new Color(r > 1 ? 1 : r,
+                    g > 1 ? 1 : g,
+                    b > 1 ? 1 : b,
+                    opacity);
+            return P2ColorFactory.getColor(cNew);
+        } catch (Exception ignore) {
+            return "";
+        }
+    }
+
     public static String getColor(String color) {
         try {
             Color c = Color.valueOf(color);
