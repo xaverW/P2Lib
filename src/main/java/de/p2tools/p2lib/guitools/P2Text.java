@@ -23,7 +23,7 @@ public class P2Text {
         Label lbl = new Label(t);
         lbl.setStyle("-fx-font-weight: bold; " +
                 "-fx-underline: true; " +
-                "-fx-size: 1.2em");
+                "-fx-size: 1.2em;");
 
         return lbl;
     }
@@ -32,8 +32,8 @@ public class P2Text {
         Label lbl = new Label(t);
         lbl.setStyle("-fx-font-weight: bold; " +
                 "-fx-underline: true; " +
-                "-fx-size: 1.2em" +
-                "-fx-text-fill: : " + color + ";");
+                "-fx-size: 1.2em; " +
+                "-fx-text-fill: " + color + ";");
 
         return lbl;
     }
