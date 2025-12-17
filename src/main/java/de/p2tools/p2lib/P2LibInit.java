@@ -29,6 +29,7 @@ public class P2LibInit {
                                BooleanProperty darkMode,
                                BooleanProperty guiTheme1,
                                StringProperty iconColor,
+                               StringProperty cssAdder,
 
                                String[] cssFile,
                                String[] cssFileDark,
@@ -48,6 +49,7 @@ public class P2LibInit {
         P2LibConst.guiTheme1 = guiTheme1 == null ? new SimpleBooleanProperty(false) : guiTheme1;
 
         P2LibConst.iconColor = iconColor == null ? new SimpleStringProperty("") : iconColor;
+        P2LibConst.cssAdder = cssAdder == null ? new SimpleStringProperty("") : cssAdder;
         P2LibConst.cssFile = cssFile;
         P2LibConst.cssFileDark = cssFileDark;
         P2LibConst.cssProp = cssProp == null ? new SimpleObjectProperty<>(P2CssFactory.CSS.CSS_0) : cssProp;
@@ -72,6 +74,10 @@ public class P2LibInit {
             P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
         });
         P2LibConst.guiTheme1.addListener((u, o, n) -> {
+            P2CssFactory.addP2CssToScene(P2LibConst.primaryStage.getScene());
+            P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
+        });
+        P2LibConst.cssAdder.addListener((u, o, n) -> {
             P2CssFactory.addP2CssToScene(P2LibConst.primaryStage.getScene());
             P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
         });

@@ -1,6 +1,7 @@
 package de.p2tools.p2lib.guitools;
 
 import de.p2tools.p2lib.P2LibConst;
+import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -16,5 +17,24 @@ public class P2Text {
             text.setStyle("-fx-font-size: " + P2LibConst.fontSize.get() + " ;");
         }
         return text;
+    }
+
+    public static Label getTextBoldUnderline(String t) {
+        Label lbl = new Label(t);
+        lbl.setStyle("-fx-font-weight: bold; " +
+                "-fx-underline: true; " +
+                "-fx-size: 1.2em");
+
+        return lbl;
+    }
+
+    public static Label getTextBoldUnderline(String t, String color) {
+        Label lbl = new Label(t);
+        lbl.setStyle("-fx-font-weight: bold; " +
+                "-fx-underline: true; " +
+                "-fx-size: 1.2em" +
+                "-fx-text-fill: : " + color + ";");
+
+        return lbl;
     }
 }

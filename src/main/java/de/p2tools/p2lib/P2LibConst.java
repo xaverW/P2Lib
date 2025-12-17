@@ -43,6 +43,7 @@ public class P2LibConst {
     public static BooleanProperty darkMode = new SimpleBooleanProperty(false); // ist die dunkle Anzeige
     public static BooleanProperty guiTheme1 = new SimpleBooleanProperty(false); // sind die zwei Gui und Icon-Themes
     public static StringProperty iconColor = new SimpleStringProperty(""); // ist die Farbe der IkonliIkons
+    public static StringProperty cssAdder = new SimpleStringProperty(""); // ist die Farbe der IkonliIkons
     public static IntegerProperty fontSize = new SimpleIntegerProperty(0); // für die Anpassung der Schriftgröße
     public static String[] cssFile = {""};
     public static String[] cssFileDark = {""};
