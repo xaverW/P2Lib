@@ -1,0 +1,60 @@
+/*  style sheet for the dark-theme */
+
+
+/* Tabelle */
+.table-view{
+   -fx-background-color: transparent;
+}
+.table-view .table-cell{
+    -fx-border-color: #9a9a9a;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: derive(-fx-control-inner-background, 20%);
+}
+.table-row-cell:even{
+    -fx-background-color: derive(-fx-control-inner-background, 30%);
+}
+
+.table-row-cell:hover {
+    -fx-background-color: derive(-fx-control-inner-background, 75%);
+}
+.table-row-cell:selected{
+    /*-fx-background-color: derive(-fx-control-inner-background, 150%);*/
+    -fx-background-color: #8ebae1;
+}
+.table-row-cell:selected:hover{
+    -fx-background-color: derive(-fx-control-inner-background, 200%);
+    -fx-text-background-color: black;
+}
+
+/* damit leere Tabellenzeilen nicht angezeigt werden */
+.table-row-cell:empty {
+    -fx-background-color: transparent;
+ }
+.table-row-cell:empty .table-cell {
+    -fx-border-width: 0px;
+ }
+
+
+
+/* tabs of the tabpane*/
+.tab .tab-label {
+      -fx-text-fill: #f0f0f0;
+}
+.tab:selected .tab-label {
+    -fx-text-fill: #bce8ff;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab {
+     -fx-background-color: transparent, -lin-grad-1, -rad-grad-1;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab:selected {
+     -fx-border-color: -style-tab-border-color-1, transparent;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab:hover {
+     -fx-border-color: -style-tab-border-color-1, -style-tab-border-color-2, transparent;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab:pressed {
+     -fx-border-color: -style-tab-border-color-1, -style-tab-border-color-2;
+}
