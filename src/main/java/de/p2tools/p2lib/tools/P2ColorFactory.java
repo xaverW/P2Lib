@@ -23,6 +23,27 @@ public class P2ColorFactory {
     private P2ColorFactory() {
     }
 
+    public static String getMaxColor(String color) {
+        try {
+            Color c = Color.valueOf(color);
+            double r = c.getRed();
+            double g = c.getGreen();
+            double b = c.getBlue();
+            double sum = r + g + b;
+            if (sum > 1.5) {
+                sum = 0;
+            } else {
+                sum = 1;
+            }
+            double opacity = c.getOpacity();
+
+            Color cNew = new Color(sum, sum, sum, opacity);
+            return P2ColorFactory.getColor(cNew);
+        } catch (Exception ignore) {
+            return "";
+        }
+    }
+
     public static String changeColor(String color, double change) {
         try {
             Color c = Color.valueOf(color);
