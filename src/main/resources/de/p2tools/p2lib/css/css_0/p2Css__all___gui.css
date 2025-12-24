@@ -41,13 +41,13 @@
     -fx-background-radius: 5 0 0 5;
 }
 
-/* PFilterComboBoxObject */
-.PFilterComboBoxObject .button{
+/* P2FilterComboBoxObject */
+.P2FilterComboBoxObject .button{
     -fx-border-radius: 0 5 5 0;
     -fx-background-radius: 0 5 5 0;
 }
 
-.PFilterComboBoxObject .combo-box-base{
+.P2FilterComboBoxObject .combo-box-base{
     -fx-border-radius: 5 0 0 5;
     -fx-background-radius: 5 0 0 5;
 }

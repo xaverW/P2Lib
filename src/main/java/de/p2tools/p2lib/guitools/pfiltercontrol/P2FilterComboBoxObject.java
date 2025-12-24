@@ -70,7 +70,7 @@ public class P2FilterComboBoxObject<E> extends HBox {
     }
 
     private void addCss() {
-        getStyleClass().add("PFilterComboBoxObject");
+        getStyleClass().add("P2FilterComboBoxObject");
     }
 
     public void bindSelValueProperty(ObjectProperty<E> stringProperty) {

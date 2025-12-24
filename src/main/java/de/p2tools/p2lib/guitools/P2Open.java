@@ -70,18 +70,18 @@ public class P2Open {
     }
 
     public static void openDir(String path) {
-        openDir(P2LibConst.primaryStage, path, null, null);
+        openDir(P2LibConst.primaryStage, path, null);
     }
 
     public static void openDir(Stage primaryStage, String path) {
-        openDir(primaryStage, path, null, null);
+        openDir(primaryStage, path, null);
     }
 
     public static void openDir(String path, StringProperty prog, Node getProgIcon) {
-        openDir(P2LibConst.primaryStage, path, prog, getProgIcon);
+        openDir(P2LibConst.primaryStage, path, prog);
     }
 
-    public static void openDir(Stage stage, String path, StringProperty prog, Node getProgIcon) { // todo icon
+    public static void openDir(Stage stage, String path, StringProperty prog) {
         File directory;
 
         if (path.isEmpty()) {
