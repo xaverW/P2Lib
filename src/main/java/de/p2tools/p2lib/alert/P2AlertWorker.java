@@ -18,6 +18,7 @@
 package de.p2tools.p2lib.alert;
 
 import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.css.P2CssFactory;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Group;
@@ -333,7 +334,6 @@ public class P2AlertWorker {
 
     //=======================
     // Ok
-
     static boolean infoNoSelection(Stage stage) {
         final Alert alert = getAlert(stage, Alert.AlertType.INFORMATION, "keine Auswahl", "Es wurde nichts markiert.");
         alert.setContentText("Zeile auswählen!");
@@ -347,6 +347,8 @@ public class P2AlertWorker {
 
     private static Alert getAlert(Stage stage, Alert.AlertType alertType, String title, String header) {
         final Alert alert = new Alert(alertType);
+        P2CssFactory.addP2CssToScene(alert.getDialogPane().getScene());
+
         // aktuelles Gnome mag das nicht :(
         // alert.setResizable(true);
 
