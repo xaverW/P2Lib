@@ -166,6 +166,14 @@ public class P2Date extends Date {
         }
     }
 
+    public String getDateTime() {
+        if (this.getTime() == 0) {
+            return "";
+        } else {
+            return P2DateConst.F_FORMAT_dd_MM_yyyy___HH__mm__ss.format(this);
+        }
+    }
+
     public String get_yyyy_MM_dd() {
         if (this.getTime() == 0) {
             return P2DateConst.F_FORMAT_yyyy_MM_dd.format(new Date());

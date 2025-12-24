@@ -31,8 +31,8 @@ public class P2IconFactory {
         BTN_STOP("gmi-close", 18),
         BTN_DEL("gmi-close", 12),
         BTN_CLOSE("gmi-close", 8),
-        BTN_DIALOG_CLOSE("gmi-close", 14),
-        BTN_DIALOG_RIP("gmi-arrow-right", 22),
+        BTN_DIALOG_CLOSE("gmi-close", 14), // Infopane: Schließen
+        BTN_DIALOG_RIP("gmi-arrow-right", 22), // Infopane: Abkoppeln
         BTN_NEXT("mdi-chevron-double-right", 18),
         BTN_PREV("mdi-chevron-double-left", 18),
         ATTENTION("mdomz-report_problem", 65);

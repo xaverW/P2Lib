@@ -81,7 +81,7 @@ public class P2Open {
         openDir(P2LibConst.primaryStage, path, prog, getProgIcon);
     }
 
-    public static void openDir(Stage stage, String path, StringProperty prog, Node getProgIcon) {
+    public static void openDir(Stage stage, String path, StringProperty prog, Node getProgIcon) { // todo icon
         File directory;
 
         if (path.isEmpty()) {
@@ -139,7 +139,7 @@ public class P2Open {
         playStoredFilm(P2LibConst.primaryStage, file, prog, getProgIcon);
     }
 
-    public static void playStoredFilm(Stage stage, String file, StringProperty prog, Node getProgIcon) {
+    public static void playStoredFilm(Stage stage, String file, StringProperty prog, Node getProgIcon) { // todo Icon
         if (file.isEmpty()) {
             return;
         }
