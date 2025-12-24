@@ -43,30 +43,44 @@ public class P2CssFactory__CSS_1 {
     }
 
     private static String[] getListAll() {
-        return new String[]{cssPath + "p2Css__all___button.css",
-                cssPath + "p2Css__all___maskerPane.css",
-                cssPath + "p2Css__all___toggleSwitch.css",
-                cssPath + "p2Css__all___p2Notify.css",
-                cssPath + "p2Css__all___table.css",
-                cssPath + "p2Css__all.css",
-                cssPath + "p2Css__all___toolButton.css",
-                cssPath + "p2Css__all___smallGui.css",
-                cssPath + "p2Css__all___dialog.css",
-                cssPath + "p2Css__all___gui.css"};
+        return new String[]{};
     }
+//    private static String[] getListAll() {
+//        return new String[]{cssPath + "p2Css__all___button.css",
+//                cssPath + "p2Css__all___maskerPane.css",
+//                cssPath + "p2Css__all___toggleSwitch.css",
+//                cssPath + "p2Css__all___p2Notify.css",
+//                cssPath + "p2Css__all___table.css",
+//                cssPath + "p2Css__all___tabPane.css",
+//                cssPath + "p2Css__all.css",
+//                cssPath + "p2Css__all___toolButton.css",
+//                cssPath + "p2Css__all___smallGui.css",
+//                cssPath + "p2Css__all___dialog.css",
+//                cssPath + "p2Css__all___gui.css"};
+//    }
 
     private static String[] getListDark() {
-        return new String[]{cssPath + "p2Css__dark___all.css",
-                cssPath + "p2Css__dark___table.css"};
+        return new String[]{};
     }
+//    private static String[] getListDark() {
+//        return new String[]{cssPath + "p2Css__dark___all.css",
+//                cssPath + "p2Css__dark___table.css"};
+//    }
 
     private static String[] getListBlackWhite() {
-        return new String[]{cssPath + "p2Css__dark__white___all.css"};
+        return new String[]{};
     }
 
     private static String[] getListDarkBlackWhite() {
-        return new String[]{cssPath + "p2Css__dark__black___all.css"};
+        return new String[]{};
     }
+//    private static String[] getListBlackWhite() {
+//        return new String[]{cssPath + "p2Css__dark__white___all.css"};
+//    }
+//
+//    private static String[] getListDarkBlackWhite() {
+//        return new String[]{cssPath + "p2Css__dark__black___all.css"};
+//    }
 
     // Und aus dem Programm
     private static String[] getListProgramAll() {
