@@ -92,7 +92,7 @@ public class P2CboButtonListString extends ComboBox<P2CboButtonListString.PCboLa
         this.showingProperty().addListener((u, o, n) -> {
             if (isShowing()) {
                 // beim Aufmachen
-                System.out.println("showingProperty");
+//                System.out.println("showingProperty");
                 fillItemListWithStoredList();
             }
         });
