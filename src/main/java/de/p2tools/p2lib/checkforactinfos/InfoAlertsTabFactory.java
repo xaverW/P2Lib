@@ -89,6 +89,7 @@ public class InfoAlertsTabFactory {
         gridPane.setVgap(10);
 
         final TextArea textArea = new TextArea();
+        textArea.setMinHeight(200);
         textArea.setPrefRowCount(6);
         textArea.setWrapText(true);
         textArea.setEditable(false);
@@ -233,6 +234,7 @@ public class InfoAlertsTabFactory {
 
         final TextArea textArea = new TextArea();
         textArea.setPrefRowCount(6);
+        textArea.setMinHeight(200);
         textArea.setWrapText(true);
         textArea.setEditable(false);
         GridPane.setVgrow(textArea, Priority.ALWAYS);
