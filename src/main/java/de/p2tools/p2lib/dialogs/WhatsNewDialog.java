@@ -58,7 +58,7 @@ public class WhatsNewDialog extends P2DialogExtra {
     public WhatsNewDialog(Stage stage, String PROGRAM_NAME, String URL_WEBSITE, StringProperty SYSTEM_PROG_OPEN_URL,
                           boolean darkMode, ArrayList<WhatsNewInfo> list) {
         super(stage, new SimpleStringProperty("600:800"), "Was gibt's neues",
-                true, false, false, DECO.NO_BORDER, true);
+                true, true, false, DECO.NO_BORDER, true);
 
         this.progName = PROGRAM_NAME;
         this.URL_WEBSITE = URL_WEBSITE;
