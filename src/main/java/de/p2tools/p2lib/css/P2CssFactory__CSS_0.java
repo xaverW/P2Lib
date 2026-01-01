@@ -42,37 +42,6 @@ public class P2CssFactory__CSS_0 {
         return setList;
     }
 
-//        list.add(PATH_CSS + "p2Css_button.css");
-//        list.add(PATH_CSS + "p2Css_maskerPane.css");
-//        list.add(PATH_CSS + "p2Css_toggleSwitch.css");
-//        list.add(PATH_CSS + "p2Css_p2Notify.css");
-//        list.add(PATH_CSS + "p2Css_table.css");
-//        list.add(PATH_CSS + "p2Css.css");
-//        list.add(PATH_CSS + "p2Css_toolButton.css");
-//        list.add(PATH_CSS + "p2Css_smallGui.css");
-//        list.add(PATH_CSS + "p2Css_dialog.css");
-//        list.add(PATH_CSS + "p2Css_gui.css");
-//
-//        if (P2LibConst.darkMode.getValue()) {
-//            list.add(PATH_CSS + "p2Css_dark.css");
-//            list.add(PATH_CSS + "p2Css_darkTable.css");
-//        }
-//
-//        if (P2LibConst.blackWhite.getValue()) {
-//            if (P2LibConst.darkMode.getValue()) {
-//                list.add(PATH_CSS + "p2Css_bw_b.css");
-//            } else {
-//                list.add(PATH_CSS + "p2Css_bw_w.css");
-//            }
-//        }
-//
-//        // und die vom Programm
-//        list.addAll(Arrays.asList(P2LibConst.cssFile));
-//        if (P2LibConst.darkMode.getValue()) {
-//            list.addAll(Arrays.asList(P2LibConst.cssFileDark));
-//        }
-
-
     private static String[] getListAll() {
         return new String[]{cssPath + "p2Css__all___button.css",
                 cssPath + "p2Css__all___maskerPane.css",

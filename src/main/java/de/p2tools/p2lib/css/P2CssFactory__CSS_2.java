@@ -16,64 +16,46 @@ public class P2CssFactory__CSS_2 {
     public static List<String> getList() {
         cssPath = P2CssFactory.PATH_CSS + P2CssFactory.CSS.CSS_2.getPath();
 
-        // ================================
-        // von der P2Lib
+        // zuerst ALLES
         ArrayList<String> setList = new ArrayList<>(Arrays.asList(getListAll()));
 
+        // wenn nötig: DARK
         if (P2LibConst.darkMode.getValue()) {
             setList.addAll(Arrays.asList(getListDark()));
-
-            if (P2LibConst.guiTheme1.getValue()) {
-                setList.addAll(Arrays.asList(getListDarkBlackWhite()));
-            }
-
-        } else {
-            if (P2LibConst.guiTheme1.getValue()) {
-                setList.addAll(Arrays.asList(getListBlackWhite()));
-            }
         }
 
-        // und noch die vom Programm
-        setList.addAll(Arrays.asList(getListProgramAll()));
+        // vom Programm: ALLES
+        setList.addAll(Arrays.asList(P2LibConst.cssFile));
+
+        // wenn nötig: DARK
         if (P2LibConst.darkMode.getValue()) {
-            setList.addAll(Arrays.asList(getListProgramDark()));
+            setList.addAll(Arrays.asList(P2LibConst.cssFileDark));
         }
 
         return setList;
     }
 
     private static String[] getListAll() {
-        return new String[]{cssPath + "p2Css__all___button.css",
-                cssPath + "p2Css__all___maskerPane.css",
-                cssPath + "p2Css__all___toggleSwitch.css",
-                cssPath + "p2Css__all___p2Notify.css",
-                cssPath + "p2Css__all___table.css",
-                cssPath + "p2Css__all.css",
-                cssPath + "p2Css__all___toolButton.css",
-                cssPath + "p2Css__all___smallGui.css",
-                cssPath + "p2Css__all___dialog.css",
-                cssPath + "p2Css__all___gui.css"};
+        return new String[]{
+                "de/p2tools/p2lib/css/css_1/p2Css__all.css",
+                "de/p2tools/p2lib/css/css_1/p2Css__all___fx.css",
+                "de/p2tools/p2lib/css/css_1/p2Css__all___button.css",
+                "de/p2tools/p2lib/css/css_1/p2Css__all___gui.css",
+                "de/p2tools/p2lib/css/css_1/p2Css__all___maskerPane.css",
+                "de/p2tools/p2lib/css/css_1/p2Css__all___toggleSwitch.css",
+                "de/p2tools/p2lib/css/css_1/p2Css__all___table.css",
+                "de/p2tools/p2lib/css/css_1/p2Css__all___tabPane.css",
+                "de/p2tools/p2lib/css/css_1/p2Css__all___p2Notify.css",
+                "de/p2tools/p2lib/css/css_1/p2Css__all___smallGui.css",
+                "de/p2tools/p2lib/css/css_1/p2Css__all___dialog.css"
+        };
     }
 
     private static String[] getListDark() {
-        return new String[]{cssPath + "p2Css__dark___all.css",
-                cssPath + "p2Css__dark___table.css"};
-    }
-
-    private static String[] getListBlackWhite() {
-        return new String[]{cssPath + "p2Css__dark__white___all.css"};
-    }
-
-    private static String[] getListDarkBlackWhite() {
-        return new String[]{cssPath + "p2Css__dark__black___all.css"};
-    }
-
-    // Und aus dem Programm
-    private static String[] getListProgramAll() {
-        return P2LibConst.cssFile;
-    }
-
-    private static String[] getListProgramDark() {
-        return P2LibConst.cssFileDark;
+        return new String[]{
+                "de/p2tools/p2lib/css/css_1/p2Css__dark___all.css",
+                "de/p2tools/p2lib/css/css_1/p2Css__dark___fx.css",
+                "de/p2tools/p2lib/css/css_1/p2Css__dark___table.css"
+        };
     }
 }
