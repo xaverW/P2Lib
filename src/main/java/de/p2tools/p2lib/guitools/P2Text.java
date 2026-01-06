@@ -19,7 +19,15 @@ public class P2Text {
         return text;
     }
 
-    public static Label getTextBoldUnderline(String t) {
+    public static Label getLblTextBold(String t) {
+        Label lbl = new Label(t);
+        lbl.setStyle("-fx-font-weight: bold; " +
+                "-fx-size: 1.2em;");
+
+        return lbl;
+    }
+
+    public static Label getLblTextBoldUnderline(String t) {
         Label lbl = new Label(t);
         lbl.setStyle("-fx-font-weight: bold; " +
                 "-fx-underline: true; " +
@@ -28,7 +36,7 @@ public class P2Text {
         return lbl;
     }
 
-    public static Label getTextBoldUnderline(String t, String color) {
+    public static Label getLblTextBoldUnderline(String t, String color) {
         Label lbl = new Label(t);
         lbl.setStyle("-fx-font-weight: bold; " +
                 "-fx-underline: true; " +
