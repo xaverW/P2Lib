@@ -32,8 +32,15 @@ public class P2LoadConst {
 
     public static final String DREI_SAT = "3Sat";
     public static final String DREI_SAT_ = "3sat.Online";
+
     public static final String ARD = "ARD";
     public static final String ARD_ = "Arbeitsgemeinschaft der öffentlich-rechtlichen Rundfunkanstalten der Bundesrepublik Deutschland";
+    public static final String ARD_ALPHA = "ARD-alpha";
+    public static final String ARD_ALPHA_ = "Arbeitsgemeinschaft der öffentlich-rechtlichen Rundfunkanstalten der Bundesrepublik Deutschland";
+    private static final String ONE = "ONE";
+    private static final String ONE_ = "Arbeitsgemeinschaft der öffentlich-rechtlichen Rundfunkanstalten der Bundesrepublik Deutschland";
+    private static final String TAGESCHAU_24 = "tagesschau24";
+    private static final String TAGESCHAU_24_ = "Arbeitsgemeinschaft der öffentlich-rechtlichen Rundfunkanstalten der Bundesrepublik Deutschland";
 
     private static final String ARTE_DE = "ARTE.DE";
     private static final String ARTE_DE_ = "Association Relative à la Télévision Européenne";
@@ -63,6 +70,7 @@ public class P2LoadConst {
     private static final String MDR_ = "Mitteldeutscher Rundfunk";
     private static final String NDR = "NDR";
     private static final String NDR_ = "Norddeutscher Rundfunk";
+
     public static final String ORF = "ORF"; // wird bein Einsortieren eine updateFilmListe gebraucht
     public static final String ORF_ = "Österreichischer Rundfunk"; // wird bein Einsortieren eine updateFilmListe gebraucht
     private static final String PHOENIX = "PHOENIX";
@@ -80,22 +88,26 @@ public class P2LoadConst {
     private static final String SWR_ = "Südwestrundfunk";
     private static final String WDR = "WDR";
     private static final String WDR_ = "Westdeutscher Rundfunk Köln";
+
     private static final String ZDF = "ZDF";
     private static final String ZDF_ = "Zweites Deutsches Fernsehen";
+    private static final String ZDF_INFO = "ZDFinfo";
+    private static final String ZDF_INFO_ = "Zweites Deutsches Fernsehen";
+    private static final String ZDF_NEO = "ZDFneo";
+    private static final String ZDF_NEO_ = "Zweites Deutsches Fernsehen";
     private static final String ZDF_TIVI = "ZDF-tivi";
     private static final String ZDF_TIVI_ = "Kinder- und Jugend-Programmfenster des ZDF";
 
-
     // das wird in den Einstellungen "Sender nicht laden" angezeigt
-    public static final String[] SENDER = {DREI_SAT, ARD,
+    public static final String[] SENDER = {DREI_SAT, ARD, ARD_ALPHA, ONE, TAGESCHAU_24,
             ARTE_DE, ARTE_EN, ARTE_ES, ARTE_FR, ARTE_IT, ARTE_PL,
             BR, DW, FUNK_NET, HR, KIKA, MDR, NDR, ORF, PHOENIX, RBB, RBB_TV, SR,
-            SRF, SWR, WDR, ZDF, ZDF_TIVI};
+            SRF, SWR, WDR, ZDF, ZDF_INFO, ZDF_NEO, ZDF_TIVI};
 
-    public static final String[] SENDER_ = {DREI_SAT_, ARD_,
+    public static final String[] SENDER_ = {DREI_SAT_, ARD_, ARD_ALPHA_, ONE_, TAGESCHAU_24_,
             ARTE_DE_, ARTE_EN_, ARTE_ES_, ARTE_FR_, ARTE_IT_, ARTE_PL_,
             BR_, DW_, FUNK_NET_, HR_, KIKA_, MDR_, NDR_, ORF_, PHOENIX_, RBB_, RBB_TV_, SR_,
-            SRF_, SWR_, WDR_, ZDF_, ZDF_TIVI_};
+            SRF_, SWR_, WDR_, ZDF_, ZDF_INFO_, ZDF_NEO_, ZDF_TIVI_};
 
 
     // beim Programmstart wird die Liste geladen wenn sie älter ist als ..
