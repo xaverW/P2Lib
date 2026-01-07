@@ -18,6 +18,7 @@ package de.p2tools.p2lib.guitools;
 
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.P2Alert;
+import de.p2tools.p2lib.alert.P2AlertAppThread;
 import de.p2tools.p2lib.dialogs.P2DialogFileChooser;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.application.Platform;
@@ -61,7 +62,7 @@ public class P2Open {
                     }
                 }
             } catch (Exception ex) {
-                P2Alert.showErrorAlert(stage,
+                P2AlertAppThread.showErrorAlert(stage,
                         "Fehler beim öffnen der Datei", "Kann die Datei nicht öffnen!");
             }
         });
@@ -124,7 +125,6 @@ public class P2Open {
             th.start();
 
         }
-
     }
 
     public static void playStoredFilm(String file) {

@@ -22,13 +22,18 @@ public class P2AlertAppThread {
     public static void getTextAlert(Stage stage, String title, String header,
                                     String content, String fieldName, StringProperty getText) {
         AtomicBoolean atomicBoolean = new AtomicBoolean(true);
-        Platform.runLater(() -> {
+        if (Platform.isFxApplicationThread()) {
             P2AlertWorker.getTextAlert(stage == null ? P2LibConst.primaryStage : stage,
                     title, header, content, fieldName, getText);
-            atomicBoolean.set(false);
-        });
-        while (atomicBoolean.get()) {
-            P2ToolsFactory.pause(500);
+        } else {
+            Platform.runLater(() -> {
+                P2AlertWorker.getTextAlert(stage == null ? P2LibConst.primaryStage : stage,
+                        title, header, content, fieldName, getText);
+                atomicBoolean.set(false);
+            });
+            while (atomicBoolean.get()) {
+                P2ToolsFactory.pause(500);
+            }
         }
     }
 
@@ -41,12 +46,16 @@ public class P2AlertAppThread {
     public static boolean showAlertOkCancel(Stage stage, String title, String header, String content) {
         AtomicBoolean atomicBoolean = new AtomicBoolean(true);
         BooleanProperty booleanProperty = new SimpleBooleanProperty();
-        Platform.runLater(() -> {
+        if (Platform.isFxApplicationThread()) {
             booleanProperty.set(P2AlertWorker.alertOkCancel(stage == null ? P2LibConst.primaryStage : stage, title, header, content));
-            atomicBoolean.set(false);
-        });
-        while (atomicBoolean.get()) {
-            P2ToolsFactory.pause(500);
+        } else {
+            Platform.runLater(() -> {
+                booleanProperty.set(P2AlertWorker.alertOkCancel(stage == null ? P2LibConst.primaryStage : stage, title, header, content));
+                atomicBoolean.set(false);
+            });
+            while (atomicBoolean.get()) {
+                P2ToolsFactory.pause(500);
+            }
         }
         return booleanProperty.get();
     }
@@ -61,12 +70,16 @@ public class P2AlertAppThread {
         AtomicBoolean atomicBoolean = new AtomicBoolean(true);
         ObjectProperty<P2Alert.BUTTON> property = new SimpleObjectProperty<>();
 
-        Platform.runLater(() -> {
+        if (Platform.isFxApplicationThread()) {
             property.set(P2AlertWorker.alert_yes_no(stage == null ? P2LibConst.primaryStage : stage, title, header, content));
-            atomicBoolean.set(false);
-        });
-        while (atomicBoolean.get()) {
-            P2ToolsFactory.pause(500);
+        } else {
+            Platform.runLater(() -> {
+                property.set(P2AlertWorker.alert_yes_no(stage == null ? P2LibConst.primaryStage : stage, title, header, content));
+                atomicBoolean.set(false);
+            });
+            while (atomicBoolean.get()) {
+                P2ToolsFactory.pause(500);
+            }
         }
         return property.get();
     }
@@ -80,12 +93,16 @@ public class P2AlertAppThread {
     public static boolean infoAlert(Stage stage, String title, String header, String content) {
         AtomicBoolean atomicBoolean = new AtomicBoolean(true);
         BooleanProperty booleanProperty = new SimpleBooleanProperty();
-        Platform.runLater(() -> {
+        if (Platform.isFxApplicationThread()) {
             booleanProperty.set(P2AlertWorker.infoAlert(stage == null ? P2LibConst.primaryStage : stage, title, header, content, false));
-            atomicBoolean.set(false);
-        });
-        while (atomicBoolean.get()) {
-            P2ToolsFactory.pause(500);
+        } else {
+            Platform.runLater(() -> {
+                booleanProperty.set(P2AlertWorker.infoAlert(stage == null ? P2LibConst.primaryStage : stage, title, header, content, false));
+                atomicBoolean.set(false);
+            });
+            while (atomicBoolean.get()) {
+                P2ToolsFactory.pause(500);
+            }
         }
         return booleanProperty.get();
     }
@@ -108,13 +125,19 @@ public class P2AlertAppThread {
     public static boolean showErrorAlert(Stage stage, String title, String header, String content) {
         AtomicBoolean atomicBoolean = new AtomicBoolean(true);
         BooleanProperty booleanProperty = new SimpleBooleanProperty();
-        Platform.runLater(() -> {
+
+        if (Platform.isFxApplicationThread()) {
             booleanProperty.set(P2AlertWorker.errorAlert(stage == null ? P2LibConst.primaryStage : stage, title, header, content));
-            atomicBoolean.set(false);
-        });
-        while (atomicBoolean.get()) {
-            P2ToolsFactory.pause(500);
+        } else {
+            Platform.runLater(() -> {
+                booleanProperty.set(P2AlertWorker.errorAlert(stage == null ? P2LibConst.primaryStage : stage, title, header, content));
+                atomicBoolean.set(false);
+            });
+            while (atomicBoolean.get()) {
+                P2ToolsFactory.pause(500);
+            }
         }
+
         return booleanProperty.get();
     }
 
