@@ -21,12 +21,22 @@ public class StoredAudioDataFactory {
             return url;
         }
 
-        Random random = new Random();
-        if (random.nextBoolean()) {
-            url = P2LoadConst.AUDIOLIST_URL_1;
-        } else {
-            url = P2LoadConst.AUDIOLIST_URL_2;
-        }
+        // nur wenn die stored.. leer ist
+        int rand = new Random().nextInt(3); // 0...2
+        url = switch (rand) {
+            case 0 -> P2LoadConst.AUDIOLIST_URL_1;
+            case 1 -> P2LoadConst.AUDIOLIST_URL_2;
+            case 2 -> P2LoadConst.AUDIOLIST_URL_3;
+            default -> P2LoadConst.AUDIOLIST_URL_1;
+        };
+
+//        Random random = new Random();
+//        if (random.nextBoolean()) {
+//            url = P2LoadConst.AUDIOLIST_URL_1;
+//        } else {
+//            url = P2LoadConst.AUDIOLIST_URL_2;
+//        }
+
         P2Log.sysLog("URL der AudioList[STORED]: " + url);
         return url;
     }

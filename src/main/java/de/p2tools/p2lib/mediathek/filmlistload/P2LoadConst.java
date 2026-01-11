@@ -128,6 +128,7 @@ public class P2LoadConst {
 
     public static final String AUDIOLIST_URL_1 = "https://atlist.de/audios.xz";
     public static final String AUDIOLIST_URL_2 = "https://p2atlist.de/audios.xz";
+    public static final String AUDIOLIST_URL_3 = "https://atlist.eu/audios.xz";
 
     public static final String STORED_AUDIO_LIST = "https://p2tools.de/download/storedAtList.xml";
     public static final String AUDIO_LIST_FILE_JSON = "audios.json"; // ATServer, MTViewer
