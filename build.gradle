@@ -4,7 +4,7 @@ plugins {
     id 'com.gradleup.shadow' version '9.3.0'
 }
 javafx {
-    version = "21.0.5"
+    version = "21.0.9"
     modules = ['javafx.controls']
 }
 repositories {
@@ -33,7 +33,7 @@ dependencies {
     implementation ':commons-lang3-3.20.0'
     implementation ':jackson-core-2.20.1'
     implementation ':xz-1.11'
-    
+
     implementation 'com.squareup.okhttp3:okhttp:5.3.2'
 
     //<><><><><><><><><><><><><><><><><><><><>
