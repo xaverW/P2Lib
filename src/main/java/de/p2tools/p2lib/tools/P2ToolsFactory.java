@@ -34,7 +34,7 @@ public class P2ToolsFactory {
                 // kann nicht ewig hier festhängen
                 break;
             }
-            System.out.println("waitWhile");
+//            System.out.println("waitWhile");
             pause(WAIT);
         }
     }
@@ -50,7 +50,7 @@ public class P2ToolsFactory {
                 // kann nicht ewig hier festhängen
                 break;
             }
-            System.out.println("waitWhile");
+//            System.out.println("waitWhile");
             pause(WAIT);
         }
     }

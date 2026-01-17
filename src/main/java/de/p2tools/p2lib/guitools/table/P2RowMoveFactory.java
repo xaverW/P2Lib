@@ -56,7 +56,7 @@ public class P2RowMoveFactory<T> implements Callback<TableView<T>, TableRow<T>> 
 
             if (event.isControlDown() && fromList != null) {
                 if (!tableView.getSortOrder().isEmpty()) {
-                    System.out.println("getSortOrder");
+//                    System.out.println("getSortOrder");
                     String s = tableView.getSortOrder().get(0).getText();
                     P2Alert.showInfoAlert("Sortieren",
                             "Zeilen verschieben",
@@ -74,7 +74,7 @@ public class P2RowMoveFactory<T> implements Callback<TableView<T>, TableRow<T>> 
                 }
             }
 
-            System.out.println("startFullDrag");
+//            System.out.println("startFullDrag");
             startPos.set(-1);
             row.startFullDrag();
             tableView.getSelectionModel().clearSelection();
@@ -86,8 +86,8 @@ public class P2RowMoveFactory<T> implements Callback<TableView<T>, TableRow<T>> 
                 return;
             }
 
-            System.out.println("<- setOnMouseDragEntered");
-            System.out.println("Row: " + row.getIndex());
+//            System.out.println("<- setOnMouseDragEntered");
+//            System.out.println("Row: " + row.getIndex());
             if (!event.isControlDown() || fromList == null) {
                 // dann nur markieren
                 tableView.getSelectionModel().select(row.getItem());
@@ -135,8 +135,8 @@ public class P2RowMoveFactory<T> implements Callback<TableView<T>, TableRow<T>> 
         });
 
         row.setOnMouseDragExited(event -> {
-                    System.out.println("-> setOnMouseDragExited");
-                    System.out.println("Row: " + row.getIndex());
+//                    System.out.println("-> setOnMouseDragExited");
+//                    System.out.println("Row: " + row.getIndex());
                     if (event.isControlDown()) {
                         startPos.set(row.getIndex());
                     }

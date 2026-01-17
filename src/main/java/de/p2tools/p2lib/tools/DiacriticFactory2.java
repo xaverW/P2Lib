@@ -35,9 +35,9 @@ public class DiacriticFactory2 {
         // Weil wir aber faul sind und nicht in der kalte rumstehen mochten sparen mussen
 
         try {
-            if (string.contains("Asyl für syrischen Folterchef")) {
-                System.out.println("Mist");
-            }
+//            if (string.contains("Asyl für syrischen Folterchef")) {
+//                System.out.println("Mist");
+//            }
 
             String to1 = strip1(string);
             if (string.equals(to1)) {

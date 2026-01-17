@@ -100,7 +100,7 @@ public class P2CboButtonListString extends ComboBox<P2CboButtonListString.PCboLa
         // wenn aus Combo was ausgewählt wird und RETURN dann melden
         getSelectionModel().selectedItemProperty().addListener(
                 (ChangeListener<Object>) (observable, oldValue, newValue) -> {
-                    System.out.println("Aus Combo ausgewählt");
+//                    System.out.println("Aus Combo ausgewählt");
                     // kann auch ein String!!!! sein
                     // dann melden, wenn ein Label und nicht der gleiche Text drin steht
                     if (this.isShowing() ||

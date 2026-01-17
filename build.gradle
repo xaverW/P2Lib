@@ -115,10 +115,6 @@ tasks.register("copyTask") {
             from file(fatJarDir + jarName)
             into file("/home/emil/daten/software/java/p2radio/libs/")
         }
-        copy {
-            from file(fatJarDir + jarName)
-            into file("/home/emil/daten/software/java/p2radio-mac/libs/")
-        }
 
         // tools
         copy {
@@ -127,15 +123,7 @@ tasks.register("copyTask") {
         }
         copy {
             from file(fatJarDir + jarName)
-            into file("/home/emil/daten/software/java/tools/dirrunner/libs/")
-        }
-        copy {
-            from file(fatJarDir + jarName)
             into file("/home/emil/daten/software/java/tools/p2backup/libs/")
-        }
-        copy {
-            from file(fatJarDir + jarName)
-            into file("/home/emil/daten/software/java/tools/p2info/libs/")
         }
         copy {
             from file(fatJarDir + jarName)
@@ -155,7 +143,7 @@ tasks.register("copyTask") {
         }
         copy {
             from file(fatJarDir + jarName)
-            into file("/home/emil/daten/software/java/tools/p2regex/libs/")
+            into file("/home/emil/daten/software/java/tools/p2notebook/libs/")
         }
         copy {
             from file(fatJarDir + jarName)
@@ -163,15 +151,7 @@ tasks.register("copyTask") {
         }
         copy {
             from file(fatJarDir + jarName)
-            into file("/home/emil/daten/software/java/tools/p2trainer/libs/")
-        }
-        copy {
-            from file(fatJarDir + jarName)
             into file("/home/emil/daten/software/java/tools/p2icon/libs/")
-        }
-        copy {
-            from file(fatJarDir + jarName)
-            into file("/home/emil/daten/software/java/tools/p2todo/libs/")
         }
     }
 }
