@@ -20,7 +20,6 @@ import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.guitools.P2WindowIcon;
 import de.p2tools.p2lib.guitools.pmask.P2MaskerPaneMin;
 import de.p2tools.p2lib.icons.P2Image;
-import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
@@ -267,8 +266,7 @@ public class P2DialogExtra extends P2Dialog {
         addBottom();
 
         P2LibConst.themeChanged.addListener((u, o, n) -> {
-            P2Log.debugLog("P2DialogExtra: updateCss");
-            super.updateCss();
+//            super.updateCss();
             P2Image.getAllNodes(getStage().getScene().getRoot());
         });
     }

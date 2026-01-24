@@ -66,22 +66,25 @@ public class P2LibInit {
         P2WindowIcon.setStageIcon(ownIcon);
 
         P2LibConst.cssProp.addListener((u, o, n) -> {
-            P2CssFactory.addP2CssToScene(P2LibConst.primaryStage.getScene());
-            P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
-        });
-        P2LibConst.darkMode.addListener((u, o, n) -> {
-            P2CssFactory.addP2CssToScene(P2LibConst.primaryStage.getScene());
-            P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
-        });
-        P2LibConst.guiTheme1.addListener((u, o, n) -> {
-            P2CssFactory.addP2CssToScene(P2LibConst.primaryStage.getScene());
-            P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
-        });
-        P2LibConst.cssAdder.addListener((u, o, n) -> {
+            // kommt noch nicht vor!!
             P2CssFactory.addP2CssToScene(P2LibConst.primaryStage.getScene());
             P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
         });
         P2LibConst.fontSize.addListener((u, o, n) -> {
+            P2CssFactory.addP2CssToScene(P2LibConst.primaryStage.getScene());
+            P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
+        });
+
+        // das ist doppelt
+        //        P2LibConst.darkMode.addListener((u, o, n) -> {
+        //            P2CssFactory.addP2CssToScene(P2LibConst.primaryStage.getScene());
+        //            P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
+        //        });
+        //        P2LibConst.guiTheme1.addListener((u, o, n) -> {
+        //            P2CssFactory.addP2CssToScene(P2LibConst.primaryStage.getScene());
+        //            P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
+        //        });
+        P2LibConst.cssAdder.addListener((u, o, n) -> {
             P2CssFactory.addP2CssToScene(P2LibConst.primaryStage.getScene());
             P2LibConst.themeChanged.set(!P2LibConst.themeChanged.get());
         });

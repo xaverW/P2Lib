@@ -46,7 +46,6 @@ public class P2CssFactory__CSS_1 {
                 "de/p2tools/p2lib/css/css_1/p2Css__all___table.css",
                 "de/p2tools/p2lib/css/css_1/p2Css__all___tabPane.css",
                 "de/p2tools/p2lib/css/css_1/p2Css__all___p2Notify.css",
-                "de/p2tools/p2lib/css/css_1/p2Css__all___smallGui.css",
                 "de/p2tools/p2lib/css/css_1/p2Css__all___dialog.css"
         };
     }

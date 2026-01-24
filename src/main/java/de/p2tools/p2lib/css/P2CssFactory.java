@@ -3,6 +3,7 @@ package de.p2tools.p2lib.css;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.dialog.P2Dialog;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
+import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.scene.Scene;
 
 public class P2CssFactory {
@@ -42,12 +43,32 @@ public class P2CssFactory {
 
     public static void addP2CssToScene(Scene scene) {
         if (scene != null) {
+
+            P2Log.debugLog("");
+            P2Log.debugLog("==== set style ===================");
+            for (P2Dialog d : P2DialogExtra.getDialogList()) {
+                P2Log.debugLog(d.getStage().getTitle());
+            }
+            P2Log.debugLog("==================================");
+            P2Log.debugLog("");
+
+            add(scene);
+
+            for (P2Dialog d : P2DialogExtra.getDialogList()) {
+                add(d.getStage().getScene());
+            }
+        }
+    }
+
+    private static void add(Scene scene) {
+        // das muss auch für alle Dialoge gemacht werden!!
+        if (scene != null) {
+
             switch (P2LibConst.cssProp.get()) {
                 case CSS_0 -> scene.getStylesheets().setAll(P2CssFactory__CSS_0.getList());
                 case CSS_1 -> scene.getStylesheets().setAll(P2CssFactory__CSS_1.getList());
                 case CSS_2 -> scene.getStylesheets().setAll(P2CssFactory__CSS_2.getList());
             }
-
 
             // entweder Größe oder 0 zum löschen
             String css = "-fx-font-size: " + P2LibConst.fontSize.get() + "; ";
@@ -55,9 +76,6 @@ public class P2CssFactory {
                 css = css + P2LibConst.cssAdder.getValueSafe();
             }
             scene.getRoot().setStyle(css);
-            for (P2Dialog d : P2DialogExtra.getDialogList()) {
-                d.getStage().getScene().getRoot().setStyle(css);
-            }
         }
     }
 }

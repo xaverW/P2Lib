@@ -272,7 +272,12 @@ public class P2Dialog {
         }
         if (!found) {
             dialogList.add(p2Dialog);
+            P2Log.debugLog("");
+            P2Log.debugLog("=== add dialog ==================");
+            P2Log.debugLog(" dialog: " + p2Dialog.title);
+            P2Log.debugLog(" list-size: " + dialogList.size());
+            P2Log.debugLog("===========================");
+            P2Log.debugLog("");
         }
-        P2Log.debugLog("Anzahl Dialoge: " + dialogList.size());
     }
 }
