@@ -117,7 +117,7 @@ public class P2Dialog {
 
             scene.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
                 if (keyEvent.getCode() == KeyCode.ESCAPE) {
-                    close();
+                    hide(); // und wenn gewollt -> im GUI close
                 }
             });
             stage.setOnCloseRequest(e -> {
