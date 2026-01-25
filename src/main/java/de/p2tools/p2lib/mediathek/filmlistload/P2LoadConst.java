@@ -126,13 +126,18 @@ public class P2LoadConst {
     public static String FILMLIST_ID = "https://liste.mediathekview.de/filmliste.id";
 
 
-    public static final String AUDIOLIST_URL_1 = "https://atlist.de/audios.xz";
-    public static final String AUDIOLIST_URL_2 = "https://p2atlist.de/audios.xz";
-    public static final String AUDIOLIST_URL_3 = "https://atlist.eu/audios.xz";
+    public static final String AUDIO_LIST_URL_1 = "https://atlist.de/audios.xz";
+    public static final String AUDIO_LIST_URL_2 = "https://p2atlist.de/audios.xz";
+    public static final String AUDIO_LIST_URL_3 = "https://atlist.eu/audios.xz";
 
     public static final String STORED_AUDIO_LIST = "https://p2tools.de/download/storedAtList.xml";
-    public static final String AUDIO_LIST_FILE_JSON = "audios.json"; // ATServer, MTViewer
+    public static final String AUDIO_LIST_FILE_JSON = "audios.json"; // ATServer, MTViewer, MTPlayer
     public static final String AUDIO_LIST_FILE_JSON_XZ = "audios.xz"; // ATServer
+
+    public static final String RADIO_LIST_URL_1 = "https://de1.api.radio-browser.info/json/stations?limit=100000";
+    public static final String RADIO_LIST_URL_2 = "https://de2.api.radio-browser.info/json/stations?limit=100000";
+    public static final String RADIO_LIST_URL_3 = "http://all.api.radio-browser.info/json/stations?limit=100000";
+    public static final String STORED_RADIO_LIST = "https://p2tools.de/download/storedRadioList.xml";
 
 
     public static String GEO_HOME_PLACE = "";
