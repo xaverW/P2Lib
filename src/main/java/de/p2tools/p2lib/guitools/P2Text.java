@@ -11,6 +11,7 @@ public class P2Text {
     }
 
     public static Text getTextBold(String t) {
+        // da wird die Schriftfarbe nicht mit den DarkTheme gewechset!
         Text text = new Text(t);
         text.setFont(Font.font(null, FontWeight.BOLD, -1));
         if (P2LibConst.fontSize.get() > 0) {

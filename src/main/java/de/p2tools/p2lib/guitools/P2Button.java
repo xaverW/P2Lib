@@ -73,6 +73,15 @@ public class P2Button {
         return btnHelp;
     }
 
+    public static Button helpButtonSmall(Stage stage, String header, String helpText) {
+        final Button btnHelp = new Button("");
+        btnHelp.setTooltip(new Tooltip("Hilfe anzeigen"));
+        btnHelp.setGraphic(P2IconFactory.P2ICON.BTN_HELP.getFontIcon()); //neues ImageView!
+        btnHelp.getStyleClass().add("btnSmall");
+        btnHelp.setOnAction(a -> P2Alert.showHelpAlert(stage, header, helpText));
+        return btnHelp;
+    }
+
     public static Button helpButton(ObjectProperty<Stage> stageProp, String header, String helpText) {
         final Button btnHelp = new Button("");
         btnHelp.setTooltip(new Tooltip("Hilfe anzeigen"));

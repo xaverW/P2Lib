@@ -20,8 +20,9 @@ package de.p2tools.p2lib.p2event;
 public class P2Events {
     // P2Lib zählt zurück
     private static int count = 0;
-    public static final int EVENT_TIMER_SECOND = --count;
     public static final int EVENT_TIMER_HALF_SECOND = --count;
+    public static final int EVENT_TIMER_SECOND = --count;
+    public static final int EVENT_TIMER_MINUTE = --count;
     public static final int EVENT_TIMER_ONE_MINUTE = --count;
 
     public static final int EVENT_FILMLIST_LOAD_START = --count;

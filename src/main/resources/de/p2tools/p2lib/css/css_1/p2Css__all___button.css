@@ -192,3 +192,28 @@
     -fx-border-width: 2;
 }
 
+.btnSmall {
+    -fx-padding: 3 10;
+    -fx-border-width: 1;
+}
+.btnSmall:focused{
+    -fx-padding: 3 10;
+    -fx-border-width: 1;
+}
+.btnSmall:pressed{
+    -fx-padding: 2 9;
+    -fx-border-width: 2;
+}
+.btnSmall:hover{
+    -fx-padding: 2 9;
+    -fx-border-width: 2;
+}
+.btnSmall:focused:hover{
+    -fx-padding: 2 9;
+    -fx-border-width: 2;
+}
+.btnSmall:pressed:focused:hover{
+    -fx-padding: 2 9;
+    -fx-border-width: 2;
+}
+

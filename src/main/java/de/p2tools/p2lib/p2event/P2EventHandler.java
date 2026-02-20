@@ -87,6 +87,9 @@ public class P2EventHandler {
             // zwei Minuten, einmal nach dem Start
             notifyListener(P2Events.EVENT_TIMER_ONE_MINUTE);
         }
+        if (countRunningTimeSeconds % 60 == 0) {
+            notifyListener(P2Events.EVENT_TIMER_MINUTE);
+        }
     }
 
     private void doTimerWorkHalfSecond() {
