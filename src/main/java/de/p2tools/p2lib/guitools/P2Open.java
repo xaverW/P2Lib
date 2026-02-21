@@ -156,7 +156,9 @@ public class P2Open {
             try {
                 final String program = prog.getValueSafe();
                 final String[] cmd = {program, filmFile.getAbsolutePath()};
-                Runtime.getRuntime().exec(cmd);
+                // Runtime.getRuntime().exec(cmd);
+                // output streams werden dann umgeleitet
+                new ProcessBuilder(cmd).inheritIO().start();
             } catch (final Exception ex) {
                 Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file));
             }
@@ -192,7 +194,9 @@ public class P2Open {
         if (arrProgCallArray.length != 0) {
             // dann mit dem vorgegebenen Player starten
             try {
-                Runtime.getRuntime().exec(arrProgCallArray);
+                // Runtime.getRuntime().exec(arrProgCallArray);
+                // output streams werden dann umgeleitet
+                new ProcessBuilder(arrProgCallArray).inheritIO().start();
             } catch (final Exception ex) {
                 Platform.runLater(() -> afterPlay(stage, TEXT.FILM, prog, file));
             }
