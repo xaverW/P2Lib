@@ -61,19 +61,20 @@ public class P2RuntimeExecPlay {
         } else {
             // nicht gestartet
             list.add("Film konnte nicht gestartet werden");
-            P2Alert.showErrorAlert("Film starten", "Kann den Film mit dem Aufruf nicht starten:" +
-                    "\n" +
-                    "\n" +
-                    "------------------------------------------------" +
-                    "\n" +
-                    Arrays.toString(arrProgCallArray) +
-                    "\n" +
-                    "------------------------------------------------" +
-                    "\n" +
-                    "\n" +
-                    "Bitte in den Programm-Menü\n" +
-                    "die Einstellungen zum Abspielen von Filmen " +
-                    "prüfen.");
+            P2Alert.showErrorAlert("Film starten",
+                    "Kann den Film mit dem Aufruf nicht starten:" +
+                            "\n" +
+                            "\n" +
+                            "------------------------------------------------" +
+                            "\n" +
+                            Arrays.toString(arrProgCallArray) +
+                            "\n" +
+                            "------------------------------------------------" +
+                            "\n" +
+                            "\n" +
+                            "Bitte im Programm-Menü\n" +
+                            "die Einstellungen zum Abspielen von Filmen " +
+                            "prüfen.");
         }
         list.add(P2Log.LILNE3);
         P2Log.sysLog(list.toArray(new String[0]));
