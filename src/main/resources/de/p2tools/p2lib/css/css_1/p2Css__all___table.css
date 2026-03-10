@@ -78,6 +78,22 @@
  }
 
 
+/* ============== */
+/* damit leere ListView-Zeilen nicht angezeigt werden */
+ .list-cell:empty {
+     -fx-border-width: 0;
+     -fx-background-color: transparent;
+ }
+ .list-cell:empty .list-cell {
+     -fx-border-width: 0px;
+ }
+/* TreeTable Zeilenrahmen anzeigen */
+ .list-cell {
+     -fx-border-width: 0 0 1 0;
+     -fx-border-color: -fx-table-cell-border-color;
+ }
+
+
 /* =========================================== */
 /* CheckBoxCell */
 .checkbox-table * {
