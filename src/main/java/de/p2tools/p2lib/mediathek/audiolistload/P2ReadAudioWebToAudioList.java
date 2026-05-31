@@ -88,15 +88,13 @@ public class P2ReadAudioWebToAudioList {
                     }
                     audioData.arr[AudioDataXml.AUDIO_CHANNEL] = channel;
                     break;
-                case AudioDataXml.JSON_AUDIO_THEME:
-                    // dann passen die Infos besser
+                case AudioDataXml.JSON_AUDIO_GENRE:
                     if (!str.isEmpty()) {
                         genre = str.intern();
                     }
                     audioData.arr[AudioDataXml.AUDIO_GENRE] = genre;
                     break;
-                case AudioDataXml.JSON_AUDIO_GENRE:
-                    // dann passen die Infos
+                case AudioDataXml.JSON_AUDIO_THEME:
                     if (!str.isEmpty()) {
                         theme = str.intern();
                     }
