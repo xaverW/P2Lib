@@ -85,7 +85,10 @@ tasks.register("copyTask") {
     }
 
     doLast {
+        
+        // =====================================
         // online progs
+        // =====================================
         copy {
             from file(fatJarDir + jarName)
             into file("/home/emil/daten/software/java/atplayer/libs/")
@@ -110,13 +113,15 @@ tasks.register("copyTask") {
             from file(fatJarDir + jarName)
             into file("/home/emil/daten/software/java/p2podder/libs/")
         }
-
         copy {
             from file(fatJarDir + jarName)
             into file("/home/emil/daten/software/java/p2radio/libs/")
         }
 
+
+        // =====================================
         // tools
+        // =====================================
         copy {
             from file(fatJarDir + jarName)
             into file("/home/emil/daten/software/java/tools/cluborga/libs/")
@@ -152,6 +157,19 @@ tasks.register("copyTask") {
         copy {
             from file(fatJarDir + jarName)
             into file("/home/emil/daten/software/java/tools/p2icon/libs/")
+        }
+        
+        
+        // =====================================
+        // raspberry
+        // =====================================
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/raspberry/p2mathe//libs/")
+        }
+        copy {
+            from file(fatJarDir + jarName)
+            into file("/home/emil/daten/software/java/raspberry/p2image/libs/")
         }
     }
 }

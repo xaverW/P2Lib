@@ -32,6 +32,7 @@ public class P2LibConst {
     public static final String URL_WEBSITE_FORUM = "https://p2forum.de";
     public static final String CONFIG_XML_START = "P2Tools";
 
+    
     public static Stage primaryStage = null;
     public static String progName = "P2Tools";
     public static String userAgent = "";

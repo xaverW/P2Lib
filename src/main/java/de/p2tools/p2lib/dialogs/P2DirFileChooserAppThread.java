@@ -1,6 +1,6 @@
 package de.p2tools.p2lib.dialogs;
 
-import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.P2Wait;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -20,7 +20,7 @@ public class P2DirFileChooserAppThread {
             atomicBoolean.set(false);
         });
         while (atomicBoolean.get()) {
-            P2ToolsFactory.pause(500);
+            P2Wait.pause(500);
         }
         return stringProperty.get();
     }
