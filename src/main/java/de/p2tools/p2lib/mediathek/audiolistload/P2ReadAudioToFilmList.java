@@ -97,7 +97,7 @@ public class P2ReadAudioToFilmList {
             logList.add("##            Anzahl Beiträge: " + P2LoadConst.audioListLocal.size());
             logList.add("##");
 
-            P2LoadConst.audioInitNecessary = true;
+//            P2LoadConst.audioInitNecessary = true;
             new P2ReadAudioWebToFilmList(logList, audioListNew).readWebList(P2LoadConst.localAudioListFile);
             afterLoading(logList);
 
@@ -126,7 +126,7 @@ public class P2ReadAudioToFilmList {
             // gespeicherte Audioliste laden, macht beim ersten Programmstart keinen Sinn
             logList.add("## Erster Programmstart -> Liste aus dem Web laden");
 
-            P2LoadConst.audioInitNecessary = true;
+//            P2LoadConst.audioInitNecessary = true;
             new P2ReadAudioWebToFilmList(logList, audioListNew).readWebList(P2LoadConst.localAudioListFile);
 
             P2Duration.onlyPing("Erster Programmstart: Neu Audioliste aus dem Web geladen");
@@ -142,7 +142,7 @@ public class P2ReadAudioToFilmList {
             logList.add("## Beim Programmstart soll keine neue Liste geladen werden");
             logList.add("## dann gespeicherte Liste laden");
 
-            P2LoadConst.audioInitNecessary = true;
+//            P2LoadConst.audioInitNecessary = true;
             new P2ReadAudioLocalFromToFilmList(logList, audioListNew).readLocalList(P2LoadConst.localAudioListFile);
 
             logList.add("## Gespeicherte Liste geladen");
@@ -162,7 +162,7 @@ public class P2ReadAudioToFilmList {
             logList.add("## Zuerst gespeicherte Liste laden");
 
             loadFromWeb = true;
-            P2LoadConst.audioInitNecessary = false;
+//            P2LoadConst.audioInitNecessary = false;
             new P2ReadAudioLocalFromToFilmList(logList, audioListNew).readLocalList(P2LoadConst.localAudioListFile); // Liste in new laden
 
             logList.add("## Programmstart: Gespeicherte Liste geladen");
@@ -172,7 +172,7 @@ public class P2ReadAudioToFilmList {
             logList.add("## Gespeicherte Audioliste ist nicht zu alt: " + P2LoadConst.dateStoredAudiolist.getValueSafe());
             logList.add("## Gespeicherte Liste laden");
 
-            P2LoadConst.audioInitNecessary = true;
+//            P2LoadConst.audioInitNecessary = true;
             new P2ReadAudioLocalFromToFilmList(logList, audioListNew).readLocalList(P2LoadConst.localAudioListFile); // Liste in new laden
 
             logList.add("## Programmstart: Gespeicherte Liste geladen");
@@ -186,7 +186,7 @@ public class P2ReadAudioToFilmList {
             p2EventHandler.notifyListener(
                     new P2Event(P2Events.EVENT_AUDIO_LIST_LOAD_PROGRESS, "Audioliste ist zu alt, eine neue laden", P2ReadAudioFactory.PROGRESS_INDETERMINATE));
 
-            P2LoadConst.audioInitNecessary = true;
+//            P2LoadConst.audioInitNecessary = true;
             new P2ReadAudioWebToFilmList(logList, audioListNew).readWebList(P2LoadConst.localAudioListFile);
 
             P2Duration.onlyPing("Programmstart: Neu Audioliste aus dem Web geladen");
@@ -198,7 +198,7 @@ public class P2ReadAudioToFilmList {
             logList.add("## Das Laden der Liste hat nicht geklappt");
             logList.add("## Noch ein Versuch: Gespeicherte Liste laden");
 
-            P2LoadConst.audioInitNecessary = true;
+//            P2LoadConst.audioInitNecessary = true;
             new P2ReadAudioLocalFromToFilmList(logList, audioListNew).readLocalList(P2LoadConst.localAudioListFile);
 
             logList.add("## Gespeicherte Liste geladen");

@@ -84,7 +84,7 @@ public class P2ReadAudioWebToFilmListJasonParser {
                     addValue(audioData, jp);
 
                     // aus dem Web muss das immer gemacht werden
-                    audioData.init(); // damit wird auch das Datum! gesetzt
+//                    audioData.init(); // damit wird auch das Datum! gesetzt
 
                     // ==================================
                     //und jetzt wird gefiltert, wenn aus dem Web

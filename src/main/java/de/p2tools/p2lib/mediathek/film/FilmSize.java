@@ -54,6 +54,6 @@ public class FilmSize implements Comparable<FilmSize> {
 
     @Override
     public int compareTo(FilmSize compareWith) {
-        return (l < compareWith.l) ? -1 : ((l == compareWith.l) ? 0 : 1);
+        return Long.compare(l, compareWith.l);
     }
 }

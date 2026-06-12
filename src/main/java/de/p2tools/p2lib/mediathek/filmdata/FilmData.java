@@ -168,10 +168,13 @@ public class FilmData extends FilmDataProps implements P2Data {
     private void preserveMemory() {
         // ================================
         // Speicher sparen
-        if (arr[FILM_SIZE].length() < 3) { //todo brauchts das überhaupt??
+        if (arr[FILM_SIZE].length() <= 3) {
             arr[FILM_SIZE] = arr[FILM_SIZE].intern();
         }
-        if (arr[FILM_URL_SMALL].length() < 15) {
+        if (!arr[FILM_URL_HD].isEmpty() && arr[FILM_URL_HD].length() < 15) {
+            arr[FILM_URL_HD] = arr[FILM_URL_HD].intern();
+        }
+        if (!arr[FILM_URL_SMALL].isEmpty() && arr[FILM_URL_SMALL].length() < 15) {
             arr[FILM_URL_SMALL] = arr[FILM_URL_SMALL].intern();
         }
 

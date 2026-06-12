@@ -187,7 +187,7 @@ public class P2LoadFilmlist {
             //dann wird keine neue Liste aus dem Web beim Programmstart geladen, immer gespeicherte Liste laden
             logList.add("## Beim Programmstart soll keine neue Liste geladen werden");
             logList.add("## Programmstart: Gespeicherte Liste aus laden");
-            P2LoadConst.filmInitNecessary = true;
+//            P2LoadConst.filmInitNecessary = true;
             loadStoredList(logList, filmListNew, P2LoadConst.localFilmListFile);
             logList.add("## Programmstart: Gespeicherte Liste aus geladen");
 
@@ -201,21 +201,21 @@ public class P2LoadFilmlist {
                 //und jetzt noch schauen, ob ein diff reicht
                 if (P2FilmlistFactory.isTooOldForDiff(P2LoadConst.dateStoredFilmlist.getValueSafe())) {
                     logList.add("## Gespeicherte Filmliste zu alt für ein DIFF, kein FILM_INIT");
-                    P2LoadConst.filmInitNecessary = false;
+//                    P2LoadConst.filmInitNecessary = false;
 
                 } else {
                     logList.add("## Gespeicherte Filmliste zu alt, DIFF reicht, FILM_INIT wird gemacht");
-                    P2LoadConst.filmInitNecessary = true;
+//                    P2LoadConst.filmInitNecessary = true;
                 }
             } else {
                 logList.add("## Gespeicherte Filmliste ist nicht zu alt: " + P2LoadConst.dateStoredFilmlist);
-                P2LoadConst.filmInitNecessary = true;
+//                P2LoadConst.filmInitNecessary = true;
             }
 
             P2Duration.counterStart("loadStoredList");
             logList.add("## Programmstart: Gespeicherte Liste laden");
             loadStoredList(logList, filmListNew, P2LoadConst.localFilmListFile);
-            P2LoadConst.filmInitNecessary = true;//!! jetzt gleich wieder setzen, sonst klappt das weitere Laden nicht mehr
+//            P2LoadConst.filmInitNecessary = true;//!! jetzt gleich wieder setzen, sonst klappt das weitere Laden nicht mehr
 
             logList.add("## Programmstart: Gespeicherte Liste geladen");
             P2Log.debugLog("## loadStoredList: " + P2Duration.counterStop("loadStoredList"));
