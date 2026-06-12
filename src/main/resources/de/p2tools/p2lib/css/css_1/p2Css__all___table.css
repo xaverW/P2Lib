@@ -73,8 +73,7 @@
  }
 /* TreeTable Zeilenrahmen anzeigen */
  .tree-table-row-cell {
-     -fx-border-width: 0 0 1 0;
-     -fx-border-color: -fx-table-cell-border-color;
+     -fx-border-width: 0;
  }
 
 
@@ -89,9 +88,26 @@
  }
 /* TreeTable Zeilenrahmen anzeigen */
  .list-cell {
-     -fx-border-width: 0 0 1 0;
-     -fx-border-color: -fx-table-cell-border-color;
+     -fx-border-width: 0;
  }
+
+/* ist der Ausgewählte */
+.list-view:focused > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected,
+.list-view:focused > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected:hover {
+    -fx-background-color: -pBackgroundColorGraySel;
+    -fx-text-fill: -pTextColorMax;
+}
+/* Maus hover */
+.list-view:focused > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:hover {
+    -fx-background-color: -pBackgroundColorGraySel;
+    -fx-text-fill: -pTextColorMax;
+}
+/* der Ausgewählte wenn Maus hover */
+.list-view:focused > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:focused:selected:hover {
+    -fx-background-color: -pBackgroundColorGray;
+    -fx-text-fill: -pTextColorMax;
+}
+
 
 
 /* =========================================== */

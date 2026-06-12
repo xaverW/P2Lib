@@ -30,7 +30,7 @@ public class P2Text {
     public static Label getLblTextBoldBig(String t) {
         Label lbl = new Label(t);
         lbl.setStyle("-fx-font-weight: bold; " +
-                "-fx-size: 1.2em;");
+                "-fx-font-size: 1.2em;");
 
         return lbl;
     }
@@ -38,8 +38,16 @@ public class P2Text {
     public static Label getLblTextBoldUnderline(String t) {
         Label lbl = new Label(t);
         lbl.setStyle("-fx-font-weight: bold; " +
+                "-fx-underline: true;");
+
+        return lbl;
+    }
+
+    public static Label getLblTextBoldUnderlineSize(String t, String size) {
+        Label lbl = new Label(t);
+        lbl.setStyle("-fx-font-weight: bold; " +
                 "-fx-underline: true; " +
-                "-fx-size: 1.2em;");
+                "-fx-font-size: " + size + "em;");
 
         return lbl;
     }
@@ -48,7 +56,7 @@ public class P2Text {
         Label lbl = new Label(t);
         lbl.setStyle("-fx-font-weight: bold; " +
                 "-fx-underline: true; " +
-                "-fx-size: 1.2em; " +
+                "-fx-font-size: 1.2em; " +
                 "-fx-text-fill: " + color + ";");
 
         return lbl;

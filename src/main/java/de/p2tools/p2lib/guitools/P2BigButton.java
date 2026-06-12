@@ -38,11 +38,16 @@ public class P2BigButton extends Button {
 
         Label detailsLabel = new Label(text);
 
-        if (img != null) {
-            graphicGrid.add(img, 0, 0);
-        }
         graphicGrid.add(btnHeaderLabel, 1, 0);
-        if (!text.isEmpty()) {
+        if (text.isEmpty()) {
+            if (img != null) {
+                graphicGrid.add(img, 0, 0);
+            }
+            
+        } else {
+            if (img != null) {
+                graphicGrid.add(img, 0, 0, 1, 2);
+            }
             graphicGrid.add(detailsLabel, 1, 1);
         }
 
@@ -60,7 +65,7 @@ public class P2BigButton extends Button {
         Label btnHeaderLabel = new Label(header);
         btnHeaderLabel.setStyle("-fx-font-size: 1.5em;");
         if (img != null) {
-            graphicGrid.add(img, 0, 0);
+            graphicGrid.add(img, 0, 0, 1, 2);
         }
         graphicGrid.add(btnHeaderLabel, 1, 0);
         graphicGrid.add(text, 1, 1);

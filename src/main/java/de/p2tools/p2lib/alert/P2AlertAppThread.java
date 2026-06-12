@@ -1,7 +1,7 @@
 package de.p2tools.p2lib.alert;
 
 import de.p2tools.p2lib.P2LibConst;
-import de.p2tools.p2lib.tools.P2ToolsFactory;
+import de.p2tools.p2lib.tools.P2Wait;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.stage.Stage;
@@ -32,7 +32,7 @@ public class P2AlertAppThread {
                 atomicBoolean.set(false);
             });
             while (atomicBoolean.get()) {
-                P2ToolsFactory.pause(500);
+                P2Wait.pause(500);
             }
         }
     }
@@ -54,7 +54,7 @@ public class P2AlertAppThread {
                 atomicBoolean.set(false);
             });
             while (atomicBoolean.get()) {
-                P2ToolsFactory.pause(500);
+                P2Wait.pause(500);
             }
         }
         return booleanProperty.get();
@@ -78,7 +78,7 @@ public class P2AlertAppThread {
                 atomicBoolean.set(false);
             });
             while (atomicBoolean.get()) {
-                P2ToolsFactory.pause(500);
+                P2Wait.pause(500);
             }
         }
         return property.get();
@@ -101,7 +101,7 @@ public class P2AlertAppThread {
                 atomicBoolean.set(false);
             });
             while (atomicBoolean.get()) {
-                P2ToolsFactory.pause(500);
+                P2Wait.pause(500);
             }
         }
         return booleanProperty.get();
@@ -134,7 +134,7 @@ public class P2AlertAppThread {
                 atomicBoolean.set(false);
             });
             while (atomicBoolean.get()) {
-                P2ToolsFactory.pause(500);
+                P2Wait.pause(500);
             }
         }
 
