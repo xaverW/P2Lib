@@ -28,6 +28,7 @@ public class P2IconFactory {
         BTN_HELP("mdi-help"),
         BTN_CLEAR_FILTER("mdi2f-filter-remove-outline"),
         BTN_DIR_OPEN("mdi2f-folder-open-outline", 18),
+        BTN_SAVE("mdomz-save", 18),
         BTN_STOP("gmi-close", 18),
         BTN_DEL("gmi-close", 12),
         BTN_CLOSE("gmi-close", 8),
