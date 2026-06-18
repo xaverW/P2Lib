@@ -64,6 +64,7 @@ public class P2ReadAudioWebToFilmList {
     }
 
     public boolean readWebList(String path) {
+        // INIT wird immer gemacht
         boolean ret;
         P2Duration.counterStart("readWebList");
 
@@ -122,6 +123,7 @@ public class P2ReadAudioWebToFilmList {
     }
 
     private void processFromWeb(URL source, Filmlist audioList) {
+        // INIT wird immer gemacht
         final Request.Builder builder = new Request.Builder().url(source);
         builder.addHeader("User-Agent", P2LoadConst.userAgent);
 

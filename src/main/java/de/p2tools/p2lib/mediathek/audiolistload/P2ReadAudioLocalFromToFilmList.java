@@ -41,7 +41,7 @@ public class P2ReadAudioLocalFromToFilmList {
         this.audioListNew = audioListNew;
     }
 
-    public boolean readLocalList(String path) {
+    public boolean readLocalList(String path, boolean init) {
         // beim Programmstart wird die gespeicherte Liste geladen
         boolean ret;
 
@@ -55,7 +55,7 @@ public class P2ReadAudioLocalFromToFilmList {
             audioListNew.clear();
             logList.add("## " + "Audioliste lesen");
             logList.add("## " + "   --> Lesen von: " + path);
-            new P2ReadFilmlist(false).readFilmlistWebOrLocal(logList, audioListNew, path);
+            new P2ReadFilmlist(false).readFilmlistWebOrLocal(logList, audioListNew, path, init);
             setDateFromLocal();
 
             audioListNew.loadSender();

@@ -50,6 +50,8 @@ public class P2LoadFilmlist {
     private final P2EventHandler p2EventHandler;
     private final BooleanProperty propLoadFilmlist = new SimpleBooleanProperty(false);
     private boolean filmlistTooOld = false;
+    private boolean initNecessary = true;
+
 
     public P2LoadFilmlist(P2EventHandler p2EventHandler, Filmlist<? extends FilmData> filmlistNew, Filmlist<? extends FilmData> filmlistDiff) {
         // Filmlist: Damit die evtl. überschriebene Version verwendet wird
@@ -105,7 +107,7 @@ public class P2LoadFilmlist {
         }).start();
     }
 
-    public void loadNewFilmlistFromWeb(boolean alwaysLoadNew/*, String localFilmListFile*/) {
+    public void loadNewFilmlistFromWeb(boolean alwaysLoadNew) {
         if (P2LoadFactory.checkAllSenderSelectedNotToLoad(P2LibConst.primaryStage)) {
             // alle Sender sind vom Laden ausgenommen
             P2Log.sysLog("Filmliste laden: Es sind keine Sender eingeschaltet!!");
@@ -131,7 +133,7 @@ public class P2LoadFilmlist {
             logList.add("##            Anzahl  Neue: " + P2LoadConst.filmlistLocal.countNewFilms());
             logList.add("##");
 
-            loadNewFilmlistFromWeb(logList, alwaysLoadNew, false, P2LoadConst.localFilmListFile);
+            loadNewFilmlistFromWeb(logList, alwaysLoadNew, false, P2LoadConst.localFilmListFile, true);
             afterLoading(logList);
 
             logList.add("## Filmliste aus dem Web laden - ende");
@@ -175,7 +177,7 @@ public class P2LoadFilmlist {
             // gespeicherte Filmliste laden, macht beim ersten Programmstart keinen Sinn
             logList.add("## Erster Programmstart -> Liste aus dem Web laden");
 
-            loadNewFilmlistFromWeb(logList, false, true, P2LoadConst.localFilmListFile);
+            loadNewFilmlistFromWeb(logList, false, true, P2LoadConst.localFilmListFile, true);
             P2Duration.onlyPing("Erster Programmstart: Neu Filmliste aus dem Web geladen");
             getP2EventHandler().notifyListener(new P2Event(P2Events.EVENT_FILMLIST_LOAD_LOADED, "Filme verarbeiten",
                     P2LoadFilmlist.PROGRESS_INDETERMINATE));
@@ -188,7 +190,8 @@ public class P2LoadFilmlist {
             logList.add("## Beim Programmstart soll keine neue Liste geladen werden");
             logList.add("## Programmstart: Gespeicherte Liste aus laden");
 //            P2LoadConst.filmInitNecessary = true;
-            loadStoredList(logList, filmListNew, P2LoadConst.localFilmListFile);
+            new P2ReadFilmlist().readFilmlistWebOrLocal(logList, filmListNew, P2LoadConst.localFilmListFile, true);
+
             logList.add("## Programmstart: Gespeicherte Liste aus geladen");
 
         } else {
@@ -200,22 +203,25 @@ public class P2LoadFilmlist {
 
                 //und jetzt noch schauen, ob ein diff reicht
                 if (P2FilmlistFactory.isTooOldForDiff(P2LoadConst.dateStoredFilmlist.getValueSafe())) {
+                    // alte Liste muss wegen des Hash geladen werden -> kein INIT
+                    initNecessary = false;
                     logList.add("## Gespeicherte Filmliste zu alt für ein DIFF, kein FILM_INIT");
-//                    P2LoadConst.filmInitNecessary = false;
 
                 } else {
+                    // alte Liste wird geladen, dann DIFF -> INIT
+                    initNecessary = true;
                     logList.add("## Gespeicherte Filmliste zu alt, DIFF reicht, FILM_INIT wird gemacht");
-//                    P2LoadConst.filmInitNecessary = true;
                 }
             } else {
+                // dann passt die alte Liste -> INIT
+                initNecessary = true;
                 logList.add("## Gespeicherte Filmliste ist nicht zu alt: " + P2LoadConst.dateStoredFilmlist);
-//                P2LoadConst.filmInitNecessary = true;
             }
 
             P2Duration.counterStart("loadStoredList");
             logList.add("## Programmstart: Gespeicherte Liste laden");
-            loadStoredList(logList, filmListNew, P2LoadConst.localFilmListFile);
-//            P2LoadConst.filmInitNecessary = true;//!! jetzt gleich wieder setzen, sonst klappt das weitere Laden nicht mehr
+            new P2ReadFilmlist().readFilmlistWebOrLocal(logList, filmListNew, P2LoadConst.localFilmListFile, initNecessary);
+            initNecessary = true;//!! jetzt gleich wieder setzen, sonst klappt das weitere Laden nicht mehr
 
             logList.add("## Programmstart: Gespeicherte Liste geladen");
             P2Log.debugLog("## loadStoredList: " + P2Duration.counterStop("loadStoredList"));
@@ -228,13 +234,13 @@ public class P2LoadFilmlist {
             }
 
             if (filmlistTooOld || filmListNew.isEmpty()) {
-                //dann war sie zu alt oder ist leer
+                //dann war sie zu alt oder ist leer -> INIT
                 filmlistTooOld = false;//dann gleich wieder ausschalten
                 p2EventHandler.notifyListener(new P2Event(P2Events.EVENT_FILMLIST_LOAD_PROGRESS, "Filmliste ist zu alt, eine neue laden",
                         P2LoadFilmlist.PROGRESS_INDETERMINATE));
 
                 logList.add("## Programmstart: Neue Liste aus dem Web laden");
-                loadNewFilmlistFromWeb(logList, false, true, P2LoadConst.localFilmListFile);
+                loadNewFilmlistFromWeb(logList, false, true, P2LoadConst.localFilmListFile, true);
                 P2Duration.onlyPing("Programmstart: Neu Filmliste aus dem Web geladen");
             }
         }
@@ -276,12 +282,8 @@ public class P2LoadFilmlist {
         p2EventHandler.notifyListener(new P2Event(P2Events.EVENT_FILMLIST_LOAD_FINISHED));
     }
 
-    private void loadStoredList(List<String> logList, Filmlist filmlist, String localFilmListFile) {
-        new P2ReadFilmlist().readFilmlistWebOrLocal(logList, filmlist, localFilmListFile);
-    }
-
     private void loadNewFilmlistFromWeb(List<String> logList, boolean alwaysLoadNew,
-                                        boolean intern, String localFilmListFile) {
+                                        boolean intern, String localFilmListFile, boolean init) {
         // einer der ZWEI Einstiegspunkte zum Laden: ProgStart / sofort Web
         if (intern) {
             //dann ist die lokale Liste schon geladen und zu alt
@@ -304,7 +306,7 @@ public class P2LoadFilmlist {
         P2LoadConst.stop.set(false);
         logList.add("## Filmliste laden (auto)");
         // Filmliste laden und Url automatisch ermitteln
-        boolean wasOk = p2ImportFilmlistFromServer.importFilmListFromWebAuto(logList, filmListNew, filmListDiff);
+        boolean wasOk = p2ImportFilmlistFromServer.importFilmListFromWebAuto(logList, filmListNew, filmListDiff, init);
         if (wasOk) {
             //dann hats geklappt
             afterLoadingNewFilmlistFromServer(logList, localFilmListFile);
@@ -313,7 +315,7 @@ public class P2LoadFilmlist {
             logList.add("## " + P2Log.LILNE3);
             logList.add("## Das Laden hat nicht geklappt, alte Liste wieder laden");
             P2LoadConst.stop.set(false);
-            loadStoredList(logList, filmListNew, localFilmListFile);
+            new P2ReadFilmlist().readFilmlistWebOrLocal(logList, filmListNew, localFilmListFile, true);
             logList.add("##");
         }
     }

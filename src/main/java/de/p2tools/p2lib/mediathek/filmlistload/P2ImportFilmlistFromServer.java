@@ -32,7 +32,7 @@ public class P2ImportFilmlistFromServer {
     // #########################################################
     // URL automatisch wählen und Filmliste laden
     // #########################################################
-    public boolean importFilmListFromWebAuto(List<String> logList, Filmlist filmlist, Filmlist filmListDiff) {
+    public boolean importFilmListFromWebAuto(List<String> logList, Filmlist filmlist, Filmlist filmListDiff, boolean init) {
         STATE state;
         boolean ret;
         if (filmlist.isTooOldForDiffOrEmpty()) {
@@ -40,19 +40,19 @@ public class P2ImportFilmlistFromServer {
             state = STATE.COMPLETE;
             filmlist.clear();
             logList.add("## Komplette Filmliste laden");
-            ret = loadList(logList, filmlist, state);
+            ret = loadList(logList, filmlist, state, true);
         } else {
             // nur ein Update laden
             state = STATE.DIFF;
             logList.add("## Diffliste laden");
-            ret = loadList(logList, filmListDiff, state);
+            ret = loadList(logList, filmListDiff, state, init);
             if (!ret || filmListDiff.isEmpty()) {
                 // wenn diff, dann nochmal mit einer kompletten Liste versuchen
                 state = STATE.COMPLETE;
                 filmlist.clear();
                 filmListDiff.clear();
                 logList.add("## Diffliste war leer, komplette Filmliste laden");
-                ret = loadList(logList, filmlist, state);
+                ret = loadList(logList, filmlist, state, init);
             }
         }
         if (!ret) {
@@ -61,7 +61,7 @@ public class P2ImportFilmlistFromServer {
         return ret;
     }
 
-    private boolean loadList(List<String> logList, Filmlist list, STATE state) {
+    private boolean loadList(List<String> logList, Filmlist list, STATE state, boolean init) {
         String updateUrl;
         if (P2LoadConst.filmListUrl.isEmpty()) {
             //dann die Standard-URLs verwenden
@@ -71,7 +71,7 @@ public class P2ImportFilmlistFromServer {
             updateUrl = P2LoadConst.filmListUrl;
         }
 
-        new P2ReadFilmlist().readFilmlistWebOrLocal(logList, list, updateUrl);
+        new P2ReadFilmlist().readFilmlistWebOrLocal(logList, list, updateUrl, init);
 
         if (P2LoadConst.stop.get()) {
             // wenn abgebrochen wurde, nicht weitermachen

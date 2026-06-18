@@ -88,7 +88,7 @@ public class P2ReadFilmlist {
     }
 
     //Hier wird die Filmliste tatsächlich geladen: lokal von Datei, oder aus dem Web mit URL
-    public void readFilmlistWebOrLocal(List<String> logList, final Filmlist filmlist, String sourceFileOrUrl) {
+    public void readFilmlistWebOrLocal(List<String> logList, final Filmlist filmlist, String sourceFileOrUrl, boolean init) {
         P2Duration.counterStart("readFilmlistWebOrLocal");
 
         countAll = 0;
@@ -105,16 +105,16 @@ public class P2ReadFilmlist {
             if (sourceFileOrUrl.startsWith("http")) {
                 //dann aus dem Web mit der URL laden
                 logList.add("## Filmliste aus URL laden: " + sourceFileOrUrl);
-//                logList.add("## FilmInit wird gemacht: " + P2LoadConst.filmInitNecessary);
+                logList.add("## FilmInit wird gemacht: " + init);
                 loadFromWeb = true;
-                processFromWeb(new URL(sourceFileOrUrl), filmlist);
+                processFromWeb(new URL(sourceFileOrUrl), filmlist, init);
 
             } else {
                 //dann lokale Datei laden
                 logList.add("## Filmliste aus Datei laden: " + sourceFileOrUrl);
-//                logList.add("## FilmInit wird gemacht: " + P2LoadConst.filmInitNecessary);
+                logList.add("## FilmInit wird gemacht: " + init);
                 loadFromWeb = false;
-                processFromFile(sourceFileOrUrl, filmlist);
+                processFromFile(sourceFileOrUrl, filmlist, init);
             }
 
             if (P2LoadConst.stop.get()) {
@@ -144,7 +144,7 @@ public class P2ReadFilmlist {
      * @param source   source url as string
      * @param filmlist the list to read to
      */
-    private void processFromWeb(URL source, Filmlist filmlist) {
+    private void processFromWeb(URL source, Filmlist filmlist, boolean init) {
         final Request.Builder builder = new Request.Builder().url(source);
         builder.addHeader("User-Agent", P2LoadConst.userAgent);
 
@@ -169,7 +169,7 @@ public class P2ReadFilmlist {
                 try (InputStream input = new P2ProgressMonitorInputStream(body.byteStream(), body.contentLength(), monitor)) {
                     try (InputStream is = P2LoadFactory.selectDecompressor(source.toString(), input);
                          JsonParser jp = new JsonFactory().createParser(is)) {
-                        readData(jp, filmlist);
+                        readData(jp, filmlist, init);
                     }
                 }
 
@@ -186,11 +186,11 @@ public class P2ReadFilmlist {
      * @param source   file path as string
      * @param filmlist the list to read to
      */
-    private void processFromFile(String source, Filmlist filmlist) {
+    private void processFromFile(String source, Filmlist filmlist, boolean init) {
         notifyProgress(P2LoadFilmlist.PROGRESS_INDETERMINATE);
         try (InputStream in = P2LoadFactory.selectDecompressor(source, new FileInputStream(source));
              JsonParser jp = new JsonFactory().createParser(in)) {
-            readData(jp, filmlist);
+            readData(jp, filmlist, init);
         } catch (final FileNotFoundException ex) {
             P2Log.errorLog(894512369, "FilmListe existiert nicht: " + source);
             filmlist.clear();
@@ -200,7 +200,7 @@ public class P2ReadFilmlist {
         }
     }
 
-    private void readData(JsonParser jp, Filmlist filmlist) throws IOException {
+    private void readData(JsonParser jp, Filmlist filmlist, boolean init) throws IOException {
         JsonToken jsonToken;
         final ArrayList<String> listChannel = P2LoadFactory.getSenderListNotToLoad();
         final boolean listChannelIsEmpty = listChannel.isEmpty();
@@ -243,12 +243,12 @@ public class P2ReadFilmlist {
                 final FilmData film = filmlist.getNewElement();
                 addValue(film, jp);
 
-//                if (P2LoadConst.filmInitNecessary) { // toDo
-                //sonst muss eh die ganze Liste geladen werden und es wird dann nur die URL für den Hash gebraucht
-                ++countAll;
-                countFilm(filmsPerChannelFoundCompleteList, film);
-//                    film.init(); // damit wird auch das Datum! gesetzt
-//                }
+                if (init) {
+                    //sonst muss eh die ganze Liste geladen werden und es wird dann nur die URL für den Hash gebraucht
+                    ++countAll;
+                    countFilm(filmsPerChannelFoundCompleteList, film);
+                    film.init(); // damit wird auch das Datum! gesetzt
+                }
 
                 //=========================
                 //Filter

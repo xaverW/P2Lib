@@ -39,7 +39,7 @@ public class P2ReadAudioWebToFilmListJasonParser {
     }
 
     public void readAudioData(JsonParser jp, Filmlist filmList) throws IOException {
-
+        // INIT wird immer gemacht!
         JsonToken jsonToken;
         final ArrayList<String> listChannel = P2LoadFactory.getSenderListNotToLoad();
         final boolean listChannelIsEmpty = listChannel.isEmpty();
@@ -84,7 +84,7 @@ public class P2ReadAudioWebToFilmListJasonParser {
                     addValue(audioData, jp);
 
                     // aus dem Web muss das immer gemacht werden
-//                    audioData.init(); // damit wird auch das Datum! gesetzt
+                    audioData.init(); // damit wird auch das Datum! gesetzt
 
                     // ==================================
                     //und jetzt wird gefiltert, wenn aus dem Web
