@@ -29,6 +29,7 @@ public class P2EventHandler {
 
     private final ArrayList<P2Listener> listeners = new ArrayList<>();
     public static long countRunningTimeSeconds = 0; // Gesamtzeit die das Programm läuft
+    public static long countRunningTimeMinutes = 0; // Gesamtzeit die das Programm läuft
     private boolean oneSecond = false;
 
     public P2EventHandler() {
@@ -84,11 +85,12 @@ public class P2EventHandler {
         ++countRunningTimeSeconds;
         notifyListener(P2Events.EVENT_TIMER_SECOND);
         if (countRunningTimeSeconds == 60) {
-            // zwei Minuten, einmal nach dem Start
+            // 1 Minuten, einmal nach dem Start
             notifyListener(P2Events.EVENT_TIMER_ONE_MINUTE);
         }
         if (countRunningTimeSeconds % 60 == 0) {
             notifyListener(P2Events.EVENT_TIMER_MINUTE);
+            ++countRunningTimeMinutes;
         }
     }
 
