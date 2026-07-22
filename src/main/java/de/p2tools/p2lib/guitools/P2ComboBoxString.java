@@ -225,6 +225,10 @@ public class P2ComboBoxString extends ComboBox<String> {
             }
         }
 
+        while (itemsList.size() > maxElements) {
+            itemsList.remove(itemsList.size() - 1);
+        }
+
 
         //macht Probleme wenn die Liste für 2 Combos benutzt wird
 //       list.add("");
