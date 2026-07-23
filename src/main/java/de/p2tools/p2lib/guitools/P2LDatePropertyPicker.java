@@ -27,7 +27,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class P2LDatePropertyPicker extends DatePicker {
-    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.uuuu");
     private P2LDateProperty boundPLocalDateProperty = null;
     private ChangeListener<LocalDate> changeListener = null;
 
@@ -46,6 +46,8 @@ public class P2LDatePropertyPicker extends DatePicker {
     }
 
     private void init() {
+
+
         setDate();
         this.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (oldValue != null && newValue != null && !oldValue.equals(newValue)) {
