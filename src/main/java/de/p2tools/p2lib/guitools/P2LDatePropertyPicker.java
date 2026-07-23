@@ -22,6 +22,7 @@ import de.p2tools.p2lib.tools.date.P2LDateFactory;
 import de.p2tools.p2lib.tools.date.P2LDateProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.DatePicker;
+import javafx.util.StringConverter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -46,7 +47,36 @@ public class P2LDatePropertyPicker extends DatePicker {
     }
 
     private void init() {
+        setConverter(new StringConverter<LocalDate>() {
+            final String pattern = "dd.MM.uuuu";
+            final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    if (date.isEqual(LocalDate.MIN)) {
+                        return "";
+                    } else {
+                        return dateFormatter.format(date);
+                    }
+                } else {
+                    return "";
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    try {
+                        return LocalDate.parse(string, dateFormatter);
+                    } catch (Exception ex) {
+                        return null;
+                    }
+                } else {
+                    return null;
+                }
+            }
+        });
 
         setDate();
         this.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {

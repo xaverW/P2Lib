@@ -28,6 +28,31 @@ public class P2LDateFactory {
     private P2LDateFactory() {
     }
 
+    public static boolean isMin(LocalDate localDate) {
+        if (localDate == null) {
+            return true;
+        }
+
+        return localDate.isEqual(LocalDate.MIN);
+    }
+
+    public static boolean isMin(String localDate) {
+        if (localDate == null || localDate.isEmpty()) {
+            return true;
+        }
+        LocalDate ld = fromString(localDate);
+        if (ld != null) {
+            return ld.isEqual(LocalDate.MIN);
+        }
+
+        ld = fromStringR(localDate);
+        if (ld != null) {
+            return ld.isEqual(LocalDate.MIN);
+        }
+
+        return true;
+    }
+
     public static String getDateTime(LocalDate localDate, DateTimeFormatter format) {
         return localDate == null ? "" : localDate.format(format);
     }
