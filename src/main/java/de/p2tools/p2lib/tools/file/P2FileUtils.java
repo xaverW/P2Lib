@@ -19,6 +19,7 @@ package de.p2tools.p2lib.tools.file;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.alert.P2Alert;
 import de.p2tools.p2lib.dialogs.P2DialogFileChooser;
+import de.p2tools.p2lib.tools.P2Index;
 import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.stage.Stage;
@@ -351,6 +352,10 @@ public class P2FileUtils {
         }
 
         return nameWithOutSuff;
+    }
+
+    public static String addIndexToFileName(String filename, String suff) {
+        return filename + "_" + P2Index.getIndexByteStr() + suff;
     }
 
     public static String removeFileNameSuffix(String path) {

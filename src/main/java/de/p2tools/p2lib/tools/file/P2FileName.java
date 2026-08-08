@@ -25,21 +25,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class P2FileName {
-    private static final String STR = "__";
+    private static final String SEPARATOR = "__";
 
-    private static final DateTimeFormatter FORMATTER_PRE_yyyyMMdd = DateTimeFormatter.ofPattern("yyyyMMdd" + STR);
-    private static final DateTimeFormatter FORMATTER_PRE_DOT_yyyyMMdd = DateTimeFormatter.ofPattern("yyyy.MM.dd" + STR);
-    private static final DateTimeFormatter FORMATTER_PRE_yyyyMMdd_HHmm = DateTimeFormatter.ofPattern("yyyyMMdd_HHmm" + STR);
-    private static final DateTimeFormatter FORMATTER_PRE_DOT_yyyyMMdd_HHmm = DateTimeFormatter.ofPattern("yyyy.MM.dd_HH:mm" + STR);
-    private static final DateTimeFormatter FORMATTER_PRE_yyyyMMdd_HHmmss = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss" + STR);
-    private static final DateTimeFormatter FORMATTER_PRE_DOT_yyyyMMdd_HHmmss = DateTimeFormatter.ofPattern("yyyy.MM.dd_HH:mm:ss" + STR);
+    private static final DateTimeFormatter FORMATTER_PRE_yyyyMMdd = DateTimeFormatter.ofPattern("yyyyMMdd" + SEPARATOR);
+    private static final DateTimeFormatter FORMATTER_PRE_DOT_yyyyMMdd = DateTimeFormatter.ofPattern("yyyy.MM.dd" + SEPARATOR);
+    private static final DateTimeFormatter FORMATTER_PRE_yyyyMMdd_HHmm = DateTimeFormatter.ofPattern("yyyyMMdd_HHmm" + SEPARATOR);
+    private static final DateTimeFormatter FORMATTER_PRE_DOT_yyyyMMdd_HHmm = DateTimeFormatter.ofPattern("yyyy.MM.dd_HH:mm" + SEPARATOR);
+    private static final DateTimeFormatter FORMATTER_PRE_yyyyMMdd_HHmmss = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss" + SEPARATOR);
+    private static final DateTimeFormatter FORMATTER_PRE_DOT_yyyyMMdd_HHmmss = DateTimeFormatter.ofPattern("yyyy.MM.dd_HH:mm:ss" + SEPARATOR);
 
-    private static final DateTimeFormatter FORMATTER_AFTER_yyyyMMdd = DateTimeFormatter.ofPattern(STR + "yyyyMMdd");
-    private static final DateTimeFormatter FORMATTER_AFTER_DOT_yyyyMMdd = DateTimeFormatter.ofPattern(STR + "yyyy.MM.dd");
-    private static final DateTimeFormatter FORMATTER_AFTER_yyyyMMdd_HHmm = DateTimeFormatter.ofPattern(STR + "yyyyMMdd_HHmm");
-    private static final DateTimeFormatter FORMATTER_AFTER_DOT_yyyyMMdd_HHmm = DateTimeFormatter.ofPattern(STR + "yyyy.MM.dd_HH:mm");
-    private static final DateTimeFormatter FORMATTER_AFTER_yyyyMMdd_HHmmss = DateTimeFormatter.ofPattern(STR + "yyyyMMdd_HHmmss");
-    private static final DateTimeFormatter FORMATTER_AFTER_DOT_yyyyMMdd_HHmmss = DateTimeFormatter.ofPattern(STR + "yyyy.MM.dd_HH:mm:ss");
+    private static final DateTimeFormatter FORMATTER_AFTER_yyyyMMdd = DateTimeFormatter.ofPattern(SEPARATOR + "yyyyMMdd");
+    private static final DateTimeFormatter FORMATTER_AFTER_DOT_yyyyMMdd = DateTimeFormatter.ofPattern(SEPARATOR + "yyyy.MM.dd");
+    private static final DateTimeFormatter FORMATTER_AFTER_yyyyMMdd_HHmm = DateTimeFormatter.ofPattern(SEPARATOR + "yyyyMMdd_HHmm");
+    private static final DateTimeFormatter FORMATTER_AFTER_DOT_yyyyMMdd_HHmm = DateTimeFormatter.ofPattern(SEPARATOR + "yyyy.MM.dd_HH:mm");
+    private static final DateTimeFormatter FORMATTER_AFTER_yyyyMMdd_HHmmss = DateTimeFormatter.ofPattern(SEPARATOR + "yyyyMMdd_HHmmss");
+    private static final DateTimeFormatter FORMATTER_AFTER_DOT_yyyyMMdd_HHmmss = DateTimeFormatter.ofPattern(SEPARATOR + "yyyy.MM.dd_HH:mm:ss");
 
     public static String getFilenameRelative(File file, String relative) {
         if (file == null) {
@@ -48,9 +48,9 @@ public class P2FileName {
 
         String rel = file.toString();
         if (rel.startsWith(relative)) {
-            rel = rel.replaceFirst(relative, "");
+            rel = rel.substring(relative.length());
             if (rel.startsWith(File.separator)) {
-                rel = rel.replaceFirst(File.separator, "");
+                rel = rel.substring(File.separator.length());
             }
         }
 
@@ -183,25 +183,25 @@ public class P2FileName {
 
         LocalDateTime date = yesterday ? LocalDateTime.now().minusDays(1) : LocalDateTime.now();
 
-        final String datePre = FORMATTER_PRE_yyyyMMdd.format(date);
-        final String dateDotPre = FORMATTER_PRE_DOT_yyyyMMdd.format(date);
-        final String dateTimePre = FORMATTER_PRE_yyyyMMdd_HHmmss.format(date);
         final String dateTimeDotPre = FORMATTER_PRE_DOT_yyyyMMdd_HHmmss.format(date);
+        final String dateTimePre = FORMATTER_PRE_yyyyMMdd_HHmmss.format(date);
+        final String dateDotPre = FORMATTER_PRE_DOT_yyyyMMdd.format(date);
+        final String datePre = FORMATTER_PRE_yyyyMMdd.format(date);
 
-        final String dateAfter = FORMATTER_AFTER_yyyyMMdd.format(date);
-        final String dateDotAfter = FORMATTER_AFTER_DOT_yyyyMMdd.format(date);
-        final String dateTimeAfter = FORMATTER_AFTER_yyyyMMdd_HHmmss.format(date);
         final String dateTimeDotAfter = FORMATTER_AFTER_DOT_yyyyMMdd_HHmmss.format(date);
+        final String dateTimeAfter = FORMATTER_AFTER_yyyyMMdd_HHmmss.format(date);
+        final String dateDotAfter = FORMATTER_AFTER_DOT_yyyyMMdd.format(date);
+        final String dateAfter = FORMATTER_AFTER_yyyyMMdd.format(date);
 
-        final String containDatePre = getDateString(filenameNoSuffix, FORMATTER_PRE_yyyyMMdd);
-        final String containDateDotPre = getDateString(filenameNoSuffix, FORMATTER_PRE_DOT_yyyyMMdd);
-        final String containDateTimePre = getDateString(filenameNoSuffix, FORMATTER_PRE_yyyyMMdd_HHmmss);
         final String containDateTimeDotPre = getDateString(filenameNoSuffix, FORMATTER_PRE_DOT_yyyyMMdd_HHmmss);
+        final String containDateTimePre = getDateString(filenameNoSuffix, FORMATTER_PRE_yyyyMMdd_HHmmss);
+        final String containDateDotPre = getDateString(filenameNoSuffix, FORMATTER_PRE_DOT_yyyyMMdd);
+        final String containDatePre = getDateString(filenameNoSuffix, FORMATTER_PRE_yyyyMMdd);
 
-        final String containDateAfter = getDateString(filenameNoSuffix, FORMATTER_AFTER_yyyyMMdd);
-        final String containDateDotAfter = getDateString(filenameNoSuffix, FORMATTER_AFTER_DOT_yyyyMMdd);
-        final String containDateTimeAfter = getDateString(filenameNoSuffix, FORMATTER_AFTER_yyyyMMdd_HHmmss);
         final String containDateTimeDotAfter = getDateString(filenameNoSuffix, FORMATTER_AFTER_DOT_yyyyMMdd_HHmmss);
+        final String containDateTimeAfter = getDateString(filenameNoSuffix, FORMATTER_AFTER_yyyyMMdd_HHmmss);
+        final String containDateDotAfter = getDateString(filenameNoSuffix, FORMATTER_AFTER_DOT_yyyyMMdd);
+        final String containDateAfter = getDateString(filenameNoSuffix, FORMATTER_AFTER_yyyyMMdd);
 
         if (!onlyFileName.endsWith(dotSuffix)) {
             //dann erst mal damit
@@ -209,35 +209,100 @@ public class P2FileName {
             return ret;
         }
 
-        if (!containDatePre.isEmpty()) {
-            ret = dateDotPre + filenameNoSuffix.replace(containDatePre, "");
-
-        } else if (!containDateDotPre.isEmpty()) {
-            ret = dateTimePre + filenameNoSuffix.replace(containDateDotPre, "");
+        if (!containDateTimeDotPre.isEmpty()) {
+            ret = dateTimePre + filenameNoSuffix.replace(containDateTimeDotPre, "");
 
         } else if (!containDateTimePre.isEmpty()) {
-            ret = dateTimeDotPre + filenameNoSuffix.replace(containDateTimePre, "");
+            ret = dateDotPre + filenameNoSuffix.replace(containDateTimePre, "");
 
-        } else if (!containDateTimeDotPre.isEmpty()) {
-            ret = filenameNoSuffix.replace(containDateTimeDotPre, "") + dateAfter;
+        } else if (!containDateDotPre.isEmpty()) {
+            ret = datePre + filenameNoSuffix.replace(containDateDotPre, "");
 
-        } else if (!containDateAfter.isEmpty()) {
-            ret = filenameNoSuffix.replace(containDateAfter, "") + dateDotAfter;
-
-        } else if (!containDateDotAfter.isEmpty()) {
-            ret = filenameNoSuffix.replace(containDateDotAfter, "") + dateTimeAfter;
-
-        } else if (!containDateTimeAfter.isEmpty()) {
-            ret = filenameNoSuffix.replace(containDateTimeAfter, "") + dateTimeDotAfter;
+        } else if (!containDatePre.isEmpty()) {
+            ret = filenameNoSuffix.replace(containDatePre, "") + dateTimeDotAfter;
 
         } else if (!containDateTimeDotAfter.isEmpty()) {
-            ret = datePre + filenameNoSuffix.replace(containDateTimeDotAfter, "");
+            ret = filenameNoSuffix.replace(containDateTimeDotAfter, "") + dateTimeAfter;
+
+        } else if (!containDateTimeAfter.isEmpty()) {
+            ret = filenameNoSuffix.replace(containDateTimeAfter, "") + dateDotAfter;
+
+        } else if (!containDateDotAfter.isEmpty()) {
+            ret = filenameNoSuffix.replace(containDateDotAfter, "") + dateAfter;
+
+        } else if (!containDateAfter.isEmpty()) {
+            ret = dateTimeDotPre + filenameNoSuffix.replace(containDateAfter, "");
 
         } else {
-            ret = datePre + filenameNoSuffix;
+            ret = dateTimeDotPre + filenameNoSuffix;
         }
 
         ret = ret + dotSuffix;
+        return ret;
+    }
+
+    public static String updateName(String fileName, String start) {
+        String ret = updateName(fileName);
+        if (ret.isEmpty()) {
+            return FORMATTER_PRE_DOT_yyyyMMdd_HHmmss.format(LocalDateTime.now()) + start;
+        } else {
+            return ret;
+        }
+    }
+
+    public static String updateName(String fileName) {
+        if (fileName == null || fileName.isEmpty()) {
+            return "";
+        }
+
+        String ret = fileName;
+        LocalDateTime date = LocalDateTime.now();
+
+        final String dateTimeDotPre = FORMATTER_PRE_DOT_yyyyMMdd_HHmmss.format(date);
+        final String dateTimePre = FORMATTER_PRE_yyyyMMdd_HHmmss.format(date);
+        final String dateDotPre = FORMATTER_PRE_DOT_yyyyMMdd.format(date);
+        final String datePre = FORMATTER_PRE_yyyyMMdd.format(date);
+
+        final String dateTimeDotAfter = FORMATTER_AFTER_DOT_yyyyMMdd_HHmmss.format(date);
+        final String dateTimeAfter = FORMATTER_AFTER_yyyyMMdd_HHmmss.format(date);
+        final String dateDotAfter = FORMATTER_AFTER_DOT_yyyyMMdd.format(date);
+        final String dateAfter = FORMATTER_AFTER_yyyyMMdd.format(date);
+
+        final String containDateTimeDotPre = getDateString(fileName, FORMATTER_PRE_DOT_yyyyMMdd_HHmmss);
+        final String containDateTimePre = getDateString(fileName, FORMATTER_PRE_yyyyMMdd_HHmmss);
+        final String containDateDotPre = getDateString(fileName, FORMATTER_PRE_DOT_yyyyMMdd);
+        final String containDatePre = getDateString(fileName, FORMATTER_PRE_yyyyMMdd);
+
+        final String containDateTimeDotAfter = getDateString(fileName, FORMATTER_AFTER_DOT_yyyyMMdd_HHmmss);
+        final String containDateTimeAfter = getDateString(fileName, FORMATTER_AFTER_yyyyMMdd_HHmmss);
+        final String containDateDotAfter = getDateString(fileName, FORMATTER_AFTER_DOT_yyyyMMdd);
+        final String containDateAfter = getDateString(fileName, FORMATTER_AFTER_yyyyMMdd);
+
+        if (!containDateTimeDotPre.isEmpty()) {
+            ret = fileName.replace(containDateTimeDotPre, dateTimeDotPre);
+
+        } else if (!containDateTimePre.isEmpty()) {
+            ret = fileName.replace(containDateTimePre, dateTimePre);
+
+        } else if (!containDateDotPre.isEmpty()) {
+            ret = fileName.replace(containDateDotPre, dateDotPre);
+
+        } else if (!containDatePre.isEmpty()) {
+            ret = fileName.replace(containDatePre, datePre);
+
+        } else if (!containDateTimeDotAfter.isEmpty()) {
+            ret = fileName.replace(containDateTimeDotAfter, dateTimeDotAfter);
+
+        } else if (!containDateTimeAfter.isEmpty()) {
+            ret = fileName.replace(containDateTimeAfter, dateTimeAfter);
+
+        } else if (!containDateDotAfter.isEmpty()) {
+            ret = fileName.replace(containDateDotAfter, dateDotAfter);
+
+        } else if (!containDateAfter.isEmpty()) {
+            ret = fileName.replace(containDateAfter, dateAfter);
+        }
+
         return ret;
     }
 
@@ -249,14 +314,14 @@ public class P2FileName {
     private static String getDateString(String fileName, DateTimeFormatter dateTimeFormatter) {
         // Datumstring aus "name" extrahieren, Datum/Sekunden können sich ja geändert haben
 
-        if (!fileName.contains(STR)) {
+        if (!fileName.contains(SEPARATOR)) {
             //gar nicht enthalten
             return "";
         }
 
         //am Ende
         try {
-            String ret = fileName.substring(fileName.lastIndexOf(STR));
+            String ret = fileName.substring(fileName.lastIndexOf(SEPARATOR));
             LocalDate localDate = LocalDate.parse(ret, dateTimeFormatter);
             return ret;
         } catch (Exception ignore) {
@@ -264,7 +329,7 @@ public class P2FileName {
 
         //dann vielleicht am Anfang
         try {
-            String ret = fileName.substring(0, fileName.indexOf(STR) + STR.length());
+            String ret = fileName.substring(0, fileName.indexOf(SEPARATOR) + SEPARATOR.length());
             LocalDate localDate = LocalDate.parse(ret, dateTimeFormatter);
             return ret;
         } catch (Exception ignore) {

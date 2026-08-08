@@ -27,6 +27,7 @@ public class P2Index {
     private static int counterInt = (int) ChronoUnit.SECONDS.between(
             LocalDateTime.of(2023, 1, 1, 0, 0),
             LocalDateTime.now());
+    private static int counterByte = 0;
 
     private P2Index() {
     }
@@ -67,5 +68,14 @@ public class P2Index {
 
     public static synchronized String getIndexIntStr() {
         return getIndexInt() + "";
+    }
+
+    public static synchronized int getIndexByte() {
+        ++counterByte;
+        return counterByte;
+    }
+
+    public static synchronized String getIndexByteStr() {
+        return String.format("%0" + 4 + "d", getIndexByte());
     }
 }

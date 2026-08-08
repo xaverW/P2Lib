@@ -58,7 +58,7 @@ public class P2FileNameUtils {
                 if (ret.length() > 1 && ret.charAt(1) == ':') {
                     //damit auch "d:" und nicht nur "d:\" als Pfad geht
                     isWindowsPath = true;
-                    ret = ret.replaceFirst(":", ""); //muss zum Schluss wieder rein, kann aber so nicht ersetzt werden
+                    ret = ret.replaceFirst(":", ""); // Regex!!, muss zum Schluss wieder rein, kann aber so nicht ersetzt werden
                 }
             }
         } else {

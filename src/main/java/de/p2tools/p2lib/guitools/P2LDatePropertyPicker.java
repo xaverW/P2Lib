@@ -47,6 +47,15 @@ public class P2LDatePropertyPicker extends DatePicker {
     }
 
     private void init() {
+        setOnMouseClicked(mouseEvent -> {
+            try {
+                if (LocalDate.parse(getDate(), dateFormatter).isEqual(LocalDate.MIN)) {
+                    setDate(LocalDate.now());
+                }
+            } catch (Exception ex) {
+                setDate(LocalDate.now());
+             }
+        });
         setConverter(new StringConverter<LocalDate>() {
             final String pattern = "dd.MM.uuuu";
             final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
