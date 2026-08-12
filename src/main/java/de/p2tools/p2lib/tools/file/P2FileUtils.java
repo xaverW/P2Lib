@@ -23,6 +23,7 @@ import de.p2tools.p2lib.tools.P2Index;
 import de.p2tools.p2lib.tools.P2InfoFactory;
 import de.p2tools.p2lib.tools.log.P2Log;
 import javafx.stage.Stage;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.SystemUtils;
 
@@ -219,6 +220,56 @@ public class P2FileUtils {
             org.apache.commons.io.FileUtils.copyFile(from.toFile(), dest.toFile());
         } catch (IOException ex) {
             P2Log.errorLog(978451203, "copy file: " + from.toString() + " to " + dest.toString());
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean copyFileToDir(Stage stage, Path fileFrom, Path dirDest, String destName, boolean ask) {
+        try {
+
+            if (fileFrom.toString().isEmpty()) {
+                P2Alert.showErrorAlert(stage, "Datei kopieren", "Es wurde keine Quelldatei angegeben.");
+                return false;
+            }
+
+            if (dirDest.toString().isEmpty()) {
+                P2Alert.showErrorAlert(stage, "Datei kopieren", "Es wurde kein Ziel angegeben.");
+                return false;
+            }
+
+            if (!fileFrom.toFile().exists()) {
+                P2Alert.showErrorAlert(stage, "Datei kopieren", "Die Quelldatei:" + P2LibConst.LINE_SEPARATOR +
+                        fileFrom + P2LibConst.LINE_SEPARATORx2 +
+                        "existiert nicht.");
+                return false;
+            }
+
+            if (!dirDest.toFile().isDirectory()) {
+                P2Alert.showErrorAlert(stage, "Datei kopieren", "Der ZielOrdner:" + P2LibConst.LINE_SEPARATOR +
+                        dirDest + P2LibConst.LINE_SEPARATORx2 +
+                        "ist kein ein Verzeichnis.");
+                return false;
+            }
+
+            Path destFile = Path.of(dirDest.toString(), destName);
+            if (ask && destFile.toFile().exists()) {
+                P2Alert.BUTTON button = P2Alert.showAlert_yes_no(stage, "Hinweis", "Datei kopieren",
+                        "Die Zieldatei existiert bereits:" + P2LibConst.LINE_SEPARATOR +
+                                destFile +
+                                P2LibConst.LINE_SEPARATORx2 +
+                                "Soll die Datei überschrieben werden?");
+                if (!button.equals(P2Alert.BUTTON.YES)) {
+                    return false;
+                }
+            }
+
+            if (destFile.toFile().exists()) {
+                destFile.toFile().delete();
+            }
+            FileUtils.copyFile(fileFrom.toFile(), destFile.toFile(), StandardCopyOption.COPY_ATTRIBUTES);
+        } catch (IOException ex) {
+            P2Log.errorLog(978451203, "copy file: " + fileFrom + " to " + dirDest);
             return false;
         }
         return true;
