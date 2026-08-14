@@ -27,6 +27,13 @@ public class P2Text {
         return lbl;
     }
 
+    public static Label getLblTextItalic(String t) {
+        Label lbl = new Label(t);
+        lbl.setStyle("-fx-font-style: italic;");
+
+        return lbl;
+    }
+
     public static Label getLblTextBoldBig(String t) {
         Label lbl = new Label(t);
         lbl.setStyle("-fx-font-weight: bold; " +
