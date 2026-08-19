@@ -78,7 +78,7 @@ public class P2FileUtils {
             return f.getAbsolutePath();
         } catch (Exception ex) {
             P2Log.errorLog(310245789, ex, path);
-            new P2Alert().showErrorAlert("Elternverzeichnis", "Das Elternverzeichnis von:" + P2LibConst.LINE_SEPARATOR +
+            P2Alert.showErrorAlert("Elternverzeichnis", "Das Elternverzeichnis von:" + P2LibConst.LINE_SEPARATOR +
                     path + P2LibConst.LINE_SEPARATORx2 +
                     "kann nicht gefunden werden.");
         }
@@ -128,14 +128,14 @@ public class P2FileUtils {
 
     public static boolean movePath(String from, String to) {
         if (from.isEmpty()) {
-            new P2Alert().showErrorAlert("Verzeichnis verschieben", "Das Quellverzeichnis:" + P2LibConst.LINE_SEPARATOR +
+            P2Alert.showErrorAlert("Verzeichnis verschieben", "Das Quellverzeichnis:" + P2LibConst.LINE_SEPARATOR +
                     from + P2LibConst.LINE_SEPARATORx2 +
                     "ist kein Verzeichnis");
             return false;
         }
 
         if (to.isEmpty()) {
-            new P2Alert().showErrorAlert("Verzeichnis verschieben", "Das Zielverzeichnis:" + P2LibConst.LINE_SEPARATOR +
+            P2Alert.showErrorAlert("Verzeichnis verschieben", "Das Zielverzeichnis:" + P2LibConst.LINE_SEPARATOR +
                     to + P2LibConst.LINE_SEPARATORx2 +
                     "ist kein Verzeichnis");
             return false;
@@ -146,26 +146,78 @@ public class P2FileUtils {
             Path dest = Paths.get(to);
 
             if (dest.toFile().exists() && !dest.toFile().isDirectory()) {
-                new P2Alert().showErrorAlert("Verzeichnis verschieben", "Das Zielverzeichnis:" + P2LibConst.LINE_SEPARATOR +
+                P2Alert.showErrorAlert("Verzeichnis verschieben", "Das Zielverzeichnis:" + P2LibConst.LINE_SEPARATOR +
                         to + P2LibConst.LINE_SEPARATORx2 +
                         "ist kein Verzeichnis");
                 return false;
             }
 
             if (dest.toFile().exists() && dest.toFile().isDirectory() && dest.toFile().list().length > 0) {
-                new P2Alert().showErrorAlert("Verzeichnis verschieben",
+                P2Alert.showErrorAlert("Verzeichnis verschieben",
                         "Das Zielverzeichnis:" + P2LibConst.LINE_SEPARATOR + to + P2LibConst.LINE_SEPARATORx2 +
                                 "existiert bereits und ist nicht leer!");
                 return false;
             }
 
             if (dest.toFile().exists() && dest.toFile().isDirectory() && dest.toFile().list().length == 0) {
-                dest.toFile().delete();
+                if (!dest.toFile().delete()) {
+                    P2Alert.showErrorAlert("Verzeichnis verschieben",
+                            "Das Zielverzeichnis:" + P2LibConst.LINE_SEPARATOR + to + P2LibConst.LINE_SEPARATORx2 +
+                                    "existiert bereits und kann nicht gelöscht werden!");
+                    return false;
+                }
             }
 
             org.apache.commons.io.FileUtils.moveDirectory(src.toFile(), dest.toFile());
         } catch (IOException ex) {
             P2Log.errorLog(645121047, "move path: " + from + " to " + to);
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean copyPath(Stage stage, String from, String to) {
+        if (from.isEmpty()) {
+            P2Alert.showErrorAlert(stage, "Verzeichnis kopieren",
+                    "Das Quellverzeichnis:" + P2LibConst.LINE_SEPARATOR +
+                            from + P2LibConst.LINE_SEPARATORx2 +
+                            "ist kein Verzeichnis");
+            return false;
+        }
+
+        if (to.isEmpty()) {
+            P2Alert.showErrorAlert(stage, "Verzeichnis kopieren",
+                    "Das Zielverzeichnis:" + P2LibConst.LINE_SEPARATOR +
+                            to + P2LibConst.LINE_SEPARATORx2 +
+                            "ist kein Verzeichnis");
+            return false;
+        }
+
+        try {
+            Path src = Paths.get(from);
+            Path dest = Paths.get(to);
+
+            if (dest.toFile().exists() && !dest.toFile().isDirectory()) {
+                P2Alert.showErrorAlert(stage, "Verzeichnis kopieren",
+                        "Das Zielverzeichnis:" + P2LibConst.LINE_SEPARATOR +
+                                to + P2LibConst.LINE_SEPARATORx2 +
+                                "ist kein Verzeichnis");
+                return false;
+            }
+
+            if (dest.toFile().exists() && dest.toFile().isDirectory() && dest.toFile().list().length > 0) {
+                P2Alert.showErrorAlert(stage, "Verzeichnis kopieren",
+                        "Das Zielverzeichnis:" + P2LibConst.LINE_SEPARATOR + to + P2LibConst.LINE_SEPARATORx2 +
+                                "existiert bereits und ist nicht leer!");
+                return false;
+            }
+
+            FileUtils.copyDirectory(src.toFile(), dest.toFile());
+        } catch (IOException ex) {
+            System.out.println(ex.getLocalizedMessage());
+            P2Log.errorLog(521242587, "move path: " + from + " to " + to);
+            P2Alert.showErrorAlert(stage, "Verzeichnis kopieren",
+                    "Das Kopieren wurde mit einem Fehler abgebrochen!");
             return false;
         }
         return true;

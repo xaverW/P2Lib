@@ -39,6 +39,12 @@ public class P2GuiTools {
         return region;
     }
 
+    public static HBox getDistance(int dist) {
+        HBox hBox = new HBox();
+        hBox.setPadding(new Insets(dist, dist, 0, 0));
+        return hBox;
+    }
+
     public static HBox getDistance(int height, int width) {
         HBox hBox = new HBox();
         hBox.setPadding(new Insets(height, width, 0, 0));
