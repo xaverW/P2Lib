@@ -107,7 +107,7 @@ public class DownloadDialogController_ extends P2DialogExtra {
             nameChanged = true;
         });
         final Button btnDest = new Button();
-        btnDest.setGraphic(P2IconFactory.P2ICON.BTN_DIR_OPEN.getFontIcon());
+        btnDest.setGraphic(P2IconFactory.P2ICON.BTN_OPEN_DIR.getFontIcon());
         btnDest.setTooltip(new Tooltip("Einen Ordner zum Speichern der Datei auswählen"));
         btnDest.setOnAction(event -> {
             P2DirFileChooser.DirChooser(stage, txtDestPath);

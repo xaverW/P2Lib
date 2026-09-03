@@ -20,23 +20,57 @@ public class P2IconFactory {
 
         public FontIcon getFontIcon(int size);
 
-        @Override
-        public String toString();
+//        @Override
+//        public String toString();
     }
 
     public enum P2ICON implements P2Icon {
+        BTN_P2DIALOG_CLOSE("gmi-close", 14), // Infopane: Schließen
+        BTN_P2DIALOG_RIP("gmi-arrow-right", 22), // Infopane: Abkoppeln
+        BTN_P2NOTIFY_CLOSE("gmi-close", 8),
+        BTN_P2CBO_DEL("gmi-close", 12),
+
+        BTN_CLEAR_FILTER("mdi2f-filter-remove-outline", 18),
+        BTN_CLEAR_FILTER_15("mdi2f-filter-remove-outline", 15),
+        BTN_CLEAR("gmi-clear", 18),
         BTN_HELP("mdi-help"),
-        BTN_CLEAR_FILTER("mdi2f-filter-remove-outline"),
-        BTN_DIR_OPEN("mdi2f-folder-open-outline", 18),
+        BTN_OPEN_DIR("mdi2f-folder-open-outline", 18),
+
+        BTN_STOP("mdmz-stop", 18),
         BTN_SAVE("mdomz-save", 18),
-        BTN_STOP("gmi-close", 18),
-        BTN_DEL("gmi-close", 12),
-        BTN_CLOSE("gmi-close", 8),
-        BTN_DIALOG_CLOSE("gmi-close", 14), // Infopane: Schließen
-        BTN_DIALOG_RIP("gmi-arrow-right", 22), // Infopane: Abkoppeln
+        BTN_FORWARD("gmi-arrow-forward-ios", 18),
+        BTN_BACKWARD("gmi-arrow-back-ios", 18),
+        BTN_FORWARD_15("gmi-arrow-forward-ios", 15),
+        BTN_BACKWARD_15("gmi-arrow-back-ios", 15),
         BTN_NEXT("mdi-chevron-double-right", 18),
         BTN_PREV("mdi-chevron-double-left", 18),
-        ATTENTION("mdomz-report_problem", 65);
+        BTN_FIRST("gmi-first-page", 18),
+        BTN_LAST("gmi-last-page", 18),
+        BTN_SEARCH("gmi-search", 20),
+        BTN_SEARCH_15("gmi-search", 15),
+        BTN_EDIT("mdomz-settings", 18),
+        BTN_EDIT_15("mdomz-settings", 15),
+        BTN_RESET("gmi-rotate-right", 18),
+        BTN_PLUS("mdal-add", 20),
+        BTN_MINUS("mdmz-minus", 20),
+        BTN_PLUS_15("mdal-add", 15),
+        BTN_MINUS_15("mdmz-minus", 15),
+        BTN_PLUS_OUTLINE("mdi-plus-circle-outline", 18),
+        BTN_MINUS_OUTLINE("mdi-minus-circle-outline", 18),
+        BTN_TOP("gmi-vertical-align-top", 18),
+        BTN_UP("mdoal-arrow_upward", 18),
+        BTN_DOWN("mdoal-arrow_downward", 18),
+        BTN_BOTTOM("gmi-vertical-align-bottom", 18),
+        BTN_QUIT("gmi-power-settings-new", 18),
+
+        PROG_MENU("gmi-menu", 25),
+        TAB_MENU("gmi-menu", 20),
+
+        SMALL_GUI_ICON_30("mdmz-sports_basketball", 30),
+        SMALL_GUI_ICON_25("mdmz-sports_basketball", 25),
+
+        ATTENTION_80("mdomz-report", 80),
+        ATTENTION_65("mdomz-report_problem", 65);
 
         private final String literal;
         private int size = 18;
@@ -69,11 +103,6 @@ public class P2IconFactory {
         public FontIcon getFontIcon(int size) {
             this.size = size;
             return getIcon(literal, size);
-        }
-
-        @Override
-        public String toString() {
-            return literal;
         }
     }
 

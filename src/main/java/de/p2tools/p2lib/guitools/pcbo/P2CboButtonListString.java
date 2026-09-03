@@ -125,7 +125,7 @@ public class P2CboButtonListString extends ComboBox<P2CboButtonListString.PCboLa
             final Label lblFilter = new Label();
 
             {
-                btnDel.setGraphic(P2IconFactory.P2ICON.BTN_DEL.getFontIcon());
+                btnDel.setGraphic(P2IconFactory.P2ICON.BTN_P2CBO_DEL.getFontIcon());
                 btnDel.getStyleClass().add("buttonVerySmall");
                 btnDel.visibleProperty().bind(Bindings.size(itemList).greaterThan(1));
 

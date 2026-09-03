@@ -77,10 +77,10 @@ public class P2ClosePaneH extends HBox {
 
     private void init() {
         buttonClose.getStyleClass().add("close-button");
-        buttonClose.setGraphic(P2IconFactory.P2ICON.BTN_DIALOG_CLOSE.getFontIcon());
+        buttonClose.setGraphic(P2IconFactory.P2ICON.BTN_P2DIALOG_CLOSE.getFontIcon());
 
         buttonRip.getStyleClass().add("rip-button");
-        buttonRip.setGraphic(P2IconFactory.P2ICON.BTN_DIALOG_RIP.getFontIcon());
+        buttonRip.setGraphic(P2IconFactory.P2ICON.BTN_P2DIALOG_RIP.getFontIcon());
 
         VBox vBox = new VBox();
         vBox.getStyleClass().add("close-pane");

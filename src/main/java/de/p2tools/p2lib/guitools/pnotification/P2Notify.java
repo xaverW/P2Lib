@@ -119,7 +119,7 @@ public class P2Notify {
 
         Button btnClose = new Button();
         btnClose.getStyleClass().add("close-button");
-        btnClose.setGraphic(P2IconFactory.P2ICON.BTN_CLOSE.getFontIcon());
+        btnClose.setGraphic(P2IconFactory.P2ICON.BTN_P2NOTIFY_CLOSE.getFontIcon());
         btnClose.setOnAction(a -> {
             closeNotification(popup, p2Notify);
         });
