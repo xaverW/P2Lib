@@ -15,12 +15,12 @@ import javafx.scene.layout.VBox;
 
 import java.util.List;
 
-public class PIconShow extends P2DialogExtra {
+public class P2IconShow extends P2DialogExtra {
 
     private static int SIZE = 25;
     private final List<P2IconFactory.P2Icon> p2Icon;
 
-    public PIconShow(List<P2IconFactory.P2Icon> p2Icon) {
+    public P2IconShow(List<P2IconFactory.P2Icon> p2Icon) {
         super(P2LibConst.primaryStage, new SimpleStringProperty("1000:800"), "Icons");
         this.p2Icon = p2Icon;
         init(true);
@@ -60,14 +60,15 @@ public class PIconShow extends P2DialogExtra {
         t2.setPadding(new Insets(5));
         gridPane.add(t2, 0, ++row);
 
-
-        ++row;
-        col = 0;
-        for (P2IconFactory.P2Icon pIcon : p2Icon) {
-            gridPane.add(getContent(pIcon), col++, row);
-            if (col > maxCol) {
-                col = 0;
-                row++;
+        if (p2Icon != null) {
+            ++row;
+            col = 0;
+            for (P2IconFactory.P2Icon pIcon : p2Icon) {
+                gridPane.add(getContent(pIcon), col++, row);
+                if (col > maxCol) {
+                    col = 0;
+                    row++;
+                }
             }
         }
 

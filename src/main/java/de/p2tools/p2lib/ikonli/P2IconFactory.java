@@ -1,8 +1,10 @@
 package de.p2tools.p2lib.ikonli;
 
 import de.p2tools.p2lib.P2LibConst;
+import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2Button;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -55,20 +57,25 @@ public class P2IconFactory {
         BTN_CLEAR_25("gmi-clear", 25),
         BTN_HELP("mdi-help"),
         BTN_OPEN_DIR("mdi2f-folder-open-outline", 18),
+        BTN_PLAY_ALL("gmi-fast-forward", 18),
         BTN_PLAY("mdmz-play_arrow", 18),
-        BTN_STOP("mdmz-stop", 18),
-        BTN_PLAY_25("mdmz-play_arrow", 25),
-        BTN_STOP_25("mdmz-stop", 25),
         BTN_PLAY_15("mdmz-play_arrow", 15),
+        BTN_PLAY_25("mdmz-play_arrow", 25),
+        BTN_STOP("mdmz-stop", 18),
         BTN_STOP_15("mdmz-stop", 15),
+        BTN_STOP_25("mdmz-stop", 25),
         BTN_PLAY_OUTLINE("mdomz-play_arrow", 18),
         BTN_STOP_OUTLINE("mdomz-stop", 18),
+        BTN_PAUSE("mdomz-pause", 18),
+        BTN_PAUSE_25("mdomz-pause", 25),
 
         BTN_SAVE("mdomz-save", 18),
         BTN_FORWARD("gmi-arrow-forward-ios", 18),
         BTN_BACKWARD("gmi-arrow-back-ios", 18),
         BTN_FORWARD_15("gmi-arrow-forward-ios", 15),
+        BTN_FORWARD_25("gmi-arrow-forward-ios", 25),
         BTN_BACKWARD_15("gmi-arrow-back-ios", 15),
+        BTN_BACKWARD_25("gmi-arrow-back-ios", 25),
         BTN_NEXT("mdi-chevron-double-right", 18),
         BTN_NEXT_15("mdi-chevron-double-right", 15),
         BTN_PREV("mdi-chevron-double-left", 18),
@@ -93,19 +100,38 @@ public class P2IconFactory {
         BTN_TOP("gmi-vertical-align-top", 18),
         BTN_UP("mdoal-arrow_upward", 18),
         BTN_DOWN("mdoal-arrow_downward", 18),
+        BTN_DOWN_OUTLINE("mdi2a-arrow-down-bold-outline", 18),
+        BTN_DOWN_OUTLINE_25("mdi2a-arrow-down-bold-outline", 25),
         BTN_BOTTOM("gmi-vertical-align-bottom", 18),
+        BTN_BOTTOM_OUTLINE("mdi2d-download-outline", 18),
+        BTN_BOTTOM_OUTLINE_25("mdi2d-download-outline", 25),
         BTN_QUIT("gmi-power-settings-new", 18),
         BTN_COPY("mdoal-file_copy", 18),
         BTN_COPY_15("mdoal-file_copy", 15),
         BTN_RANDOM("mdi-rotate-3d", 18),
         BTN_RANDOM_25("mdi-rotate-3d", 25),
         BTN_CLEAN("mdoal-cleaning_services", 18),
+        BTN_CLEAN_25("mdoal-cleaning_services", 25),
         BTN_GRADE("gmi-grade", 18),
         BTN_RECORD("gmi-fiber-manual-record", 18),
         BTN_RECORD_25("gmi-fiber-manual-record", 25),
         BTN_RECORD_16("gmi-fiber-manual-record", 16),
         BTN_INFO("mdi-information-variant", 18),
         BTN_INFO_25("mdi-information-variant", 25),
+        BTN_INFO_OUTLINE("gmi-info-outline", 18),
+        BTN_INFO_OUTLINE_25("gmi-info-outline", 25),
+        BTN_TRIANGLE_DOWN("mdi2t-triangle-down", 18),
+        BTN_TRIANGLE_UP("mdi2t-triangle", 18),
+        BTN_REPLAY("mdi2r-reply", 18),
+        BTN_REPLAY_ALL("mdi2r-reply-all", 18),
+        BTN_SHARE("mdi2s-share", 18),
+        BTN_SHARE_ALL("mdi2s-share-all", 18),
+        BTN_ARROW_LEFT_TOP("mdi2a-arrow-left-top-bold", 18),
+        BTN_ARROW_LEFT_TOP_25("mdi2a-arrow-left-top-bold", 25),
+        BTN_START_ALL("mdi2d-download-multiple-outline", 18),
+        BTN_START_ALL_25("mdi2d-download-multiple-outline", 25),
+        BTN_UPDATE("mdal-cached", 18),
+        BTN_UPDATE_25("mdal-cached", 25),
 
 
         PROG_MENU("gmi-menu", 25),
@@ -162,6 +188,11 @@ public class P2IconFactory {
         fontIcon.setIconColor(Paint.valueOf(P2LibConst.iconColor.getValueSafe()));
         fontIcon.setIconLiteral(literal);
         return fontIcon;
+    }
+
+    public static void setColor(Pane pane) {
+        IkonlyFactory.getAllNodes(pane);
+        P2DialogExtra.getDialogList().forEach(d -> IkonlyFactory.getAllNodes(d.getStage().getScene().getRoot()));
     }
 
     public static Button getHelpButton(String header, String helpText) {
