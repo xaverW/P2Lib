@@ -3,6 +3,7 @@ package de.p2tools.p2lib.ikonli;
 import de.p2tools.p2lib.P2LibConst;
 import de.p2tools.p2lib.dialogs.dialog.P2DialogExtra;
 import de.p2tools.p2lib.guitools.P2Button;
+import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
@@ -22,8 +23,8 @@ public class P2IconFactory {
 
         public FontIcon getFontIcon(int size);
 
-//        @Override
-//        public String toString();
+        @Override
+        public String toString();
     }
 
     public enum P2ICON implements P2Icon {
@@ -39,12 +40,12 @@ public class P2IconFactory {
         BTN_TIP_NEXT("gmi-arrow-right", 18),
 
         BTN_BOOKMARK_ADD("mdi-bookmark-plus-outline", 18),
-        BTN_BOOKMARK_DEL("mdi2b-bookmark-minus-outline", 18),
-        BTN_BOOKMARK_DAL_ALL("mdi2b-bookmark-off-outline", 18),
-        BTN_BOOKMARK_SHOW("mdoal-collections_bookmark", 18),
         BTN_BOOKMARK_ADD_25("mdi-bookmark-plus-outline", 25),
+        BTN_BOOKMARK_DEL("mdi2b-bookmark-minus-outline", 18),
         BTN_BOOKMARK_DEL_25("mdi2b-bookmark-minus-outline", 25),
-        BTN_BOOKMARK_DAL_ALL_25("mdi2b-bookmark-off-outline", 25),
+        BTN_BOOKMARK_DEL_ALL("mdi2b-bookmark-off-outline", 18),
+        BTN_BOOKMARK_DEL_ALL_25("mdi2b-bookmark-off-outline", 25),
+        BTN_BOOKMARK_SHOW("mdoal-collections_bookmark", 18),
         BTN_BOOKMARK_SHOW_25("mdoal-collections_bookmark", 25),
 
         OWN_FILTER_LOAD("mdi2t-tray-arrow-up", 20),
@@ -54,19 +55,28 @@ public class P2IconFactory {
         BTN_CLEAR_FILTER("mdi2f-filter-remove-outline", 18),
         BTN_CLEAR_FILTER_15("mdi2f-filter-remove-outline", 15),
         BTN_CLEAR("gmi-clear", 18),
+        BTN_CLEAR_14("gmi-clear", 14),
+        BTN_CLEAR_22("gmi-clear", 22),
         BTN_CLEAR_25("gmi-clear", 25),
         BTN_HELP("mdi-help"),
         BTN_OPEN_DIR("mdi2f-folder-open-outline", 18),
+        BTN_OPEN_DIR_14("mdi2f-folder-open-outline", 14),
+        BTN_OPEN_DIR_22("mdi2f-folder-open-outline", 22),
         BTN_PLAY_ALL("gmi-fast-forward", 18),
+        BTN_PLAY_ALL_25("gmi-fast-forward", 25),
         BTN_PLAY("mdmz-play_arrow", 18),
+        BTN_PLAY_14("mdmz-play_arrow", 14),
         BTN_PLAY_15("mdmz-play_arrow", 15),
+        BTN_PLAY_22("mdmz-play_arrow", 22),
         BTN_PLAY_25("mdmz-play_arrow", 25),
         BTN_STOP("mdmz-stop", 18),
         BTN_STOP_15("mdmz-stop", 15),
+        BTN_STOP_22("mdmz-stop", 22),
         BTN_STOP_25("mdmz-stop", 25),
         BTN_PLAY_OUTLINE("mdomz-play_arrow", 18),
         BTN_STOP_OUTLINE("mdomz-stop", 18),
         BTN_PAUSE("mdomz-pause", 18),
+        BTN_PAUSE_22("mdomz-pause", 22),
         BTN_PAUSE_25("mdomz-pause", 25),
 
         BTN_SAVE("mdomz-save", 18),
@@ -81,17 +91,22 @@ public class P2IconFactory {
         BTN_PREV("mdi-chevron-double-left", 18),
         BTN_FIRST("gmi-first-page", 18),
         BTN_LAST("gmi-last-page", 18),
-        BTN_SEARCH("gmi-search", 20),
+        BTN_SEARCH("gmi-search", 18),
+        BTN_SEARCH_20("gmi-search", 20),
         BTN_SEARCH_15("gmi-search", 15),
         BTN_EDIT("mdomz-settings", 18),
         BTN_EDIT_15("mdomz-settings", 15),
+        BTN_EDIT_20("mdomz-settings", 15),
         BTN_EDIT_25("mdomz-settings", 25),
-        BTN_RESET("gmi-rotate-right", 18),
-        BTN_PLUS("mdal-add", 20),
-        BTN_MINUS("mdmz-minus", 20),
-        BTN_PLUS_25("mdal-add", 25),
-        BTN_MINUS_25("mdmz-minus", 25),
+        BTN_ROTATE_RIGHT("gmi-rotate-right", 18),
+        BTN_ROTATE_LEFT("mdomz-rotate_left", 18),
+        BTN_PLUS("mdal-add", 18),
+        BTN_PLUS_20("mdal-add", 20),
         BTN_PLUS_15("mdal-add", 15),
+        BTN_PLUS_25("mdal-add", 25),
+        BTN_MINUS("mdmz-minus", 18),
+        BTN_MINUS_20("mdmz-minus", 20),
+        BTN_MINUS_25("mdmz-minus", 25),
         BTN_MINUS_15("mdmz-minus", 15),
         BTN_PLUS_OUTLINE("mdi-plus-circle-outline", 18),
         BTN_MINUS_OUTLINE("mdi-minus-circle-outline", 18),
@@ -119,12 +134,14 @@ public class P2IconFactory {
         BTN_GRADE_OFF_25("mdi2s-star-off-outline", 25),
         BTN_RECORD("gmi-fiber-manual-record", 18),
         BTN_RECORD_16("gmi-fiber-manual-record", 16),
+        BTN_RECORD_20("gmi-fiber-manual-record", 20),
         BTN_RECORD_25("gmi-fiber-manual-record", 25),
         BTN_INFO("mdi-information-variant", 18),
         BTN_INFO_25("mdi-information-variant", 25),
         BTN_INFO_OUTLINE("gmi-info-outline", 18),
         BTN_INFO_OUTLINE_25("gmi-info-outline", 25),
         BTN_TRIANGLE_DOWN("mdi2t-triangle-down", 18),
+        BTN_TRIANGLE_DOWN_14("mdi2t-triangle-down", 14),
         BTN_TRIANGLE_UP("mdi2t-triangle", 18),
         BTN_REPLAY("mdi2r-reply", 18),
         BTN_REPLAY_ALL("mdi2r-reply-all", 18),
@@ -206,5 +223,9 @@ public class P2IconFactory {
 
     public static Button getHelpButton(Stage stage, String header, String helpText) {
         return P2Button.helpButton(stage, P2ICON.BTN_HELP.getFontIcon(), header, helpText);
+    }
+
+    public static Button getHelpButton(ObjectProperty<Stage> stage, String header, String helpText) {
+        return P2Button.helpButton(stage, P2IconFactory.P2ICON.BTN_HELP.getFontIcon(), header, helpText);
     }
 }
