@@ -39,7 +39,7 @@ public class P2Gui extends VBox {
         btnQuitt.getStyleClass().add("switchOffBtn");
         btnQuitt.setOnAction(e -> ProgQuitFactory.quit());
         btnQuitt.setMaxWidth(Double.MAX_VALUE);
-        btnQuitt.setGraphic(P2IconFactory.P2ICON.BTN_QUIT_GUI_B.getFontIcon());
+        btnQuitt.setGraphic(P2IconFactory.P2ICON.P2_BTN_QUIT_GUI_B.getFontIcon());
         getChildren().add(btnQuitt);
 
         final Button btnIcon = new Button("Icon");

@@ -26,7 +26,7 @@ public class P2ButtonClearFilterFactory {
 
     public static Button getPButtonClearFilter() {
         Button button = new Button();
-        button.setGraphic(P2IconFactory.P2ICON.BTN_CLEAR_FILTER.getFontIcon());
+        button.setGraphic(P2IconFactory.P2ICON.P2_BTN_CLEAR_FILTER.getFontIcon());
         button.getStyleClass().add("btnClearFilter");
         button.setTooltip(new Tooltip("Textfilter löschen, ein zweiter Klick löscht alle Filter"));
         return button;
@@ -34,7 +34,7 @@ public class P2ButtonClearFilterFactory {
 
     public static Button getPButtonClear() {
         Button button = new Button();
-        button.setGraphic(P2IconFactory.P2ICON.BTN_CLEAR_FILTER.getFontIcon());
+        button.setGraphic(P2IconFactory.P2ICON.P2_BTN_CLEAR_FILTER.getFontIcon());
         button.getStyleClass().add("btnClearFilter");
         button.setTooltip(new Tooltip("Filter löschen, ein Klick löscht alle Filter"));
         return button;
@@ -42,7 +42,7 @@ public class P2ButtonClearFilterFactory {
 
     public static Button getPButtonClearSmall() {
         Button button = new Button();
-        button.setGraphic(P2IconFactory.P2ICON.BTN_CLEAR_FILTER.getFontIcon());
+        button.setGraphic(P2IconFactory.P2ICON.P2_BTN_CLEAR_FILTER.getFontIcon());
         button.getStyleClass().add("btnClearFilterSmall");
         button.setTooltip(new Tooltip("Filter löschen, ein Klick löscht alle Filter"));
         return button;

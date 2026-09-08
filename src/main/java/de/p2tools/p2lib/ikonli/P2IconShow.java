@@ -14,7 +14,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -53,8 +52,8 @@ public class P2IconShow extends P2DialogExtra {
         gridPane.add(t1, 0, row++);
         Comparator<P2IconFactory.P2Icon> comp = (p2Icon, t3) -> p2Icon.toString().compareTo(t3.toString());
 
-        List<P2IconFactory.P2ICON> list1 = Arrays.stream(P2IconFactory.P2ICON.values()).sorted(Comparator.comparing(Enum::toString)).toList();
-        for (P2IconFactory.P2ICON p2Icon : list1) {
+//        List<P2IconFactory.P2ICON> list1 = Arrays.stream(P2IconFactory.P2ICON.values()).sorted(Comparator.comparing(Enum::toString)).toList();
+        for (P2IconFactory.P2ICON p2Icon : P2IconFactory.P2ICON.values()) {
             gridPane.add(getContent(p2Icon), col++, row);
             if (col > maxCol) {
                 col = 0;
@@ -72,7 +71,7 @@ public class P2IconShow extends P2DialogExtra {
             list2.addAll(p2IconList.stream().sorted(Comparator.comparing(P2IconFactory.P2Icon::toString)).toList());
             ++row;
             col = 0;
-            for (P2IconFactory.P2Icon pIcon : list2) {
+            for (P2IconFactory.P2Icon pIcon : p2IconList) {
                 gridPane.add(getContent(pIcon), col++, row);
                 if (col > maxCol) {
                     col = 0;

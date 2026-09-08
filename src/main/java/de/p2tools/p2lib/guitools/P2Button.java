@@ -63,7 +63,7 @@ public class P2Button {
         final Button btnHelp = new Button("");
         btnHelp.setTooltip(new Tooltip("Hilfe anzeigen"));
         if (hlpImage == null) {
-            btnHelp.setGraphic(P2IconFactory.P2ICON.BTN_HELP.getFontIcon()); //neues ImageView!
+            btnHelp.setGraphic(P2IconFactory.P2ICON.P2_BTN_HELP.getFontIcon()); //neues ImageView!
         } else {
             btnHelp.setGraphic(new ImageView(hlpImage)); //neues ImageView!
         }
@@ -76,7 +76,7 @@ public class P2Button {
     public static Button helpButtonSmall(Stage stage, String header, String helpText) {
         final Button btnHelp = new Button("");
         btnHelp.setTooltip(new Tooltip("Hilfe anzeigen"));
-        btnHelp.setGraphic(P2IconFactory.P2ICON.BTN_HELP.getFontIcon()); //neues ImageView!
+        btnHelp.setGraphic(P2IconFactory.P2ICON.P2_BTN_HELP.getFontIcon()); //neues ImageView!
         btnHelp.getStyleClass().add("btnSmall");
         btnHelp.setOnAction(a -> P2Alert.showHelpAlert(stage, header, helpText));
         return btnHelp;
@@ -86,7 +86,7 @@ public class P2Button {
         final Button btnHelp = new Button("");
         btnHelp.setTooltip(new Tooltip("Hilfe anzeigen"));
         if (hlpImage == null) {
-            btnHelp.setGraphic(P2IconFactory.P2ICON.BTN_HELP.getFontIcon()); //neues ImageView!
+            btnHelp.setGraphic(P2IconFactory.P2ICON.P2_BTN_HELP.getFontIcon()); //neues ImageView!
         } else {
             btnHelp.setGraphic(new ImageView(hlpImage)); //neues ImageView!
         }

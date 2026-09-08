@@ -71,7 +71,7 @@ public class FoundDownloadProgressDialog extends P2DialogExtra {
         gridPane.getColumnConstraints().addAll(P2GridConstraints.getCcComputedSizeAndHgrow(),
                 P2GridConstraints.getCcPrefSize());
 
-        btnCancel.setGraphic(P2IconFactory.P2ICON.BTN_STOP.getFontIcon());
+        btnCancel.setGraphic(P2IconFactory.P2ICON.P2_BTN_STOP.getFontIcon());
         btnCancel.setTooltip(new Tooltip("Den Download abbrechen"));
         btnCancel.setOnAction(event -> {
             isCanceled = true;
