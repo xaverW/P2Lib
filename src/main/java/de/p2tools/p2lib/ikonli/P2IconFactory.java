@@ -64,6 +64,7 @@ public class P2IconFactory {
         P2_BTN_OWN_FILTER_NEW("gmi-add", 20),
 
         P2_BTN_BOOLEAN_ON("mdral-done_outline", 20),
+        P2_BTN_BOOLEAN_OFF("gmi-remove-done", 20),
         P2_BTN_SAVE("mdomz-save", 18),
         P2_BTN_OPEN_DIR("mdi2f-folder-open-outline", 18),
         P2_BTN_OPEN_DIR_S("mdi2f-folder-open-outline", 14),
@@ -124,6 +125,10 @@ public class P2IconFactory {
 
         BTN_ROTATE_RIGHT("gmi-rotate-right", 18),
         BTN_ROTATE_LEFT("mdomz-rotate_left", 18),
+        BTN_ROTATE_3D("mdi-rotate-3d", 18),
+        BTN_ROTATE_3D_B("mdi-rotate-3d", 25),
+        BTN_ROTATE_ORBIT("mdi2r-rotate-orbit", 18),
+        BTN_ROTATE_ORBIT_B("mdi2r-rotate-orbit", 25),
 
         BTN_PLUS("mdal-add", 18),
         BTN_PLUS_S("mdal-add", 15),
@@ -164,6 +169,17 @@ public class P2IconFactory {
         BTN_ARROW_U_RIGHT_TOP("mdi2a-arrow-u-right-top-bold", 18),
         BTN_ARROW_U_RIGHT_TOP_B("mdi2a-arrow-u-right-top-bold", 25),
 
+        BTN_DOUBLE_ARROW_UP("mdi-chevron-double-up", 18),
+        BTN_DOUBLE_ARROW_UP_S("mdi-chevron-double-up", 15),
+        BTN_DOUBLE_ARROW_DOWN("mdi-chevron-double-down", 18),
+        BTN_DOUBLE_ARROW_DOWN_S("mdi-chevron-double-down", 15),
+        BTN_DOUBLE_ARROW_LEFT("mdi-chevron-double-left", 18),
+        BTN_DOUBLE_ARROW_LEFT_S("mdi-chevron-double-left", 15),
+        BTN_DOUBLE_ARROW_RIGHT("mdi-chevron-double-right", 18),
+        BTN_DOUBLE_ARROW_RIGHT_S("mdi-chevron-double-right", 15),
+
+        BTN_DOUBLE_ARROW("mdal-double_arrow", 18),
+
         BTN_TRIANGLE_DOWN("mdi2t-triangle-down", 14),
         BTN_TRIANGLE_DOWN_S("mdi2t-triangle-down", 12),
         BTN_TRIANGLE_UP("mdi2t-triangle", 14),
@@ -185,8 +201,6 @@ public class P2IconFactory {
 
         BTN_COPY("mdoal-file_copy", 18),
         BTN_COPY_S("mdoal-file_copy", 15),
-        BTN_RANDOM("mdi-rotate-3d", 18),
-        BTN_RANDOM_B("mdi-rotate-3d", 25),
         BTN_CLEAN("mdoal-cleaning_services", 18),
         BTN_CLEAN_B("mdoal-cleaning_services", 25),
 
