@@ -17,8 +17,6 @@ public class P2IconFactory {
 
         public int getSize();
 
-        public void setSize(int size);
-
         public FontIcon getFontIcon();
 
         public FontIcon getFontIcon(int size);
@@ -229,16 +227,11 @@ public class P2IconFactory {
             return size;
         }
 
-        public void setSize(int size) {
-            this.size = size;
-        }
-
         public FontIcon getFontIcon() {
             return getIcon(literal, size);
         }
 
         public FontIcon getFontIcon(int size) {
-            this.size = size;
             return getIcon(literal, size);
         }
     }

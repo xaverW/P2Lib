@@ -42,6 +42,13 @@ public class P2Text {
         return lbl;
     }
 
+    public static Label getLblTextUnderline(String t) {
+        Label lbl = new Label(t);
+        lbl.setStyle("-fx-underline: true;");
+
+        return lbl;
+    }
+
     public static Label getLblTextBoldUnderline(String t) {
         Label lbl = new Label(t);
         lbl.setStyle("-fx-font-weight: bold; " +
