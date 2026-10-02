@@ -51,6 +51,18 @@ public class P2GuiTools {
         return hBox;
     }
 
+    public static HBox getDistanceH(int size) {
+        HBox hBox = new HBox();
+        hBox.setPadding(new Insets(0, 0, 0, size));
+        return hBox;
+    }
+
+    public static VBox getDistanceV(int size) {
+        VBox vBox = new VBox();
+        vBox.setPadding(new Insets(size, 0, 0, 0));
+        return vBox;
+    }
+
     public static HBox getHDistance(int size) {
         HBox hBox = new HBox();
         hBox.setPadding(new Insets(size, 0, 0, 0));
