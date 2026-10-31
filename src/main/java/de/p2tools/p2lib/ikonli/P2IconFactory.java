@@ -137,10 +137,12 @@ public class P2IconFactory {
         BTN_PLUS_OUTLINE("mdi-plus-circle-outline", 18),
         BTN_MINUS_OUTLINE("mdi-minus-circle-outline", 18),
 
-        BTN_ARROW_FORWARD("gmi-arrow-forward-ios", 18),
-        BTN_ARROW_FORWARD_B("gmi-arrow-forward-ios", 25),
-        BTN_ARROW_BACKWARD("gmi-arrow-back-ios", 18),
-        BTN_ARROW_BACKWARD_B("gmi-arrow-back-ios", 25),
+        BTN_ARROW_FORWARD("mdral-arrow_forward_ios", 18),
+        BTN_ARROW_FORWARD_S("mdral-arrow_forward_ios", 15),
+        BTN_ARROW_FORWARD_B("mdral-arrow_forward_ios", 25),
+        BTN_ARROW_BACKWARD("mdral-arrow_back_ios", 18),
+        BTN_ARROW_BACKWARD_S("mdral-arrow_back_ios", 15),
+        BTN_ARROW_BACKWARD_B("mdral-arrow_back_ios", 25),
 
         BTN_ARROW_UP("mdoal-arrow_upward", 18),
         BTN_ARROW_UP_OUTLINE("mdi2a-arrow-up-bold-outline", 18),
