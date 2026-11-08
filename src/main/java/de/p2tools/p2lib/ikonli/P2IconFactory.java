@@ -113,6 +113,7 @@ public class P2IconFactory {
         BTN_CLEAR_S("gmi-clear", 14),
         BTN_CLEAR_B("gmi-clear", 25),
         BTN_SEARCH("gmi-search", 18),
+        BTN_SEARCH_S("gmi-search", 15),
         BTN_SEARCH_B("gmi-search", 20),
 
         BTN_NEXT("mdi-chevron-double-right", 18),

@@ -20,6 +20,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.util.stream.Stream;
+
 public class P2GuiSize {
 
     public static void getSize(StringProperty property, Stage stage) {
@@ -285,18 +288,46 @@ public class P2GuiSize {
 
         //Pos setzen
         if (pos) {
+            // ist nur ein Monitor
+            // Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+            // int width = (int) size.getWidth();
+            // int height = (int) size.getHeight();
+
+
+            GraphicsDevice devices[];
+            devices = GraphicsEnvironment.
+                    getLocalGraphicsEnvironment().
+                    getScreenDevices();
+
+            int width = Stream.
+                    of(devices).
+                    map(GraphicsDevice::getDefaultConfiguration).
+                    map(GraphicsConfiguration::getBounds).
+                    mapToInt(bounds -> bounds.x + bounds.width).
+                    max().
+                    orElse(0);
+            int height = Stream.
+                    of(devices).
+                    map(GraphicsDevice::getDefaultConfiguration).
+                    map(GraphicsConfiguration::getBounds).
+                    mapToInt(bounds -> bounds.y + bounds.height).
+                    max().
+                    orElse(0);
+
+            //sonst wäre das Fenster "möglicherweise außerhalb" des sichtbaren Bereichs
+            //das kann Windows nicht abfangen :(, Linux(KDE) machts richtig!!!
+            //rechts und unten kann das Fenster immer noch abhauen, ist bei mehreren Monitoren
+            //nicht so einfach auszuschießen
+            if (width > 0 && posX > width - 100) {
+                posX = 0;
+            }
+            if (height > 0 && posY > height - 100) {
+                posY = 0;
+            }
             if (posX < 0) {
-                //sonst wäre das Fenster "möglicherweise außerhalb" des sichtbaren Bereichs
-                //das kann Windows nicht abfangen :(, Linux(KDE) machts richtig!!!
-                //rechts und unten kann das Fenster immer noch abhauen, ist bei mehreren Monitoren
-                //nicht so einfach auszuschießen
                 posX = 0;
             }
             if (posY < 0) {
-                //sonst wäre das Fenster "möglicherweise außerhalb" des sichtbaren Bereichs
-                //das kann Windows nicht abfangen :(, Linux(KDE) machts richtig!!!
-                //rechts und unten kann das Fenster immer noch abhauen, ist bei mehreren Monitoren
-                //nicht so einfach auszuschießen
                 posY = 0;
             }
             newStage.setX(posX);

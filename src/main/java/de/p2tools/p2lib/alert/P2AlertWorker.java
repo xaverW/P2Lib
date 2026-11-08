@@ -362,7 +362,9 @@ public class P2AlertWorker {
         //  }
 
         if (stage != null) {
-            alert.initOwner(stage);
+            if (stage.getOwner() != null) {
+                alert.initOwner(stage);
+            }
         }
         alert.setTitle(title);
         alert.setHeaderText(header);

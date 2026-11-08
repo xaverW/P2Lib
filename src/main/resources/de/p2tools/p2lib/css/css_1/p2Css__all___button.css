@@ -113,6 +113,31 @@
 }
 
 
+.buttonLow{
+    -fx-padding: 2 12 2 12;
+    -fx-border-width: 1;
+}
+.buttonLow:focused{
+    -fx-padding: 2 12 2 12;
+    -fx-border-width: 1;
+}
+.buttonLow:pressed{
+    -fx-padding: 1 11 1 11;
+    -fx-border-width: 2;
+}
+.buttonLow:hover{
+    -fx-padding: 1 11 1 11;
+    -fx-border-width: 2;
+}
+.buttonLow:focused:hover{
+    -fx-padding: 1 11 1 11;
+    -fx-border-width: 2;
+}
+.buttonLow:pressed:focused:hover{
+    -fx-padding: 1 11 1 11;
+    -fx-border-width: 2;
+}
+
 .buttonVeryLow{
     -fx-padding: 1 12 1 12;
     -fx-border-width: 1;
