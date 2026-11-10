@@ -362,10 +362,11 @@ public class P2AlertWorker {
         //  }
 
         if (stage != null) {
-            if (stage.getOwner() != null) {
+            if (stage.getScene() != null) {
                 alert.initOwner(stage);
             }
         }
+        
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
