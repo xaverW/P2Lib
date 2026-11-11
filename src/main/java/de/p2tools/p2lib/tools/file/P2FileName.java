@@ -30,16 +30,16 @@ public class P2FileName {
     private static final DateTimeFormatter FORMATTER_PRE_yyyyMMdd = DateTimeFormatter.ofPattern("yyyyMMdd" + SEPARATOR);
     private static final DateTimeFormatter FORMATTER_PRE_DOT_yyyyMMdd = DateTimeFormatter.ofPattern("yyyy.MM.dd" + SEPARATOR);
     private static final DateTimeFormatter FORMATTER_PRE_yyyyMMdd_HHmm = DateTimeFormatter.ofPattern("yyyyMMdd_HHmm" + SEPARATOR);
-    private static final DateTimeFormatter FORMATTER_PRE_DOT_yyyyMMdd_HHmm = DateTimeFormatter.ofPattern("yyyy.MM.dd_HH:mm" + SEPARATOR);
+    private static final DateTimeFormatter FORMATTER_PRE_DOT_yyyyMMdd_HHmm = DateTimeFormatter.ofPattern("yyyy.MM.dd_HH.mm" + SEPARATOR);
     private static final DateTimeFormatter FORMATTER_PRE_yyyyMMdd_HHmmss = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss" + SEPARATOR);
-    private static final DateTimeFormatter FORMATTER_PRE_DOT_yyyyMMdd_HHmmss = DateTimeFormatter.ofPattern("yyyy.MM.dd_HH:mm:ss" + SEPARATOR);
+    private static final DateTimeFormatter FORMATTER_PRE_DOT_yyyyMMdd_HHmmss = DateTimeFormatter.ofPattern("yyyy.MM.dd_HH.mm.ss" + SEPARATOR);
 
     private static final DateTimeFormatter FORMATTER_AFTER_yyyyMMdd = DateTimeFormatter.ofPattern(SEPARATOR + "yyyyMMdd");
     private static final DateTimeFormatter FORMATTER_AFTER_DOT_yyyyMMdd = DateTimeFormatter.ofPattern(SEPARATOR + "yyyy.MM.dd");
     private static final DateTimeFormatter FORMATTER_AFTER_yyyyMMdd_HHmm = DateTimeFormatter.ofPattern(SEPARATOR + "yyyyMMdd_HHmm");
-    private static final DateTimeFormatter FORMATTER_AFTER_DOT_yyyyMMdd_HHmm = DateTimeFormatter.ofPattern(SEPARATOR + "yyyy.MM.dd_HH:mm");
+    private static final DateTimeFormatter FORMATTER_AFTER_DOT_yyyyMMdd_HHmm = DateTimeFormatter.ofPattern(SEPARATOR + "yyyy.MM.dd_HH.mm");
     private static final DateTimeFormatter FORMATTER_AFTER_yyyyMMdd_HHmmss = DateTimeFormatter.ofPattern(SEPARATOR + "yyyyMMdd_HHmmss");
-    private static final DateTimeFormatter FORMATTER_AFTER_DOT_yyyyMMdd_HHmmss = DateTimeFormatter.ofPattern(SEPARATOR + "yyyy.MM.dd_HH:mm:ss");
+    private static final DateTimeFormatter FORMATTER_AFTER_DOT_yyyyMMdd_HHmmss = DateTimeFormatter.ofPattern(SEPARATOR + "yyyy.MM.dd_HH.mm.ss");
 
     public static String getFilenameRelative(File file, String relative) {
         if (file == null) {
@@ -57,32 +57,6 @@ public class P2FileName {
         return rel;
     }
 
-//    public static String getNextFileNameWithNo(String path, String selName, String suff) {
-//        String ret;
-//
-//        Path dir = Paths.get(path);
-//        if (!Files.exists(dir)) {
-//            return selName;
-//        }
-//
-//        if (suff.startsWith(".")) {
-//            suff = suff.replaceFirst(".", "");
-//        }
-//
-//        String name = selName + "." + suff;
-//        Path baseDirectoryPath = Paths.get(path, name);
-//        int no = 1;
-//
-//        while (Files.exists(baseDirectoryPath)) {
-//            name = selName + STR + no + "." + suff;
-//            baseDirectoryPath = Paths.get(path, name);
-//            ++no;
-//        }
-//
-//        ret = baseDirectoryPath.getFileName().toString();
-//        return ret;
-//    }
-
     public static String getNextFileNameWithDate(String name, String suffix) {
         if (name.isEmpty()) {
             String dotSuffix = suffix.startsWith(".") ? suffix : "." + suffix;
@@ -99,68 +73,6 @@ public class P2FileName {
         if (onlyPath == null || onlyFileName == null || suffix == null) {
             return "";
         }
-
-//        String dotSuffix = suffix.startsWith(".") ? suffix : "." + suffix;
-//        onlyFileName = P2FileUtils.getFileName(onlyFileName);//erst mal vom evtl. Pfad reinigen
-//        String filenameNoSuffix = cleanName(onlyFileName, dotSuffix);
-//        String ret;
-//
-//        final String date1_pre = FORMATTER_PRE_yyyyMMdd.format(LocalDate.now());
-//        final String date2_pre;
-//        if (second) {
-//            date2_pre = FORMATTER_PRE_yyyyMMdd_HHmmss.format(LocalDate.now());
-//        } else {
-//            date2_pre = FORMATTER_PRE_yyyyMMdd_HHmm.format(LocalDate.now());
-//        }
-//        final String date1 = FORMATTER_AFTER_yyyyMMdd.format(LocalDate.now());
-//        final String date2;
-//        if (second) {
-//            date2 = FORMATTER_AFTER_yyyyMMdd_HHmmss.format(LocalDate.now());
-//        } else {
-//            date2 = FORMATTER_AFTER_yyyyMMdd_HHmm.format(LocalDate.now());
-//        }
-//
-//        final String containDatePre1 = getDateString(filenameNoSuffix, FORMATTER_PRE_yyyyMMdd);
-//        final String containDatePre2;
-//        if (second) {
-//            containDatePre2 = getDateString(filenameNoSuffix, FORMATTER_PRE_yyyyMMdd_HHmmss);
-//        } else {
-//            containDatePre2 = getDateString(filenameNoSuffix, FORMATTER_PRE_yyyyMMdd_HHmm);
-//        }
-//        final String containDate1 = getDateString(filenameNoSuffix, FORMATTER_AFTER_yyyyMMdd);
-//        final String containDate2;
-//        if (second) {
-//            containDate2 = getDateString(filenameNoSuffix, FORMATTER_AFTER_yyyyMMdd_HHmmss);
-//        } else {
-//            containDate2 = getDateString(filenameNoSuffix, FORMATTER_AFTER_yyyyMMdd_HHmm);
-//        }
-//
-//        if (!onlyFileName.endsWith(dotSuffix)) {
-//            //dann erst mal damit
-//            ret = P2FileUtils.addsPath(onlyPath, filenameNoSuffix + dotSuffix);
-//            return ret;
-//        }
-//
-//        if (!containDatePre1.isEmpty()) {
-//            ret = filenameNoSuffix.replace(containDatePre1, "");
-//            ret = ret + date1;
-//
-//        } else if (!containDate1.isEmpty()) {
-//            ret = filenameNoSuffix.replace(containDate1, "");
-//            ret = date2_pre + ret;
-//
-//        } else if (!containDatePre2.isEmpty()) {
-//            ret = filenameNoSuffix.replace(containDatePre2, "");
-//            ret = ret + date2;
-//
-//        } else if (!containDate2.isEmpty()) {
-//            ret = filenameNoSuffix.replace(containDate2, "");
-//
-//        } else {
-//            ret = date1_pre + filenameNoSuffix;
-//        }
-//        ret = ret + dotSuffix;
-//        ret = P2FileUtils.addsPath(onlyPath, ret);
 
         String fileName = getNextFileNameWithDateWithOutPath(onlyFileName, suffix, false);
         fileName = P2FileUtils.addsPath(onlyPath, fileName);
