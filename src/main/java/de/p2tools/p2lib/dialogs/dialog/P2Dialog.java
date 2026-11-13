@@ -117,7 +117,7 @@ public class P2Dialog {
 
             scene.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
                 if (keyEvent.getCode() == KeyCode.ESCAPE) {
-                    hide(); // und wenn gewollt -> im GUI close
+                    close();
                 }
             });
             stage.setOnCloseRequest(e -> {
@@ -211,12 +211,12 @@ public class P2Dialog {
     }
 
     public void hide() {
-        // wiederkehrender Dialog
+        // hide kommt immer nach close
         stage.hide();
     }
 
     public void close() {
-        // endgültig schließen und Größe merken
+        // schließen und Größe merken dann hide
         saveDialog();
         dialogList.remove(this);
         P2Log.debugLog("Anzahl Dialoge: " + dialogList.size());
