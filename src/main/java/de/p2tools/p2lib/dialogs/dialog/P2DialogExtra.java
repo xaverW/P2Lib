@@ -173,6 +173,10 @@ public class P2DialogExtra extends P2Dialog {
         return buttonBar;
     }
 
+    public ScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
     //== add Buttons ==
     public void addOkButton(Button btnOk) {
         if (btnOk != null) {
